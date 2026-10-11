@@ -1,12 +1,13 @@
--- TARGET SCHEMA ONLY. Initial Hono API still uses synthetic in-memory fixtures.
-CREATE SCHEMA IF NOT EXISTS extensions;
-CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA extensions;
+-- Base schema for the current Hono API's PostgreSQL/PostGIS audit store.
+-- Install PostGIS in its standard public schema so the geometry type is portable
+-- across local PostgreSQL, Neon, and managed PostgreSQL instances.
+CREATE EXTENSION IF NOT EXISTS postgis;
 
 CREATE TABLE IF NOT EXISTS sources (
   source_id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
   sector TEXT,
-  location extensions.geometry(Point, 4326),
+  location geometry(Point, 4326),
   synthetic BOOLEAN NOT NULL DEFAULT FALSE,
   original_dataset_url TEXT,
   source_license TEXT,

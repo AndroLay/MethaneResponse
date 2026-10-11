@@ -20,6 +20,7 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+data/state/
 
 # Imported third-party UNEP data; acquire and retain under its dataset license.
 apps/web/public/data/mars-snapshot.json

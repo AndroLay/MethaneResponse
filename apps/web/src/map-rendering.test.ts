@@ -5,7 +5,9 @@ const rendering = mapPanel as unknown as {
   getRasterSaturation?: (theme: string, grayPercent: number) => number;
   getProjectionSpec?: (mode: string) => { type: string };
   getStatusAfterMapError?: (status: string) => string;
+  getMapInitializationFallbackMessage?: (error: unknown) => string;
   isGlobeRendererFailure?: (mode: string, message: string) => boolean;
+  isInteractiveMapSupported?: (contextAvailable: boolean, renderer: string | null) => boolean;
   isSoftwareWebGLRenderer?: (renderer: string | null) => boolean;
 };
 
@@ -40,6 +42,15 @@ test('a late tile error does not mark an already rendered basemap unavailable', 
   expect(getStatus('ready')).toBe('ready');
 });
 
+test('map initialization failures produce a safe, useful fallback message', () => {
+  const getFallback = rendering.getMapInitializationFallbackMessage;
+  expect(typeof getFallback).toBe('function');
+  if (!getFallback) return;
+
+  expect(getFallback(new Error('Failed to initialize WebGL'))).toContain('could not initialize WebGL');
+  expect(getFallback(new Error('unexpected map error'))).toContain('inspect the selected case and evidence');
+});
+
 test('fatal WebGL failures are identified only while using the globe projection', () => {
   const isGlobeFailure = rendering.isGlobeRendererFailure;
   expect(typeof isGlobeFailure).toBe('function');
@@ -60,4 +71,15 @@ test('known software WebGL renderers are not offered expensive globe rendering',
   expect(isSoftwareRenderer('llvmpipe (LLVM 18.1, 256 bits)')).toBe(true);
   expect(isSoftwareRenderer('NVIDIA GeForce RTX')).toBe(false);
   expect(isSoftwareRenderer(null)).toBe(false);
+});
+
+test('interactive MapLibre is skipped when WebGL is missing or software-only', () => {
+  const isInteractiveMapSupported = rendering.isInteractiveMapSupported;
+  expect(typeof isInteractiveMapSupported).toBe('function');
+  if (!isInteractiveMapSupported) return;
+
+  expect(isInteractiveMapSupported(false, 'NVIDIA GeForce RTX')).toBe(false);
+  expect(isInteractiveMapSupported(true, 'ANGLE (SwiftShader Device)')).toBe(false);
+  expect(isInteractiveMapSupported(true, 'NVIDIA GeForce RTX')).toBe(true);
+  expect(isInteractiveMapSupported(true, null)).toBe(true);
 });

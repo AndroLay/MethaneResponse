@@ -1,4 +1,4 @@
-import type { Source } from '@methane/shared';
+import type { ReviewSource } from '@methane/shared';
 
 /** MARS observations are periodic satellite detections, not continuous live sensor readings. */
 export type MarsObservation = {
@@ -8,7 +8,7 @@ export type MarsObservation = {
   uncertaintyKgHr?: number | null;
   satellite?: string;
 };
-export type MarsSource = Source & {
+export type MarsSource = ReviewSource & {
   country?: string;
   sector?: string;
   plumeCount?: number;
@@ -96,7 +96,7 @@ export function parseMarsGeoJSON(input: unknown): MarsSnapshot {
   if (!sources.length) throw new Error('No valid MARS source IDs and WGS84 coordinates were found. Check you selected the official MARS dataset.');
   for (const s of sources) {
     s.observations?.sort((a,b) => a.date.localeCompare(b.date));
-    s.evidence.sort((a,b) => b.date.localeCompare(a.date));
+    s.evidence.sort((a,b) => (b.date || '').localeCompare(a.date || ''));
     s.evidence = s.evidence.slice(0, 40);
     // Bound source memory for browser use while preserving latest observations.
     s.observations = s.observations?.slice(-60);

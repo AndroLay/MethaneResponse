@@ -1,6 +1,6 @@
 # Catatan Hackathon — IEEE ClimateChain Global Hackathon 2026
 
-**Diperiksa:** 11 Oktober 2026 (WITA)  
+**Diperiksa:** 12 Oktober 2026 (WITA)
 **Sumber utama:** halaman resmi Devpost  
 **Status peserta/proyek:** belum dikonfirmasi; catatan ini tidak mendaftarkan peserta atau mengirim proyek.
 
@@ -15,7 +15,7 @@
 - **Format:** online, publik.
 - **Fokus:** solusi nyata untuk isu iklim melalui blockchain, AI, data, IoT, dan climate science; tema mengarah pada transparansi data iklim, pasar karbon, dan pengelolaan sumber daya berkelanjutan.
 - **Batas submission yang ditampilkan jadwal Devpost:** **25 Oktober 2026, 17.00 MSK = 22.00 WITA**.
-- **Waktu tersisa saat catatan ini dibuat:** sekitar 14 hari.
+- **Waktu tersisa saat catatan ini dibuat:** sekitar 13 hari.
 - **Status pendaftaran, tim, ide, dan submission:** belum diketahui.
 
 ## Kredibilitas penyelenggara dan validasi silang
@@ -36,7 +36,7 @@ MSK adalah UTC+3; WITA adalah UTC+8. Konversi di bawah menambahkan lima jam.
 | Penjurian | 26 Okt, 09.00 – 8 Nov, 17.00 | 26 Okt, 14.00 – 8 Nov, 22.00 | — |
 | Pengumuman pemenang | 20 Nov 2026, 09.00 | 20 Nov, 14.00 | — |
 
-**Konflik waktu penting:** halaman Rules juga mengatakan, “Dont submit before official start time which 8 AM PT on October 25.” Pada 25 Oktober 2026, 08.00 Pacific Daylight Time setara **23.00 WITA**, satu jam setelah batas submission 22.00 WITA yang ditampilkan jadwal Devpost. Ini juga tidak selaras dengan jadwal pembukaan submission 5 Oktober. Minta panitia memastikan tanggal, jam, zona waktu, dan apakah kalimat itu berlaku untuk mulai membangun atau mulai mengirim.
+**Konflik waktu penting, masih ada pada pemeriksaan 12 Oktober:** halaman Rules mengatakan, “Dont submit before official start time which 8 AM PT on October 25.” Pada 25 Oktober 2026, 08.00 Pacific Daylight Time setara **23.00 WITA**, satu jam setelah batas submission 22.00 WITA yang ditampilkan jadwal Devpost. Ini juga tidak selaras dengan jadwal pembukaan submission 5 Oktober. Minta panitia memastikan tanggal, jam, zona waktu, dan apakah kalimat itu berlaku untuk mulai membangun atau mulai mengirim.
 
 ## Siapa yang boleh ikut — belum jelas
 
@@ -141,4 +141,4 @@ Semua sumber berikut diperiksa pada 11 Oktober 2026:
 - [Update tentang submission dan Discussions](https://ieee-climatechain-hack.devpost.com/updates/46814-climatechain-hackathon-submissions-open-tomorrow-get-ready-to-submit) — submission dibuka 5 Oktober dan pertanyaan diarahkan ke Discussions.
 - [Diskusi tentang jendela submission dan form](https://ieee-climatechain-hack.devpost.com/forum_topics/45102-session-1-recording-and-clarification-on-submission-window) — pertanyaan peserta tentang waktu, track, blockchain, tim, dan unggahan; bukan klarifikasi resmi panitia.
 
-**Catatan sumber:** akses otomatis ke endpoint data Devpost gagal pada sesi ini; rincian di atas diambil dari halaman publik Devpost yang berhasil dibuka. Tinjau ulang sumber resmi sebelum mendaftar/mengirim karena jadwal atau aturan dapat berubah.
+**Pemeriksaan terbaru:** overview, Rules, jadwal, dan diskusi terkait jendela submission dibuka ulang pada 12 Oktober 2026. Konflik eligibility juga masih terlihat: overview menulis “students only”, sedangkan bagian Rules mencantumkan kategori terbuka untuk akademisi, developer/startup, dan profesional iklim. Tinjau ulang sumber resmi sebelum mendaftar/mengirim karena jadwal atau aturan dapat berubah.

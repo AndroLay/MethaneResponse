@@ -34,6 +34,24 @@ export function isSoftwareWebGLRenderer(renderer: string | null): boolean {
   return renderer !== null && /swiftshader|llvmpipe|software\s+rasterizer/i.test(renderer);
 }
 
+export function isInteractiveMapSupported(contextAvailable: boolean, renderer: string | null): boolean {
+  return contextAvailable && !isSoftwareWebGLRenderer(renderer);
+}
+
+function probeWebGLRenderer(): { contextAvailable: boolean; renderer: string | null } {
+  const canvas = document.createElement('canvas');
+  try {
+    const context = canvas.getContext('webgl2') ?? canvas.getContext('webgl');
+    if (!context) return { contextAvailable: false, renderer: null };
+    const debugInfo = context.getExtension('WEBGL_debug_renderer_info') as { UNMASKED_RENDERER_WEBGL: number } | null;
+    const renderer = debugInfo ? String(context.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)) : null;
+    context.getExtension('WEBGL_lose_context')?.loseContext();
+    return { contextAvailable: true, renderer };
+  } catch {
+    return { contextAvailable: false, renderer: null };
+  }
+}
+
 function getWebGLRendererName(canvas: HTMLCanvasElement): string | null {
   const context = canvas.getContext('webgl2') ?? canvas.getContext('webgl');
   const debugInfo = context?.getExtension('WEBGL_debug_renderer_info') as { UNMASKED_RENDERER_WEBGL: number } | null;
@@ -42,6 +60,14 @@ function getWebGLRendererName(canvas: HTMLCanvasElement): string | null {
 
 export function getStatusAfterMapError(status: MapStatus): MapStatus {
   return status === 'loading' ? 'error' : status;
+}
+
+export function getMapInitializationFallbackMessage(error: unknown): string {
+  const message = error instanceof Error ? error.message : String(error);
+  if (/webgl|shader|context|graphics/i.test(message)) {
+    return 'This browser could not initialize WebGL. You can still inspect the selected case and evidence below.';
+  }
+  return 'The interactive map could not be initialized. You can still inspect the selected case and evidence below.';
 }
 
 function styleForTheme(theme: MapTheme, grayPercent: number): string | StyleSpecification {
@@ -72,6 +98,7 @@ export default function MapPanel({ sources, selectedId, onSelect, onProjectionFa
   const projectionFallbackRef = useRef(onProjectionFallback);
   const globeSupportChangeRef = useRef(onGlobeSupportChange);
   const [status, setStatus] = useState<MapStatus>('loading');
+  const [mapError, setMapError] = useState<string | null>(null);
   const [coords, setCoords] = useState<[number, number, number] | null>(null);
   onSelectRef.current = onSelect; sourcesRef.current = sources; selectionRef.current = selectedId; focusRef.current = focusOnly;
   themeRef.current = theme; grayPercentRef.current = grayPercent; projectionRef.current = projection; projectionFallbackRef.current = onProjectionFallback; globeSupportChangeRef.current = onGlobeSupportChange;
@@ -81,7 +108,25 @@ export default function MapPanel({ sources, selectedId, onSelect, onProjectionFa
     if (!node.current) return;
     let disposed = false;
     let fallbackTriggered = false;
-    const instance = new maplibregl.Map({ container: node.current, style: styleForTheme(theme, grayPercent), center: [17, 18], zoom: 1.5, minZoom: 1, maxZoom: 17, renderWorldCopies: true });
+    const webgl = probeWebGLRenderer();
+    if (!isInteractiveMapSupported(webgl.contextAvailable, webgl.renderer)) {
+      setMapError(webgl.contextAvailable
+        ? 'This browser uses software-only WebGL. The selected case and evidence remain available below.'
+        : getMapInitializationFallbackMessage(new Error('Could not initialize WebGL')));
+      setStatus('error');
+      globeSupportChangeRef.current(false);
+      return;
+    }
+    let instance: MapLibreMap;
+    try {
+      instance = new maplibregl.Map({ container: node.current, style: styleForTheme(theme, grayPercent), center: [17, 18], zoom: 1.5, minZoom: 1, maxZoom: 17, renderWorldCopies: true });
+    } catch (error) {
+      node.current.replaceChildren();
+      setMapError(getMapInitializationFallbackMessage(error));
+      setStatus('error');
+      globeSupportChangeRef.current(false);
+      return;
+    }
     map.current = instance;
     const rendererName = getWebGLRendererName(instance.getCanvas());
     const globeSupported = !isSoftwareWebGLRenderer(rendererName);
@@ -96,6 +141,7 @@ export default function MapPanel({ sources, selectedId, onSelect, onProjectionFa
     const syncSource = () => {
       if (disposed) return;
       setStatus('ready');
+      setMapError(null);
       const filtered = focusRef.current ? sourcesRef.current.filter(s => s.sourceId === selectionRef.current) : sourcesRef.current;
       const data = toGeoJSON(filtered, selectionRef.current);
       if (instance.getSource('methane-points')) {
@@ -149,7 +195,10 @@ export default function MapPanel({ sources, selectedId, onSelect, onProjectionFa
       }
       // Missing optional glyph ranges should not mark the whole basemap offline.
       // A late tile failure is partial degradation if the style already rendered.
-      if (event.error && !message.includes('/fonts/')) setStatus(current => getStatusAfterMapError(current));
+      if (event.error && !message.includes('/fonts/')) {
+        setMapError(getMapInitializationFallbackMessage(event.error));
+        setStatus(current => getStatusAfterMapError(current));
+      }
     });
     const canvas = instance.getCanvas();
     const onWebglContextLost = () => {
@@ -208,6 +257,7 @@ export default function MapPanel({ sources, selectedId, onSelect, onProjectionFa
   return <div className="geo-map-shell">
     <div ref={node} className="geo-map-canvas" role="application" aria-label="Interactive methane map; drag to pan, scroll to zoom and select a source" />
     <div className="geo-map-topline"><span className="geo-pulse"/> {status === 'ready' ? `${sourceCount.toLocaleString()} source locations` : status === 'loading' ? 'Loading basemap...' : 'Map could not be loaded — check connection or graphics support'}</div>
+    {status === 'error' && <div className="geo-map-fallback" role="status"><strong>Interactive map unavailable</strong><span>{mapError || 'You can still inspect the selected case and evidence below.'}</span></div>}
     <div className="geo-map-hint">Drag to pan · scroll to zoom · click a source</div>
     <div className="geo-map-legend"><strong>MAP LEGEND</strong><span><i className="geo-dot geo-teal"/>Detected methane source</span><span><i className="geo-dot geo-orange"/>Selected / high flux</span><span><i className="geo-dot geo-ring"/>Cluster (click to expand)</span></div>
     {coords && <div className="geo-map-coordinates">{coords[0].toFixed(3)}°, {coords[1].toFixed(3)}° · z{coords[2].toFixed(1)}</div>}

@@ -13,10 +13,95 @@ export const Evidence = z.object({
   claimType: ClaimType.optional(),
   title: z.string(),
   reference: z.string(),
-  date: z.string(),
+  date: z.string().optional(),
   synthetic: z.boolean(),
 });
 export type Evidence = z.infer<typeof Evidence>;
+
+export const ExternalEvidenceReference = z.object({
+  title: z.string().min(1),
+  url: z.string().url().startsWith('https://'),
+  publisher: z.string().optional(),
+  reportDate: z.string().optional(),
+  license: z.string().min(1),
+  contentIncluded: z.literal(false),
+});
+export type ExternalEvidenceReference = z.infer<typeof ExternalEvidenceReference>;
+
+export const MarsProvenance = z.object({
+  provider: z.string().min(1),
+  dataset: z.string().min(1),
+  catalogUrl: z.string().url().startsWith('https://'),
+  downloadUrl: z.string().url().startsWith('https://'),
+  retrievedAt: z.string().datetime({ offset: true }),
+  archiveSha256: z.string().regex(/^[a-f0-9]{64}$/),
+  license: z.string().min(1),
+  attribution: z.string().min(1),
+}).passthrough();
+export type MarsProvenance = z.infer<typeof MarsProvenance>;
+
+export const MarsPlumeRecord = z.object({
+  plumeId: z.string().min(1),
+  sourceId: z.string().min(1),
+  linkStatus: z.literal('linked'),
+  satellite: z.string().min(1),
+  tileDate: z.string().min(1),
+  lat: z.number().min(-90).max(90),
+  lon: z.number().min(-180).max(180),
+  notified: z.boolean(),
+  fluxKgHr: z.number().nonnegative().nullable(),
+  fluxStdKgHr: z.number().nonnegative().nullable(),
+  synthetic: z.literal(false),
+}).passthrough();
+export type MarsPlumeRecord = z.infer<typeof MarsPlumeRecord>;
+
+export const MarsCase = z.object({
+  caseId: z.string().min(1),
+  sourceId: z.string().regex(/^[A-Z]{3}_S_\d+$/),
+  purpose: z.string().min(1),
+  source: z.object({
+    sourceId: z.string().regex(/^[A-Z]{3}_S_\d+$/),
+    lon: z.number().min(-180).max(180),
+    lat: z.number().min(-90).max(90),
+    country: z.string().min(1),
+    sector: z.string().min(1),
+    sourceType: z.string().min(1),
+    detectedPlumeCount: z.number().int().nonnegative(),
+    latestPlumeDate: z.string().nullable(),
+    notified: z.string(),
+    feedback: z.string(),
+    feedbackOperator: z.string(),
+    feedbackGovernment: z.string(),
+    feedbackScope: z.literal('source'),
+    mitigationConfirmed: z.null(),
+    synthetic: z.literal(false),
+  }).passthrough(),
+  plumes: z.array(MarsPlumeRecord).min(1),
+  externalEvidence: z.array(ExternalEvidenceReference),
+}).superRefine((item, context) => {
+  if (item.sourceId !== item.source.sourceId) context.addIssue({ code: 'custom', path: ['source', 'sourceId'], message: 'Case and source IDs must match.' });
+  for (const [index, plume] of item.plumes.entries()) {
+    if (plume.sourceId !== item.sourceId) context.addIssue({ code: 'custom', path: ['plumes', index, 'sourceId'], message: 'A case may include only plumes linked to its source ID.' });
+  }
+});
+export type MarsCase = z.infer<typeof MarsCase>;
+
+export const MarsCasebook = z.object({
+  schemaVersion: z.literal(1),
+  provenance: MarsProvenance,
+  limitations: z.array(z.string().min(1)).min(1),
+  cases: z.array(MarsCase).min(1),
+}).superRefine((book, context) => {
+  const caseIds = new Set<string>();
+  const sourceIds = new Set<string>();
+  book.cases.forEach((item, index) => {
+    if (caseIds.has(item.caseId)) context.addIssue({ code: 'custom', path: ['cases', index, 'caseId'], message: 'Duplicate case ID.' });
+    if (sourceIds.has(item.sourceId)) context.addIssue({ code: 'custom', path: ['cases', index, 'sourceId'], message: 'Duplicate source ID.' });
+    caseIds.add(item.caseId);
+    sourceIds.add(item.sourceId);
+  });
+});
+export type MarsCasebook = z.infer<typeof MarsCasebook>;
 export const Source = z.object({
   sourceId: z.string(),
   name: z.string(),
@@ -27,22 +112,53 @@ export const Source = z.object({
   evidence: z.array(Evidence),
 });
 export type Source = z.infer<typeof Source>;
+export const ReviewSource = Source.extend({
+  caseId: z.string().optional(),
+  country: z.string().optional(),
+  sector: z.string().optional(),
+  sourceType: z.string().optional(),
+  plumeCount: z.number().int().nonnegative().optional(),
+  lastObserved: z.string().optional(),
+  observations: z.array(z.object({ id: z.string(), date: z.string(), fluxKgHr: z.number().nullable(), uncertaintyKgHr: z.number().nullable(), satellite: z.string() })).optional(),
+  notified: z.string().optional(),
+  feedback: z.string().optional(),
+  feedbackOperator: z.string().optional(),
+  feedbackGovernment: z.string().optional(),
+  externalEvidence: z.array(ExternalEvidenceReference).optional(),
+  provenance: MarsProvenance.optional(),
+});
+export type ReviewSource = z.infer<typeof ReviewSource>;
 export const ResultLabel = z.enum(['supported', 'insufficient_evidence', 'contradicted']);
 export type ResultLabel = z.infer<typeof ResultLabel>;
 export type EvidenceBundle = {
-  schemaVersion: 1;
+  schemaVersion: 2;
   auditId: string;
+  caseId: string;
+  revision: number;
   generatedAt: string;
   sourceId: string;
   claimType: ClaimType;
   result: ResultLabel;
   reason: string;
   citedEvidence: Evidence[];
+  externalEvidence: ExternalEvidenceReference[];
+  provenance?: MarsProvenance;
+  limitations: string[];
   synthetic: boolean;
+};
+export type AuditReceipt = {
+  chainId: number;
+  registryAddress: `0x${string}`;
+  txHash: `0x${string}`;
+  issuer: `0x${string}`;
+  version: number;
+  blockNumber: string;
 };
 export type AuditResult = {
   bundle: EvidenceBundle;
   auditId: string;
+  caseId: string;
+  revision: number;
   sourceId: string;
   claimType: ClaimType;
   result: ResultLabel;
@@ -53,6 +169,7 @@ export type AuditResult = {
   synthetic: boolean;
   anchored: boolean;
   chainTxHash?: `0x${string}`;
+  receipt?: AuditReceipt;
 };
 export const DEMO_SOURCES: Source[] = [
   {

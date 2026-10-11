@@ -1,117 +1,99 @@
 # MethaneResponse — Independent Methane Evidence Audit
 
-> **STATUS: INTERACTIVE MAP + OPTIONAL IMPORTED MARS SNAPSHOT; AUDIT ENGINE STILL DEMO-ONLY.** The dashboard can display a locally imported UNEP MARS snapshot. It is a periodic historical satellite dataset, not a live feed. The API audit baseline accepts synthetic fixtures only; persistent storage, AI review of real operator documents, and testnet anchoring for MARS cases are not implemented.
+**Track:** Climate Data & Environmental Monitoring · **Status:** locally runnable MVP, not a methane-monitoring authority.
 
-## Purpose
+MethaneResponse helps a reviewer check whether a narrowly stated methane claim is supported by traceable records. It does not replace UNEP's Methane Alert and Response System (MARS), detect methane, or certify physical repairs.
 
-Evaluate whether claims about methane emissions detection, notification and mitigation are backed by specific traceable evidence. A lack of evidence produces **insufficient evidence**, not a claim of physical non-mitigation. The simple deterministic baseline is intended to be tested before any hosted-LLM enrichment.
+## What works
 
-## Stack
+- The dashboard loads an attributed, archive-hash-pinned casebook with three real UNEP MARS sources by default. The synthetic demo is a separate, explicit mode. A user may also import a local MARS GeoJSON snapshot for map exploration.
+- The source explorer offers Esri natural-color satellite imagery, adjustable grayscale, OpenFreeMap street/dark styles, clustering, and flat/globe projections. Interactive rendering needs hardware-accelerated WebGL; software-only or failed map renderers show an accessible fallback while case review stays available.
+- The API returns case/source records, evaluates typed claims with a deterministic evidence-coverage baseline, returns citations and provenance, and stores immutable audit revisions.
+- Local runs persist to an atomic JSON file under `data/state/`. Configured PostgreSQL/PostGIS runs apply migrations and seed the pinned casebook; production refuses to start without `DATABASE_URL`.
+- The audit bundle has a canonical SHA-256 digest. The receipt panel can record and verify a Sepolia registry transaction when an administrator configures the API. `bun run verify:audit <report.json>` verifies an exported bundle locally and checks an on-chain event when read-only RPC settings are present.
+- A 15-claim baseline conformance set covers the three casebook sources and separate synthetic adversarial fixtures. It is a small rule-behavior check, not a generalizable accuracy estimate or an AI benchmark.
 
-- **Web:** React + Vite + TypeScript + Tailwind, TanStack Query, MapLibre
-- **API:** Bun + Hono + Zod; synthetic fixtures + deterministic evidence-coverage baseline
-- **Data pipeline:** Python + uv + pytest; local CSV parser/manifest with source field configured explicitly
-- **Database target:** PostgreSQL/PostGIS (`platform/database/migrations`), **not yet connected to the API**
-- **Blockchain target:** Solidity + Foundry + viem, Sepolia; **requires deployment and explicit admin configuration**
-- **Storage:** deferred; no object storage required for the initial demo
+## Evidence boundaries
 
-## Quick start (Bun required)
+- Detection observations support only a detection claim. MARS's source-level `notified` field supports the recorded notification metadata and may not have an exact notification date in this casebook.
+- Source-level feedback does not prove equipment repair or reduced emissions. A later observation gap is not proof of zero methane.
+- Linked UNEP report items are link-only metadata. Their contents have not been included or independently reviewed, so all three real `mitigation_confirmed` audits abstain with `insufficient_evidence`.
+- A synthetic fixture may exercise a supported or contradicted rule, but its result is always marked synthetic.
+- A blockchain receipt proves the committed bundle hash and version chronology; it does not prove physical methane mitigation.
+- The pinned MARS casebook is a historical snapshot, not a live feed. Its specific attribution, archive hash and CC BY-NC-SA 4.0 terms are in [`data/real/README.md`](data/real/README.md). Interface image redistribution rights still need confirmation; see [`NOTICE`](NOTICE).
 
-The landing page is at `/`; open the interactive dashboard at `/dashboard`. The MapLibre explorer and data import steps are documented in [`docs/REAL_MAP_IMPLEMENTATION.md`](docs/REAL_MAP_IMPLEMENTATION.md). The UI limitations are documented in [`docs/UI_IMPLEMENTATION.md`](docs/UI_IMPLEMENTATION.md). A package-free structural preview is available at [`ui-preview/index.html`](ui-preview/index.html).
+## Run locally
+
+Requirements: Bun 1.4.2 (pinned in `.bun-version`), Python 3.11+ with `uv`, and Foundry for contract tests.
 
 ```bash
-bun install
+bun install --frozen-lockfile
+# Copy only if apps/api/.env does not already exist.
 cp .env.example apps/api/.env
-# terminal 1:
+```
+
+Terminal 1:
+
+```bash
 bun run dev:api
-# terminal 2:
+```
+
+Terminal 2:
+
+```bash
 bun run dev:web
 ```
 
-Open http://localhost:5173 for the landing page or http://localhost:5173/dashboard for the dashboard. Frontend proxies `/api` to http://localhost:3001. By default the dashboard shows **two fictitious sources** on an interactive basemap; their coordinates and case narratives are synthetic and must never be represented as UNEP observations.
+Open <http://localhost:5173>. The API is at <http://localhost:3001>; the Vite development server proxies `/api` to it. If `DATABASE_URL` is unset, the API uses the local file store. The example `.env` uses paths relative to `apps/api/` and leaves optional database/chain settings unset.
 
-### API smoke checks
+The API health route is <http://localhost:3001/api/health>. It checks casebook and store availability and identifies the actual storage backend. With a database, configure a PostgreSQL/PostGIS URL; the database user must be allowed to run the bundled migrations, including `CREATE EXTENSION postgis`.
+
+## Main routes and commands
+
+| Route / command | Purpose |
+|---|---|
+| `GET /api/cases` and `/api/cases/:id` | Read the pinned real casebook and provenance |
+| `GET /api/sources` | Read the real casebook sources |
+| `GET /api/sources?mode=demo` | Read explicitly synthetic fixtures |
+| `POST /api/audits` | Evaluate one typed claim and persist a version |
+| `GET /api/audits?sourceId=...&claimType=...` | Read audit history |
+| `GET /api/audits/:id/verify` | Verify local digest and, if configured, the exact registry transaction |
+| `POST /api/audits/:id/anchor` | Privileged write; requires a server-side `ADMIN_API_TOKEN` and Sepolia signer configuration |
+| `bun run verify:audit report.json` | Independently check an exported local report and optional chain receipt |
+
+Run the full local gates from the repository root:
 
 ```bash
-curl -s http://localhost:3001/api/health
-curl -s http://localhost:3001/api/sources
-curl -s -X POST http://localhost:3001/api/audits \
-  -H 'content-type: application/json' \
-  -d '{"sourceId":"DEMO-001","claimType":"mitigation_confirmed"}'
+bun run check:all
 ```
 
-The last example must return `insufficient_evidence`. It must not silently equate notification with mitigation. Default `anchored` is false.
+In restricted environments, if `uv` cannot write to its default cache, set `UV_CACHE_DIR` to a writable directory, for example `/tmp/methane-response-uv-cache`.
 
-### Run tests
-
-```bash
-bun run test:api
-cd services/data-pipeline && uv run pytest
-cd ../../contracts && forge test
-```
-
-The automated API, importer, and Foundry test suites have not been run in the current integration session. Bun typechecks, the Vite production build, and the interactive browser checks were run; see [`docs/UI_IMPLEMENTATION.md`](docs/UI_IMPLEMENTATION.md) for their results and limits.
-
-### Local CSV ingestion
+To write the reproducible benchmark report:
 
 ```bash
 cd services/data-pipeline
-uv run python ingest.py \
-  --input ../../data/fixtures/mars_synthetic.csv \
-  --source-column source_id \
-  --output ../../data/processed/demo.json \
-  --manifest ../../data/processed/demo.manifest.json
+uv run python evaluate_baseline.py --output reports/baseline-evaluation.json
 ```
 
-For the current MARS source/plume snapshot, `source_name` is the documented source ID and `id_plume` is the unique observation ID. Use the [official MARS dataset page](https://methanedata.unep.org/download-dataset) and latest [data dictionary](https://methanedata.unep.org/dict-mars-plumes), and preserve the exact retrieval time, archive hash, and dataset-specific license.
+Read [`docs/data-and-claims.md`](docs/data-and-claims.md) for methodology and [`docs/deployment.md`](docs/deployment.md) for deployment limits and setup.
 
-### Real-data sample
+## Deployment and competition status
 
-`data/real/` contains a small, attributed three-source excerpt from one official MARS snapshot plus a reproducible selection file. The raw archive and full normalized snapshot are ignored by Git. This casebook is **not automatically wired into the API or UI**; map data is imported through the documented MARS snapshot workflow. See [`data/real/README.md`](data/real/README.md) for provenance, license, case limitations, and reproduction commands.
+No external deployment, Sepolia transaction, video, Devpost registration, or submission has been performed. A possible no-cost setup is Cloudflare Pages for static files, a free Render web service for the API, and a free Neon Postgres project. It is not an always-on or durable free production service: Render free services can sleep and their local filesystem is ephemeral; Neon has per-project storage and compute quotas. Configure and test an owned account before treating it as available. See the dated provider notes in [`docs/deployment.md`](docs/deployment.md).
 
-### Interactive map and MARS import
+The GitHub repository remains private as previously requested. The event's published submission checklist asks for a public source-code repository and a 3–5 minute demo video; resolving repository visibility, image rights, account setup, event eligibility and conflicting time instructions remains external work. See [`docs/research/event.md`](docs/research/event.md).
 
-The dashboard uses MapLibre with OpenFreeMap and Esri basemap tiles. Without a dataset, it shows visibly synthetic demo markers. To load official historical observations, download the MARS source/plume CSV or GeoJSON from the [UNEP dataset page](https://methanedata.unep.org/download-dataset). The dashboard accepts an extracted GeoJSON file; the standard-library Python importer also accepts the official ZIP and writes an ignored local snapshot:
-
-```bash
-python3 services/data-pipeline/import_mars_map.py ~/Downloads/unep_methanedata_detected_plumes_csv.zip
-```
-
-Review [`docs/REAL_MAP_IMPLEMENTATION.md`](docs/REAL_MAP_IMPLEMENTATION.md) for supported formats, attribution, and limitations. The imported snapshot is not shipped, refreshed, or independently authenticated by the app. MARS observations are periodic detections; feedback is not proof of mitigation, and the map density shading is illustrative rather than methane concentration or plume shape. The real-source audit control stays disabled because the API baseline handles demo fixtures only.
-
-### Optional chain anchoring
-
-An on-chain receipt is **not created** by the normal audit button. First deploy `contracts/src/EvidenceRegistry.sol` to Sepolia and authorize the signer as issuer (owner is issuer by default). Configure private RPC, signer and contract address in the API environment. Then, only from a trusted terminal:
-
-```bash
-curl -s -X POST http://localhost:3001/api/audits/<ID>/anchor \
-  -H "authorization: Bearer $ADMIN_API_TOKEN"
-```
-
-The endpoint requires a configured admin token; never put this token in the browser. Read-only verification is available at `/api/audits/:id/verify` after anchoring. **The current audit store is process-local and not durable; move it to PostgreSQL before any real deployment.**
-
-## Repository organization
+## Repository map
 
 ```text
-apps/web                    React SPA and map/audit UI
-apps/api                    Hono API and rule baseline
-packages/shared             shared Zod contracts and synthetic records
-services/data-pipeline      CSV ingestion, manifest, unit tests
-contracts                   Foundry contract and security tests
-platform/database/migrations PostgreSQL/PostGIS target schema
-data/fixtures               explicitly synthetic test data
-data/raw, data/processed     ignored local datasets
-scripts                     developer checks
-docs                        architecture, methodology, roadmap, licensing
+apps/web                         React dashboard, MapLibre explorer and audit UI
+apps/api                         Hono API, deterministic rules, persistence, chain verifier
+packages/shared                  Zod contracts and synthetic demo fixtures
+services/data-pipeline           MARS importer, casebook builder and baseline evaluation
+data/real                        Attributed three-source MARS casebook
+platform/database/migrations     PostgreSQL/PostGIS schema and audit revisions
+contracts                        Solidity receipt registry and Foundry tests
+scripts                          Local report verifier and verification helpers
+docs                             Architecture, provenance, deployment and delivery status
 ```
-
-Project notes and the consolidated hackathon research archive are indexed in [`docs/README.md`](docs/README.md).
-
-## Deployment
-
-See `docs/deployment.md` and `render.yaml`. Production requires public `VITE_API_BASE_URL` (Cloudflare Pages frontend to Render API) and private `WEB_ORIGIN` CORS configuration in API. No deployment has been performed.
-
-## Source restrictions
-
-The MARS download page and archive license the dataset under **CC BY-NC-SA 4.0**. This repository contains only the attributed three-source excerpt in `data/real/`; it does not contain MARS case reports. The broader Eye on Methane terms page currently states CC BY-NC 4.0, so follow the dataset/archive-specific license for this excerpt and recheck terms before adding data. See `docs/data-and-claims.md`.
-

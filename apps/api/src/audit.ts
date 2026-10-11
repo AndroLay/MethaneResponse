@@ -1,5 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto';
-import { type AuditInput, type AuditResult, type EvidenceBundle, type ClaimType, type Evidence, type ResultLabel, type Source } from '@methane/shared';
+import { type AuditInput, type AuditResult, type EvidenceBundle, type ClaimType, type Evidence, type ExternalEvidenceReference, type MarsProvenance, type ResultLabel, type Source } from '@methane/shared';
+import { canonicalJson } from './canonical';
 
 const supportKind: Record<ClaimType, Evidence['kind']> = {
   source_detected: 'detection',
@@ -23,26 +24,45 @@ export function assess(source: Source, claimType: ClaimType): {result: ResultLab
   return { result: 'insufficient_evidence', reason: 'No evidence of the required type. Absence does not prove the claim is false.', evidenceIds: [] };
 }
 
-export function createAudit(source: Source, input: AuditInput): AuditResult {
+export type AuditMetadata = {
+  caseId?: string;
+  revision?: number;
+  externalEvidence?: ExternalEvidenceReference[];
+  provenance?: MarsProvenance;
+  limitations?: string[];
+};
+
+export function createAudit(source: Source, input: AuditInput, metadata: AuditMetadata = {}): AuditResult {
   const assessment = assess(source, input.claimType);
   const generatedAt = new Date().toISOString();
   const auditId = randomUUID();
+  const caseId = metadata.caseId || source.sourceId;
+  const revision = metadata.revision || 1;
   // Deterministic field order; includes the source's referenced evidence content for tamper detection.
   const citedEvidence = source.evidence
     .filter((e) => assessment.evidenceIds.includes(e.id))
     .sort((a, b) => a.id.localeCompare(b.id));
   const bundle: EvidenceBundle = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     auditId,
+    caseId,
+    revision,
     generatedAt,
     sourceId: source.sourceId,
     claimType: input.claimType,
     result: assessment.result,
     reason: assessment.reason,
     citedEvidence,
+    externalEvidence: metadata.externalEvidence || [],
+    ...(metadata.provenance ? { provenance: metadata.provenance } : {}),
+    limitations: [
+      'This is a deterministic evidence-coverage baseline, not a scientific or legal certification.',
+      'A source-level notification or feedback record does not establish physical mitigation.',
+      ...(metadata.limitations || []),
+    ],
     synthetic: source.synthetic,
   };
-  const bundleHash = `0x${createHash('sha256').update(JSON.stringify(bundle)).digest('hex')}` as const;
-  return { auditId, sourceId: source.sourceId, claimType: input.claimType, ...assessment, bundleHash, generatedAt, synthetic: source.synthetic, bundle, anchored: false };
+  const bundleHash = `0x${createHash('sha256').update(canonicalJson(bundle)).digest('hex')}` as const;
+  return { auditId, caseId, revision, sourceId: source.sourceId, claimType: input.claimType, ...assessment, bundleHash, generatedAt, synthetic: source.synthetic, bundle, anchored: false };
 }
 

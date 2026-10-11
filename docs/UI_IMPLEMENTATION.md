@@ -1,74 +1,43 @@
-# MethaneResponse — UI implementation (12 October 2026)
+# Dashboard implementation
 
-## Integrated experience
+**Updated:** 2026-10-12 · See the root [README](../README.md) for current run commands.
 
-The React 19 + Vite + TypeScript interface now has two routes:
+## Routes and data states
 
-- `/` — product landing page with methodology and limitations.
-- `/dashboard` — interactive evidence workspace.
+- `/` is the product landing page; `/dashboard` is the review workspace.
+- The dashboard defaults to the pinned three-source UNEP MARS casebook returned by the API. It shows source ID, country/sector, linked observation counts/dates, source-level notified and feedback values, the archive retrieval/license/hash provenance, and rights-labeled official report links.
+- **Synthetic demo** is a separate mode with two fictitious sources and clearly marked fixtures. It is useful for testing positive and contradiction rule paths.
+- **Import full MARS GeoJSON** loads a user-provided historical map snapshot in the browser. The file is not uploaded. It is not promoted to a reviewed API case, so the audit action remains disabled for sources outside the pinned casebook.
+- The dashboard never presents imported or pinned snapshot data as live monitoring. Missing later plume records are not presented as proof of zero methane.
 
-The dashboard combines a responsive dark layout, source selection and filters, source details, observation timeline, evidence panel, deterministic audit baseline for demo fixtures, report export, and receipt verification UI. It does not call a hosted AI model. Its normal demo audit is backed by the existing API and synthetic fixtures only.
+## Review journey
 
-## Interactive map and data
+The reviewer can select a source, filter by region/sector/observation age, inspect plume dates and flux/uncertainty values, open official external links, select one of three claim categories, run the deterministic API baseline, inspect citations/limitations, export JSON and verify the local bundle digest. Real mitigation requests abstain because linked report contents are not included or reviewed. There is no model/LLM call or fabricated report preview.
 
-`MapPanel.tsx` uses MapLibre GL JS with draggable/zoomable OpenFreeMap basemaps and an Esri satellite option. Source markers can be selected, clusters expanded, and the map opened full-screen. Basemap attribution is displayed by MapLibre. Density shading visualizes source locations only; it is not methane concentration or plume geometry.
+The blockchain panel only reports a receipt returned from an anchored API record. The public dashboard cannot submit chain transactions. A configured API verifier checks exact receipt metadata and the corresponding registry event; the UI text limits the result to hash integrity and version chronology.
 
-With no local dataset, the dashboard visibly identifies **Synthetic demo mode** and uses two synthetic source fixtures. Users can import an extracted UNEP MARS GeoJSON file in the browser, or create a local snapshot from an official CSV, GeoJSON, or ZIP archive with `services/data-pipeline/import_mars_map.py`. Imported data shows historical source/plume observations and flux values, but is not a live feed. The import file is not included in the repository. See [`REAL_MAP_IMPLEMENTATION.md`](REAL_MAP_IMPLEMENTATION.md) for provenance, format, and license notes.
+## Map and visual states
 
-For imported real-source data, the independent mitigation audit action is disabled. Satellite observations and operator feedback do not establish that equipment was repaired or emissions stopped. The API's deterministic audit endpoint still accepts only the synthetic demo fixtures.
+`MapPanel.tsx` is code-split from the dashboard shell and renders a MapLibre map with OpenFreeMap dark/street styles or Esri satellite imagery. The source cluster/marker layer shows source locations, not methane concentration or plume geometry. Map attribution remains visible.
 
-The landing page's Earth illustration is decorative artwork. It does not depict methane detections. Dashboard charts, evidence records, and summary metrics remain clearly labeled as illustrative while in demo mode.
+- Satellite grayscale uses a 0–100% saturation slider; it affects the raster imagery only and preserves teal/orange source-marker colors.
+- Flat/globe switches Mercator and globe projection. It does not add elevation or terrain.
+- The dashboard probes WebGL before initializing MapLibre. It skips the map on software-only renderers or when WebGL is unavailable; a failed lazy map chunk also stays inside an error boundary. In both cases the source, evidence, and auditor panels remain usable.
+- The source illustration and synthetic trend/gallery assets are labeled as artwork or illustrative data. Basemap tile completeness depends on provider coverage and browser network access.
 
-## Map rendering controls
+The source image rights are not documented in the supplied UI package; the images are excluded from the project-code license in [`NOTICE`](../NOTICE). Confirm permission or replace them before public redistribution.
 
-- The map opens on Esri World Imagery in natural color. OpenFreeMap street and dark basemaps remain available.
-- **Satellite · grayscale** uses a 0–100% slider to adjust saturation on the satellite raster layer only. At 100%, the imagery is monochrome; methane source markers keep their teal/orange evidence colors.
-- **Flat / Globe** switches MapLibre between Mercator and globe projection. Globe mode renders a spherical map view; it does not add elevation or 3D terrain.
-- Globe is disabled when WebGL identifies a software renderer such as SwiftShader or llvmpipe, since the globe shader can exceed those renderers' graphics capacity. If an otherwise supported browser loses its WebGL context, the map is recreated in flat mode and a dismissible notice explains the fallback.
-- Imagery clarity depends on the upstream tile coverage, zoom level, and network. Satellite tiles are not methane detections or live monitoring.
+## Local run
 
-## Other interface behavior
+Install once with `bun install --frozen-lockfile`, copy `.env.example` to `apps/api/.env` only if that file does not already exist, then run `bun run dev:api` and `bun run dev:web` in separate terminals. The Vite dev server proxies `/api` to the API. Third-party basemap tiles require browser network access.
 
-- Evidence Auditor submits `POST /api/audits` for the deterministic fixture baseline and reports backend errors instead of inventing an API result.
-- Blockchain UI shows “Not anchored” unless an actual receipt is returned. It does not submit a transaction from the public UI. Receipts establish bundle integrity and chronology, not physical mitigation.
-- Audit report preview and JSON export include whether the data is synthetic or imported and state relevant limitations.
-- Layouts support mobile widths, visible keyboard focus, and reduced-motion preferences.
+## Automated checks
 
-## Run locally
+- `bun run test:web` covers GeoJSON import grouping and validation plus map render helper behavior.
+- `bun run test:api` covers real casebook routes, evidence mapping/abstention, API failures and audit persistence contracts.
+- `bun run test:verifier` covers valid and modified exported bundles.
+- `bun run check:all` is the complete local suite, including Python pipeline/evaluation, Foundry and production web build.
 
-Requires Bun >= 1.2.0. From the repository root:
+Local Chromium browser acceptance passed for the real casebook view, selecting another source, switching to the synthetic demo and back, detection audit and citation, mitigation `insufficient_evidence`, JSON export, regional filtering, visible fallback on an API 503, and a 390 px viewport with no horizontal overflow. A forced lazy-chunk failure also preserved the dashboard. The environment exposed SwiftShader rather than hardware-accelerated WebGL, so the map fallback was verified and the live raster/globe rendering could not be visually certified here. No hosted browser/deployment validation is claimed by this document.
 
-```bash
-bun install
-cp .env.example apps/api/.env
-# terminal 1
-bun run dev:api
-# terminal 2
-bun run dev:web
-```
-
-Open `http://localhost:5173/` for the landing page or `http://localhost:5173/dashboard` for the app. The dashboard map needs access to its third-party tile services. The app shell and data labels can still load if those services are unavailable.
-
-## Current integration verification
-
-- `bun install --frozen-lockfile`: passed; checked 137 installs across 210 packages, no changes.
-- `bun run check`: passed for API and web TypeScript typechecks.
-- `bun run build:web`: passed. Vite emitted non-fatal Zod annotation notices and a bundle-size warning (main JS bundle is above 500 kB).
-- `bun run test:web`: passed, 7 tests and 30 assertions across MARS import and map rendering checks.
-- `bun run check`: passed for API and web TypeScript typechecks.
-- `bun run build:web`: passed. Vite emitted non-fatal Zod annotation notices and a bundle-size warning (main JS bundle is about 1.48 MB, 418 kB gzipped).
-- Local Chromium rendered natural-color satellite and full grayscale imagery with the source marker colors preserved. Keyboard slider input changed grayscale from 100% to 45% and back to 100%.
-- Local Chromium reports SwiftShader as its WebGL renderer, so the globe control was disabled before activating its unsupported shader and the dashboard showed a dismissible explanation. Globe rendering on a hardware-accelerated browser was not verified in this environment.
-- At a 390×844 mobile viewport, the map canvas measured 352 px wide and both document and body stayed at 390 px; no horizontal overflow was present. Mobile screenshot: `.playwright-cli/page-2026-10-11T20-01-55-853Z.png`.
-- Several Esri tile requests returned `ERR_INSUFFICIENT_RESOURCES` in the local browser, but the natural-color and grayscale screenshots still showed clear imagery, labels, and source markers. Tile completeness depends on the browser and network environment.
-- API health reported `mode: synthetic-demo`, `persistentStore: false`, and `chainConfigured: false` during the recorded browser session.
-- No MARS snapshot was imported. Python importer, Foundry, live UNEP integration, blockchain, and end-to-end suites were outside this map-focused verification.
-
-## Remaining work before submission
-
-1. Obtain and preserve provenance/license information for a MARS export; import it and document the exact version/hash and retrieval time.
-2. Connect real observation records and independently sourced documents to durable PostGIS/object storage with source-level provenance.
-3. Build a human-reviewed claim benchmark; measure the deterministic baseline before considering a model-assisted path.
-4. Add reproducible tests for import parsing, claim decisions, persistence, and tamper/authorization behavior.
-5. Deploy and independently verify a testnet receipt flow; keep its claim limited to evidence-bundle integrity.
-6. Validate deployment from a clean browser and document operating limits before public submission.
+To repeat the manual browser acceptance, start the API and web using the root README commands, open `http://localhost:5173/dashboard`, choose the Argentina source from Latest recorded observations, switch to Synthetic demo and back to UNEP cases, run `source_detected` then `mitigation_confirmed` in the auditor, export the JSON report, open Filters and select Kazakhstan, then narrow the browser to 390 px. Confirm the map fallback if the browser uses software WebGL; the case and auditor panels should remain interactive.

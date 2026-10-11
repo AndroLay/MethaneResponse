@@ -4,7 +4,7 @@ This repo is a small hackathon proof-of-concept, not a production methane-monito
 
 - Never claim that `feedback` alone proves repaired methane equipment or reduced emissions.
 - Do not mark missing later plume measurements as proof of zero methane.
-- All bundled records are synthetic; preserve visible DEMO labeling until replaced with licensed and traceable inputs.
+- Keep the synthetic fixtures in `packages/shared` and `data/fixtures` visibly labeled DEMO. The separately attributed `data/real/` MARS casebook is real historical source/plume metadata under the recorded dataset license; preserve its provenance and limitations.
 - Do not auto-publish or reproduce entire third-party evidence reports without confirming license permissions.
 - Never put secrets in `apps/web` or VITE_* environment variables.
 - Contract receipts prove integrity and version chronology, not physical truth.

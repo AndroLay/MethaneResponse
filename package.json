@@ -10,8 +10,12 @@
     "check": "cd apps/api && bun run typecheck && cd ../web && bun run typecheck",
     "test:api": "cd apps/api && bun test",
     "test:web": "cd apps/web && bun test",
+    "test:verifier": "bun test scripts/verify-audit.test.ts",
     "test:data": "cd services/data-pipeline && uv run pytest",
-    "test:contracts": "cd contracts && forge test"
+    "evaluate:baseline": "cd services/data-pipeline && uv run python evaluate_baseline.py --output reports/baseline-evaluation.json",
+    "test:contracts": "cd contracts && forge test",
+    "check:all": "bash scripts/check-local.sh",
+    "verify:audit": "bun scripts/verify-audit.ts"
   },
   "engines": {"bun": ">=1.2.0"}
 }

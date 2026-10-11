@@ -1,0 +1,293 @@
+{
+  "method": "deterministic evidence coverage rules",
+  "casebookArchiveSha256": "b4162c277bcb699154ccc068f5f9510e1d32f355093884de6c8029ea34a62742",
+  "sampleSize": 15,
+  "realExampleCount": 9,
+  "syntheticExampleCount": 6,
+  "macroF1": 1.0,
+  "perLabel": {
+    "supported": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 10
+    },
+    "insufficient_evidence": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 4
+    },
+    "contradicted": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 1
+    }
+  },
+  "falseMitigationConfirmations": 0,
+  "citationCoverage": {
+    "supportedPredictions": 10,
+    "supportedWithCitation": 10,
+    "ratio": 1.0
+  },
+  "subsets": {
+    "realCasebook": {
+      "sampleSize": 9,
+      "macroF1": 0.6667,
+      "perLabel": {
+        "supported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 6
+        },
+        "insufficient_evidence": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 3
+        },
+        "contradicted": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      },
+      "falseMitigationConfirmations": 0,
+      "citationCoverage": {
+        "supportedPredictions": 6,
+        "supportedWithCitation": 6,
+        "ratio": 1.0
+      }
+    },
+    "syntheticFixtures": {
+      "sampleSize": 6,
+      "macroF1": 1.0,
+      "perLabel": {
+        "supported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 4
+        },
+        "insufficient_evidence": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "contradicted": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        }
+      },
+      "falseMitigationConfirmations": 0,
+      "citationCoverage": {
+        "supportedPredictions": 4,
+        "supportedWithCitation": 4,
+        "ratio": 1.0
+      }
+    }
+  },
+  "limitations": [
+    "This small, casebook-derived conformance set is not a generalizable estimate of real-world performance.",
+    "Expected labels encode the stated evidence policy for three MARS sources and synthetic rule fixtures; they do not independently establish physical methane outcomes.",
+    "The three real mitigation examples abstain because linked report content was not included or independently reviewed."
+  ],
+  "predictions": [
+    {
+      "id": "mars-kaz-detection",
+      "caseId": "MARS-REPORT-KAZ-S-159",
+      "sourceId": "KAZ_S_159",
+      "claimType": "source_detected",
+      "expected": "supported",
+      "predicted": "supported",
+      "citedEvidenceIds": [
+        "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "82758651-76f4-4e06-b4ab-c247ce765192",
+        "941806b5-2afe-46ac-baac-a0230880cede"
+      ],
+      "synthetic": false,
+      "rationale": "The pinned source has three linked plume records, each with a MARS plume identifier."
+    },
+    {
+      "id": "mars-kaz-notification",
+      "caseId": "MARS-REPORT-KAZ-S-159",
+      "sourceId": "KAZ_S_159",
+      "claimType": "operator_notified",
+      "expected": "supported",
+      "predicted": "supported",
+      "citedEvidenceIds": [
+        "KAZ_S_159:notification-status"
+      ],
+      "synthetic": false,
+      "rationale": "The pinned source-level MARS field records notified=Yes; this supports only that metadata field and carries no notification date."
+    },
+    {
+      "id": "mars-kaz-mitigation",
+      "caseId": "MARS-REPORT-KAZ-S-159",
+      "sourceId": "KAZ_S_159",
+      "claimType": "mitigation_confirmed",
+      "expected": "insufficient_evidence",
+      "predicted": "insufficient_evidence",
+      "citedEvidenceIds": [],
+      "synthetic": false,
+      "rationale": "A link title exists, but report contents and their supporting evidence are not included or independently reviewed."
+    },
+    {
+      "id": "mars-lby-detection",
+      "caseId": "MARS-REPORT-LBY-S-143",
+      "sourceId": "LBY_S_143",
+      "claimType": "source_detected",
+      "expected": "supported",
+      "predicted": "supported",
+      "citedEvidenceIds": [
+        "a8e4a775-4654-46b2-af16-bb9b4742e79d"
+      ],
+      "synthetic": false,
+      "rationale": "The pinned source has one linked plume record with a MARS plume identifier."
+    },
+    {
+      "id": "mars-lby-notification",
+      "caseId": "MARS-REPORT-LBY-S-143",
+      "sourceId": "LBY_S_143",
+      "claimType": "operator_notified",
+      "expected": "supported",
+      "predicted": "supported",
+      "citedEvidenceIds": [
+        "LBY_S_143:notification-status"
+      ],
+      "synthetic": false,
+      "rationale": "The pinned source-level MARS field records notified=Yes; this supports only that metadata field and carries no notification date."
+    },
+    {
+      "id": "mars-lby-mitigation",
+      "caseId": "MARS-REPORT-LBY-S-143",
+      "sourceId": "LBY_S_143",
+      "claimType": "mitigation_confirmed",
+      "expected": "insufficient_evidence",
+      "predicted": "insufficient_evidence",
+      "citedEvidenceIds": [],
+      "synthetic": false,
+      "rationale": "A link title exists, but report contents and their supporting evidence are not included or independently reviewed."
+    },
+    {
+      "id": "mars-arg-detection",
+      "caseId": "MARS-REPORT-ARG-S-055",
+      "sourceId": "ARG_S_055",
+      "claimType": "source_detected",
+      "expected": "supported",
+      "predicted": "supported",
+      "citedEvidenceIds": [
+        "486ca723-1394-4bef-b4e1-fc132952995d",
+        "72fe0850-d0b1-4699-9d0b-00585b41b786"
+      ],
+      "synthetic": false,
+      "rationale": "The pinned source has two linked plume records with MARS plume identifiers."
+    },
+    {
+      "id": "mars-arg-notification",
+      "caseId": "MARS-REPORT-ARG-S-055",
+      "sourceId": "ARG_S_055",
+      "claimType": "operator_notified",
+      "expected": "supported",
+      "predicted": "supported",
+      "citedEvidenceIds": [
+        "ARG_S_055:notification-status"
+      ],
+      "synthetic": false,
+      "rationale": "The pinned source-level MARS field records notified=Yes; this supports only that metadata field and carries no notification date."
+    },
+    {
+      "id": "mars-arg-mitigation",
+      "caseId": "MARS-REPORT-ARG-S-055",
+      "sourceId": "ARG_S_055",
+      "claimType": "mitigation_confirmed",
+      "expected": "insufficient_evidence",
+      "predicted": "insufficient_evidence",
+      "citedEvidenceIds": [],
+      "synthetic": false,
+      "rationale": "A link title exists, but report contents and their supporting evidence are not included or independently reviewed."
+    },
+    {
+      "id": "demo-001-detection",
+      "caseId": null,
+      "sourceId": "DEMO-001",
+      "claimType": "source_detected",
+      "expected": "supported",
+      "predicted": "supported",
+      "citedEvidenceIds": [
+        "DEMO-OBS-001"
+      ],
+      "synthetic": true,
+      "rationale": "Synthetic fixture contains a typed detection record."
+    },
+    {
+      "id": "demo-001-notification",
+      "caseId": null,
+      "sourceId": "DEMO-001",
+      "claimType": "operator_notified",
+      "expected": "supported",
+      "predicted": "supported",
+      "citedEvidenceIds": [
+        "DEMO-NOTICE-001"
+      ],
+      "synthetic": true,
+      "rationale": "Synthetic fixture contains a typed notification record."
+    },
+    {
+      "id": "demo-001-mitigation",
+      "caseId": null,
+      "sourceId": "DEMO-001",
+      "claimType": "mitigation_confirmed",
+      "expected": "insufficient_evidence",
+      "predicted": "insufficient_evidence",
+      "citedEvidenceIds": [],
+      "synthetic": true,
+      "rationale": "Synthetic notification and detection records are not mitigation confirmation."
+    },
+    {
+      "id": "demo-002-detection",
+      "caseId": null,
+      "sourceId": "DEMO-002",
+      "claimType": "source_detected",
+      "expected": "supported",
+      "predicted": "supported",
+      "citedEvidenceIds": [
+        "DEMO-OBS-002"
+      ],
+      "synthetic": true,
+      "rationale": "Synthetic fixture contains a typed detection record."
+    },
+    {
+      "id": "demo-002-notification",
+      "caseId": null,
+      "sourceId": "DEMO-002",
+      "claimType": "operator_notified",
+      "expected": "contradicted",
+      "predicted": "contradicted",
+      "citedEvidenceIds": [
+        "DEMO-CONTRA-002"
+      ],
+      "synthetic": true,
+      "rationale": "Synthetic fixture contains an explicit, claim-scoped contrary record."
+    },
+    {
+      "id": "demo-002-mitigation",
+      "caseId": null,
+      "sourceId": "DEMO-002",
+      "claimType": "mitigation_confirmed",
+      "expected": "supported",
+      "predicted": "supported",
+      "citedEvidenceIds": [
+        "DEMO-CONFIRM-002"
+      ],
+      "synthetic": true,
+      "rationale": "Synthetic fixture contains a typed confirmation record; this is only a baseline behavior test."
+    }
+  ]
+}

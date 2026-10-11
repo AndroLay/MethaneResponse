@@ -1,6 +1,7 @@
-import { createPublicClient, createWalletClient, http, isAddress, type Hex } from 'viem';
+import { createPublicClient, createWalletClient, decodeEventLog, http, isAddress, keccak256, toBytes, type Hex } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { sepolia } from 'viem/chains';
+import type { AuditReceipt, ClaimType } from '@methane/shared';
 
 const abi = [
   {
@@ -16,6 +17,15 @@ const abi = [
       { name: 'version', type: 'uint64' }, { name: 'updatedAt', type: 'uint64' },
     ],
   },
+  {
+    type: 'event', name: 'Anchored', anonymous: false,
+    inputs: [
+      { name: 'caseId', type: 'bytes32', indexed: true },
+      { name: 'issuer', type: 'address', indexed: true },
+      { name: 'bundleHash', type: 'bytes32', indexed: false },
+      { name: 'version', type: 'uint64', indexed: false },
+    ],
+  },
 ] as const;
 
 const settings = () => {
@@ -27,6 +37,29 @@ const settings = () => {
 
 export function chainConfigured() { return settings() !== null; }
 
+export function registryCaseId(caseId: string, claimType: ClaimType): Hex {
+  return keccak256(toBytes(`methane-response:v2:${caseId}:${claimType}`));
+}
+
+export type AnchorEventMetadata = { caseId: Hex; issuer: string; bundleHash: Hex; version: bigint };
+export type AnchorTransactionMetadata = { txHash: Hex; status: 'success' | 'reverted'; blockNumber: bigint };
+
+export function anchorReceiptMatches(
+  caseId: Hex,
+  bundleHash: Hex,
+  receipt: AuditReceipt,
+  event: AnchorEventMetadata,
+  transaction: AnchorTransactionMetadata,
+): boolean {
+  return transaction.status === 'success'
+    && transaction.txHash.toLowerCase() === receipt.txHash.toLowerCase()
+    && event.caseId.toLowerCase() === caseId.toLowerCase()
+    && event.bundleHash.toLowerCase() === bundleHash.toLowerCase()
+    && event.issuer.toLowerCase() === receipt.issuer.toLowerCase()
+    && Number(event.version) === receipt.version
+    && transaction.blockNumber.toString() === receipt.blockNumber;
+}
+
 export async function readReceipt(caseId: Hex) {
   const config = settings();
   if (!config) throw new Error('Sepolia RPC/contract is not configured');
@@ -37,7 +70,7 @@ export async function readReceipt(caseId: Hex) {
   return { issuer, hash, version, updatedAt };
 }
 
-export async function anchorReceipt(caseId: Hex, bundleHash: Hex): Promise<Hex> {
+export async function anchorReceipt(caseId: Hex, bundleHash: Hex): Promise<AuditReceipt> {
   const config = settings();
   const secret = process.env.SEPOLIA_PRIVATE_KEY;
   if (!config || !secret || !/^0x[0-9a-fA-F]{64}$/.test(secret)) throw new Error('Chain issuer settings not configured');
@@ -47,6 +80,59 @@ export async function anchorReceipt(caseId: Hex, bundleHash: Hex): Promise<Hex> 
   const reader = createPublicClient({ chain: sepolia, transport: http(config.rpc) });
   const receipt = await reader.waitForTransactionReceipt({ hash: tx, confirmations: 1 });
   if (receipt.status !== 'success') throw new Error('Sepolia transaction reverted');
-  return tx;
+  const event = receipt.logs
+    .filter((log) => log.address.toLowerCase() === config.registry.toLowerCase())
+    .map((log) => {
+      try { return decodeEventLog({ abi, data: log.data, topics: log.topics, strict: true }); }
+      catch { return null; }
+    })
+    .find((log) => log?.eventName === 'Anchored');
+  if (!event || event.eventName !== 'Anchored') throw new Error('Transaction did not emit the expected registry event');
+  if (event.args.caseId.toLowerCase() !== caseId.toLowerCase() || event.args.bundleHash.toLowerCase() !== bundleHash.toLowerCase()) throw new Error('Registry event does not match the requested audit bundle');
+  return {
+    chainId: sepolia.id,
+    registryAddress: config.registry,
+    txHash: tx,
+    issuer: event.args.issuer,
+    version: Number(event.args.version),
+    blockNumber: receipt.blockNumber.toString(),
+  };
+}
+
+export async function verifyAnchorTransaction(caseId: Hex, bundleHash: Hex, receipt: AuditReceipt) {
+  const config = settings();
+  if (!config) throw new Error('Sepolia RPC/contract is not configured');
+  if (receipt.chainId !== sepolia.id || receipt.registryAddress.toLowerCase() !== config.registry.toLowerCase()) {
+    return { valid: false as const, reason: 'receipt_configuration_mismatch' };
+  }
+  const client = createPublicClient({ chain: sepolia, transport: http(config.rpc) });
+  const transaction = await client.getTransactionReceipt({ hash: receipt.txHash });
+  if (transaction.status !== 'success') return { valid: false as const, reason: 'transaction_failed' };
+  const event = transaction.logs
+    .filter((log) => log.address.toLowerCase() === config.registry.toLowerCase())
+    .map((log) => {
+      try { return decodeEventLog({ abi, data: log.data, topics: log.topics, strict: true }); }
+      catch { return null; }
+    })
+    .find((log) => log?.eventName === 'Anchored');
+  if (!event || event.eventName !== 'Anchored') return { valid: false as const, reason: 'anchor_event_missing' };
+  const matches = anchorReceiptMatches(caseId, bundleHash, receipt, {
+    caseId: event.args.caseId,
+    issuer: event.args.issuer,
+    bundleHash: event.args.bundleHash,
+    version: event.args.version,
+  }, {
+    txHash: transaction.transactionHash,
+    status: transaction.status,
+    blockNumber: transaction.blockNumber,
+  });
+  return {
+    valid: matches,
+    reason: matches ? 'anchor_event_matches' : 'anchor_event_mismatch',
+    issuer: event.args.issuer,
+    version: Number(event.args.version),
+    blockNumber: transaction.blockNumber.toString(),
+    transactionHash: transaction.transactionHash,
+  } as const;
 }
 
