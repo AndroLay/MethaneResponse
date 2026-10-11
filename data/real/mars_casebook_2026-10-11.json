@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "provenance": {
+    "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+    "dataset": "Eye on Methane / MARS detected sources and plumes",
+    "localFileName": "unep_mars_sources_plumes_2026-10-11.zip",
+    "catalogUrl": "https://methanedata.unep.org/download-dataset",
+    "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+    "retrievedAt": "2026-10-11T16:29:31+00:00",
+    "archiveSha256": "b4162c277bcb699154ccc068f5f9510e1d32f355093884de6c8029ea34a62742",
+    "license": "CC BY-NC-SA 4.0",
+    "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred."
+  },
+  "limitations": [
+    "This casebook contains only the selected source and linked plume rows from the cited MARS snapshot.",
+    "Feedback fields are source-level and indicate receipt status; they do not contain the underlying response documents.",
+    "Feedback, notification, and a later plume-free observation do not by themselves prove physical mitigation.",
+    "Unlinked plume rows are excluded from source-specific cases, not assigned to a guessed source.",
+    "External evidence entries are link-only references; report content is not copied into this casebook."
+  ],
+  "cases": [
+    {
+      "caseId": "MARS-REPORT-KAZ-S-159",
+      "sourceId": "KAZ_S_159",
+      "purpose": "A public UNEP MARS item documents a confirmed mitigation action for this source. The selected dataset snapshot supplies linked observation and notification context; the casebook does not independently validate the report evidence.",
+      "source": {
+        "sourceId": "KAZ_S_159",
+        "lon": 52.91829,
+        "lat": 43.41337,
+        "country": "Kazakhstan",
+        "sector": "Oil and Gas",
+        "sourceType": "O&G source (generic)",
+        "persistency": 0.67,
+        "persistencyStd": 0.27,
+        "persistencyCategory": "frequent",
+        "detectedPlumeCount": 3,
+        "latestPlumeId": "941806b5-2afe-46ac-baac-a0230880cede",
+        "latestPlumeDate": "2026-07-11T08:12:14",
+        "notified": "Yes",
+        "feedback": "Yes",
+        "feedbackOperator": "Yes",
+        "feedbackGovernment": "Yes",
+        "feedbackScope": "source",
+        "mitigationConfirmed": null,
+        "synthetic": false
+      },
+      "plumes": [
+        {
+          "plumeId": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "sourceId": "KAZ_S_159",
+          "linkStatus": "linked",
+          "satellite": "EnMAP - DLR",
+          "tileDate": "2024-06-07T08:05:04",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "actionable": "No",
+          "notified": false,
+          "country": "Kazakhstan",
+          "sector": "Oil and Gas",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "tile": "ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z",
+          "fluxKgHr": 591.0,
+          "fluxStdKgHr": 335.0,
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null,
+          "synthetic": false
+        },
+        {
+          "plumeId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "sourceId": "KAZ_S_159",
+          "linkStatus": "linked",
+          "satellite": "EnMAP - DLR",
+          "tileDate": "2026-06-05T07:40:02",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "actionable": "Yes",
+          "notified": true,
+          "country": "Kazakhstan",
+          "sector": "Oil and Gas",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "tile": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z",
+          "fluxKgHr": 307.0,
+          "fluxStdKgHr": 66.0,
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null,
+          "synthetic": false
+        },
+        {
+          "plumeId": "941806b5-2afe-46ac-baac-a0230880cede",
+          "sourceId": "KAZ_S_159",
+          "linkStatus": "linked",
+          "satellite": "EnMAP - DLR",
+          "tileDate": "2026-07-11T08:12:14",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "actionable": "Yes",
+          "notified": true,
+          "country": "Kazakhstan",
+          "sector": "Oil and Gas",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "tile": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z",
+          "fluxKgHr": 496.0,
+          "fluxStdKgHr": 226.0,
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null,
+          "synthetic": false
+        }
+      ],
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-09-23",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "caseId": "MARS-REPORT-LBY-S-143",
+      "sourceId": "LBY_S_143",
+      "purpose": "A public UNEP MARS item documents a confirmed mitigation action for this source. The selected dataset snapshot supplies linked observation and notification context; the casebook does not independently validate the report evidence.",
+      "source": {
+        "sourceId": "LBY_S_143",
+        "lon": 20.78159,
+        "lat": 29.04183,
+        "country": "Libya",
+        "sector": "Oil and Gas",
+        "sourceType": "Tank batteries",
+        "persistency": 0.0,
+        "persistencyStd": 0.0,
+        "persistencyCategory": "absent",
+        "detectedPlumeCount": 1,
+        "latestPlumeId": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+        "latestPlumeDate": "2025-12-23T10:08:43",
+        "notified": "Yes",
+        "feedback": "Yes",
+        "feedbackOperator": "Yes",
+        "feedbackGovernment": "Yes",
+        "feedbackScope": "source",
+        "mitigationConfirmed": null,
+        "synthetic": false
+      },
+      "plumes": [
+        {
+          "plumeId": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+          "sourceId": "LBY_S_143",
+          "linkStatus": "linked",
+          "satellite": "EnMAP - DLR",
+          "tileDate": "2025-12-23T10:08:43",
+          "lat": 29.04183,
+          "lon": 20.78159,
+          "actionable": "Yes",
+          "notified": true,
+          "country": "Libya",
+          "sector": "Oil and Gas",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "tile": "ENMAP01-____L1B-DT0000169963_20251223T100843Z_002_V010505_20251224T002720Z",
+          "fluxKgHr": 537.0,
+          "fluxStdKgHr": 240.0,
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null,
+          "synthetic": false
+        }
+      ],
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action – Libya (LBY_S_143)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49430",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-04",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "caseId": "MARS-REPORT-ARG-S-055",
+      "sourceId": "ARG_S_055",
+      "purpose": "A public UNEP MARS item documents a confirmed mitigation action in Neuquen associated with this source ID. The selected dataset snapshot supplies linked observation and notification context; the casebook does not independently validate the report evidence.",
+      "source": {
+        "sourceId": "ARG_S_055",
+        "lon": -68.19767,
+        "lat": -38.74681,
+        "country": "Argentina",
+        "sector": "Oil and Gas",
+        "sourceType": "Gas Processing Unit",
+        "persistency": 0.0,
+        "persistencyStd": 0.0,
+        "persistencyCategory": "absent",
+        "detectedPlumeCount": 2,
+        "latestPlumeId": "486ca723-1394-4bef-b4e1-fc132952995d",
+        "latestPlumeDate": "2023-03-06T14:31:19",
+        "notified": "Yes",
+        "feedback": "Yes",
+        "feedbackOperator": "Yes",
+        "feedbackGovernment": "Yes",
+        "feedbackScope": "source",
+        "mitigationConfirmed": null,
+        "synthetic": false
+      },
+      "plumes": [
+        {
+          "plumeId": "72fe0850-d0b1-4699-9d0b-00585b41b786",
+          "sourceId": "ARG_S_055",
+          "linkStatus": "linked",
+          "satellite": "EMIT - NASA",
+          "tileDate": "2023-01-29T13:03:33",
+          "lat": -38.74681,
+          "lon": -68.19767,
+          "actionable": "Yes",
+          "notified": true,
+          "country": "Argentina",
+          "sector": "Oil and Gas",
+          "detectionInstitution": "NASA JPL EMIT",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "tile": "EMIT_L1B_RAD_001_20230129T130333_2302908_047",
+          "fluxKgHr": 3929.0,
+          "fluxStdKgHr": 1514.0,
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null,
+          "synthetic": false
+        },
+        {
+          "plumeId": "486ca723-1394-4bef-b4e1-fc132952995d",
+          "sourceId": "ARG_S_055",
+          "linkStatus": "linked",
+          "satellite": "PRISMA - ASI",
+          "tileDate": "2023-03-06T14:31:19",
+          "lat": -38.74681,
+          "lon": -68.19767,
+          "actionable": "Yes",
+          "notified": true,
+          "country": "Argentina",
+          "sector": "Oil and Gas",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "tile": "PRS_L1_STD_OFFL_20230306143119_20230306143123_0001",
+          "fluxKgHr": 1443.0,
+          "fluxStdKgHr": 599.0,
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null,
+          "synthetic": false
+        }
+      ],
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (MARS) Confirmed Mitigation Action – Argentina (ARG_S_055)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/44120",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2023-11",
+          "license": "Item-level license not displayed on the linked metadata page; rights status requires verification",
+          "contentIncluded": false
+        }
+      ]
+    }
+  ]
+}

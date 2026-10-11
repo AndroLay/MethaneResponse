@@ -1,0 +1,30 @@
+node_modules/
+.bun/
+bun.lockb
+*.tsbuildinfo
+.DS_Store
+.env
+.env.local
+.env.*.local
+!.env.example
+apps/web/dist/
+apps/api/dist/
+services/data-pipeline/.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Imported third-party UNEP data; acquire and retain under its dataset license.
+apps/web/public/data/mars-snapshot.json
+
+# Local browser verification artifacts and temporary installer state.
+.playwright-cli/
+services/data-pipeline/.install-tmp/
+

@@ -1,0 +1,17 @@
+{
+  "name": "methane-response",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev:web": "cd apps/web && bun run dev",
+    "dev:api": "cd apps/api && bun run dev",
+    "build:web": "cd apps/web && bun run build",
+    "check": "cd apps/api && bun run typecheck && cd ../web && bun run typecheck",
+    "test:api": "cd apps/api && bun test",
+    "test:web": "cd apps/web && bun test",
+    "test:data": "cd services/data-pipeline && uv run pytest",
+    "test:contracts": "cd contracts && forge test"
+  },
+  "engines": {"bun": ">=1.2.0"}
+}

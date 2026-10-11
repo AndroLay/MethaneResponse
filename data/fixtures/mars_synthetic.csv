@@ -1,0 +1,4 @@
+source_id,id_plume,tile_date,ch4_fluxrate,ch4_fluxrate_std,feedback
+DEMO-001,DEMO-OBS-001,2026-09-01,750,130,Yes
+DEMO-002,DEMO-OBS-002,2026-08-12,480,85,
+

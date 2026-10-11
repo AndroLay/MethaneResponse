@@ -1,0 +1,13 @@
+# Render native JavaScript runtime with Bun support.
+services:
+  - type: web
+    name: methane-response-api
+    runtime: node
+    buildCommand: bun install
+    startCommand: cd apps/api && bun run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: BUN_VERSION
+        value: 1.4.2
+      - key: WEB_ORIGIN
+        sync: false
