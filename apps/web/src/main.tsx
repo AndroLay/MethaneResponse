@@ -5,6 +5,7 @@ import App from './App';
 import LandingPage from './LandingPage';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './styles.css';
+import './workspace.css';
 
 function SiteRouter() {
   const [page, setPage] = useState(() => window.location.pathname.startsWith('/dashboard') ? 'dashboard' : 'landing');

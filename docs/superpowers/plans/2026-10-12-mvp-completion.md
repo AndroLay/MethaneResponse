@@ -68,7 +68,7 @@
 - [x] Use atomic append/write storage for offline local runs and require `DATABASE_URL` for production runtime; expose the actual backend and readiness in `/api/health`.
 - [x] Implement PostgreSQL storage with parameterized queries, casebook provenance seed/upsert, and startup migration application.
 - [x] Make `observations.source_id` nullable so unlinked MARS plumes can be retained, and add explicit source notification, provenance and audit-revision fields.
-- [x] Add restart/reopen, revision ordering, tamper detection, migration-shape, and production-storage tests. PostgreSQL integration passed earlier on a disposable local container; the final repeat could not be rerun after automatic review blocked access to its stored test credential.
+- [x] Add restart/reopen, revision ordering, tamper detection, migration-shape, and production-storage tests. A fresh disposable PostGIS 17 integration run passed 2 tests / 8 expectations on 2026-10-12; it used a new temporary credential and removed its container afterward. The root quality gate still skips optional database tests unless `TEST_DATABASE_URL` is set.
 
 ### Task 4: Make the real casebook the default review journey
 

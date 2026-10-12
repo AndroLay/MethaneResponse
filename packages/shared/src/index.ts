@@ -9,7 +9,7 @@ export const AuditInput = z.object({
 export type AuditInput = z.infer<typeof AuditInput>;
 export const Evidence = z.object({
   id: z.string(),
-  kind: z.enum(['detection', 'notification', 'mitigation_confirmation', 'contradiction']),
+  kind: z.enum(['detection', 'notification', 'mitigation_confirmation', 'contradiction', 'metadata_notification', 'document_excerpt']),
   claimType: ClaimType.optional(),
   title: z.string(),
   reference: z.string(),
@@ -35,6 +35,7 @@ export const MarsProvenance = z.object({
   downloadUrl: z.string().url().startsWith('https://'),
   retrievedAt: z.string().datetime({ offset: true }),
   archiveSha256: z.string().regex(/^[a-f0-9]{64}$/),
+  snapshotId: z.string().min(1).optional(),
   license: z.string().min(1),
   attribution: z.string().min(1),
 }).passthrough();
@@ -119,7 +120,19 @@ export const ReviewSource = Source.extend({
   sourceType: z.string().optional(),
   plumeCount: z.number().int().nonnegative().optional(),
   lastObserved: z.string().optional(),
-  observations: z.array(z.object({ id: z.string(), date: z.string(), fluxKgHr: z.number().nullable(), uncertaintyKgHr: z.number().nullable(), satellite: z.string() })).optional(),
+  persistency: z.number().nullable().optional(),
+  persistencyStd: z.number().nullable().optional(),
+  persistencyCategory: z.string().optional(),
+  emissionStatus: z.string().optional(),
+  maxFluxKgHr: z.number().nullable().optional(),
+  observations: z.array(z.object({
+    id: z.string(), date: z.string(), fluxKgHr: z.number().nullable(), uncertaintyKgHr: z.number().nullable(),
+    fluxUnit: z.literal('kg/h').optional(), satellite: z.string().optional(),
+    lat: z.number().min(-90).max(90).optional(), lon: z.number().min(-180).max(180).optional(),
+    notified: z.boolean().optional(), actionable: z.string().optional(), tile: z.string().optional(),
+    detectionInstitution: z.string().optional(), quantificationInstitution: z.string().optional(),
+    totalEmissionTonnes: z.number().nullable().optional(), totalEmissionStdTonnes: z.number().nullable().optional(),
+  })).optional(),
   notified: z.string().optional(),
   feedback: z.string().optional(),
   feedbackOperator: z.string().optional(),
@@ -131,7 +144,26 @@ export type ReviewSource = z.infer<typeof ReviewSource>;
 export const ResultLabel = z.enum(['supported', 'insufficient_evidence', 'contradicted']);
 export type ResultLabel = z.infer<typeof ResultLabel>;
 export type EvidenceBundle = {
-  schemaVersion: 2;
+  schemaVersion: 2 | 3;
+  intelligence?: {
+    kind: 'llm_document_assessment';
+    modelVersion: string;
+    promptVersion: string;
+    reviewStatus: 'unreviewed' | 'approved' | 'rejected' | 'needs_more_evidence';
+    review?: { reviewerId: string; reviewedAt: string; note: string; parentBundleHash: string; sourceInspected?: boolean };
+    citationPublication?: { status: 'private' | 'public'; authorConsent: boolean; publishedAt?: string };
+    generatedFromUserExcerpts: true;
+    documentDigests: { id: string; title: string; sha256: string; sourceUrl?: string }[];
+    quotations: { documentId: string; quote: string; quoteSha256: string }[];
+    limitations: string[];
+    investigationSnapshotSha256?: string;
+    investigationPriority?: number;
+    investigationModelVersion?: string;
+    datasetSnapshotId?: string;
+    datasetInputSha256?: string;
+    observationTimeline?: { id: string; observedAt: string }[];
+    observationIds?: string[];
+  };
   auditId: string;
   caseId: string;
   revision: number;

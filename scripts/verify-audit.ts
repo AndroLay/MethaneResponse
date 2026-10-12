@@ -1,7 +1,38 @@
 import { readFile } from 'node:fs/promises';
-import { auditIntegrityValid } from '../apps/api/src/integrity';
+import { createHash } from 'node:crypto';
 import { chainConfigured, readReceipt, registryCaseId, verifyAnchorTransaction } from '../apps/api/src/chain';
 import type { AuditResult } from '../packages/shared/src/index';
+
+// Keep offline bundle verification local to this CLI. Users can check exported
+// reports without asking the API that created them to attest to its own digest.
+function canonicalJson(value: unknown): string {
+  if (value === null || typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number') {
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) return `[${value.map((item) => item === undefined ? 'null' : canonicalJson(item)).join(',')}]`;
+  if (typeof value === 'object') {
+    const record = value as Record<string, unknown>;
+    const fields = Object.keys(record).filter((key) => record[key] !== undefined).sort();
+    return `{${fields.map((key) => `${JSON.stringify(key)}:${canonicalJson(record[key])}`).join(',')}}`;
+  }
+  throw new TypeError(`Value of type ${typeof value} cannot be encoded as canonical JSON`);
+}
+
+function verifyBundleIntegrity(audit: AuditResult): boolean {
+  const bundle = audit.bundle;
+  const digest = `0x${createHash('sha256').update(canonicalJson(bundle)).digest('hex')}`;
+  return digest === audit.bundleHash
+    && audit.auditId === bundle.auditId
+    && audit.caseId === bundle.caseId
+    && audit.revision === bundle.revision
+    && audit.sourceId === bundle.sourceId
+    && audit.claimType === bundle.claimType
+    && audit.result === bundle.result
+    && audit.reason === bundle.reason
+    && audit.generatedAt === bundle.generatedAt
+    && audit.synthetic === bundle.synthetic
+    && canonicalJson(audit.evidenceIds) === canonicalJson(bundle.citedEvidence.map((item) => item.id));
+}
 
 const reportPath = process.argv[2];
 if (!reportPath) {
@@ -13,7 +44,7 @@ try {
   const report = JSON.parse(await readFile(reportPath, 'utf8')) as { latestAudit?: AuditResult } | AuditResult;
   const audit = ('latestAudit' in report ? report.latestAudit : report) as AuditResult | undefined;
   if (!audit?.bundle || !audit.bundleHash) throw new Error('No audit bundle was found in this JSON file.');
-  if (!auditIntegrityValid(audit)) {
+  if (!verifyBundleIntegrity(audit)) {
     console.error('bundle_hash: INVALID');
     process.exit(1);
   }

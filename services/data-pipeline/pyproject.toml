@@ -12,5 +12,5 @@ research = ["pandas>=2.2,<4", "scikit-learn>=1.5,<2"]
 dev = ["pytest>=8,<10"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests", "test_import_mars_map.py"]
 

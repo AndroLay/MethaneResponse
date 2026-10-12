@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "dataset": "UNEP IMEO Eye on Methane / MARS detected sources and plumes",
+  "catalogUrl": "https://methanedata.unep.org/download-dataset",
+  "license": "CC BY-NC-SA 4.0",
+  "historyMeaning": "Only snapshots actually downloaded and hashed by this project are listed. Observation dates describe satellite record dates, not continuous monitoring.",
+  "snapshots": [
+    {
+      "snapshotId": "unep-mars-b4162c277bcb",
+      "retrievedAt": "2026-10-11T16:29:31+00:00",
+      "archiveSha256": "b4162c277bcb699154ccc068f5f9510e1d32f355093884de6c8029ea34a62742",
+      "sources": 4210,
+      "plumes": 30289,
+      "linkedPlumes": 23770,
+      "sourceIdMissingPlumes": 6519,
+      "sourceRecordMissingPlumes": 0,
+      "observationDateRange": { "start": "2020-10-29", "end": "2026-09-10" }
+    },
+    {
+      "snapshotId": "unep-mars-e0721015e925",
+      "retrievedAt": "2026-10-12T10:20:45+00:00",
+      "archiveLastModifiedAt": "2026-10-12T03:01:28+00:00",
+      "archiveSha256": "e0721015e925c4d70012ca13e697f5638421bc7c2a42f7e3dce8edec6cee8481",
+      "sources": 4211,
+      "plumes": 30319,
+      "linkedPlumes": 23785,
+      "sourceIdMissingPlumes": 6534,
+      "sourceRecordMissingPlumes": 0,
+      "unquantifiedPlumes": 1043,
+      "observationDateRange": { "start": "2020-10-29", "end": "2026-09-11" }
+    }
+  ]
+}

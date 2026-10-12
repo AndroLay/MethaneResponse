@@ -45,7 +45,7 @@ const verdictData: Record<Verdict, { title: string; label: string; text: string;
 
 const features: { icon: LandingIcon; color: string; num: string; title: string; description: string; tag: string }[] = [
   { icon: 'globe', color: 'cyan', num: '01', title: 'Explore the source, not just the map.', description: 'Navigate source IDs, plume observations and timelines with clear origin and uncertainty for every measurement.', tag: 'SOURCE TRACEABILITY' },
-  { icon: 'spark', color: 'violet', num: '02', title: 'Review the claim. Inspect the evidence.', description: 'The current prototype uses a deterministic rules baseline for synthetic fixtures. Model-assisted review remains future work.', tag: 'RULES BASELINE · MODEL NOT CONNECTED' },
+  { icon: 'spark', color: 'violet', num: '02', title: 'Review the claim. Inspect the evidence.', description: 'The deterministic rules baseline remains active. A server-side document-assessment path is implemented but stays disabled until a trusted provider and reviewer are configured.', tag: 'RULES BASELINE · AI NOT CONFIGURED' },
   { icon: 'shield', color: 'mint', num: '03', title: 'Make published audits tamper-evident.', description: 'A configured testnet receipt can let others check audit integrity and issuer. It cannot establish a physical mitigation outcome.', tag: 'OPTIONAL TESTNET RECEIPTS' },
 ];
 

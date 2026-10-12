@@ -113,6 +113,20 @@ export class PostgresAuditStore implements AuditStore {
         FROM audits WHERE case_id = ${caseId} AND claim_type = ${claimType}`;
       const audit = build(nextRevision);
       if (audit.caseId !== caseId || audit.sourceId !== sourceId || audit.claimType !== claimType || audit.revision !== nextRevision) throw new Error('Audit revision does not match its persistence key');
+      const provenance = audit.bundle.provenance;
+      await transaction`
+        INSERT INTO sources (
+          source_id, case_id, name, synthetic, original_dataset_url, source_license,
+          retrieved_at, raw_sha256, provenance, case_metadata
+        ) VALUES (
+          ${sourceId}, ${caseId}, ${sourceId}, ${audit.synthetic},
+          ${provenance?.downloadUrl || provenance?.catalogUrl || null}, ${provenance?.license || null},
+          ${provenance?.retrievedAt || null}, ${provenance?.archiveSha256 || null},
+          ${transaction.json((provenance || {}) as never)},
+          ${transaction.json({ registeredFromAudit: true, caseId } as never)}
+        ) ON CONFLICT (source_id) DO NOTHING`;
+      const [sourceRow] = await transaction`SELECT synthetic FROM sources WHERE source_id = ${sourceId}`;
+      if (!sourceRow || Boolean(sourceRow.synthetic) !== audit.synthetic) throw new Error('Audit source record is missing or conflicts with the audit classification');
       await transaction`
         INSERT INTO audits (
           audit_id, case_id, source_id, claim_type, revision, result, reason,

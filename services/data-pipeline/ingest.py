@@ -140,6 +140,9 @@ def _source_record(row: dict[str, str]) -> dict:
         # The public source table records whether feedback was received, not verified repair.
         'mitigationConfirmed': None,
         'synthetic': False,
+        # Preserve source columns as published so future normalizers can recover fields
+        # without silently losing the original value or column spelling.
+        'raw': dict(row),
     }
 
 
@@ -174,7 +177,19 @@ def _plume_record(row: dict[str, str], source_ids: set[str]) -> dict:
         'fluxStdKgHr': _optional_number(row.get('ch4_fluxrate_std'), f'{plume_id}.ch4_fluxrate_std'),
         'totalEmissionTonnes': _optional_number(row.get('total_emission'), f'{plume_id}.total_emission'),
         'totalEmissionStdTonnes': _optional_number(row.get('total_emission_std'), f'{plume_id}.total_emission_std'),
+        'windU': _optional_number(row.get('wind_u'), f'{plume_id}.wind_u'),
+        'windV': _optional_number(row.get('wind_v'), f'{plume_id}.wind_v'),
+        'windSpeed': _optional_number(row.get('wind_speed'), f'{plume_id}.wind_speed'),
+        'lastUpdate': _text(row.get('last_update')),
+        'insertDate': _text(row.get('insert_date')),
+        # Published values are product identifiers (for example Sentinel scene IDs),
+        # not a numeric background-emissions measurement.
+        'tileBackground': _text(row.get('tile_background')),
+        'fluxUnit': 'kg/h',
         'synthetic': False,
+        # Typed fields above are convenient for analysis; retain all published CSV values
+        # verbatim for provenance and later reprocessing.
+        'raw': dict(row),
     }
 
 
@@ -236,6 +251,7 @@ def ingest_mars_archive(input_path: Path, retrieved_at: str) -> tuple[dict, dict
         'downloadUrl': MARS_CSV_DOWNLOAD_URL,
         'retrievedAt': retrieved.isoformat(),
         'archiveSha256': archive_sha256,
+        'snapshotId': f'unep-mars-{archive_sha256[:12]}',
         'license': MARS_LICENSE,
         'attribution': 'Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.',
     }
@@ -246,14 +262,24 @@ def ingest_mars_archive(input_path: Path, retrieved_at: str) -> tuple[dict, dict
         'uniqueSourceIds': len(source_id_set),
         'uniquePlumeIds': len(set(plume_ids)),
     }
+    date_range = {'start': dates[0] if dates else None, 'end': dates[-1] if dates else None}
     manifest = {
         'schemaVersion': 1,
+        'snapshotId': provenance['snapshotId'],
         'processedAt': datetime.now(timezone.utc).isoformat(),
         'provenance': provenance,
         'counts': counts,
-        'plumeObservationDateRange': {'start': dates[0] if dates else None, 'end': dates[-1] if dates else None},
+        'plumeObservationDateRange': date_range,
     }
-    snapshot = {'schemaVersion': 1, 'provenance': provenance, 'sources': sources, 'plumes': plumes}
+    snapshot = {
+        'schemaVersion': 1,
+        'snapshotId': provenance['snapshotId'],
+        'provenance': provenance,
+        'counts': counts,
+        'plumeObservationDateRange': date_range,
+        'sources': sources,
+        'plumes': plumes,
+    }
     return snapshot, manifest
 
 

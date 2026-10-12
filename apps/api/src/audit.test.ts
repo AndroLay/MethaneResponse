@@ -42,6 +42,47 @@ describe('API contract', () => {
     expect(payload.provenance.archiveSha256).toBe('b4162c277bcb699154ccc068f5f9510e1d32f355093884de6c8029ea34a62742');
   });
 
+  test('preserves UNEP persistency fields in the source record instead of recomputing them', async () => {
+    const res = await app.request('/api/cases');
+    const payload = await res.json();
+    const source = payload.cases[0].source;
+    expect(source.persistency).toBe(0.67);
+    expect(source.persistencyStd).toBe(0.27);
+    expect(source.persistencyCategory).toBe('frequent');
+    expect(payload.cases[0].plumes[0].tileDate).toBe('2024-06-07T08:05:04');
+    expect(payload.cases[0].plumes[0].fluxKgHr).toBe(591);
+    expect(payload.cases[0].plumes[0].fluxStdKgHr).toBe(335);
+  });
+
+  test('publishes ranked-source metadata as heuristic and explicitly withholds an unvalidated forecast', async () => {
+    const res = await app.request('/api/intelligence/rankings');
+    expect(res.status).toBe(200);
+    const payload = await res.json();
+    expect(payload.snapshot.modelVersion).toBe('transparent-priority-v3');
+    expect(payload.rankings.length).toBeGreaterThan(0);
+    expect(payload.rankings.every((row: { priorityType: string }) => row.priorityType === 'heuristic_not_probability')).toBe(true);
+    expect(payload.forecast.status).toBe('not_available');
+    expect(payload.forecast.reason).toContain('independent');
+  });
+
+  test('source API keeps the observation timestamp, plume coordinates, units, uncertainty, and provenance fields', async () => {
+    const res = await app.request('/api/sources/KAZ_S_159');
+    const source = await res.json();
+    expect(source.maxFluxKgHr).toBe(591);
+    expect(source.observations[0]).toMatchObject({
+      id: '82758651-76f4-4e06-b4ab-c247ce765192',
+      date: '2024-06-07T08:05:04',
+      fluxKgHr: 591,
+      uncertaintyKgHr: 335,
+      fluxUnit: 'kg/h',
+      lat: 43.41337,
+      lon: 52.91829,
+      tile: 'ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z',
+      detectionInstitution: 'UNEP IMEO MARS',
+    });
+    expect(source.provenance.archiveSha256).toBe('b4162c277bcb699154ccc068f5f9510e1d32f355093884de6c8029ea34a62742');
+  });
+
   test('audits observed MARS detections with plume-level citations', async () => {
     const res = await app.request('/api/audits', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'source_detected' }) });
     expect(res.status).toBe(201);
@@ -62,19 +103,51 @@ describe('API contract', () => {
     expect(audit.bundle.limitations).toContain('Linked report content is not included or independently reviewed.');
   });
 
-  test('treats source-level notification as distinct from undated plume observations', async () => {
+  test('source-level notified metadata does not prove that the operator was notified', async () => {
+    const sourcesResponse = await app.request('/api/sources');
+    const sources = await sourcesResponse.json();
+    const source = sources.sources.find((item: { sourceId: string }) => item.sourceId === 'KAZ_S_159');
+    expect(source.notified).toBe('Yes');
+    expect(source.evidence).toContainEqual(expect.objectContaining({
+      id: 'KAZ_S_159:notification-status',
+      kind: 'metadata_notification',
+    }));
+
     const res = await app.request('/api/audits', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'operator_notified' }) });
     expect(res.status).toBe(201);
     const audit = await res.json();
-    expect(audit.result).toBe('supported');
-    expect(audit.bundle.citedEvidence).toHaveLength(1);
-    expect(audit.bundle.citedEvidence[0].id).toBe('KAZ_S_159:notification-status');
-    expect(audit.bundle.citedEvidence[0].date).toBeUndefined();
+    expect(audit.result).toBe('insufficient_evidence');
+    expect(audit.bundle.citedEvidence).toHaveLength(0);
   });
 
   test('rejects malformed inputs', async () => {
     const res = await app.request('/api/audits', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ sourceId: 'DEMO-001', claimType: 'magic' }) });
     expect(res.status).toBe(400);
+  });
+  test('rejects an oversized streamed JSON body before parsing it', async () => {
+    let pulls = 0;
+    let cancelled = false;
+    const body = new ReadableStream<Uint8Array>({
+      pull(controller) {
+        pulls += 1;
+        controller.enqueue(new Uint8Array(pulls === 1 ? 16_385 : 1));
+        if (pulls === 3) controller.close();
+      },
+      cancel() { cancelled = true; },
+    });
+    const request = new Request('http://localhost/api/audits', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body,
+      duplex: 'half',
+    } as RequestInit & { duplex: 'half' });
+    expect(request.headers.has('content-length')).toBe(false);
+    const response = await app.fetch(request);
+    expect(response.status).toBe(413);
+    // WHATWG streams may prefetch one chunk while delivering the first read;
+    // the guard must still cancel before it drains the complete body.
+    expect(pulls).toBeLessThan(3);
+    expect(cancelled).toBe(true);
   });
   test('reports a casebook outage instead of disguising it as an unknown real source', async () => {
     const unavailable = async () => { throw new Error('casebook unavailable'); };
@@ -118,6 +191,34 @@ describe('API contract', () => {
   test('anchoring requires a secret even when no chain configured', async () => {
     const res = await app.request('/api/audits/unknown/anchor', { method: 'POST' });
     expect(res.status).toBe(401);
+  });
+
+  test('throttles anonymous audit writes by socket client and ignores spoofed forwarding headers', async () => {
+    let now = 1_000;
+    const store = new MemoryAuditStore();
+    const limitedApp = createApp(store, undefined, undefined, {
+      auditRateLimit: { limit: 1, windowMs: 60_000, now: () => now },
+    });
+    const write = (clientAddress: string, forwardedFor: string) => limitedApp.fetch(new Request('http://localhost/api/audits', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-forwarded-for': forwardedFor },
+      body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'source_detected' }),
+    }), { clientAddress });
+
+    const first = await write('192.0.2.10', '203.0.113.10');
+    expect(first.status).toBe(201);
+    expect(first.headers.get('x-ratelimit-limit')).toBe('1');
+    expect(first.headers.get('x-ratelimit-remaining')).toBe('0');
+
+    const blocked = await write('192.0.2.10', '203.0.113.11');
+    expect(blocked.status).toBe(429);
+    expect(blocked.headers.get('retry-after')).toBe('60');
+    expect(await blocked.json()).toEqual({ error: 'Too many audit requests; try again later.' });
+    expect((await store.list()).length).toBe(1);
+
+    expect((await write('192.0.2.11', '203.0.113.10')).status).toBe(201);
+    now += 60_000;
+    expect((await write('192.0.2.10', '203.0.113.10')).status).toBe(201);
   });
 });
 

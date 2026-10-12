@@ -9,6 +9,8 @@ bun.lockb
 !.env.example
 apps/web/dist/
 apps/api/dist/
+/out/
+/cache/
 services/data-pipeline/.venv/
 __pycache__/
 .pytest_cache/
@@ -20,6 +22,7 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/intelligence-snapshot.json
 data/state/
 
 # Imported third-party UNEP data; acquire and retain under its dataset license.

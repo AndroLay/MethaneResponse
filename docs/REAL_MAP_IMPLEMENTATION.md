@@ -1,15 +1,21 @@
 # MethaneResponse — interactive world map and genuine UNEP observation mode
 
+> **Current implementation note (2026-10-13):** This document originated with the supplied map UI package. The dashboard loads a hash-pinned full MARS observation snapshot for exploration and keeps document/audit review constrained to evidence-backed cases. For current acceptance and deployment status, use [`UI_IMPLEMENTATION.md`](UI_IMPLEMENTATION.md), [`delivery-notes.md`](delivery-notes.md), and [`next-steps.md`](next-steps.md).
+
 ## What this version actually does
 
 - Replaces the static `atlas-demo.webp` dashboard map with **MapLibre GL JS**. Basemap tiles come from OpenFreeMap (Dark/Street) or Esri (Satellite). All underlying geographic features and pan/zoom gestures are handled by the map, not by moving a decorative image.
 - Supports dragging, scroll/pinch zoom, clustered source markers, expanding clusters, choosing a source, fly-to navigation, and a fullscreen map.
-- Offers natural-color satellite, adjustable grayscale satellite, street, and dark basemaps, plus flat/globe projection. Known software WebGL renderers are not offered globe mode; if a supported browser loses its context while drawing the globe, the dashboard restores a fresh flat map and reports the fallback.
+- Defers MapLibre initialization until the map enters a 96 px viewport margin, keeping the map slot reserved while off-screen; browsers without `IntersectionObserver` mount it immediately. Once activated, the renderer stays available for the dashboard session. A 390×600 browser check confirmed no canvas before scrolling and one canvas after the map entered view.
+- Offers natural-color satellite, adjustable grayscale satellite, street, and dark basemaps, plus flat/globe projection. Software WebGL uses a reduced rendering tier but may still use globe mode; if a browser lacks WebGL or loses its context while drawing the globe, the dashboard restores a fresh flat map and reports the fallback.
 - When a genuine UNEP dataset is loaded, renders its `source_name`, WGS84 `lat`/`lon`, `country`, `sector`, last observation time, reported feedback/notified metadata, and per-plume `ch4_fluxrate` in **kg/h**.
 - Uses the imported observations to display a discrete point plot, *not a continuous real-time sensor series*.
-- The visual heatmap is **source-density illustration**, not a geophysical methane concentration field or atmospheric plume polygon. Data source legend distinguishes actual observations from visual effects.
-- When genuine data is used, the *audit claim* button is disabled until authentic independent operator/mitigation evidence and a real audit pipeline exist. Feedback status is never treated as repair confirmation.
-- Keeps the existing landing page and demo workflow. `/` is the landing page; `/dashboard` is the interactive dashboard.
+- The source-density heatmap is **source-location density**, not a geophysical methane concentration field. The historical flux overlay uses per-record values or low-power cell medians. Neither renders a continuous concentration field.
+- The dashboard loads the pinned full MARS snapshot for exploration. The three-case casebook and authorized document excerpts remain the basis of the deterministic audit workflow; map metadata alone does not make a source a reviewed evidence case.
+- A dedicated **MARS plume geometry · selected month** layer lazily loads publisher GeoJSON shapes for the selected historical month. Normal/Quality render tiers use flux-weighted historical observation color at global scale and the available polygons at close zoom; Eco uses clustered and individual flux-colored record points without fetching polygons. Each monthly shard is hash-checked and tied to the active MARS snapshot. See [`MARS_PUBLISHER_GEOMETRY.md`](MARS_PUBLISHER_GEOMETRY.md) for source matching, attribution, missing-geometry counts and scientific limitations.
+- **Globe overview** switches MapLibre to its globe projection and frames the active data. Optional Mapterhorn DEM terrain activates at nearby zoom levels, with a flat fallback. NASA GIBS date-pinned MODIS and AIRS context overlays are optional; they are not live weather or MARS case evidence. The globe does not provide photogrammetric buildings.
+- The [God's Eye View repository](https://github.com/bilawalsidhu/gods-eye-view) documents Esri/OSM as its keyless map path and Cesium ion or Google Photorealistic 3D as optional enhanced imagery. MethaneResponse does not use either photogrammetry path. Cesium Community is currently limited to eligible personal, non-commercial use and has quotas; check [current Cesium plan terms](https://cesium.com/platform/cesium-ion/pricing/) before enabling it for a public competition demo.
+- `/` is the landing page; `/dashboard` is the interactive dashboard.
 
 ## Load authentic UNEP source/plume data (two ways)
 
@@ -40,9 +46,9 @@ Unzip the UNEP GeoJSON archive locally and open `/dashboard`. Click **Import UNE
 
 Note: A compressed ZIP cannot be uploaded directly through the browser UI in this version; use the Python ZIP importer instead. Browser import is limited to 90 MB to avoid unreasonable memory use.
 
-### Demo mode
+### Synthetic demo mode
 
-When no UNEP data has been loaded, the dashboard explicitly says **Synthetic demo mode** and shows two invented fixtures on a real movable world map. This is not a live methane alert map. An interactive basemap is not itself observational data.
+The separate **Synthetic demo** mode shows two invented fixtures on the same movable world map. It is marked synthetic and is not a live methane alert map. An interactive basemap is not itself observational data.
 
 ## Data interpretation and cautions
 
@@ -51,11 +57,11 @@ When no UNEP data has been loaded, the dashboard explicitly says **Synthetic dem
 - `notified=Yes` means some plume at the source was notified, not necessarily every plume.
 - One or more detections do not establish continuously flowing methane emissions between satellite passes; one non-detection does not prove successful mitigation.
 - The point chart shows satellite detection estimates, including uncertainties where available, never hourly continuous emissions.
-- The map's heat layer is illustrative density, not measured methane column or actual plume shape.
+- Source-location heat color counts source records, not methane concentration. The separate flux overlay uses historical, per-plume reported kg/h values; low-power rendering shows approximate 1° cell medians. Neither rendering is a continuous methane field or a measured plume boundary.
 - The grayscale control changes only the underlying satellite raster; source markers retain their evidence colors. Globe view changes projection, not terrain elevation.
 - `ch4_fluxrate` is a per-observation **kg/h** rate; do not infer tonnes reduced without appropriate temporal integration and counterfactual controls.
 - Satellites and quantification methods have coverage, detection threshold, wind and uncertainty limitations; see UNEP methodology.
-- The current UI does not include a trusted operator-document audit pipeline, signed case receipts for UNEP observations, or an automatic MARS ingestion scheduler. The legacy demo backend only audits synthetic fixtures.
+- The UI does not include an automatic MARS ingestion scheduler or signed receipts for UNEP source data. The deterministic baseline and optional server-side document excerpt assessment are separate from global-map exploration; AI output requires human review and does not establish physical mitigation. Live MARS monitoring is not available, and the interface keeps `LIVE FEED OFF` visible.
 - To update, download a new official snapshot and rerun the importer. Automated refresh and provenance signatures require separate backend work.
 
 ## Licenses & attribution
@@ -78,10 +84,9 @@ bun run dev:web
 
 The map uses third-party tile services, so internet access is needed for map imagery. UI and metadata load even when tiles cannot be fetched, but background map may remain blank. To self-host tiles, replace the MapLibre style URLs in `apps/web/src/MapPanel.tsx`.
 
-## Testing results in packaging environment
+## Historical packaging-environment checks
 
-- `python3 -m unittest discover -s services/data-pipeline -p 'test_import_mars_map.py' -v`: PASS (2 tests).
-- TypeScript `transpileModule` syntax check: PASS for changed TSX and TS modules.
-- Full Bun/Vite production build, actual browser/tile rendering, integration with live UNEP export and blockchain were **not** executed here. They require dependencies, tile network and official data access that were unavailable in the build environment. Do not claim those tests have passed.
+- The earlier supplied ZIP check covered `test_import_mars_map.py` and a TypeScript syntax-only check; it did not test current dashboard behavior.
+- Current typecheck, web/API tests, production build, local PostGIS integration, and hardware-browser map results are recorded in [`delivery-notes.md`](delivery-notes.md). Remote provider deployment and Sepolia transactions remain untested.
 
 For the later local integration run, the dependency check, API/web typechecks, Vite build, and browser map rendering results are recorded in [`UI_IMPLEMENTATION.md`](UI_IMPLEMENTATION.md). No MARS export was imported during that run; the displayed default source points remained synthetic.

@@ -14,7 +14,7 @@ This can be configured to cost $0 within current provider quotas, but it is not 
 
 ## Render API
 
-The blueprint in [`render.yaml`](../render.yaml) uses the repository root, Bun 1.4.2, `bun install`, `cd apps/api && bun run start`, and `/api/health`. It declares `WEB_ORIGIN` and `DATABASE_URL` as values to configure in the Render dashboard. Set `WEB_ORIGIN` to the exact Pages origin; do not use `*`.
+The blueprint in [`render.yaml`](../render.yaml) uses the repository root, Bun 1.4.2, `bun install`, `cd apps/api && bun run start`, and `/api/health`. It declares `WEB_ORIGIN` and `DATABASE_URL` as values to configure in the Render dashboard. Set `WEB_ORIGIN` to the exact Pages origin; do not use `*`. The API also needs the tracked `apps/web/public/data/mars-snapshot.json.gz` and generated `data/processed/intelligence-snapshot.json` artifacts in its build image; if using a separate API artifact, set `INTELLIGENCE_INPUT_PATH` and `INTELLIGENCE_SNAPSHOT_PATH` to those files explicitly.
 
 Before creating the service:
 
@@ -23,8 +23,10 @@ Before creating the service:
 3. Set `DATABASE_URL` and the exact `WEB_ORIGIN`; check `/api/health` reports `storage.backend=postgres`, `storage.persistent=true`, and `casebookReady=true`.
 4. Keep `ADMIN_API_TOKEN`, `SEPOLIA_RPC_URL`, `SEPOLIA_PRIVATE_KEY`, and `AUDIT_REGISTRY_ADDRESS` server-side. The private key is required only if a trusted operator enables writes to Sepolia; do not put any secret in Cloudflare Pages variables or `VITE_*` variables.
 5. Exercise audit create/read/revision and restart persistence against the deployed API. A green health route alone does not prove the migration or audit journey.
+6. `POST /api/audits` now has a bounded process-local limit of 20 writes per socket address per minute, with hashed in-memory keys and `429`/`Retry-After` responses. This is a local safeguard only: a restart resets it, separate API replicas do not share it, and reverse proxies may make every caller appear to have the same socket address. Before public exposure, configure and verify a gateway/shared rate limit and the trusted client-IP path at the actual ingress. CORS does not stop direct clients from writing.
 
 The default local file store is useful for development but is not safe for horizontally scaled API instances. It serializes writes only inside one process.
+For a local-only API bind, set `HOST=127.0.0.1`; the runtime defaults to `0.0.0.0` so hosted platforms can reach it.
 
 ## Cloudflare Pages
 

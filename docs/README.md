@@ -10,6 +10,7 @@ Dokumentasi operasional starter dan catatan riset hackathon disatukan di folder 
 - [Deployment](deployment.md) — target deployment dan konfigurasi yang belum diterapkan.
 - [Next steps](next-steps.md) — urutan pekerjaan berikutnya.
 - [Real map implementation](REAL_MAP_IMPLEMENTATION.md) — impor dataset MARS lokal, peta interaktif, lisensi, dan batas interpretasi.
+- [Earth rendering 3D](EARTH_RENDERING_3D.md) — terrain DEM, atmosfer MapLibre, profil kualitas adaptif, dan layer konteks NASA.
 - [Landing page](LANDING_PAGE.md) — navigasi dan konten halaman publik prototype.
 - [UI implementation](UI_IMPLEMENTATION.md) — status dashboard, alur browser, dan hasil verifikasi lokal.
 

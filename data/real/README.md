@@ -42,4 +42,28 @@ python services/data-pipeline/select_mars_cases.py \
   --output data/real/mars_casebook_2026-10-11.json
 ```
 
-Raw and full processed snapshots are excluded from Git. Only the selected, attributed casebook is bundled here.
+Raw archives and full offline processed snapshots are excluded from Git. The selected casebook and a compact, attributed browser projection are bundled; the latter is described below.
+
+## Full historical snapshot used by the dashboard
+
+The dashboard also bundles a compact, gzip-compressed browser projection of the latest MARS source and plume tables at `apps/web/public/data/mars-snapshot.json.gz`. It is derived from the official archive retrieved at `2026-10-12T10:20:45Z`; the archive object reported `Last-Modified: 2026-10-12T03:01:28Z` and SHA-256 `e0721015e925c4d70012ca13e697f5638421bc7c2a42f7e3dce8edec6cee8481`.
+
+This release contains **4,211 source rows and 30,319 plume rows**, with observation dates from **2020-10-29 through 2026-09-11**. Of the plume rows, 23,785 link to a source and 6,534 have no `source_name`; unresolved rows stay unresolved rather than being assigned to a nearby source. Another 1,043 rows do not provide a quantified flux. Missing flux is shown as unavailable, never as zero. The source and plume IDs, WGS84 coordinates, observation dates, flux and uncertainty fields, satellite, notification/actionability values, institutions, tile metadata, and update/insert timestamps are retained in the normalized snapshot. The original downloaded CSV values are retained in the local processed snapshot and source archive; the browser projection avoids duplicating those raw strings.
+
+The compact browser projection is derived data under the archive's CC BY-NC-SA 4.0 license. Attribution and the exact snapshot ID/hash travel with the bundle. The complete two-release record for this workspace is in `mars_snapshot_history.json`; those are the snapshots actually downloaded here, not an inferred update schedule. The dashboard is historical and does not refresh itself from UNEP. See the [UNEP dataset catalog](https://methanedata.unep.org/download-dataset) and [MARS data dictionary](https://methanedata.unep.org/dict-mars-plumes) for source definitions and current upstream files.
+
+To reproduce the 2026-10-12 browser bundle after downloading the same source archive:
+
+```bash
+python services/data-pipeline/ingest_mars.py \
+  --input data/raw/unep_mars_sources_plumes_2026-10-12.zip \
+  --retrieved-at 2026-10-12T10:20:45Z \
+  --output data/processed/mars_snapshot_2026-10-12.json \
+  --manifest data/processed/mars_snapshot_2026-10-12.manifest.json
+
+python services/data-pipeline/build_web_snapshot.py \
+  --input data/processed/mars_snapshot_2026-10-12.json \
+  --output apps/web/public/data/mars-snapshot.json.gz
+```
+
+The browser map shows source locations by default and can switch to the historical plume locations. Each point is an observation record at its reported time; point-density styling is not a methane concentration surface or a plume footprint. A separate, opt-in layer displays the original UNEP publisher-supplied plume geometries by selected historical month; its exact source, hash, license, completeness, and scientific limits are documented in [`MARS_PUBLISHER_GEOMETRY.md`](../../docs/MARS_PUBLISHER_GEOMETRY.md). The dictionary does not define those polygons as a concentration field or verified physical boundary. Source-level `feedback` and notification metadata are not proof of operator notification or repair, and the MARS snapshot alone does not independently verify mitigation.

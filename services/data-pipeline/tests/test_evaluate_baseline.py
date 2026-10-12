@@ -45,3 +45,14 @@ def test_real_mitigation_examples_never_use_report_titles_as_decision_evidence()
     assert len(real_mitigation) == 3
     assert all(item["predicted"] == "insufficient_evidence" for item in real_mitigation)
     assert all(not item["citedEvidenceIds"] for item in real_mitigation)
+
+
+def test_source_level_notified_metadata_does_not_support_operator_notification():
+    report = evaluate_rows(load_benchmark())
+    real_notifications = [
+        prediction for prediction in report["predictions"]
+        if not prediction["synthetic"] and prediction["claimType"] == "operator_notified"
+    ]
+    assert len(real_notifications) == 3
+    assert all(item["predicted"] == "insufficient_evidence" for item in real_notifications)
+    assert all(not item["citedEvidenceIds"] for item in real_notifications)

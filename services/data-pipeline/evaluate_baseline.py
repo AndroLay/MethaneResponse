@@ -45,7 +45,7 @@ def evidence_for_real_case(case: dict[str, Any]) -> list[dict[str, Any]]:
         for plume in case["plumes"]
     ]
     if str(case["source"]["notified"]).strip().lower() == "yes":
-        evidence.append({"id": f"{source_id}:notification-status", "kind": "notification"})
+        evidence.append({"id": f"{source_id}:notification-status", "kind": "metadata_notification"})
     # A linked report title is deliberately not treated as reviewed evidence.
     return evidence
 

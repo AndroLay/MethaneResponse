@@ -38,9 +38,8 @@ export function sourceFromCase(item: MarsCase, catalogUrl: string, attribution: 
   if (item.source.notified.toLowerCase() === 'yes') {
     evidence.push({
       id: `${item.sourceId}:notification-status`,
-      kind: 'notification' as const,
-      claimType: 'operator_notified' as const,
-      title: 'UNEP MARS source metadata records a notification sent for at least one plume',
+      kind: 'metadata_notification' as const,
+      title: 'UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here',
       reference: catalogUrl,
       synthetic: false,
     });
@@ -51,8 +50,19 @@ export function sourceFromCase(item: MarsCase, catalogUrl: string, attribution: 
     date: plume.tileDate,
     fluxKgHr: plume.fluxKgHr,
     uncertaintyKgHr: plume.fluxStdKgHr,
+    fluxUnit: 'kg/h' as const,
     satellite: plume.satellite,
+    lat: plume.lat,
+    lon: plume.lon,
+    notified: plume.notified,
+    actionable: plume.actionable,
+    tile: plume.tile,
+    detectionInstitution: plume.detectionInstitution,
+    quantificationInstitution: plume.quantificationInstitution,
+    totalEmissionTonnes: plume.totalEmissionTonnes,
+    totalEmissionStdTonnes: plume.totalEmissionStdTonnes,
   }));
+  const observedFluxes = item.plumes.map((plume) => plume.fluxKgHr).filter((value): value is number => value !== null);
 
   return ReviewSource.parse({
     sourceId: item.sourceId,
@@ -68,6 +78,11 @@ export function sourceFromCase(item: MarsCase, catalogUrl: string, attribution: 
     sourceType: item.source.sourceType,
     plumeCount: item.source.detectedPlumeCount,
     lastObserved: item.source.latestPlumeDate || undefined,
+    persistency: item.source.persistency ?? null,
+    persistencyStd: item.source.persistencyStd ?? null,
+    persistencyCategory: item.source.persistencyCategory,
+    ...(typeof item.source.emissionStatus === 'string' ? { emissionStatus: item.source.emissionStatus } : {}),
+    maxFluxKgHr: observedFluxes.length ? Math.max(...observedFluxes) : null,
     observations,
     notified: item.source.notified,
     feedback: item.source.feedback,
