@@ -1,6 +1,6 @@
 # MethaneResponse score-readiness roadmap
 
-- **Updated:** 2026-10-14, 20:18 WITA
+- **Updated:** 2026-10-14, 21:22 WITA
 - **Purpose:** Track evidence needed to make an internal target of at least 18/20 per criterion defensible. This is a project plan, not an official score prediction. Devpost publishes five qualitative criteria without numeric weights or an 18/20 threshold.
 
 For the task-by-task execution plan, expected artifacts, acceptance criteria, owners, dependencies, fallback paths, and revised estimates, see [`MASTER_EXECUTION_PLAN_2026-10-14.md`](MASTER_EXECUTION_PLAN_2026-10-14.md). This file remains the shorter status/evidence board.
@@ -24,11 +24,17 @@ The latest complete local gate passed API/PostGIS **112 tests / 649 assertions /
 
 ## Progress log
 
+### 2026-10-14 — WP-1/WP-2 current-state recheck
+
+- Public `main` and anonymous GitHub `HEAD` both resolve to `59ac59e76d0ce59686ee783690ec0f99a15ae822`. The source release ancestor `37169ee` has a successful Actions run; no CI result is claimed for this documentation-only follow-up.
+- Fresh official CSV/GeoJSON HEAD requests returned HTTP 200 and the same active ETags, lengths, `Content-MD5`, and `Last-Modified`. Local complete archives match the live `Content-MD5`, pinned SHA-256, size, ZIP CRC, and required CSV member checks.
+- Devpost overview/schedule and Rules still conflict on the submission start/deadline by one hour and on participant eligibility. This remains an organizer clarification blocker; no message was sent.
+
 ### 2026-10-14 — WP-2 upstream archive revalidation
 
 - Direct HEAD requests to the official UNEP CSV and GeoJSON download objects returned the same Last-Modified timestamp, ETags, byte lengths, and Content-MD5 values recorded in the active snapshot history.
 - Recomputed local archive SHA-256 and MD5 values matched the active manifests for both files. The active dataset already contains this release, so no replacement snapshot or duplicate archive was created.
-- A bounded CSV GET stopped after 474,682 / 10,795,938 bytes at 25 seconds; its partial digest was discarded. The complete remote-body SHA-256 comparison remains unverified due to transfer throughput.
+- A bounded CSV GET attempt stopped early and a later sequential retry timed out; those partial transfers were discarded. They do not invalidate the complete archive acquired earlier with ETag-pinned byte ranges and verified against the live size/Content-MD5 and the manifest SHA-256. Do not treat either partial response as an archive.
 - The full offline data-pipeline suite passed **122/122**. The recheck does not indicate that the historical snapshot is live or that UNEP has an exact monthly cadence for the full combined source/plume archive.
 
 ### 2026-10-14 — WP-3 supplemental Chromium UAT
