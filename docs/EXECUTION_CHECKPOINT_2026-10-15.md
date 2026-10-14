@@ -11,7 +11,7 @@
   - `TMPDIR=/dev/shm bun run test:verifier`: **20 passed / 0 failed / 96 assertions**.
   - `TMPDIR=/dev/shm bun run test:api`: **101 passed / 0 failed / 566 assertions; 13 PostGIS tests skipped** because no database URL was supplied to this run. The previous full disposable-PostGIS gate remains **112 passed / 0 failed / 0 skipped / 649 assertions**.
   - `bun install --frozen-lockfile`: **143 installs checked; no changes**.
-- The `javascript` CI job now installs managed Chromium and runs the same browser test after the existing checks. Remote CI has not yet been observed for this change.
+- The `javascript` CI job installs managed Chromium and runs the same browser test after the existing checks. GitHub Actions run [38596679424](https://github.com/AndroLay/MethaneResponse/actions/runs/38596679424) for commit `ce12477407200a297a2487847406f56ad9ef34d8` completed with **success** across `javascript`, `data-pipeline`, and `contracts`; both `playwright install --with-deps chromium` and `test:e2e` steps passed.
 
 ## Limits
 
