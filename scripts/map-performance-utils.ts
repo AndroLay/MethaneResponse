@@ -10,13 +10,15 @@ export type MapPerformanceSample = {
 };
 
 export type MapBenchmarkBrowserOptions = {
-  headless: true;
+  headless: boolean;
   chromiumSandbox: true;
   args: string[];
   executablePath?: string;
 };
 
 export type MapPerformanceServerMode = 'development' | 'production-preview';
+export type MapPerformanceWebglRendererMode = 'software' | 'system';
+export type MapWebglRendererObservation = { available: boolean; vendor: string | null; renderer: string | null };
 
 export type MapSnapshotManifest = {
   datasetSnapshotId: string;
@@ -52,11 +54,60 @@ export function parseMapPerformanceServerMode(value: string | undefined): MapPer
   throw new Error('Unsupported map benchmark server mode.');
 }
 
-export function mapBenchmarkBrowserOptions(executablePath?: string): MapBenchmarkBrowserOptions {
+export function parseMapPerformanceWebglRendererMode(value: string | undefined): MapPerformanceWebglRendererMode {
+  if (value === undefined || value === 'software') return 'software';
+  if (value === 'system') return 'system';
+  throw new Error('Unsupported WebGL renderer mode.');
+}
+
+export function mapBenchmarkBrowserEnvironment(
+  safeEnvironment: Readonly<Record<string, string>>,
+  hostEnvironment: Readonly<Record<string, string | undefined>>,
+  rendererMode: MapPerformanceWebglRendererMode,
+): Record<string, string> {
+  const environment = { ...safeEnvironment };
+  if (rendererMode === 'system') {
+    if (hostEnvironment.DISPLAY !== undefined) {
+      environment.DISPLAY = hostEnvironment.DISPLAY;
+      if (hostEnvironment.XAUTHORITY !== undefined) environment.XAUTHORITY = hostEnvironment.XAUTHORITY;
+    } else if (hostEnvironment.WAYLAND_DISPLAY !== undefined) {
+      environment.WAYLAND_DISPLAY = hostEnvironment.WAYLAND_DISPLAY;
+      if (hostEnvironment.XDG_RUNTIME_DIR !== undefined) environment.XDG_RUNTIME_DIR = hostEnvironment.XDG_RUNTIME_DIR;
+    }
+  }
+  return environment;
+}
+
+export function isSoftwareWebGLRenderer(renderer: string | null): boolean {
+  return renderer !== null && /swiftshader|llvmpipe|software\s+rasterizer/i.test(renderer);
+}
+
+export function summarizeWebglRendererObservations(observations: readonly MapWebglRendererObservation[]) {
+  const grouped = new Map<string, MapWebglRendererObservation & { sampleCount: number }>();
+  for (const observation of observations) {
+    const key = JSON.stringify([observation.available, observation.vendor, observation.renderer]);
+    const existing = grouped.get(key);
+    if (existing) existing.sampleCount += 1;
+    else grouped.set(key, { ...observation, sampleCount: 1 });
+  }
+  return [...grouped.values()]
+    .map(observation => ({
+      ...observation,
+      software: observation.renderer === null ? null : isSoftwareWebGLRenderer(observation.renderer),
+    }))
+    .sort((left, right) => `${left.renderer ?? ''}\u0000${left.vendor ?? ''}`.localeCompare(`${right.renderer ?? ''}\u0000${right.vendor ?? ''}`));
+}
+
+export function mapBenchmarkBrowserOptions(
+  executablePath?: string,
+  rendererMode: MapPerformanceWebglRendererMode = 'software',
+): MapBenchmarkBrowserOptions {
   return {
-    headless: true,
+    headless: rendererMode === 'software',
     chromiumSandbox: true,
-    args: ['--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader'],
+    args: rendererMode === 'software'
+      ? ['--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader']
+      : ['--enable-webgl', '--enable-gpu'],
     ...(executablePath ? { executablePath } : {}),
   };
 }

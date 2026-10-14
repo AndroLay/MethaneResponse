@@ -4,12 +4,13 @@ import { createServer } from 'node:net';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { buildE2ERunnerEnvironment, chooseE2ETemporaryRoot } from './e2e-runner-utils';
-import { isValidMapSnapshotManifest, mapBenchmarkBrowserOptions, parseMapPerformanceServerMode, readMapPerformanceOption, summarizeMapRuns, type MapPerformanceSample } from './map-performance-utils';
+import { isValidMapSnapshotManifest, mapBenchmarkBrowserEnvironment, mapBenchmarkBrowserOptions, parseMapPerformanceServerMode, parseMapPerformanceWebglRendererMode, readMapPerformanceOption, summarizeMapRuns, summarizeWebglRendererObservations, type MapPerformanceSample } from './map-performance-utils';
 
 const root = resolve(import.meta.dir, '..');
 const sampleCount = 5;
 const sourceId = readMapPerformanceOption(process.argv.slice(2), 'source', 'KAZ_S_159');
 const serverMode = parseMapPerformanceServerMode(readMapPerformanceOption(process.argv.slice(2), 'server', 'production-preview'));
+const webglRendererMode = parseMapPerformanceWebglRendererMode(readMapPerformanceOption(process.argv.slice(2), 'webgl-renderer', 'software'));
 const outputPath = resolve(root, readMapPerformanceOption(process.argv.slice(2), 'output', `docs/evidence/map-performance-cold-runs-${witaDate()}.json`));
 const screenshotDirectory = resolve(readMapPerformanceOption(process.argv.slice(2), 'screenshot-dir', join('/tmp', `methaneresponse-map-performance-${witaDate()}`)));
 const overwrite = process.argv.includes('--overwrite');
@@ -22,6 +23,7 @@ type SampleResult = MapPerformanceSample & {
   encodedResponseBytesByHost: Record<string, number>;
   longAnimationFrames: Array<{ durationMs: number; blockingDurationMs: number; scripts: Array<{ durationMs: number; source: string; functionName: string; invokerType: string }> }> | null;
   canvasSize: { width: number; height: number } | null;
+  webglRenderer: { available: boolean; vendor: string | null; renderer: string | null };
   mapStatusText: string | null;
   snapshotVisible: boolean;
   sourceVisible: boolean;
@@ -211,6 +213,14 @@ async function measurePage(
       __methaneLongAnimationFrameSupported?: boolean;
     };
     const canvas = document.querySelector('.geo-map-canvas canvas')?.getBoundingClientRect();
+    const mapCanvas = document.querySelector('.geo-map-canvas canvas') as HTMLCanvasElement | null;
+    const gl = mapCanvas?.getContext('webgl2') ?? mapCanvas?.getContext('webgl') ?? null;
+    const rendererInfo = gl?.getExtension('WEBGL_debug_renderer_info') ?? null;
+    const webglRenderer = {
+      available: Boolean(gl),
+      vendor: gl && rendererInfo ? String(gl.getParameter(rendererInfo.UNMASKED_VENDOR_WEBGL)) : null,
+      renderer: gl && rendererInfo ? String(gl.getParameter(rendererInfo.UNMASKED_RENDERER_WEBGL)) : null,
+    };
     const body = document.body.innerText;
     return {
       decodedBytes: performance.getEntriesByType('resource').reduce((sum, entry) => sum + (entry as PerformanceResourceTiming).decodedBodySize, 0),
@@ -219,6 +229,7 @@ async function measurePage(
       longAnimationFrames: state.__methaneLongAnimationFrameSupported ? state.__methaneLongAnimationFrames ?? [] : null,
       horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth,
       canvasSize: canvas ? { width: Math.round(canvas.width), height: Math.round(canvas.height) } : null,
+      webglRenderer,
       mapStatusText: document.querySelector('.geo-map-topline')?.textContent?.trim() ?? null,
       degradedNoticeVisible: Boolean(document.querySelector('.geo-map-degraded-notice')),
       fatalMapFallbackVisible: Boolean(document.querySelector('.geo-map-fallback')),
@@ -248,6 +259,7 @@ async function measurePage(
     cdpResponseCount,
     responseHosts,
     canvasSize: browserMetrics.canvasSize,
+    webglRenderer: browserMetrics.webglRenderer,
     mapStatusText: browserMetrics.mapStatusText,
     degradedNoticeVisible: browserMetrics.degradedNoticeVisible,
     fatalMapFallbackVisible: browserMetrics.fatalMapFallbackVisible,
@@ -274,6 +286,9 @@ async function main(): Promise<void> {
   const manifest = manifestValue;
 
   const originalEnvironment = { ...process.env };
+  if (webglRendererMode === 'system' && !originalEnvironment.DISPLAY && !originalEnvironment.WAYLAND_DISPLAY) {
+    throw new Error('System WebGL renderer mode requires DISPLAY or WAYLAND_DISPLAY; use --webgl-renderer=software on headless runners.');
+  }
   const temporaryRoot = chooseE2ETemporaryRoot(originalEnvironment);
   const safeEnvironment = buildE2ERunnerEnvironment(originalEnvironment, temporaryRoot);
   for (const name of Object.keys(process.env)) delete process.env[name];
@@ -344,13 +359,17 @@ async function main(): Promise<void> {
     await waitForEndpoint(webUrl, web);
 
     const executablePath = originalEnvironment.PLAYWRIGHT_CHROMIUM_EXECUTABLE;
-    browser = await chromium.launch(mapBenchmarkBrowserOptions(executablePath));
+    browser = await chromium.launch({
+      ...mapBenchmarkBrowserOptions(executablePath, webglRendererMode),
+      env: mapBenchmarkBrowserEnvironment(safeEnvironment, originalEnvironment, webglRendererMode),
+    });
 
     const viewportCases = [
       { name: 'desktop', width: 1_280, height: 800 },
       { name: 'mobileViewportEmulation', width: 390, height: 844 },
     ] as const;
     const viewports: Record<string, unknown> = {};
+    const measuredRuns: SampleResult[] = [];
     for (const viewport of viewportCases) {
       const runs: SampleResult[] = [];
       for (let index = 0; index < sampleCount; index += 1) {
@@ -359,6 +378,7 @@ async function main(): Promise<void> {
       }
       const usableRuns = runs.filter(run => run.ready && run.readinessMs >= 0);
       const summary = summarizeMapRuns(usableRuns);
+      measuredRuns.push(...runs);
       const firstCanvas = runs.find(run => run.canvasSize)?.canvasSize ?? null;
       viewports[viewport.name] = {
         viewport: { width: viewport.width, height: viewport.height },
@@ -368,7 +388,7 @@ async function main(): Promise<void> {
         ...summary,
         runs,
       };
-      if (usableRuns.length !== sampleCount || runs.some(run => run.horizontalOverflow || run.pageErrors.length > 0 || !run.snapshotVisible || !run.sourceVisible)) failed = true;
+      if (usableRuns.length !== sampleCount || runs.some(run => !run.webglRenderer.available || run.horizontalOverflow || run.pageErrors.length > 0 || !run.snapshotVisible || !run.sourceVisible)) failed = true;
     }
 
     const fallbackRun = await measurePage(
@@ -382,7 +402,7 @@ async function main(): Promise<void> {
     );
     const fallback = {
       externalHttpBlocked: true,
-      mapRemainedUsable: fallbackRun.ready && fallbackRun.canvasSize !== null && fallbackRun.snapshotVisible && fallbackRun.sourceVisible && !fallbackRun.fatalMapFallbackVisible,
+      mapRemainedUsable: fallbackRun.ready && fallbackRun.canvasSize !== null && fallbackRun.webglRenderer.available && fallbackRun.snapshotVisible && fallbackRun.sourceVisible && !fallbackRun.fatalMapFallbackVisible,
       degradedNoticeVisible: fallbackRun.degradedNoticeVisible,
       fatalMapFallbackVisible: fallbackRun.fatalMapFallbackVisible,
       mapStatusText: fallbackRun.mapStatusText,
@@ -391,12 +411,14 @@ async function main(): Promise<void> {
       failedRequestCount: fallbackRun.failedRequests.length,
       screenshot: join(screenshotDirectory, 'external-tiles-blocked.png'),
     };
+    measuredRuns.push(fallbackRun);
     if (!fallback.mapRemainedUsable || !fallback.degradedNoticeVisible || fallback.horizontalOverflow || fallback.pageErrors.length > 0) failed = true;
 
     const git = Bun.spawnSync(['git', 'rev-parse', 'HEAD'], { cwd: root });
     const sourceRevision = new TextDecoder().decode(git.stdout).trim();
+    const webglRendererObservations = summarizeWebglRendererObservations(measuredRuns.map(run => run.webglRenderer));
     finalReport = {
-      schemaVersion: 2,
+      schemaVersion: 3,
       recordedAt: new Date().toISOString(),
       sourceRevision,
       dataset: {
@@ -407,12 +429,17 @@ async function main(): Promise<void> {
       },
       environment: {
         browser: `Chromium ${browser.version()}`,
+        browserMode: webglRendererMode === 'software' ? 'headless' : 'windowed',
         platform: `${process.platform} ${process.arch}`,
         runtime: `Bun ${Bun.version}`,
         server: serverMode === 'development'
           ? 'isolated Vite development server + isolated local file-store API'
           : 'Vite production preview + isolated local file-store API',
-        renderTier: 'forced software WebGL (SwiftShader); not a physical GPU benchmark',
+        renderTier: webglRendererMode === 'software'
+          ? 'forced software WebGL (SwiftShader)'
+          : 'system-selected Chromium WebGL; inspect observed renderer metadata',
+        webglRendererMode,
+        webglRendererObservations,
         devicePixelRatio: 1,
         route: `/dashboard/map?sourceId=${sourceId}`,
       },
@@ -424,6 +451,9 @@ async function main(): Promise<void> {
         transferBytesDefinition: 'Chromium CDP encoded response body bytes received before sampling ended; excludes request/response headers and does not represent every byte on the wire.',
         decodedBytesDefinition: 'Sum of decodedBodySize values exposed by PerformanceResourceTiming; cross-origin entries can be unavailable.',
         longTaskWindow: 'Observed from document initialization through one second after map readiness.',
+        webglRendererPolicy: webglRendererMode === 'software'
+          ? 'Chromium is forced to SwiftShader for a repeatable software-renderer baseline.'
+          : 'Chromium runs windowed and selects the host WebGL renderer; the actual vendor and renderer are recorded per run, and system selection may still resolve to software.',
         externalFallback: 'One additional desktop context blocks all non-loopback HTTP(S) requests before navigation.',
       },
       viewports,
@@ -433,7 +463,9 @@ async function main(): Promise<void> {
         retention: 'Local diagnostic only; not copied into the public repository because imagery-provider redistribution rights have not been cleared.',
       },
       limitations: [
-        'Software WebGL and viewport emulation do not establish physical-phone GPU performance or FPS.',
+        webglRendererMode === 'software'
+          ? 'Software WebGL and viewport emulation do not establish physical-phone GPU performance or FPS.'
+          : 'Windowed host WebGL and mobile viewport emulation do not establish physical-phone GPU performance or FPS.',
         'Development-server timing is not a deployed production/CDN measurement.',
         'Third-party tile availability, browser scheduling and network conditions can change between runs.',
         'Transfer bytes omit headers and may differ from operating-system network totals.',

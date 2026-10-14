@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test';
-import { isValidMapSnapshotManifest, mapBenchmarkBrowserOptions, median, parseMapPerformanceServerMode, readMapPerformanceOption, summarizeMapRuns, type MapPerformanceSample } from './map-performance-utils';
+import { isSoftwareWebGLRenderer, isValidMapSnapshotManifest, mapBenchmarkBrowserEnvironment, mapBenchmarkBrowserOptions, median, parseMapPerformanceServerMode, parseMapPerformanceWebglRendererMode, readMapPerformanceOption, summarizeMapRuns, summarizeWebglRendererObservations, type MapPerformanceSample } from './map-performance-utils';
 
 test('median ignores unavailable values and averages even-sized samples', () => {
   expect(median([9, Number.NaN, 1, 5])).toBe(5);
@@ -34,9 +34,74 @@ test('map summary rejects an empty sample set', () => {
 
 test('benchmark browser options keep Chromium sandbox enabled', () => {
   const options = mapBenchmarkBrowserOptions('/usr/bin/chromium');
+  expect(options.headless).toBe(true);
   expect(options.chromiumSandbox).toBe(true);
   expect(options.executablePath).toBe('/usr/bin/chromium');
+  expect(options.args).toContain('--use-angle=swiftshader');
   expect(options.args).not.toContain('--no-sandbox');
+});
+
+test('benchmark renderer mode defaults to software and rejects unknown values', () => {
+  expect(parseMapPerformanceWebglRendererMode(undefined)).toBe('software');
+  expect(parseMapPerformanceWebglRendererMode('system')).toBe('system');
+  expect(() => parseMapPerformanceWebglRendererMode('gpu-unrestricted')).toThrow('Unsupported WebGL renderer mode.');
+});
+
+test('system renderer mode requests Chromium GPU without forcing software or disabling its sandbox', () => {
+  const options = mapBenchmarkBrowserOptions('/usr/bin/chromium', 'system');
+  expect(options.headless).toBe(false);
+  expect(options.chromiumSandbox).toBe(true);
+  expect(options.executablePath).toBe('/usr/bin/chromium');
+  expect(options.args).toContain('--enable-gpu');
+  expect(options.args).not.toContain('--use-angle=swiftshader');
+  expect(options.args).not.toContain('--no-sandbox');
+});
+
+test('system renderer gets only the minimal display environment while software mode remains isolated', () => {
+  const safeEnvironment = { PATH: '/usr/bin', HOME: '/home/demo' };
+  const hostEnvironment = {
+    DISPLAY: ':0',
+    WAYLAND_DISPLAY: 'wayland-0',
+    XAUTHORITY: '/run/user/1000/xauth',
+    XDG_RUNTIME_DIR: '/run/user/1000',
+    AI_API_KEY: 'never-forward-this',
+  };
+  expect(mapBenchmarkBrowserEnvironment(safeEnvironment, hostEnvironment, 'system')).toEqual({
+    ...safeEnvironment,
+    DISPLAY: ':0',
+    XAUTHORITY: '/run/user/1000/xauth',
+  });
+  expect(mapBenchmarkBrowserEnvironment(safeEnvironment, {
+    WAYLAND_DISPLAY: 'wayland-0',
+    XDG_RUNTIME_DIR: '/run/user/1000',
+    XAUTHORITY: '/run/user/1000/xauth',
+    AI_API_KEY: 'never-forward-this',
+  }, 'system')).toEqual({
+    ...safeEnvironment,
+    WAYLAND_DISPLAY: 'wayland-0',
+    XDG_RUNTIME_DIR: '/run/user/1000',
+  });
+  expect(mapBenchmarkBrowserEnvironment(safeEnvironment, hostEnvironment, 'software')).toEqual(safeEnvironment);
+});
+
+test('software renderer classification distinguishes SwiftShader from AMD WebGL', () => {
+  expect(isSoftwareWebGLRenderer('ANGLE (Google, Vulkan 1.3.0, SwiftShader Device)')).toBe(true);
+  expect(isSoftwareWebGLRenderer('llvmpipe (LLVM 18.1.0, 256 bits)')).toBe(true);
+  expect(isSoftwareWebGLRenderer('ANGLE (AMD, AMD Radeon 680M, OpenGL ES 3.2)')).toBe(false);
+  expect(isSoftwareWebGLRenderer(null)).toBe(false);
+});
+
+test('renderer observations are grouped deterministically without hiding software fallback', () => {
+  expect(summarizeWebglRendererObservations([
+    { available: true, vendor: 'Google Inc. (AMD)', renderer: 'ANGLE (AMD, Radeon 680M)' },
+    { available: true, vendor: 'Google Inc. (AMD)', renderer: 'ANGLE (AMD, Radeon 680M)' },
+    { available: true, vendor: 'Google Inc. (Google)', renderer: 'ANGLE (Google, SwiftShader Device)' },
+    { available: false, vendor: null, renderer: null },
+  ])).toEqual([
+    { available: false, vendor: null, renderer: null, software: null, sampleCount: 1 },
+    { available: true, vendor: 'Google Inc. (AMD)', renderer: 'ANGLE (AMD, Radeon 680M)', software: false, sampleCount: 2 },
+    { available: true, vendor: 'Google Inc. (Google)', renderer: 'ANGLE (Google, SwiftShader Device)', software: true, sampleCount: 1 },
+  ]);
 });
 
 test('benchmark defaults to production preview and rejects unknown server modes', () => {
