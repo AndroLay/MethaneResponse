@@ -36,3 +36,10 @@ Public CI run [38604021117](https://github.com/AndroLay/MethaneResponse/actions/
 ### Limits and next action
 
 This proves application integration and local permission/hash behavior with a synthetic excerpt and deterministic test provider; it does **not** validate model quality, legal permission, document authenticity, a real reviewer, cloud durability, a public Sepolia receipt, physical mitigation, user benefit, or emissions impact. Continue only when the separate rights/annotator/provider, cloud-account, chain-authorization, user-pilot and device-testing prerequisites are available. Do not substitute these local tests for those external gates.
+
+## WP-10 — Pin CI to supported Node and Ubuntu runtimes
+
+- GitHub removed the Node 20 runtime on 23 September 2026, so the workflow now uses Node 24-compatible `actions/checkout@v5`, `actions/setup-python@v6`, and `astral-sh/setup-uv@v7`. The existing Bun v2 and Foundry v1 actions also declare Node 24.
+- All three jobs now run on `ubuntu-24.04`, avoiding the `ubuntu-latest` migration scheduled to start on 19 October during the competition submission week.
+- Python YAML parsing and explicit workflow assertions passed; `git diff --check` passed. Public run [38606971136](https://github.com/AndroLay/MethaneResponse/actions/runs/38606971136) for commit `0f52ac280ffab8567e684e0ca19ccdff57e102dd` completed successfully across `javascript`, `data-pipeline`, and `contracts`. The JavaScript job completed typecheck, API/web/verifier tests, build, bundle guard, Chromium installation, and both browser journeys.
+- This verifies the hosted CI compatibility update on Ubuntu 24.04. It does not establish a run on Ubuntu 26.04 or any external production service.

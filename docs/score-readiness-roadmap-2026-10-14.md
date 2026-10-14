@@ -1,15 +1,15 @@
 # MethaneResponse score-readiness roadmap
 
-- **Updated:** 2026-10-14, 21:22 WITA
+- **Updated:** 2026-10-15
 - **Purpose:** Track evidence needed to make an internal target of at least 18/20 per criterion defensible. This is a project plan, not an official score prediction. Devpost publishes five qualitative criteria without numeric weights or an 18/20 threshold.
 
 For the task-by-task execution plan, expected artifacts, acceptance criteria, owners, dependencies, fallback paths, and revised estimates, see [`MASTER_EXECUTION_PLAN_2026-10-14.md`](MASTER_EXECUTION_PLAN_2026-10-14.md). This file remains the shorter status/evidence board.
 
 ## Current state
 
-The local prototype uses the verified active MARS snapshot `unep-mars-675417694883` (4,218 sources, 30,414 plume rows through 2026-09-13 UTC), preserves earlier releases, and exposes source-bound observation geometry. Its deterministic claim-audit baseline, document-grounded assessment path, human review, immutable reports, and local hash verifier have local regression coverage. Chromium UAT covers source history → abstaining mitigation audit → API restart → digest verification, plus real marker selection, full-case handoff to Auditor, and changing the Auditor case through search. Seven screenshots and exact limits are recorded in [`live local UAT evidence`](evidence/live-local-uat-2026-10-14/README.md). A separate rehearsal covers report export and CLI verification.
+The local prototype uses the verified active MARS snapshot `unep-mars-675417694883` (4,218 sources, 30,414 plume rows through 2026-09-13 UTC), preserves earlier releases, and exposes source-bound observation geometry. Its deterministic claim-audit baseline, document-grounded assessment path, human review, immutable reports, and local hash verifier have local regression coverage. Chromium UAT covers source history → abstaining mitigation audit → API restart → digest verification, plus real marker selection, full-case handoff to Auditor, and changing the Auditor case through search. The 15 October browser workflows additionally cover mock AI assessment, exact citation, abstention, scoped review, private reports, and digest verification; they do not prove real-model quality. Seven screenshots and exact limits are recorded in [`live local UAT evidence`](evidence/live-local-uat-2026-10-14/README.md). A separate rehearsal covers report export and CLI verification.
 
-The latest complete local gate passed API/PostGIS **112 tests / 649 assertions / 0 skips**, web **174 tests / 164,716 assertions**, verifier/workflow **20 tests / 96 assertions**, Python **122**, Foundry **4**, typecheck, production build, bundle budget, and baseline reproducibility. Runner/database cleanup was verified locally. The remaining score-critical evidence is external: rights-cleared human-adjudicated AI benchmark data, a live provider run, a judge-accessible deployment with durable storage, an independently verified testnet receipt, and a target-user pilot. Local checks establish software behavior, not real-world audit accuracy, user benefit, or methane reductions.
+The latest complete local gate recorded in the 15 October checkpoint passed API/PostGIS **112 tests / 649 assertions / 0 skips**, web **176 tests / 164,718 assertions**, verifier/workflow **20 tests / 96 assertions**, Python **122**, Foundry **4**, typecheck, production build, bundle budget, and baseline reproducibility. The current local changes also pass `bun run check` and both Playwright browser journeys. Public CI run [38606971136](https://github.com/AndroLay/MethaneResponse/actions/runs/38606971136) passed all three jobs for the Ubuntu 24.04/Node 24 workflow update; application CI [38604021117](https://github.com/AndroLay/MethaneResponse/actions/runs/38604021117) includes both browser workflows. Runner/database cleanup was verified locally. The remaining score-critical evidence is external: rights-cleared human-adjudicated AI benchmark data, a live provider run, a judge-accessible deployment with durable storage, an independently verified testnet receipt, and a target-user pilot. Local checks establish software behavior, not real-world audit accuracy, user benefit, or methane reductions.
 
 ## Phases and gates
 
@@ -23,6 +23,24 @@ The latest complete local gate passed API/PostGIS **112 tests / 649 assertions /
 | **5. Submission proof** | **Not ready** | Produce and review the required 3–5 minute demo, prepare the project description and architecture/limitations, complete license checks, and provide a current public repository revision as required by the event. Confirm the conflicting eligibility and submission-time instructions with the organizer. | Main gate for Presentation and submission completeness. |
 
 ## Progress log
+
+### 2026-10-15 — AI/reviewer browser workflow and public CI
+
+- Added an isolated mock-provider browser path for document excerpt → exact citation → skeptical second pass → abstention → scoped reviewer decision → immutable revision → private report → export digest verification. The excerpt is explicitly synthetic and is omitted from the exported report.
+- Hardened Playwright process boundaries with an allowlisted environment, disabled Bun dotenv autoload, and isolated Vite env loading. Regression tests cover filtering and file-specific phase routing; worker assertions check for ambient credentials. A full local run with disposable `GH_TOKEN`, `AI_API_KEY`, `DATABASE_URL`, and `VITE_TEST_SECRET` sentinels passed all 3 runner tests and both browser journeys.
+- `bun run check` passed. At the 15 October public-main check, workflow commit `0f52ac280ffab8567e684e0ca19ccdff57e102dd` was present; its CI run [38606971136](https://github.com/AndroLay/MethaneResponse/actions/runs/38606971136) passed all three jobs on Ubuntu 24.04/Node 24. Application code commit `962fa4443a619c5ed1b96d855a5c7016a4472e45` passed [run 38604021117](https://github.com/AndroLay/MethaneResponse/actions/runs/38604021117).
+- This improves evidence for local workflow integration and technical execution only. No real-model accuracy, legal document permission, real reviewer identity, cloud persistence, Sepolia receipt, user benefit, or physical emission reduction is established.
+
+### 2026-10-15 — CI runtime and runner migration
+
+- Updated the hosted workflow to Node 24-compatible action versions and pinned all jobs to Ubuntu 24.04 ahead of the `ubuntu-latest` migration window.
+- Public CI run [38606971136](https://github.com/AndroLay/MethaneResponse/actions/runs/38606971136) passed all three jobs, including Chromium E2E. This hardens submission-week CI reproducibility; it does not change evidence quality or close external service gates.
+
+### 2026-10-15 — Competition requirements rechecked
+
+- The current Devpost overview still says “students only” and lists a 25 October deadline at 17:00 MSK; Rules list broader participant categories and say not to submit before 08:00 PT that day. Overview lists US$3,000 in prizes while Rules still say “Prizes TBD”. The schedule endpoint returned 403 on this read-only check; its last successful contents were recorded on 14 October.
+- The updates page and the existing submission-window discussion were inspected. The visible thread contains participant questions about timing, blockchain, track selection, and the submission form, but no organizer answer was visible. No message was sent.
+- These discrepancies remain a submission eligibility/timing blocker. Public project source and code CI are verified separately above; neither resolves the event rules.
 
 ### 2026-10-14 — WP-1/WP-2 current-state recheck
 
