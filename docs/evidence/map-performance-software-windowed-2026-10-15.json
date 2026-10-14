@@ -1,0 +1,2003 @@
+{
+  "schemaVersion": 3,
+  "recordedAt": "2026-10-14T23:12:34.819Z",
+  "sourceRevision": "f5a832c0e672047aeedfb5e322c84f619435bc77",
+  "dataset": {
+    "snapshotId": "unep-mars-675417694883",
+    "sourceCount": 4218,
+    "plumeCount": 30414,
+    "sourceArchiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43"
+  },
+  "environment": {
+    "browser": "Chromium 153.0.8010.52",
+    "browserMode": "windowed",
+    "platform": "linux x64",
+    "runtime": "Bun 1.4.3",
+    "server": "Vite production preview + isolated local file-store API",
+    "renderTier": "forced software WebGL (SwiftShader)",
+    "webglRendererMode": "software",
+    "webglRendererObservations": [
+      {
+        "available": true,
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "sampleCount": 11,
+        "software": true
+      }
+    ],
+    "devicePixelRatio": 1,
+    "route": "/dashboard/map?sourceId=KAZ_S_159"
+  },
+  "build": {
+    "exitCode": 0,
+    "outputTail": "vite v7.3.7 building client environment for production...\ntransforming...\n✓ 232 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                       0.74 kB │ gzip:   0.44 kB\ndist/assets/mars-snapshot.worker-urhP9Eyx.js         11.58 kB\ndist/assets/LandingPage-oTQX72xs.css                 37.00 kB │ gzip:   8.89 kB\ndist/assets/MapPanel-DNVN2dqC.css                    69.92 kB │ gzip:  10.17 kB\ndist/assets/index-Bk4Rxipc.css                      194.98 kB │ gzip:  39.22 kB\ndist/assets/mars-snapshot-integrity-DjY6J4HG.js       1.67 kB │ gzip:   0.69 kB\ndist/assets/map-imagery-BTMWFv2H.js                   2.33 kB │ gzip:   1.09 kB\ndist/assets/SettingsWorkspace-9ga-afj7.js             3.38 kB │ gzip:   1.17 kB\ndist/assets/AuditHistoryPanel-DhM9muDN.js             4.58 kB │ gzip:   1.75 kB\ndist/assets/OperatorsWorkspace-kekSU3XK.js            6.70 kB │ gzip:   2.08 kB\ndist/assets/PublisherFootprintCard-BRSLOeE_.js        6.72 kB │ gzip:   2.54 kB\ndist/assets/plume-geometries-DFMG05Hs.js              8.04 kB │ gzip:   2.82 kB\ndist/assets/CaseDetailsDialog-Do0m9w3Z.js            10.14 kB │ gzip:   3.28 kB\ndist/assets/CasesWorkspace-Dk8jDEQd.js               10.94 kB │ gzip:   3.35 kB\ndist/assets/ImportedAuditVerifier-DW5WoYfb.js        11.35 kB │ gzip:   3.55 kB\ndist/assets/EvidenceObservationPanel-xKHvItgP.js     14.12 kB │ gzip:   4.83 kB\ndist/assets/IntelligencePanel-BLEnX-gM.js            42.93 kB │ gzip:  12.86 kB\ndist/assets/LandingPage-ha-1TL-7.js                  43.77 kB │ gzip:  11.78 kB\ndist/assets/App-DDdQqRol.js                         217.73 kB │ gzip:  63.10 kB\ndist/assets/index-CDUtrnGO.js                       250.51 kB │ gzip:  78.76 kB\ndist/assets/MapPanel-B__vVILZ.js                  1,122.98 kB │ gzip: 307.17 kB\n✓ built in 6.24s\n\n$ cd apps/web && bun run build\n$ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts\n../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment\n\n\"/** Anchors a pattern source. The interpolation lives here rather than at the call site because\n * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it\n * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */\"\n\nin \"../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js\" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.\n../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment\n\n\"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle.\"\n\nin \"../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js\" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.\n\n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit."
+  },
+  "method": {
+    "sampleCountPerViewport": 5,
+    "contextPolicy": "A new Chromium browser context is created for each sample; HTTP cache is isolated per context. OS, host and upstream caches are not cleared.",
+    "readinessDefinition": "Elapsed page navigation time until the map status announces 4,218 sources after MapLibre becomes usable.",
+    "transferBytesDefinition": "Chromium CDP encoded response body bytes received before sampling ended; excludes request/response headers and does not represent every byte on the wire.",
+    "decodedBytesDefinition": "Sum of decodedBodySize values exposed by PerformanceResourceTiming; cross-origin entries can be unavailable.",
+    "longTaskWindow": "Observed from document initialization through one second after map readiness.",
+    "webglRendererPolicy": "Chromium is forced to SwiftShader for a repeatable software-renderer baseline.",
+    "browserModePolicy": "Chromium runs with the host display enabled; this mode can be used for a paired hardware/software renderer comparison on the same display path.",
+    "externalFallback": "One additional desktop context blocks all non-loopback HTTP(S) requests before navigation."
+  },
+  "viewports": {
+    "desktop": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "canvasCssPixels": {
+        "width": 645,
+        "height": 534
+      },
+      "attemptedRunCount": 5,
+      "usableRunCount": 5,
+      "runCount": 5,
+      "medianReadinessMs": 2544,
+      "medianTransferBytes": 1093155,
+      "medianDecodedBytes": 5045778,
+      "medianEncodedResponseBytesByHost": {
+        "127.0.0.1": 881026,
+        "server.arcgisonline.com": 212129,
+        "unknown": 0
+      },
+      "observedLongTaskCount": 36,
+      "maximumLongTaskMs": 452,
+      "horizontalOverflowRuns": 0,
+      "pageErrorCount": 0,
+      "failedRequestCount": 0,
+      "runs": [
+        {
+          "readinessMs": 4559,
+          "transferBytes": 1093155,
+          "decodedBytes": 5045778,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 881026,
+            "unknown": 0,
+            "server.arcgisonline.com": 212129
+          },
+          "longTasksMs": [
+            83,
+            100,
+            54,
+            313,
+            69,
+            136,
+            79
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 740,
+              "blockingDurationMs": 36,
+              "scripts": [
+                {
+                  "durationMs": 83,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 23,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 18,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 16,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 8,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 155,
+              "blockingDurationMs": 104,
+              "scripts": [
+                {
+                  "durationMs": 101,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 49,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 322,
+              "blockingDurationMs": 269,
+              "scripts": [
+                {
+                  "durationMs": 305,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 8,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 312,
+              "blockingDurationMs": 36,
+              "scripts": [
+                {
+                  "durationMs": 68,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 17,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 141,
+              "blockingDurationMs": 88,
+              "scripts": [
+                {
+                  "durationMs": 136,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 188,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 5,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 79,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 42,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 53,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 11,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 98,
+              "blockingDurationMs": 43,
+              "scripts": [
+                {
+                  "durationMs": 12,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 75,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 41,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 31,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 12
+          },
+          "canvasSize": {
+            "width": 645,
+            "height": 534
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (Google)",
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 2525,
+          "transferBytes": 1093155,
+          "decodedBytes": 5045778,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 881026,
+            "unknown": 0,
+            "server.arcgisonline.com": 212129
+          },
+          "longTasksMs": [
+            114,
+            432,
+            61,
+            61,
+            61,
+            106,
+            55,
+            66
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 257,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 41,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 36,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 28,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 14,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 5,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 78,
+              "blockingDurationMs": 25,
+              "scripts": [
+                {
+                  "durationMs": 7,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 160,
+              "blockingDurationMs": 66,
+              "scripts": [
+                {
+                  "durationMs": 115,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 12,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 9,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 106,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 36,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 23,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 7,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 5,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 494,
+              "blockingDurationMs": 442,
+              "scripts": [
+                {
+                  "durationMs": 432,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 53,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 127,
+              "blockingDurationMs": 16,
+              "scripts": [
+                {
+                  "durationMs": 53,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 8,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 209,
+              "blockingDurationMs": 54,
+              "scripts": [
+                {
+                  "durationMs": 61,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 43,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 113,
+              "blockingDurationMs": 58,
+              "scripts": [
+                {
+                  "durationMs": 106,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 219,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 9,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 81,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 45,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 50,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 6,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 67,
+              "blockingDurationMs": 13,
+              "scripts": [
+                {
+                  "durationMs": 7,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 98,
+              "blockingDurationMs": 15,
+              "scripts": [
+                {
+                  "durationMs": 64,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 31,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 12
+          },
+          "canvasSize": {
+            "width": 645,
+            "height": 534
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (Google)",
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 2548,
+          "transferBytes": 1093155,
+          "decodedBytes": 5045778,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 881026,
+            "unknown": 0,
+            "server.arcgisonline.com": 212129
+          },
+          "longTasksMs": [
+            118,
+            452,
+            55,
+            54,
+            61,
+            112,
+            58
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 267,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 42,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 28,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 27,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 15,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 5,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 73,
+              "blockingDurationMs": 23,
+              "scripts": []
+            },
+            {
+              "durationMs": 156,
+              "blockingDurationMs": 73,
+              "scripts": [
+                {
+                  "durationMs": 118,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 13,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 8,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 105,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 37,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 29,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 11,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 508,
+              "blockingDurationMs": 456,
+              "scripts": [
+                {
+                  "durationMs": 452,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 50,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 120,
+              "blockingDurationMs": 13,
+              "scripts": [
+                {
+                  "durationMs": 48,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 10,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 216,
+              "blockingDurationMs": 49,
+              "scripts": [
+                {
+                  "durationMs": 60,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 38,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 117,
+              "blockingDurationMs": 64,
+              "scripts": [
+                {
+                  "durationMs": 112,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 224,
+              "blockingDurationMs": 0,
+              "scripts": []
+            },
+            {
+              "durationMs": 76,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 43,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 71,
+              "blockingDurationMs": 17,
+              "scripts": [
+                {
+                  "durationMs": 8,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 77,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 43,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 31,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 12
+          },
+          "canvasSize": {
+            "width": 645,
+            "height": 534
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (Google)",
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 2544,
+          "transferBytes": 1093155,
+          "decodedBytes": 5045778,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 881026,
+            "unknown": 0,
+            "server.arcgisonline.com": 212129
+          },
+          "longTasksMs": [
+            114,
+            425,
+            59,
+            56,
+            63,
+            110,
+            52
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 248,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 43,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 36,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 32,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 15,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 5,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 114,
+              "blockingDurationMs": 64,
+              "scripts": [
+                {
+                  "durationMs": 114,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 69,
+              "blockingDurationMs": 19,
+              "scripts": []
+            },
+            {
+              "durationMs": 94,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 42,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 30,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 9,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 484,
+              "blockingDurationMs": 433,
+              "scripts": [
+                {
+                  "durationMs": 425,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 52,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 123,
+              "blockingDurationMs": 15,
+              "scripts": [
+                {
+                  "durationMs": 49,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 10,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 238,
+              "blockingDurationMs": 45,
+              "scripts": [
+                {
+                  "durationMs": 62,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 32,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 115,
+              "blockingDurationMs": 62,
+              "scripts": [
+                {
+                  "durationMs": 110,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 234,
+              "blockingDurationMs": 0,
+              "scripts": []
+            },
+            {
+              "durationMs": 73,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 43,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 69,
+              "blockingDurationMs": 13,
+              "scripts": [
+                {
+                  "durationMs": 9,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 77,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 42,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 31,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 12
+          },
+          "canvasSize": {
+            "width": 645,
+            "height": 534
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (Google)",
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 2500,
+          "transferBytes": 1093155,
+          "decodedBytes": 5045778,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 881026,
+            "unknown": 0,
+            "server.arcgisonline.com": 212129
+          },
+          "longTasksMs": [
+            135,
+            369,
+            57,
+            58,
+            62,
+            114,
+            58
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 247,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 39,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 31,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 30,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 14,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 5,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 135,
+              "blockingDurationMs": 86,
+              "scripts": [
+                {
+                  "durationMs": 135,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 76,
+              "blockingDurationMs": 26,
+              "scripts": []
+            },
+            {
+              "durationMs": 427,
+              "blockingDurationMs": 376,
+              "scripts": [
+                {
+                  "durationMs": 369,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 51,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 125,
+              "blockingDurationMs": 15,
+              "scripts": [
+                {
+                  "durationMs": 51,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 8,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 216,
+              "blockingDurationMs": 45,
+              "scripts": [
+                {
+                  "durationMs": 61,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 33,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 120,
+              "blockingDurationMs": 66,
+              "scripts": [
+                {
+                  "durationMs": 114,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 241,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 6,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 75,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 40,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 72,
+              "blockingDurationMs": 16,
+              "scripts": [
+                {
+                  "durationMs": 7,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 78,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 42,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 31,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 12
+          },
+          "canvasSize": {
+            "width": 645,
+            "height": 534
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (Google)",
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        }
+      ]
+    },
+    "mobileViewportEmulation": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "canvasCssPixels": {
+        "width": 323,
+        "height": 438
+      },
+      "attemptedRunCount": 5,
+      "usableRunCount": 5,
+      "runCount": 5,
+      "medianReadinessMs": 1831,
+      "medianTransferBytes": 995189,
+      "medianDecodedBytes": 5045778,
+      "medianEncodedResponseBytesByHost": {
+        "127.0.0.1": 881026,
+        "server.arcgisonline.com": 114163,
+        "unknown": 0
+      },
+      "observedLongTaskCount": 25,
+      "maximumLongTaskMs": 130,
+      "horizontalOverflowRuns": 0,
+      "pageErrorCount": 0,
+      "failedRequestCount": 0,
+      "runs": [
+        {
+          "readinessMs": 1794,
+          "transferBytes": 995189,
+          "decodedBytes": 5045778,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 881026,
+            "unknown": 0,
+            "server.arcgisonline.com": 114163
+          },
+          "longTasksMs": [
+            89,
+            58,
+            50,
+            72,
+            65
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 124,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 29,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 13,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 215,
+              "blockingDurationMs": 40,
+              "scripts": [
+                {
+                  "durationMs": 90,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 34,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 22,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 8,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 6,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 105,
+              "blockingDurationMs": 54,
+              "scripts": [
+                {
+                  "durationMs": 50,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 47,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 56,
+              "blockingDurationMs": 5,
+              "scripts": [
+                {
+                  "durationMs": 47,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 6,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 63,
+              "blockingDurationMs": 0,
+              "scripts": []
+            },
+            {
+              "durationMs": 87,
+              "blockingDurationMs": 25,
+              "scripts": [
+                {
+                  "durationMs": 72,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 80,
+              "blockingDurationMs": 27,
+              "scripts": [
+                {
+                  "durationMs": 10,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 25,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 6
+          },
+          "canvasSize": {
+            "width": 323,
+            "height": 438
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (Google)",
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 2001,
+          "transferBytes": 995189,
+          "decodedBytes": 5045778,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 881026,
+            "unknown": 0,
+            "server.arcgisonline.com": 114163
+          },
+          "longTasksMs": [
+            98,
+            130,
+            54,
+            50,
+            73
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 126,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 36,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 14,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 99,
+              "blockingDurationMs": 49,
+              "scripts": [
+                {
+                  "durationMs": 99,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 185,
+              "blockingDurationMs": 134,
+              "scripts": [
+                {
+                  "durationMs": 131,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 49,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 58,
+              "blockingDurationMs": 7,
+              "scripts": [
+                {
+                  "durationMs": 47,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 7,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 64,
+              "blockingDurationMs": 0,
+              "scripts": []
+            },
+            {
+              "durationMs": 87,
+              "blockingDurationMs": 25,
+              "scripts": [
+                {
+                  "durationMs": 73,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 55,
+              "blockingDurationMs": 2,
+              "scripts": [
+                {
+                  "durationMs": 5,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 25,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 6
+          },
+          "canvasSize": {
+            "width": 323,
+            "height": 438
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (Google)",
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1814,
+          "transferBytes": 995189,
+          "decodedBytes": 5045778,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 881026,
+            "unknown": 0,
+            "server.arcgisonline.com": 114163
+          },
+          "longTasksMs": [
+            78,
+            65,
+            56,
+            50,
+            56
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 125,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 28,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 24,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 12,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 134,
+              "blockingDurationMs": 32,
+              "scripts": [
+                {
+                  "durationMs": 79,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 11,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 121,
+              "blockingDurationMs": 70,
+              "scripts": [
+                {
+                  "durationMs": 65,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 51,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 58,
+              "blockingDurationMs": 7,
+              "scripts": [
+                {
+                  "durationMs": 46,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 8,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 56,
+              "blockingDurationMs": 0,
+              "scripts": []
+            },
+            {
+              "durationMs": 71,
+              "blockingDurationMs": 9,
+              "scripts": [
+                {
+                  "durationMs": 56,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 25,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 6
+          },
+          "canvasSize": {
+            "width": 323,
+            "height": 438
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (Google)",
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1836,
+          "transferBytes": 995189,
+          "decodedBytes": 5045778,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 881026,
+            "unknown": 0,
+            "server.arcgisonline.com": 114163
+          },
+          "longTasksMs": [
+            78,
+            64,
+            57,
+            50,
+            56
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 140,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 28,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 23,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 13,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 127,
+              "blockingDurationMs": 31,
+              "scripts": [
+                {
+                  "durationMs": 78,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 8,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 8,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 121,
+              "blockingDurationMs": 70,
+              "scripts": [
+                {
+                  "durationMs": 64,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 50,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 56,
+              "blockingDurationMs": 5,
+              "scripts": [
+                {
+                  "durationMs": 47,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 6,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 58,
+              "blockingDurationMs": 0,
+              "scripts": []
+            },
+            {
+              "durationMs": 72,
+              "blockingDurationMs": 8,
+              "scripts": [
+                {
+                  "durationMs": 56,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 25,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 6
+          },
+          "canvasSize": {
+            "width": 323,
+            "height": 438
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (Google)",
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1831,
+          "transferBytes": 995189,
+          "decodedBytes": 5045778,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 881026,
+            "unknown": 0,
+            "server.arcgisonline.com": 114163
+          },
+          "longTasksMs": [
+            93,
+            67,
+            58,
+            51,
+            59
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 143,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 29,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 25,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 12,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 94,
+              "blockingDurationMs": 44,
+              "scripts": [
+                {
+                  "durationMs": 94,
+                  "source": "127.0.0.1/assets/App-DDdQqRol.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 125,
+              "blockingDurationMs": 74,
+              "scripts": [
+                {
+                  "durationMs": 68,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 51,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 57,
+              "blockingDurationMs": 6,
+              "scripts": [
+                {
+                  "durationMs": 48,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 6,
+                  "source": "127.0.0.1/assets/index-CDUtrnGO.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 59,
+              "blockingDurationMs": 0,
+              "scripts": []
+            },
+            {
+              "durationMs": 76,
+              "blockingDurationMs": 12,
+              "scripts": [
+                {
+                  "durationMs": 59,
+                  "source": "127.0.0.1/assets/MapPanel-B__vVILZ.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 25,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 6
+          },
+          "canvasSize": {
+            "width": 323,
+            "height": 438
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (Google)",
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        }
+      ]
+    }
+  },
+  "fallback": {
+    "externalHttpBlocked": true,
+    "mapRemainedUsable": true,
+    "degradedNoticeVisible": true,
+    "fatalMapFallbackVisible": false,
+    "mapStatusText": "4,218 sources",
+    "horizontalOverflow": false,
+    "pageErrors": [],
+    "failedRequestCount": 20,
+    "screenshot": "/tmp/methaneresponse-map-performance-software-windowed-2026-10-15/external-tiles-blocked.png"
+  },
+  "screenshots": {
+    "directory": "/tmp/methaneresponse-map-performance-software-windowed-2026-10-15",
+    "retention": "Local diagnostic only; not copied into the public repository because imagery-provider redistribution rights have not been cleared."
+  },
+  "limitations": [
+    "Windowed host rendering and mobile viewport emulation do not establish physical-phone GPU performance or FPS.",
+    "Development-server timing is not a deployed production/CDN measurement.",
+    "Third-party tile availability, browser scheduling and network conditions can change between runs.",
+    "Transfer bytes omit headers and may differ from operating-system network totals."
+  ],
+  "result": "measurement_completed_local"
+}
