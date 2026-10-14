@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test';
-import { isSoftwareWebGLRenderer, isValidMapSnapshotManifest, mapBenchmarkBrowserEnvironment, mapBenchmarkBrowserOptions, median, parseMapPerformanceServerMode, parseMapPerformanceWebglRendererMode, readMapPerformanceOption, summarizeMapRuns, summarizeWebglRendererObservations, type MapPerformanceSample } from './map-performance-utils';
+import { isSoftwareWebGLRenderer, isValidMapSnapshotManifest, mapBenchmarkBrowserEnvironment, mapBenchmarkBrowserOptions, median, parseMapPerformanceBrowserMode, parseMapPerformanceServerMode, parseMapPerformanceWebglRendererMode, readMapPerformanceOption, summarizeMapRuns, summarizeWebglRendererObservations, type MapPerformanceSample } from './map-performance-utils';
 
 test('median ignores unavailable values and averages even-sized samples', () => {
   expect(median([9, Number.NaN, 1, 5])).toBe(5);
@@ -47,14 +47,23 @@ test('benchmark renderer mode defaults to software and rejects unknown values', 
   expect(() => parseMapPerformanceWebglRendererMode('gpu-unrestricted')).toThrow('Unsupported WebGL renderer mode.');
 });
 
+test('benchmark browser mode defaults to headless and rejects unknown values', () => {
+  expect(parseMapPerformanceBrowserMode(undefined)).toBe('headless');
+  expect(parseMapPerformanceBrowserMode('windowed')).toBe('windowed');
+  expect(() => parseMapPerformanceBrowserMode('remote')).toThrow('Unsupported map benchmark browser mode.');
+});
+
 test('system renderer mode requests Chromium GPU without forcing software or disabling its sandbox', () => {
-  const options = mapBenchmarkBrowserOptions('/usr/bin/chromium', 'system');
+  const options = mapBenchmarkBrowserOptions('/usr/bin/chromium', 'system', 'windowed');
   expect(options.headless).toBe(false);
   expect(options.chromiumSandbox).toBe(true);
   expect(options.executablePath).toBe('/usr/bin/chromium');
   expect(options.args).toContain('--enable-gpu');
   expect(options.args).not.toContain('--use-angle=swiftshader');
   expect(options.args).not.toContain('--no-sandbox');
+  const systemHeadless = mapBenchmarkBrowserOptions('/usr/bin/chromium', 'system', 'headless');
+  expect(systemHeadless.headless).toBe(true);
+  expect(systemHeadless.args).toContain('--headless=new');
 });
 
 test('system renderer gets only the minimal display environment while software mode remains isolated', () => {
@@ -66,7 +75,7 @@ test('system renderer gets only the minimal display environment while software m
     XDG_RUNTIME_DIR: '/run/user/1000',
     AI_API_KEY: 'never-forward-this',
   };
-  expect(mapBenchmarkBrowserEnvironment(safeEnvironment, hostEnvironment, 'system')).toEqual({
+  expect(mapBenchmarkBrowserEnvironment(safeEnvironment, hostEnvironment, 'windowed')).toEqual({
     ...safeEnvironment,
     DISPLAY: ':0',
     XAUTHORITY: '/run/user/1000/xauth',
@@ -76,12 +85,12 @@ test('system renderer gets only the minimal display environment while software m
     XDG_RUNTIME_DIR: '/run/user/1000',
     XAUTHORITY: '/run/user/1000/xauth',
     AI_API_KEY: 'never-forward-this',
-  }, 'system')).toEqual({
+  }, 'windowed')).toEqual({
     ...safeEnvironment,
     WAYLAND_DISPLAY: 'wayland-0',
     XDG_RUNTIME_DIR: '/run/user/1000',
   });
-  expect(mapBenchmarkBrowserEnvironment(safeEnvironment, hostEnvironment, 'software')).toEqual(safeEnvironment);
+  expect(mapBenchmarkBrowserEnvironment(safeEnvironment, hostEnvironment, 'headless')).toEqual(safeEnvironment);
 });
 
 test('software renderer classification distinguishes SwiftShader from AMD WebGL', () => {

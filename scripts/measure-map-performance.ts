@@ -4,13 +4,14 @@ import { createServer } from 'node:net';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { buildE2ERunnerEnvironment, chooseE2ETemporaryRoot } from './e2e-runner-utils';
-import { isValidMapSnapshotManifest, mapBenchmarkBrowserEnvironment, mapBenchmarkBrowserOptions, parseMapPerformanceServerMode, parseMapPerformanceWebglRendererMode, readMapPerformanceOption, summarizeMapRuns, summarizeWebglRendererObservations, type MapPerformanceSample } from './map-performance-utils';
+import { isValidMapSnapshotManifest, mapBenchmarkBrowserEnvironment, mapBenchmarkBrowserOptions, parseMapPerformanceBrowserMode, parseMapPerformanceServerMode, parseMapPerformanceWebglRendererMode, readMapPerformanceOption, summarizeMapRuns, summarizeWebglRendererObservations, type MapPerformanceSample } from './map-performance-utils';
 
 const root = resolve(import.meta.dir, '..');
 const sampleCount = 5;
 const sourceId = readMapPerformanceOption(process.argv.slice(2), 'source', 'KAZ_S_159');
 const serverMode = parseMapPerformanceServerMode(readMapPerformanceOption(process.argv.slice(2), 'server', 'production-preview'));
 const webglRendererMode = parseMapPerformanceWebglRendererMode(readMapPerformanceOption(process.argv.slice(2), 'webgl-renderer', 'software'));
+const browserMode = parseMapPerformanceBrowserMode(readMapPerformanceOption(process.argv.slice(2), 'browser-mode', 'headless'));
 const outputPath = resolve(root, readMapPerformanceOption(process.argv.slice(2), 'output', `docs/evidence/map-performance-cold-runs-${witaDate()}.json`));
 const screenshotDirectory = resolve(readMapPerformanceOption(process.argv.slice(2), 'screenshot-dir', join('/tmp', `methaneresponse-map-performance-${witaDate()}`)));
 const overwrite = process.argv.includes('--overwrite');
@@ -286,8 +287,8 @@ async function main(): Promise<void> {
   const manifest = manifestValue;
 
   const originalEnvironment = { ...process.env };
-  if (webglRendererMode === 'system' && !originalEnvironment.DISPLAY && !originalEnvironment.WAYLAND_DISPLAY) {
-    throw new Error('System WebGL renderer mode requires DISPLAY or WAYLAND_DISPLAY; use --webgl-renderer=software on headless runners.');
+  if (browserMode === 'windowed' && !originalEnvironment.DISPLAY && !originalEnvironment.WAYLAND_DISPLAY) {
+    throw new Error('Windowed browser mode requires DISPLAY or WAYLAND_DISPLAY; use --browser-mode=headless on headless runners.');
   }
   const temporaryRoot = chooseE2ETemporaryRoot(originalEnvironment);
   const safeEnvironment = buildE2ERunnerEnvironment(originalEnvironment, temporaryRoot);
@@ -360,8 +361,8 @@ async function main(): Promise<void> {
 
     const executablePath = originalEnvironment.PLAYWRIGHT_CHROMIUM_EXECUTABLE;
     browser = await chromium.launch({
-      ...mapBenchmarkBrowserOptions(executablePath, webglRendererMode),
-      env: mapBenchmarkBrowserEnvironment(safeEnvironment, originalEnvironment, webglRendererMode),
+      ...mapBenchmarkBrowserOptions(executablePath, webglRendererMode, browserMode),
+      env: mapBenchmarkBrowserEnvironment(safeEnvironment, originalEnvironment, browserMode),
     });
 
     const viewportCases = [
@@ -429,7 +430,7 @@ async function main(): Promise<void> {
       },
       environment: {
         browser: `Chromium ${browser.version()}`,
-        browserMode: webglRendererMode === 'software' ? 'headless' : 'windowed',
+        browserMode,
         platform: `${process.platform} ${process.arch}`,
         runtime: `Bun ${Bun.version}`,
         server: serverMode === 'development'
@@ -453,7 +454,10 @@ async function main(): Promise<void> {
         longTaskWindow: 'Observed from document initialization through one second after map readiness.',
         webglRendererPolicy: webglRendererMode === 'software'
           ? 'Chromium is forced to SwiftShader for a repeatable software-renderer baseline.'
-          : 'Chromium runs windowed and selects the host WebGL renderer; the actual vendor and renderer are recorded per run, and system selection may still resolve to software.',
+          : `Chromium requests system-selected WebGL in ${browserMode} mode; the actual vendor and renderer are recorded per run, and system selection may still resolve to software.`,
+        browserModePolicy: browserMode === 'windowed'
+          ? 'Chromium runs with the host display enabled; this mode can be used for a paired hardware/software renderer comparison on the same display path.'
+          : 'Chromium runs headless; renderer availability and selection may differ from windowed desktop behavior.',
         externalFallback: 'One additional desktop context blocks all non-loopback HTTP(S) requests before navigation.',
       },
       viewports,
@@ -463,9 +467,9 @@ async function main(): Promise<void> {
         retention: 'Local diagnostic only; not copied into the public repository because imagery-provider redistribution rights have not been cleared.',
       },
       limitations: [
-        webglRendererMode === 'software'
-          ? 'Software WebGL and viewport emulation do not establish physical-phone GPU performance or FPS.'
-          : 'Windowed host WebGL and mobile viewport emulation do not establish physical-phone GPU performance or FPS.',
+        browserMode === 'windowed'
+          ? 'Windowed host rendering and mobile viewport emulation do not establish physical-phone GPU performance or FPS.'
+          : 'Headless rendering and mobile viewport emulation do not establish physical-phone GPU performance or FPS.',
         'Development-server timing is not a deployed production/CDN measurement.',
         'Third-party tile availability, browser scheduling and network conditions can change between runs.',
         'Transfer bytes omit headers and may differ from operating-system network totals.',

@@ -18,6 +18,7 @@ export type MapBenchmarkBrowserOptions = {
 
 export type MapPerformanceServerMode = 'development' | 'production-preview';
 export type MapPerformanceWebglRendererMode = 'software' | 'system';
+export type MapPerformanceBrowserMode = 'headless' | 'windowed';
 export type MapWebglRendererObservation = { available: boolean; vendor: string | null; renderer: string | null };
 
 export type MapSnapshotManifest = {
@@ -60,13 +61,19 @@ export function parseMapPerformanceWebglRendererMode(value: string | undefined):
   throw new Error('Unsupported WebGL renderer mode.');
 }
 
+export function parseMapPerformanceBrowserMode(value: string | undefined): MapPerformanceBrowserMode {
+  if (value === undefined || value === 'headless') return 'headless';
+  if (value === 'windowed') return 'windowed';
+  throw new Error('Unsupported map benchmark browser mode.');
+}
+
 export function mapBenchmarkBrowserEnvironment(
   safeEnvironment: Readonly<Record<string, string>>,
   hostEnvironment: Readonly<Record<string, string | undefined>>,
-  rendererMode: MapPerformanceWebglRendererMode,
+  browserMode: MapPerformanceBrowserMode,
 ): Record<string, string> {
   const environment = { ...safeEnvironment };
-  if (rendererMode === 'system') {
+  if (browserMode === 'windowed') {
     if (hostEnvironment.DISPLAY !== undefined) {
       environment.DISPLAY = hostEnvironment.DISPLAY;
       if (hostEnvironment.XAUTHORITY !== undefined) environment.XAUTHORITY = hostEnvironment.XAUTHORITY;
@@ -101,13 +108,14 @@ export function summarizeWebglRendererObservations(observations: readonly MapWeb
 export function mapBenchmarkBrowserOptions(
   executablePath?: string,
   rendererMode: MapPerformanceWebglRendererMode = 'software',
+  browserMode: MapPerformanceBrowserMode = 'headless',
 ): MapBenchmarkBrowserOptions {
   return {
-    headless: rendererMode === 'software',
+    headless: browserMode === 'headless',
     chromiumSandbox: true,
     args: rendererMode === 'software'
       ? ['--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader']
-      : ['--enable-webgl', '--enable-gpu'],
+      : ['--enable-webgl', '--enable-gpu', ...(browserMode === 'headless' ? ['--headless=new'] : [])],
     ...(executablePath ? { executablePath } : {}),
   };
 }
