@@ -18,10 +18,12 @@ const withholdUnclearedAssets: Plugin = {
 };
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), 'METHANE_');
-  const apiProxyTarget = resolveDevApiProxyTarget(env.METHANE_API_PROXY_TARGET);
+  const envDirectory = process.env.METHANE_E2E_ISOLATED_ENV_DIR || process.cwd();
+  const env = loadEnv(mode, envDirectory, 'METHANE_');
+  const apiProxyTarget = resolveDevApiProxyTarget(process.env.METHANE_API_PROXY_TARGET || env.METHANE_API_PROXY_TARGET);
 
   return {
+    envDir: envDirectory,
     plugins: [withholdUnclearedAssets, react(), tailwindcss()],
     server: { port: 5173, proxy: { '/api': apiProxyTarget } },
   };

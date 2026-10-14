@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
+import { unexpectedCredentialEnvironmentNames } from './environment-assertions';
 
 type ExportedAudit = {
   sourceDataset?: { snapshotId?: string };
@@ -14,6 +15,7 @@ type ExportedAudit = {
 };
 
 test('historical MARS case can be audited, exported, verified, and tampering is rejected', async ({ page }) => {
+  expect(unexpectedCredentialEnvironmentNames()).toEqual([]);
   const pageErrors: string[] = [];
   page.on('pageerror', error => pageErrors.push(error.message));
 

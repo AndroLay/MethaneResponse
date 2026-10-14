@@ -6,8 +6,17 @@
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
-    "types": ["node"],
+    "types": ["node", "bun"],
+    "typeRoots": ["./node_modules/@types", "./apps/api/node_modules/@types"],
     "lib": ["ES2022", "DOM"]
   },
-  "include": ["playwright.config.ts", "e2e/**/*.ts"]
+  "include": [
+    "playwright.config.ts",
+    "e2e/**/*.ts",
+    "scripts/e2e-runner-utils.ts",
+    "scripts/e2e-runner-utils.test.ts",
+    "scripts/run-e2e.ts",
+    "scripts/run-e2e-ai.ts",
+    "scripts/e2e-mock-ai-provider.ts"
+  ]
 }
