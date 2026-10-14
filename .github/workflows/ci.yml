@@ -40,6 +40,8 @@ jobs:
       - run: bun run test:verifier
       - run: bun run build:web
       - run: bun run check:web-bundle
+      - run: bun run playwright install --with-deps chromium
+      - run: bun run test:e2e
 
   data-pipeline:
     runs-on: ubuntu-latest

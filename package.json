@@ -7,9 +7,11 @@
     "dev:web": "cd apps/web && bun run dev",
     "dev:api": "cd apps/api && bun run dev",
     "build:web": "cd apps/web && bun run build",
-    "check": "cd apps/api && bun run typecheck && cd ../web && bun run typecheck",
+    "check": "cd apps/api && bun run typecheck && cd ../web && bun run typecheck && cd ../.. && bun run check:e2e",
+    "check:e2e": "tsc --project tsconfig.e2e.json",
     "test:api": "cd apps/api && bun test",
     "test:web": "cd apps/web && bun test",
+    "test:e2e": "bash scripts/run-e2e.sh",
     "check:web-bundle": "bun scripts/check-web-bundle.ts",
     "test:verifier": "bun test scripts/verify-audit.test.ts scripts/run-ai-benchmark.test.ts scripts/check-local.test.ts scripts/check-local-postgis.test.ts",
     "test:local-gates": "bun test scripts/check-local.test.ts scripts/check-local-postgis.test.ts",
@@ -20,5 +22,11 @@
     "check:all": "bash scripts/check-local.sh",
     "verify:audit": "bun scripts/verify-audit.ts"
   },
-  "engines": {"bun": ">=1.2.0"}
+  "engines": {
+    "bun": ">=1.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "^24.0.0"
+  }
 }

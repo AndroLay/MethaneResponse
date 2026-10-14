@@ -4,7 +4,7 @@
 - **Tanggal pemeriksaan:** 14 Oktober 2026 (WITA)
 - **Tujuan:** memberi jalur kerja yang dapat diperiksa dari kondisi repo sekarang sampai submission hackathon, lalu sampai target internal kesiapan berbukti.
 - **Status:** rencana disetujui; pelaksanaan bertahap berjalan. Rencana ini bukan klaim bahwa seluruh pekerjaan di bawah sudah selesai. Bukti progres terbaru ada di [`docs/EXECUTION_CHECKPOINT_2026-10-14.md`](EXECUTION_CHECKPOINT_2026-10-14.md).
-- **Sumber status teknis:** repository dan catatan uji lokal yang ditautkan di dokumen ini. Status yang berubah cepat harus diperiksa kembali pada release candidate.
+- **Sumber status teknis:** repository dan catatan uji lokal yang ditautkan di dokumen ini. Browser workflow E2E terbaru dicatat pada [`checkpoint 15 Oktober`](EXECUTION_CHECKPOINT_2026-10-15.md); status yang berubah cepat harus diperiksa kembali pada release candidate.
 
 ## 1. Keputusan utama
 
