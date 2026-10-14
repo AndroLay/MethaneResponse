@@ -438,7 +438,7 @@ test('full-snapshot document report survives human review, store reopen, and dig
   }
 });
 
-test('v3 citations remain private until both submitter and reviewer explicitly permit publication', async () => {
+test('v3 claims and citations remain private until both submitter and reviewer explicitly permit publication', async () => {
   const previousAiToken = process.env.AI_REVIEW_TOKEN;
   const previousHumanToken = process.env.HUMAN_REVIEW_TOKEN;
   const previousReviewerId = process.env.HUMAN_REVIEWER_ID;
@@ -457,9 +457,12 @@ test('v3 citations remain private until both submitter and reviewer explicitly p
       citations: [{ documentId: 'private-note', quote }],
     }),
   });
-  const assessment = (consentToPublishCitations: boolean) => ({
+  const exactClaimText = 'For source KAZ_S_159, the operator completed the reported repair on 2026-08-20 and independently confirmed sustained methane reduction.';
+  const assessment = (consentToPublishCitations: boolean, consentToPublishClaim = false) => ({
     sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
+    claimText: exactClaimText,
     consentToPublishCitations,
+    consentToPublishClaim,
     documents: [{ id: 'private-note', title: 'Authorized local test excerpt', rightsDeclared: 'explicit_permission', text: `The report says: ${quote} The operator has not supplied later measurements or an independent outcome confirmation.` }],
   });
   const authorized = (token: string) => ({ authorization: `Bearer ${token}` });
@@ -556,6 +559,13 @@ test('v3 citations remain private until both submitter and reviewer explicitly p
     });
     expect(publicDraftResponse.status).toBe(201);
     const publicDraft = (await publicDraftResponse.json()).audit as AuditResult;
+    const deniedClaimPublication = await routed.request(`/api/audits/${publicDraft.auditId}/review`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', ...authorized(humanToken) },
+      body: JSON.stringify({ status: 'approved', note: 'The submitter did not authorize publication of the exact claim.', sourceInspected: true, publishCitations: true, publishClaimText: true }),
+    });
+    expect(deniedClaimPublication.status).toBe(403);
+
     const publishedResponse = await routed.request(`/api/audits/${publicDraft.auditId}/review`, {
       method: 'POST', headers: { 'content-type': 'application/json', ...authorized(humanToken) },
       body: JSON.stringify({ status: 'approved', note: 'The citation is authorized for public review.', sourceInspected: true, publishCitations: true }),
@@ -563,14 +573,37 @@ test('v3 citations remain private until both submitter and reviewer explicitly p
     expect(publishedResponse.status).toBe(201);
     const published = (await publishedResponse.json()).audit as AuditResult;
     expect(published.bundle.intelligence?.citationPublication).toMatchObject({ status: 'public', authorConsent: true });
+    expect(published.bundle.intelligence?.claimText).toBeUndefined();
+    expect(published.bundle.intelligence?.claimTextSha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(published.bundle.intelligence?.claimPublication).toMatchObject({ status: 'private', authorConsent: false });
     expect(published.bundle.intelligence?.review?.note).toBe('The citation is authorized for public review.');
 
     const releasedHistory = await routed.request(`/api/audits?sourceId=${published.sourceId}`);
     expect((await releasedHistory.json()).audits.map((item: AuditResult) => item.auditId)).toEqual([published.auditId]);
     const publicReport = await routed.request(`/api/audits/${published.auditId}`);
     expect(publicReport.status).toBe(200);
-    expect(JSON.stringify(await publicReport.json())).toContain(quote);
+    const publicBundle = await publicReport.json();
+    expect(JSON.stringify(publicBundle)).toContain(quote);
+    expect(JSON.stringify(publicBundle)).not.toContain(exactClaimText);
     expect((await routed.request(`/api/audits/${privateDraft.auditId}`)).status).toBe(404);
+
+    const publicClaimDraftResponse = await routed.request('/api/intelligence/assessments', {
+      method: 'POST', headers: { 'content-type': 'application/json', ...authorized(aiToken) }, body: JSON.stringify(assessment(true, true)),
+    });
+    expect(publicClaimDraftResponse.status).toBe(201);
+    const publicClaimDraft = (await publicClaimDraftResponse.json()).audit as AuditResult;
+    const publicClaimReview = await routed.request(`/api/audits/${publicClaimDraft.auditId}/review`, {
+      method: 'POST', headers: { 'content-type': 'application/json', ...authorized(humanToken) },
+      body: JSON.stringify({ status: 'approved', note: 'The claim and citation are authorized for public review.', sourceInspected: true, publishCitations: true, publishClaimText: true }),
+    });
+    expect(publicClaimReview.status).toBe(201);
+    const publicClaimAudit = (await publicClaimReview.json()).audit as AuditResult;
+    expect(publicClaimAudit.bundle.intelligence?.claimText).toBe(exactClaimText);
+    expect(publicClaimAudit.bundle.intelligence?.claimPublication).toMatchObject({ status: 'public', authorConsent: true });
+    expect(auditIntegrityValid(publicClaimAudit)).toBe(true);
+    const publicClaimReport = await routed.request(`/api/audits/${publicClaimAudit.auditId}`);
+    expect(publicClaimReport.status).toBe(200);
+    expect(JSON.stringify(await publicClaimReport.json())).toContain(exactClaimText);
   } finally {
     if (previousAiToken === undefined) delete process.env.AI_REVIEW_TOKEN;
     else process.env.AI_REVIEW_TOKEN = previousAiToken;

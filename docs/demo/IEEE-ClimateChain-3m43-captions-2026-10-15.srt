@@ -1,0 +1,57 @@
+1
+00:00:00,000 --> 00:00:06,480
+Trace the claim. Inspect the evidence. Preserve the record.
+
+2
+00:00:06,480 --> 00:00:15,000
+Historical UNEP MARS snapshot, not a live methane feed.
+
+3
+00:00:15,000 --> 00:00:35,000
+4,218 source records · 30,414 plume records · archive through
+13 September 2026 UTC · snapshot unep-mars-675417694883.
+
+4
+00:00:35,000 --> 00:00:55,000
+KAZ_S_159 · Kazakhstan · recorded source coordinates.
+Markers show archive locations, not methane concentration.
+
+5
+00:00:59,000 --> 00:01:19,000
+Three linked plume records; last observed 11 July 2026.
+Notification and feedback are publisher metadata, not proof of repair.
+
+6
+00:01:19,000 --> 00:01:46,000
+Three dated observations are linked. Latest estimate: 496 ± 226 kg/h
+on 11 July 2026 (EnMAP-DLR); intermittent records, not live flux.
+
+7
+00:01:50,000 --> 00:02:07,000
+Claim: this release was mitigated. The deterministic rules baseline
+returns insufficient evidence.
+
+8
+00:02:07,000 --> 00:02:21,000
+The linked report text is excluded from assessment. No live AI provider
+or authenticated reviewer is active in this run.
+
+9
+00:02:23,000 --> 00:02:40,000
+The exported JSON records the selected source, historical snapshot,
+claim assessment and report revision.
+
+10
+00:02:49,000 --> 00:03:06,000
+The local verifier recomputes SHA-256 and matches. No blockchain
+receipt or on-chain transaction is included.
+
+11
+00:03:09,000 --> 00:03:26,000
+Changing the audit summary breaks its digest check.
+That detects edits; it does not establish physical truth.
+
+12
+00:03:26,000 --> 00:03:43,350
+This local demo does not prove mitigation, AI accuracy, cloud durability,
+user impact or emissions reduction.

@@ -13,6 +13,17 @@ The live [UNEP download catalog](https://methanedata.unep.org/download-dataset) 
 
 The official CSV and GeoJSON blob objects were retrieved on 2026-10-14T06:10:12Z using ranged HTTPS requests pinned to their ETags. Complete lengths, `Content-MD5`, archive SHA-256, parser output, unique IDs, date ranges, CSV/GeoJSON plume joins, and geometry metadata were checked before promotion. The CSV object was 10,795,938 bytes (ETag `0x8DF299FE24DC1F8`, SHA-256 `675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43`); the GeoJSON object was 55,446,778 bytes (ETag `0x8DF299FE29EBB2C`, SHA-256 `42315a8803a51e0daf880b95f0723c6d54ec0fd7c1f4600c0ca5e07838f7c26c`). Both reported `Last-Modified: 2026-10-14T03:04:38Z`. This establishes the exact files locally verified at retrieval time; the catalog page itself still does not publish a versioned checksum or a guaranteed current-feed endpoint.
 
+### Upstream object recheck — 2026-10-15
+
+A fresh HTTPS `HEAD` request to both official blob URLs returned HTTP 200 and the same object metadata as the complete archives retrieved on 14 October:
+
+| Archive | ETag | Bytes | `Content-MD5` | `Last-Modified` |
+|---|---|---:|---|---|
+| CSV | `0x8DF299FE24DC1F8` | 10,795,938 | `qpQF/ugHPKCoPv7MFuh38A==` | 2026-10-14 03:04:38 GMT |
+| GeoJSON | `0x8DF299FE29EBB2C` | 55,446,778 | `R/3XbiPLmcy32d7fGmOfsA==` | 2026-10-14 03:04:38 GMT |
+
+The live object headers still match the previously verified archive identity; no newer object was indicated. The 15 October check was metadata-only: it did not download or reparse either archive. The active snapshot therefore remains the completely verified 14 October retrieval, and the project makes no claim that the publisher exposes a live feed or a newer dated release.
+
 There is also a live license wording difference: the catalog and MARS dictionary describe the dataset as CC BY-NC-SA 4.0, while the general terms page currently says CC BY-NC 4.0. The local archive contains a dataset-specific CC BY-NC-SA 4.0 notice, so this project follows that more restrictive specific notice and records the discrepancy for rights review.
 
 ## Imported MARS snapshot
@@ -88,4 +99,3 @@ The same snapshot carries a separate `anomalyAnalysis` screen (`mad-threshold-sc
 The optional model path accepts a source in the validated full MARS snapshot or the curated compatibility casebook, plus a bounded excerpt. Before a provider call, the submitter must separately consent to external processing and declare per document that it is owned or explicitly permitted for processing. The declaration and document digest are recorded in the versioned report; this is self-attestation, not independent rights verification. The excerpt is sent only to the configured server-side provider, exact quote substrings are checked, and selected quotations/document digests are stored instead of the complete source text. This verifies quotation matching to the submitted text only; it cannot establish document authenticity, context, scientific sufficiency, rights ownership, or physical mitigation. The provider path has not been measured on an independently human-labeled dataset. No AI benchmark metrics are claimed.
 
 Human review is a distinct authenticated step with separate approve, reject, and request-more-evidence dispositions; each creates a new v3 audit revision linked to the prior bundle hash. Requesting more evidence produces `insufficient_evidence` until the evidence is reassessed. A reviewed report can be anchored, but neither reviewer approval nor a blockchain receipt proves methane repair. The v3 bundle binds MARS archive provenance, the source's plume IDs, model/prompt version, reviewer decision, and current intelligence snapshot hash when available. Existing v2 audit and receipt records remain supported.
-

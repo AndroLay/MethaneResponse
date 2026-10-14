@@ -4,13 +4,20 @@ import { spawnSync } from 'node:child_process';
 import { mkdtemp, readFile, readdir, rm, stat, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
+import { DocumentAssessmentInput, assessmentInputHashes } from '../apps/api/src/ai-review';
 import { executeBenchmarkToPrivateFile, validateCandidates } from './run-ai-benchmark';
 
 const excerpt = 'An operator filed a repair notice, but this report does not establish independent, sustained methane-emissions mitigation. '.repeat(2);
+const input = { sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed' as const,
+  claimText: 'The operator completed the specified repair at source KAZ_S_159 on 2026-09-10 and verified sustained methane reduction.',
+  consentToExternalProcessing: true as const,
+  documents: [{ id: 'report-01', title: 'Permission-cleared report', text: excerpt, rightsDeclared: 'explicit_permission' as const }] };
+const inputHashes = assessmentInputHashes(DocumentAssessmentInput.parse(input))!;
 const valid = {
   claimId: 'claim-01', split: 'test', synthetic: false,
   sourceInspected: true,
   reviewerId: 'adjudicator-01', reviewedAt: '2026-10-13',
+  ...inputHashes,
   rightsReview: {
     reviewerId: 'adjudicator-01', reviewedAt: '2026-10-13',
     documents: [{
@@ -20,8 +27,7 @@ const valid = {
         quoteStorage: true, metricsPublication: true },
     }],
   },
-  input: { sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
-    documents: [{ id: 'report-01', title: 'Permission-cleared report', text: excerpt, rightsDeclared: 'explicit_permission' }] },
+  input,
 };
 
 test('billable runner admits only bounded held-out real and reviewed evidence', () => {
@@ -52,6 +58,15 @@ test('billable runner requires per-document rights scope for every processing us
     sourceUrl: 'https://different.example/report' }] } }], 1)).toThrow('does not match');
   const [candidate] = validateCandidates([valid], 1);
   expect(candidate.rightsReviewSha256).toMatch(/^[0-9a-f]{64}$/);
+});
+
+test('billable runner rejects a frozen assessment digest that does not match the exact claim and excerpt input', () => {
+  const candidate = {
+    ...valid,
+    assessmentInputSha256: 'd'.repeat(64),
+    input: { ...valid.input, claimText: 'The operator completed a repair at source KAZ_S_159 on 2026-09-10.' },
+  };
+  expect(() => validateCandidates([candidate], 1)).toThrow('assessment input digest mismatch');
 });
 
 test('benchmark output is published only after every provider assessment succeeds', async () => {

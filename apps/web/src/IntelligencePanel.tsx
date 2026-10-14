@@ -125,6 +125,7 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
   const [reviewing, setReviewing] = useState(false);
   const [anchoring, setAnchoring] = useState(false);
   const [failure, setFailure] = useState<string | null>(null);
+  const [claimText, setClaimText] = useState('');
   const [documentText, setDocumentText] = useState('');
   const [documentTitle, setDocumentTitle] = useState('');
   const [documentUrl, setDocumentUrl] = useState('');
@@ -133,11 +134,13 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
   const [importStatus, setImportStatus] = useState<string | null>(null);
   const [consent, setConsent] = useState(false);
   const [consentToPublishCitations, setConsentToPublishCitations] = useState(false);
+  const [consentToPublishClaim, setConsentToPublishClaim] = useState(false);
   const [aiAccessToken, setAiAccessToken] = useState('');
   const [humanAccessToken, setHumanAccessToken] = useState('');
   const [reviewNote, setReviewNote] = useState('');
   const [reviewerInspectedSource, setReviewerInspectedSource] = useState(false);
   const [publishReviewedReport, setPublishReviewedReport] = useState(false);
+  const [publishReviewedClaimText, setPublishReviewedClaimText] = useState(false);
   const [generated, setGenerated] = useState<AuditResult | null>(null);
   const investigationContext = useRef(`${sourceId}\u0000${claimType}`);
   investigationContext.current = `${sourceId}\u0000${claimType}`;
@@ -146,6 +149,7 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
     let cancelled = false;
     setGenerated(null);
     setFailure(null);
+    setClaimText('');
     setPublishReviewedReport(false);
     setDocumentText('');
     setDocumentTitle('');
@@ -154,6 +158,8 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
     setImportStatus(null);
     setConsent(false);
     setConsentToPublishCitations(false);
+    setConsentToPublishClaim(false);
+    setPublishReviewedClaimText(false);
     setInsights(null);
     setInsightState(synthetic ? 'ready' : 'loading');
     if (!synthetic) {
@@ -210,13 +216,14 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
   }
 
   async function assess() {
-    if (!assessmentAllowed || synthetic || !consent || !rightsDeclared || !aiAccessToken.trim() || !documentTitle.trim() || documentText.trim().length < 80 || !capability?.documentModelConfigured) return;
+    if (!assessmentAllowed || synthetic || claimText.trim().length < 20 || !consent || !rightsDeclared || !aiAccessToken.trim() || !documentTitle.trim() || documentText.trim().length < 80 || !capability?.documentModelConfigured) return;
     setLoading(true); setFailure(null);
     try {
       const response = await fetch(`${api}/api/intelligence/assessments`, {
         method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${aiAccessToken}` },
-        body: JSON.stringify({ sourceId, claimType, consentToExternalProcessing: true,
+        body: JSON.stringify({ sourceId, claimType, claimText: claimText.trim(), consentToExternalProcessing: true,
           consentToPublishCitations,
+          consentToPublishClaim,
           documents: [{ id: preparedDocument?.id || 'submitted-excerpt-01', title: documentTitle.trim(), text: documentText.trim(), rightsDeclared, ...(documentUrl.trim() ? { sourceUrl: documentUrl.trim() } : {}), ...(preparedDocument ? { originalFileSha256: preparedDocument.originalFileSha256, selectedPages: preparedDocument.selectedPages } : {}) }] }),
       });
       const payload = await parseResponse<{ audit: AuditResult }>(response);
@@ -231,7 +238,7 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
     try {
       const response = await fetch(`${api}/api/audits/${encodeURIComponent(generated.auditId)}/review`, {
         method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${humanAccessToken}` },
-        body: JSON.stringify({ status, note: reviewNote.trim(), sourceInspected: status === 'approved' && reviewerInspectedSource, publishCitations: status === 'approved' && publishReviewedReport }),
+        body: JSON.stringify({ status, note: reviewNote.trim(), sourceInspected: status === 'approved' && reviewerInspectedSource, publishCitations: status === 'approved' && publishReviewedReport, publishClaimText: status === 'approved' && publishReviewedReport && publishReviewedClaimText }),
       });
       const payload = await parseResponse<{ audit: AuditResult }>(response);
       setGenerated(payload.audit); onAssessment(payload.audit);
@@ -258,6 +265,8 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
   const reviewStatus = generated?.bundle.intelligence?.reviewStatus;
   const citationPublication = generated?.bundle.intelligence?.citationPublication;
   const authorAllowedPublication = citationPublication?.authorConsent === true;
+  const claimPublication = generated?.bundle.intelligence?.claimPublication;
+  const authorAllowedClaimPublication = claimPublication?.authorConsent === true;
   const reviewLabel = reviewStatus === 'approved' ? 'accepted'
     : reviewStatus === 'rejected' ? 'rejected'
       : reviewStatus === 'needs_more_evidence' ? 'more evidence requested'
@@ -318,7 +327,9 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
         </>}
       </div>
       <div className="intel-card"><div className="intel-section-label">AI DOCUMENT ASSESSMENT <span>Optional · reviewer required</span></div>
-        <p className="intel-disclaimer">Submit an excerpt you are authorized to process. It is sent to the configured provider only after opt-in. Full excerpts are not persisted; exact cited passages and document hashes are retained in the versioned report. MARS map metadata is not mitigation evidence; the system does not authenticate the document or prove physical mitigation.</p>
+        <p className="intel-disclaimer">State one exact, bounded claim before adding evidence. The claim and authorized excerpt are sent to the configured provider only after opt-in. Full excerpts are not persisted; exact cited passages and document hashes are retained in the versioned report. MARS map metadata is not mitigation evidence; the system does not authenticate the document or prove physical mitigation.</p>
+        <label>Exact claim to assess<textarea rows={3} maxLength={1_000} value={claimText} onChange={event=>{setClaimText(event.target.value);setGenerated(null);setPublishReviewedReport(false);setPublishReviewedClaimText(false);}} placeholder={`For ${sourceId}, the operator received the stated notification on [date].`} /></label>
+        <p className="intel-disclaimer">Keep the claim source-specific and time-bounded. An action report, a missing later detection, or a MARS feedback field alone cannot establish physical mitigation.</p>
         <label>Import locally prepared evidence JSON (optional)<input type="file" accept=".json,application/json" onChange={event=>{ void importPreparedFile(event.target.files?.[0]); event.target.value = ''; }}/></label>
         {importStatus && <p className="intel-disclaimer" role="status">{importStatus}</p>}
         <p className="intel-disclaimer">Prepare authorized PDF/TXT excerpts with <code>python scripts/prepare_evidence.py</code>. Import runs locally in this browser and never sends the file or grants provider consent. Digest checks do not authenticate the source or establish scientific correctness.</p>
@@ -330,7 +341,8 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
         <form className="intel-token-form" onSubmit={event=>event.preventDefault()}><label>Assessment access token (session only)<input type="password" autoComplete="off" value={aiAccessToken} onChange={event=>setAiAccessToken(event.target.value)} placeholder="AI assessment token"/></label></form>
         <label className="intel-consent"><input type="checkbox" checked={consent} onChange={event=>setConsent(event.target.checked)}/> I am authorized to process this text and consent to transmission to the configured AI provider.</label>
         <label className="intel-consent"><input type="checkbox" checked={consentToPublishCitations} onChange={event=>setConsentToPublishCitations(event.target.checked)}/> I separately permit the exact cited passages and submitted document title/URL to be made public later, only if a human reviewer approves and chooses publication.</label>
-        <button type="button" className="intel-action" disabled={!assessmentAllowed || synthetic || !consent || !rightsDeclared || !capability?.documentModelConfigured || !aiAccessToken.trim() || !documentTitle.trim() || documentText.trim().length < 80 || loading} onClick={()=>void assess()}>{loading ? 'Assessing evidence…' : 'Assess documented claim'}</button>
+        <label className="intel-consent"><input type="checkbox" checked={consentToPublishClaim} onChange={event=>setConsentToPublishClaim(event.target.checked)}/> I separately permit the exact claim wording above to be included in a public reviewed report; the reviewer must also choose to publish it.</label>
+        <button type="button" className="intel-action" disabled={!assessmentAllowed || synthetic || claimText.trim().length < 20 || !consent || !rightsDeclared || !capability?.documentModelConfigured || !aiAccessToken.trim() || !documentTitle.trim() || documentText.trim().length < 80 || loading} onClick={()=>void assess()}>{loading ? 'Assessing evidence…' : 'Assess documented claim'}</button>
         {synthetic && <p className="intel-warning">Document assessment is disabled for synthetic DEMO sources.</p>}
         {!synthetic && !assessmentAllowed && insightState === 'loading' && <p className="intel-empty" role="status">Confirming that this source exists in the pinned server snapshot…</p>}
         {!synthetic && !assessmentAllowed && insightState === 'unavailable' && <p className="intel-warning">The pinned server snapshot could not validate this source. A local map file alone does not authorize document assessment.</p>}
@@ -341,14 +353,14 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
         {!capabilityLoading && !capabilityError && !capability?.documentModelConfigured && <p className="intel-warning">Document AI is disabled until server-side provider settings and AI_REVIEW_TOKEN are configured. The deterministic baseline remains available.</p>}
         {!capabilityLoading && !capabilityError && generated?.bundle.intelligence?.reviewStatus === 'unreviewed' && !capability?.humanReviewConfigured && <p className="intel-warning">Human review is disabled until a server-side reviewer token and reviewer identity are configured.</p>}
         {failure && <p className="intel-warning" role="alert">{failure}</p>}
-        {generated && <div className="intel-result"><b>{reviewStatus === 'unreviewed' ? 'AI suggestion' : `Human review: ${reviewLabel}`} · {generated.result.replaceAll('_', ' ')}</b><p>{generated.reason}</p><small>Revision {generated.revision} · {quotes.length} exact validated quotation(s) · {reviewLabel} · report {citationPublication?.status === 'public' ? 'public' : 'private'}{citationPublication?.status === 'public' ? ' (submitter and reviewer publication consent recorded)' : ''} · bundle SHA-256 {generated.bundleHash} · dataset {generated.bundle.intelligence?.datasetSnapshotId || generated.bundle.provenance?.snapshotId || 'snapshot unavailable'}{generated.bundle.intelligence?.datasetInputSha256 ? ` · input SHA-256 ${generated.bundle.intelligence.datasetInputSha256}` : ''}{generated.bundle.intelligence?.investigationSnapshotSha256 ? ` · analysis SHA-256 ${generated.bundle.intelligence.investigationSnapshotSha256}` : ''}</small>
+        {generated && <div className="intel-result"><b>{reviewStatus === 'unreviewed' ? 'AI suggestion' : `Human review: ${reviewLabel}`} · {generated.result.replaceAll('_', ' ')}</b>{generated.bundle.intelligence?.claimText && <div className="intel-claim-statement"><strong>Exact claim assessed</strong><p>{generated.bundle.intelligence.claimText}</p><small>Claim SHA-256 {generated.bundle.intelligence.claimTextSha256} · full-input SHA-256 {generated.bundle.intelligence.assessmentInputSha256}</small></div>}<p>{generated.reason}</p><small>Revision {generated.revision} · {quotes.length} exact validated quotation(s) · {reviewLabel} · report {citationPublication?.status === 'public' ? 'public' : 'private'}{citationPublication?.status === 'public' ? ' (submitter and reviewer citation consent recorded)' : ''} · bundle SHA-256 {generated.bundleHash} · dataset {generated.bundle.intelligence?.datasetSnapshotId || generated.bundle.provenance?.snapshotId || 'snapshot unavailable'}{generated.bundle.intelligence?.datasetInputSha256 ? ` · input SHA-256 ${generated.bundle.intelligence.datasetInputSha256}` : ''}{generated.bundle.intelligence?.investigationSnapshotSha256 ? ` · analysis SHA-256 ${generated.bundle.intelligence.investigationSnapshotSha256}` : ''}</small>
           {observationTimeline.length > 0 && <details className="intel-observations"><summary>Historical observations bound to this report ({observationTimeline.length})</summary><ol>{observationTimeline.map(item=><li key={item.id}><b>{item.id}</b><span>{item.observedAt}</span></li>)}</ol><p>These are discrete observation timestamps from the pinned dataset. Missing dates do not mean zero emissions.</p></details>}
           <DocumentRightsSummary documents={documentDigests}/>
           {quotes.map((quote, index) => {
             const doc = generated.bundle.intelligence?.documentDigests.find(item => item.id === quote.documentId);
             return <blockquote key={`${quote.documentId}-${index}`}><b>{doc?.title || quote.documentId}</b><p>“{quote.quote}”</p><small>Quote SHA-256 {quote.quoteSha256}{doc?.sourceUrl ? <> · <a href={doc.sourceUrl} target="_blank" rel="noreferrer">Open submitted source</a></> : ''}</small></blockquote>;
           })}
-          {reviewStatus === 'unreviewed' && <div className="intel-review-controls"><form onSubmit={event=>event.preventDefault()}><label>Human reviewer token (session only)<input type="password" autoComplete="off" value={humanAccessToken} onChange={event=>setHumanAccessToken(event.target.value)} placeholder="Reviewer access token"/></label></form><label>Review note<input value={reviewNote} maxLength={1000} onChange={event=>setReviewNote(event.target.value)} placeholder="Explain the evidence decision (at least 12 characters)"/></label><label className="intel-consent"><input type="checkbox" checked={reviewerInspectedSource} onChange={event=>setReviewerInspectedSource(event.target.checked)}/> I inspected the original document or source context. I understand the full submitted excerpt is not retained here and approval does not prove physical mitigation.</label>{authorAllowedPublication ? <label className="intel-consent"><input type="checkbox" checked={publishReviewedReport} onChange={event=>setPublishReviewedReport(event.target.checked)}/> I authorize public access to this complete reviewed report, including its exact citations and my review note. This is separate from the submitter's citation consent.</label> : <p className="intel-disclaimer">The submitter did not permit citation publication, so this report can only remain private.</p>}{quotes.length === 0 && <p className="intel-warning">Approval is disabled because no exact document quotations passed validation.</p>}<div><button type="button" className="intel-action" disabled={!canApprove} onClick={()=>void review('approved')}>{reviewing ? 'Saving review…' : publishReviewedReport ? 'Accept and publish report' : 'Accept privately'}</button><button type="button" className="intel-secondary-action" disabled={!canReview} onClick={()=>void review('rejected')}>Reject suggestion</button><button type="button" className="intel-secondary-action" disabled={!canReview} onClick={()=>void review('needs_more_evidence')}>Request more evidence</button></div></div>}
+          {reviewStatus === 'unreviewed' && <div className="intel-review-controls"><form onSubmit={event=>event.preventDefault()}><label>Human reviewer token (session only)<input type="password" autoComplete="off" value={humanAccessToken} onChange={event=>setHumanAccessToken(event.target.value)} placeholder="Reviewer access token"/></label></form><label>Review note<input value={reviewNote} maxLength={1000} onChange={event=>setReviewNote(event.target.value)} placeholder="Explain the evidence decision (at least 12 characters)"/></label><label className="intel-consent"><input type="checkbox" checked={reviewerInspectedSource} onChange={event=>setReviewerInspectedSource(event.target.checked)}/> I inspected the original document or source context. I understand the full submitted excerpt is not retained here and approval does not prove physical mitigation.</label>{authorAllowedPublication ? <label className="intel-consent"><input type="checkbox" checked={publishReviewedReport} onChange={event=>{setPublishReviewedReport(event.target.checked);if(!event.target.checked)setPublishReviewedClaimText(false);}}/> I authorize public access to this reviewed report and its exact citations and my review note. This is separate from the submitter's citation consent.</label> : <p className="intel-disclaimer">The submitter did not permit citation publication, so this report can only remain private.</p>}{publishReviewedReport && generated.bundle.intelligence?.claimText && <>{authorAllowedClaimPublication ? <label className="intel-consent"><input type="checkbox" checked={publishReviewedClaimText} onChange={event=>setPublishReviewedClaimText(event.target.checked)}/> Include the exact claim wording in the public report.</label> : <p className="intel-disclaimer">The exact claim statement will remain private; its SHA-256 commitment remains in the published bundle.</p>}</>}{quotes.length === 0 && <p className="intel-warning">Approval is disabled because no exact document quotations passed validation.</p>}<div><button type="button" className="intel-action" disabled={!canApprove} onClick={()=>void review('approved')}>{reviewing ? 'Saving review…' : publishReviewedReport ? 'Accept and publish report' : 'Accept privately'}</button><button type="button" className="intel-secondary-action" disabled={!canReview} onClick={()=>void review('rejected')}>Reject suggestion</button><button type="button" className="intel-secondary-action" disabled={!canReview} onClick={()=>void review('needs_more_evidence')}>Request more evidence</button></div></div>}
           {reviewStatus && reviewStatus !== 'unreviewed' && !generated.anchored && capability?.chainConfigured && <button type="button" className="intel-action" disabled={!capability.humanReviewConfigured || !humanAccessToken.trim() || anchoring} onClick={()=>void anchorReviewed()}>{anchoring ? 'Submitting receipt…' : 'Anchor reviewed report to Sepolia'}</button>}
           {generated.anchored && <p className="intel-disclaimer">Receipt recorded for this revision. It verifies digest integrity and chronology, not methane repair.</p>}
         </div>}

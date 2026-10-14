@@ -14,6 +14,7 @@ RIGHTS_REVIEW_DIGEST = 'a' * 64
 def row(claim_id='one', source='KAZ_S_159', split='test', label='supported', rights='cleared', claim='source_detected', document_id=None):
     document_id = document_id or f'report-{claim_id}'
     return {'claimId': claim_id, 'sourceId': source, 'split': split, 'claimType': claim, 'goldLabel': label,
+            'claimTextSha256': 'c' * 64, 'assessmentInputSha256': 'd' * 64,
             'synthetic': False, 'review': {'reviewerId': 'reviewer-1', 'reviewedAt': '2026-10-13', 'sourceInspected': True,
                                            'rightsStatus': rights, 'rightsReviewSha256': RIGHTS_REVIEW_DIGEST},
             'documentIds': [document_id],
@@ -24,6 +25,7 @@ def prediction(claim_id='one', label='supported', quote=QUOTE, document_id=None)
     document_id = document_id or f'report-{claim_id}'
     return {'claimId': claim_id, 'verdict': label, 'citations': [{'documentId': document_id, 'quote': quote}],
             'modelVersion': 'provider-model-1', 'promptVersion': 'claim-evidence-v2',
+            'claimTextSha256': 'c' * 64, 'assessmentInputSha256': 'd' * 64,
             'rightsReviewSha256': RIGHTS_REVIEW_DIGEST}
 
 
@@ -84,6 +86,14 @@ def test_binds_provider_predictions_to_the_exact_adjudicated_rights_review():
     malformed['review']['rightsReviewSha256'] = 'not-a-digest'
     with pytest.raises(ValueError, match='rightsReviewSha256'):
         evaluate([malformed], [prediction()], min_test_claims=1, min_test_sources=1)
+
+
+def test_binds_provider_predictions_to_the_exact_adjudicated_claim_and_document_input():
+    label = row()
+    changed = prediction()
+    changed['assessmentInputSha256'] = 'e' * 64
+    with pytest.raises(ValueError, match='assessment input digest mismatch'):
+        evaluate([label], [changed], min_test_claims=1, min_test_sources=1)
 
 
 def test_false_mitigation_confirmation_is_flagged():

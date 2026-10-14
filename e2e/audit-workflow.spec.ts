@@ -26,6 +26,26 @@ test('historical MARS case can be audited, exported, verified, and tampering is 
     return route.abort();
   });
 
+  await page.goto('/dashboard?sourceId=KAZ_S_159');
+  const evidenceReferencesMetric = page.locator('.overview-ring');
+  await expect(evidenceReferencesMetric).toHaveAttribute('aria-label', '4 evidence references');
+  await expect(evidenceReferencesMetric.locator('strong')).toHaveText('4');
+  await expect(evidenceReferencesMetric.locator('span')).toHaveText('evidence links');
+  await expect(page.getByText('3 snapshot observations', { exact: true })).toBeVisible();
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const observationCard = page.locator('.overview-card').filter({ hasText: 'Methane Flux Observations' });
+  const observationCaption = observationCard.locator('.chart-caption');
+  await expect(observationCaption).toContainText('not continuous monitoring');
+  const mobileCaptionFits = await observationCaption.evaluate(caption => {
+    const card = caption.closest('.overview-card');
+    if (!card) return false;
+    return caption.getBoundingClientRect().bottom <= card.getBoundingClientRect().bottom + 1
+      && card.scrollHeight <= card.clientHeight + 1;
+  });
+  expect(mobileCaptionFits, 'the mobile observation caveat should stay inside its card').toBe(true);
+  await page.setViewportSize({ width: 1600, height: 900 });
+
   await page.goto('/dashboard/map?sourceId=KAZ_S_159');
   await expect(page.getByRole('button', { name: 'Map Explorer' })).toBeVisible();
   await expect(page.getByText('KAZ_S_159', { exact: true }).first()).toBeVisible();
@@ -82,4 +102,22 @@ test('historical MARS case can be audited, exported, verified, and tampering is 
   });
   await expect(page.getByText('Audit bundle verification failed.', { exact: true })).toBeVisible();
   expect(pageErrors).toEqual([]);
+});
+
+test('global historical map becomes usable when remote basemap tiles are unavailable', async ({ page }, testInfo) => {
+  await page.route(/^https?:\/\//, route => {
+    const requestUrl = new URL(route.request().url());
+    if (requestUrl.hostname === '127.0.0.1' || requestUrl.hostname === 'localhost') return route.continue();
+    return route.abort();
+  });
+
+  await page.goto('/dashboard/map?sourceId=KAZ_S_159');
+  const mapCanvas = page.locator('.geo-map-canvas canvas');
+  const mapStatus = page.locator('.geo-map-topline');
+  await expect(mapStatus).toHaveAttribute('role', 'status');
+  await expect(mapStatus).toHaveAttribute('aria-live', 'polite');
+  await expect(mapCanvas).toBeVisible();
+  await expect(mapStatus).toContainText(/\d[\d,]* sources/, { timeout: 20_000 });
+  await expect(page.locator('.geo-map-fallback')).toHaveCount(0);
+  await page.screenshot({ path: testInfo.outputPath('historical-map-tile-fallback.png'), fullPage: true });
 });

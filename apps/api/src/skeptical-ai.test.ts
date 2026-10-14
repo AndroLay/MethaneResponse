@@ -3,6 +3,7 @@ import { DocumentAssessmentInput, requestModelAssessment, PROMPT_VERSION } from 
 const env = ['AI_BASE_URL','AI_API_KEY','AI_MODEL','AI_REVIEW_TOKEN'] as const;
 const sample = DocumentAssessmentInput.parse({
   sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
+  claimText: 'The operator completed a repair at source KAZ_S_159 on 2026-09-10 and verified a sustained reduction in methane emissions.',
   documents: [{ id: 'report', title: 'Authorized report', rightsDeclared: 'explicit_permission', text: 'The operator investigated a leak and filed a repair report. Sustained methane emission reduction has not yet been independently verified.' }],
 });
 const first = { verdict: 'supported', reason: 'A repair report was filed for this source.', citations: [{ documentId: 'report', quote: 'The operator investigated a leak and filed a repair report' }] };
@@ -28,11 +29,48 @@ async function withMockProvider(responses: object[], task: () => Promise<void>) 
   }
 }
 
+test('provider receives the exact bounded claim in both evidence passes', async () => {
+  const statement = 'The operator completed a repair at source KAZ_S_159 on 2026-09-10 and verified a sustained reduction in methane emissions.';
+  const requestBodies: Array<Record<string, unknown>> = [];
+  const saved = Object.fromEntries(env.map(key => [key, process.env[key]]));
+  const originalFetch = globalThis.fetch;
+  let calls = 0;
+  try {
+    process.env.AI_BASE_URL = 'https://trusted-provider.example/v1';
+    process.env.AI_API_KEY = 'test-secret-for-mocked-service';
+    process.env.AI_MODEL = 'mock-evidence-reviewer';
+    process.env.AI_REVIEW_TOKEN = 'k'.repeat(48);
+    globalThis.fetch = (async (_input: RequestInfo | URL, init?: RequestInit) => {
+      requestBodies.push(JSON.parse(String(init?.body)) as Record<string, unknown>);
+      return reply(calls++ === 0 ? first : { verdict: 'insufficient_evidence', reason: 'The evidence does not establish the bounded claim.' });
+    }) as unknown as typeof fetch;
+    await requestModelAssessment(sample);
+    expect(requestBodies).toHaveLength(2);
+    expect(JSON.stringify(requestBodies)).toContain(statement);
+  } finally {
+    globalThis.fetch = originalFetch;
+    for (const key of env) { const val = saved[key]; if (val === undefined) delete process.env[key]; else process.env[key] = val; }
+  }
+});
+
+test('missing exact claim abstains without invoking the configured provider', async () => {
+  const noClaim = DocumentAssessmentInput.parse({
+    sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
+    documents: [{ id: 'report', title: 'Authorized report', rightsDeclared: 'explicit_permission', text: 'The operator investigated a leak and filed a repair report. Sustained methane emission reduction has not yet been independently verified.' }],
+  });
+  await withMockProvider([], async () => {
+    const result = await requestModelAssessment(noClaim);
+    expect(result.verdict).toBe('insufficient_evidence');
+    expect(result.citations).toEqual([]);
+    expect(result.reason).toContain('claim statement');
+  });
+});
+
 test('skeptical pass fails closed when strong claim is not supported by exact quote', async () => {
   await withMockProvider([first, { verdict: 'insufficient_evidence', reason: 'An investigation report is not confirmed physical mitigation.' }], async () => {
     const result = await requestModelAssessment(sample);
     expect(result.verdict).toBe('insufficient_evidence');
-    expect(PROMPT_VERSION).toContain('skeptical');
+    expect(PROMPT_VERSION).toContain('v3');
   });
 });
 

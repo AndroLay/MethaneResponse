@@ -152,6 +152,10 @@ export type EvidenceBundle = {
     reviewStatus: 'unreviewed' | 'approved' | 'rejected' | 'needs_more_evidence';
     review?: { reviewerId: string; reviewedAt: string; note: string; parentBundleHash: string; sourceInspected?: boolean };
     citationPublication?: { status: 'private' | 'public'; authorConsent: boolean; publishedAt?: string };
+    claimText?: string;
+    claimTextSha256?: string;
+    assessmentInputSha256?: string;
+    claimPublication?: { status: 'private' | 'public'; authorConsent: boolean; publishedAt?: string };
     generatedFromUserExcerpts: true;
     documentDigests: {
       id: string;
@@ -238,4 +242,3 @@ export const DEMO_SOURCES: Source[] = [
     ],
   },
 ];
-

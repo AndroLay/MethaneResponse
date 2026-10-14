@@ -9,6 +9,7 @@ import { getReportedFluxColor, REPORTED_FLUX_PALETTE } from './map-marker-style'
 import { getObservationMarkerDetails, getSourceMarkerDetails, type MapMarkerDetail } from './map-marker-details';
 import { getSourceMapFocusView, SOURCE_MARKER_CLUSTER_MAX_ZOOM, type MapFocusRequest } from './map-focus';
 import { getMapToplineLabel } from './map-surface-copy';
+import { watchMapReadiness } from './map-readiness';
 import { ESRI_WORLD_IMAGERY_TILE_TEMPLATE } from './map-imagery';
 import 'maplibre-gl/dist/maplibre-gl.css';
 export { getFluxFootprintColor } from './plume-geometries';
@@ -272,6 +273,10 @@ export function getMapErrorNotice(error: unknown): string | null {
   const requestFailure = /\b(?:failed?|failure|error|unavailable|request|load|fetch|timeout)\b/i.test(message);
   if (tileResource && requestFailure) return 'Map tiles failed; source markers remain visible.';
   return 'Map rendering reported an error; some layers may be unavailable.';
+}
+
+export function isRecoverableMapTileError(error: unknown): boolean {
+  return getMapErrorNotice(error) === 'Map tiles failed; source markers remain visible.';
 }
 
 export function getFootprintOutlineLineWidthExpression(): unknown[] {
@@ -675,6 +680,20 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
       return;
     }
     map.current = instance;
+    let cancelMapReadiness: (() => void) | null = null;
+    const delayedMapNotice = 'Map imagery is taking longer than expected; source markers and case data remain available.';
+    const waitForMapReadiness = () => {
+      cancelMapReadiness?.();
+      cancelMapReadiness = watchMapReadiness(instance, outcome => {
+        if (disposed) return;
+        setStatus(current => current === 'error' ? current : 'ready');
+        if (outcome === 'delayed') {
+          setMapRuntimeNotice(current => current ?? delayedMapNotice);
+        } else if (outcome === 'ready-after-delay') {
+          setMapRuntimeNotice(current => current === delayedMapNotice ? null : current);
+        }
+      });
+    };
     if (initialFocusView && initialFocusRequest) {
       skipGlobeOverviewAfterFocusRef.current = true;
       focusRequestHandledRef.current = initialFocusRequest.requestId;
@@ -864,8 +883,6 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
     syncEarthRef.current = syncEarthRendering;
     const syncSource = () => {
       if (disposed) return;
-      setStatus('ready');
-      setMapError(null);
       const data = sourceGeoJSONRef.current;
       if (instance.getSource('methane-points')) {
         (instance.getSource('methane-points') as maplibregl.GeoJSONSource).setData(data);
@@ -877,6 +894,7 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
         (instance.getSource('mars-plume-record-locations') as maplibregl.GeoJSONSource | undefined)?.setData(footprintLocationsRef.current);
         syncRecordMode();
         syncEarthRef.current();
+        waitForMapReadiness();
         return;
       }
       instance.addSource('methane-points', { type: 'geojson', data, cluster: true, clusterMaxZoom: SOURCE_MARKER_CLUSTER_MAX_ZOOM, clusterRadius: 55 });
@@ -980,6 +998,7 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
       syncRecordMode();
       syncEarthRef.current();
       instance.getCanvas().style.cursor = 'grab';
+      waitForMapReadiness();
     };
     const syncSatelliteRendering = () => {
       if (!instance.getLayer('satellite-imagery')) return;
@@ -1083,7 +1102,10 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
     };
     instance.on('style.load', () => {
       if (disposed) return;
+      cancelMapReadiness?.();
+      cancelMapReadiness = null;
       setMapRuntimeNotice(null);
+      setMapError(null);
       contextSignatureRef.current = null;
       failedTerrainRef.current = false;
       setContextError(null);
@@ -1149,7 +1171,7 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
       // Only tile-request errors are called tile failures; other renderer errors stay generic.
       const runtimeNotice = getMapErrorNotice(event.error);
       if (runtimeNotice) setMapRuntimeNotice(runtimeNotice);
-      if (event.error && !message.includes('/fonts/')) {
+      if (event.error && !message.includes('/fonts/') && !isRecoverableMapTileError(event.error)) {
         setMapError(getMapInitializationFallbackMessage(event.error));
         setStatus(current => getStatusAfterMapError(current));
       }
@@ -1214,6 +1236,7 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
       document.removeEventListener('visibilitychange', onVisibilityChange);
       canvas.removeEventListener('webglcontextlost', onWebglContextLost);
       window.removeEventListener('error', onWindowError);
+      cancelMapReadiness?.();
       popupRef.current?.remove();
       popupRef.current = null;
       syncEarthRef.current = () => {};
@@ -1372,7 +1395,7 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
 
   return <div className={`geo-map-shell${projection === 'globe' ? ' geo-map-globe' : ''}`}>
     <div ref={node} className="geo-map-canvas" role="application" aria-label="Interactive methane map; drag to pan, scroll to zoom and select a source" />
-    <div className="geo-map-topline"><span className="geo-pulse"/> {getMapToplineLabel({ status, dataLayer, recordMode, sourceCount, positiveFluxLocationCount, footprintPolygonCount, selectedHistoryMonth: selectedHistoryMonthResolved, priorityPointCount, priorityReady: priorityState === 'ready' })}</div>
+    <div className="geo-map-topline" role="status" aria-live="polite"><span className="geo-pulse" aria-hidden="true"/> {getMapToplineLabel({ status, dataLayer, recordMode, sourceCount, positiveFluxLocationCount, footprintPolygonCount, selectedHistoryMonth: selectedHistoryMonthResolved, priorityPointCount, priorityReady: priorityState === 'ready' })}</div>
     {status === 'error' && <div className="geo-map-fallback" role="status"><strong>Interactive map unavailable</strong><span>{mapError || 'You can still inspect the selected case and evidence below.'}</span></div>}
     {status === 'ready' && mapRuntimeNotice && <div className="geo-map-degraded-notice" role="status">
       <span>{mapRuntimeNotice}</span>

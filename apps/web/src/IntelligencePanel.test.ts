@@ -19,6 +19,7 @@ test('document assessment UI exposes a per-document rights declaration and its l
   }));
 
   expect(html).toContain('Document processing rights');
+  expect(html).toContain('Exact claim to assess');
   expect(html).toContain('I own this document or excerpt');
   expect(html).toContain('I have explicit permission to process it');
   expect(html).toContain('does not independently verify copyright, permission, source authenticity, or completeness');

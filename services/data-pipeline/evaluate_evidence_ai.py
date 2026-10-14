@@ -76,6 +76,9 @@ def _labelset(labels: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             split_by_document[document_id] = split
         if row.get('goldLabel') not in LABELS or row.get('claimType') not in CLAIM_TYPES:
             raise ValueError(f'Invalid label or claim type for {claim_id}')
+        for field in ('claimTextSha256', 'assessmentInputSha256'):
+            if not HASH.fullmatch(str(row.get(field, ''))):
+                raise ValueError(f'Invalid frozen {field} for {claim_id}')
         if row.get('synthetic') is not False:
             raise ValueError(f'Synthetic or unmarked ground truth prohibited: {claim_id}')
         review = row.get('review')
@@ -120,6 +123,9 @@ def _predictions(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         _nonempty(row.get('promptVersion'), 'promptVersion')
         if not HASH.fullmatch(str(row.get('rightsReviewSha256', ''))):
             raise ValueError(f'Invalid rightsReviewSha256 for {claim_id}')
+        for field in ('claimTextSha256', 'assessmentInputSha256'):
+            if not HASH.fullmatch(str(row.get(field, ''))):
+                raise ValueError(f'Invalid prediction {field} for {claim_id}')
         for citation in citations:
             if not isinstance(citation, dict):
                 raise ValueError(f'Invalid citation item: {claim_id}')
@@ -262,6 +268,9 @@ def evaluate(labels: list[dict[str, Any]], predictions: list[dict[str, Any]], *,
     for claim_id in sorted(eligible_ids):
         label = gold[claim_id]
         prediction = predicted[claim_id]
+        if (prediction['claimTextSha256'] != label['claimTextSha256']
+                or prediction['assessmentInputSha256'] != label['assessmentInputSha256']):
+            raise ValueError(f'Provider prediction assessment input digest mismatch: {claim_id}')
         if prediction['rightsReviewSha256'] != label['review']['rightsReviewSha256']:
             raise ValueError(f'Provider prediction rights review digest mismatch: {claim_id}')
         approved = {(item['documentId'], item['sha256']) for item in label.get('acceptedCitationHashes', [])}

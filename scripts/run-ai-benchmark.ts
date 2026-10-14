@@ -7,7 +7,7 @@
 import { link, lstat, mkdtemp, open, readFile, realpath, rm, stat, unlink } from 'node:fs/promises';
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { createHash } from 'node:crypto';
-import { aiConfigured, DocumentAssessmentInput, PROMPT_VERSION, requestModelAssessment, verifyCitations } from '../apps/api/src/ai-review';
+import { aiConfigured, assessmentInputHashes, DocumentAssessmentInput, PROMPT_VERSION, requestModelAssessment, verifyCitations } from '../apps/api/src/ai-review';
 import { canonicalJson } from '../apps/api/src/canonical';
 
 const REQUIRED_RIGHTS_SCOPES = [
@@ -34,6 +34,8 @@ export type Candidate = {
   sourceInspected: true;
   reviewerId: string;
   reviewedAt: string;
+  claimTextSha256: string;
+  assessmentInputSha256: string;
   rightsReview: RightsReview;
   input: unknown;
 };
@@ -47,7 +49,7 @@ export function validateCandidates(rows: unknown[], maxClaims: number) {
   if (!Number.isSafeInteger(maxClaims) || maxClaims < 1 || maxClaims > 100) throw new Error('Set --max-claims within 1–100');
   if (!rows.length || rows.length > maxClaims) throw new Error(`Refusing ${rows.length} provider claims; approved cap is ${maxClaims}`);
   const seen = new Set<string>();
-  return rows.map((row): { claimId: string; input: ReturnType<typeof DocumentAssessmentInput.parse>; rightsReviewSha256: string } => {
+  return rows.map((row): { claimId: string; input: ReturnType<typeof DocumentAssessmentInput.parse>; rightsReviewSha256: string; claimTextSha256: string; assessmentInputSha256: string } => {
     if (typeof row !== 'object' || !row || Array.isArray(row)) throw new Error('Invalid benchmark JSONL row');
     const candidate = row as Partial<Candidate>;
     if (!candidate.claimId || !safeId.test(candidate.claimId) || seen.has(candidate.claimId)) throw new Error('Duplicate or malformed claim ID');
@@ -58,6 +60,11 @@ export function validateCandidates(rows: unknown[], maxClaims: number) {
       throw new Error('Only human-inspected, non-synthetic held-out test claims may be sent');
     }
     const input = DocumentAssessmentInput.parse(candidate.input);
+    const actualInputHashes = assessmentInputHashes(input);
+    if (!actualInputHashes || candidate.claimTextSha256 !== actualInputHashes.claimTextSha256
+        || candidate.assessmentInputSha256 !== actualInputHashes.assessmentInputSha256) {
+      throw new Error(`Frozen claim or assessment input digest mismatch for ${candidate.claimId}`);
+    }
     const rightsReview = candidate.rightsReview;
     if (!rightsReview || typeof rightsReview !== 'object' || Array.isArray(rightsReview)) {
       throw new Error(`A document-specific rights review is required for ${candidate.claimId}`);
@@ -111,7 +118,7 @@ export function validateCandidates(rows: unknown[], maxClaims: number) {
       reviewedAt: rightsReview.reviewedAt,
       documents: [...approvedDocuments.values()].sort((a, b) => a.documentId.localeCompare(b.documentId)),
     })).digest('hex');
-    return { claimId: candidate.claimId, input, rightsReviewSha256 };
+    return { claimId: candidate.claimId, input, rightsReviewSha256, ...actualInputHashes };
   });
 }
 
@@ -203,7 +210,7 @@ export async function executeBenchmarkToPrivateFile(
   let scratchDirectory: string | undefined;
   try {
     const records = [];
-    for (const { claimId, input, rightsReviewSha256 } of candidates) {
+    for (const { claimId, input, rightsReviewSha256, claimTextSha256, assessmentInputSha256 } of candidates) {
       const raw = await assessor(input);
       const checked = verifyCitations(input, raw);
       records.push({
@@ -211,6 +218,8 @@ export async function executeBenchmarkToPrivateFile(
         verdict: checked.result,
         citations: checked.quotes,
         rightsReviewSha256,
+        claimTextSha256,
+        assessmentInputSha256,
         modelVersion: String(process.env.AI_MODEL),
         promptVersion: PROMPT_VERSION,
         citationValidationFailures: checked.rejected,

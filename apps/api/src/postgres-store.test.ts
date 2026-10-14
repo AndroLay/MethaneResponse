@@ -4,6 +4,7 @@ import postgres from 'postgres';
 import { type AuditReceipt } from '@methane/shared';
 import { createApp } from './app';
 import { createAudit } from './audit';
+import { canonicalJson } from './canonical';
 import { findCaseBySourceId } from './casebook';
 import { createDocumentAudit, createReviewedAudit, DocumentAssessmentInput } from './ai-review';
 import { auditIntegrityValid } from './integrity';
@@ -274,6 +275,51 @@ run('PostgreSQL persistence integration', () => {
       expect(rows.map((row) => row.kind)).toEqual(['document_excerpt', 'metadata_notification']);
     } finally {
       await sql`DELETE FROM evidence WHERE evidence_id = ${evidenceIds[0]} OR evidence_id = ${evidenceIds[1]}`;
+      await sql.end({ timeout: 2 });
+    }
+  });
+
+  test('public SQL keyset pages exclude claim-private v3 reports before applying the page limit', async () => {
+    const suffix = randomUUID();
+    const sourceId = `MARS_PRIVATE_PAGE_TEST_${suffix}`;
+    const caseId = `MARS_PRIVATE_PAGE_CASE_${suffix}`;
+    const sql = postgres(databaseUrl!, { prepare: false });
+    try {
+      const publicAudit = await store.create(caseId, sourceId, 'source_detected', revision => createAudit(
+        { sourceId, synthetic: false, evidence: [] }, { sourceId, claimType: 'source_detected' }, { caseId, revision },
+      ));
+
+      for (let index = 0; index < 2; index += 1) {
+        const privateClaimAudit = await store.create(caseId, sourceId, 'source_detected', revision => {
+          const base = createAudit(
+            { sourceId, synthetic: false, evidence: [] }, { sourceId, claimType: 'source_detected' }, { caseId, revision },
+          );
+          const generatedAt = new Date(Date.UTC(2099, 0, index + 1)).toISOString();
+          const bundle = {
+            ...base.bundle,
+            schemaVersion: 3 as const,
+            generatedAt,
+            intelligence: {
+              reviewStatus: 'approved' as const,
+              citationPublication: { status: 'public' as const, authorConsent: true, publishedAt: generatedAt },
+              claimText: `Private claim ${index}`,
+              claimTextSha256: 'a'.repeat(64),
+              assessmentInputSha256: 'b'.repeat(64),
+              claimPublication: { status: 'private' as const, authorConsent: false },
+            },
+          };
+          const bundleHash = `0x${createHash('sha256').update(canonicalJson(bundle)).digest('hex')}` as `0x${string}`;
+          return { ...base, generatedAt, bundle, bundleHash } as unknown as typeof base;
+        });
+        expect(auditIntegrityValid(privateClaimAudit)).toBe(true);
+      }
+
+      const publicPage = await store.listPage({ sourceId, limit: 1, visibility: 'public' });
+      expect(publicPage.audits.map(item => item.auditId)).toEqual([publicAudit.auditId]);
+      expect(publicPage.hasMore).toBe(false);
+    } finally {
+      await sql`DELETE FROM audits WHERE case_id = ${caseId}`;
+      await sql`DELETE FROM sources WHERE source_id = ${sourceId}`;
       await sql.end({ timeout: 2 });
     }
   });

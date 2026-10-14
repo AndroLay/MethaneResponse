@@ -21,6 +21,9 @@ type ExportedReview = {
       reason?: string;
       intelligence?: {
         reviewStatus?: string;
+        claimText?: string;
+        claimTextSha256?: string;
+        assessmentInputSha256?: string;
         quotations?: Array<{ documentId: string; quote: string }>;
         documentDigests?: Array<{ title: string }>;
         review?: { reviewerId?: string; note?: string; sourceInspected?: boolean; parentBundleHash?: string };
@@ -74,6 +77,7 @@ test('local mock AI citations receive a separate scoped review and remain privat
   await expect(page.getByText('KAZ_S_159 · Evidence inventory')).toBeVisible();
   await expect(page.getByText('DOCUMENT AI AVAILABLE', { exact: true })).toBeVisible();
 
+  await page.getByLabel('Exact claim to assess').fill('For KAZ_S_159, the operator completed the stated repair on 2026-08-20 and independently verified sustained methane reduction.');
   await page.getByLabel('Source document title').fill(fixtureTitle);
   await page.getByLabel('Document processing rights').selectOption('owned');
   await page.getByLabel('Authorized document excerpt').fill(fixtureExcerpt);
@@ -92,6 +96,7 @@ test('local mock AI citations receive a separate scoped review and remain privat
     skepticalPassRequests: 1,
     sourceIdMatches: true,
     claimTypeMatches: true,
+    claimTextMatches: true,
     exactInputQuoteMatches: true,
     skepticalQuoteMatches: true,
   });
@@ -144,6 +149,12 @@ test('local mock AI citations receive a separate scoped review and remain privat
   expect(audit?.bundle?.intelligence?.documentDigests).toEqual([
     expect.objectContaining({ title: fixtureTitle }),
   ]);
+  expect(audit?.bundle?.intelligence).toMatchObject({
+    claimText: 'For KAZ_S_159, the operator completed the stated repair on 2026-08-20 and independently verified sustained methane reduction.',
+    claimPublication: { status: 'private', authorConsent: false },
+  });
+  expect(audit?.bundle?.intelligence?.claimTextSha256).toMatch(/^[a-f0-9]{64}$/);
+  expect(audit?.bundle?.intelligence?.assessmentInputSha256).toMatch(/^[a-f0-9]{64}$/);
   expect(audit?.bundle?.reason).toContain('Reviewer requested additional evidence');
   expect(JSON.stringify(exported)).not.toContain(fixtureExcerpt);
 
@@ -164,6 +175,7 @@ test('local mock AI citations receive a separate scoped review and remain privat
     skepticalPassRequests: 1,
     sourceIdMatches: true,
     claimTypeMatches: true,
+    claimTextMatches: true,
     exactInputQuoteMatches: true,
     skepticalQuoteMatches: true,
   });

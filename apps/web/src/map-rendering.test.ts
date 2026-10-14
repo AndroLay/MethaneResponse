@@ -11,6 +11,7 @@ const rendering = mapPanel as unknown as {
   getStatusAfterMapError?: (status: string) => string;
   getMapInitializationFallbackMessage?: (error: unknown) => string;
   getMapErrorNotice?: (error: unknown) => string | null;
+  isRecoverableMapTileError?: (error: unknown) => boolean;
   isGlobeRendererFailure?: (mode: string, message: string) => boolean;
   isGlobeProjectionSupported?: (contextAvailable: boolean, renderer: string | null) => boolean;
   getInitialRenderTierForRenderer?: (renderer: string | null, preferredTier: 'low' | 'medium' | 'high') => 'low' | 'medium' | 'high';
@@ -151,6 +152,12 @@ test('map errors expose an accurate recoverable notice but ignore optional font 
   expect(rendering.getMapErrorNotice?.(new Error('layers.mars-plume-footprint-outline.paint.line-width: Only one zoom-based "step" or "interpolate" subexpression may be used in an expression.'))).toBe(genericNotice);
   expect(rendering.getMapErrorNotice?.(new Error('unexpected map error'))).toBe(genericNotice);
   expect(rendering.getMapErrorNotice?.(null)).toBeNull();
+});
+
+test('remote tile failures keep source data usable while non-tile renderer failures remain fatal', () => {
+  expect(rendering.isRecoverableMapTileError?.(new Error('Failed to load raster tile'))).toBe(true);
+  expect(rendering.isRecoverableMapTileError?.(new Error('Request failed https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/5/10/10'))).toBe(true);
+  expect(rendering.isRecoverableMapTileError?.(new Error('WebGL context lost'))).toBe(false);
 });
 
 test('publisher footprint outline width uses one MapLibre zoom interpolation', () => {

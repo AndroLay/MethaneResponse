@@ -1,6 +1,6 @@
 # MethaneResponse AI benchmark annotation protocol
 
-- **Status:** Protocol ready; no benchmark corpus or model result is included.
+- **Status:** Protocol and a local pre-adjudication agreement checker are ready; no benchmark corpus or model result is included.
 - **Purpose:** Produce a rights-aware, source-grounded, reproducible evaluation set for document-based methane claim assessment.
 - **Scope:** This protocol evaluates whether submitted documents support a precisely worded claim. It does not establish physical methane conditions or mitigation outcomes by itself.
 
@@ -34,7 +34,7 @@ Each claim must identify one source, one claim type, and a bounded time or event
 4. A gold citation is an exact UTF-8 quotation accepted as relevant to the claim. For an `insufficient_evidence` claim, a quote may be relevant yet inconclusive; its inclusion does not imply support. Hash the exact quoted text without changing punctuation or whitespace.
 5. Reviewers must distinguish a citation's textual relevance from document authenticity, completeness, scientific validity, and proof of physical outcome.
 
-The current evaluator stores the final adjudicating reviewer ID and `sourceInspected` attestation. The separate double-review and disagreement log must be retained securely; the script cannot authenticate reviewer identity or prove that two people reviewed the source.
+The current evaluator stores the final adjudicating reviewer ID and `sourceInspected` attestation. The separate double-review and disagreement log must be retained securely. `services/data-pipeline/annotator_agreement.py` compares two minimized reviewer JSONL files before adjudication; it cannot authenticate reviewer identity or prove that two people reviewed the source.
 
 ## 4. Split and JSONL contract
 
@@ -66,7 +66,39 @@ Each gold JSONL row conforms to `services/data-pipeline/evaluate_evidence_ai.py`
 
 The runner input row also contains `rightsReview`, with the same reviewer ID/date as `review` and one rights entry for every submitted document. Each entry records `documentId`, an HTTPS `documentUrl`, a named `rightsBasis` (license URL or private permission reference), and all five required scopes as `true`: excerpt processing, provider processing, private evaluation storage, quote storage, and metrics publication. The runner rejects missing/extra document rights, mismatched source URLs, unsafe URLs, unchecked scopes, and non-test/synthetic/unreviewed rows. It computes a canonical SHA-256 digest of the rights-review record; every prediction carries this digest, and the evaluator rejects a gold/prediction mismatch. Keep the complete rights record in a private, access-controlled artifact so the digest can be independently recomputed. This is a tamper-evidence link, not authentication or legal review.
 
+### Double-review comparison input
+
+Before creating the adjudicated gold row above, the agreement checker accepts one private JSONL file per reviewer. Each line contains the same frozen claim and document inputs in both files, plus that reviewer's `label`. Required fields are `claimId`, `sourceId`, `documentIds`, `split`, `claimType`, `claimTextSha256` (SHA-256 of the exact frozen claim wording), `label`, `synthetic: false`, `review`, and `acceptedCitationHashes`. The `review` object requires an opaque `reviewerId`, `reviewedAt`, `sourceInspected: true`, `rightsStatus: "cleared"`, and the matching `rightsReviewSha256`. Citation entries contain only `documentId` and the SHA-256 of the exact accepted quote; do not include quote text or private rationale in these files.
+
+Keep both input files and the output in restricted storage outside the repository. On POSIX systems, the tool requires owner-only access on input files and their containing directories, writes reports with mode `0600` in an owner-only directory, rejects repository paths, and refuses to overwrite. Create the restricted directory with mode `0700` before use. On non-POSIX systems, configure equivalent filesystem ACLs separately. The report emits agreement metrics plus a disagreement queue and is still private because it contains source/claim identifiers and reviewer labels. Example invocation from `services/data-pipeline/`:
+
+```bash
+uv run python annotator_agreement.py \
+  --reviewer-a /restricted/review-a.jsonl \
+  --reviewer-b /restricted/review-b.jsonl \
+  --output /restricted/agreement-report.json
+```
+
+The report computes raw label agreement, Cohen's kappa (undefined when expected agreement is one), exact citation-set agreement, and conflicts requiring adjudication. Agreement does not measure annotation accuracy or make the final gold labels; a third reviewer must resolve conflicts independently of model output.
+
 Public citation release remains a separate consent decision. `metricsPublication` does not authorize publishing full source text or arbitrary quotations.
+
+### Frozen exact claim and assessment input
+
+The model must receive the same bounded claim wording that the reviewers assess. Before annotation or inference, freeze a private candidate JSONL whose `input` contains `sourceId`, `claimType`, `claimText` (20–1,000 characters), and the exact document IDs, titles, and excerpts. The web UI submits this claim explicitly; a missing claim causes the AI path to abstain before calling a provider. The rules baseline and AI prediction must be evaluated against this same claim and document set.
+
+Create a digest-only manifest before either reviewer labels the case:
+
+```bash
+bun run freeze:ai-inputs --input=/restricted/candidate-inputs.jsonl \
+  --output=/restricted/frozen-input-digests.json
+```
+
+The command is offline and makes no provider request. On POSIX, keep the input file and its containing directory owner-only, keep the output directory owner-only, and store all three outside the repository. It rejects oversized or malformed inputs, duplicate claim IDs, unsafe paths, and an existing output. The manifest records the input-file SHA-256, claim IDs, and per-claim `claimTextSha256` and `assessmentInputSha256`; it never copies claim wording or excerpt text. Preserve this private manifest with the annotation record.
+
+`claimTextSha256` is SHA-256 of the parsed, trimmed exact claim statement. `assessmentInputSha256` is SHA-256 of canonical JSON for the variable provider payload: `sourceId`, `claimType`, exact `claimText`, and ordered document `{id, title, text}` values. The separately recorded model and prompt versions bind the model configuration; rights metadata is checked and hashed independently. Gold rows, both reviewers' comparison rows, and provider predictions must carry both hashes. Evaluators reject any mismatch so an output for a different claim or excerpt cannot be scored against the frozen label.
+
+The resulting audit keeps claim wording private by default. The exact text is published only when the submitter opted in and an authorized reviewer separately approves publication; otherwise the bundle carries hashes without exposing it. This consent gate governs disclosure, not the truth of a claim or the document's rights. None of these hashes prove document authenticity, scientific validity, or physical mitigation.
 
 ## 5. Evaluation and internal release gate
 
@@ -76,6 +108,6 @@ These are internal release gates, not official competition thresholds. Report pe
 
 ## 6. Readiness status
 
-- **Implemented:** schema validation, source- and document-disjoint split checks, exact accepted-citation digests, per-document rights-review scope checks with a digest bound across inference and gold labels, source-cluster intervals, paired rules comparison, and macro-F1 release threshold.
+- **Implemented:** schema validation, source- and document-disjoint split checks, exact accepted-citation digests, per-document rights-review scope checks with a digest bound across inference and gold labels, source-cluster intervals, paired rules comparison, macro-F1 release threshold, and a tested local tool for two-reviewer pre-adjudication agreement/conflict queues.
 - **Not performed:** rights-cleared document collection, two-person adjudication, provider inference, independent model benchmark, or release-quality accuracy claim.
 - **Next gate:** obtain documented rights and reviewer availability, then prepare a private benchmark set that satisfies this protocol before any provider call.

@@ -625,6 +625,9 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     if (parsed.data.publishCitations && parent.bundle.intelligence.citationPublication?.authorConsent !== true) {
       return c.json({ error: 'Submitter consent is required before citations can be published' }, 403);
     }
+    if (parsed.data.publishClaimText && parent.bundle.intelligence.claimPublication?.authorConsent !== true) {
+      return c.json({ error: 'Submitter consent is required before the claim text can be published' }, 403);
+    }
     try {
       const audit = await store.create(parent.caseId, parent.sourceId, parent.claimType,
         (revision) => createReviewedAudit(parent, revision, reviewer.reviewerId, parsed.data), parent.auditId);

@@ -74,7 +74,7 @@
 .workspace-app .workspace-overview-grid{grid-template-columns:1fr 1.07fr 1fr;gap:13px;margin-bottom:14px}
 .workspace-app .overview-card{min-height:235px}
 .workspace-app .overview-feature{padding:16px 18px 21px;gap:16px}
-.workspace-app .overview-ring{flex-basis:119px;height:119px;border:0;background:radial-gradient(circle at center,#0a283c 0 53%,transparent 54%),conic-gradient(#1ce6cd 0 57%,#f8b75c 57% 71%,#1a465b 71% 100%)}
+.workspace-app .overview-ring{flex-basis:119px;height:119px;border:2px solid #0a4261;background:radial-gradient(circle at center,#0a283c 0 53%,transparent 54%)}
 .workspace-app .overview-ring strong{font-size:31px}
 .workspace-app .overview-key{font-size:11px;gap:10px;line-height:1.45}
 .workspace-app .overview-key b{font-size:19px}

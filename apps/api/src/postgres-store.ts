@@ -166,6 +166,13 @@ export class PostgresAuditStore implements AuditStore {
           AND bundle_json->'intelligence'->>'reviewStatus' = 'approved'
           AND bundle_json->'intelligence'->'citationPublication'->>'status' = 'public'
           AND bundle_json->'intelligence'->'citationPublication'->>'authorConsent' = 'true'
+          AND (
+            NOT (bundle_json->'intelligence' ? 'claimText')
+            OR (
+              bundle_json->'intelligence'->'claimPublication'->>'status' = 'public'
+              AND bundle_json->'intelligence'->'claimPublication'->>'authorConsent' = 'true'
+            )
+          )
         )
       )` : this.sql``}
     `;

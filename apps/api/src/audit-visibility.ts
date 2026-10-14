@@ -6,7 +6,10 @@ export function auditIsPubliclyReadable(audit: AuditResult): boolean {
   if (audit.bundle.schemaVersion !== 3) return false;
   const intelligence = audit.bundle.intelligence;
   const publication = intelligence?.citationPublication;
-  return intelligence?.reviewStatus === 'approved'
+  const claimTextIsPublishable = intelligence?.claimText === undefined
+    || (intelligence.claimPublication?.status === 'public' && intelligence.claimPublication.authorConsent === true);
+  return claimTextIsPublishable
+    && intelligence?.reviewStatus === 'approved'
     && publication?.status === 'public'
     && publication.authorConsent === true;
 }

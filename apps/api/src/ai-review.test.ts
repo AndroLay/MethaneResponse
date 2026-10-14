@@ -7,7 +7,7 @@ import { FileAuditStore } from './store';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-const sample = { sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed' as const, consentToExternalProcessing: true as const, documents: [{ id: 'operator-log', title: 'Submitted field report', rightsDeclared: 'explicit_permission' as const, text: 'The team inspected the facility and reported an investigation was opened. Repairs have not yet been independently verified by the regulator.' }] };
+const sample = { sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed' as const, claimText: 'The operator completed a repair at source KAZ_S_159 on 2026-09-10 and verified a sustained reduction in methane emissions.', consentToExternalProcessing: true as const, documents: [{ id: 'operator-log', title: 'Submitted field report', rightsDeclared: 'explicit_permission' as const, text: 'The team inspected the facility and reported an investigation was opened. Repairs have not yet been independently verified by the regulator.' }] };
 test('AI provider URLs require HTTPS except for local development and reject embedded credentials', () => {
   expect(isAllowedAiBaseUrl('https://provider.example/v1')).toBe(true);
   expect(isAllowedAiBaseUrl('http://localhost:8080/v1')).toBe(true);
@@ -80,7 +80,34 @@ test('v3 document bundle is canonically verifiable without external model', asyn
   expect(audit.bundle.schemaVersion).toBe(3);
   expect(auditIntegrityValid(audit)).toBe(true);
   expect(audit.bundle.intelligence?.reviewStatus).toBe('unreviewed');
+  expect(audit.bundle.intelligence?.claimText).toBe(sample.claimText);
+  expect(audit.bundle.intelligence?.claimTextSha256).toMatch(/^[a-f0-9]{64}$/);
+  expect(audit.bundle.intelligence?.assessmentInputSha256).toMatch(/^[a-f0-9]{64}$/);
+  expect(audit.bundle.intelligence?.claimPublication).toMatchObject({ status: 'private', authorConsent: false });
   expect(JSON.stringify(audit.bundle)).not.toContain(sample.documents[0].text);
+});
+
+test('public human review omits exact claim text unless both submitter and reviewer consent', async () => {
+  const book = await loadCasebook();
+  const sourceCase = book.cases[0];
+  const source = sourceFromCase(sourceCase, book.provenance.catalogUrl, book.provenance);
+  const parsed = DocumentAssessmentInput.parse({ ...sample, sourceId: source.sourceId, consentToPublishCitations: true });
+  const draft = createDocumentAudit(parsed, source, {
+    verdict: 'insufficient_evidence',
+    reason: 'The excerpt does not establish the bounded physical mitigation claim.',
+    citations: [{ documentId: 'operator-log', quote: 'Repairs have not yet been independently verified by the regulator' }],
+  }, 1, { caseId: sourceCase.caseId, externalEvidence: [] });
+  const publishedWithoutClaim = createReviewedAudit(draft, 2, 'independent-reviewer', HumanReviewInput.parse({
+    status: 'approved', note: 'Public citation is approved while the exact claim remains private.', sourceInspected: true, publishCitations: true,
+  }));
+  expect(publishedWithoutClaim.bundle.intelligence?.claimText).toBeUndefined();
+  expect(publishedWithoutClaim.bundle.intelligence?.claimTextSha256).toMatch(/^[a-f0-9]{64}$/);
+  expect(auditIntegrityValid(publishedWithoutClaim)).toBe(true);
+
+  expect(() => createReviewedAudit(draft, 2, 'independent-reviewer', HumanReviewInput.parse({
+    status: 'approved', note: 'Claim text publication was requested without submitter consent.', sourceInspected: true,
+    publishCitations: true, publishClaimText: true,
+  }))).toThrow('Submitter consent is required before the claim text can be published');
 });
 
 test('document rights declaration is covered by the canonical audit hash', async () => {

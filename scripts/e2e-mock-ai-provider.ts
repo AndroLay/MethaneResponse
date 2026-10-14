@@ -2,6 +2,7 @@ const host = '127.0.0.1';
 const port = Number(process.env.METHANE_E2E_MOCK_AI_PORT || 43140);
 const expectedApiKey = process.env.METHANE_E2E_MOCK_PROVIDER_KEY;
 const exactQuote = 'A maintenance log records replacement of compressor valve KV-17 on 20 August 2026.';
+const exactClaim = 'For KAZ_S_159, the operator completed the stated repair on 2026-08-20 and independently verified sustained methane reduction.';
 
 if (!expectedApiKey) throw new Error('The E2E mock provider requires an ephemeral API key.');
 
@@ -10,6 +11,7 @@ let firstPassRequests = 0;
 let skepticalPassRequests = 0;
 let sourceIdMatches = true;
 let claimTypeMatches = true;
+let claimTextMatches = true;
 let exactInputQuoteMatches = true;
 let skepticalQuoteMatches = true;
 
@@ -28,6 +30,7 @@ Bun.serve({
         skepticalPassRequests,
         sourceIdMatches,
         claimTypeMatches,
+        claimTextMatches,
         exactInputQuoteMatches,
         skepticalQuoteMatches,
       });
@@ -61,6 +64,7 @@ Bun.serve({
     totalRequests += 1;
     sourceIdMatches &&= input.sourceId === 'KAZ_S_159';
     claimTypeMatches &&= input.claimType === 'mitigation_confirmed';
+    claimTextMatches &&= input.claimText === exactClaim;
     const skepticalPass = systemPrompt.includes('Review only the quoted evidence');
     let modelOutput: Record<string, unknown>;
 
@@ -90,7 +94,7 @@ Bun.serve({
       };
     }
 
-    if (!sourceIdMatches || !claimTypeMatches) return Response.json({ error: 'unexpected_case_or_claim' }, { status: 400 });
+    if (!sourceIdMatches || !claimTypeMatches || !claimTextMatches) return Response.json({ error: 'unexpected_case_or_claim' }, { status: 400 });
     return Response.json({ choices: [{ message: { content: JSON.stringify(modelOutput) } }] });
   },
 });
