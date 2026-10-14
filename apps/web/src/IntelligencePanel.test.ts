@@ -1,0 +1,41 @@
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { expect, test } from 'bun:test';
+import IntelligencePanel from './IntelligencePanel';
+import DocumentRightsSummary from './DocumentRightsSummary';
+
+test('document assessment UI exposes a per-document rights declaration and its limits', () => {
+  const html = renderToStaticMarkup(createElement(IntelligencePanel, {
+    sourceId: 'KAZ_S_159',
+    observations: [],
+    claimType: 'mitigation_confirmed',
+    synthetic: false,
+    documentAssessmentAllowed: true,
+    currentAudit: null,
+    onAssessment: () => {},
+    capability: null,
+    capabilityLoading: false,
+    onRetryCapability: () => {},
+  }));
+
+  expect(html).toContain('Document processing rights');
+  expect(html).toContain('I own this document or excerpt');
+  expect(html).toContain('I have explicit permission to process it');
+  expect(html).toContain('does not independently verify copyright, permission, source authenticity, or completeness');
+});
+
+test('review rights summary distinguishes declarations from verified permissions and handles legacy reports', () => {
+  const html = renderToStaticMarkup(createElement(DocumentRightsSummary, {
+    documents: [
+      { id: 'owned', title: 'Owned excerpt', rightsDeclared: 'owned' },
+      { id: 'permitted', title: 'Permitted report', rightsDeclared: 'explicit_permission' },
+      { id: 'legacy', title: 'Historical report' },
+    ],
+  }));
+
+  expect(html).toContain('Document processing-rights declarations');
+  expect(html).toContain('Submitter declared ownership');
+  expect(html).toContain('Submitter declared explicit permission to process');
+  expect(html).toContain('No rights declaration recorded in this audit');
+  expect(html.match(/not independently verified/g)).toHaveLength(3);
+});

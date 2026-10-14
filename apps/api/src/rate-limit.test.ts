@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { createFixedWindowRateLimiter } from './rate-limit';
+import { createFixedWindowRateLimiter, createRateLimitClientKey } from './rate-limit';
 
 describe('audit write rate limit', () => {
   test('limits one client in a fixed window and resets at the boundary', () => {
@@ -21,5 +21,19 @@ describe('audit write rate limit', () => {
     expect(limiter.consume('client-b')).toMatchObject({ allowed: false, reason: 'capacity' });
     now = 2_000;
     expect(limiter.consume('client-b')).toMatchObject({ allowed: true, remaining: 0 });
+  });
+
+  test('creates stable scoped pseudonyms without persisting client addresses or tokens', () => {
+    const secret = 'test-only-rate-limit-secret-0123456789abcdef';
+    const address = '2001:db8::1';
+    const tokenFingerprint = 'e'.repeat(64);
+    const key = createRateLimitClientKey(secret, 'ai_assessment', address, tokenFingerprint);
+
+    expect(key).toMatch(/^[a-f0-9]{64}$/);
+    expect(key).toBe(createRateLimitClientKey(secret, 'ai_assessment', address, tokenFingerprint));
+    expect(key).not.toContain(address);
+    expect(key).not.toContain(tokenFingerprint);
+    expect(key).not.toBe(createRateLimitClientKey(secret, 'audit_write', address));
+    expect(key).not.toBe(createRateLimitClientKey(secret, 'ai_assessment', address, 'f'.repeat(64)));
   });
 });

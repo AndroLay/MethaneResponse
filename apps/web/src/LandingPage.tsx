@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
+import { getLandingEvidenceReview } from './landing-evidence';
+import { LandingObservationVisual } from './LandingObservationVisual';
 import './landing.css';
+import './landing-premium.css';
+import './landing-evidence-visual.css';
 
 type LandingIcon = 'arrow' | 'arrowUpRight' | 'globe' | 'file' | 'shield' | 'spark' | 'check' | 'alert' | 'map' | 'bars' | 'link' | 'lock' | 'menu' | 'close' | 'play' | 'layers' | 'database' | 'target' | 'external' | 'chevron' | 'clock';
 const pathMap: Record<LandingIcon, ReactNode> = {
@@ -29,6 +33,11 @@ const pathMap: Record<LandingIcon, ReactNode> = {
 function I({ name, size = 20, className = '' }: { name: LandingIcon; size?: number; className?: string }) {
   return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{pathMap[name]}</svg>;
 }
+function formatUtcDay(value: string) {
+  const [year, month, day] = value.slice(0, 10).split('-');
+  const monthLabel = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(month) - 1];
+  return `${day} ${monthLabel} ${year} UTC`;
+}
 function Mark({ compact = false }: { compact?: boolean }) {
   return <span className={`lp-brand ${compact ? 'lp-brand-compact' : ''}`}>
     <span className="lp-brand-logo" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14.5" fill="none" stroke="white" strokeWidth="2.3" strokeDasharray="71 24" transform="rotate(-35 20 20)"/><path d="M8 28C13 17 25 10 34 7c-5 12-13 23-26 21z" fill="#17ead2"/><path d="m10 27 19-15" stroke="#073b3c" strokeWidth="2.2" strokeLinecap="round"/></svg></span>
@@ -36,38 +45,34 @@ function Mark({ compact = false }: { compact?: boolean }) {
   </span>;
 }
 
-type Verdict = 'supported' | 'insufficient' | 'contradicted';
-const verdictData: Record<Verdict, { title: string; label: string; text: string; tone: string; detail: string }> = {
-  supported: { title: 'Supported by available evidence', label: 'SUPPORTED', text: 'The statement is consistent with the cited observations and documents. This does not constitute independent certification of physical mitigation.', tone: 'supported', detail: 'Claim ↔ attributable source ↔ supporting citation' },
-  insufficient: { title: 'The evidence is not sufficient', label: 'INSUFFICIENT EVIDENCE', text: 'A response or an isolated non-detection is not enough to establish that methane emissions were physically stopped.', tone: 'insufficient', detail: 'Missing confirmation → no unsupported conclusion' },
-  contradicted: { title: 'Contradiction identified', label: 'CONTRADICTED', text: 'An available source conflicts with the claim. The auditor shows the precise supporting passage or observation for review.', tone: 'contradicted', detail: 'Claim ↔ conflicting source ↔ human review' },
-};
-
-const features: { icon: LandingIcon; color: string; num: string; title: string; description: string; tag: string }[] = [
-  { icon: 'globe', color: 'cyan', num: '01', title: 'Explore the source, not just the map.', description: 'Navigate source IDs, plume observations and timelines with clear origin and uncertainty for every measurement.', tag: 'SOURCE TRACEABILITY' },
-  { icon: 'spark', color: 'violet', num: '02', title: 'Review the claim. Inspect the evidence.', description: 'The deterministic rules baseline remains active. A server-side document-assessment path is implemented but stays disabled until a trusted provider and reviewer are configured.', tag: 'RULES BASELINE · AI NOT CONFIGURED' },
-  { icon: 'shield', color: 'mint', num: '03', title: 'Make published audits tamper-evident.', description: 'A configured testnet receipt can let others check audit integrity and issuer. It cannot establish a physical mitigation outcome.', tag: 'OPTIONAL TESTNET RECEIPTS' },
+const features: { icon: LandingIcon; color: string; num: string; title: string; description: string; tag: string; href: string; action: string }[] = [
+  { icon: 'globe', color: 'cyan', num: '01', title: 'Explore methane observations worldwide.', description: 'Inspect source IDs, historical plume dates, reported flux and uncertainty from the versioned MARS snapshot. The archive is historical, not live.', tag: 'HISTORICAL MARS DATA', href: '/dashboard/map?sourceId=KAZ_S_159', action: 'Explore the map' },
+  { icon: 'bars', color: 'violet', num: '02', title: 'Prioritize what to investigate.', description: 'Review recurrence, anomaly screening and a transparent priority score. It is a heuristic for triage, not a probability of future leakage.', tag: 'EXPLAINABLE TRIAGE · NOT A FORECAST', href: '/dashboard/audit?sourceId=KAZ_S_159', action: 'View investigation analysis' },
+  { icon: 'spark', color: 'mint', num: '03', title: 'Check claims against evidence.', description: 'Run the rules baseline on pinned observations. Add an authorized document excerpt for optional AI citations and human review when a provider is configured.', tag: 'RULES AVAILABLE · AI OPTIONAL', href: '/dashboard/audit?sourceId=KAZ_S_159', action: 'Open Evidence Auditor' },
+  { icon: 'shield', color: 'violet', num: '04', title: 'Keep audit changes detectable.', description: 'Verify a saved report digest locally. A Sepolia receipt is optional and only appears after a real authorized transaction.', tag: 'SHA-256 · OPTIONAL SEPOLIA', href: '/dashboard/blockchain?sourceId=KAZ_S_159', action: 'Verify an audit' },
+  { icon: 'file', color: 'cyan', num: '05', title: 'Bring research into one review.', description: 'Combine source history, provenance, linked references and assessment status, then export a hash-protected JSON report for further analysis.', tag: 'SOURCE LINKS · JSON REPORT', href: '/dashboard/reports?sourceId=KAZ_S_159', action: 'Open report workspace' },
+  { icon: 'target', color: 'mint', num: '06', title: 'Separate response from mitigation.', description: 'See detection, notification metadata, operator feedback and independently verified mitigation as distinct states. Missing evidence stays unknown.', tag: 'FOLLOW-UP TRANSPARENCY', href: '/dashboard/cases?sourceId=KAZ_S_159', action: 'Inspect a source case' },
 ];
 
 const steps = [
   { number: '01', title: 'Observe', content: 'Import public methane observations with source IDs, dates, flux estimates and provenance.', icon: 'globe' as LandingIcon },
   { number: '02', title: 'Connect', content: 'Attach operator responses, official reports and evidence to a specific, reviewable claim.', icon: 'link' as LandingIcon },
-  { number: '03', title: 'Evaluate', content: 'Run transparent rules and an evidence checker. Explain every conclusion and missing input.', icon: 'target' as LandingIcon },
+  { number: '03', title: 'Evaluate', content: 'Run the available rules baseline. Optional document AI returns exact citations when configured; a human reviewer decides what to publish.', icon: 'target' as LandingIcon },
   { number: '04', title: 'Verify', content: 'Verify an optional testnet receipt when one exists. It establishes record integrity, not physical methane mitigation.', icon: 'shield' as LandingIcon },
 ];
 
 interface LandingPageProps { onOpenDashboard: () => void }
 export default function LandingPage({ onOpenDashboard }: LandingPageProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [verdict, setVerdict] = useState<Verdict>('insufficient');
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
-  const selected = verdictData[verdict];
+  const evidenceReview = getLandingEvidenceReview();
   useEffect(() => {
     const close = () => setMobileMenuOpen(false);
     window.addEventListener('resize', close);
     return () => window.removeEventListener('resize', close);
   }, []);
   return <div className="lp-shell" id="top">
+    <a className="lp-skip" href="#lp-hero-title">Skip to content</a>
     <div className="lp-announcement"><span className="lp-announcement-dot"/> RESEARCH PROTOTYPE · IEEE CLIMATECHAIN 2026 <span className="lp-announcement-separator">/</span> <span>Evidence matters more than assumptions.</span></div>
     <header className="lp-header">
       <div className="lp-container lp-navbar">
@@ -86,7 +91,6 @@ export default function LandingPage({ onOpenDashboard }: LandingPageProps) {
     <main>
       <section className="lp-hero" aria-labelledby="lp-hero-title">
         <div className="lp-hero-stars" aria-hidden="true"/>
-        <img className="lp-earth" src="/assets/landing-earth.webp" alt="" aria-hidden="true"/>
         <div className="lp-hero-wash" aria-hidden="true"/>
         <div className="lp-container lp-hero-layout">
           <div className="lp-hero-copy">
@@ -97,11 +101,8 @@ export default function LandingPage({ onOpenDashboard }: LandingPageProps) {
             <p className="lp-hero-footnote"><I name="shield" size={14}/> Independent prototype · Not affiliated with UNEP or IEEE</p>
             <div className="lp-hero-trust"><span><I name="database" size={19}/> Source-linked data</span><span><I name="spark" size={19}/> Rules-based review</span><span><I name="lock" size={19}/> Receipt verification</span></div>
           </div>
-          <div className="lp-hero-overlays" aria-hidden="true">
-            <div className="lp-globe-beacon lp-beacon-one"><span/></div>
-            <div className="lp-globe-beacon lp-beacon-two"><span/></div>
-            <div className="lp-globe-card lp-globe-card-top"><div className="lp-globe-icon lp-icon-amber"><I name="map" size={18}/></div><div><span>OBSERVATION</span><strong>Source identified</strong><small>Satellite record linked</small></div><I name="arrowUpRight" size={16}/></div>
-            <div className="lp-globe-card lp-globe-card-bottom"><div className="lp-globe-icon lp-icon-mint"><I name="shield" size={18}/></div><div><span>EVIDENCE REVIEW</span><strong>Claims under scrutiny</strong><small>Proof before conclusions</small></div><span className="lp-globe-status"/></div>
+          <div className="lp-hero-observation">
+            <LandingObservationVisual review={evidenceReview}/>
           </div>
         </div>
         <a className="lp-scroll-cue" href="#platform"><span/> SCROLL TO EXPLORE <I name="chevron" size={15}/></a>
@@ -112,26 +113,101 @@ export default function LandingPage({ onOpenDashboard }: LandingPageProps) {
       <section className="lp-section lp-platform-section" id="platform" aria-labelledby="lp-platform-heading">
         <div className="lp-container">
           <div className="lp-section-top"><div><div className="lp-eyebrow">THE PLATFORM <span> / 01</span></div><h2 id="lp-platform-heading">The evidence behind<br/><em>every climate claim.</em></h2></div><p>Detection systems help us see emissions. MethaneResponse is designed to help us examine what happens next—without confusing reports, observations, and proof.</p></div>
-          <div className="lp-feature-grid">{features.map(f=><article className={`lp-feature lp-feature-${f.color}`} key={f.num}><div className="lp-feature-top"><span className="lp-feature-symbol"><I name={f.icon} size={25}/></span><span className="lp-feature-number">{f.num} / 03</span></div><div><span className="lp-feature-tag">{f.tag}</span><h3>{f.title}</h3><p>{f.description}</p></div><span className="lp-feature-foot"><I name="arrowUpRight" size={18}/></span></article>)}</div>
+          <div className="lp-feature-grid">{features.map(f=><article className={`lp-feature lp-feature-${f.color}`} key={f.num}><div className="lp-feature-top"><span className="lp-feature-symbol"><I name={f.icon} size={25}/></span><span className="lp-feature-number">{f.num} / 06</span></div><div><span className="lp-feature-tag">{f.tag}</span><h3>{f.title}</h3><p>{f.description}</p><a className="lp-feature-action" href={f.href}>{f.action}<I name="arrowUpRight" size={15}/></a></div></article>)}</div>
         </div>
       </section>
 
       <section className="lp-section lp-product-section" id="workspace" aria-labelledby="lp-workspace-heading"><div className="lp-container lp-product-layout">
         <div className="lp-product-copy"><div className="lp-eyebrow">THE WORKSPACE <span> / 02</span></div><h2 id="lp-workspace-heading">From a data point<br/>to the <em>full story.</em></h2><p>One workspace for exploring observations, interpreting response evidence and checking an audit trail. Follow the reasoning—not just the result.</p><div className="lp-product-list"><div><span><I name="map" size={19}/></span><div><strong>Geospatial context</strong><small>Source, location and observation history</small></div></div><div><span><I name="file" size={19}/></span><div><strong>Reviewable conclusions</strong><small>Evidence citations and explicit uncertainty</small></div></div><div><span><I name="lock" size={19}/></span><div><strong>Integrity checks</strong><small>Cryptographic verification of audit versions</small></div></div></div><button className="lp-inline-link" onClick={onOpenDashboard}>Enter the workspace <I name="arrow" size={19}/></button></div>
-        <div className="lp-product-visual"><div className="lp-product-browser"><div className="lp-browser-bar"><span className="lp-browser-dots"><i/><i/><i/></span><span className="lp-browser-url"><I name="lock" size={12}/> methaneresponse / dashboard</span><span className="lp-browser-label">PROTOTYPE</span></div><div className="lp-browser-image"><img src="/assets/atlas-demo.webp" alt="Illustrative methane activity map concept used in the dashboard prototype"/><span className="lp-browser-overlay-label">ILLUSTRATIVE MAP · NOT LIVE UNEP DATA</span></div><div className="lp-browser-summary"><div><span className="lp-summary-pulse"/><strong>Evidence workspace</strong><small>Source context · Timeline · Audit</small></div><span className="lp-summary-arrow"><I name="arrowUpRight" size={20}/></span></div></div><div className="lp-float-stat"><span className="lp-stat-mini-icon"><I name="file" size={18}/></span><div><small>CLAIM REVIEW</small><strong>Insufficient evidence</strong><span>Unverified claims stay unverified</span></div></div></div>
+        <div className="lp-product-visual">
+          <article className="lp-source-reference">
+            <header className="lp-source-reference-head">
+              <span><I name="database" size={17}/> LINKED PUBLISHER RECORD</span>
+              <span>METADATA REVIEW ONLY</span>
+            </header>
+            <div className="lp-source-reference-body">
+              <p>{evidenceReview.report.publisher} · {evidenceReview.sourceId}</p>
+              <h3>{evidenceReview.report.title}</h3>
+              <p className="lp-source-reference-summary">{evidenceReview.report.publisherSummary}</p>
+              <dl>
+                <div><dt>Case location</dt><dd>{evidenceReview.country} · {evidenceReview.sourceId}</dd></div>
+                <div><dt>Publisher record date</dt><dd>{formatUtcDay(evidenceReview.report.reportDate)}</dd></div>
+                <div><dt>Observation snapshot</dt><dd>{evidenceReview.provenance.snapshotId}</dd></div>
+                <div><dt>Review scope</dt><dd>Publisher metadata; PDF not independently re-audited</dd></div>
+              </dl>
+              <a href={evidenceReview.report.url} target="_blank" rel="noreferrer">Open the official UNEP item<I name="external" size={16}/></a>
+            </div>
+            <footer>Linked source only. A publisher statement and an integrity receipt do not independently establish physical repair or sustained emissions cessation.</footer>
+          </article>
+        </div>
       </div></section>
 
       <section className="lp-section lp-how-section" id="how-it-works" aria-labelledby="lp-how-heading"><div className="lp-container"><div className="lp-centered-heading"><div className="lp-eyebrow">HOW IT WORKS <span> / 03</span></div><h2 id="lp-how-heading">A complete trail.<br/><em>No missing steps.</em></h2><p>A transparent, reviewable process from the first observation through the final evidence receipt.</p></div><div className="lp-steps-grid">{steps.map(s=><div className="lp-step" key={s.number}><span className="lp-step-number">{s.number}</span><span className="lp-step-icon"><I name={s.icon} size={25}/></span><h3>{s.title}</h3><p>{s.content}</p><span className="lp-step-dash"/></div>)}</div></div></section>
 
-      <section className="lp-section lp-judgement-section" id="methodology" aria-labelledby="lp-method-heading"><div className="lp-container lp-judgement-grid"><div className="lp-judgement-intro"><div className="lp-eyebrow">BUILT ON SCIENTIFIC HONESTY <span> / 04</span></div><h2 id="lp-method-heading">Truth deserves<br/><em>better than a badge.</em></h2><p>Seeing a methane plume does not prove a specific facility was repaired. An operator response does not equal a confirmed reduction. Our design treats these as distinct claims.</p><div className="lp-method-points"><span><I name="check" size={17}/> Attributable evidence references</span><span><I name="check" size={17}/> Clear distinctions between evidence and inference</span><span><I name="check" size={17}/> Explicit limitations and uncertainty</span></div></div><div className="lp-verdict-card"><div className="lp-verdict-top"><span><I name="spark" size={17}/> EXAMPLE EVIDENCE ASSESSMENT</span><span className="lp-demo-badge">ILLUSTRATIVE</span></div><div className="lp-verdict-prompt"><span>CLAIM UNDER REVIEW</span><p>“The methane release has been fully mitigated.”</p></div><div className="lp-verdict-selector" role="group" aria-label="Choose example audit outcome"><button onClick={()=>setVerdict('supported')} className={verdict==='supported'?'active':''}>Supported</button><button onClick={()=>setVerdict('insufficient')} className={verdict==='insufficient'?'active':''}>Insufficient</button><button onClick={()=>setVerdict('contradicted')} className={verdict==='contradicted'?'active':''}>Contradicted</button></div><div className={`lp-verdict-result lp-verdict-${selected.tone}`}><div className="lp-verdict-heading"><span className="lp-result-icon"><I name={verdict==='supported'?'check':'alert'} size={20}/></span><div><small>{selected.label}</small><strong>{selected.title}</strong></div></div><p>{selected.text}</p><div className="lp-verdict-detail"><I name="layers" size={16}/>{selected.detail}</div></div><span className="lp-verdict-disclaimer">Sample logic only · No real case or mitigation outcome asserted</span></div></div></section>
+      <section className="lp-section lp-judgement-section" id="methodology" aria-labelledby="lp-method-heading">
+        <div className="lp-container lp-judgement-grid">
+          <div className="lp-judgement-intro">
+            <div className="lp-eyebrow">BUILT ON SCIENTIFIC HONESTY <span> / 04</span></div>
+            <h2 id="lp-method-heading">Evidence with<br/><em>a clear boundary.</em></h2>
+            <p>Review what a source actually reports, compare it with the dated MARS observations, and keep publisher statements separate from an independent reassessment.</p>
+            <div className="lp-method-points">
+              <span><I name="check" size={17}/> Attributable official source</span>
+              <span><I name="check" size={17}/> Observation dates, flux and uncertainty</span>
+              <span><I name="check" size={17}/> Explicit review limits</span>
+            </div>
+          </div>
+
+          <article className="lp-case-review" aria-labelledby="lp-case-review-title">
+            <header className="lp-case-review-header">
+              <span><I name="database" size={16}/> REAL HISTORICAL CASE</span>
+              <code>{evidenceReview.sourceId}</code>
+            </header>
+            <div className="lp-case-review-title">
+              <div><h3 id="lp-case-review-title">{evidenceReview.country} · {evidenceReview.sector}</h3><p>UNEP IMEO MARS source record</p></div>
+              <span className="lp-case-review-tag">UNEP ITEM · INTERNAL REVIEW ONLY</span>
+            </div>
+            <div className="lp-case-review-claim">
+              <span>REVIEW SCOPE</span>
+              <p>{evidenceReview.report.publisherSummary}</p>
+            </div>
+            <p className="lp-case-review-boundary">This records the publisher’s statement. MethaneResponse has not independently re-audited the linked PDF or verified sustained emissions cessation.</p>
+
+            <section className="lp-case-observations" aria-labelledby="lp-observation-title">
+              <div className="lp-case-observation-heading"><h4 id="lp-observation-title">Linked historical observations</h4><span>Reported flux ± standard deviation · kg/h</span></div>
+              <ol>
+                {evidenceReview.observations.map((observation) => (
+                  <li key={observation.plumeId}>
+                    <time dateTime={observation.date}>{formatUtcDay(observation.date)}</time>
+                    <strong>{observation.fluxKgHr === null ? 'Not reported' : `${observation.fluxKgHr.toLocaleString('en-US')} ± ${observation.uncertaintyKgHr?.toLocaleString('en-US') ?? 'not reported'}`}</strong>
+                    <small>{observation.satellite}</small>
+                  </li>
+                ))}
+              </ol>
+            </section>
+
+            <div className="lp-case-report">
+              <span>OFFICIAL UNEP ITEM · {formatUtcDay(evidenceReview.report.reportDate)}</span>
+              <a href={evidenceReview.report.url} target="_blank" rel="noreferrer">{evidenceReview.report.title}<I name="external" size={15}/></a>
+              <small>{evidenceReview.report.publisher} · {evidenceReview.report.license} · linked only; PDF not reproduced</small>
+            </div>
+
+            <div className="lp-case-review-note"><I name="alert" size={17}/><p>Latest linked record in this pinned casebook: 11 Jul 2026. No later row in this archive does not mean zero emissions.</p></div>
+
+            <footer className="lp-case-review-footer">
+              <span title={evidenceReview.provenance.archiveSha256}>Snapshot {evidenceReview.provenance.snapshotId} · archive retrieved {formatUtcDay(evidenceReview.provenance.retrievedAt)} · SHA-256 {evidenceReview.provenance.archiveSha256}</span>
+              <a href={`/dashboard/audit?sourceId=${evidenceReview.sourceId}`}>Open in Evidence Auditor<I name="arrowUpRight" size={15}/></a>
+            </footer>
+          </article>
+        </div>
+      </section>
 
       <section className="lp-section lp-about-section" id="about" aria-labelledby="lp-about-heading"><div className="lp-container lp-about-grid"><div><div className="lp-eyebrow">TRANSPARENT BY DESIGN <span> / 05</span></div><h2 id="lp-about-heading">Built to complement<br/><em>existing climate science.</em></h2><p>MethaneResponse does not replace UNEP's Methane Alert and Response System, certify physical repairs, or claim that blockchain can determine scientific truth. It adds a proposed layer for examining published claims and verifying audit integrity.</p><a href="https://methanedata.unep.org/methane-alert-response-system" target="_blank" rel="noreferrer" className="lp-source-link">About UNEP MARS <I name="external" size={16}/></a></div><div className="lp-about-accordions">{[
         { q: 'Is this an official UNEP platform?', a: 'No. MethaneResponse is an independent research prototype. UNEP MARS is a separate system and remains the authoritative source for its own data and mitigation statements.' },
         { q: 'Does blockchain prove that emissions stopped?', a: 'No. A blockchain receipt can help verify the integrity and provenance of an audit record. It cannot validate a physical repair or make a disputed scientific conclusion correct.' },
-        { q: 'Is the current dashboard using live methane data?', a: 'No. It starts with clearly labeled synthetic fixtures. You can import an official UNEP MARS GeoJSON snapshot for historical source locations and plume observations. MARS data is periodically published, not a live feed; the dashboard does not audit mitigation claims for imported sources.' },
+        { q: 'Is the current dashboard using live methane data?', a: 'No. The dashboard loads a bundled, versioned historical UNEP MARS snapshot when available and falls back to curated MARS cases if it is not. It is not a live feed. The baseline can assess records in the pinned snapshot, while document review requires an authorized excerpt and an enabled server-side provider.' },
       ].map((item,idx)=><div className="lp-faq" key={item.q}><button aria-expanded={faqOpen===idx} onClick={()=>setFaqOpen(faqOpen===idx?null:idx)}><span>{item.q}</span><I name={faqOpen===idx?'close':'arrowUpRight'} size={18}/></button>{faqOpen===idx&&<p>{item.a}</p>}</div>)}</div></div></section>
 
-      <section className="lp-bottom-cta"><div className="lp-container lp-bottom-cta-inner"><div className="lp-cta-aura" aria-hidden="true"/><div className="lp-eyebrow">GO BEYOND THE OBSERVATION</div><h2>Every claim should<br/>have a <em>clear trail.</em></h2><p>Explore the MethaneResponse interactive prototype and see how transparent, evidence-led reviews could work.</p><button className="lp-btn lp-btn-solid lp-btn-large" onClick={onOpenDashboard}>Launch Demo Dashboard <I name="arrow" size={19}/></button><span>Demo fixtures only · No physical mitigation certified</span></div></section>
+      <section className="lp-bottom-cta"><div className="lp-container lp-bottom-cta-inner"><div className="lp-cta-aura" aria-hidden="true"/><div className="lp-eyebrow">GO BEYOND THE OBSERVATION</div><h2>Every claim should<br/>have a <em>clear trail.</em></h2><p>Explore the historical MARS workspace, review a source, and verify an audit digest.</p><button className="lp-btn lp-btn-solid lp-btn-large" onClick={onOpenDashboard}>Open Methane Workspace <I name="arrow" size={19}/></button><span>Historical source data · No physical mitigation certified</span></div></section>
     </main>
     <footer className="lp-footer"><div className="lp-container"><div className="lp-footer-main"><div><a href="#top" aria-label="Back to top"><Mark compact/></a><p>From observations to verifiable evidence.<br/>Research prototype for responsible climate data analysis.</p></div><div className="lp-footer-links"><div><strong>PLATFORM</strong><a href="#platform">Features</a><a href="#workspace">Workspace</a><a href="#how-it-works">How it works</a></div><div><strong>RESOURCES</strong><a href="#methodology">Methodology</a><a href="#about">Limitations</a><a href="https://methanedata.unep.org/methane-alert-response-system" target="_blank" rel="noreferrer">UNEP MARS <I name="external" size={12}/></a></div><div><strong>EXPLORE</strong><button onClick={onOpenDashboard}>Demo dashboard <I name="arrowUpRight" size={12}/></button><a href="#top">Back to top</a></div></div></div><div className="lp-footer-bottom"><span>© 2026 MethaneResponse. Independent research prototype. No affiliation with UNEP or IEEE.</span><span><I name="shield" size={15}/> Evidence before assumptions.</span></div></div></footer>
   </div>;

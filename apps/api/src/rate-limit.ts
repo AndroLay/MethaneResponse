@@ -1,3 +1,5 @@
+import { createHmac } from 'node:crypto';
+
 export type FixedWindowRateLimitOptions = {
   limit: number;
   windowMs: number;
@@ -5,12 +7,24 @@ export type FixedWindowRateLimitOptions = {
   now?: () => number;
 };
 
+export type RateLimitScope = 'audit_write' | 'ai_assessment';
+
 export type RateLimitDecision = {
   allowed: boolean;
   remaining: number;
   resetAt: number;
   reason?: 'limit' | 'capacity';
 };
+
+/** Stable pseudonym for shared storage; the address and optional token fingerprint are never stored. */
+export function createRateLimitClientKey(secret: string, scope: RateLimitScope, address: string, identity = ''): string {
+  if (secret.length < 32) throw new RangeError('Rate-limit hash secret must contain at least 32 characters');
+  return createHmac('sha256', secret)
+    .update(scope).update('\0')
+    .update(address).update('\0')
+    .update(identity)
+    .digest('hex');
+}
 
 /** A bounded, process-local limiter for low-volume prototype write endpoints. */
 export function createFixedWindowRateLimiter(options: FixedWindowRateLimitOptions) {

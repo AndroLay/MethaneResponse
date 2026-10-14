@@ -13,5 +13,7 @@ services:
         sync: false
       - key: DATABASE_URL
         sync: false
+      - key: RATE_LIMIT_HASH_SECRET
+        sync: false
       - key: NODE_ENV
         value: production

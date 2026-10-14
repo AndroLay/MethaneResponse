@@ -7,6 +7,18 @@ export type MapProjection = 'flat' | 'globe';
 export type ContextLayer = 'off' | 'natural' | 'cloud-fraction' | 'airs-methane-400hpa';
 export type EarthLook = 'natural' | 'cinematic';
 
+export const DEFAULT_NIGHT_SHADING = false;
+export const NASA_BLUE_MARBLE_TILE_TEMPLATE = 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_NextGeneration/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg';
+export const NASA_BLUE_MARBLE_TILE_MAX_ZOOM = 8;
+export const NASA_BLUE_MARBLE_LAYER_MAX_ZOOM = 4;
+
+export function getSatelliteImageryOpacity(zoom: number): { overview: number; detail: number } {
+  const finiteZoom = Number.isFinite(zoom) ? zoom : 0;
+  const transition = Math.max(0, Math.min(1, (finiteZoom - 2) / (NASA_BLUE_MARBLE_LAYER_MAX_ZOOM - 2)));
+  const overview = 0.28 * (1 - transition);
+  return { overview, detail: 1 };
+}
+
 export type DeviceHints = {
   deviceMemoryGB?: number;
   cores?: number;
@@ -68,7 +80,7 @@ export function getStableEarthLight() {
 }
 
 export function getNightSideOpacity(tier: RenderTier): number {
-  return tier === 'high' ? 0.5 : tier === 'medium' ? 0.44 : 0.36;
+  return tier === 'high' ? 0.2 : tier === 'medium' ? 0.16 : 0.12;
 }
 
 export function getRenderPixelRatio(tier: RenderTier, nativeRatio: number): number {
@@ -90,6 +102,20 @@ export function getMapterhornTerrainSource() {
     url: 'https://tiles.mapterhorn.com/tilejson.json',
     encoding: 'terrarium' as const,
     attribution: 'Terrain data © Mapterhorn',
+  };
+}
+
+export function getMapterhornHillshadeSource() {
+  return { ...getMapterhornTerrainSource() };
+}
+
+export function getStableHillshadePaint() {
+  return {
+    'hillshade-illumination-anchor': 'map' as const,
+    'hillshade-illumination-direction': 225,
+    'hillshade-exaggeration': 0.1,
+    'hillshade-shadow-color': '#102431',
+    'hillshade-highlight-color': '#d5d2c5',
   };
 }
 

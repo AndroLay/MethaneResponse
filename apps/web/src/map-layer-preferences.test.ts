@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test';
 import { DEFAULT_MAP_DATA_LAYER } from './map-layer-preferences';
 
-test('opens on the historical reported-flux layer so observed magnitude is visible', () => {
-  expect(DEFAULT_MAP_DATA_LAYER).toBe('observed-flux');
+test('global map defaults to source locations for a legible and lighter overview', () => {
+  expect(DEFAULT_MAP_DATA_LAYER).toBe('source-density');
 });

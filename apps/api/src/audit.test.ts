@@ -1,9 +1,11 @@
 import { describe, expect, test } from 'bun:test';
 import { createHash } from 'node:crypto';
 import { DEMO_SOURCES } from '@methane/shared';
-import { assess } from './audit';
+import { assess, createAudit } from './audit';
 import { app, createApp } from './app';
 import { canonicalJson } from './canonical';
+import { getIntelligenceSnapshot } from './intelligence-data';
+import { loadCasebook } from './casebook';
 import { MemoryAuditStore } from './store';
 
 describe('conservative evidence baseline', () => {
@@ -16,6 +18,17 @@ describe('conservative evidence baseline', () => {
   });
   test('synthetic confirmation must be typed confirmation', () => {
     expect(assess(DEMO_SOURCES[1], 'mitigation_confirmed').result).toBe('supported');
+  });
+  test('claim-specific evidence cannot support a different claim type', () => {
+    const detectionTaggedForNotification = {
+      ...DEMO_SOURCES[0].evidence[0]!,
+      claimType: 'operator_notified' as const,
+    };
+    const source = { ...DEMO_SOURCES[0], evidence: [detectionTaggedForNotification] };
+    expect(assess(source, 'source_detected')).toMatchObject({
+      result: 'insufficient_evidence',
+      evidenceIds: [],
+    });
   });
   test('no evidence means unknown not false', () => {
     const empty = { ...DEMO_SOURCES[0], evidence: [] };
@@ -39,7 +52,18 @@ describe('API contract', () => {
     const payload = await res.json();
     expect(payload.synthetic).toBe(false);
     expect(payload.cases.map((item: { sourceId: string }) => item.sourceId)).toEqual(['KAZ_S_159', 'LBY_S_143', 'ARG_S_055']);
-    expect(payload.provenance.archiveSha256).toBe('b4162c277bcb699154ccc068f5f9510e1d32f355093884de6c8029ea34a62742');
+    expect(payload.provenance.archiveSha256).toBe('675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43');
+  });
+
+  test('keeps the active curated casebook on the same versioned MARS snapshot as intelligence', async () => {
+    const [casebook, snapshot] = await Promise.all([loadCasebook(), getIntelligenceSnapshot()]);
+    const datasetSnapshotId = snapshot.datasetSnapshotId;
+    const archiveSha256 = snapshot.upstreamArchiveSha256;
+    if (typeof datasetSnapshotId !== 'string' || typeof archiveSha256 !== 'string') {
+      throw new Error('Active intelligence snapshot is missing its dataset binding');
+    }
+    expect(casebook.provenance.snapshotId).toBe(datasetSnapshotId);
+    expect(casebook.provenance.archiveSha256).toBe(archiveSha256);
   });
 
   test('preserves UNEP persistency fields in the source record instead of recomputing them', async () => {
@@ -58,11 +82,24 @@ describe('API contract', () => {
     const res = await app.request('/api/intelligence/rankings');
     expect(res.status).toBe(200);
     const payload = await res.json();
-    expect(payload.snapshot.modelVersion).toBe('transparent-priority-v3');
+    expect(payload.snapshot.modelVersion).toBe('transparent-priority-v5');
+    expect(payload.snapshot.observedTrendMethod.methodVersion).toBe('theil-sen-event-trend-v1');
+    expect(payload.snapshot.recordRecurrenceModel.status).toBe('historical_backtest_passed');
+    expect(payload.snapshot.recordRecurrenceModel.testCohort.rocAuc).toBeGreaterThan(0.80);
+    expect(payload.snapshot.publisherIndicatorComparison).toMatchObject({
+      status: 'available', datasetSnapshotId: 'unep-mars-675417694883', horizonDays: 365,
+      persistencyCoverage: { numericReportedCount: 3059, emissionStatusReportedCount: 0 },
+    });
     expect(payload.rankings.length).toBeGreaterThan(0);
     expect(payload.rankings.every((row: { priorityType: string }) => row.priorityType === 'heuristic_not_probability')).toBe(true);
+    const dza = payload.rankings.find((row: { sourceId: string }) => row.sourceId === 'DZA_S_012');
+    expect(dza.recordRecurrenceForecast).toMatchObject({ status: 'available', horizonDays: 365, target: 'at_least_one_future_linked_mars_detection_record' });
+    expect(dza.recordRecurrenceForecast.probability).toBeCloseTo(0.918307, 6);
     expect(payload.forecast.status).toBe('not_available');
     expect(payload.forecast.reason).toContain('independent');
+    expect(payload.forecast.missingRequirements).toEqual([
+      'complete_observation_opportunities', 'independent_future_outcome_labels', 'held_out_temporal_validation',
+    ]);
   });
 
   test('source API keeps the observation timestamp, plume coordinates, units, uncertainty, and provenance fields', async () => {
@@ -80,7 +117,7 @@ describe('API contract', () => {
       tile: 'ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z',
       detectionInstitution: 'UNEP IMEO MARS',
     });
-    expect(source.provenance.archiveSha256).toBe('b4162c277bcb699154ccc068f5f9510e1d32f355093884de6c8029ea34a62742');
+    expect(source.provenance.archiveSha256).toBe('675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43');
   });
 
   test('audits observed MARS detections with plume-level citations', async () => {
@@ -90,7 +127,43 @@ describe('API contract', () => {
     expect(audit.result).toBe('supported');
     expect(audit.synthetic).toBe(false);
     expect(audit.bundle.citedEvidence.map((item: { id: string }) => item.id)).toContain('7529d451-018f-4da3-9114-59b76c3a3bcd');
-    expect(audit.bundle.provenance.archiveSha256).toBe('b4162c277bcb699154ccc068f5f9510e1d32f355093884de6c8029ea34a62742');
+    expect(audit.bundle.provenance.archiveSha256).toBe('675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43');
+  });
+
+  test('lets a non-curated pinned MARS source audit its recorded detection without inferring notification or mitigation', async () => {
+    const snapshot = await getIntelligenceSnapshot();
+    const casebook = await loadCasebook();
+    const curatedIds = new Set(casebook.cases.map((item) => item.sourceId));
+    const row = snapshot.sources.find((item) => !curatedIds.has(item.sourceId) && item.observationIds.length > 0);
+    expect(row).toBeDefined();
+    const sourceId = row!.sourceId;
+
+    const detectionResponse = await app.request('/api/audits', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ sourceId, claimType: 'source_detected' }),
+    });
+    expect(detectionResponse.status).toBe(201);
+    const detection = await detectionResponse.json();
+    expect(detection.result).toBe('supported');
+    expect(detection.caseId).toBe(`mars:${snapshot.datasetSnapshotId}:${sourceId}`);
+    expect(detection.bundle.provenance.snapshotId).toBe(snapshot.datasetSnapshotId);
+    expect(detection.bundle.provenance.archiveSha256).toBe(snapshot.upstreamArchiveSha256);
+    expect(row!.observationIds).toContain(detection.bundle.citedEvidence[0].id);
+    const verificationResponse = await app.request(`/api/audits/${detection.auditId}/verify`);
+    expect(verificationResponse.status).toBe(200);
+    expect(await verificationResponse.json()).toMatchObject({ integrityVerified: false, localDigestValid: true, status: 'not_configured' });
+
+    for (const claimType of ['operator_notified', 'mitigation_confirmed'] as const) {
+      const response = await app.request('/api/audits', {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ sourceId, claimType }),
+      });
+      expect(response.status).toBe(201);
+      const audit = await response.json();
+      expect(audit.result).toBe('insufficient_evidence');
+      expect(audit.bundle.citedEvidence).toEqual([]);
+      expect(audit.bundle.provenance.snapshotId).toBe(snapshot.datasetSnapshotId);
+    }
   });
 
   test('does not infer mitigation from notification, feedback, or a linked report title', async () => {
@@ -159,7 +232,7 @@ describe('API contract', () => {
     const response = await unavailableApp.request('/api/audits', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'source_detected' }),
+      body: JSON.stringify({ sourceId: 'ZZZ_S_999999', claimType: 'source_detected' }),
     });
     expect(response.status).toBe(503);
     expect((await response.json()).error).toContain('casebook is unavailable');
@@ -187,6 +260,34 @@ describe('API contract', () => {
     expect(history.audits.some((item: { auditId: string }) => item.auditId === audit.auditId)).toBe(true);
     expect(audit.revision).toBe(1);
     expect(audit.bundle.revision).toBe(1);
+  });
+
+  test('supports stable audit cursor pages and keeps the legacy unpaged response shape', async () => {
+    const store = new MemoryAuditStore();
+    for (const claimType of ['source_detected', 'operator_notified', 'mitigation_confirmed'] as const) {
+      await store.create('DEMO-001', 'DEMO-001', claimType, revision =>
+        createAudit(DEMO_SOURCES[0], { sourceId: 'DEMO-001', claimType }, { revision }));
+    }
+    const pagedApp = createApp(store);
+    const first = await pagedApp.request('/api/audits?sourceId=DEMO-001&limit=2');
+    expect(first.status).toBe(200);
+    const firstPage = await first.json();
+    expect(firstPage.audits).toHaveLength(2);
+    expect(firstPage.hasMore).toBe(true);
+    expect(typeof firstPage.nextCursor).toBe('string');
+
+    const second = await pagedApp.request(`/api/audits?sourceId=DEMO-001&limit=2&cursor=${encodeURIComponent(firstPage.nextCursor)}`);
+    const secondPage = await second.json();
+    expect(secondPage.audits).toHaveLength(1);
+    expect(secondPage.hasMore).toBe(false);
+    expect(new Set([...firstPage.audits, ...secondPage.audits].map((item: { auditId: string }) => item.auditId)).size).toBe(3);
+
+    const legacy = await pagedApp.request('/api/audits?sourceId=DEMO-001');
+    const legacyBody = await legacy.json();
+    expect(Object.keys(legacyBody).sort()).toEqual(['audits']);
+    expect(legacyBody.audits).toHaveLength(3);
+    expect((await pagedApp.request('/api/audits?limit=0')).status).toBe(400);
+    expect((await pagedApp.request('/api/audits?cursor=invalid')).status).toBe(400);
   });
   test('anchoring requires a secret even when no chain configured', async () => {
     const res = await app.request('/api/audits/unknown/anchor', { method: 'POST' });
@@ -219,6 +320,123 @@ describe('API contract', () => {
     expect((await write('192.0.2.11', '203.0.113.10')).status).toBe(201);
     now += 60_000;
     expect((await write('192.0.2.10', '203.0.113.10')).status).toBe(201);
+  });
+
+  test('fails closed in production when a PostgreSQL-backed shared limiter has no stable hash secret', async () => {
+    const names = ['NODE_ENV', 'ENABLE_PUBLIC_BASELINE_AUDITS', 'RATE_LIMIT_HASH_SECRET'] as const;
+    const previous = new Map(names.map(name => [name, process.env[name]]));
+    let limiterCalls = 0;
+    const store = Object.assign(new MemoryAuditStore(), {
+      consumeRateLimit: async () => {
+        limiterCalls += 1;
+        return { allowed: true, remaining: 19, resetAt: Date.now() + 60_000 };
+      },
+    });
+    process.env.NODE_ENV = 'production';
+    process.env.ENABLE_PUBLIC_BASELINE_AUDITS = 'true';
+    delete process.env.RATE_LIMIT_HASH_SECRET;
+    try {
+      const productionApp = createApp(store);
+      const health = await productionApp.request('/api/health');
+      expect(health.status).toBe(503);
+      expect((await health.json()).rateLimits).toEqual({ backend: 'process-local', shared: false, required: true, ready: false });
+      const response = await productionApp.fetch(new Request('http://localhost/api/audits', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'source_detected' }),
+      }), { clientAddress: '192.0.2.70' });
+
+      expect(response.status).toBe(503);
+      expect(await response.json()).toEqual({ error: 'Shared rate limiting is unavailable; retry later.' });
+      expect(limiterCalls).toBe(0);
+      expect((await store.list()).length).toBe(0);
+    } finally {
+      for (const [name, value] of previous) {
+        if (value === undefined) delete process.env[name];
+        else process.env[name] = value;
+      }
+    }
+  });
+
+  test('shares an HMAC-keyed write quota across separate API app instances', async () => {
+    const names = ['NODE_ENV', 'RATE_LIMIT_HASH_SECRET'] as const;
+    const previous = new Map(names.map(name => [name, process.env[name]]));
+    const secret = 'shared-rate-limit-test-secret-0123456789abcdef';
+    const address = '192.0.2.71';
+    let now = 10_000;
+    const buckets = new Map<string, { count: number; resetAt: number }>();
+    const store = Object.assign(new MemoryAuditStore(), {
+      async consumeRateLimit(scope: string, clientKeyHash: string, limit: number, windowMs: number) {
+        const key = `${scope}:${clientKeyHash}`;
+        let bucket = buckets.get(key);
+        if (!bucket || bucket.resetAt <= now) {
+          bucket = { count: 0, resetAt: now + windowMs };
+          buckets.set(key, bucket);
+        }
+        if (bucket.count >= limit) return { allowed: false, remaining: 0, resetAt: bucket.resetAt, reason: 'limit' as const };
+        bucket.count += 1;
+        return { allowed: true, remaining: limit - bucket.count, resetAt: bucket.resetAt };
+      },
+    });
+    process.env.NODE_ENV = 'test';
+    process.env.RATE_LIMIT_HASH_SECRET = secret;
+    try {
+      const options = { auditRateLimit: { limit: 1, windowMs: 60_000, now: () => now } };
+      const firstApp = createApp(store, undefined, undefined, options);
+      const secondApp = createApp(store, undefined, undefined, options);
+      const write = (target: typeof firstApp, forwardedFor: string) => target.fetch(new Request('http://localhost/api/audits', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-forwarded-for': forwardedFor },
+        body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'source_detected' }),
+      }), { clientAddress: address });
+
+      expect((await write(firstApp, '198.51.100.1')).status).toBe(201);
+      const blocked = await write(secondApp, '198.51.100.2');
+      expect(blocked.status).toBe(429);
+      expect(blocked.headers.get('retry-after')).toBe('60');
+      expect(buckets.size).toBe(1);
+      expect([...buckets.keys()].join(' ')).not.toContain(address);
+      now += 60_000;
+      expect((await write(secondApp, '198.51.100.3')).status).toBe(201);
+    } finally {
+      for (const [name, value] of previous) {
+        if (value === undefined) delete process.env[name];
+        else process.env[name] = value;
+      }
+    }
+  });
+
+  test('rejects shared writes when the PostgreSQL rate-limit store is unavailable', async () => {
+    const names = ['NODE_ENV', 'ENABLE_PUBLIC_BASELINE_AUDITS', 'RATE_LIMIT_HASH_SECRET'] as const;
+    const previous = new Map(names.map(name => [name, process.env[name]]));
+    let createCalls = 0;
+    const store = Object.assign(new MemoryAuditStore(), {
+      consumeRateLimit: async () => { throw new Error('database unavailable'); },
+      async create(...args: Parameters<MemoryAuditStore['create']>) {
+        createCalls += 1;
+        return new MemoryAuditStore().create(...args);
+      },
+    });
+    process.env.NODE_ENV = 'production';
+    process.env.ENABLE_PUBLIC_BASELINE_AUDITS = 'true';
+    process.env.RATE_LIMIT_HASH_SECRET = 'shared-rate-limit-test-secret-0123456789abcdef';
+    try {
+      const productionApp = createApp(store);
+      const response = await productionApp.fetch(new Request('http://localhost/api/audits', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'source_detected' }),
+      }), { clientAddress: '192.0.2.72' });
+      expect(response.status).toBe(503);
+      expect(await response.json()).toEqual({ error: 'Shared rate limiting is unavailable; retry later.' });
+      expect(response.headers.get('retry-after')).toBe('5');
+      expect(createCalls).toBe(0);
+    } finally {
+      for (const [name, value] of previous) {
+        if (value === undefined) delete process.env[name];
+        else process.env[name] = value;
+      }
+    }
   });
 });
 

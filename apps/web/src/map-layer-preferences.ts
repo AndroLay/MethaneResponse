@@ -1,4 +1,4 @@
 import type { MapDataLayer } from './MapPanel';
 
-/** Show observation magnitude first; users can switch to source-density markers. */
-export const DEFAULT_MAP_DATA_LAYER: MapDataLayer = 'observed-flux';
+/** Start with the source map; dense per-observation flux remains opt-in. */
+export const DEFAULT_MAP_DATA_LAYER: MapDataLayer = 'source-density';

@@ -1,26 +1,26 @@
 # MethaneResponse — Landing page implementation
 
-**Date:** 12 October 2026  
-**Status:** Integrated with the interactive dashboard and optional MARS snapshot workflow.
+**Date:** 13 October 2026
+**Status:** Integrated with the interactive dashboard and pinned historical MARS casebook.
 
 ## Scope
 
-- Public marketing/research landing page matching the approved cinematic dark Earth concept.
+- Public research landing page that uses actual historical casebook values rather than illustrative Earth artwork.
 - Dedicated `LandingPage.tsx` and `.lp-*`-namespaced CSS; the dashboard lives at `/dashboard`.
-- The dashboard uses a movable MapLibre basemap and still starts with labeled synthetic fixtures.
-- An optional GeoJSON import and local ZIP/CSV/GeoJSON importer can load a user-obtained MARS snapshot; this is periodic historical data, not live monitoring.
-- Intro, value propositions, a decorative product preview, step-by-step approach, interactive example audit outcomes, FAQ, and calls to action.
+- The dashboard starts with the bundled, versioned historical MARS snapshot when available; synthetic fixtures are an explicit separate mode.
+- A browser-side MARS GeoJSON import can load a user-provided historical snapshot without uploading the file. Server audits still require a source in the pinned server snapshot or curated casebook.
+- Intro, six benefit links into workspace routes, a historical MARS observation plot, a linked publisher-record panel, step-by-step approach, source-linked case review, FAQ, and calls to action.
 - Responsive desktop/tablet/mobile layouts; semantic headings and buttons, visible keyboard focus and reduced-motion preferences.
 - Navigation: `/` (landing) → `/dashboard` (application), with browser history handling. The dashboard's brand logo goes back to the landing page.
 
 ## Sections
 
-1. **Hero** — tagline 'From Methane Observations to Verifiable Action', a procedural Earth illustration, and CTA.
+1. **Hero** — tagline 'From Methane Observations to Verifiable Action', with three discrete historical estimates for `KAZ_S_159`, ordered by UTC date. Horizontal spacing is categorical rather than time-scaled; exact dates appear in the value list and vertical whiskers show reported standard deviation. The chart is not a satellite image, continuous series, live feed, forecast, or mitigation confirmation.
 2. **Evidence chain** — observations → claims → evaluation → verifiable receipt.
-3. **Platform** — source traceability, deterministic rules baseline, optional integrity receipts.
-4. **Workspace** — product-preview map and explanation (synthetic art).
+3. **Platform** — six direct paths for historical exploration, investigation triage, evidence review, integrity checks, research reports, and follow-up transparency.
+4. **Workspace** — product explanation and linked UNEP publisher metadata, explicitly scoped as metadata review rather than an independent re-audit.
 5. **How it works** — observe, connect, evaluate, verify.
-6. **Methodology** — a working React switch between three *illustrative* audit states and their explanations.
+6. **Methodology** — a real historical `KAZ_S_159` case review with three linked MARS observation rows, reported flux uncertainty, and an official UNEP MARS report link.
 7. **About / FAQ** — limitations, disclaimer and official UNEP MARS information link.
 8. **Final CTA / Footer** — enter the actual application demo.
 
@@ -33,7 +33,12 @@
 - `apps/web/src/MapPanel.tsx` — MapLibre layers, clustered source markers, basemaps and map controls.
 - `apps/web/src/mars.ts` — MARS GeoJSON and normalized snapshot parser.
 - `services/data-pipeline/import_mars_map.py` — standard-library importer for official CSV, GeoJSON and ZIP files.
-- `apps/web/public/assets/landing-earth.webp` — decorative Earth asset with procedural geography and fictional illuminated points, not a methane dataset.
+- `apps/web/src/LandingObservationVisual.tsx` and `apps/web/src/landing-observation-visual.ts` — accessible, date-positioned visualization from the pinned casebook values.
+- `apps/web/src/landing-evidence-visual.css` — responsive landing chart and source-reference styling.
+- `apps/web/src/asset-rights.css` — project-owned gradients replacing unresolved background art.
+- `apps/web/build/withheld-public-assets.ts` and `scripts/prune-uncleared-ui-assets.ts` — withhold unresolved user-supplied imagery in Vite development and production builds.
+- `apps/web/src/landing-evidence.ts` — derives the landing review from the active `data/real/mars_casebook_2026-10-13.json` casebook; its snapshot ID and archive SHA-256 are displayed alongside the linked record metadata.
+- `apps/web/src/landing-evidence.test.ts` — checks case identity, report provenance/license, linked observation IDs/uncertainty, and abstention boundaries.
 - `apps/web/public/_redirects` — SPA route fallback for Cloudflare Pages static deployment.
 - `ui-preview/` — package-free static dashboard preview.
 
@@ -52,7 +57,11 @@ bun run dev:web
 
 ## Integrity of claims
 
-The page and dashboard avoid claims of UNEP endorsement or physical mitigation certification. Illustrations and default case fixtures are explicitly synthetic. The application does not bundle a full UNEP dataset; users obtain and import their own snapshot under its applicable license. The API audit remains restricted to synthetic fixtures.
+The page and dashboard avoid claims of UNEP endorsement or physical mitigation certification. The landing chart is derived from dated historical MARS estimates and is not a live or continuous measurement. The bundled MARS snapshot remains subject to its recorded license. The baseline can cite a linked plume observation from a full-snapshot source, but metadata alone cannot support operator notification or mitigation. Optional document assessment and public testnet receipts depend on backend credentials and services.
+
+The landing case review is anchored to three linked observations for `KAZ_S_159` in the active 2026-10-13 casebook archive (snapshot `unep-mars-ccd8267c55ee`, archive SHA-256 `ccd8267c55ee93304f7135059b3c23247a6d9442edf0fa32a4b97fae08042ab2`). Its linked UNEP item, issued 2026-09-23, is published under Attribution-NonCommercial-NoDerivs 3.0 IGO; the application links to the official item and does not copy its PDF or report text. UNEP's item metadata page describes an IMEO-reported action at Uzen Field in July 2026 and marks the review status `internal review only` (metadata checked 2026-10-13). The landing card records that publisher statement; MethaneResponse has not independently re-audited the PDF or verified sustained emissions cessation. The latest linked observation for this curated case is 2026-07-11; no later row is not evidence of zero emissions.
+
+The original ten WebP files with unresolved redistribution rights are withheld from the application and preserved in a local backup at `/tmp/methaneresponse-withheld-ui-assets-20261014/`. The production build removes those filenames and Vite development requests return 404. The files are not copied into an application source ZIP from the active tree. Previously tracked copies remain in Git history; this local change does not rewrite history or update the public remote.
 
 ## Verification
 

@@ -119,9 +119,17 @@ export function buildReportExportPayload(input: ReportExportInput) {
     selectedSourceId: audit?.sourceId || source.sourceId,
     sourceContextStatus,
     observations,
+    ...(audit ? {
+      historicalContext: {
+        kind: 'historical_source_observations' as const,
+        relationship: 'context_only_not_claim_evidence' as const,
+        datasetSnapshotId: auditSnapshotId(audit) || null,
+        observations: sourceContextStatus === 'omitted_dataset_mismatch' ? [] : currentObservations,
+      },
+    } : {}),
     unlinkedObservationCount: sourceContextStatus === 'omitted_dataset_mismatch'
       ? null
-      : snapshot?.unlinkedObservations?.length || 0,
+      : snapshot?.unlinkedObservationCount ?? snapshot?.unlinkedObservations?.length ?? 0,
     externalEvidence: audit?.bundle.externalEvidence || (sourceContextStatus === 'omitted_dataset_mismatch' ? [] : source.externalEvidence || []),
     claim: audit?.claimType || input.claim,
     latestAudit: audit,

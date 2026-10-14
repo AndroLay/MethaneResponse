@@ -33,6 +33,10 @@ export type MarsSource = Omit<ReviewSource, 'observations'> & {
   country?: string;
   sector?: string;
   plumeCount?: number;
+  /** Present only on verified progressive web catalogs; points to a deterministic observation shard. */
+  historyBucketId?: string;
+  /** Dated record summary from the pinned snapshot, available before history rows are fetched. */
+  observationDates?: string[];
   lastObserved?: string;
   maxFluxKgHr?: number | null;
   notified?: string;
@@ -59,6 +63,7 @@ export type MarsSnapshot = {
   lastObserved?: string;
   plumeCount?: number;
   unlinkedObservations?: MarsObservation[];
+  unlinkedObservationCount?: number;
   unmappedSources?: Record<string, unknown>[];
   unlinkedSourceCount?: number;
   originalSourceCount?: number;

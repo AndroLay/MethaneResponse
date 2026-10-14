@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { MarsCasebook, ReviewSource, type Evidence as EvidenceType, type MarsCase, type MarsCasebook as MarsCasebookType, type ReviewSource as ReviewSourceType } from '@methane/shared';
 
-const defaultCasebookPath = resolve(import.meta.dir, '../../../data/real/mars_casebook_2026-10-11.json');
+const defaultCasebookPath = resolve(import.meta.dir, '../../../data/real/mars_casebook_2026-10-14.json');
 let casebookPromise: Promise<MarsCasebookType> | undefined;
 let cachedCasebookPath: string | undefined;
 

@@ -2,14 +2,14 @@ import postgres from 'postgres';
 import { readFile, readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import type { AuditResult, MarsCasebook as MarsCasebookType } from '@methane/shared';
-import { MarsCasebook } from '@methane/shared';
-import type { AuditStore, AuditStoreStatus } from './store';
+import type { AuditStore, AuditStoreStatus, AuditPageQuery } from './store';
 import { canonicalJson } from './canonical';
-import { sourceFromCase } from './casebook';
+import { loadCasebook, sourceFromCase } from './casebook';
+import { pageAuditRecords, type AuditPage } from './audit-pagination';
+import type { RateLimitDecision, RateLimitScope } from './rate-limit';
 
 type Sql = ReturnType<typeof postgres>;
 const migrationsDirectory = resolve(import.meta.dir, '../../../platform/database/migrations');
-const bundledCasebook = resolve(import.meta.dir, '../../../data/real/mars_casebook_2026-10-11.json');
 
 function asUtc(value: string) {
   return /(?:Z|[+-]\d{2}:?\d{2})$/i.test(value) ? value : `${value}Z`;
@@ -30,13 +30,6 @@ async function applyMigrations(sql: Sql) {
       await transaction`INSERT INTO methane_schema_migrations (filename) VALUES (${filename})`;
     });
   }
-}
-
-async function readCasebook(): Promise<MarsCasebookType> {
-  const json = JSON.parse(await readFile(bundledCasebook, 'utf8')) as unknown;
-  const parsed = MarsCasebook.safeParse(json);
-  if (!parsed.success) throw new Error('Bundled MARS casebook failed validation before database seed.');
-  return parsed.data;
 }
 
 async function seedCasebook(sql: Sql, book: MarsCasebookType) {
@@ -90,6 +83,7 @@ async function seedCasebook(sql: Sql, book: MarsCasebookType) {
 
 export class PostgresAuditStore implements AuditStore {
   private constructor(private readonly sql: Sql) {}
+  private nextRateLimitPruneAt = 0;
 
   static async connect(databaseUrl: string) {
     const sql = postgres(databaseUrl, { max: 5, connect_timeout: 10, idle_timeout: 20, prepare: false });
@@ -97,7 +91,7 @@ export class PostgresAuditStore implements AuditStore {
     try {
       await sql`SELECT 1`;
       await applyMigrations(sql);
-      await seedCasebook(sql, await readCasebook());
+      await seedCasebook(sql, await loadCasebook());
       return store;
     } catch (error) {
       await sql.end({ timeout: 2 });
@@ -105,12 +99,18 @@ export class PostgresAuditStore implements AuditStore {
     }
   }
 
-  async create(caseId: string, sourceId: string, claimType: AuditResult['claimType'], build: (revision: number) => AuditResult) {
+  async create(caseId: string, sourceId: string, claimType: AuditResult['claimType'], build: (revision: number) => AuditResult, expectedParentAuditId?: string) {
     return this.sql.begin(async (transaction) => {
       await transaction`SELECT pg_advisory_xact_lock(hashtextextended(${`${caseId}:${claimType}`}, 0::BIGINT))`;
-      const [{ revision: nextRevision }] = await transaction`
-        SELECT (COALESCE(MAX(revision), 0) + 1)::INTEGER AS revision
-        FROM audits WHERE case_id = ${caseId} AND claim_type = ${claimType}`;
+      const [latest] = await transaction`
+        SELECT audit_id, revision, result_json FROM audits
+        WHERE case_id = ${caseId} AND claim_type = ${claimType}
+        ORDER BY revision DESC LIMIT 1`;
+      if (expectedParentAuditId && (latest?.audit_id !== expectedParentAuditId
+          || (latest.result_json as AuditResult).bundle.intelligence?.reviewStatus !== 'unreviewed')) {
+        throw new Error('Review parent is no longer the latest unreviewed audit');
+      }
+      const nextRevision = Number(latest?.revision || 0) + 1;
       const audit = build(nextRevision);
       if (audit.caseId !== caseId || audit.sourceId !== sourceId || audit.claimType !== claimType || audit.revision !== nextRevision) throw new Error('Audit revision does not match its persistence key');
       const provenance = audit.bundle.provenance;
@@ -154,6 +154,84 @@ export class PostgresAuditStore implements AuditStore {
     return rows.map((row) => row.result_json as AuditResult);
   }
 
+  async listPage(query: AuditPageQuery): Promise<AuditPage> {
+    const filters = this.sql`
+      ${query.sourceId !== undefined ? this.sql`AND source_id = ${query.sourceId}` : this.sql``}
+      ${query.claimType !== undefined ? this.sql`AND claim_type = ${query.claimType}` : this.sql``}
+      ${query.before ? this.sql`AND (created_at, audit_id) < (${new Date(query.before.generatedAt)}::TIMESTAMPTZ, ${query.before.auditId}::UUID)` : this.sql``}
+      ${query.visibility === 'public' ? this.sql`AND (
+        bundle_json->>'schemaVersion' = '2'
+        OR (
+          bundle_json->>'schemaVersion' = '3'
+          AND bundle_json->'intelligence'->>'reviewStatus' = 'approved'
+          AND bundle_json->'intelligence'->'citationPublication'->>'status' = 'public'
+          AND bundle_json->'intelligence'->'citationPublication'->>'authorConsent' = 'true'
+        )
+      )` : this.sql``}
+    `;
+    const rows = await this.sql`
+      SELECT result_json FROM audits
+      WHERE TRUE ${filters}
+      ORDER BY created_at DESC, audit_id DESC
+      LIMIT ${query.limit + 1}
+    `;
+    return pageAuditRecords(rows.map(row => row.result_json as AuditResult), query);
+  }
+
+  private async pruneExpiredRateLimitBuckets() {
+    const currentTime = Date.now();
+    if (currentTime < this.nextRateLimitPruneAt) return;
+    this.nextRateLimitPruneAt = currentTime + 60_000;
+    try {
+      await this.sql`
+        WITH expired AS (
+          SELECT ctid FROM api_rate_limit_buckets
+          WHERE reset_at <= now() - interval '1 minute'
+          ORDER BY reset_at
+          LIMIT 500
+          FOR UPDATE SKIP LOCKED
+        )
+        DELETE FROM api_rate_limit_buckets AS buckets
+        USING expired
+        WHERE buckets.ctid = expired.ctid`;
+    } catch (error) {
+      this.nextRateLimitPruneAt = 0;
+      throw error;
+    }
+  }
+
+  async consumeRateLimit(scope: RateLimitScope, clientKeyHash: string, limit: number, windowMs: number): Promise<RateLimitDecision> {
+    if (!/^[0-9a-f]{64}$/.test(clientKeyHash)) throw new TypeError('Client key must be a lowercase SHA-256 HMAC');
+    if (!['audit_write', 'ai_assessment'].includes(scope)) throw new TypeError('Unknown API rate-limit scope');
+    if (!Number.isSafeInteger(limit) || limit < 1 || limit > 2_147_483_646) throw new RangeError('Rate limit must fit a positive PostgreSQL integer');
+    if (!Number.isSafeInteger(windowMs) || windowMs < 1) throw new RangeError('Rate-limit window must be a positive integer');
+    await this.pruneExpiredRateLimitBuckets();
+
+    const [row] = await this.sql`
+      INSERT INTO api_rate_limit_buckets AS current_bucket (scope, client_key_hash, request_count, reset_at, updated_at)
+      VALUES (${scope}, ${clientKeyHash}, 1, now() + (${windowMs} * interval '1 millisecond'), now())
+      ON CONFLICT (scope, client_key_hash) DO UPDATE SET
+        request_count = CASE
+          WHEN current_bucket.reset_at <= now() THEN 1
+          ELSE LEAST(current_bucket.request_count + 1, ${limit} + 1)
+        END,
+        reset_at = CASE
+          WHEN current_bucket.reset_at <= now() THEN now() + (${windowMs} * interval '1 millisecond')
+          ELSE current_bucket.reset_at
+        END,
+        updated_at = now()
+      RETURNING request_count, ROUND(EXTRACT(EPOCH FROM reset_at) * 1000)::BIGINT AS reset_at_ms`;
+    const count = Number(row.request_count);
+    const resetAt = Number(row.reset_at_ms);
+    const allowed = count <= limit;
+    return {
+      allowed,
+      remaining: Math.max(0, limit - count),
+      resetAt,
+      ...(allowed ? {} : { reason: 'limit' as const }),
+    };
+  }
+
   async replace(audit: AuditResult) {
     await this.sql.begin(async (transaction) => {
       const [row] = await transaction`SELECT result_json FROM audits WHERE audit_id = ${audit.auditId}::UUID FOR UPDATE`;
@@ -173,9 +251,72 @@ export class PostgresAuditStore implements AuditStore {
     });
   }
 
+  /** A pending intent is durable across API restarts and is never auto-expired.
+   * On ambiguous sends, callers must inspect and reconcile the real chain event. */
+  async reserveAnchor(audit: AuditResult): Promise<boolean> {
+    return this.sql.begin(async (transaction) => {
+      await transaction`SELECT pg_advisory_xact_lock(hashtextextended(${`${audit.caseId}:${audit.claimType}`}, 0::BIGINT))`;
+      const [row] = await transaction`
+        SELECT bundle_sha256, result_json FROM audits
+        WHERE audit_id = ${audit.auditId}::UUID FOR UPDATE`;
+      if (!row || row.bundle_sha256 !== audit.bundleHash) return false;
+      const current = row.result_json as AuditResult;
+      if (current.anchored || current.bundleHash !== audit.bundleHash
+          || canonicalJson(current.bundle) !== canonicalJson(audit.bundle)) return false;
+      if (current.bundle.schemaVersion === 3
+          && (!current.bundle.intelligence?.review
+            || !['approved', 'rejected', 'needs_more_evidence'].includes(current.bundle.intelligence.reviewStatus))) return false;
+      const inserted = await transaction`
+        INSERT INTO audit_anchor_intents(audit_id, case_id, claim_type, bundle_hash)
+        VALUES (${audit.auditId}::UUID, ${audit.caseId}, ${audit.claimType}, ${audit.bundleHash})
+        ON CONFLICT DO NOTHING RETURNING audit_id`;
+      return inserted.length === 1;
+    });
+  }
+
+  async completeAnchor(audit: AuditResult): Promise<void> {
+    const receipt = audit.receipt;
+    const chainTxHash = audit.chainTxHash;
+    if (!audit.anchored || !receipt || !chainTxHash
+        || receipt.chainId !== 11155111
+        || receipt.txHash.toLowerCase() !== chainTxHash.toLowerCase()
+        || !/^0x[a-fA-F0-9]{40}$/.test(receipt.registryAddress)
+        || !/^0x[a-fA-F0-9]{40}$/.test(receipt.issuer)
+        || !/^0x[a-fA-F0-9]{64}$/.test(receipt.txHash)
+        || !Number.isSafeInteger(receipt.version) || receipt.version < 1
+        || !/^\d{1,19}$/.test(receipt.blockNumber)) {
+      throw new Error('A valid verified Sepolia receipt is required');
+    }
+    await this.sql.begin(async (transaction) => {
+      await transaction`SELECT pg_advisory_xact_lock(hashtextextended(${`${audit.caseId}:${audit.claimType}`}, 0::BIGINT))`;
+      const [intent] = await transaction`
+        SELECT bundle_hash, status FROM audit_anchor_intents
+        WHERE audit_id = ${audit.auditId}::UUID FOR UPDATE`;
+      if (!intent || intent.bundle_hash !== audit.bundleHash || intent.status !== 'pending') {
+        throw new Error('Pending anchor reservation not found');
+      }
+      const [row] = await transaction`
+        SELECT bundle_sha256, result_json FROM audits
+        WHERE audit_id = ${audit.auditId}::UUID FOR UPDATE`;
+      if (!row || row.bundle_sha256 !== audit.bundleHash) throw new Error('Audit not found or stored digest changed');
+      const previous = row.result_json as AuditResult;
+      if (previous.anchored || canonicalJson(previous.bundle) !== canonicalJson(audit.bundle)
+          || previous.bundleHash !== audit.bundleHash) throw new Error('Audit mismatch or previously anchored');
+      await transaction`
+        UPDATE audits SET result_json = ${transaction.json(audit as never)},
+          chain_tx_hash = ${chainTxHash}, chain_id = ${receipt.chainId},
+          registry_address = ${receipt.registryAddress}, issuer_address = ${receipt.issuer},
+          chain_version = ${receipt.version}, chain_block_number = ${receipt.blockNumber}
+        WHERE audit_id = ${audit.auditId}::UUID`;
+      await transaction`
+        UPDATE audit_anchor_intents SET status = 'anchored', transaction_hash = ${receipt.txHash}, updated_at = now()
+        WHERE audit_id = ${audit.auditId}::UUID`;
+    });
+  }
+
   async status(): Promise<AuditStoreStatus> {
     try {
-      await this.sql`SELECT 1`;
+      await this.sql`SELECT 1 FROM api_rate_limit_buckets LIMIT 0`;
       return { backend: 'postgres', persistent: true, ready: true };
     } catch {
       return { backend: 'postgres', persistent: true, ready: false };

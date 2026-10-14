@@ -61,6 +61,7 @@ describe('audit receipt CLI', () => {
         id: 'authorized-inspection',
         title: 'Authorized inspection excerpt',
         text: 'The operator recorded a completed valve repair. An independent follow-up measurement has not yet been performed to verify sustained methane mitigation.',
+        rightsDeclared: 'explicit_permission',
       }],
     });
     const draft = createDocumentAudit(input, source, {

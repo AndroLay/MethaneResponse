@@ -6,6 +6,8 @@
 
 **Pembaruan riset kandidat:** audit swarm terpisah atas MethaneResponse/MARS dan Carbon Mapper tersedia di [audit MethaneResponse](methane-response-audit.md). Kesimpulannya: kandidat ini masih bersyarat; kebaruan alur alert-to-action belum terbukti karena sistem yang ada telah mencakup banyak fungsi serupa.
 
+**Pembaruan teknis 13 Oktober:** [riset penerapan bukti dan evaluasi MethaneResponse](methane-response-evidence-and-evaluation-2026-10-13.md) menerjemahkan sumber primer UNEP, IEA Global Methane Tracker 2026, dan benchmark ALCE menjadi keputusan aplikasi dan kriteria pembuktian. Kesimpulannya tetap membatasi produk pada audit bukti independen; ia tidak menggantikan deteksi dan tindak lanjut MARS.
+
 **Keputusan shortlist versi awal (sudah digantikan):** [memo perbandingan kandidat](candidate-decision.md) mula-mula menempatkan GridWitness sebagai kandidat pertama untuk diuji. Gunakan banner supersession di memo dan [audit mendalam](swarm-deep-research-2026-10-11.md) sebagai keputusan terbaru.
 
 **Audit kandidat tahap sebelumnya, 11 Oktober:** [audit kandidat dengan bukti dan batas verifikasi](swarm-candidate-audit-2026-10-11.md) membandingkan kandidat lama dan menilai CurtailmentCapture; kesimpulan GridWitness-first di dokumen itu juga sudah digantikan.

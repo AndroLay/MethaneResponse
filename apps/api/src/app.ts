@@ -1,15 +1,19 @@
 import { Hono, type Context } from 'hono';
 import { cors } from 'hono/cors';
-import { AuditInput, ClaimType, DEMO_SOURCES, type AuditResult, type ExternalEvidenceReference, type MarsProvenance, type ReviewSource } from '@methane/shared';
-import { createAudit } from './audit';
-import { anchorReceipt, chainConfigured, readReceipt, registryCaseId, verifyAnchorTransaction } from './chain';
+import { AuditInput, ClaimType, DEMO_SOURCES, type AuditReceipt, type AuditResult, type ExternalEvidenceReference, type MarsProvenance, type ReviewSource } from '@methane/shared';
+import { createAudit, type AuditMetadata } from './audit';
+import { anchorReceipt, chainConfigured, chainWriteConfigured, readReceipt, registryCaseId, verifyAnchorTransaction } from './chain';
 import { findCaseBySourceId, listReviewSources, loadCasebook } from './casebook';
 import { MemoryAuditStore, type AuditStore } from './store';
 import { auditIntegrityValid } from './integrity';
 import { aiConfigured as defaultAiConfigured, createDocumentAudit, DocumentAssessmentInput, HumanReviewInput, createReviewedAudit, requestModelAssessment } from './ai-review';
-import { getIntelligenceSnapshot } from './intelligence-data';
+import { expandObservedFluxTrend, getIntelligenceSnapshot } from './intelligence-data';
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
-import { createFixedWindowRateLimiter, type FixedWindowRateLimitOptions } from './rate-limit';
+import { createFixedWindowRateLimiter, createRateLimitClientKey, type FixedWindowRateLimitOptions, type RateLimitDecision, type RateLimitScope } from './rate-limit';
+import { scopedReviewerAuthConfigured, verifyReviewerToken, type ReviewerScope } from './reviewer-auth';
+import { decodeAuditCursor, DEFAULT_AUDIT_PAGE_SIZE, encodeAuditCursor, parseAuditPageLimit } from './audit-pagination';
+import { auditIsPubliclyReadable } from './audit-visibility';
+import { z } from 'zod';
 
 export type ApiBindings = { clientAddress?: string };
 export type CreateAppOptions = { auditRateLimit?: FixedWindowRateLimitOptions; aiAssessmentRateLimit?: FixedWindowRateLimitOptions };
@@ -24,12 +28,22 @@ type AppServices = {
   aiConfigured: typeof defaultAiConfigured;
   requestModelAssessment: typeof requestModelAssessment;
   getIntelligenceSnapshot: typeof getIntelligenceSnapshot;
+  chainConfigured: typeof chainConfigured;
+  chainWriteConfigured: typeof chainWriteConfigured;
+  readReceipt: typeof readReceipt;
+  anchorReceipt: typeof anchorReceipt;
+  verifyAnchorTransaction: typeof verifyAnchorTransaction;
 };
 
 const defaultServices: AppServices = {
   aiConfigured: defaultAiConfigured,
   requestModelAssessment,
   getIntelligenceSnapshot,
+  chainConfigured,
+  chainWriteConfigured,
+  readReceipt,
+  anchorReceipt,
+  verifyAnchorTransaction,
 };
 
 function bearerTokenMatches(header: string | undefined, token: string | undefined): boolean {
@@ -48,27 +62,39 @@ function aiAccessConfigured(): boolean {
   return Boolean(token && token.length >= 32 && token !== process.env.ADMIN_API_TOKEN && token !== process.env.HUMAN_REVIEW_TOKEN);
 }
 
-function humanReviewConfigured(): boolean {
+function legacyReviewConfigured(): boolean {
   const token = process.env.HUMAN_REVIEW_TOKEN;
   return Boolean(token && token.length >= 32 && token !== process.env.ADMIN_API_TOKEN && token !== process.env.AI_REVIEW_TOKEN && configuredReviewerId(process.env.HUMAN_REVIEWER_ID));
 }
 
-function privateAuditReadAuthorized(header: string | undefined): boolean {
-  return humanReviewConfigured() && bearerTokenMatches(header, process.env.HUMAN_REVIEW_TOKEN);
+function humanReviewConfigured(): boolean {
+  return scopedReviewerAuthConfigured(process.env.REVIEWER_AUTH_SECRET)
+    || (legacyReviewConfigured() && (process.env.NODE_ENV !== 'production' || process.env.ALLOW_LEGACY_SHARED_REVIEWER_TOKEN === 'true'));
 }
 
-function auditIsPubliclyReadable(audit: AuditResult): boolean {
-  if (audit.bundle.schemaVersion === 2) return true;
-  if (audit.bundle.schemaVersion !== 3) return false;
-  const intelligence = audit.bundle.intelligence;
-  const publication = intelligence?.citationPublication;
-  return intelligence?.reviewStatus === 'approved' && publication?.status === 'public' && publication.authorConsent === true;
+function reviewerIdentity(header: string | undefined, scope: ReviewerScope) {
+  const scoped = verifyReviewerToken(header, process.env.REVIEWER_AUTH_SECRET, scope);
+  if (scoped) return scoped;
+  if (legacyReviewConfigured() && (process.env.NODE_ENV !== 'production' || process.env.ALLOW_LEGACY_SHARED_REVIEWER_TOKEN === 'true')
+    && bearerTokenMatches(header, process.env.HUMAN_REVIEW_TOKEN)) {
+    return { reviewerId: process.env.HUMAN_REVIEWER_ID!, scopes: ['private_read', 'review', 'anchor'] as ReviewerScope[] };
+  }
+  return null;
+}
+
+function privateAuditReadAuthorized(header: string | undefined): boolean {
+  return reviewerIdentity(header, 'private_read') !== null;
 }
 
 function varyByAuthorization(c: Context<{ Bindings: ApiBindings }>) {
   const values = new Set((c.res.headers.get('Vary') || '').split(',').map((value) => value.trim()).filter(Boolean));
   if (![...values].some((value) => value.toLowerCase() === 'authorization')) values.add('Authorization');
   c.header('Vary', [...values].join(', '));
+}
+
+function preventPrivateResponseCaching(c: Context<{ Bindings: ApiBindings }>) {
+  c.header('Cache-Control', 'no-store');
+  varyByAuthorization(c);
 }
 
 type BoundedJsonResult =
@@ -136,7 +162,30 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
   const auditRateLimiter = createFixedWindowRateLimiter(rateLimitConfig);
   const aiRateLimitConfig = options.aiAssessmentRateLimit || { limit: 6, windowMs: 60_000 };
   const aiAssessmentRateLimiter = createFixedWindowRateLimiter(aiRateLimitConfig);
-  const rateLimitSalt = randomBytes(32);
+  const rateLimitSalt = randomBytes(32).toString('hex');
+  const rateLimitHashSecret = process.env.RATE_LIMIT_HASH_SECRET;
+  const persistentRateLimitConsumer = store.consumeRateLimit?.bind(store);
+  const sharedRateLimitActive = Boolean(persistentRateLimitConsumer && rateLimitHashSecret && rateLimitHashSecret.length >= 32);
+  const sharedRateLimitRequired = process.env.NODE_ENV === 'production' && Boolean(persistentRateLimitConsumer);
+  const rateLimitStatus = {
+    backend: sharedRateLimitActive ? 'postgres' : 'process-local',
+    shared: sharedRateLimitActive,
+    required: sharedRateLimitRequired,
+    ready: !sharedRateLimitRequired || sharedRateLimitActive,
+  };
+  const consumeClientRateLimit = async (
+    scope: RateLimitScope,
+    address: string,
+    identity: string,
+    config: FixedWindowRateLimitOptions,
+    localLimiter: ReturnType<typeof createFixedWindowRateLimiter>,
+  ): Promise<RateLimitDecision | null> => {
+    if (sharedRateLimitRequired && !sharedRateLimitActive) return null;
+    const key = createRateLimitClientKey(sharedRateLimitActive ? rateLimitHashSecret! : rateLimitSalt, scope, address, identity);
+    if (sharedRateLimitActive) return persistentRateLimitConsumer!(scope, key, config.limit, config.windowMs);
+    return localLimiter.consume(key);
+  };
+  const anchoringInFlight = new Set<string>();
   app.use('/api/*', cors({ origin: process.env.WEB_ORIGIN || 'http://localhost:5173' }));
 
   app.get('/api/health', async (c) => {
@@ -144,8 +193,8 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
       store.status(),
       casebookAccess.load().then(() => true, () => false),
     ]);
-    const ready = storage.ready && casebookReady;
-    return c.json({ status: ready ? 'ok' : 'degraded', mode: 'mars-casebook-and-demo', storage, casebookReady, chainConfigured: chainConfigured() }, ready ? 200 : 503);
+    const ready = storage.ready && casebookReady && rateLimitStatus.ready;
+    return c.json({ status: ready ? 'ok' : 'degraded', mode: 'mars-casebook-and-demo', storage, casebookReady, rateLimits: rateLimitStatus, chainConfigured: services.chainConfigured(), chainWriteConfigured: services.chainWriteConfigured() }, ready ? 200 : 503);
   });
 
   app.get('/api/cases', async (c) => {
@@ -193,7 +242,8 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     return c.json({
       documentModelConfigured: services.aiConfigured() && aiAccessConfigured(),
       humanReviewConfigured: humanReviewConfigured(),
-      chainConfigured: chainConfigured(),
+      chainConfigured: services.chainConfigured(),
+      chainWriteConfigured: services.chainWriteConfigured(),
       modelMode: services.aiConfigured() && aiAccessConfigured() ? 'server-side-document-assessment' : 'deterministic-baseline-only',
     });
   });
@@ -203,8 +253,15 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     if (!sourceId || sourceId.length > 128) return c.json({ error: 'A valid sourceId is required' }, 400);
     try {
       const snapshot = await services.getIntelligenceSnapshot();
-      const insight = snapshot.sources.find((item) => item.sourceId === sourceId);
-      if (!insight) return c.json({ error: 'Source not found in the pinned MARS dataset' }, 404);
+      const sourceInsight = snapshot.sources.find((item) => item.sourceId === sourceId);
+      if (!sourceInsight) return c.json({ error: 'Source not found in the pinned MARS dataset' }, 404);
+      const observedFluxTrend = expandObservedFluxTrend(sourceInsight.observedFluxTrend, snapshot.observedTrendMethod);
+      const forecast = snapshot.forecastReadiness || sourceInsight.forecast;
+      const insight = {
+        ...sourceInsight,
+        ...(observedFluxTrend ? { observedFluxTrend } : {}),
+        ...(forecast ? { forecast } : {}),
+      };
       return c.json({ snapshot: {
         modelVersion: snapshot.modelVersion,
         datasetSnapshotId: snapshot.datasetSnapshotId,
@@ -219,6 +276,10 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
         inputFileSha256: snapshot.inputFileSha256,
         generatedAt: snapshot.generatedAt,
         trainedModel: snapshot.trainedModel,
+        observedTrendMethod: snapshot.observedTrendMethod,
+        forecastReadiness: snapshot.forecastReadiness,
+        recordRecurrenceModel: snapshot.recordRecurrenceModel,
+        publisherIndicatorComparison: snapshot.publisherIndicatorComparison,
         limitations: snapshot.limitations,
       }, insight });
     } catch {
@@ -244,13 +305,17 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
           generatedAt: snapshot.generatedAt,
           trainedModel: snapshot.trainedModel,
           calibratedProbability: snapshot.calibratedProbability,
+          observedTrendMethod: snapshot.observedTrendMethod,
+          forecastReadiness: snapshot.forecastReadiness,
+          recordRecurrenceModel: snapshot.recordRecurrenceModel,
+          publisherIndicatorComparison: snapshot.publisherIndicatorComparison,
           sourceCount: snapshot.sourceCount,
           limitations: snapshot.limitations,
         },
-        rankings: snapshot.sources.map(({ sourceId, priorityScore, priorityBand, priorityType, lastObserved, dataSufficiency }) => ({
-          sourceId, priorityScore, priorityBand, priorityType, lastObserved, dataSufficiency,
+        rankings: snapshot.sources.map(({ sourceId, priorityScore, priorityBand, priorityType, lastObserved, dataSufficiency, recordRecurrenceForecast }) => ({
+          sourceId, priorityScore, priorityBand, priorityType, lastObserved, dataSufficiency, recordRecurrenceForecast,
         })),
-        forecast: {
+        forecast: snapshot.forecastReadiness || {
           status: 'not_available',
           reason: 'No complete observation-opportunity labels or independent outcome validation are available; no forecast probability is produced.',
         },
@@ -261,6 +326,7 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
   });
 
   app.post('/api/intelligence/assessments', async (c) => {
+    preventPrivateResponseCaching(c);
     const token = process.env.AI_REVIEW_TOKEN;
     if (!aiAccessConfigured() || !bearerTokenMatches(c.req.header('authorization'), token)) {
       return c.json({ error: 'Unauthorized or document assessment disabled' }, 401);
@@ -268,8 +334,16 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     if (!services.aiConfigured()) return c.json({ error: 'Document assessment provider is not configured' }, 503);
     const address = c.env?.clientAddress?.trim() || 'unknown';
     const tokenFingerprint = createHash('sha256').update(token!).digest('hex');
-    const clientKey = createHash('sha256').update(rateLimitSalt).update('\0').update(address).update('\0').update(tokenFingerprint).digest('hex');
-    const decision = aiAssessmentRateLimiter.consume(clientKey);
+    let decision: RateLimitDecision | null;
+    try {
+      decision = await consumeClientRateLimit('ai_assessment', address, tokenFingerprint, aiRateLimitConfig, aiAssessmentRateLimiter);
+    } catch {
+      decision = null;
+    }
+    if (!decision) {
+      c.header('Retry-After', '5');
+      return c.json({ error: 'Shared rate limiting is unavailable; retry later.' }, 503);
+    }
     c.header('X-RateLimit-Limit', String(aiAssessmentRateLimiter.limit));
     c.header('X-RateLimit-Remaining', String(decision.remaining));
     c.header('X-RateLimit-Reset', String(Math.ceil(decision.resetAt / 1_000)));
@@ -351,10 +425,22 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
   });
 
   app.post('/api/audits', async (c) => {
+    if (process.env.NODE_ENV === 'production' && process.env.ENABLE_PUBLIC_BASELINE_AUDITS !== 'true'
+      && !bearerTokenMatches(c.req.header('authorization'), process.env.ADMIN_API_TOKEN)) {
+      return c.json({ error: 'Baseline audit creation requires administrator authorization in production' }, 401);
+    }
     // Use the server's socket address passed by the runtime; caller-supplied forwarding headers are ignored.
     const address = c.env?.clientAddress?.trim() || 'unknown';
-    const clientKey = createHash('sha256').update(rateLimitSalt).update('\0').update(address).digest('hex');
-    const decision = auditRateLimiter.consume(clientKey);
+    let decision: RateLimitDecision | null;
+    try {
+      decision = await consumeClientRateLimit('audit_write', address, '', rateLimitConfig, auditRateLimiter);
+    } catch {
+      decision = null;
+    }
+    if (!decision) {
+      c.header('Retry-After', '5');
+      return c.json({ error: 'Shared rate limiting is unavailable; retry later.' }, 503);
+    }
     c.header('X-RateLimit-Limit', String(auditRateLimiter.limit));
     c.header('X-RateLimit-Remaining', String(decision.remaining));
     c.header('X-RateLimit-Reset', String(Math.ceil(decision.resetAt / 1_000)));
@@ -370,23 +456,72 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     if (!parsed.success) return c.json({ error: 'Invalid request', details: parsed.error.flatten() }, 400);
     const demoSource = DEMO_SOURCES.find((item) => item.sourceId === parsed.data.sourceId);
     let found: Awaited<ReturnType<CasebookAccess['find']>> = null;
+    let casebookUnavailable = false;
     if (!demoSource) {
       try {
         found = await casebookAccess.find(parsed.data.sourceId);
       } catch {
-        return c.json({ error: 'Traceable MARS casebook is unavailable or invalid' }, 503);
+        casebookUnavailable = true;
       }
     }
-    const source = demoSource || found?.source;
-    if (!source) return c.json({ error: 'Unknown source' }, 404);
+    let source: Pick<ReviewSource, 'sourceId' | 'synthetic' | 'evidence'> | undefined = demoSource || found?.source;
+    let caseId = found?.item.caseId || source?.sourceId;
+    let metadata: AuditMetadata | undefined = found ? {
+      externalEvidence: found.item.externalEvidence,
+      provenance: found.book.provenance,
+      limitations: [...found.book.limitations, 'Linked report content is not included or independently reviewed.'],
+    } : undefined;
+
+    if (!source && !demoSource) {
+      try {
+        const snapshot = await services.getIntelligenceSnapshot();
+        const row = snapshot.sources.find((item) => item.sourceId === parsed.data.sourceId);
+        const provenance = snapshot.sourceProvenance;
+        const snapshotIsConsistent = Boolean(row && snapshot.datasetSnapshotId && provenance
+          && provenance.snapshotId === snapshot.datasetSnapshotId
+          && provenance.archiveSha256 === snapshot.upstreamArchiveSha256);
+        if (row && snapshotIsConsistent && provenance) {
+          const latestIndex = row.observationTimestamps.reduce((latest, timestamp, index) =>
+            timestamp.localeCompare(row.observationTimestamps[latest] || '') > 0 ? index : latest, 0);
+          const latestObservationId = row.observationIds[latestIndex];
+          source = {
+            sourceId: row.sourceId,
+            synthetic: false,
+            evidence: latestObservationId ? [{
+              id: latestObservationId,
+              kind: 'detection',
+              claimType: 'source_detected',
+              title: `UNEP MARS plume observation · ${row.observationTimestamps[latestIndex]}`,
+              reference: provenance.catalogUrl,
+              date: row.observationTimestamps[latestIndex],
+              synthetic: false,
+            }] : [],
+          };
+          caseId = `mars:${snapshot.datasetSnapshotId}:${row.sourceId}`;
+          metadata = {
+            provenance,
+            limitations: [
+              ...snapshot.limitations,
+              'This global source is outside the curated response casebook. The baseline cites at most one latest linked plume record for the source-detected claim.',
+              'Notification and feedback metadata are not treated as proof of operator receipt, physical repair, or emissions reduction.',
+            ],
+          };
+        }
+      } catch {
+        // A curated casebook remains usable when the wider pinned snapshot is unavailable.
+      }
+    }
+
+    if (!source || !caseId) {
+      if (casebookUnavailable) return c.json({ error: 'Traceable MARS casebook is unavailable or invalid' }, 503);
+      return c.json({ error: 'Unknown source in the pinned MARS snapshot or curated casebook' }, 404);
+    }
     try {
-      const audit = await store.create(found?.item.caseId || source.sourceId, source.sourceId, parsed.data.claimType, (revision) => createAudit(source, parsed.data, found ? {
-        caseId: found.item.caseId,
+      const audit = await store.create(caseId, source.sourceId, parsed.data.claimType, (revision) => createAudit(source!, parsed.data, {
+        ...metadata,
+        caseId,
         revision,
-        externalEvidence: found.item.externalEvidence,
-        provenance: found.book.provenance,
-        limitations: [...found.book.limitations, 'Linked report content is not included or independently reviewed.'],
-      } : { revision }));
+      }));
       return c.json(audit, 201);
     } catch {
       return c.json({ error: 'Audit could not be persisted' }, 503);
@@ -399,7 +534,24 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     const rawClaimType = c.req.query('claimType');
     const claimType = rawClaimType ? ClaimType.safeParse(rawClaimType) : undefined;
     if (rawClaimType && !claimType?.success) return c.json({ error: 'Invalid claimType filter' }, 400);
+    const rawLimit = c.req.query('limit');
+    const rawCursor = c.req.query('cursor');
+    const pageRequested = rawLimit !== undefined || rawCursor !== undefined;
+    const parsedLimit = parseAuditPageLimit(rawLimit);
+    if (pageRequested && rawLimit !== undefined && parsedLimit === null) return c.json({ error: 'Invalid page size; limit must be an integer from 1 to 100' }, 400);
+    const cursor = rawCursor === undefined ? null : decodeAuditCursor(rawCursor);
+    if (rawCursor !== undefined && !cursor) return c.json({ error: 'Invalid audit pagination cursor' }, 400);
     try {
+      if (pageRequested) {
+        const page = await store.listPage({
+          sourceId,
+          claimType: claimType?.success ? claimType.data : undefined,
+          limit: parsedLimit ?? DEFAULT_AUDIT_PAGE_SIZE,
+          before: cursor,
+          visibility: 'public',
+        });
+        return c.json({ ...page, nextCursor: page.nextCursor ? encodeAuditCursor(page.nextCursor) : null });
+      }
       const audits = (await store.list(sourceId, claimType?.success ? claimType.data : undefined)).filter(auditIsPubliclyReadable);
       return c.json({ audits: audits.sort((a, b) => a.sourceId.localeCompare(b.sourceId) || a.claimType.localeCompare(b.claimType) || a.revision - b.revision) });
     } catch {
@@ -408,15 +560,31 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
   });
 
   app.get('/api/audits/history', async (c) => {
-    c.header('Cache-Control', 'no-store');
-    varyByAuthorization(c);
+    preventPrivateResponseCaching(c);
     if (!privateAuditReadAuthorized(c.req.header('authorization'))) return c.json({ error: 'Authorized audit-history access is required' }, 401);
     const sourceId = c.req.query('sourceId');
     const rawClaimType = c.req.query('claimType');
     const claimType = rawClaimType ? ClaimType.safeParse(rawClaimType) : undefined;
     if (rawClaimType && !claimType?.success) return c.json({ error: 'Invalid claimType filter' }, 400);
     if (sourceId !== undefined && sourceId.length > 128) return c.json({ error: 'Invalid sourceId filter' }, 400);
+    const rawLimit = c.req.query('limit');
+    const rawCursor = c.req.query('cursor');
+    const pageRequested = rawLimit !== undefined || rawCursor !== undefined;
+    const parsedLimit = parseAuditPageLimit(rawLimit);
+    if (pageRequested && rawLimit !== undefined && parsedLimit === null) return c.json({ error: 'Invalid page size; limit must be an integer from 1 to 100' }, 400);
+    const cursor = rawCursor === undefined ? null : decodeAuditCursor(rawCursor);
+    if (rawCursor !== undefined && !cursor) return c.json({ error: 'Invalid audit pagination cursor' }, 400);
     try {
+      if (pageRequested) {
+        const page = await store.listPage({
+          sourceId,
+          claimType: claimType?.success ? claimType.data : undefined,
+          limit: parsedLimit ?? DEFAULT_AUDIT_PAGE_SIZE,
+          before: cursor,
+          visibility: 'all',
+        });
+        return c.json({ ...page, nextCursor: page.nextCursor ? encodeAuditCursor(page.nextCursor) : null });
+      }
       const audits = await store.list(sourceId, claimType?.success ? claimType.data : undefined);
       return c.json({ audits: audits.sort((a, b) => a.sourceId.localeCompare(b.sourceId) || a.claimType.localeCompare(b.claimType) || a.revision - b.revision) });
     } catch {
@@ -427,21 +595,19 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
   app.get('/api/audits/:id', async (c) => {
     const audit = await store.get(c.req.param('id')).catch(() => undefined);
     if (!audit || (!auditIsPubliclyReadable(audit) && !privateAuditReadAuthorized(c.req.header('authorization')))) {
-      c.header('Cache-Control', 'no-store');
-      varyByAuthorization(c);
+      preventPrivateResponseCaching(c);
       return c.json({ error: 'Audit not found' }, 404);
     }
     if (!auditIsPubliclyReadable(audit)) {
-      c.header('Cache-Control', 'no-store');
-      varyByAuthorization(c);
+      preventPrivateResponseCaching(c);
     }
     return c.json(audit);
   });
 
   app.post('/api/audits/:id/review', async (c) => {
-    const token = process.env.HUMAN_REVIEW_TOKEN;
-    const reviewerId = process.env.HUMAN_REVIEWER_ID;
-    if (!humanReviewConfigured() || !bearerTokenMatches(c.req.header('authorization'), token) || !configuredReviewerId(reviewerId)) {
+    preventPrivateResponseCaching(c);
+    const reviewer = reviewerIdentity(c.req.header('authorization'), 'review');
+    if (!reviewer) {
       return c.json({ error: 'Unauthorized or human review is not configured' }, 401);
     }
     const body = await readBoundedJson(c.req.raw, 4_096);
@@ -460,50 +626,125 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
       return c.json({ error: 'Submitter consent is required before citations can be published' }, 403);
     }
     try {
-      const audit = await store.create(parent.caseId, parent.sourceId, parent.claimType, (revision) => createReviewedAudit(parent, revision, reviewerId, parsed.data));
+      const audit = await store.create(parent.caseId, parent.sourceId, parent.claimType,
+        (revision) => createReviewedAudit(parent, revision, reviewer.reviewerId, parsed.data), parent.auditId);
       return c.json({ audit }, 201);
     } catch {
       return c.json({ error: 'Audit was already reviewed or its revision changed; reload the audit history' }, 409);
     }
   });
 
-  // Privileged action: ADMIN_API_TOKEN must never be exposed to the browser.
+  // Privileged action: ADMIN_API_TOKEN and REVIEWER_AUTH_SECRET stay server-side.
   app.post('/api/audits/:id/anchor', async (c) => {
-    const token = process.env.ADMIN_API_TOKEN;
-    const reviewerToken = process.env.HUMAN_REVIEW_TOKEN;
-    const isAdmin = bearerTokenMatches(c.req.header('authorization'), token);
-    const isReviewer = humanReviewConfigured() && bearerTokenMatches(c.req.header('authorization'), reviewerToken);
-    if (!isAdmin && !isReviewer) {
+    preventPrivateResponseCaching(c);
+    const isAdmin = bearerTokenMatches(c.req.header('authorization'), process.env.ADMIN_API_TOKEN);
+    const reviewer = reviewerIdentity(c.req.header('authorization'), 'anchor');
+    if (!isAdmin && !reviewer) {
       return c.json({ error: 'Unauthorized or anchoring disabled' }, 401);
     }
     const audit = await store.get(c.req.param('id')).catch(() => undefined);
     if (!audit) return c.json({ error: 'Audit not found' }, 404);
     if (audit.bundle.schemaVersion === 3 && audit.bundle.intelligence?.reviewStatus === 'unreviewed') return c.json({ error: 'Human review is required before anchoring an AI assessment' }, 409);
-    if (isReviewer && !isAdmin && (audit.bundle.schemaVersion !== 3 || !audit.bundle.intelligence?.reviewStatus)) return c.json({ error: 'Reviewer anchoring is limited to human-reviewed document assessments' }, 403);
+    if (reviewer && !isAdmin && (audit.bundle.schemaVersion !== 3 || !audit.bundle.intelligence?.reviewStatus)) return c.json({ error: 'Reviewer anchoring is limited to human-reviewed document assessments' }, 403);
+    if (audit.synthetic && process.env.NODE_ENV === 'production' && process.env.ALLOW_SYNTHETIC_CHAIN_ANCHORS !== 'true') {
+      return c.json({ error: 'Synthetic demonstration audits cannot be anchored in production' }, 422);
+    }
     if (audit.anchored) return c.json({ error: 'Already anchored', chainTxHash: audit.chainTxHash }, 409);
     if (!auditIntegrityValid(audit)) return c.json({ error: 'Local audit bundle or result integrity mismatch' }, 409);
-    if (!chainConfigured()) return c.json({ error: 'Chain not configured' }, 503);
+    if (!services.chainConfigured()) return c.json({ error: 'Chain not configured' }, 503);
+    if (!services.chainWriteConfigured()) return c.json({ error: 'Chain signing key not configured; no transaction intent was created' }, 503);
+    if (!store.reserveAnchor || !store.completeAnchor) return c.json({ error: 'Durable PostgreSQL anchor storage is required' }, 503);
+    if (anchoringInFlight.has(audit.auditId)) return c.json({ error: 'Anchoring is already in progress for this audit' }, 409);
+    anchoringInFlight.add(audit.auditId);
+    let broadcastAttempted = false;
     try {
-      const receipt = await anchorReceipt(registryCaseId(audit.caseId, audit.claimType), audit.bundleHash);
+      const current = await store.get(audit.auditId);
+      if (current?.anchored) return c.json({ error: 'Already anchored', chainTxHash: current.chainTxHash }, 409);
+      const registryId = registryCaseId(audit.caseId, audit.claimType);
+      const latest = await services.readReceipt(registryId);
+      if (latest.version > 0n && latest.hash.toLowerCase() === audit.bundleHash.toLowerCase()) {
+        return c.json({ error: 'Bundle already exists on chain; reconcile its receipt before retrying' }, 409);
+      }
+      if (!(await store.reserveAnchor(audit))) {
+        return c.json({ error: 'A pending or completed chain operation exists; verify and reconcile before another write' }, 409);
+      }
+      broadcastAttempted = true;
+      const receipt = await services.anchorReceipt(registryId, audit.bundleHash);
       const anchored = { ...audit, anchored: true, chainTxHash: receipt.txHash, receipt };
-      await store.replace(anchored);
-      return c.json(anchored);
+      await store.completeAnchor(anchored);
+      if (isAdmin || reviewer?.scopes.includes('private_read')) return c.json(anchored);
+      return c.json({ status: 'anchored', auditId: anchored.auditId, bundleHash: anchored.bundleHash, receipt });
     } catch {
-      return c.json({ error: 'Unable to anchor audit; no receipt was recorded by this API' }, 502);
+      return c.json({ error: broadcastAttempted
+        ? 'Anchor status is uncertain; inspect the chain and reconcile before retrying'
+        : 'Anchor preflight failed; no transaction was submitted' }, broadcastAttempted ? 502 : 503);
+    } finally {
+      anchoringInFlight.delete(audit.auditId);
+    }
+  });
+
+  const ReconcileReceiptInput = z.object({
+    chainId: z.literal(11155111),
+    registryAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+    txHash: z.string().regex(/^0x[a-fA-F0-9]{64}$/),
+    issuer: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+    version: z.number().int().positive().max(Number.MAX_SAFE_INTEGER),
+    blockNumber: z.string().regex(/^\d+$/),
+  });
+
+  app.post('/api/audits/:id/reconcile', async (c) => {
+    preventPrivateResponseCaching(c);
+    const isAdmin = bearerTokenMatches(c.req.header('authorization'), process.env.ADMIN_API_TOKEN);
+    const reviewer = reviewerIdentity(c.req.header('authorization'), 'anchor');
+    if (!isAdmin && !reviewer) return c.json({ error: 'Reconciliation requires anchor authorization' }, 401);
+    if (!store.reserveAnchor || !store.completeAnchor) return c.json({ error: 'Durable PostgreSQL reconciliation is required' }, 503);
+    const body = await readBoundedJson(c.req.raw, 2_048);
+    if (!body.ok) return c.json({ error: body.error }, body.status);
+    const parsed = ReconcileReceiptInput.safeParse(body.value);
+    if (!parsed.success) return c.json({ error: 'Invalid transaction receipt fields' }, 400);
+    const audit = await store.get(c.req.param('id')).catch(() => undefined);
+    if (!audit) return c.json({ error: 'Audit not found' }, 404);
+    if (audit.anchored) return c.json({ status: 'already_reconciled', auditId: audit.auditId, receipt: audit.receipt });
+    if (audit.synthetic && process.env.NODE_ENV === 'production' && process.env.ALLOW_SYNTHETIC_CHAIN_ANCHORS !== 'true') {
+      return c.json({ error: 'Synthetic demonstration audits cannot be reconciled in production' }, 422);
+    }
+    if (audit.bundle.schemaVersion === 3 && audit.bundle.intelligence?.reviewStatus === 'unreviewed') {
+      return c.json({ error: 'An unreviewed assessment cannot be reconciled' }, 409);
+    }
+    if (!auditIntegrityValid(audit)) return c.json({ error: 'Bundle integrity mismatch' }, 409);
+    if (!services.chainConfigured()) return c.json({ error: 'Chain verification is not configured' }, 503);
+    try {
+      const receipt = parsed.data as AuditReceipt;
+      const check = await services.verifyAnchorTransaction(registryCaseId(audit.caseId, audit.claimType), audit.bundleHash, receipt);
+      if (!check.valid) return c.json({ error: 'On-chain event does not match this bundle and receipt', reason: check.reason }, 422);
+      const anchored = { ...audit, anchored: true, chainTxHash: receipt.txHash, receipt };
+      // Old receipts may not have an intent; a verified event is the only path
+      // that may create a missing reservation and finalize it.
+      await store.reserveAnchor(audit);
+      await store.completeAnchor(anchored);
+      return c.json({ status: 'reconciled', auditId: audit.auditId, bundleHash: audit.bundleHash, receipt });
+    } catch {
+      return c.json({ error: 'Could not verify or reconcile the submitted chain event' }, 503);
     }
   });
 
   app.get('/api/audits/:id/verify', async (c) => {
     const audit = await store.get(c.req.param('id')).catch(() => undefined);
-    if (!audit) return c.json({ error: 'Audit not found' }, 404);
+    if (!audit || (!auditIsPubliclyReadable(audit) && !privateAuditReadAuthorized(c.req.header('authorization')))) {
+      preventPrivateResponseCaching(c);
+      return c.json({ error: 'Audit not found' }, 404);
+    }
+    if (!auditIsPubliclyReadable(audit)) {
+      preventPrivateResponseCaching(c);
+    }
     const localDigestValid = auditIntegrityValid(audit);
     if (!localDigestValid) return c.json({ status: 'local_hash_mismatch', integrityVerified: false, localDigestValid });
-    if (!chainConfigured()) return c.json({ status: audit.anchored ? 'receipt_metadata_present_chain_unavailable' : 'not_configured', integrityVerified: false, localDigestValid, receipt: audit.receipt || null });
+    if (!services.chainConfigured()) return c.json({ status: audit.anchored ? 'receipt_metadata_present_chain_unavailable' : 'not_configured', integrityVerified: false, localDigestValid, receipt: audit.receipt || null });
     if (!audit.receipt) return c.json({ status: 'not_anchored', integrityVerified: false, localDigestValid, receipt: null });
     try {
       const [eventCheck, latest] = await Promise.all([
-        verifyAnchorTransaction(registryCaseId(audit.caseId, audit.claimType), audit.bundleHash, audit.receipt),
-        readReceipt(registryCaseId(audit.caseId, audit.claimType)),
+        services.verifyAnchorTransaction(registryCaseId(audit.caseId, audit.claimType), audit.bundleHash, audit.receipt),
+        services.readReceipt(registryCaseId(audit.caseId, audit.claimType)),
       ]);
       const isLatest = latest.hash.toLowerCase() === audit.bundleHash.toLowerCase() && Number(latest.version) === audit.receipt.version;
       const integrityVerified = eventCheck.valid;

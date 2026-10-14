@@ -1,5 +1,18 @@
 export type ObservationHistoryBucket = { month: string; count: number };
 
+/** Find the archive date bounds with one allocation-free scan. */
+export function getObservationDateRange<T extends { date: string }>(observations: readonly T[]): { start: string; end: string } | null {
+  let start: string | null = null;
+  let end: string | null = null;
+  for (const observation of observations) {
+    const day = observation.date.slice(0, 10);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) continue;
+    if (start === null || day < start) start = day;
+    if (end === null || day > end) end = day;
+  }
+  return start === null || end === null ? null : { start, end };
+}
+
 function monthNumber(value: string): number | null {
   if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(value)) return null;
   const [yearText, monthText] = value.split('-');
@@ -37,6 +50,18 @@ export function getObservationHistoryBuckets<T extends { date: string }>(observa
     const month = monthFromNumber(first + offset);
     return { month, count: counts.get(month) || 0 };
   });
+}
+
+/** Return the newest valid calendar month with a row linked to the requested source. */
+export function getLatestObservationMonthForSource<T extends { date: string; sourceId?: string | null }>(observations: readonly T[], sourceId: string | null): string | null {
+  if (!sourceId) return null;
+  let latest: string | null = null;
+  for (const observation of observations) {
+    if (observation.sourceId !== sourceId) continue;
+    const month = observationMonth(observation.date);
+    if (month && (latest === null || month > latest)) latest = month;
+  }
+  return latest;
 }
 
 /** Return cumulative rows through the source timestamp's calendar month; null keeps the complete archive. */

@@ -1,0 +1,399 @@
+/* MethaneResponse premium workspace — visual-only improvements over the established app.
+   No generated numbers, proof badges or artificial blockchain receipts are introduced. */
+.workspace-app {
+  --wk-teal:#1ce6d3;--wk-ink:#f0f8fd;--wk-muted:#a0b7c9;
+  --wk-border:#235064;--wk-panel:#071d2e;--wk-input:#09273a;
+  color:#eef8ff;
+  background:radial-gradient(ellipse 85% 42% at 72% -10%,#113b57 0%,transparent 72%),#041422;
+  font-size:14px;
+}
+.workspace-app * {scrollbar-color:#234e61 #081e2d}
+.workspace-app button,.workspace-app input,.workspace-app select,.workspace-app textarea {font:inherit}
+.workspace-app :is(button,a,input,select,textarea):focus-visible {outline:2px solid #50f3e3;outline-offset:3px}
+.workspace-app .sidebar {width:248px;background:linear-gradient(180deg,#031624 0%,#03111e 55%,#051522 100%);border-right:1px solid #193b51}
+.workspace-app .sidebar-top {height:68px;padding:0 16px;border-bottom:1px solid #183c4e}
+.workspace-app .brand{font-weight:730;font-size:17px}
+.workspace-app .side-nav{padding:23px 14px;gap:5px}
+.workspace-app .nav-item{height:46px;padding:0 15px;gap:14px;border-radius:10px;font-size:13px;font-weight:560;letter-spacing:.05px}
+.workspace-app .nav-item svg{stroke-width:1.75}
+.workspace-app .nav-item:not(.active):hover {background:#0c2a3b;color:#f2fbfd}
+.workspace-app .nav-item.active{background:linear-gradient(100deg,#063e50 0%,#062638 95%);color:#2deee0;box-shadow:inset 2px 0 0 #1fefdb,inset 0 0 0 1px #087c89,0 0 16px #18e7cf0a;border-left:0}
+.workspace-app .nav-separator{margin:20px 4px 14px;border-color:#1a394d}
+.workspace-app .sidebar-bottom{padding:14px}
+.workspace-app .sidebar-data-status{border:1px solid #1b5667;border-radius:10px;padding:12px 13px;background:#08273b9e}
+.workspace-app .app-main{margin-left:248px;width:calc(100% - 248px)}
+.workspace-app .topbar{height:66px;position:sticky;top:0;z-index:45;background:#061928ee;border-bottom:1px solid #1c3e53;backdrop-filter:blur(18px);padding:0 24px}
+.workspace-app .top-search{height:42px;border:1px solid #2c5269;border-radius:10px;background:#0b263a;box-shadow:inset 0 1px #ffffff0b;width:min(50%,660px)}
+.workspace-app .top-search input{font-size:12px;min-width:0;color:#e9f6f9}
+.workspace-app .environment-status{font-size:9px;letter-spacing:1.45px;color:#7bded6}
+.workspace-app .top-actions{gap:15px}
+.workspace-app .workspace-content{max-width:1760px;padding:0 22px 32px;margin-inline:auto}
+.workspace-app .workspace-hero{min-height:139px;padding:25px 7px 22px;isolation:isolate}
+.workspace-app .workspace-hero:before{background:radial-gradient(ellipse at 79% 44%,#0e465c 0%,transparent 58%),linear-gradient(90deg,#041522 2%,#0415221a 75%,#0515224a);opacity:.58;inset:-10px -60px -4px 37%;mask-image:linear-gradient(90deg,transparent,#000 58%)}
+.workspace-app .eyebrow{font-size:9px;letter-spacing:2.2px;font-weight:850;color:#28eadb}
+.workspace-app .workspace-hero h1{font-size:clamp(29px,2.75vw,43px);letter-spacing:-1.35px;font-weight:760;margin:0 0 8px}
+.workspace-app .workspace-hero p{font-size:13px;line-height:1.7;color:#aec4d3}
+.workspace-app .hero-actions{display:flex;align-items:center;gap:8px;align-self:center}
+.workspace-app .outline-btn,.workspace-app .mini-btn{border-radius:8px;transition:background-color .16s,border-color .16s,color .16s}
+.workspace-app .outline-btn{min-height:39px;font-size:11px;border-color:#286079;background:#0a273b;color:#cceef3}
+.workspace-app .primary-btn{min-height:42px;border-radius:8px;font-size:12px;box-shadow:0 6px 20px #08cab31c}
+.workspace-app .panel{border:1px solid #215069;border-radius:11px;background:linear-gradient(155deg,#092439f8 0%,#061b2cfb 52%,#061b2afc 100%);box-shadow:inset 0 1px #ffffff09,0 8px 32px #0000001c}
+.workspace-app .panel:hover{border-color:#2b6175}
+.workspace-app .panel-head{padding:15px 16px 12px;min-height:65px}
+.workspace-app .panel-title{font-size:14px;font-weight:750;letter-spacing:-.16px}
+.workspace-app .panel-subtitle{font-size:11px;color:#94b1c4;margin-top:5px}
+.workspace-app .panel-title svg{color:#23e2d2}
+.workspace-app .text-link{font-size:11px;color:#33e8dd;font-weight:700}
+.workspace-app .snapshot-bar{background:linear-gradient(100deg,#07283b,#08343d);border:1px solid #14737c;border-radius:9px;padding:10px 15px;min-height:47px;line-height:1.6;margin-bottom:14px;gap:12px}
+.workspace-app .snapshot-bar>span{color:#b4d6db;font-size:10px}
+.workspace-app .snapshot-bar strong{color:#dbfffa}
+.workspace-app .workspace-metrics{gap:12px;margin-bottom:13px}
+.workspace-app .metric-card{min-height:106px;padding:15px 17px;gap:15px;border-width:1px;border-radius:11px;transition:transform .2s,border-color .2s;align-items:center}
+.workspace-app .metric-card:hover{transform:translateY(-2px)}
+.workspace-app .metric-card.metric-cyan{background:linear-gradient(115deg,#073848,#071e30);border-color:#128a94}
+.workspace-app .metric-card.metric-orange{background:linear-gradient(115deg,#30242a,#0c2233);border-color:#805237}
+.workspace-app .metric-card.metric-violet{background:linear-gradient(115deg,#25204a,#0a233b);border-color:#6c4b91}
+.workspace-app .metric-card.metric-green{background:linear-gradient(110deg,#083c35,#08292b);border-color:#148469}
+.workspace-app .metric-icon{height:51px;width:51px;border-radius:11px;flex:0 0 51px}
+.workspace-app .metric-violet .metric-icon{background:#352552;color:#b98aff;border-color:#7552ab}
+.workspace-app .metric-green .metric-icon{background:#0c4f43;color:#52f0b3;border-color:#247e6b}
+.workspace-app .metric-value{font-size:28px;font-weight:760;letter-spacing:-.6px}
+.workspace-app .metric-label{font-size:11px;color:#d1dfeb;letter-spacing:.05px}
+.workspace-app .metric-change{color:#66d7ca;font-size:10px;line-height:1.4}
+.workspace-app .dashboard-map-grid{grid-template-columns:minmax(0,2.65fr) minmax(285px,.88fr);gap:13px;margin-bottom:13px}
+.workspace-app .map-panel .real-world-map{height:465px;border-color:#1b5269;margin-inline:13px;border-radius:10px;background:#03101f}
+.workspace-app .map-panel .panel-head{padding:16px 16px 12px}
+.workspace-app .geo-map-shell.geo-map-globe .geo-map-canvas{background-color:#030b18;background-image:radial-gradient(ellipse at 50% 44%,#0d2e4875,transparent 73%),radial-gradient(1px 1px at 9% 17%,#d4eeff9c 55%,transparent 100%),radial-gradient(1px 1px at 22% 73%,#c2e5ff7a 55%,transparent 100%),radial-gradient(1px 1px at 44% 16%,#d4eeff70 55%,transparent 100%),radial-gradient(1px 1px at 72% 82%,#d4eeff80 55%,transparent 100%),radial-gradient(1px 1px at 92% 64%,#d4eeff75 55%,transparent 100%)}
+.workspace-app .geo-map-legend{border-color:#2c6071;background:#071d2ddd;padding:12px 13px;border-radius:9px;backdrop-filter:blur(6px)}
+.workspace-app .map-controls .mini-btn,.workspace-app .map-style-selector{min-height:34px;font-size:10px}
+.workspace-app .activity-row{min-height:80px;padding:11px 15px;gap:11px}
+.workspace-app .activity-image{width:46px;height:46px;border-radius:9px}
+.workspace-app .activity-copy strong{font-size:12px;color:#f0f8fa}
+.workspace-app .activity-copy small{font-size:10px}
+.workspace-app .activity-row time{font-size:10px;color:#b0c8d5}
+.workspace-app .workspace-overview-grid{grid-template-columns:1fr 1.07fr 1fr;gap:13px;margin-bottom:14px}
+.workspace-app .overview-card{min-height:235px}
+.workspace-app .overview-feature{padding:16px 18px 21px;gap:16px}
+.workspace-app .overview-ring{flex-basis:119px;height:119px;border:0;background:radial-gradient(circle at center,#0a283c 0 53%,transparent 54%),conic-gradient(#1ce6cd 0 57%,#f8b75c 57% 71%,#1a465b 71% 100%)}
+.workspace-app .overview-ring strong{font-size:31px}
+.workspace-app .overview-key{font-size:11px;gap:10px;line-height:1.45}
+.workspace-app .overview-key b{font-size:19px}
+.workspace-app .overview-audit{font-size:12px}
+.workspace-app .overview-audit-stat{font-size:11px;padding:10px 0}
+.workspace-app .workspace-cta{padding:12px 16px;border-color:#24536b;border-radius:10px;background:#082438}
+.workspace-app .workspace-cta button{border-radius:7px;padding:9px 12px;font-size:11px}
+.workspace-app .explorer-quickbar{background:#071f32;border:1px solid #245368;border-radius:10px;padding:10px 13px;gap:12px;flex-wrap:wrap}
+.workspace-app .explorer-quickbar label{font-size:11px}
+.workspace-app .explorer-quickbar select{min-height:35px;font-size:11px}
+.workspace-app .explorer-layout{grid-template-columns:minmax(0,2.6fr) minmax(285px,.87fr);gap:13px}
+.workspace-app.current-map .map-panel .real-world-map{height:min(67vh,695px);min-height:440px}
+.workspace-app .selected-source-card{padding:3px 16px 19px}
+.workspace-app .selected-source-card>.panel-head{padding-left:0}
+.workspace-app .selected-source-card>img{width:100%;height:174px;object-fit:cover;border-radius:9px;border:1px solid #3c6974}
+.workspace-app .selected-source-card h2{font-size:22px;margin-top:14px}
+.workspace-app .selected-source-card .fact-list{margin:14px 0}
+.workspace-app .selected-source-card .fact-list>div{font-size:11px;padding:12px 0}
+.workspace-app .selected-source-card>.primary-btn,.workspace-app .selected-source-card>.outline-btn{width:100%;margin:7px 0;justify-content:center}
+.workspace-app .selected-source-card .note-small{line-height:1.7}
+.workspace-app .workspace-mini-stats{gap:12px;margin-bottom:13px}
+.workspace-app .workspace-mini-stats>div{border:1px solid #2b536a;border-radius:11px;background:linear-gradient(115deg,#092b3e,#082036);min-height:97px;padding:15px}
+.workspace-app .workspace-mini-stats svg{color:#27e8d7}
+.workspace-app .workspace-mini-stats strong{font-size:25px}
+.workspace-app .workspace-mini-stats span{font-size:10px;color:#adc6d3}
+.workspace-app .claim-banner{padding:16px 18px;margin-bottom:14px;border-color:#24768b;border-radius:11px;background:linear-gradient(105deg,#0c354d,#081d30)}
+.workspace-app .claim-banner-icon{height:59px;width:59px;border-radius:10px}
+.workspace-app .claim-banner strong{font-size:16px}
+.workspace-app .claim-banner small{font-size:11px}
+.workspace-app .auditor-workspace{grid-template-columns:minmax(0,1.18fr) minmax(0,.96fr);gap:13px}
+.workspace-app .evidence-viewer,.workspace-app .audit-assessment{min-height:600px}
+.workspace-app .audit-verdict-card{min-height:128px;padding:18px;border-radius:10px}
+.workspace-app .audit-result-mini>div{padding:14px 10px;border-radius:9px}
+.workspace-app .intelligence-panel{margin-top:14px}
+.workspace-app .intelligence-heading{padding:19px 22px}
+.workspace-app .intelligence-heading h2{font-size:19px;letter-spacing:-.3px}
+.workspace-app .intel-card{border-radius:10px;padding:19px;background:#092639}
+
+/* Evidence Auditor: source-specific satellite context and discrete MARS records. */
+.workspace-app .evidence-observation-panel{display:grid;gap:0;background:#071b2c;border-bottom:1px solid #214358}
+.workspace-app .lazy-workspace-loading{height:auto;min-height:160px;margin:8px 0;border:1px solid #214358;border-radius:9px}
+.workspace-app .evidence-visuals-grid{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(220px,.9fr);gap:10px;padding:10px;background:linear-gradient(140deg,#0a2336,#081d2e)}
+.workspace-app .evidence-context-map{position:relative;width:100%;min-width:0;height:auto;min-height:132px;max-height:246px;aspect-ratio:3/1;overflow:hidden;background:radial-gradient(ellipse at 52% 48%,#174553 0,#0a293b 48%,#061b2a 100%);isolation:isolate}
+.workspace-app .evidence-context-tiles{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:hidden}
+.workspace-app .evidence-context-tiles img{display:block;width:100%;height:100%;object-fit:fill;filter:saturate(1.04) contrast(1.04)}
+.workspace-app .evidence-context-map:after{content:"";position:absolute;inset:35% 0 0;z-index:1;pointer-events:none;background:linear-gradient(0deg,#061725ef 0%,#061725aa 43%,transparent 100%)}
+.workspace-app .evidence-context-loading{position:absolute;z-index:2;top:8px;right:8px;display:flex;align-items:center;gap:6px;padding:6px 8px;border:1px solid #8caeb966;border-radius:99px;background:#061a2dd9;color:#dcebef;font-size:9px;line-height:1.2;box-shadow:0 3px 12px #00101b66;pointer-events:none}
+.workspace-app .evidence-context-loading>span{width:6px;height:6px;flex:none;border-radius:50%;background:#48d4c3;box-shadow:0 0 0 3px #48d4c322}
+.workspace-app .evidence-context-overlay{position:absolute;z-index:3;left:15px;right:15px;bottom:28px;display:grid;gap:4px;pointer-events:none;text-shadow:0 2px 8px #00111a}
+.workspace-app .evidence-context-overlay>span{font-size:9px;letter-spacing:1.25px;font-weight:850;color:#8de3d3}
+.workspace-app .evidence-context-overlay>strong{font-size:20px;line-height:1.05;color:#f5fbff}
+.workspace-app .evidence-context-overlay>small{font-size:11px;color:#e0eef2;font-variant-numeric:tabular-nums}
+.workspace-app .evidence-context-date-note{position:absolute;z-index:3;right:12px;bottom:9px;color:#cfdee4;font-size:8px;text-align:right;text-shadow:0 1px 4px #00111a}
+.workspace-app .evidence-context-marker{position:absolute;z-index:2;left:50%;top:48%;width:32px;height:32px;transform:translate(-50%,-50%);border:1px solid #eafffa;border-radius:50%;box-shadow:0 0 0 5px #13d6be48,0 0 24px #13d6becc;display:grid;place-items:center;pointer-events:none}
+.workspace-app .evidence-context-marker i{height:5px;width:5px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px #0a907e}
+.workspace-app .evidence-context-marker b{position:absolute;width:42px;height:1px;background:#effff9aa;transform:rotate(45deg)}
+.workspace-app .evidence-footprint-card{min-width:0;min-height:160px;display:grid;grid-template-rows:auto auto minmax(70px,1fr) auto auto;gap:8px;padding:11px 12px;border:1px solid #214b60;border-radius:9px;background:radial-gradient(ellipse at 50% 58%,#12394c 0,#0a2437 69%,#071b2c 100%);overflow:hidden}
+.workspace-app .evidence-footprint-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.workspace-app .evidence-footprint-header>div{display:grid;gap:4px;min-width:0}
+.workspace-app .evidence-footprint-header>div>span{color:#77cfc6;font-size:8px;font-weight:850;letter-spacing:.9px}
+.workspace-app .evidence-footprint-header strong{color:#eaf6f7;font-size:11px}
+.workspace-app .evidence-footprint-state{flex:none;padding:4px 6px;border:1px solid #24566a;border-radius:99px;color:#b8d0d7;font-size:7px;font-weight:850;letter-spacing:.55px}
+.workspace-app .evidence-footprint-state.ready{border-color:#26766f;background:#0e3d43;color:#89ead6}
+.workspace-app .evidence-footprint-state.loading{color:#f2d888}
+.workspace-app .evidence-footprint-graphic{display:grid;place-items:center;min-height:65px;border:1px solid #23495a;border-radius:6px;background:linear-gradient(135deg,#081b2a,#0c293b)}
+.workspace-app .evidence-footprint-graphic svg{display:block;width:100%;height:100%;min-height:65px;max-height:95px}
+.workspace-app .evidence-footprint-facts{display:grid;grid-template-columns:auto 1fr;align-items:baseline;gap:3px 8px;color:#aec7d0;font-size:8px;font-variant-numeric:tabular-nums}
+.workspace-app .evidence-footprint-facts>strong{justify-self:end;color:#f0d579;font-size:9px}
+.workspace-app .evidence-footprint-facts>small{grid-column:1/-1;color:#91aebb;font-size:8px}
+.workspace-app .evidence-footprint-message{display:grid;align-content:center;gap:6px;min-height:65px;color:#d4e4e8;font-size:9px;line-height:1.45}
+.workspace-app .evidence-footprint-message>strong{color:#eaf6f7}
+.workspace-app .evidence-footprint-message>span{color:#9bb7c2}
+.workspace-app .evidence-footprint-spinner{width:14px;height:14px;border:2px solid #2c6770;border-top-color:#87e6d7;border-radius:50%;animation:evidence-spin .8s linear infinite}
+.workspace-app .evidence-footprint-note{margin:0;color:#92aeb9;font-size:8px;line-height:1.45}
+.workspace-app .publisher-footprint-picker{display:grid;gap:5px;min-width:0}
+.workspace-app .publisher-footprint-picker>span{color:#88aebb;font-size:7px;font-weight:850;letter-spacing:.8px}
+.workspace-app .publisher-footprint-picker select{width:100%;min-width:0;min-height:31px;padding:6px 8px;border:1px solid #28536a;border-radius:6px;background:#081f30;color:#dff2f4;font-size:9px}
+.workspace-app .publisher-footprint-picker select:focus-visible{outline:2px solid #65f4e2;outline-offset:2px}
+.workspace-app .case-dialog-evidence-workspace{display:grid;gap:12px;min-width:0}
+.workspace-app .case-dialog-evidence-workspace .case-location-imagery{margin:0}
+.workspace-app .case-dialog-evidence-workspace .evidence-footprint-card{min-height:230px;padding:13px 14px}
+.workspace-app .case-dialog-evidence-workspace .evidence-footprint-graphic{min-height:120px}
+.workspace-app .case-dialog-evidence-workspace .evidence-footprint-graphic svg{min-height:120px;max-height:190px}
+.workspace-app .case-dialog-evidence-workspace .evidence-footprint-facts{font-size:9px}
+.workspace-app .case-dialog-document-list{display:grid;gap:7px;min-width:0}
+.workspace-app .case-dialog-document-list h3{margin:2px 0;color:#e2f0f3;font-size:11px}
+.workspace-app .case-dialog-document-list>div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 10px;border:1px solid #1b4053;border-radius:7px;background:#081f30}
+.workspace-app .case-dialog-document-list>div>span{display:grid;gap:4px;min-width:0}
+.workspace-app .case-dialog-document-list strong{color:#dcecf1;font-size:10px;overflow-wrap:anywhere}
+.workspace-app .case-dialog-document-list small{color:#84a4b2;font-size:9px}
+.workspace-app .case-dialog-document-list a{flex:0 0 auto;color:#4fe0d3;font-size:9px;white-space:nowrap}
+.workspace-app .case-dialog-document-list>p{margin:0;padding:10px 11px;border:1px solid #355064;border-radius:7px;background:#0a2333;color:#a8c1ca;font-size:9px;line-height:1.5}
+@keyframes evidence-spin{to{transform:rotate(360deg)}}
+.workspace-app .evidence-context-empty{position:absolute;inset:0;display:grid;align-content:center;justify-items:center;gap:8px;padding:22px;text-align:center;background:radial-gradient(ellipse at center,#143f50,#071b2b 75%);color:#d9e9ec}
+.workspace-app .evidence-context-empty-glyph{font-size:30px;line-height:1;color:#53d5c5}
+.workspace-app .evidence-context-empty strong{font-size:12px}
+.workspace-app .evidence-context-empty small{max-width:380px;color:#9bb6c1;font-size:10px;line-height:1.5}
+.workspace-app .evidence-image-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:9px 14px;background:#092438;border-bottom:1px solid #1e4052}
+.workspace-app .evidence-open-globe{border:1px solid #237b79;border-radius:6px;background:#0b3a45;color:#d6fffa;padding:8px 11px;font-size:10px;font-weight:800;cursor:pointer}
+.workspace-app .evidence-open-globe:hover:not(:disabled){background:#105661;border-color:#48d4c1}
+.workspace-app .evidence-open-globe:disabled{opacity:.56;cursor:not-allowed}
+.workspace-app .evidence-image-actions>a,.workspace-app .evidence-dataset-link{font-size:10px;color:#68d9cb;font-weight:750;text-decoration:none}
+.workspace-app .evidence-image-actions>a:hover,.workspace-app .evidence-dataset-link:hover{text-decoration:underline}
+.workspace-app .evidence-research-links{display:flex;flex-wrap:wrap;gap:7px 16px;margin-top:2px}
+.workspace-app .evidence-timeline{padding:14px 14px 12px;background:linear-gradient(180deg,#092235,#071a2a)}
+.workspace-app .evidence-timeline-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px}
+.workspace-app .evidence-section-kicker{display:block;color:#60cfc2;font-size:8px;font-weight:850;letter-spacing:1.15px}
+.workspace-app .evidence-timeline-head h3{margin:4px 0 0;color:#eef8fb;font-size:15px;letter-spacing:-.2px}
+.workspace-app .evidence-timeline-count{white-space:nowrap;padding:5px 8px;border:1px solid #235568;border-radius:999px;color:#bdd5dd;font-size:9px;font-weight:700}
+.workspace-app .evidence-chart-wrap{width:100%;overflow:hidden}
+.workspace-app .evidence-observation-chart{display:block;width:100%;height:auto;overflow:visible}
+.workspace-app .evidence-chart-grid{stroke:#244456;stroke-width:1;stroke-dasharray:2 4}
+.workspace-app .evidence-chart-axis-label,.workspace-app .evidence-chart-unit{fill:#86a6b3;font-size:9px;font-variant-numeric:tabular-nums}
+.workspace-app .evidence-chart-unit{fill:#b4d0d5;font-weight:700}
+.workspace-app .evidence-chart-missing-lane{stroke:#7893a0;stroke-width:1;stroke-dasharray:4 5;opacity:.72}
+.workspace-app .evidence-chart-missing-label{fill:#93abb6;font-size:8px;font-weight:800;letter-spacing:.8px}
+.workspace-app .evidence-chart-date{fill:#9ab4bf;font-size:9px;font-variant-numeric:tabular-nums}
+.workspace-app .evidence-chart-point{cursor:pointer;outline:none}
+.workspace-app .evidence-chart-point:focus .evidence-chart-hit-area{stroke:#f4fffd;stroke-width:1.5}
+.workspace-app .evidence-chart-hit-area{fill:transparent;stroke:transparent}
+.workspace-app .evidence-chart-dot{fill:#57dac8;stroke:#062331;stroke-width:2}
+.workspace-app .evidence-chart-point.selected .evidence-chart-dot{fill:#fff1a9;stroke:#9d7226;stroke-width:2.5}
+.workspace-app .evidence-chart-point.unquantified .evidence-chart-dot{fill:#0b2637;stroke:#a1bac3;stroke-width:2}
+.workspace-app .evidence-chart-point.unquantified.selected .evidence-chart-dot{fill:#f7eed2;stroke:#b19b56}
+.workspace-app .evidence-chart-uncertainty{stroke:#78d3c9;stroke-width:1.5;opacity:.85}
+.workspace-app .evidence-chart-legend{display:flex;gap:12px 17px;flex-wrap:wrap;margin:0 0 11px;color:#9ebac5;font-size:9px}
+.workspace-app .evidence-chart-legend span{display:flex;align-items:center;gap:5px}
+.workspace-app .evidence-chart-legend i{display:block;width:8px;height:8px;border-radius:50%;background:#57dac8}
+.workspace-app .evidence-chart-legend .legend-uncertainty{width:13px;height:2px;border-radius:0;background:#78d3c9}
+.workspace-app .evidence-chart-legend .legend-missing{background:transparent;border:1.5px solid #a1bac3}
+.workspace-app .evidence-selected-record{border:1px solid #20485a;border-radius:8px;padding:11px 12px;background:#0a2639}
+.workspace-app .evidence-selected-record-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}
+.workspace-app .evidence-selected-record-title>span{font-size:8px;color:#5bd0c1;font-weight:850;letter-spacing:1px}
+.workspace-app .evidence-selected-record-title time{font-size:10px;color:#d5e4e9;font-variant-numeric:tabular-nums;text-align:right}
+.workspace-app .evidence-selected-record-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.workspace-app .evidence-selected-record-facts>div{display:grid;gap:4px;min-width:0}
+.workspace-app .evidence-selected-record-facts small{font-size:8px;color:#8caab6}
+.workspace-app .evidence-selected-record-facts strong{font-size:10px;line-height:1.45;color:#ebf5f7;overflow-wrap:anywhere}
+.workspace-app .evidence-product-id{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid #204151}
+.workspace-app .evidence-product-id>span{font-size:8px;color:#8caab6;white-space:nowrap}
+.workspace-app .evidence-product-id code{font-size:8px;line-height:1.45;color:#c4dbe1;overflow-wrap:anywhere}
+.workspace-app .evidence-no-observations{display:grid;gap:4px;padding:18px 8px;color:#edf5f6}
+.workspace-app .evidence-no-observations strong{font-size:11px}
+.workspace-app .evidence-no-observations span{font-size:9px;color:#98b4bf}
+.workspace-app .evidence-inventory-meta{padding:12px 14px 14px;background:#081d2c}
+.workspace-app .evidence-inventory-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.workspace-app .evidence-inventory-stats>span{display:flex;align-items:baseline;gap:5px;min-width:0;color:#97b2bd;font-size:9px}
+.workspace-app .evidence-inventory-stats strong{color:#eff8f8;font-size:13px;font-variant-numeric:tabular-nums}
+.workspace-app .evidence-inventory-meta>p{margin:9px 0;padding:8px 9px;border:1px solid #534734;border-radius:7px;background:#2a281f;color:#d2c7ae;font-size:9px;line-height:1.5}
+.workspace-app .publisher-reference-notice{display:grid;gap:4px;margin-top:10px;padding:9px 10px;border:1px solid #61523c;border-radius:8px;background:#211e18;color:#d7c7aa}
+.workspace-app .publisher-reference-notice strong{color:#f1d7a4;font-size:9px;letter-spacing:.05em;text-transform:uppercase}
+.workspace-app .publisher-reference-notice span{font-size:9px;line-height:1.5}
+.workspace-app .evidence-source-status{display:grid;grid-template-columns:1fr 1fr;gap:7px 12px;padding:9px 0;border-bottom:1px solid #1c3b4c}
+.workspace-app .evidence-source-status>span{display:grid;gap:4px;color:#8daab6;font-size:8px}
+.workspace-app .evidence-source-status strong{color:#d7e8eb;font-size:9px}
+.workspace-app .evidence-source-status small{grid-column:1/-1;color:#7f9daa;font-size:8px;line-height:1.4}
+.workspace-app .evidence-provenance{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;padding:10px 0}
+.workspace-app .evidence-provenance>div{display:grid;gap:3px;min-width:0}
+.workspace-app .evidence-provenance span{font-size:8px;color:#789aa9}
+.workspace-app .evidence-provenance strong,.workspace-app .evidence-provenance code{font-size:8px;color:#c2d5da;line-height:1.4;overflow-wrap:anywhere}
+.workspace-app .evidence-dataset-link{display:inline-block;margin-top:2px}
+.workspace-app .selected-source-imagery-note{display:grid;gap:6px;margin:8px 0 11px;padding:12px;border:1px solid #244c5e;border-radius:8px;background:linear-gradient(110deg,#0a293b,#0b2233)}
+.workspace-app .selected-source-imagery-note>span{font-size:8px;letter-spacing:1px;font-weight:850;color:#62d4c6}
+.workspace-app .selected-source-imagery-note>strong{font-size:11px;color:#eef8fb}
+.workspace-app .selected-source-imagery-note>small{font-size:9px;line-height:1.45;color:#9db9c4}
+.workspace-app .selected-source-imagery-note>button{justify-self:start;padding:0;border:0;background:transparent;color:#67ddcf;font-size:9px;font-weight:800;text-align:left}
+@media(max-width:680px){.workspace-app .evidence-selected-record-facts{grid-template-columns:1fr 1fr}.workspace-app .evidence-inventory-stats{grid-template-columns:1fr 1fr}.workspace-app .evidence-source-status{grid-template-columns:1fr 1fr}.workspace-app .evidence-image-actions{align-items:flex-start}.workspace-app .evidence-image-actions>a{align-self:center}}
+@media(max-width:400px){.workspace-app .evidence-context-overlay{left:10px;bottom:29px}.workspace-app .evidence-context-date-note{left:10px;right:10px;text-align:left;font-size:7px}.workspace-app .evidence-timeline{padding-left:9px;padding-right:9px}.workspace-app .evidence-selected-record-title{align-items:flex-start;flex-direction:column;gap:4px}.workspace-app .evidence-product-id{grid-template-columns:1fr;gap:4px}}
+.workspace-app .documents-workspace{grid-template-columns:minmax(0,2.7fr) minmax(285px,.88fr);gap:13px}
+.workspace-app .document-grid{gap:12px;padding:0 15px 16px;max-height:800px}
+.workspace-app .document-tile{border-radius:10px;gap:11px;padding:9px 9px 13px}
+.workspace-app .document-tile-art{height:117px;border-radius:7px}
+.workspace-app .document-tile>strong{font-size:12px;line-height:1.5}
+.workspace-app .document-tile>small{font-size:10px}
+.workspace-app .document-inspector-art{height:200px;border-radius:10px}
+.workspace-app .document-inspector h2{font-size:16px}
+.workspace-app .chain-flow>div{min-height:175px;border-radius:11px;padding:15px}
+.workspace-app .chain-flow>div strong{font-size:12px}
+.workspace-app .chain-flow>div span{font-size:10px}
+.workspace-app .chain-current{padding:18px;border-color:#2e6779}
+.workspace-app .blockchain-aside{padding:0 17px 20px}
+.workspace-app .report-workspace{gap:13px}
+.workspace-app .report-preview-card{border-color:#286477}
+.workspace-app .report-cover{background-image:linear-gradient(90deg,#071f31cc,#071f31aa),radial-gradient(ellipse at 78% 30%,#185b67 0%,#071f31 68%);background-size:cover;background-position:center}
+.workspace-app .chart-caption{font-size:9px;color:#84abb9}
+/* The Cases workspace is intentionally a list + inspection surface, not a dense full-width table. */
+.workspace-app .cases-split-layout{display:grid;grid-template-columns:minmax(300px,.9fr) minmax(0,1.38fr);gap:13px;align-items:stretch;margin-bottom:10px}
+.workspace-app .cases-directory,.workspace-app .case-research-detail{min-width:0;overflow:hidden}
+.workspace-app .cases-directory{display:flex;flex-direction:column;min-height:690px}
+.workspace-app .case-count-pill{font-size:10px;color:#23e7d7;border-radius:50px;border:1px solid #136c7d;background:#0a3f4c;padding:3px 8px}
+.workspace-app .cases-search-area{padding:1px 14px 13px;display:grid;gap:10px}
+.workspace-app .cases-search-area .cases-table-search{width:100%;margin:0;min-height:42px;border-color:#2a6277;border-radius:9px}
+.workspace-app .cases-search-area .cases-table-search input{font-size:12px}
+.workspace-app .cases-filter-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.workspace-app .cases-filter-row label{display:grid;gap:6px;color:#9dbdcb;font-size:10px}
+.workspace-app .cases-filter-row select{min-width:0;width:100%;min-height:36px;border-radius:7px;border:1px solid #2a5066;background:#0b2739;color:#d9edf3;padding:6px 8px;font-size:11px}
+.workspace-app .cases-directory-scroll{flex:1;min-height:0;max-height:540px;overflow:auto;border-top:1px solid #234356;border-bottom:1px solid #234356}
+.workspace-app .cases-directory-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.workspace-app .cases-directory-table th{position:sticky;top:0;background:#0b2a3d;color:#9bb9c8;font-size:10px;text-align:left;padding:11px 12px;z-index:1;font-weight:650;letter-spacing:.15px}
+.workspace-app .cases-directory-table th:first-child{width:37%}.workspace-app .cases-directory-table th:nth-child(2){width:43%}.workspace-app .cases-directory-table th:last-child{text-align:right}
+.workspace-app .cases-directory-table td{border-bottom:1px solid #214154;padding:0 12px;color:#c2d7e2;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.workspace-app .cases-directory-table tr.selected td{background:#083c4b;border-bottom-color:#147a86}
+.workspace-app .cases-directory-table tr.selected td:first-child{box-shadow:inset 3px 0 #19e9d4}
+.workspace-app .cases-directory-table tbody tr:hover td{background:#10394b}
+.workspace-app .cases-directory-table td:first-child{padding:0 3px 0 9px}
+.workspace-app .cases-directory-table td:first-child button{display:grid;gap:5px;text-align:left;width:100%;padding:12px 4px;color:#eaf8fc;background:transparent;border:0;cursor:pointer}
+.workspace-app .cases-directory-table td:first-child strong{font-size:12px;letter-spacing:.2px}
+.workspace-app .cases-directory-table td:first-child small{font-size:9px;color:#81abba;overflow:hidden;text-overflow:ellipsis}
+.workspace-app .cases-directory-table .case-plume-count{display:block;text-align:right;color:#30e7d3;font-weight:750}
+.workspace-app .cases-directory-pagination{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:12px 14px}
+.workspace-app .cases-directory-pagination>span,.workspace-app .cases-directory-pagination>label{font-size:10px;color:#9bb9c5}
+.workspace-app .cases-directory-pagination .cases-page-buttons{gap:5px;width:auto;margin:0}
+.workspace-app .cases-directory-pagination .cases-page-buttons button{min-width:28px;min-height:29px;padding:4px 7px}
+.workspace-app .case-research-banner{padding:22px 22px 19px;background:radial-gradient(ellipse 70% 170% at 100% 0%,#17516b7d,transparent),linear-gradient(115deg,#082c3f,#071b2c);border-bottom:1px solid #25526a}
+.workspace-app .case-research-kicker{color:#34e4d3;font-size:9px;letter-spacing:1.6px;font-weight:850;margin-bottom:12px}
+.workspace-app .case-research-heading{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap}
+.workspace-app .case-research-heading h2{margin:0;font-size:25px;letter-spacing:-.5px;color:#f3fcff}
+.workspace-app .case-research-heading p{font-size:11px;color:#9abccc;margin:7px 0 0}
+.workspace-app .case-status-unverified{border:1px solid #82673a;background:#3a3023;color:#f1c575;border-radius:22px;padding:7px 11px;font-size:10px;font-weight:750}
+.workspace-app .case-research-tabs{display:flex;gap:20px;align-items:center;border-bottom:1px solid #214559;padding:0 21px;overflow:auto}
+.workspace-app .case-research-tabs>span,.workspace-app .case-research-tabs>button{flex:0 0 auto;background:transparent;border:0;border-bottom:2px solid transparent;color:#abc3cf;font-size:11px;padding:14px 0 12px;white-space:nowrap}
+.workspace-app .case-research-tabs>.active{color:#31f1e0;border-bottom-color:#21e8d3;font-weight:750}
+.workspace-app .case-research-tabs>button:hover{color:#ebfffc}
+.workspace-app .case-research-body{padding:16px;display:grid;gap:12px}
+.workspace-app .case-research-insights{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.workspace-app .case-research-card{min-width:0;border:1px solid #245168;border-radius:10px;padding:15px;background:#082438}
+.workspace-app .case-research-card h3{font-size:13px;color:#eefaff;margin:0 0 12px;font-weight:750}
+.workspace-app .case-research-card p{font-size:11px;color:#a7c4d2;line-height:1.7;margin:0}
+.workspace-app .case-inline-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+.workspace-app .case-inline-actions button{border:1px solid #28707a;color:#38e6d8;background:#0a3646;border-radius:7px;font-size:10px;padding:8px 10px}
+.workspace-app .case-inline-actions button:disabled{opacity:.45}
+.workspace-app .case-research-facts dl{margin:0}.workspace-app .case-research-facts dl div{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #235064}
+.workspace-app .case-research-facts dt{color:#8dabbe;font-size:10px}
+.workspace-app .case-research-facts dd{margin:0;color:#e2f1f7;font-size:10px;text-align:right;max-width:54%;overflow-wrap:anywhere}
+.workspace-app .case-research-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.workspace-app .case-research-kpis>div{border:1px solid #2a5369;border-radius:9px;background:linear-gradient(135deg,#0b3043,#081f30);padding:13px;min-width:0}
+.workspace-app .case-research-kpis span{display:block;color:#9fb9c8;font-size:10px;min-height:29px}
+.workspace-app .case-research-kpis strong{display:block;font-size:21px;letter-spacing:-.5px;margin:5px 0 7px;overflow-wrap:anywhere}
+.workspace-app .case-research-kpis small{font-size:9px;color:#83a8b8;line-height:1.4}
+.workspace-app .case-research-chart .chart-wrap{max-height:205px;overflow:hidden}
+.workspace-app .case-event-list{display:grid;gap:0}.workspace-app .case-event{display:grid;grid-template-columns:10px 1fr;gap:3px 11px;border-left:1px solid #1f576c;margin-left:4px;padding:0 0 14px 14px;position:relative}
+.workspace-app .case-event-dot{position:absolute;left:-5px;top:2px;width:9px;height:9px;border:2px solid #0d5367;border-radius:50%;background:#23e5d1}
+.workspace-app .case-event>div{grid-column:1/-1;display:grid;gap:4px}.workspace-app .case-event strong{font-size:10px}.workspace-app .case-event small{font-size:9px;color:#8cabbb}.workspace-app .case-event>span:last-child{grid-column:1/-1;font-size:10px;color:#2addcd}
+.workspace-app .case-research-footer{border-top:1px solid #23495e;display:flex;align-items:center;gap:10px;padding:14px 16px;flex-wrap:wrap}
+.workspace-app .cases-source-disclaimer{font-size:10px;color:#9bb8c7;line-height:1.6;margin:0 0 15px}
+@media(max-width:1280px){.workspace-app .cases-split-layout{grid-template-columns:minmax(275px,.85fr) minmax(0,1.15fr)}.workspace-app .case-research-insights{grid-template-columns:1fr}.workspace-app .case-research-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1080px){.workspace-app .dashboard-map-grid,.workspace-app .explorer-layout{grid-template-columns:minmax(0,1.6fr) minmax(245px,.9fr)}.workspace-app .activity-row{min-height:70px}.workspace-app .workspace-overview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace-app .overview-card:last-child{grid-column:1/-1}.workspace-app .cases-split-layout{grid-template-columns:1fr}.workspace-app .cases-directory{min-height:0}.workspace-app .cases-directory-scroll{max-height:350px}.workspace-app .case-research-insights{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.workspace-app .sidebar{width:min(292px,88vw)}.workspace-app .app-main{margin-left:0;width:100%}.workspace-app.sidebar-collapsed .app-main{margin-left:0;width:100%}.workspace-app .workspace-content{padding:0 14px 24px}.workspace-app .dashboard-map-grid,.workspace-app .explorer-layout{grid-template-columns:1fr}.workspace-app .activity-panel{display:flex}.workspace-app .workspace-overview-grid{grid-template-columns:1fr}.workspace-app .overview-card:last-child{grid-column:auto}.workspace-app .workspace-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace-app .snapshot-bar{flex-wrap:wrap}.workspace-app .snapshot-bar .dataset-actions{flex-wrap:wrap}.workspace-app .case-research-insights{grid-template-columns:1fr}}
+@media(max-width:620px){.workspace-app .sidebar{width:235px}.workspace-app .app-main,.workspace-app.sidebar-collapsed .app-main{margin-left:0;width:100%}.workspace-app .topbar{height:60px;padding:0 11px}.workspace-app .workspace-hero{min-height:124px;padding:18px 3px 16px;flex-wrap:wrap}.workspace-app .workspace-hero h1{font-size:28px}.workspace-app .workspace-hero p{font-size:12px}.workspace-app .hero-actions{align-self:auto}.workspace-app .workspace-content{padding:0 11px 20px}.workspace-app .workspace-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.workspace-app .metric-card{min-height:98px;padding:10px;gap:8px}.workspace-app .metric-icon{width:39px;height:42px;flex-basis:39px}.workspace-app .metric-value{font-size:22px}.workspace-app .metric-label{font-size:10px}.workspace-app .metric-change{font-size:9px}.workspace-app .map-panel .real-world-map{height:355px}.workspace-app.current-map .map-panel .real-world-map{height:440px;min-height:0}.workspace-app .activity-panel{display:flex}.workspace-app .workspace-overview-grid{grid-template-columns:1fr}.workspace-app .overview-card:last-child{grid-column:auto}.workspace-app .snapshot-bar>span{font-size:9px}.workspace-app .documents-workspace,.workspace-app .blockchain-workspace,.workspace-app .auditor-workspace{grid-template-columns:1fr}.workspace-app .cases-split-layout{grid-template-columns:1fr}.workspace-app .case-research-kpis{grid-template-columns:1fr 1fr}.workspace-app .case-research-facts dl div{gap:4px}.workspace-app .case-research-banner{padding:17px 14px}.workspace-app .case-research-body{padding:10px}.workspace-app .cases-directory-table th,.workspace-app .cases-directory-table td{padding-left:7px;padding-right:7px}.workspace-app .workspace-cta{display:grid;gap:9px}.workspace-app .workspace-cta>div{display:flex;flex-wrap:wrap;gap:7px}.workspace-app .workspace-cta button{margin:0}}
+@media(prefers-reduced-motion:reduce){.workspace-app .metric-card:hover{transform:none}}
+.workspace-app .skip-to-main{position:fixed;left:18px;top:-60px;z-index:999;padding:12px 16px;border:2px solid #49f5dd;border-radius:8px;color:#edfffc;background:#053240}.workspace-app .skip-to-main:focus{top:14px}
+
+/* Directory rows keep the recorded location actionable while fitting a split workspace. */
+.workspace-app .cases-directory-note{margin:0;padding:0 14px 11px;color:#88a8b8;font-size:9px;line-height:1.55}
+.workspace-app .cases-directory-table{min-width:535px}
+.workspace-app .cases-directory-table th:first-child{width:25%}
+.workspace-app .cases-directory-table th:nth-child(2){width:55%}
+.workspace-app .cases-directory-table th:nth-child(3){width:12%;text-align:right}
+.workspace-app .cases-directory-table th:last-child{width:8%;text-align:right}
+.workspace-app .cases-directory-table td{padding:0 8px}
+.workspace-app .cases-directory-table td:first-child{padding:0 3px 0 9px}
+.workspace-app .cases-directory-table .case-directory-source{display:grid;gap:5px;width:100%;padding:11px 4px;border:0;background:transparent;color:#eaf8fc;text-align:left;cursor:pointer}
+.workspace-app .cases-directory-table .case-directory-source strong{font-size:11px;letter-spacing:.1px}
+.workspace-app .cases-directory-table .case-directory-source small{overflow:hidden;color:#81abba;font-size:9px;text-overflow:ellipsis;white-space:nowrap}
+.workspace-app .cases-directory-table .cases-directory-location{white-space:normal}
+.workspace-app .cases-directory-location>div{display:grid;gap:4px;padding:7px 0}
+.workspace-app .cases-directory-location>div>span{overflow:hidden;color:#d6e8ef;font-size:10px;line-height:1.35;text-overflow:ellipsis}
+.workspace-app .cases-directory-location button{display:flex;align-items:center;gap:5px;width:max-content;max-width:100%;padding:2px 0;border:0;background:transparent;color:#43ded2;font-size:9px;line-height:1.35;text-align:left;cursor:pointer}
+.workspace-app .cases-directory-location button:disabled{color:#7793a1;cursor:not-allowed}
+.workspace-app .cases-directory-location button span:first-child{font-size:12px}
+.workspace-app .cases-directory-table .case-plume-count{text-align:right;color:#63e8d6;font-variant-numeric:tabular-nums}
+.workspace-app .cases-directory-table .case-directory-details{min-height:27px;padding:4px 6px;border:1px solid #286477;border-radius:6px;background:#092b3d;color:#bfe9e9;font-size:9px;cursor:pointer}
+.workspace-app .cases-directory-table .case-directory-details:hover{border-color:#40dbca;color:#fff}
+.workspace-app .cases-directory-table button:focus-visible{position:relative;z-index:2;outline-offset:-1px}
+.workspace-app .cases-directory-pagination{border-top:1px solid #17394b}
+.workspace-app .case-research-tabs>button{cursor:pointer}
+.workspace-app .case-muted{margin:0;color:#91aebb;font-size:10px;line-height:1.6}
+@media(max-width:620px){
+  .workspace-app .evidence-visuals-grid{grid-template-columns:minmax(0,1fr)}
+  .workspace-app .evidence-context-map{min-height:0;max-height:none}
+  .workspace-app .evidence-footprint-card{min-height:150px}
+  .workspace-app .cases-directory{min-height:0}
+  .workspace-app .cases-directory-scroll{max-height:54vh}
+  .workspace-app .cases-directory-table{min-width:0;table-layout:auto}
+  .workspace-app .cases-directory-table thead{display:none}
+  .workspace-app .cases-directory-table,.workspace-app .cases-directory-table tbody{display:block;width:100%}
+  .workspace-app .cases-directory-table tbody tr{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;padding:5px 8px;border-bottom:1px solid #214154}
+  .workspace-app .cases-directory-table td{border:0;padding:0 4px;white-space:normal}
+  .workspace-app .cases-directory-table td:first-child{grid-column:1;grid-row:1;padding:0}
+  .workspace-app .cases-directory-table .cases-directory-location{grid-column:1/-1;grid-row:2;padding:0 4px 5px}
+  .workspace-app .cases-directory-table td:nth-child(3){grid-column:2;grid-row:1}
+  .workspace-app .cases-directory-table td:last-child{grid-column:3;grid-row:1}
+  .workspace-app .cases-directory-table tbody tr:last-child:has(.cases-empty-state){display:block}
+  .workspace-app .cases-directory-table .case-directory-source{padding:9px 4px}
+  .workspace-app .cases-directory-table .case-directory-source small{max-width:180px}
+  .workspace-app .cases-directory-table .case-plume-count{min-width:28px}
+  .workspace-app .cases-directory-table .case-directory-details{min-height:30px}
+}
+
+/* Keep the scientific legend inspectable without covering the selected map feature. */
+.workspace-app .geo-map-legend[open]{width:min(300px,calc(100% - 26px));max-height:min(300px,calc(100% - 88px))}
+.workspace-app .geo-map-legend-content{max-height:min(230px,36vh);padding:2px 10px 10px}
+@media(max-width:620px){
+  .workspace-app .geo-map-legend[open]{bottom:90px;width:min(280px,calc(100% - 16px));max-height:min(120px,calc(100% - 120px))}
+  .workspace-app .geo-map-legend-content{max-height:min(76px,14vh)}
+}
+
+/* Let evidence counts wrap inside their cards instead of being clipped by the card edge. */
+.workspace-app .metric-label,
+.workspace-app .metric-change{white-space:normal;overflow-wrap:anywhere}
+@media (min-width:761px) and (max-width:1380px){
+  .workspace-app .metric-card{gap:10px;padding:12px}
+  .workspace-app .metric-icon{width:46px;height:46px;flex-basis:46px}
+}
+@media(max-width:1080px){.workspace-app .workspace-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Keep source ID, full region name, and observation date in distinct readable columns. */
+.workspace-app .activity-image{flex:0 0 auto}
+.workspace-app .activity-copy{display:grid;flex:1 1 auto;gap:3px;min-width:0;line-height:1.35}
+.workspace-app .activity-copy strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.workspace-app .activity-copy small{display:block;min-width:0;overflow-wrap:anywhere;white-space:normal}
+.workspace-app .activity-row time{flex:0 0 auto;font-variant-numeric:tabular-nums;white-space:nowrap}

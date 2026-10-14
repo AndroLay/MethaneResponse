@@ -12,6 +12,7 @@ export type ImportedAuditVerification = {
   claimType?: string;
   synthetic?: boolean;
   reviewStatus?: string;
+  historicalObservationCount?: number;
   receipt: 'not_present' | 'metadata_matches_event_unverified' | 'metadata_mismatch';
   exportContext: 'none' | 'not_in_audit_hash' | 'manifest_valid' | 'manifest_invalid' | 'manifest_unavailable';
   message?: string;
@@ -70,8 +71,19 @@ function exportContextMatches(report: JsonRecord, audit: JsonRecord, bundle: Jso
   }
 
   if (!Array.isArray(report.observations)) return false;
+  const historicalContext = report.historicalContext;
+  if (historicalContext !== undefined) {
+    if (!isRecord(historicalContext)
+      || historicalContext.kind !== 'historical_source_observations'
+      || historicalContext.relationship !== 'context_only_not_claim_evidence'
+      || !Array.isArray(historicalContext.observations)) return false;
+    if (expectedSnapshotId && historicalContext.datasetSnapshotId !== expectedSnapshotId) return false;
+    if (historicalContext.observations.some(item => !isRecord(item)
+      || typeof item.id !== 'string' || typeof item.date !== 'string')) return false;
+  }
   if (status === 'omitted_dataset_mismatch') {
-    return report.observations.length === 0 && report.unlinkedObservationCount === null;
+    return report.observations.length === 0 && report.unlinkedObservationCount === null
+      && (!isRecord(historicalContext) || (Array.isArray(historicalContext.observations) && historicalContext.observations.length === 0));
   }
   const intelligence = isRecord(bundle.intelligence) ? bundle.intelligence : undefined;
   const boundIds = Array.isArray(intelligence?.observationIds)
@@ -125,6 +137,9 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
     && canonicalJson(audit.evidenceIds) === canonicalJson(citedEvidence.map((item) => item.id));
   if (!fieldsMatch) return invalid('Audit summary fields do not match the hashed bundle.', exportContext);
 
+  const historicalObservationCount = isExport && isRecord(input.historicalContext)
+    && Array.isArray(input.historicalContext.observations) ? input.historicalContext.observations.length : undefined;
+
   if (isExport && isRecord(input)) {
     const integrity = await verifyExportIntegrity(input);
     if (integrity === 'invalid') return invalid('The report export checksum is invalid or does not match its context.', 'manifest_invalid');
@@ -139,6 +154,7 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
   if (!subtle) return { localDigest: 'unavailable', auditId: audit.auditId as string, revision: audit.revision as number,
     sourceId: audit.sourceId as string, bundleHash: audit.bundleHash as string, result: audit.result as string, claimType: audit.claimType as string, synthetic: audit.synthetic as boolean,
     reviewStatus: isRecord(bundle.intelligence) && typeof bundle.intelligence.reviewStatus === 'string' ? bundle.intelligence.reviewStatus : undefined,
+    ...(historicalObservationCount === undefined ? {} : { historicalObservationCount }),
     receipt: receiptStatus(audit), exportContext, message: 'This browser does not expose Web Crypto SHA-256; use the local CLI verifier.' };
 
   try {
@@ -154,6 +170,7 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
       claimType: audit.claimType as string,
       synthetic: audit.synthetic as boolean,
       reviewStatus: isRecord(bundle.intelligence) && typeof bundle.intelligence.reviewStatus === 'string' ? bundle.intelligence.reviewStatus : undefined,
+      ...(historicalObservationCount === undefined ? {} : { historicalObservationCount }),
       receipt: receiptStatus(audit),
       exportContext,
     };
@@ -163,6 +180,7 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
   } catch {
     return { localDigest: 'unavailable', auditId: audit.auditId as string, revision: audit.revision as number,
       sourceId: audit.sourceId as string, bundleHash: audit.bundleHash as string, result: audit.result as string, claimType: audit.claimType as string, synthetic: audit.synthetic as boolean,
+      ...(historicalObservationCount === undefined ? {} : { historicalObservationCount }),
       receipt: receiptStatus(audit), exportContext, message: 'The audit bundle could not be encoded for SHA-256 verification.' };
   }
 }

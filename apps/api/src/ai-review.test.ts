@@ -7,7 +7,7 @@ import { FileAuditStore } from './store';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-const sample = { sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed' as const, consentToExternalProcessing: true as const, documents: [{ id: 'operator-log', title: 'Submitted field report', text: 'The team inspected the facility and reported an investigation was opened. Repairs have not yet been independently verified by the regulator.' }] };
+const sample = { sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed' as const, consentToExternalProcessing: true as const, documents: [{ id: 'operator-log', title: 'Submitted field report', rightsDeclared: 'explicit_permission' as const, text: 'The team inspected the facility and reported an investigation was opened. Repairs have not yet been independently verified by the regulator.' }] };
 test('AI provider URLs require HTTPS except for local development and reject embedded credentials', () => {
   expect(isAllowedAiBaseUrl('https://provider.example/v1')).toBe(true);
   expect(isAllowedAiBaseUrl('http://localhost:8080/v1')).toBe(true);
@@ -22,6 +22,39 @@ test('published source URLs cannot disclose embedded credentials', () => {
     documents: [{ ...sample.documents[0], sourceUrl: 'https://reviewer:secret@example.org/inspection' }],
   });
   expect(unsafe.success).toBe(false);
+});
+test('document assessment requires an explicit rights declaration for every excerpt', () => {
+  const { rightsDeclared: _rightsDeclared, ...unverifiedDocument } = sample.documents[0];
+  const unverified = DocumentAssessmentInput.safeParse({ ...sample, documents: [unverifiedDocument] });
+  expect(unverified.success).toBe(false);
+  if (!unverified.success) {
+    expect(unverified.error.issues.some((issue) => issue.path.join('.') === 'documents.0.rightsDeclared')).toBe(true);
+  }
+});
+test('v3 document digest retains original-file and selected-page provenance', async () => {
+  const pageDigest = 'b'.repeat(64);
+  const originalDigest = 'a'.repeat(64);
+  const parsed = DocumentAssessmentInput.parse({
+    ...sample,
+    documents: [{ ...sample.documents[0], originalFileSha256: originalDigest, rightsDeclared: 'explicit_permission', selectedPages: [{ page: 2, textSha256: pageDigest }] }],
+  });
+  const book = await loadCasebook();
+  const source = sourceFromCase(book.cases[0], book.provenance.catalogUrl, book.provenance);
+  const matchingInput = { ...parsed, sourceId: source.sourceId };
+  const audit = createDocumentAudit(matchingInput, source, {
+    verdict: 'insufficient_evidence', reason: 'The excerpt does not establish verified mitigation.',
+    citations: [{ documentId: 'operator-log', quote: 'Repairs have not yet been independently verified' }],
+  }, 1, { caseId: book.cases[0].caseId, externalEvidence: [] });
+  expect(audit.bundle.intelligence?.documentDigests[0]).toMatchObject({
+    originalFileSha256: originalDigest,
+    rightsDeclared: 'explicit_permission',
+    selectedPages: [{ page: 2, textSha256: pageDigest }],
+  });
+  const incomplete = DocumentAssessmentInput.safeParse({
+    ...sample,
+    documents: [{ ...sample.documents[0], originalFileSha256: originalDigest }],
+  });
+  expect(incomplete.success).toBe(false);
 });
 test('nonexistent AI quotations force abstention', () => {
   const parsed = DocumentAssessmentInput.parse(sample);
@@ -48,6 +81,21 @@ test('v3 document bundle is canonically verifiable without external model', asyn
   expect(auditIntegrityValid(audit)).toBe(true);
   expect(audit.bundle.intelligence?.reviewStatus).toBe('unreviewed');
   expect(JSON.stringify(audit.bundle)).not.toContain(sample.documents[0].text);
+});
+
+test('document rights declaration is covered by the canonical audit hash', async () => {
+  const book = await loadCasebook();
+  const source = sourceFromCase(book.cases[0], book.provenance.catalogUrl, book.provenance);
+  const parsed = DocumentAssessmentInput.parse({ ...sample, sourceId: source.sourceId });
+  const audit = createDocumentAudit(parsed, source, {
+    verdict: 'insufficient_evidence', reason: 'The excerpt does not establish physical mitigation.', citations: [],
+  }, 1, { caseId: book.cases[0].caseId, externalEvidence: [], provenance: book.provenance });
+  const tampered = structuredClone(audit);
+  tampered.bundle.intelligence!.documentDigests[0]!.rightsDeclared = 'owned';
+
+  expect(audit.bundle.intelligence?.documentDigests[0]?.rightsDeclared).toBe('explicit_permission');
+  expect(auditIntegrityValid(audit)).toBe(true);
+  expect(auditIntegrityValid(tampered)).toBe(false);
 });
 
 test('review is a new immutable bundle version; original stays verifiable', async () => {

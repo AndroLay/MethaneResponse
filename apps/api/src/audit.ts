@@ -8,9 +8,10 @@ const supportKind: Record<ClaimType, Evidence['kind']> = {
   mitigation_confirmed: 'mitigation_confirmation',
 };
 
-export function assess(source: Source, claimType: ClaimType): {result: ResultLabel; reason: string; evidenceIds: string[]} {
+export function assess(source: Pick<Source, 'evidence'>, claimType: ClaimType): {result: ResultLabel; reason: string; evidenceIds: string[]} {
   const contradictions = source.evidence.filter((e) => e.kind === 'contradiction' && e.claimType === claimType);
-  const supporting = source.evidence.filter((e) => e.kind === supportKind[claimType]);
+  const supporting = source.evidence.filter((e) =>
+    e.kind === supportKind[claimType] && (e.claimType === undefined || e.claimType === claimType));
   const refs = [...new Set([...contradictions, ...supporting].map((e) => e.id))].sort();
   if (contradictions.length > 0 && supporting.length > 0) {
     return { result: 'insufficient_evidence', reason: 'Conflicting source records require human adjudication.', evidenceIds: refs };
@@ -32,7 +33,9 @@ export type AuditMetadata = {
   limitations?: string[];
 };
 
-export function createAudit(source: Source, input: AuditInput, metadata: AuditMetadata = {}): AuditResult {
+type AuditSource = Pick<Source, 'sourceId' | 'synthetic' | 'evidence'>;
+
+export function createAudit(source: AuditSource, input: AuditInput, metadata: AuditMetadata = {}): AuditResult {
   const assessment = assess(source, input.claimType);
   const generatedAt = new Date().toISOString();
   const auditId = randomUUID();

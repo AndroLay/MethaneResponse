@@ -1,12 +1,12 @@
 # Catatan Hackathon — IEEE ClimateChain Global Hackathon 2026
 
-**Diperiksa:** 12 Oktober 2026 (WITA)
-**Sumber utama:** halaman resmi Devpost  
+**Diperiksa ulang:** 14 Oktober 2026, 12.44 WITA
+**Sumber utama:** halaman resmi Devpost
 **Status peserta/proyek:** belum dikonfirmasi; catatan ini tidak mendaftarkan peserta atau mengirim proyek.
 
 **Riset lanjutan:** [analisis afiliasi, konflik aturan, empat track, sumber domain, dan arah MVP](research.md).
 
-> **Perlu dikonfirmasi segera:** halaman resmi memuat aturan yang bertentangan tentang siapa yang boleh ikut dan kapan submission boleh dikirim. Ikuti klarifikasi tertulis panitia sebelum mengandalkan salah satu versi.
+> **Status pemeriksaan 14 Oktober, 12.44 WITA:** Overview dan schedule menampilkan deadline **25 Oktober 2026, 17.00 MSK (14.00 UTC / 22.00 WITA)**; schedule menyebut submission dimulai 5 Oktober pukul 07.00 MSK. Rules masih melarang submit sebelum **08.00 PT** pada 25 Oktober (15.00 UTC / 23.00 WITA), satu jam setelah deadline schedule. Eligibility juga masih bertentangan: overview menyebut “students only”, sedangkan Rules mencantumkan peneliti/akademisi, developer/startup independen, dan profesional lingkungan. Belum ada jawaban resmi yang menyelesaikan perbedaan ini.
 
 ## Ringkasan cepat
 
@@ -14,8 +14,7 @@
 - **Penyelenggara/host:** IEEE Blockchain Türkiye Group, bersama beberapa unit IEEE dan mitra yang tercantum di halaman acara.
 - **Format:** online, publik.
 - **Fokus:** solusi nyata untuk isu iklim melalui blockchain, AI, data, IoT, dan climate science; tema mengarah pada transparansi data iklim, pasar karbon, dan pengelolaan sumber daya berkelanjutan.
-- **Batas submission yang ditampilkan jadwal Devpost:** **25 Oktober 2026, 17.00 MSK = 22.00 WITA**.
-- **Waktu tersisa saat catatan ini dibuat:** sekitar 13 hari.
+- **Batas submission yang ditampilkan overview dan jadwal Devpost:** **25 Oktober 2026, 17.00 MSK = 22.00 WITA**.
 - **Status pendaftaran, tim, ide, dan submission:** belum diketahui.
 
 ## Kredibilitas penyelenggara dan validasi silang
@@ -36,18 +35,18 @@ MSK adalah UTC+3; WITA adalah UTC+8. Konversi di bawah menambahkan lima jam.
 | Penjurian | 26 Okt, 09.00 – 8 Nov, 17.00 | 26 Okt, 14.00 – 8 Nov, 22.00 | — |
 | Pengumuman pemenang | 20 Nov 2026, 09.00 | 20 Nov, 14.00 | — |
 
-**Konflik waktu penting, masih ada pada pemeriksaan 12 Oktober:** halaman Rules mengatakan, “Dont submit before official start time which 8 AM PT on October 25.” Pada 25 Oktober 2026, 08.00 Pacific Daylight Time setara **23.00 WITA**, satu jam setelah batas submission 22.00 WITA yang ditampilkan jadwal Devpost. Ini juga tidak selaras dengan jadwal pembukaan submission 5 Oktober. Minta panitia memastikan tanggal, jam, zona waktu, dan apakah kalimat itu berlaku untuk mulai membangun atau mulai mengirim.
+**Catatan:** Rules memuat “Dont submit before official start time which 8 AM PT on October 25.” Schedule yang dibuka pada pemeriksaan ini menyatakan submission berjalan 5 Oktober 07.00 MSK sampai 25 Oktober 17.00 MSK. Pada 25 Oktober 2026, 08.00 PT = 15.00 UTC = 23.00 WITA, sedangkan deadline 17.00 MSK = 14.00 UTC = 22.00 WITA. Jadi larangan submit tersebut jatuh satu jam setelah deadline di schedule. Minta klarifikasi tertulis atau cocokkan dengan form pada akun peserta; jangan menebak aturan yang berlaku.
 
 ## Siapa yang boleh ikut — belum jelas
 
-Informasi di halaman acara tidak konsisten:
+Overview menyebut peserta harus melewati usia dewasa di negara domisili dan **hanya mahasiswa** yang dapat mengikuti. Rules yang dibuka pada pemeriksaan terbaru juga mencantumkan peneliti/akademisi, developer/startup independen, dan profesional lingkungan. Karena halaman resmi saling berbeda, kategori peserta dan negara yang memenuhi syarat perlu dikonfirmasi kepada penyelenggara.
 
 - Ringkasan/overview menyebut peserta harus sudah melewati usia dewasa menurut negara tempat tinggal, **hanya mahasiswa**, perusahaan/organisasi profesional tidak boleh ikut, serta ada negara/teritori yang dikecualikan (daftarnya tidak terlihat di ringkasan).
-- Halaman Rules menyebut kategori terbuka mencakup mahasiswa S1/S2/PhD, peneliti dan pengajar akademik, developer independen dan startup, profesional lingkungan/ilmuwan iklim, serta peserta internasional dengan pembatasan negara.
+- Rules yang dapat dibuka pada pemeriksaan terbaru mencantumkan kategori lebih luas; konfirmasi tertulis tetap diperlukan karena tidak sama dengan ringkasan overview.
 - Struktur tim yang tertulis di Rules: tim 2–5 orang, submission individu juga diizinkan; kolaborasi lintas institusi/negara dianjurkan; satu orang hanya boleh berada di satu tim.
 - Rules mengecualikan panitia dan keluarga dekat serta juri dan keluarga dekat. Pemenang grand prize sebelumnya boleh ikut untuk penghargaan yang lebih kecil.
 
-**Tindakan:** pastikan apakah mahasiswa Indonesia memenuhi syarat, usia minimum yang berlaku, daftar negara yang dikecualikan, dan apakah pengajar/startup/profesional benar-benar diperbolehkan. Jangan menganggap daftar di overview atau Rules otomatis mengalahkan halaman lainnya.
+**Tindakan:** pastikan apakah mahasiswa Indonesia memenuhi syarat dan apa usia minimum/daftar negara yang dikecualikan. Jika peserta bukan mahasiswa, minta konfirmasi panitia apakah jalur Rules yang pernah ditampilkan tetap berlaku.
 
 ## Jalur tantangan
 
@@ -108,7 +107,7 @@ Status awal semua item adalah **belum ditinjau**; ubah hanya setelah ada bukti.
 | ID | Persyaratan/keputusan | Bukti yang perlu disimpan | Penanggung jawab | Status |
 |---|---|---|---|---|
 | R1 | Pastikan kelayakan peserta dan negara | Klarifikasi panitia atau aturan resmi final | Peserta/tim | belum ditinjau |
-| R2 | Pastikan jam mulai dan deadline yang berlaku | Klarifikasi tertulis panitia + jadwal Devpost terbaru | Peserta/tim | belum ditinjau |
+| R2 | Simpan deadline yang tampil pada overview + schedule; tanyakan jika submission form memberi waktu berbeda | Screenshot jadwal/konfirmasi tertulis untuk setiap perbedaan | Peserta/tim | belum ditinjau |
 | R3 | Daftar di Devpost dan pilih individu/tim | Status keikutsertaan pada akun Devpost | Peserta/tim | belum ditinjau |
 | R4 | Pilih satu track dan jelaskan kecocokannya | Nama track + ringkasan alignment di submission | Tim | belum ditinjau |
 | R5 | Siapkan prototype/mockup/PoC | Demo yang dapat dijalankan atau ditunjukkan | Tim | belum ditinjau |
@@ -124,7 +123,7 @@ Ajukan melalui tab Discussions Devpost (update panitia secara eksplisit menyaran
 1. Apakah peserta dari Indonesia memenuhi syarat? Apa daftar lengkap negara/teritori yang dikecualikan dan batas usia tepatnya?
 2. Apakah syarat “students only” berlaku, atau pengajar, peneliti, startup, developer independen, dan profesional lingkungan juga boleh ikut?
 3. Berapa batas tim yang resmi, dan apakah submission individu memenuhi syarat untuk semua hadiah?
-4. Apakah submission mulai 5 Oktober, atau baru boleh dikirim pada 25 Oktober pukul 08.00 PT? Mohon jam dan zona waktu deadline final. (Waktu 08.00 PT yang tertulis jatuh setelah deadline 17.00 MSK.)
+4. Apakah deadline 25 Oktober 2026 pukul 17.00 MSK yang muncul pada overview dan schedule juga berlaku pada form submission? Mohon klarifikasi jika form menampilkan waktu yang berbeda.
 5. Apakah hadiah US$3.000 sudah final, dan apa syarat/ketentuan penerimaannya?
 6. Apakah AI dan blockchain wajib dipakai keduanya? Apakah ada kebijakan untuk kode/pekerjaan yang sudah ada, penggunaan AI, lisensi/IP, atribusi data/aset, serta publikasi repository?
 7. Apa persyaratan teknis submission lengkap: video/hosting, cara memilih/menyatakan track, form khusus, format/isi/ukuran file, dan akses juri? Ada laporan peserta tentang upload berkas maksimum 35 MB yang perlu diverifikasi.
@@ -132,7 +131,7 @@ Ajukan melalui tab Discussions Devpost (update panitia secara eksplisit menyaran
 
 ## Referensi resmi
 
-Semua sumber berikut diperiksa pada 11 Oktober 2026:
+Daftar ini mencatat pemeriksaan sumber awal pada 11 Oktober 2026. Status buka ulang ada di paragraf terakhir.
 
 - [Overview hackathon di Devpost](https://ieee-climatechain-hack.devpost.com/) — tema, track, deliverable, kriteria, hadiah, dan ringkasan kelayakan.
 - [Rules](https://ieee-climatechain-hack.devpost.com/rules) — teks kelayakan, aturan tim, waktu mulai yang bertentangan, persyaratan submission, dan kriteria.
@@ -141,4 +140,6 @@ Semua sumber berikut diperiksa pada 11 Oktober 2026:
 - [Update tentang submission dan Discussions](https://ieee-climatechain-hack.devpost.com/updates/46814-climatechain-hackathon-submissions-open-tomorrow-get-ready-to-submit) — submission dibuka 5 Oktober dan pertanyaan diarahkan ke Discussions.
 - [Diskusi tentang jendela submission dan form](https://ieee-climatechain-hack.devpost.com/forum_topics/45102-session-1-recording-and-clarification-on-submission-window) — pertanyaan peserta tentang waktu, track, blockchain, tim, dan unggahan; bukan klarifikasi resmi panitia.
 
-**Pemeriksaan terbaru:** overview, Rules, jadwal, dan diskusi terkait jendela submission dibuka ulang pada 12 Oktober 2026. Konflik eligibility juga masih terlihat: overview menulis “students only”, sedangkan bagian Rules mencantumkan kategori terbuka untuk akademisi, developer/startup, dan profesional iklim. Tinjau ulang sumber resmi sebelum mendaftar/mengirim karena jadwal atau aturan dapat berubah.
+**Pemeriksaan ulang terbaru (14 Oktober 2026, 12.44 WITA):** [overview](https://ieee-climatechain-hack.devpost.com/), [schedule](https://ieee-climatechain-hack.devpost.com/details/dates), dan [Rules](https://ieee-climatechain-hack.devpost.com/rules) berhasil dibuka ulang. Perbedaan waktu dan eligibility di atas masih terlihat. Rubrik tetap menampilkan lima kriteria kualitatif tanpa bobot atau skala numerik. Halaman GitHub `AndroLay/MethaneResponse` tidak dapat diambil oleh browser yang tersedia (cache miss), sehingga akses anonim terkini belum diverifikasi pada pemeriksaan ini; pemilik proyek sebelumnya melaporkan repo telah dibuat public. Tidak ada pesan kepada panitia, perubahan visibilitas, atau submission yang dilakukan.
+
+**Catatan akses repo pada pemeriksaan yang sama:** `git ls-remote` terbaru dari lingkungan kerja gagal karena DNS `github.com` tidak dapat diresolusikan, sehingga pemeriksaan jarak jauh kali ini tidak berhasil. Catatan checkpoint sebelumnya merekam anonymous shallow clone yang berhasil pada commit `99662e6de86b1d745e6ce3589ce37a9ed6c0d66c` pada 14 Oktober. Bukti tersebut mengonfirmasi akses publik untuk commit itu; perubahan lokal sesudahnya belum termasuk dalam commit publik yang diuji. Ulangi pemeriksaan dari jaringan yang tersedia sebelum menyatakan revision demo terbaru dapat diakses juri.

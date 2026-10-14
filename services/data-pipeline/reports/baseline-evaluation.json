@@ -1,6 +1,17 @@
 {
   "method": "deterministic evidence coverage rules",
-  "casebookArchiveSha256": "b4162c277bcb699154ccc068f5f9510e1d32f355093884de6c8029ea34a62742",
+  "casebookArchiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+  "inputProvenance": {
+    "benchmarkSha256": "6cfa7c19ec47d994e937a5ec6a8d3cc82d8c03b0e11f1ce2a63df379cc762cb8",
+    "casebookFileSha256": "5010594d9de903ae38904e05e2a137c8701c4ded9fcc3ef433d322ec860dda94",
+    "datasetName": "Eye on Methane / MARS detected sources and plumes",
+    "datasetProvider": "UNEP International Methane Emissions Observatory (IMEO)",
+    "datasetSnapshotId": "unep-mars-675417694883",
+    "datasetArchiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "datasetRetrievedAt": "2026-10-14T06:10:12+00:00",
+    "datasetCatalogUrl": "https://methanedata.unep.org/download-dataset",
+    "datasetLicense": "CC BY-NC-SA 4.0"
+  },
   "sampleSize": 15,
   "realExampleCount": 9,
   "syntheticExampleCount": 6,
@@ -10,13 +21,13 @@
       "precision": 1.0,
       "recall": 1.0,
       "f1": 1.0,
-      "support": 10
+      "support": 7
     },
     "insufficient_evidence": {
       "precision": 1.0,
       "recall": 1.0,
       "f1": 1.0,
-      "support": 4
+      "support": 7
     },
     "contradicted": {
       "precision": 1.0,
@@ -27,8 +38,8 @@
   },
   "falseMitigationConfirmations": 0,
   "citationCoverage": {
-    "supportedPredictions": 10,
-    "supportedWithCitation": 10,
+    "supportedPredictions": 7,
+    "supportedWithCitation": 7,
     "ratio": 1.0
   },
   "subsets": {
@@ -40,13 +51,13 @@
           "precision": 1.0,
           "recall": 1.0,
           "f1": 1.0,
-          "support": 6
+          "support": 3
         },
         "insufficient_evidence": {
           "precision": 1.0,
           "recall": 1.0,
           "f1": 1.0,
-          "support": 3
+          "support": 6
         },
         "contradicted": {
           "precision": 0.0,
@@ -57,8 +68,8 @@
       },
       "falseMitigationConfirmations": 0,
       "citationCoverage": {
-        "supportedPredictions": 6,
-        "supportedWithCitation": 6,
+        "supportedPredictions": 3,
+        "supportedWithCitation": 3,
         "ratio": 1.0
       }
     },
@@ -119,13 +130,11 @@
       "caseId": "MARS-REPORT-KAZ-S-159",
       "sourceId": "KAZ_S_159",
       "claimType": "operator_notified",
-      "expected": "supported",
-      "predicted": "supported",
-      "citedEvidenceIds": [
-        "KAZ_S_159:notification-status"
-      ],
+      "expected": "insufficient_evidence",
+      "predicted": "insufficient_evidence",
+      "citedEvidenceIds": [],
       "synthetic": false,
-      "rationale": "The pinned source-level MARS field records notified=Yes; this supports only that metadata field and carries no notification date."
+      "rationale": "The source-level notified flag is ambiguous about recipient and time; it cannot establish operator notification."
     },
     {
       "id": "mars-kaz-mitigation",
@@ -156,13 +165,11 @@
       "caseId": "MARS-REPORT-LBY-S-143",
       "sourceId": "LBY_S_143",
       "claimType": "operator_notified",
-      "expected": "supported",
-      "predicted": "supported",
-      "citedEvidenceIds": [
-        "LBY_S_143:notification-status"
-      ],
+      "expected": "insufficient_evidence",
+      "predicted": "insufficient_evidence",
+      "citedEvidenceIds": [],
       "synthetic": false,
-      "rationale": "The pinned source-level MARS field records notified=Yes; this supports only that metadata field and carries no notification date."
+      "rationale": "The source-level notified flag is ambiguous about recipient and time; it cannot establish operator notification."
     },
     {
       "id": "mars-lby-mitigation",
@@ -194,13 +201,11 @@
       "caseId": "MARS-REPORT-ARG-S-055",
       "sourceId": "ARG_S_055",
       "claimType": "operator_notified",
-      "expected": "supported",
-      "predicted": "supported",
-      "citedEvidenceIds": [
-        "ARG_S_055:notification-status"
-      ],
+      "expected": "insufficient_evidence",
+      "predicted": "insufficient_evidence",
+      "citedEvidenceIds": [],
       "synthetic": false,
-      "rationale": "The pinned source-level MARS field records notified=Yes; this supports only that metadata field and carries no notification date."
+      "rationale": "The source-level notified flag is ambiguous about recipient and time; it cannot establish operator notification."
     },
     {
       "id": "mars-arg-mitigation",

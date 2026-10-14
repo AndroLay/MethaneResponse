@@ -1,8 +1,9 @@
+import json
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from evaluate_baseline import classify, evaluate_rows, load_benchmark  # noqa: E402
+from evaluate_baseline import DEFAULT_BENCHMARK, DEFAULT_CASEBOOK, classify, evaluate_rows, load_benchmark  # noqa: E402
 
 
 def test_typed_evidence_keeps_notifications_separate_from_mitigation():
@@ -28,6 +29,22 @@ def test_conflicting_evidence_abstains_and_explicit_contradiction_is_scoped():
 def test_reviewed_benchmark_is_hash_pinned_to_casebook_and_reports_limits():
     rows = load_benchmark()
     report = evaluate_rows(rows)
+    assert DEFAULT_CASEBOOK.name == "mars_casebook_2026-10-14.json"
+    assert report["casebookArchiveSha256"] == "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43"
+    assert report["inputProvenance"] == {
+        "benchmarkSha256": "6cfa7c19ec47d994e937a5ec6a8d3cc82d8c03b0e11f1ce2a63df379cc762cb8",
+        "casebookFileSha256": "5010594d9de903ae38904e05e2a137c8701c4ded9fcc3ef433d322ec860dda94",
+        "datasetName": "Eye on Methane / MARS detected sources and plumes",
+        "datasetProvider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "datasetSnapshotId": "unep-mars-675417694883",
+        "datasetArchiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "datasetRetrievedAt": "2026-10-14T06:10:12+00:00",
+        "datasetCatalogUrl": "https://methanedata.unep.org/download-dataset",
+        "datasetLicense": "CC BY-NC-SA 4.0",
+    }
+    assert DEFAULT_BENCHMARK.name == "mars_claim_benchmark.jsonl"
+    canonical_report = DEFAULT_BENCHMARK.parent.parent / "reports" / "baseline-evaluation.json"
+    assert canonical_report.read_text(encoding="utf-8") == json.dumps(report, indent=2) + "\n"
     assert report["sampleSize"] == 15
     assert report["realExampleCount"] == 9
     assert report["syntheticExampleCount"] == 6

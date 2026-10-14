@@ -13,6 +13,11 @@ type EarthRenderingApi = {
   getEarthSky?: (look: 'natural' | 'cinematic', tier: RenderTier, globe: boolean) => Record<string, unknown>;
   getStableEarthLight?: () => { anchor: string; position: [number, number, number]; color: string; intensity: number };
   getNightSideOpacity?: (tier: RenderTier) => number;
+  getSatelliteImageryOpacity?: (zoom: number) => { overview: number; detail: number };
+  DEFAULT_NIGHT_SHADING?: boolean;
+  NASA_BLUE_MARBLE_TILE_TEMPLATE?: string;
+  NASA_BLUE_MARBLE_TILE_MAX_ZOOM?: number;
+  NASA_BLUE_MARBLE_LAYER_MAX_ZOOM?: number;
   shouldEnableTerrain?: (preference: TerrainPreference, tier: RenderTier, zoom: number, projection: MapProjection) => boolean;
   getMapterhornTerrainSource?: () => { encoding: string; url: string };
   solarSubpoint?: (date: Date) => { latitude: number; longitude: number };
@@ -54,9 +59,31 @@ test('Earth look adds tier-aware atmospheric scattering and UTC night shading at
   expect(cinematic['sky-color']).not.toBe(natural['sky-color']);
   expect(cinematicHigh['atmosphere-blend']).toEqual(['interpolate', ['linear'], ['zoom'], 0, 0.98, 1.5, 1, 3, 0.96, 5, 0.66, 7, 0]);
   expect(earth.getStableEarthLight()).toEqual({ anchor: 'map', position: [1.4, 225, 68], color: '#f2f6fb', intensity: 0.27 });
-  expect(earth.getNightSideOpacity('high')).toBe(0.5);
-  expect(earth.getNightSideOpacity('medium')).toBe(0.44);
-  expect(earth.getNightSideOpacity('low')).toBe(0.36);
+  expect(earth.getNightSideOpacity('high')).toBe(0.2);
+  expect(earth.getNightSideOpacity('medium')).toBe(0.16);
+  expect(earth.getNightSideOpacity('low')).toBe(0.12);
+});
+
+test('NASA overview tint fades over a fully opaque Esri base across zoom', () => {
+  expect(typeof earth.getSatelliteImageryOpacity).toBe('function');
+  if (!earth.getSatelliteImageryOpacity) return;
+
+  expect(earth.getSatelliteImageryOpacity(0)).toEqual({ overview: 0.28, detail: 1 });
+  expect(earth.getSatelliteImageryOpacity(2)).toEqual({ overview: 0.28, detail: 1 });
+  expect(earth.getSatelliteImageryOpacity(3)).toEqual({ overview: 0.14, detail: 1 });
+  expect(earth.getSatelliteImageryOpacity(4)).toEqual({ overview: 0, detail: 1 });
+  expect(earth.getSatelliteImageryOpacity(6)).toEqual({ overview: 0, detail: 1 });
+  expect(earth.getSatelliteImageryOpacity(Number.NaN)).toEqual({ overview: 0.28, detail: 1 });
+  expect(earth.NASA_BLUE_MARBLE_TILE_TEMPLATE).toBe('https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_NextGeneration/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg');
+  expect(earth.NASA_BLUE_MARBLE_TILE_MAX_ZOOM).toBe(8);
+  expect(earth.NASA_BLUE_MARBLE_LAYER_MAX_ZOOM).toBe(4);
+});
+
+test('Night shading is opt-in and remains subtle when selected', () => {
+  expect(earth.DEFAULT_NIGHT_SHADING).toBe(false);
+  expect(earth.getNightSideOpacity?.('high')).toBeLessThanOrEqual(0.2);
+  expect(earth.getNightSideOpacity?.('medium')).toBeLessThanOrEqual(0.16);
+  expect(earth.getNightSideOpacity?.('low')).toBeLessThanOrEqual(0.12);
 });
 
 test('automatic rendering degrades gradually after measured slow movement frames', () => {
@@ -77,6 +104,24 @@ test('Terrain waits for a close view and decodes Mapterhorn Terrarium elevation 
   expect(earth.shouldEnableTerrain('on', 'low', 12, 'globe')).toBe(false);
   expect(earth.shouldEnableTerrain('off', 'high', 12, 'flat')).toBe(false);
   expect(earth.getMapterhornTerrainSource()).toMatchObject({ encoding: 'terrarium', url: 'https://tiles.mapterhorn.com/tilejson.json' });
+});
+
+test('terrain and hillshade use separate DEM sources with map-anchored stable illumination', () => {
+  expect(typeof earth.getMapterhornHillshadeSource).toBe('function');
+  expect(typeof earth.getStableHillshadePaint).toBe('function');
+  if (!earth.getMapterhornHillshadeSource || !earth.getStableHillshadePaint || !earth.getMapterhornTerrainSource) return;
+
+  const terrainSource = earth.getMapterhornTerrainSource();
+  const hillshadeSource = earth.getMapterhornHillshadeSource();
+  expect(hillshadeSource).not.toBe(terrainSource);
+  expect(hillshadeSource).toMatchObject({ type: 'raster-dem', encoding: 'terrarium', url: terrainSource.url });
+  expect(earth.getStableHillshadePaint()).toEqual({
+    'hillshade-illumination-anchor': 'map',
+    'hillshade-illumination-direction': 225,
+    'hillshade-exaggeration': 0.1,
+    'hillshade-shadow-color': '#102431',
+    'hillshade-highlight-color': '#d5d2c5',
+  });
 });
 
 test('Solar shading follows UTC and produces a closed polygon within geographic bounds', () => {

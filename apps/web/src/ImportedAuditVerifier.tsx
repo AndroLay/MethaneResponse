@@ -4,9 +4,9 @@ import { verifyImportedAuditReport, type ImportedAuditVerification } from './imp
 const MAX_REPORT_BYTES = 5 * 1024 * 1024;
 
 function receiptLabel(status: ImportedAuditVerification['receipt']): string {
-  if (status === 'not_present') return 'Tidak ada receipt blockchain pada file ini.';
-  if (status === 'metadata_matches_event_unverified') return 'Metadata receipt konsisten; transaksi dan event blockchain belum diverifikasi dari browser ini.';
-  return 'Metadata receipt tidak lengkap atau tidak cocok dengan hash transaksi.';
+  if (status === 'not_present') return 'No blockchain receipt is included in this file.';
+  if (status === 'metadata_matches_event_unverified') return 'Receipt metadata is consistent, but this browser has not verified the transaction or blockchain event.';
+  return 'Receipt metadata is incomplete or does not match the transaction hash.';
 }
 
 export default function ImportedAuditVerifier() {
@@ -21,7 +21,7 @@ export default function ImportedAuditVerifier() {
     setFileError(null);
     if (!file) return;
     if (file.size > MAX_REPORT_BYTES) {
-      setFileError('Ukuran berkas melewati batas 5 MiB.');
+      setFileError('The report exceeds the 5 MiB limit. Choose a smaller file.');
       return;
     }
 
@@ -30,7 +30,7 @@ export default function ImportedAuditVerifier() {
       const parsed: unknown = JSON.parse(await file.text());
       setVerification(await verifyImportedAuditReport(parsed));
     } catch {
-      setFileError('Berkas bukan JSON yang dapat dibaca.');
+      setFileError('This file could not be read or verified. Choose a valid exported JSON report.');
     } finally {
       setChecking(false);
     }
@@ -39,42 +39,44 @@ export default function ImportedAuditVerifier() {
   return <section className="panel imported-audit-verifier" aria-labelledby="imported-audit-title">
     <div className="panel-head">
       <div>
-        <div className="panel-title" id="imported-audit-title">Verifikasi berkas laporan</div>
-        <div className="panel-subtitle">Periksa bundle audit JSON langsung di browser ini</div>
+        <div className="panel-title" id="imported-audit-title">Verify an exported report</div>
+        <div className="panel-subtitle">Check an audit JSON file in this browser</div>
       </div>
     </div>
-    <p className="imported-audit-intro">Pilih laporan yang diunduh untuk menghitung ulang SHA-256 bundle dan mencocokkan ringkasan audit. Isi berkas diproses lokal dan tidak diunggah.</p>
+    <p className="imported-audit-intro">Choose an exported report to recompute the audit bundle’s SHA-256 digest and check it against the report summary. File contents are processed locally and are not uploaded.</p>
     <label className="imported-audit-file">
-      <span>Pilih berkas laporan JSON</span>
-      <input type="file" accept=".json,application/json" aria-label="Pilih berkas laporan JSON" onChange={event => void checkFile(event)}/>
-      <small>Batas ukuran 5 MiB</small>
+      <span>Choose a JSON audit report</span>
+      <input type="file" accept=".json,application/json" aria-label="Choose a JSON audit report" onChange={event => void checkFile(event)}/>
+      <small>Maximum file size: 5 MiB.</small>
     </label>
-    {checking && <p className="imported-audit-state" role="status">Menghitung dan memeriksa digest…</p>}
+    {checking && <p className="imported-audit-state" role="status">Checking the audit digest…</p>}
     {fileError && <p className="imported-audit-state imported-audit-error" role="alert">{fileError}</p>}
     {verification?.localDigest === 'valid' && <div className="imported-audit-result imported-audit-valid" role="status">
-      <strong>Digest SHA-256 bundle audit cocok.</strong>
+      <strong>Audit bundle SHA-256 digest matches.</strong>
       <dl>
-        <div><dt>Sumber</dt><dd>{verification.sourceId}</dd></div>
-        <div><dt>Revisi</dt><dd>{verification.revision}</dd></div>
-        <div><dt>Klaim</dt><dd>{verification.claimType?.replaceAll('_', ' ')}</dd></div>
-        <div><dt>Hasil</dt><dd>{verification.result?.replaceAll('_', ' ')}</dd></div>
+        <div><dt>Source</dt><dd>{verification.sourceId}</dd></div>
+        <div><dt>Revision</dt><dd>{verification.revision}</dd></div>
+        <div><dt>Claim</dt><dd>{verification.claimType?.replaceAll('_', ' ')}</dd></div>
+        <div><dt>Result</dt><dd>{verification.result?.replaceAll('_', ' ')}</dd></div>
+        {verification.historicalObservationCount !== undefined && <div><dt>Historical observations · context only</dt><dd>{verification.historicalObservationCount}</dd></div>}
         {verification.reviewStatus && <div><dt>Review</dt><dd>{verification.reviewStatus.replaceAll('_', ' ')}</dd></div>}
         <div className="imported-audit-hash"><dt>SHA-256</dt><dd>{verification.bundleHash}</dd></div>
       </dl>
-      {verification.synthetic && <p className="imported-audit-caution"><strong>DEMO sintesis</strong> · audit ini bukan kasus MARS atau bukti mitigasi nyata.</p>}
+      {verification.synthetic && <p className="imported-audit-caution"><strong>Synthetic DEMO</strong> · This report is not a real MARS case or evidence of mitigation.</p>}
       <p>{receiptLabel(verification.receipt)}</p>
-      {verification.exportContext === 'not_in_audit_hash' && <p className="imported-audit-caution">Field pembungkus ekspor—misalnya metadata dataset dan daftar observasi di luar bundle—tidak tercakup oleh digest audit ini.</p>}
-      {verification.exportContext === 'manifest_valid' && <p className="imported-audit-caution">Checksum ekspor SHA-256 cocok untuk konteks dataset dan observasi. Checksum ini tidak ditandatangani atau ditambatkan ke blockchain.</p>}
-      {verification.exportContext === 'manifest_unavailable' && <p className="imported-audit-caution">Bundle audit dapat diperiksa, tetapi Web Crypto tidak tersedia untuk memeriksa checksum konteks ekspor.</p>}
-      <p className="imported-audit-limit">Digest membuktikan integritas isi bundle terhadap hash tersimpan. Itu tidak membuktikan keaslian dokumen, mitigasi fisik, atau pengurangan emisi.</p>
-      {verification.receipt === 'metadata_matches_event_unverified' && <p className="imported-audit-limit">Untuk memeriksa event dan issuer di Sepolia, gunakan verifier CLI dengan RPC baca-saja dan alamat registry yang sesuai.</p>}
+      {verification.exportContext === 'not_in_audit_hash' && <p className="imported-audit-caution">Export wrapper fields—such as dataset metadata and observations outside the audit bundle—are not covered by the audit digest.</p>}
+      {verification.exportContext === 'manifest_valid' && <p className="imported-audit-caution">The export SHA-256 checksum matches the dataset and observation context. This checksum is not signed or anchored to a blockchain.</p>}
+      {verification.historicalObservationCount !== undefined && <p className="imported-audit-caution">Historical observations provide source context, not citations supporting a mitigation claim. The audit bundle digest does not cover this context list.</p>}
+      {verification.exportContext === 'manifest_unavailable' && <p className="imported-audit-caution">The audit bundle is verifiable, but Web Crypto is unavailable to check the export context checksum.</p>}
+      <p className="imported-audit-limit">This digest verifies the audit bundle against its stored hash. It does not verify document authenticity, physical mitigation, or emissions reductions.</p>
+      {verification.receipt === 'metadata_matches_event_unverified' && <p className="imported-audit-limit">To verify the event and issuer on Sepolia, use the verifier CLI with a read-only RPC URL and the matching registry address.</p>}
     </div>}
     {verification?.localDigest === 'invalid' && <div className="imported-audit-result imported-audit-error" role="alert">
-      <strong>Verifikasi bundle gagal.</strong>
-      <p>{verification.message || 'Digest bundle atau metadata audit tidak cocok.'}</p>
+      <strong>Audit bundle verification failed.</strong>
+      <p>{verification.message || 'The bundle digest or audit metadata does not match the report.'}</p>
     </div>}
     {verification?.localDigest === 'unavailable' && <div className="imported-audit-result imported-audit-caution" role="status">
-      <strong>SHA-256 tidak tersedia di browser ini.</strong>
+      <strong>SHA-256 verification is unavailable in this browser.</strong>
       <p>{verification.message}</p>
     </div>}
   </section>;

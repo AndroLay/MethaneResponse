@@ -14,7 +14,10 @@
       "linkedPlumes": 23770,
       "sourceIdMissingPlumes": 6519,
       "sourceRecordMissingPlumes": 0,
-      "observationDateRange": { "start": "2020-10-29", "end": "2026-09-10" }
+      "observationDateRange": {
+        "start": "2020-10-29",
+        "end": "2026-09-10"
+      }
     },
     {
       "snapshotId": "unep-mars-e0721015e925",
@@ -27,7 +30,93 @@
       "sourceIdMissingPlumes": 6534,
       "sourceRecordMissingPlumes": 0,
       "unquantifiedPlumes": 1043,
-      "observationDateRange": { "start": "2020-10-29", "end": "2026-09-11" }
+      "observationDateRange": {
+        "start": "2020-10-29",
+        "end": "2026-09-11"
+      }
+    },
+    {
+      "snapshotId": "unep-mars-ccd8267c55ee",
+      "retrievedAt": "2026-10-13T21:14:04+00:00",
+      "archiveLastModifiedAt": "2026-10-13T02:59:48+00:00",
+      "archiveSha256": "ccd8267c55ee93304f7135059b3c23247a6d9442edf0fa32a4b97fae08042ab2",
+      "normalizedSnapshotSha256": "32a7be09b0013e0341157477b7dbee68a264f6188ea397bfbcdf957fb7f71bec",
+      "browserInputSha256": "895a4ce26240080c28315eff106806e7b40e37c6ba8f328f787637a0d19fc0e0",
+      "browserDecodedContentSha256": "5e0f658303e149dedbfd8cdab5facd5876062b0ff9c5957daea83be8122b5a0b",
+      "intelligenceSnapshotSha256": "15e7248a4efe480c057252fd0a396b305eaeeeb7510468cfe825796d774ab74d",
+      "sources": 4213,
+      "plumes": 30357,
+      "linkedPlumes": 23810,
+      "sourceIdMissingPlumes": 6547,
+      "sourceRecordMissingPlumes": 0,
+      "unquantifiedPlumes": 1050,
+      "observationDateRange": {
+        "start": "2020-10-29",
+        "end": "2026-09-12"
+      },
+      "geometryArchiveSha256": "978464740cc903433b104e9f65dd7bd56838e7839dca0fa2605aeb34bbd40095",
+      "geometryArchiveLastModifiedAt": "2026-10-13T02:59:49+00:00",
+      "geometryRetrievedAt": "2026-10-13T21:17:01+00:00",
+      "geometryFeatureCount": 29150,
+      "geometryWithoutGeometryCount": 1207
+    },
+    {
+      "snapshotId": "unep-mars-675417694883",
+      "retrievedAt": "2026-10-14T06:10:12+00:00",
+      "archiveLastModifiedAt": "2026-10-14T03:04:38+00:00",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "archiveByteLength": 10795938,
+      "archiveEtag": "0x8DF299FE24DC1F8",
+      "archiveContentMd5Base64": "qpQF/ugHPKCoPv7MFuh38A==",
+      "normalizedSnapshotSha256": "1f45789b123d244c15b062cbe419120ccd017f39735ce2de5d69ed7abdb1cfca",
+      "browserInputSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "browserDecodedContentSha256": "cb81f3fa991e00abb45f63b2e143251c3468556a41573d5fdc7f08db532eba70",
+      "progressiveCatalogSha256": "7ab9e4c3d2bec09b1710646f6d68cb5786e187839080b5c1fdd3a94a5ecd79fc",
+      "progressiveCatalogDecodedSha256": "38cbee9ded085500027184f4114ba04f041fcc64c7543ed6dcd99946d224a0c3",
+      "intelligenceSnapshotSha256": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+      "intelligenceInputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "prospectiveRecurrenceLedgerVersion": 6,
+      "prospectiveRecurrenceLedgerSha256": "f6038d156bfa408af568cf76df449c864069f454995edef5fb9ec2d262d825ff",
+      "prospectiveRecurrencePredictionsSha256": "696aa3af6dc8ce9b235ec454853b72253eed0820e3bc469b4660d760b95cbb7b",
+      "sources": 4218,
+      "plumes": 30414,
+      "linkedPlumes": 23861,
+      "sourceIdMissingPlumes": 6553,
+      "sourceRecordMissingPlumes": 0,
+      "unquantifiedPlumes": 1051,
+      "observationDateRange": {
+        "start": "2020-10-29",
+        "end": "2026-09-13"
+      },
+      "changesFromPreviousSnapshot": {
+        "previousSnapshotId": "unep-mars-ccd8267c55ee",
+        "addedSourceIds": [
+          "IRQ_S_091",
+          "IRQ_S_094",
+          "KWT_S_054",
+          "LBY_S_161",
+          "TKM_S_560"
+        ],
+        "removedSourceIds": [],
+        "addedPlumeCount": 57,
+        "removedPlumeCount": 0,
+        "changedExistingSourceRowCount": 85,
+        "changedExistingPlumeIds": [
+          "cdd76950-14dc-4827-8e6e-957c57a3c2b2"
+        ]
+      },
+      "geometryArchiveSha256": "42315a8803a51e0daf880b95f0723c6d54ec0fd7c1f4600c0ca5e07838f7c26c",
+      "geometryArchiveByteLength": 55446778,
+      "geometryArchiveEtag": "0x8DF299FE29EBB2C",
+      "geometryArchiveContentMd5Base64": "R/3XbiPLmcy32d7fGmOfsA==",
+      "geometryArchiveLastModifiedAt": "2026-10-14T03:04:38+00:00",
+      "geometryRetrievedAt": "2026-10-14T06:10:12+00:00",
+      "geometryIndexSha256": "1316e00636ccf2f6915e0987ec4f592292e2d7a83a4beb21920dd0e62470e13d",
+      "geometryFeatureCount": 29207,
+      "geometryWithoutGeometryCount": 1207,
+      "geometryMonthCount": 66,
+      "casebookSha256": "5010594d9de903ae38904e05e2a137c8701c4ded9fcc3ef433d322ec860dda94",
+      "caseSelectionSha256": "77ec68cfd9e0302a755d36d38fa0d942abe3d2004221bcddf366e0f92f42e15f"
     }
   ]
 }

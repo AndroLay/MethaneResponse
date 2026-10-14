@@ -153,7 +153,15 @@ export type EvidenceBundle = {
     review?: { reviewerId: string; reviewedAt: string; note: string; parentBundleHash: string; sourceInspected?: boolean };
     citationPublication?: { status: 'private' | 'public'; authorConsent: boolean; publishedAt?: string };
     generatedFromUserExcerpts: true;
-    documentDigests: { id: string; title: string; sha256: string; sourceUrl?: string }[];
+    documentDigests: {
+      id: string;
+      title: string;
+      sha256: string;
+      sourceUrl?: string;
+      originalFileSha256?: string;
+      rightsDeclared?: 'owned' | 'explicit_permission';
+      selectedPages?: { page: number; textSha256: string }[];
+    }[];
     quotations: { documentId: string; quote: string; quoteSha256: string }[];
     limitations: string[];
     investigationSnapshotSha256?: string;

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "recordedDate": "2026-10-14",
+  "environment": {
+    "browser": "HeadlessChrome/153.0.0.0",
+    "platform": "Linux x86_64",
+    "devicePixelRatio": 1,
+    "renderTier": "AUTO low (software-WebGL environment)",
+    "appServer": "Vite development server",
+    "apiStorage": "isolated file store under /tmp",
+    "route": "/dashboard/map?sourceId=KAZ_S_159"
+  },
+  "readinessDefinition": "Elapsed wall time from navigation start until MapLibre status leaves 'Loading basemap' and displays the 4,213 source count.",
+  "sampleMethod": "Five fresh headless Chromium contexts per viewport. Resource timing and buffered long-task entries read one second after map readiness.",
+  "desktop": {
+    "viewport": { "width": 1280, "height": 800 },
+    "mapCanvasCssPixels": { "width": 660, "height": 534 },
+    "medianReadyMs": 1069,
+    "resourceCount": 63,
+    "transferBytesMedian": 5961117,
+    "decodedBytes": 8742331,
+    "horizontalOverflow": false,
+    "runs": [
+      { "readyMs": 1098, "transferBytes": 5961484, "longTaskCount": 16, "longestLongTaskMs": 294 },
+      { "readyMs": 1069, "transferBytes": 5961117, "longTaskCount": 8, "longestLongTaskMs": 284 },
+      { "readyMs": 1072, "transferBytes": 5961117, "longTaskCount": 8, "longestLongTaskMs": 273 },
+      { "readyMs": 1013, "transferBytes": 5961117, "longTaskCount": 9, "longestLongTaskMs": 305 },
+      { "readyMs": 1053, "transferBytes": 5961117, "longTaskCount": 8, "longestLongTaskMs": 284 }
+    ]
+  },
+  "mobileViewportEmulation": {
+    "viewport": { "width": 390, "height": 844 },
+    "mapCanvasCssPixels": { "width": 338, "height": 438 },
+    "medianReadyMs": 1022,
+    "resourceCount": 57,
+    "transferBytesMedian": 5961117,
+    "decodedBytes": 8742331,
+    "horizontalOverflow": false,
+    "runs": [
+      { "readyMs": 1042, "transferBytes": 5961484, "longTaskCount": 8, "longestLongTaskMs": 283 },
+      { "readyMs": 1015, "transferBytes": 5961117, "longTaskCount": 7, "longestLongTaskMs": 257 },
+      { "readyMs": 1021, "transferBytes": 5961117, "longTaskCount": 7, "longestLongTaskMs": 374 },
+      { "readyMs": 1022, "transferBytes": 5961117, "longTaskCount": 6, "longestLongTaskMs": 356 },
+      { "readyMs": 1033, "transferBytes": 5961117, "longTaskCount": 7, "longestLongTaskMs": 271 }
+    ]
+  },
+  "fallbackReproduction": {
+    "blockedHost": "server.arcgisonline.com",
+    "beforeFix": "MARS source markers and selected-case details remained visible, but tile failure was not described.",
+    "afterFix": "An accessible non-blocking notice and Retry map button appear; selected source and coordinates remain available.",
+    "retryOutcome": "Retry reissued style/tile requests. The external imagery service continued failing for most high-zoom requests during this stress sequence, so recovery is unverified and the notice correctly remained visible.",
+    "screenshots": [
+      "/tmp/methane-imagery-blocked-before.png",
+      "/tmp/methane-imagery-blocked-after.png"
+    ]
+  },
+  "oneOffLongAnimationFrameDiagnostic": {
+    "viewport": { "width": 390, "height": 844 },
+    "mapReadyMs": 1843,
+    "longAnimationFrameCount": 6,
+    "maxFrameMs": 135,
+    "maxBlockingMs": 84,
+    "topScriptAttributionMs": {
+      "react-dom_client.js": 77.4,
+      "progressive-mars-loader.ts": 73.5,
+      "maplibre-gl.js": 64.5,
+      "main.tsx": 62.6
+    },
+    "interpretation": "Separate one-off diagnostic with different network conditions; Long Animation Frame entries are not interchangeable with the cold-run Long Task API samples. It does not establish hardware performance or justify reducing visual quality."
+  },
+  "limitations": [
+    "Viewport emulation is not a physical phone or GPU benchmark.",
+    "The development server is not the deployed production/CDN route.",
+    "Resource transfer depends on the selected source zoom, browser cache, connection, and third-party tile service.",
+    "Long tasks reached 374 ms and require device-representative profiling before making responsiveness claims.",
+    "One initial manifest request was aborted and a subsequent request returned HTTP 200 in the inspected baseline request trace."
+  ]
+}

@@ -1,11 +1,13 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { gzipSync } from 'node:zlib';
+import { gunzipSync, gzipSync } from 'node:zlib';
 import { expect, test } from 'bun:test';
 import {
   filterPlumeFootprints,
+  decoratePlumeFootprintsForMap,
   getFluxFootprintColor,
   geometrySnapshotMatches,
+  loadEvidencePlumeFootprint,
   loadMonthlyPlumeGeometry,
   PINNED_MARS_GEOMETRY_MANIFEST_SHA256,
   shouldLoadPlumeFootprints,
@@ -14,6 +16,7 @@ import {
   type PlumeGeometryManifest,
   type PlumeFootprintCollection,
 } from './plume-geometries';
+import { orderCasePublisherObservations } from './case-publisher-evidence';
 
 const sourceArchiveSha256 = 'a'.repeat(64);
 const geometryArchiveSha256 = 'b'.repeat(64);
@@ -70,6 +73,29 @@ test('flux footprint colors use exact reported kg/h intervals and neutralize mis
   expect(getFluxFootprintColor(5000)).toBe('#ed4b43');
 });
 
+test('map context distinguishes the selected source from other linked and source-unlinked plume shapes', () => {
+  const selected = footprint.features[0]!;
+  const otherLinked = {
+    ...selected,
+    id: 'plume-other-linked',
+    properties: { ...selected.properties, plumeId: 'plume-other-linked', sourceId: 'ARG_S_055' },
+  };
+  const sourceUnlinked = {
+    ...selected,
+    id: 'plume-source-unlinked',
+    properties: { ...selected.properties, plumeId: 'plume-source-unlinked', sourceId: null },
+  };
+  const input: PlumeFootprintCollection = { ...footprint, features: [selected, otherLinked, sourceUnlinked] };
+
+  const mapped = decoratePlumeFootprintsForMap(input, 'KAZ_S_159');
+
+  expect(mapped.features.map(feature => [feature.properties.mapSourceLinked, feature.properties.mapSourceSelected])).toEqual([
+    [1, 1], [1, 0], [0, 0],
+  ]);
+  expect(mapped.features[0]?.geometry).toBe(selected.geometry);
+  expect('mapSourceLinked' in input.features[0]!.properties).toBe(false);
+});
+
 test('geometry artifacts must match both the exact MARS snapshot ID and CSV archive hash', () => {
   expect(geometrySnapshotMatches(manifest, datasetId, sourceArchiveSha256)).toBe(true);
   expect(geometrySnapshotMatches(manifest, 'unep-mars-other', sourceArchiveSha256)).toBe(false);
@@ -86,13 +112,99 @@ test('tracked full-archive index and the latest real geometry month verify in th
     : new Response(latestShard);
   const loaded = await loadMonthlyPlumeGeometry({
     month: '2026-09',
-    expectedSnapshotId: 'unep-mars-e0721015e925',
-    expectedSourceArchiveSha256: 'e0721015e925c4d70012ca13e697f5638421bc7c2a42f7e3dce8edec6cee8481',
+    expectedSnapshotId: 'unep-mars-675417694883',
+    expectedSourceArchiveSha256: '675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43',
     fetchImpl,
   });
 
-  expect(loaded.collection.features).toHaveLength(326);
+  expect(loaded.collection.features).toHaveLength(408);
   expect(loaded.collection.features[0]?.properties.observedAt.slice(0, 7)).toBe('2026-09');
+});
+
+test('loads a real source-selected MARS footprint and checks it against the exact plume record', async () => {
+  const snapshotBytes = await readFile(new URL('../public/data/mars-snapshot.json.gz', import.meta.url));
+  const snapshot = JSON.parse(gunzipSync(snapshotBytes).toString('utf8')) as {
+    sources: Array<{ sourceId: string; observations: Array<{ id: string; date: string; lat?: number; lon?: number; fluxKgHr: number | null; uncertaintyKgHr?: number | null }> }>;
+  };
+  const source = snapshot.sources.find(item => item.sourceId === 'KAZ_S_159')!;
+  const observation = source.observations.at(-1)!;
+  const shardBytes = await readFile(new URL('../public/data/mars-plume-geometries/2026-07.geojson.gz', import.meta.url));
+  const indexBytes = await readFile(new URL('../public/data/mars-plume-geometries/index.json', import.meta.url));
+  const fetchImpl = async (input: RequestInfo | URL) => String(input).endsWith('/index.json')
+    ? new Response(indexBytes)
+    : new Response(shardBytes);
+
+  const options = {
+    month: observation.date.slice(0, 7), plumeId: observation.id, sourceId: source.sourceId,
+    observedAt: observation.date, latitude: observation.lat, longitude: observation.lon,
+    reportedFluxKgHr: observation.fluxKgHr, reportedUncertaintyKgHr: observation.uncertaintyKgHr ?? null,
+    expectedSnapshotId: 'unep-mars-675417694883',
+    expectedSourceArchiveSha256: '675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43',
+    fetchImpl,
+  };
+  const result = await loadEvidencePlumeFootprint(options);
+
+  expect(result?.properties).toMatchObject({
+    plumeId: observation.id, sourceId: 'KAZ_S_159', observedAt: observation.date,
+    latitude: observation.lat, longitude: observation.lon,
+    reportedFluxKgHr: observation.fluxKgHr, reportedUncertaintyKgHr: observation.uncertaintyKgHr,
+  });
+  await expect(loadEvidencePlumeFootprint({ ...options, reportedFluxKgHr: (observation.fluxKgHr || 0) + 1 }))
+    .rejects.toThrow('does not match the selected MARS observation record');
+});
+
+test('the pinned MARS geometry archive covers every linked observation in every global source case', async () => {
+  const dataRoot = new URL('../public/data/', import.meta.url);
+  const snapshotCompressed = await readFile(new URL('mars-snapshot.json.gz', dataRoot));
+  const snapshot = JSON.parse(gunzipSync(snapshotCompressed).toString('utf8')) as {
+    snapshotId: string; provenance?: { archiveSha256?: string };
+    sources: Array<{ sourceId: string; observations: Array<{ id: string; date: string; fluxKgHr: number | null; uncertaintyKgHr?: number | null }> }>;
+  };
+  const indexBytes = await readFile(new URL('mars-plume-geometries/index.json', dataRoot));
+  expect(createHash('sha256').update(indexBytes).digest('hex')).toBe(PINNED_MARS_GEOMETRY_MANIFEST_SHA256);
+  const index = JSON.parse(indexBytes.toString('utf8')) as PlumeGeometryManifest;
+  expect(geometrySnapshotMatches(index, snapshot.snapshotId, snapshot.provenance?.archiveSha256 || '')).toBe(true);
+
+  const shapeIds = new Set<string>();
+  const shapeSources = new Set<string>();
+  for (const [month, entry] of Object.entries(index.months)) {
+    if (!entry.file) {
+      expect(entry.featureCount).toBe(0);
+      continue;
+    }
+    const compressedMonth = await readFile(new URL(`mars-plume-geometries/${entry.file}`, dataRoot));
+    expect(createHash('sha256').update(compressedMonth).digest('hex')).toBe(entry.sha256);
+    const shard = JSON.parse(gunzipSync(compressedMonth).toString('utf8')) as PlumeFootprintCollection;
+    expect(shard.features).toHaveLength(entry.featureCount);
+    for (const feature of shard.features) {
+      expect(feature.properties.observedAt.slice(0, 7)).toBe(month);
+      expect(shapeIds.has(feature.properties.plumeId)).toBe(false);
+      shapeIds.add(feature.properties.plumeId);
+      if (feature.properties.sourceId) shapeSources.add(feature.properties.sourceId);
+    }
+  }
+
+  const linked = snapshot.sources.flatMap(source => source.observations.map(observation => observation.id));
+  expect(snapshot.sources).toHaveLength(4218);
+  expect(linked).toHaveLength(23861);
+  expect(snapshot.sources.every(source => source.observations.some(observation => shapeIds.has(observation.id)))).toBe(true);
+  expect(snapshot.sources.every(source => {
+    const latest = orderCasePublisherObservations(source.observations)[0];
+    return latest !== undefined && shapeIds.has(latest.id);
+  })).toBe(true);
+  expect(linked.every(id => shapeIds.has(id))).toBe(true);
+  expect(shapeSources.size).toBeGreaterThanOrEqual(snapshot.sources.length);
+});
+
+test('reports a publisher record without geometry as missing instead of creating a footprint', async () => {
+  const feature = await loadEvidencePlumeFootprint({
+    month: '2025-11', plumeId: 'plume-no-shape', sourceId: 'KAZ_S_159', observedAt: '2025-11-02T12:00:00Z',
+    reportedFluxKgHr: null, reportedUncertaintyKgHr: null,
+    expectedSnapshotId: datasetId, expectedSourceArchiveSha256: sourceArchiveSha256,
+    expectedManifestSha256: fixtureManifestSha256,
+    fetchImpl: createFetcher(),
+  });
+  expect(feature).toBeNull();
 });
 
 test('publisher geometry shards stay unloaded on the adaptive low-power rendering tier', () => {

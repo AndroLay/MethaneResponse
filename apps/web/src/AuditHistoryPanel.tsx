@@ -8,15 +8,19 @@ type AuditHistoryPanelProps = {
   selectedAuditId?: string;
   isLoading: boolean;
   isError: boolean;
+  isFetchingMore: boolean;
+  hasMore: boolean;
+  isFetchingMoreError: boolean;
   errorMessage?: string;
   privateHistoryEnabled: boolean;
   onOpen: (audit: AuditResult) => void;
   onRefresh: () => void;
+  onLoadMore: () => void;
   onUnlockPrivate: (token: string) => void;
   onLockPrivate: () => void;
 };
 
-export default function AuditHistoryPanel({ sourceId, audits, selectedAuditId, isLoading, isError, errorMessage, privateHistoryEnabled, onOpen, onRefresh, onUnlockPrivate, onLockPrivate }: AuditHistoryPanelProps) {
+export default function AuditHistoryPanel({ sourceId, audits, selectedAuditId, isLoading, isError, isFetchingMore, hasMore, isFetchingMoreError, errorMessage, privateHistoryEnabled, onOpen, onRefresh, onLoadMore, onUnlockPrivate, onLockPrivate }: AuditHistoryPanelProps) {
   const [accessToken, setAccessToken] = useState('');
   const orderedAudits = sortAuditHistory(audits);
 
@@ -24,7 +28,7 @@ export default function AuditHistoryPanel({ sourceId, audits, selectedAuditId, i
     <div className="panel-head">
       <div>
         <div className="panel-title" id="audit-history-title">Saved audit history</div>
-        <div className="panel-subtitle">{privateHistoryEnabled ? 'Private session history' : 'Publicly readable history'} for {sourceId} · {audits.length} visible</div>
+        <div className="panel-subtitle">{privateHistoryEnabled ? 'Private session history' : 'Publicly readable history'} for {sourceId} · {audits.length} loaded</div>
       </div>
       <div className="panel-action">
         <button className="outline-btn" type="button" onClick={onRefresh} disabled={isLoading}>{isLoading ? 'Loading…' : 'Refresh history'}</button>
@@ -37,9 +41,9 @@ export default function AuditHistoryPanel({ sourceId, audits, selectedAuditId, i
       ? <p className="audit-history-disclaimer">Private v3 drafts, quotations, and reviewer notes are visible with this shared service token. The token remains in this page's memory only; it is not saved in the URL or browser storage. Lock the history when finished.</p>
       : <p className="audit-history-disclaimer">Public history includes legacy baseline reports and v3 reports only after human approval plus separate submitter and reviewer publication consent. Unpublished AI drafts stay hidden.</p>}
     {isLoading && <p className="audit-history-state" role="status">Loading saved audit revisions…</p>}
-    {isError && <div className="audit-history-state" role="alert"><span>{errorMessage || 'Audit history could not be loaded. Check the API connection and try again.'}</span><button className="outline-btn" type="button" onClick={onRefresh}>Retry</button></div>}
+    {isError && orderedAudits.length === 0 && <div className="audit-history-state" role="alert"><span>{errorMessage || 'Audit history could not be loaded. Check the API connection and try again.'}</span><button className="outline-btn" type="button" onClick={onRefresh}>Retry</button></div>}
     {!isLoading && !isError && orderedAudits.length === 0 && <p className="audit-history-state">{privateHistoryEnabled ? 'No private audit revisions are saved for this source.' : 'No public audit revisions are available for this source. Private drafts may remain hidden until an authorized reviewer opens them.'}</p>}
-    {!isLoading && !isError && orderedAudits.length > 0 && <ol className="audit-history-list">
+    {orderedAudits.length > 0 && <ol className="audit-history-list">
       {orderedAudits.map(audit => {
         const snapshotId = audit.bundle.intelligence?.datasetSnapshotId || audit.bundle.provenance?.snapshotId;
         const generatedAt = new Date(audit.generatedAt);
@@ -54,6 +58,8 @@ export default function AuditHistoryPanel({ sourceId, audits, selectedAuditId, i
         </li>;
       })}
     </ol>}
+    {isFetchingMoreError && <div className="audit-history-state" role="alert">Older revisions could not be loaded. <button className="outline-btn" type="button" onClick={onLoadMore}>Retry</button></div>}
+    {hasMore && <div className="case-pagination"><button className="outline-btn" type="button" onClick={onLoadMore} disabled={isFetchingMore}>{isFetchingMore ? 'Loading older revisions…' : 'Load older revisions'}</button></div>}
     <p className="audit-history-disclaimer">Opening a revision restores its saved report and citations. An assessment or hash does not prove physical methane mitigation; a chain receipt verifies digest integrity and chronology only.</p>
   </section>;
 }

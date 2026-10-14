@@ -1,0 +1,17 @@
+{
+  "baselineSnapshotId": "unep-mars-ccd8267c55ee",
+  "evaluationCodeSha256": "43538d2ef5c8b04c0b1d78fc61524384fbda1bd2c9ae1d8403c61622ada9fd09",
+  "followupInputSnapshotSha256": "895a4ce26240080c28315eff106806e7b40e37c6ba8f328f787637a0d19fc0e0",
+  "followupSnapshotId": "unep-mars-ccd8267c55ee",
+  "kind": "prospective_mars_record_recurrence_evaluation",
+  "labeledSourceCount": 0,
+  "limitations": [
+    "An unavailable evaluation does not label unobserved sources as negative and makes no claim about methane absence."
+  ],
+  "outcomes": [],
+  "reason": "A distinct later publisher snapshot is required for prospective evaluation.",
+  "schemaVersion": 1,
+  "status": "not_available",
+  "target": "at_least_one_future_linked_mars_detection_record",
+  "unknownSourceCount": 0
+}

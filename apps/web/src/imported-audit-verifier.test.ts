@@ -1,9 +1,11 @@
 import { expect, test } from 'bun:test';
+import { createHash } from 'node:crypto';
 import { DEMO_SOURCES } from '@methane/shared';
 import { createAudit } from '../../api/src/audit';
 import { createDocumentAudit, createReviewedAudit, DocumentAssessmentInput } from '../../api/src/ai-review';
 import { loadCasebook, sourceFromCase } from '../../api/src/casebook';
 import { verifyImportedAuditReport } from './imported-audit-verifier';
+import { canonicalJson } from './report-export';
 
 function makeAudit() {
   const source = DEMO_SOURCES[0];
@@ -32,6 +34,7 @@ test('verifies the current v3 human-reviewed report revision without claiming ch
       id: 'test-excerpt',
       title: 'Test-only excerpt',
       text: 'An operator log says a valve was repaired. No independent follow-up methane measurement is included in this test excerpt.',
+      rightsDeclared: 'owned',
     }],
   });
   const draft = createDocumentAudit(input, source, {
@@ -49,6 +52,35 @@ test('verifies the current v3 human-reviewed report revision without claiming ch
   expect(result).toMatchObject({
     localDigest: 'valid', revision: 2, sourceId: source.sourceId,
     result: 'insufficient_evidence', reviewStatus: 'needs_more_evidence', receipt: 'not_present',
+  });
+});
+
+test('verifies a historical v3 report whose document digest predates the rights declaration field', async () => {
+  const book = await loadCasebook();
+  const sourceCase = book.cases[0]!;
+  const source = sourceFromCase(sourceCase, book.provenance.catalogUrl, book.provenance);
+  const input = DocumentAssessmentInput.parse({
+    sourceId: source.sourceId,
+    claimType: 'mitigation_confirmed',
+    consentToExternalProcessing: true,
+    documents: [{
+      id: 'legacy-test-excerpt',
+      title: 'Legacy test excerpt',
+      text: 'A historical excerpt is included to ensure old v3 audit bundles remain verifiable after the request schema gains rights declarations.',
+      rightsDeclared: 'owned',
+    }],
+  });
+  const legacy = createDocumentAudit(input, source, {
+    verdict: 'insufficient_evidence',
+    reason: 'The historical excerpt does not establish physical mitigation.',
+    citations: [],
+  }, 1, { caseId: sourceCase.caseId, externalEvidence: [], provenance: book.provenance });
+
+  for (const document of legacy.bundle.intelligence!.documentDigests) delete document.rightsDeclared;
+  legacy.bundleHash = `0x${createHash('sha256').update(canonicalJson(legacy.bundle)).digest('hex')}` as `0x${string}`;
+
+  expect(await verifyImportedAuditReport(legacy)).toMatchObject({
+    localDigest: 'valid', revision: 1, sourceId: source.sourceId, result: 'insufficient_evidence',
   });
 });
 

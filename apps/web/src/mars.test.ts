@@ -4,25 +4,25 @@ import { filterObservationsToArchiveWindow, getMarsDashboardSummary, mergeCurate
 describe('MARS GeoJSON importer', () => {
   it('anchors relative observation windows to the pinned archive date, not the wall clock', () => {
     const observations = [
-      { id: 'outside-30d', date: '2026-08-11', fluxKgHr: 900 },
-      { id: 'inside-30d', date: '2026-08-13', fluxKgHr: null },
-      { id: 'archive-end', date: '2026-09-11T18:40:00Z', fluxKgHr: 1200 },
-      { id: 'after-archive', date: '2026-09-12', fluxKgHr: 3000 },
+      { id: 'outside-30d', date: '2026-08-13', fluxKgHr: 900 },
+      { id: 'inside-30d', date: '2026-08-15', fluxKgHr: null },
+      { id: 'archive-end', date: '2026-09-13T18:40:00Z', fluxKgHr: 1200 },
+      { id: 'after-archive', date: '2026-09-14', fluxKgHr: 3000 },
     ];
 
-    expect(filterObservationsToArchiveWindow(observations, '30 days', '2026-09-11')).toEqual([
+    expect(filterObservationsToArchiveWindow(observations, '30 days', '2026-09-13')).toEqual([
       observations[1], observations[2],
     ]);
-    expect(filterObservationsToArchiveWindow(observations, '1 year', '2026-09-11')).toEqual([
+    expect(filterObservationsToArchiveWindow(observations, '1 year', '2026-09-13')).toEqual([
       observations[0], observations[1], observations[2],
     ]);
-    expect(filterObservationsToArchiveWindow(observations, 'All observations', '2026-09-11')).toBe(observations);
+    expect(filterObservationsToArchiveWindow(observations, 'All observations', '2026-09-13')).toBe(observations);
   });
 
   it('uses the latest valid observation when archive metadata has no end date', () => {
     const observations = [
       { id: 'old', date: '2024-01-01', fluxKgHr: 800 },
-      { id: 'latest', date: '2026-09-11', fluxKgHr: null },
+      { id: 'latest', date: '2026-09-13', fluxKgHr: null },
       { id: 'invalid', date: 'not-a-date', fluxKgHr: 500 },
     ];
 
@@ -145,20 +145,20 @@ describe('MARS GeoJSON importer', () => {
   it('loads every source and plume in the checked-in UNEP snapshot without inferring links', async () => {
     const compressed = await Bun.file(new URL('../public/data/mars-snapshot.json.gz', import.meta.url)).arrayBuffer();
     const parsed = await parseMarsGzip(compressed);
-    expect(parsed.snapshotId).toBe('unep-mars-e0721015e925');
-    expect(parsed.sources).toHaveLength(4211);
-    expect(parsed.plumeCount).toBe(30319);
-    expect(parsed.unlinkedObservations).toHaveLength(6534);
+    expect(parsed.snapshotId).toBe('unep-mars-675417694883');
+    expect(parsed.sources).toHaveLength(4218);
+    expect(parsed.plumeCount).toBe(30414);
+    expect(parsed.unlinkedObservations).toHaveLength(6553);
     expect(getMarsDashboardSummary(parsed.sources, parsed.unlinkedObservations)).toMatchObject({
-      sourceCount: 4211,
-      linkedObservationCount: 23785,
-      unlinkedObservationCount: 6534,
-      observationCount: 30319,
+      sourceCount: 4218,
+      linkedObservationCount: 23861,
+      unlinkedObservationCount: 6553,
+      observationCount: 30414,
     });
-    expect(parsed.plumeObservationDateRange).toEqual({ start: '2020-10-29', end: '2026-09-11' });
+    expect(parsed.plumeObservationDateRange).toEqual({ start: '2020-10-29', end: '2026-09-13' });
     expect(parsed.sources.find(source => source.sourceId === 'KAZ_S_159')?.observations?.length).toBeGreaterThan(0);
     const history = JSON.parse(await Bun.file(new URL('../public/data/mars-snapshot-history.json', import.meta.url)).text()) as {snapshots:Array<{snapshotId:string;archiveSha256:string}>};
-    expect(history.snapshots).toHaveLength(2);
-    expect(history.snapshots[1]).toMatchObject({ snapshotId: parsed.snapshotId, archiveSha256: parsed.provenance?.archiveSha256 });
+    expect(history.snapshots).toHaveLength(4);
+    expect(history.snapshots[history.snapshots.length - 1]).toMatchObject({ snapshotId: parsed.snapshotId, archiveSha256: parsed.provenance?.archiveSha256 });
   }, 30000);
 });

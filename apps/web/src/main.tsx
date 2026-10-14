@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import App from './App';
-import LandingPage from './LandingPage';
-import 'maplibre-gl/dist/maplibre-gl.css';
 import './styles.css';
 import './workspace.css';
+import './premium-redesign.css';
+import './asset-rights.css';
+
+const App = lazy(() => import('./App'));
+const LandingPage = lazy(() => import('./LandingPage'));
 
 function SiteRouter() {
   const [page, setPage] = useState(() => window.location.pathname.startsWith('/dashboard') ? 'dashboard' : 'landing');
@@ -19,7 +21,9 @@ function SiteRouter() {
     setPage(path === '/dashboard' ? 'dashboard' : 'landing');
     window.scrollTo({ top: 0, behavior: 'auto' });
   };
-  return page === 'dashboard' ? <App /> : <LandingPage onOpenDashboard={() => goTo('/dashboard')} />;
+  return <Suspense fallback={<main className="map-loading" role="status" aria-live="polite">Loading MethaneResponse…</main>}>
+    {page === 'dashboard' ? <App /> : <LandingPage onOpenDashboard={() => goTo('/dashboard')} />}
+  </Suspense>;
 }
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 30_000 } } });

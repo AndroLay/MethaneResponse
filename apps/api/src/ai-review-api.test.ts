@@ -12,6 +12,42 @@ import { canonicalJson } from './canonical';
 
 const excerpt = 'The independent inspection confirmed that a repair was completed. A later methane observation is still required to verify sustained mitigation.';
 
+test('AI assessment refuses excerpts without rights declaration before calling the provider', async () => {
+  const previous = {
+    ai: process.env.AI_REVIEW_TOKEN,
+    admin: process.env.ADMIN_API_TOKEN,
+    human: process.env.HUMAN_REVIEW_TOKEN,
+  };
+  const aiToken = 'rights-gate-ai-token-' + 'r'.repeat(40);
+  process.env.AI_REVIEW_TOKEN = aiToken;
+  delete process.env.ADMIN_API_TOKEN;
+  delete process.env.HUMAN_REVIEW_TOKEN;
+  let providerCalls = 0;
+  try {
+    const routed = createApp(new MemoryAuditStore(), undefined, {
+      aiConfigured: () => true,
+      requestModelAssessment: async () => {
+        providerCalls += 1;
+        return { verdict: 'insufficient_evidence', reason: 'No outcome evidence was provided.', citations: [] };
+      },
+    });
+    const response = await routed.request('/api/intelligence/assessments', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${aiToken}` },
+      body: JSON.stringify({
+        sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
+        documents: [{ id: 'manual-excerpt', title: 'Inspection note', text: excerpt }],
+      }),
+    });
+    expect(response.status).toBe(400);
+    expect(providerCalls).toBe(0);
+  } finally {
+    if (previous.ai === undefined) delete process.env.AI_REVIEW_TOKEN; else process.env.AI_REVIEW_TOKEN = previous.ai;
+    if (previous.admin === undefined) delete process.env.ADMIN_API_TOKEN; else process.env.ADMIN_API_TOKEN = previous.admin;
+    if (previous.human === undefined) delete process.env.HUMAN_REVIEW_TOKEN; else process.env.HUMAN_REVIEW_TOKEN = previous.human;
+  }
+});
+
 test('AI assessment supports separate human decisions and immutable, verifiable report revisions', async () => {
   const previousAiToken = process.env.AI_REVIEW_TOKEN;
   const previousAdminToken = process.env.ADMIN_API_TOKEN;
@@ -37,17 +73,20 @@ test('AI assessment supports separate human decisions and immutable, verifiable 
     });
     const request = {
       sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
-      documents: [{ id: 'authorized-note', title: 'Authorized inspection note', text: excerpt }],
+      documents: [{ id: 'authorized-note', title: 'Authorized inspection note', rightsDeclared: 'explicit_permission', text: excerpt }],
     };
     const unauthorized = await routed.request('/api/intelligence/assessments', {
       method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(request),
     });
     expect(unauthorized.status).toBe(401);
+    expect(unauthorized.headers.get('cache-control')).toContain('no-store');
 
     const created = await routed.request('/api/intelligence/assessments', {
       method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${aiToken}` }, body: JSON.stringify(request),
     });
     expect(created.status).toBe(201);
+    expect(created.headers.get('cache-control')).toContain('no-store');
+    expect(created.headers.get('vary')?.toLowerCase()).toContain('authorization');
     const draft = (await created.json()).audit;
     expect(draft.bundle.schemaVersion).toBe(3);
     expect(draft.bundle.intelligence.reviewStatus).toBe('unreviewed');
@@ -59,12 +98,15 @@ test('AI assessment supports separate human decisions and immutable, verifiable 
       method: 'POST', headers: { authorization: `Bearer ${adminToken}` },
     });
     expect(earlyAnchor.status).toBe(409);
+    expect(earlyAnchor.headers.get('cache-control')).toContain('no-store');
 
     const reviewed = await routed.request(`/api/audits/${draft.auditId}/review`, {
       method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${humanToken}` },
       body: JSON.stringify({ status: 'rejected', note: 'The excerpt does not verify sustained methane mitigation.' }),
     });
     expect(reviewed.status).toBe(201);
+    expect(reviewed.headers.get('cache-control')).toContain('no-store');
+    expect(reviewed.headers.get('vary')?.toLowerCase()).toContain('authorization');
     const revision = (await reviewed.json()).audit;
     expect(revision.revision).toBe(draft.revision + 1);
     expect(revision.bundle.intelligence.reviewStatus).toBe('rejected');
@@ -90,7 +132,9 @@ test('AI assessment supports separate human decisions and immutable, verifiable 
     expect(requestedRevision.bundle.intelligence.reviewStatus).toBe('needs_more_evidence');
     expect((await store.get(followUpDraft.auditId))?.bundle.intelligence?.reviewStatus).toBe('unreviewed');
 
-    const integrity = await routed.request(`/api/audits/${requestedRevision.auditId}/verify`);
+    const integrity = await routed.request(`/api/audits/${requestedRevision.auditId}/verify`, {
+      headers: { authorization: `Bearer ${humanToken}` },
+    });
     expect(integrity.status).toBe(200);
     const integrityResult = await integrity.json();
     expect(integrityResult.localDigestValid).toBe(true);
@@ -139,6 +183,30 @@ test('AI capability status never exposes server credentials', async () => {
   expect(payload).not.toHaveProperty('reviewToken');
 });
 
+test('AI provider failure creates no audit revision', async () => {
+  const previousAiToken = process.env.AI_REVIEW_TOKEN;
+  const aiToken = 'ai-review-failure-token-' + 'g'.repeat(40);
+  process.env.AI_REVIEW_TOKEN = aiToken;
+  try {
+    const store = new MemoryAuditStore();
+    const routed = createApp(store, undefined, {
+      aiConfigured: () => true,
+      requestModelAssessment: async () => { throw new Error('ai_provider_http_503'); },
+    });
+    const response = await routed.request('/api/intelligence/assessments', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${aiToken}` },
+      body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
+        documents: [{ id: 'authorized-note', title: 'Authorized field note', rightsDeclared: 'explicit_permission', text: excerpt }] }),
+    });
+    expect(response.status).toBe(502);
+    expect(await store.list()).toHaveLength(0);
+  } finally {
+    if (previousAiToken === undefined) delete process.env.AI_REVIEW_TOKEN;
+    else process.env.AI_REVIEW_TOKEN = previousAiToken;
+  }
+});
+
 test('AI assessment accepts a non-curated source only from the pinned MARS snapshot and binds its history', async () => {
   const previousAiToken = process.env.AI_REVIEW_TOKEN;
   const aiToken = 'ai-review-token-' + 'd'.repeat(40);
@@ -161,7 +229,7 @@ test('AI assessment accepts a non-curated source only from the pinned MARS snaps
       sourceId: 'AFG_S_001',
       claimType: 'mitigation_confirmed',
       consentToExternalProcessing: true,
-      documents: [{ id: 'authorized-note', title: 'Authorized inspection note', text: excerpt }],
+      documents: [{ id: 'authorized-note', title: 'Authorized inspection note', rightsDeclared: 'explicit_permission', text: excerpt }],
     };
     const response = await routed.request('/api/intelligence/assessments', {
       method: 'POST',
@@ -172,10 +240,10 @@ test('AI assessment accepts a non-curated source only from the pinned MARS snaps
     expect(response.status).toBe(201);
     const audit = (await response.json()).audit;
     expect(audit.sourceId).toBe('AFG_S_001');
-    expect(audit.caseId).toBe('mars:unep-mars-e0721015e925:AFG_S_001');
+    expect(audit.caseId).toBe('mars:unep-mars-675417694883:AFG_S_001');
     expect(audit.bundle.synthetic).toBe(false);
-    expect(audit.bundle.provenance.archiveSha256).toBe('e0721015e925c4d70012ca13e697f5638421bc7c2a42f7e3dce8edec6cee8481');
-    expect(audit.bundle.provenance.snapshotId).toBe('unep-mars-e0721015e925');
+    expect(audit.bundle.provenance.archiveSha256).toBe('675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43');
+    expect(audit.bundle.provenance.snapshotId).toBe('unep-mars-675417694883');
     expect(audit.bundle.intelligence.investigationSnapshotSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(audit.bundle.intelligence.observationIds.length).toBeGreaterThan(0);
     const pinned = await getIntelligenceSnapshot();
@@ -213,7 +281,7 @@ test('AI assessment uses the active full snapshot for a curated source when its 
     });
     const response = await routed.request('/api/intelligence/assessments', {
       method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${aiToken}` },
-      body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true, documents: [{ id: 'authorized-note', title: 'Authorized note', text: excerpt }] }),
+      body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true, documents: [{ id: 'authorized-note', title: 'Authorized note', rightsDeclared: 'explicit_permission', text: excerpt }] }),
     });
     expect(response.status).toBe(201);
     const audit = (await response.json()).audit;
@@ -245,7 +313,7 @@ test('AI document assessments enforce a process-local rate limit before calling 
     const request = () => routed.request('/api/intelligence/assessments', {
       method: 'POST',
       headers: { 'content-type': 'application/json', authorization: `Bearer ${aiToken}` },
-      body: JSON.stringify({ sourceId: 'AFG_S_001', claimType: 'mitigation_confirmed', consentToExternalProcessing: true, documents: [{ id: 'authorized-note', title: 'Authorized note', text: excerpt }] }),
+      body: JSON.stringify({ sourceId: 'AFG_S_001', claimType: 'mitigation_confirmed', consentToExternalProcessing: true, documents: [{ id: 'authorized-note', title: 'Authorized note', rightsDeclared: 'explicit_permission', text: excerpt }] }),
     });
 
     expect((await request()).status).toBe(201);
@@ -268,8 +336,8 @@ test('insight endpoint serves analysis for curated and other pinned MARS sources
   const payload = await response.json();
   expect(payload.snapshot.snapshotSha256).toMatch(/^[a-f0-9]{64}$/);
   expect(payload.snapshot.inputFileSha256).toMatch(/^[a-f0-9]{64}$/);
-  expect(payload.snapshot.datasetSnapshotId).toBe('unep-mars-e0721015e925');
-  expect(payload.snapshot.linkedObservationCount).toBe(23785);
+  expect(payload.snapshot.datasetSnapshotId).toBe('unep-mars-675417694883');
+  expect(payload.snapshot.linkedObservationCount).toBe(23861);
   expect(payload.snapshot.datasetLicense).toBe('CC BY-NC-SA 4.0');
   expect(payload.snapshot.catalogUrl).toBe('https://methanedata.unep.org/download-dataset');
   expect(payload.insight.sourceId).toBe('KAZ_S_159');
@@ -306,7 +374,7 @@ test('full-snapshot document report survives human review, store reopen, and dig
     });
     const body = {
       sourceId: 'AFG_S_001', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
-      documents: [{ id: 'field-note', title: 'Authorized field note', text: excerpt }],
+      documents: [{ id: 'field-note', title: 'Authorized field note', rightsDeclared: 'explicit_permission', text: excerpt }],
     };
     const assessment = await routed.request('/api/intelligence/assessments', {
       method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${aiToken}` }, body: JSON.stringify(body),
@@ -316,7 +384,7 @@ test('full-snapshot document report survives human review, store reopen, and dig
     const snapshot = await getIntelligenceSnapshot();
     const sourceHistory = snapshot.sources.find((item) => item.sourceId === body.sourceId)!;
     expect(draft.result).toBe('insufficient_evidence');
-    expect(draft.bundle.intelligence.datasetSnapshotId).toBe('unep-mars-e0721015e925');
+    expect(draft.bundle.intelligence.datasetSnapshotId).toBe('unep-mars-675417694883');
     expect(draft.bundle.intelligence.observationTimeline).toEqual(sourceHistory.observationIds.map((id, index) => ({ id, observedAt: sourceHistory.observationTimestamps[index] })));
 
     const review = await routed.request(`/api/audits/${draft.auditId}/review`, {
@@ -351,7 +419,9 @@ test('full-snapshot document report survives human review, store reopen, and dig
     const history = await historyResponse.json();
     expect(history.audits.map((item: AuditResult) => item.revision)).toEqual([1, 2]);
     expect(history.audits.map((item: AuditResult) => item.auditId)).toEqual([draft.auditId, reviewed.auditId]);
-    const verification = await reopenedApp.request(`/api/audits/${reviewed.auditId}/verify`);
+    const verification = await reopenedApp.request(`/api/audits/${reviewed.auditId}/verify`, {
+      headers: { authorization: `Bearer ${humanToken}` },
+    });
     expect(verification.status).toBe(200);
     const result = await verification.json();
     expect(result.localDigestValid).toBe(true);
@@ -390,7 +460,7 @@ test('v3 citations remain private until both submitter and reviewer explicitly p
   const assessment = (consentToPublishCitations: boolean) => ({
     sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
     consentToPublishCitations,
-    documents: [{ id: 'private-note', title: 'Authorized local test excerpt', text: `The report says: ${quote} The operator has not supplied later measurements or an independent outcome confirmation.` }],
+    documents: [{ id: 'private-note', title: 'Authorized local test excerpt', rightsDeclared: 'explicit_permission', text: `The report says: ${quote} The operator has not supplied later measurements or an independent outcome confirmation.` }],
   });
   const authorized = (token: string) => ({ authorization: `Bearer ${token}` });
 
@@ -536,7 +606,7 @@ test('published review revision remains public after reopening the file store wh
       method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${aiToken}` },
       body: JSON.stringify({
         sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true, consentToPublishCitations: true,
-        documents: [{ id: 'authorized-note', title: 'Authorized inspection note', text: excerpt }],
+        documents: [{ id: 'authorized-note', title: 'Authorized inspection note', rightsDeclared: 'explicit_permission', text: excerpt }],
       }),
     });
     expect(assessment.status).toBe(201);

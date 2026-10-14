@@ -28,14 +28,47 @@ const abi = [
   },
 ] as const;
 
+export function isAllowedChainRpcUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    const secureTransport = url.protocol === 'https:'
+      || (url.protocol === 'http:' && ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname));
+    return secureTransport && Boolean(url.hostname) && !url.username && !url.password;
+  } catch {
+    return false;
+  }
+}
+
 const settings = () => {
   const rpc = process.env.SEPOLIA_RPC_URL;
   const registry = process.env.AUDIT_REGISTRY_ADDRESS;
-  if (!rpc || !registry || !isAddress(registry)) return null;
+  if (!rpc || !isAllowedChainRpcUrl(rpc) || !registry || !isAddress(registry)) return null;
   return { rpc, registry } as const;
 };
 
 export function chainConfigured() { return settings() !== null; }
+
+export function assertSepoliaChainId(chainId: number) {
+  if (!Number.isSafeInteger(chainId) || chainId !== sepolia.id) {
+    throw new Error(`RPC chain ID mismatch: expected Sepolia ${sepolia.id}, received ${chainId}`);
+  }
+}
+
+async function assertSepoliaRpc(client: { getChainId(): Promise<number> }) {
+  assertSepoliaChainId(await client.getChainId());
+}
+
+export function chainWriteConfigured() {
+  const key = process.env.SEPOLIA_PRIVATE_KEY || '';
+  if (!chainConfigured() || !/^0x[0-9a-fA-F]{64}$/.test(key)) return false;
+  try {
+    // Validate the secp256k1 scalar before any durable anchor intent is reserved.
+    privateKeyToAccount(key as Hex);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 export function registryCaseId(caseId: string, claimType: ClaimType): Hex {
   return keccak256(toBytes(`methane-response:v2:${caseId}:${claimType}`));
@@ -64,6 +97,7 @@ export async function readReceipt(caseId: Hex) {
   const config = settings();
   if (!config) throw new Error('Sepolia RPC/contract is not configured');
   const client = createPublicClient({ chain: sepolia, transport: http(config.rpc) });
+  await assertSepoliaRpc(client);
   const [issuer, hash, version, updatedAt] = await client.readContract({
     address: config.registry, abi, functionName: 'receipts', args: [caseId],
   });
@@ -74,10 +108,11 @@ export async function anchorReceipt(caseId: Hex, bundleHash: Hex): Promise<Audit
   const config = settings();
   const secret = process.env.SEPOLIA_PRIVATE_KEY;
   if (!config || !secret || !/^0x[0-9a-fA-F]{64}$/.test(secret)) throw new Error('Chain issuer settings not configured');
+  const reader = createPublicClient({ chain: sepolia, transport: http(config.rpc) });
+  await assertSepoliaRpc(reader);
   const account = privateKeyToAccount(secret as Hex);
   const client = createWalletClient({ chain: sepolia, transport: http(config.rpc), account });
   const tx = await client.writeContract({ address: config.registry, abi, functionName: 'anchor', args: [caseId, bundleHash] });
-  const reader = createPublicClient({ chain: sepolia, transport: http(config.rpc) });
   const receipt = await reader.waitForTransactionReceipt({ hash: tx, confirmations: 1 });
   if (receipt.status !== 'success') throw new Error('Sepolia transaction reverted');
   const event = receipt.logs
@@ -106,6 +141,7 @@ export async function verifyAnchorTransaction(caseId: Hex, bundleHash: Hex, rece
     return { valid: false as const, reason: 'receipt_configuration_mismatch' };
   }
   const client = createPublicClient({ chain: sepolia, transport: http(config.rpc) });
+  await assertSepoliaRpc(client);
   const transaction = await client.getTransactionReceipt({ hash: receipt.txHash });
   if (transaction.status !== 'success') return { valid: false as const, reason: 'transaction_failed' };
   const event = transaction.logs

@@ -23,6 +23,17 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 !data/processed/intelligence-snapshot.json
+!data/processed/prospective/
+data/processed/prospective/*
+!data/processed/prospective/record-recurrence-ledger-2026-10-14.json
+!data/processed/prospective/record-recurrence-ledger-2026-10-14-v2.json
+!data/processed/prospective/record-recurrence-ledger-2026-10-14-v3.json
+!data/processed/prospective/record-recurrence-ledger-2026-10-14-v4.json
+!data/processed/prospective/record-recurrence-ledger-2026-10-14-v5.json
+!data/processed/prospective/record-recurrence-ledger-2026-10-14-v6.json
+!data/processed/prospective/record-recurrence-evaluation-2026-10-14-v4-baseline.json
+!data/processed/prospective/record-recurrence-evaluation-2026-10-14-v5-baseline.json
+!data/processed/prospective/record-recurrence-evaluation-2026-10-14-v6-baseline.json
 data/state/
 
 # Imported third-party UNEP data; acquire and retain under its dataset license.
@@ -31,4 +42,10 @@ apps/web/public/data/mars-snapshot.json
 # Local browser verification artifacts and temporary installer state.
 .playwright-cli/
 services/data-pipeline/.install-tmp/
+
+# No bundled app assets have documented redistribution approval yet.
+/apps/web/public/assets/**
+
+# User-provided design mockups without a documented redistribution grant.
+/docs/design-reference/2026-10-13/*.png
 

@@ -7,6 +7,7 @@ not an independent or generalizable estimate of real-world audit accuracy.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -14,7 +15,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_BENCHMARK = ROOT / "data" / "mars_claim_benchmark.jsonl"
-DEFAULT_CASEBOOK = ROOT.parent.parent / "data" / "real" / "mars_casebook_2026-10-11.json"
+DEFAULT_CASEBOOK = ROOT.parent.parent / "data" / "real" / "mars_casebook_2026-10-14.json"
 LABELS = ("supported", "insufficient_evidence", "contradicted")
 SUPPORT_KIND = {
     "source_detected": "detection",
@@ -146,7 +147,11 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def evaluate_rows(rows: list[dict[str, Any]], casebook_path: Path = DEFAULT_CASEBOOK) -> dict[str, Any]:
+def evaluate_rows(
+    rows: list[dict[str, Any]],
+    casebook_path: Path = DEFAULT_CASEBOOK,
+    benchmark_path: Path = DEFAULT_BENCHMARK,
+) -> dict[str, Any]:
     predictions = []
     for row in rows:
         predicted, citations = classify(row["claimType"], row["evidence"])
@@ -165,9 +170,26 @@ def evaluate_rows(rows: list[dict[str, Any]], casebook_path: Path = DEFAULT_CASE
     real = [row for row in predictions if not row["synthetic"]]
     synthetic = [row for row in predictions if row["synthetic"]]
     summary = summarize(predictions)
+    casebook_bytes = casebook_path.read_bytes()
+    casebook = json.loads(casebook_bytes)
+    dataset_provenance = casebook.get("provenance")
+    if not isinstance(dataset_provenance, dict) or not dataset_provenance.get("archiveSha256"):
+        raise ValueError("Casebook must include archive provenance before its baseline can be evaluated")
+
     return {
         "method": "deterministic evidence coverage rules",
-        "casebookArchiveSha256": json.loads(casebook_path.read_text(encoding="utf-8"))["provenance"]["archiveSha256"],
+        "casebookArchiveSha256": dataset_provenance["archiveSha256"],
+        "inputProvenance": {
+            "benchmarkSha256": hashlib.sha256(benchmark_path.read_bytes()).hexdigest(),
+            "casebookFileSha256": hashlib.sha256(casebook_bytes).hexdigest(),
+            "datasetName": dataset_provenance.get("dataset"),
+            "datasetProvider": dataset_provenance.get("provider"),
+            "datasetSnapshotId": dataset_provenance.get("snapshotId"),
+            "datasetArchiveSha256": dataset_provenance["archiveSha256"],
+            "datasetRetrievedAt": dataset_provenance.get("retrievedAt"),
+            "datasetCatalogUrl": dataset_provenance.get("catalogUrl"),
+            "datasetLicense": dataset_provenance.get("license"),
+        },
         "sampleSize": summary["sampleSize"],
         "realExampleCount": len(real),
         "syntheticExampleCount": len(synthetic),
@@ -191,7 +213,7 @@ def main() -> None:
     parser.add_argument("--casebook", type=Path, default=DEFAULT_CASEBOOK)
     parser.add_argument("--output", type=Path, help="Write the JSON report to this path instead of stdout")
     args = parser.parse_args()
-    report = evaluate_rows(load_benchmark(args.benchmark, args.casebook), args.casebook)
+    report = evaluate_rows(load_benchmark(args.benchmark, args.casebook), args.casebook, args.benchmark)
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

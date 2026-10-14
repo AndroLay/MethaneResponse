@@ -4,6 +4,10 @@
 
 This report replaces the starter-package status recorded before the API, data, persistence, benchmark, and dashboard work was completed.
 
+**Snapshot scope:** browser/data counts and end-to-end evidence below were captured against the earlier `unep-mars-e0721015e925` release (4,211 sources, 30,319 plume rows, through 2026-09-11). The active release is now `unep-mars-ccd8267c55ee`; current hashes, counts, and newer local gate results are recorded in [`data/real/README.md`](../data/real/README.md) and [`EXECUTION_CHECKPOINT_2026-10-14.md`](EXECUTION_CHECKPOINT_2026-10-14.md). Historical run metrics below remain tied to the version used during those runs.
+
+**Repository visibility update (2026-10-14):** the owner later reported making the repository public. The prior anonymous clone verified only commit `99662e6de86b1d745e6ce3589ce37a9ed6c0d66c`; active local changes are not included in that published revision. Current remote access has not been reverified, and asset redistribution rights remain unresolved.
+
 ## Delivered locally
 
 - The API and dashboard use a traceable, hash-pinned UNEP MARS casebook with three real sources and six linked plume observations. Synthetic fixtures remain separate and explicitly marked.
@@ -15,6 +19,8 @@ This report replaces the starter-package status recorded before the API, data, p
 - The map opens on a historical reported-flux overlay: 29,256 positive, coordinate-valid archive rows are colored by reported kg/h; low-power rendering summarizes them with median values in approximately 1° cells. `LIVE FEED OFF`, dates, units, and layer-specific limitations remain visible. MapLibre initialization waits until the map enters a 96 px viewport margin; browsers without `IntersectionObserver` load immediately. The heat colors are not continuous concentration, live weather, or confirmed plume boundaries; investigation priority is separately labeled heuristic rather than forecast probability.
 - The map's keyless globe view now opens on a centered MARS casebook overview; fullscreen camera sizing keeps the sphere prominent as the panel grows. At a 1280×800 browser viewport, the 1219×679 fullscreen map rendered the globe at zoom 1.7. Hardware Chromium rendered Esri satellite imagery, the sphere globe, and adjustable grayscale without browser console errors. This is a textured globe, not 3D terrain or photogrammetric buildings.
 - Root docs, data rights notices, CI configuration, deployment guidance, and a reproducible local quality script are present.
+
+**Evidence-input update (2026-10-14):** interactive document assessments now require an explicit per-document rights declaration (`owned` or `explicit_permission`) in addition to provider opt-in. The declaration is included in the hashed report and labeled self-reported; it does not establish copyright ownership or permission independently.
 
 ## Verification evidence
 
@@ -69,7 +75,7 @@ An earlier PostgreSQL integration suite passed against a disposable PostGIS 17 c
 
 Latest checks: frozen Bun install unchanged; `bun run check` passed; API 52 pass / 7 PostGIS skips; web 72 pass; verifier 2 pass; Python 36 pass using `UV_CACHE_DIR=/tmp/mr/uv-cache`; Foundry 4 pass; web build passed with the chunk advisory above. Browser evidence: `/tmp/mr/methaneresponse-e2e-map-final-v2.png`, `/tmp/mr/methaneresponse-e2e-verifier-final-v2.png`, `/tmp/mr/methaneresponse-mobile-flux-map.png`, `/tmp/mr/methaneresponse-map-load-mobile.png`, and `/tmp/mr/methaneresponse-map-load-desktop.png`; exported test report: `/tmp/mr/e2e-audit-report-final-v2-2026-10-13.json`.
 | Map visual verification | Satellite, globe and grayscale were rendered on one AMD Radeon 680M browser. MapLibre globe has no terrain elevation or photogrammetric buildings; test street/dark styles and another device before a public demo. |
-| Asset rights | The user-supplied UI artwork has no source/license manifest. `NOTICE` excludes it from the software license; replace it or verify redistribution rights before making the repository public. |
-| Hackathon submission | The repository remains private as previously requested. Devpost currently asks for a public code repository and a 3–5 minute demo. Registration/submission are not confirmed, the event still has eligibility and start-time conflicts, and no video has been recorded. |
+| Asset rights | The user-supplied UI artwork has no source/license manifest. `NOTICE` excludes it from the software license. The owner reports that the repository is public; verify redistribution rights and remove/replace uncleared artwork because the repository may already be publicly accessible. |
+| Hackathon submission | The owner reports that the repository is now public; anonymous access to the current remote revision could not be independently verified from this session. Devpost asks for a public code repository and a 3–5 minute demo. Registration/submission are not confirmed, the event still has eligibility and start-time conflicts, and no video has been recorded. |
 
 No external deployment, public visibility change, transaction, participant registration, organizer message, or Devpost submission was performed. See [`next-steps.md`](next-steps.md), [`deployment.md`](deployment.md), and [`research/event.md`](research/event.md) for the remaining decisions and setup steps.

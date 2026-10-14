@@ -1,4 +1,5 @@
 import { expect, test } from 'bun:test';
+import { readFileSync } from 'node:fs';
 import * as mapPanel from './MapPanel';
 import type { MarsObservation, MarsSource } from './mars';
 
@@ -9,9 +10,11 @@ const rendering = mapPanel as unknown as {
   getProjectionSpec?: (mode: string) => { type: string };
   getStatusAfterMapError?: (status: string) => string;
   getMapInitializationFallbackMessage?: (error: unknown) => string;
+  getMapErrorNotice?: (error: unknown) => string | null;
   isGlobeRendererFailure?: (mode: string, message: string) => boolean;
   isGlobeProjectionSupported?: (contextAvailable: boolean, renderer: string | null) => boolean;
   getInitialRenderTierForRenderer?: (renderer: string | null, preferredTier: 'low' | 'medium' | 'high') => 'low' | 'medium' | 'high';
+  shouldUseCompactAttribution?: (mapWidth: number) => boolean;
   isSoftwareWebGLRenderer?: (renderer: string | null) => boolean;
   getGlobeOverview?: (sources: Array<Pick<MarsSource, 'lat' | 'lon'>>, viewportWidth?: number, viewportHeight?: number) => { center: [number, number]; zoom: number };
   toObservationGeoJSON?: (observations: MarsObservation[]) => { features: Array<{ id: string; geometry: { coordinates: number[] }; properties: { flux: number | null; sourceId: string | null; date: string; linked: number } }> };
@@ -20,6 +23,7 @@ const rendering = mapPanel as unknown as {
   toFluxGridGeoJSON?: (observations: MarsObservation[], gridDegrees?: number) => { features: Array<{ geometry: { coordinates: number[] }; properties: { medianFlux: number; sampleCount: number; medianUncertainty: number | null; gridDegrees: number } }> };
   toPriorityOverlayGeoJSON?: (sources: MarsSource[], rankings: Array<{ sourceId: string; priorityScore: number; priorityBand: 'low' | 'medium' | 'high'; priorityType: 'heuristic_not_probability'; lastObserved?: string | null }>) => { features: Array<{ id: string; properties: { priorityScore: number; priorityBand: string; priorityType: string } }> };
   runWhenStyleReady?: (map: { isStyleLoaded: () => boolean; once: (event: 'idle', callback: () => void) => unknown }, queued: { current: boolean }, work: () => void) => boolean;
+  getFootprintOutlineLineWidthExpression?: () => unknown[];
 };
 
 test('globe projection opens on a centered Earth overview of the casebook', () => {
@@ -102,8 +106,10 @@ test('natural and cinematic imagery have a visible color treatment without chang
   expect(rendering.getRasterContrast?.('natural')).toBe(0.08);
   expect(rendering.getRasterContrast?.('cinematic')).toBe(0.16);
   expect(rendering.getFluxMarkerColor?.(null)).toBe('#91a9b2');
-  expect(rendering.getFluxMarkerColor?.(0)).toBe('#16e6c9');
-  expect(rendering.getFluxMarkerColor?.(2500)).toBe('#fa7750');
+  expect(rendering.getFluxMarkerColor?.(0)).toBe('#3978eb');
+  expect(rendering.getFluxMarkerColor?.(500)).toBe('#f3d14b');
+  expect(rendering.getFluxMarkerColor?.(2500)).toBe('#f58b38');
+  expect(rendering.getFluxMarkerColor?.(6000)).toBe('#ed4b43');
 });
 
 test('flat and globe choices map to the matching MapLibre projection', () => {
@@ -131,6 +137,54 @@ test('map initialization failures produce a safe, useful fallback message', () =
 
   expect(getFallback(new Error('Failed to initialize WebGL'))).toContain('could not initialize WebGL');
   expect(getFallback(new Error('unexpected map error'))).toContain('inspect the selected case and evidence');
+});
+
+test('map errors expose an accurate recoverable notice but ignore optional font errors', () => {
+  expect(rendering.getMapErrorNotice?.(new Error('Failed to load raster tile'))).toBe(
+    'Map tiles failed; source markers remain visible.',
+  );
+  expect(rendering.getMapErrorNotice?.(new Error('Request failed (503) https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/5/10/10'))).toBe(
+    'Map tiles failed; source markers remain visible.',
+  );
+  const genericNotice = 'Map rendering reported an error; some layers may be unavailable.';
+  expect(rendering.getMapErrorNotice?.(new Error('Failed to load /fonts/example.pbf'))).toBeNull();
+  expect(rendering.getMapErrorNotice?.(new Error('layers.mars-plume-footprint-outline.paint.line-width: Only one zoom-based "step" or "interpolate" subexpression may be used in an expression.'))).toBe(genericNotice);
+  expect(rendering.getMapErrorNotice?.(new Error('unexpected map error'))).toBe(genericNotice);
+  expect(rendering.getMapErrorNotice?.(null)).toBeNull();
+});
+
+test('publisher footprint outline width uses one MapLibre zoom interpolation', () => {
+  const expression = rendering.getFootprintOutlineLineWidthExpression?.();
+  expect(typeof rendering.getFootprintOutlineLineWidthExpression).toBe('function');
+  if (!expression) return;
+
+  const countZoomOperators = (value: unknown): number => {
+    if (!Array.isArray(value)) return 0;
+    return (value[0] === 'zoom' ? 1 : 0) + value.reduce<number>((total, child) => total + countZoomOperators(child), 0);
+  };
+
+  expect(expression).toEqual([
+    'interpolate', ['linear'], ['zoom'],
+    4, ['case', ['==', ['get', 'mapSourceSelected'], 1], 1.6, 0.45],
+    10, ['case', ['==', ['get', 'mapSourceSelected'], 1], 2.8, 0.85],
+    15, ['case', ['==', ['get', 'mapSourceSelected'], 1], 4, 1.4],
+  ]);
+  expect(countZoomOperators(expression)).toBe(1);
+});
+
+test('map tile failure notice stays at the map edge instead of covering its center', () => {
+  const css = readFileSync(new URL('./styles.css', import.meta.url), 'utf8');
+  const desktopRule = css.match(/\.geo-map-degraded-notice\s*\{([^}]*)\}/)?.[1] ?? '';
+  const mobileRule = css.match(/@media\(max-width:620px\)\{\.geo-map-degraded-notice\s*\{([^}]*)\}/)?.[1] ?? '';
+
+  expect(desktopRule).toContain('right:12px');
+  expect(desktopRule).toContain('left:auto');
+  expect(desktopRule).toContain('width:min(250px');
+  expect(desktopRule).not.toContain('left:50%');
+  expect(desktopRule).not.toContain('translateX(-50%)');
+  expect(mobileRule).toContain('right:8px');
+  expect(mobileRule).toContain('top:12px');
+  expect(mobileRule).toContain('width:min(150px');
 });
 
 test('solar rendering waits for a MapLibre idle event when style.load fires too early', () => {
@@ -188,6 +242,17 @@ test('known software WebGL renderers use a low-cost tier without disabling globe
   expect(isGlobeSupported?.(false, 'NVIDIA GeForce RTX')).toBe(false);
   expect(getInitialTier?.('ANGLE (SwiftShader Device)', 'high')).toBe('low');
   expect(getInitialTier?.('NVIDIA GeForce RTX', 'medium')).toBe('medium');
+});
+
+test('map attribution collapses only when the map container is too narrow for the full control', () => {
+  const shouldUseCompactAttribution = rendering.shouldUseCompactAttribution;
+  expect(typeof shouldUseCompactAttribution).toBe('function');
+  if (!shouldUseCompactAttribution) return;
+
+  expect(shouldUseCompactAttribution(717)).toBe(true);
+  expect(shouldUseCompactAttribution(900)).toBe(false);
+  expect(shouldUseCompactAttribution(1280)).toBe(false);
+  expect(shouldUseCompactAttribution(Number.NaN)).toBe(true);
 });
 
 test('WebGL availability gates globe projection while renderer name does not', () => {

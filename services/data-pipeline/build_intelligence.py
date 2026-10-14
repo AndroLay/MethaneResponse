@@ -1,8 +1,9 @@
-"""Build reproducible observational priorities, never forecasts.
+"""Build reproducible observational priorities and bounded record-recurrence estimates.
 
 Input is a pinned MARS casebook or normalized source snapshot. Missing or
 non-numeric plume flux is retained as missing; it is never converted to zero.
-Ranking is an uncalibrated investigation aid and does not assert repair status.
+Priority is an uncalibrated investigation aid. The separate calibrated model
+predicts MARS archive-record recurrence only, never future methane emissions.
 """
 from __future__ import annotations
 
@@ -14,11 +15,38 @@ import math
 from datetime import date
 from pathlib import Path
 from statistics import median
+from record_recurrence import BOOTSTRAP_REPLICATES, evaluate_record_recurrence
+from publisher_indicator_comparison import build_publisher_indicator_comparison
 
 ROOT = Path(__file__).resolve().parents[2]
 CASEBOOK = ROOT / 'data/real/mars_casebook_2026-10-11.json'
 FULL_SNAPSHOT = ROOT / 'apps/web/public/data/mars-snapshot.json.gz'
 OUTPUT = ROOT / 'data/processed/intelligence-snapshot.json'
+RECURRENCE_EVALUATION = ROOT / 'data/processed/record-recurrence-evaluation.json'
+TREND_METHOD_VERSION = 'theil-sen-event-trend-v1'
+TREND_MIN_NUMERIC_DATES = 4
+TREND_MIN_SPAN_DAYS = 90
+TREND_RATE_PERIOD_DAYS = 30
+OBSERVED_TREND_METHOD = {
+    'methodVersion': TREND_METHOD_VERSION,
+    'minimumNumericObservationDates': TREND_MIN_NUMERIC_DATES,
+    'minimumSpanDays': TREND_MIN_SPAN_DAYS,
+    'ratePeriodDays': TREND_RATE_PERIOD_DAYS,
+    'limitation': (
+        'This summarizes reported numeric flux at discrete satellite detection dates. '
+        'The observations are sampled and non-continuous; this is not a forecast and the slope is not projected into the future, '
+        'does not describe unobserved days, and does not prove leak persistence, repair, or emission reduction.'
+    ),
+}
+FORECAST_READINESS = {
+    'status': 'not_available',
+    'reason': 'The pinned MARS snapshot lacks complete sensor-opportunity denominators and independent physical-emissions outcomes; no methane-emissions forecast is produced. A separate model estimates archive-record recurrence only.',
+    'missingRequirements': [
+        'complete_observation_opportunities',
+        'independent_future_outcome_labels',
+        'held_out_temporal_validation',
+    ],
+}
 
 
 def numeric(value):
@@ -31,6 +59,67 @@ def numeric(value):
         return None
 
 
+def analyze_observed_flux_trend(observed):
+    """Describe flux across sampled detection dates; never extrapolate a forecast."""
+    by_day: dict[str, list[dict]] = {}
+    for item in observed:
+        if item['flux'] is None:
+            continue
+        by_day.setdefault(item['day'], []).append(item)
+
+    points = []
+    for day in sorted(by_day):
+        daily = by_day[day]
+        fluxes = [item['flux'] for item in daily]
+        uncertainties = [item['uncertainty'] for item in daily if item['uncertainty'] is not None]
+        points.append({
+            'date': day,
+            'medianFluxKgHr': median(fluxes),
+            'medianReportedUncertaintyKgHr': median(uncertainties) if uncertainties else None,
+            'observationCount': len(daily),
+        })
+
+    date_count = len(points)
+    span_days = (
+        (date.fromisoformat(points[-1]['date']) - date.fromisoformat(points[0]['date'])).days
+        if date_count > 1 else 0
+    )
+    slopes = []
+    if date_count < TREND_MIN_NUMERIC_DATES:
+        status = 'insufficient_observations'
+    elif span_days < TREND_MIN_SPAN_DAYS:
+        status = 'insufficient_temporal_coverage'
+    else:
+        day_numbers = [date.fromisoformat(point['date']).toordinal() for point in points]
+        for left in range(date_count - 1):
+            for right in range(left + 1, date_count):
+                elapsed_days = day_numbers[right] - day_numbers[left]
+                slopes.append(
+                    (points[right]['medianFluxKgHr'] - points[left]['medianFluxKgHr'])
+                    / elapsed_days * TREND_RATE_PERIOD_DAYS
+                )
+        status = 'descriptive_trend'
+
+    slope = median(slopes) if slopes else None
+    reported_uncertainties = [
+        point['medianReportedUncertaintyKgHr']
+        for point in points if point['medianReportedUncertaintyKgHr'] is not None
+    ]
+    return {
+        'status': status,
+        'numericObservationDates': date_count,
+        'spanDays': span_days,
+        'pairwiseSlopeCount': len(slopes),
+        'slopeKgHrPer30Days': round(slope, 6) if slope is not None else None,
+        'positivePairwiseSlopeShare': round(sum(value > 0 for value in slopes) / len(slopes), 6) if slopes else None,
+        'firstObservationDate': points[0]['date'] if points else None,
+        'lastObservationDate': points[-1]['date'] if points else None,
+        'firstObservedMedianFluxKgHr': points[0]['medianFluxKgHr'] if points else None,
+        'lastObservedMedianFluxKgHr': points[-1]['medianFluxKgHr'] if points else None,
+        'medianReportedUncertaintyKgHr': median(reported_uncertainties) if reported_uncertainties else None,
+    }
+
+
 def load_records(path: Path, input_bytes: bytes | None = None):
     raw_bytes = input_bytes if input_bytes is not None else path.read_bytes()
     if raw_bytes[:2] == b'\x1f\x8b':
@@ -40,15 +129,31 @@ def load_records(path: Path, input_bytes: bytes | None = None):
         records = []
         for case in raw['cases']:
             source = case['source']
-            observations = [{
-                'id': plume.get('plumeId'),
-                'date': plume.get('tileDate'),
-                'fluxKgHr': plume.get('fluxKgHr'),
-                'uncertaintyKgHr': plume.get('fluxStdKgHr'),
-                'satellite': plume.get('satellite'),
-            } for plume in case['plumes']]
+            source_id = case.get('sourceId')
+            if source.get('synthetic') is not False or source.get('sourceId') != source_id:
+                raise ValueError(f'Casebook source {source_id} is not an explicitly linked real MARS source')
+            observations = []
+            for plume in case['plumes']:
+                if (
+                    not isinstance(plume, dict)
+                    or plume.get('linkStatus') != 'linked'
+                    or plume.get('sourceId') != source_id
+                    or plume.get('synthetic') is not False
+                ):
+                    raise ValueError(f'Casebook plume is not an explicitly linked real observation for {source_id}')
+                observations.append({
+                    'id': plume.get('plumeId'),
+                    'sourceId': source_id,
+                    'linkStatus': 'linked',
+                    'synthetic': False,
+                    'date': plume.get('tileDate'),
+                    'fluxKgHr': plume.get('fluxKgHr'),
+                    'uncertaintyKgHr': plume.get('fluxStdKgHr'),
+                    'satellite': plume.get('satellite'),
+                })
             records.append({
-                'sourceId': case['sourceId'],
+                'sourceId': source_id,
+                'synthetic': source.get('synthetic'),
                 'observations': observations,
                 'totalPlumeCount': source.get('detectedPlumeCount'),
                 'lastObserved': source.get('latestPlumeDate'),
@@ -75,8 +180,13 @@ def load_records(path: Path, input_bytes: bytes | None = None):
             source_id = plume.get('sourceId')
             if plume.get('linkStatus') != 'linked' or source_id not in observations_by_source:
                 continue
+            if plume.get('synthetic') is not False:
+                raise ValueError(f'Linked plume for {source_id} must be explicitly marked non-synthetic')
             observations_by_source[source_id].append({
                 'id': plume.get('plumeId'),
+                'sourceId': source_id,
+                'linkStatus': 'linked',
+                'synthetic': plume.get('synthetic'),
                 'date': plume.get('tileDate'),
                 'fluxKgHr': plume.get('fluxKgHr'),
                 'uncertaintyKgHr': plume.get('fluxStdKgHr'),
@@ -86,6 +196,8 @@ def load_records(path: Path, input_bytes: bytes | None = None):
         for source_id, source in by_source_id.items():
             records.append({
                 'sourceId': source_id,
+                'country': source.get('country'),
+                'synthetic': source.get('synthetic'),
                 'observations': observations_by_source[source_id],
                 'totalPlumeCount': source.get('detectedPlumeCount'),
                 'lastObserved': source.get('latestPlumeDate'),
@@ -140,6 +252,7 @@ def inspect(source):
     med = median(fluxes) if fluxes else None
     mad = median([abs(value - med) for value in fluxes]) if med is not None else None
     anomaly_analysis = analyze_anomalies(observed)
+    observed_flux_trend = analyze_observed_flux_trend(observed)
     outliers = len(anomaly_analysis['flaggedObservations']) if anomaly_analysis['status'] in {
         'potential_anomalies', 'no_candidates_flagged'
     } else None
@@ -175,6 +288,7 @@ def inspect(source):
         'medianAbsoluteDeviationKgHr': mad,
         'robustOutlierCount': outliers,
         'anomalyAnalysis': anomaly_analysis,
+        'observedFluxTrend': observed_flux_trend,
         'lastObserved': observed[-1]['timestamp'] if observed else source.get('lastObserved'),
         'dataSufficiency': 'limited' if len(observed) < 8 else 'observational',
         'observedPersistency': reported_persistency,
@@ -187,10 +301,6 @@ def inspect(source):
             'Numeric flux and uncertainty summaries use reported values only' if fluxes else 'No numeric flux estimates are available; missing values were not treated as zero',
             'UNEP persistency and emission-status fields are shown as source metadata, not mitigation outcomes',
         ],
-        'forecast': {
-            'status': 'not_available',
-            'reason': 'No complete observation-opportunity labels or independent outcome validation; no forecast probability is produced.',
-        },
     }
 
 
@@ -278,7 +388,12 @@ def analyze_anomalies(observed):
     }
 
 
-def build(path: Path, output: Path):
+def build(
+    path: Path,
+    output: Path,
+    recurrence_evaluation_output: Path | None = None,
+    bootstrap_replicates: int = BOOTSTRAP_REPLICATES,
+):
     input_bytes = path.read_bytes()
     records, archive_hash, generated_at, provenance = load_records(path, input_bytes)
     seen = set()
@@ -290,11 +405,28 @@ def build(path: Path, output: Path):
         seen.add(identifier)
         results.append(inspect(source))
     results.sort(key=lambda value: (-value['priorityScore'], value['sourceId']))
+    input_sha256 = hashlib.sha256(input_bytes).hexdigest()
+    dataset_snapshot_id = f'unep-mars-{archive_hash[:12]}' if isinstance(archive_hash, str) and len(archive_hash) >= 12 else None
+    recurrence = evaluate_record_recurrence(
+        records,
+        retrieved_at=generated_at,
+        input_sha256=input_sha256,
+        dataset_snapshot_id=dataset_snapshot_id,
+        bootstrap_replicates=bootstrap_replicates,
+    )
+    recurrence_predictions = recurrence['predictionsBySourceId']
+    for result in results:
+        forecast = recurrence_predictions.get(result['sourceId'])
+        if forecast:
+            result['recordRecurrenceForecast'] = forecast
+    publisher_indicator_comparison = build_publisher_indicator_comparison(
+        records, recurrence_predictions, recurrence['report'],
+    )
     payload = {
-        'schemaVersion': 1,
+        'schemaVersion': 3,
         'kind': 'observational_investigation_ranking',
-        'modelVersion': 'transparent-priority-v3',
-        'datasetSnapshotId': f'unep-mars-{archive_hash[:12]}' if isinstance(archive_hash, str) and len(archive_hash) >= 12 else None,
+        'modelVersion': 'transparent-priority-v5',
+        'datasetSnapshotId': dataset_snapshot_id,
         'sourceDataset': provenance.get('dataset'),
         'sourceProvider': provenance.get('provider'),
         'datasetLicense': provenance.get('license'),
@@ -303,14 +435,21 @@ def build(path: Path, output: Path):
         'sourceProvenance': provenance,
         'trainedModel': False,
         'calibratedProbability': False,
+        'observedTrendMethod': OBSERVED_TREND_METHOD,
+        'forecastReadiness': FORECAST_READINESS,
+        'recordRecurrenceModel': recurrence['report'],
+        'publisherIndicatorComparison': publisher_indicator_comparison,
         'generatedAt': generated_at,
-        'inputFileSha256': hashlib.sha256(input_bytes).hexdigest(),
+        'inputFileSha256': input_sha256,
         'upstreamArchiveSha256': archive_hash,
         'sourceCount': len(results),
         'linkedObservationCount': sum(result['observationCount'] for result in results),
-        'method': 'Distinct dated detections and observed median flux only; source status remains contextual. No non-detections, repairs, or future outcomes are inferred.',
+        'method': 'Distinct dated detections, observed median flux, and a Theil–Sen descriptive slope over sampled detection dates; source status remains contextual. No non-detections, repairs, or future outcomes are inferred.',
         'limitations': [
             'Priority is an uncalibrated investigation aid, not a physical leak likelihood or future-flux forecast.',
+            'The calibrated recurrence estimate predicts another linked MARS archive record within 365 days for a source already observed; it does not predict methane presence, emissions, repair, or mitigation.',
+            'The observed flux trend summarizes discrete detection dates only; it is not extrapolated and is not a future forecast.',
+            'A descriptive trend is emitted only with four or more numeric dates spanning at least 90 days; the method summarizes dated flux with a median pairwise Theil–Sen slope.',
             'Observation coverage varies by sensor, revisit schedule, geography, and cloud conditions; missing observations do not mean zero emissions.',
             'Source notification and feedback metadata do not verify recipient, repair, or emissions reduction.',
             'This small curated casebook has not been independently validated as a predictive model.',
@@ -319,6 +458,9 @@ def build(path: Path, output: Path):
     }
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, indent=2, allow_nan=False) + '\n', encoding='utf-8')
+    if recurrence_evaluation_output is not None:
+        recurrence_evaluation_output.parent.mkdir(parents=True, exist_ok=True)
+        recurrence_evaluation_output.write_text(json.dumps(recurrence['report'], indent=2, allow_nan=False) + '\n', encoding='utf-8')
     return payload
 
 
@@ -326,6 +468,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', type=Path, default=FULL_SNAPSHOT)
     parser.add_argument('--output', type=Path, default=OUTPUT)
+    parser.add_argument('--recurrence-evaluation-output', type=Path, default=RECURRENCE_EVALUATION)
+    parser.add_argument('--bootstrap-replicates', type=int, default=BOOTSTRAP_REPLICATES)
     args = parser.parse_args()
-    result = build(args.input, args.output)
-    print(f"{result['sourceCount']} sources -> {args.output}; uncalibrated ranking only")
+    result = build(args.input, args.output, args.recurrence_evaluation_output, args.bootstrap_replicates)
+    print(f"{result['sourceCount']} sources -> {args.output}; recurrence model: {result['recordRecurrenceModel']['status']}")

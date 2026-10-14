@@ -15,6 +15,10 @@ export type PlumeFootprintProperties = {
   country: string | null;
   notified: boolean | null;
   actionable: string | null;
+  /** Derived only for client-side map styling; not part of the UNEP source record. */
+  mapSourceLinked?: 0 | 1;
+  /** Derived only for client-side map styling; not part of the UNEP source record. */
+  mapSourceSelected?: 0 | 1;
 };
 
 export type PlumeFootprintFeature = Feature<MultiPolygon, PlumeFootprintProperties>;
@@ -62,7 +66,7 @@ export type LoadedPlumeGeometryMonth = {
 
 export const FLUX_FOOTPRINT_NO_DATA = '#91a9b2';
 /** SHA-256 of the tracked manifest; a shard hash is only meaningful if its index is pinned too. */
-export const PINNED_MARS_GEOMETRY_MANIFEST_SHA256 = '81484a5461799b4e8e13b06fd808948b627131c2d027834293ae82677fbdc1be';
+export const PINNED_MARS_GEOMETRY_MANIFEST_SHA256 = '1316e00636ccf2f6915e0987ec4f592292e2d7a83a4beb21920dd0e62470e13d';
 export const FLUX_FOOTPRINT_BINS = [
   { minimum: 0, color: '#3978eb' },
   { minimum: 100, color: '#20d2d2' },
@@ -119,6 +123,27 @@ export function filterPlumeFootprints(
   return {
     ...collection,
     features: collection.features.filter(feature => visibleIds.has(feature.properties.plumeId)),
+  };
+}
+
+/** Adds explicit map-only flags so source-linked, selected, and unlinked polygons can be styled separately. */
+export function decoratePlumeFootprintsForMap(
+  collection: PlumeFootprintCollection,
+  selectedSourceId: string | null,
+): PlumeFootprintCollection {
+  return {
+    ...collection,
+    features: collection.features.map(feature => {
+      const sourceId = feature.properties.sourceId?.trim() || null;
+      return {
+        ...feature,
+        properties: {
+          ...feature.properties,
+          mapSourceLinked: sourceId ? 1 : 0,
+          mapSourceSelected: sourceId && sourceId === selectedSourceId ? 1 : 0,
+        },
+      };
+    }),
   };
 }
 
@@ -316,4 +341,41 @@ export async function loadMonthlyPlumeGeometry(options: {
     throw new Error('MARS geometry shard failed its integrity check');
   }
   return { manifest, collection: parseFeatureCollection(parsed, month, monthEntry.featureCount) };
+}
+
+/** Load one exact MARS plume shape and reject any mismatch with its bound snapshot record. */
+export async function loadEvidencePlumeFootprint(options: {
+  month: string;
+  plumeId: string;
+  sourceId: string;
+  observedAt: string;
+  latitude?: number;
+  longitude?: number;
+  reportedFluxKgHr: number | null;
+  reportedUncertaintyKgHr: number | null;
+  expectedSnapshotId: string;
+  expectedSourceArchiveSha256: string;
+  signal?: AbortSignal;
+  fetchImpl?: typeof fetch;
+  basePath?: string;
+  expectedManifestSha256?: string;
+}): Promise<PlumeFootprintFeature | null> {
+  if (!options.plumeId || !options.sourceId || options.observedAt.slice(0, 7) !== options.month) {
+    throw new Error('Selected MARS observation metadata is incomplete');
+  }
+  const loaded = await loadMonthlyPlumeGeometry(options);
+  const feature = loaded.collection.features.find(item => item.properties.plumeId === options.plumeId);
+  if (!feature) return null;
+
+  const props = feature.properties;
+  const parseUtc = (value: string) => Date.parse(/(?:Z|[+-]\d{2}:?\d{2})$/i.test(value) ? value : `${value}Z`);
+  const dateMatches = parseUtc(props.observedAt) === parseUtc(options.observedAt);
+  const latitudeMatches = options.latitude === undefined || props.latitude === options.latitude;
+  const longitudeMatches = options.longitude === undefined || props.longitude === options.longitude;
+  if (props.sourceId !== options.sourceId || !dateMatches || !latitudeMatches || !longitudeMatches
+    || props.reportedFluxKgHr !== options.reportedFluxKgHr
+    || props.reportedUncertaintyKgHr !== options.reportedUncertaintyKgHr) {
+    throw new Error('Publisher footprint does not match the selected MARS observation record');
+  }
+  return feature;
 }
