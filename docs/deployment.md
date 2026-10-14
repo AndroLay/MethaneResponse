@@ -54,7 +54,7 @@ The URL is public frontend configuration, not a credential. The SPA's `_redirect
 - No Cloudflare Pages, Render, or Neon account was configured or deployed from this workspace.
 - No remote database migration, remote browser smoke, TLS/CORS verification, or cold-start timing has been performed.
 - No Sepolia contract is deployed and no transaction has been created. The local contract and receipt verifier are testable, but on-chain claims must remain unanchored until an operator supplies an RPC URL, deploys and authorizes a registry issuer, and funds/approves the required transaction.
-- The owner reports that the GitHub repository is public. Anonymous access was previously verified only for commit `99662e6de86b1d745e6ce3589ce37a9ed6c0d66c`; this workspace's active edits are not published in that revision, and current remote access could not be rechecked. The `NOTICE` and `README` identify supplied UI imagery whose redistribution rights are unresolved; review or replace those assets before publishing the active working tree or recording a release demo.
+- The public source release commit is `37169eeb35de5ad4e3217f08ae2ab8d9ccffa48d`. Anonymous access was checked with global/system Git configuration and credential helpers disabled; GitHub Actions run [38569058427](https://github.com/AndroLay/MethaneResponse/actions/runs/38569058427) succeeded for that commit. The current app tree no longer contains the unlicensed bundled UI imagery, and the build prunes unapproved assets. Earlier Git history still contains previously tracked images; no history rewrite was performed. Eight supplied design mockups remain local-only and are excluded from the public release.
 
 ## Official provider references
 

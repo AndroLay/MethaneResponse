@@ -57,12 +57,15 @@ authorship or permission.
    license or written permission, attribution, and restrictions are documented
    and the exact relative path is added to the approved asset list.
 2. Keep the local `/tmp` backup out of repository ZIPs.
-3. After a future commit/release, verify the public revision and published
-   build. The current local changes alone do not alter the remote repository.
+3. Public source release `37169eeb35de5ad4e3217f08ae2ab8d9ccffa48d` removes
+   the nine tracked UI images from the current tree. The public source was
+   checked without credentials and its GitHub Actions run passed. Older Git
+   history still contains the original images; no force-push or history rewrite
+   was done.
 
 ## Additional design-reference files
 
-Eight PNG page mockups supplied with the 2026-10-13 redesign archive are present in the local-only directory `docs/design-reference/2026-10-13/`. Their source, creator, and redistribution license are not recorded. They are layout references rather than product assets; the files remain in the local working tree but have been excluded from the public release candidate. The public UI redesign note links only to actual application browser evidence, not these mockups.
+Eight PNG page mockups supplied with the 2026-10-13 redesign archive are present in the local-only directory `docs/design-reference/2026-10-13/`. Their source, creator, and redistribution license are not recorded. They are layout references rather than product assets; the files remain in the local working tree, are ignored by Git, and were excluded from the public release. The public UI redesign note links only to actual application browser evidence, not these mockups.
 
 ## Verification boundary
 
