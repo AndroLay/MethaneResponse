@@ -794,3 +794,8 @@ Catatan WP-2 di atas menggambarkan keadaan sebelum jalur unduhan arsip berhasil.
 - Commit `87181844338305daa75a62bc0094feb1f19eb0ac` dipush fast-forward ke public `main` dari parent `1979cf9b50410bb1c0b13c4e1cdc495e01aefdb9`. Anonymous `git ls-remote` mengembalikan SHA yang sama; worktree bersih setelah push.
 - GitHub Actions run [38590941092](https://github.com/AndroLay/MethaneResponse/actions/runs/38590941092) pada SHA tersebut selesai `success`; ketiga job (`javascript`, `data-pipeline`, `contracts`) completed/success.
 - Hasil CI mengonfirmasi kompatibilitas source revision yang dipublikasikan. Run ini tidak menjalankan deployment cloud, AI provider, Sepolia, studi pilot, GPU ponsel, atau submission Devpost; artefak video tetap lokal/ignored dan tidak diupload.
+
+### WP-0/WP-10 — CI untuk follow-up dokumentasi — 14 Oktober 2026, 23.42 WITA
+
+- Setelah commit dokumentasi `4bb1db0c192f5948f2362738af3f02d0eaf6e40f` dipush, anonymous `git ls-remote` mengonfirmasi SHA public `main` pada pemeriksaan tersebut. GitHub Actions [38591360580](https://github.com/AndroLay/MethaneResponse/actions/runs/38591360580) completed/success; job `javascript`, `data-pipeline`, dan `contracts` masing-masing completed/success.
+- Perubahan tersebut hanya dokumentasi status. Ini melengkapi CI source commit `8718184`; tidak ada layanan eksternal lain yang diuji atau transaksi yang dikirim.
