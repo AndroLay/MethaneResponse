@@ -1,9 +1,29 @@
 import { describe, expect, test } from 'bun:test';
 import { gunzipSync } from 'node:zlib';
-import { layoutEvidenceObservations, summarizeEvidenceObservations } from './evidence-observations';
+import { layoutEvidenceObservations, selectEvidenceDateTickPoints, summarizeEvidenceObservations } from './evidence-observations';
 import { getNextSatelliteContextViewIndex, getPublisherFootprintPreview, getSatelliteContextTiles, getSatelliteContextViews } from './map-imagery';
 
 describe('evidence observation view model', () => {
+  test('omits a middle date tick when it would collide with the latest date label', () => {
+    const observations = [
+      { id: 'old', date: '2024-06-07T08:05:00Z', fluxKgHr: 591, uncertaintyKgHr: 335 },
+      { id: 'recent', date: '2026-06-05T07:40:00Z', fluxKgHr: 307, uncertaintyKgHr: 66 },
+      { id: 'latest', date: '2026-07-11T08:12:00Z', fluxKgHr: 496, uncertaintyKgHr: 226 },
+    ];
+    const points = layoutEvidenceObservations(observations).points;
+    expect(selectEvidenceDateTickPoints(points).map(point => point.observation.id)).toEqual(['old', 'latest']);
+  });
+
+  test('keeps the midpoint date tick when all three labels have enough horizontal space', () => {
+    const observations = [
+      { id: 'old', date: '2024-01-01T00:00:00Z', fluxKgHr: 100, uncertaintyKgHr: null },
+      { id: 'middle', date: '2025-01-01T00:00:00Z', fluxKgHr: 150, uncertaintyKgHr: null },
+      { id: 'latest', date: '2026-01-01T00:00:00Z', fluxKgHr: 120, uncertaintyKgHr: null },
+    ];
+    const points = layoutEvidenceObservations(observations).points;
+    expect(selectEvidenceDateTickPoints(points).map(point => point.observation.id)).toEqual(['old', 'middle', 'latest']);
+  });
+
   test('keeps a zero flux record distinct from a record with no reported flux', () => {
     const rows = [
       { id: 'late', date: '2025-04-01T00:00:00Z', fluxKgHr: 600, uncertaintyKgHr: 100 },

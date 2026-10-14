@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { MarsObservation, MarsSource } from './mars';
-import { layoutEvidenceObservations, summarizeEvidenceObservations } from './evidence-observations';
+import { layoutEvidenceObservations, selectEvidenceDateTickPoints, summarizeEvidenceObservations } from './evidence-observations';
 import { getNextSatelliteContextViewIndex, getSatelliteContextViews, isSatelliteContextLoading } from './map-imagery';
 import PublisherReferenceNotice from './PublisherReferenceNotice';
 import PublisherFootprintCard from './PublisherFootprintCard';
@@ -82,13 +82,7 @@ export default function EvidenceObservationPanel({
     setLoadedContextTileUrl(null);
   }, [source.sourceId, source.lat, source.lon]);
 
-  const dateTicks = chart.points.length > 0
-    ? [...new Map([
-      [chart.points[0]!.observation.date.slice(0, 10), chart.points[0]!],
-      [chart.points[Math.floor((chart.points.length - 1) / 2)]!.observation.date.slice(0, 10), chart.points[Math.floor((chart.points.length - 1) / 2)]!],
-      [chart.points.at(-1)!.observation.date.slice(0, 10), chart.points.at(-1)!],
-    ]).values()]
-    : [];
+  const dateTicks = useMemo(() => selectEvidenceDateTickPoints(chart.points), [chart.points]);
 
   return <div className="evidence-observation-panel">
     <div className="evidence-visuals-grid">
@@ -184,7 +178,13 @@ export default function EvidenceObservationPanel({
                 <circle cx={point.x} cy={point.y} r={selected ? 5.5 : 4} className="evidence-chart-dot"/>
               </g>;
             })}
-            {dateTicks.map(point => <text key={point.observation.id} x={point.x} y="137" textAnchor="middle" className="evidence-chart-date">{point.observation.date.slice(0, 10)}</text>)}
+            {dateTicks.map((point, index) => <text
+              key={point.observation.id}
+              x={point.x}
+              y="137"
+              textAnchor={dateTicks.length === 1 ? 'middle' : index === 0 ? 'start' : index === dateTicks.length - 1 ? 'end' : 'middle'}
+              className="evidence-chart-date"
+            >{point.observation.date.slice(0, 10)}</text>)}
           </svg>
         </div>
         <div className="evidence-chart-legend" aria-label="Chart legend">

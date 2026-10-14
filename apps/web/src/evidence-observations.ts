@@ -20,6 +20,29 @@ export type EvidenceObservationChart = {
   unquantifiedY: number;
 };
 
+/** Keeps axis labels legible while the full observation dates remain available in the record table. */
+export function selectEvidenceDateTickPoints(
+  points: readonly PositionedEvidenceObservation[],
+  minimumSpacing = 64,
+): PositionedEvidenceObservation[] {
+  if (!points.length) return [];
+
+  const candidates = [points[0]!, points[Math.floor((points.length - 1) / 2)]!, points.at(-1)!];
+  const byDate = new Map<string, PositionedEvidenceObservation>();
+  for (const point of candidates) {
+    const date = point.observation.date.slice(0, 10);
+    if (!byDate.has(date)) byDate.set(date, point);
+  }
+
+  const ticks = [...byDate.values()].sort((a, b) => a.x - b.x);
+  if (ticks.length < 3) return ticks;
+
+  const spacing = Number.isFinite(minimumSpacing) ? Math.max(0, minimumSpacing) : 64;
+  const [first, middle, last] = ticks;
+  if (middle!.x - first!.x < spacing || last!.x - middle!.x < spacing) return [first!, last!];
+  return ticks;
+}
+
 function observationTimestamp(value: string): number | null {
   const day = value.slice(0, 10);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) return null;
