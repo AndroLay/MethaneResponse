@@ -189,3 +189,9 @@ This proves application integration and local permission/hash behavior with a sy
 
 - Published commit [`c9e40b2`](https://github.com/AndroLay/MethaneResponse/commit/c9e40b29691884846353a692241919f38c5adf1b) to public `main`. GitHub Actions run [38656201825](https://github.com/AndroLay/MethaneResponse/actions/runs/38656201825) completed successfully on that exact SHA; JavaScript, data-pipeline, and contracts jobs all passed. The JavaScript job included `bun run check`, API/web/verifier suites, production build, bundle guard, Playwright install, and browser E2E.
 - The two alternative caption drafts remained untracked and were excluded from the commit. This release closes the local recurrence-boundary regression and current-revision CI gates; rights-cleared AI benchmark, live provider, cloud PostGIS, independent Sepolia transaction, target-user pilot, full video review and Devpost submission remain open.
+
+## WP-7 — offline RPC event-verification regression (15 October)
+
+- Extended `apps/api/src/chain.test.ts` with a mocked JSON-RPC receipt fixture that passes through viem's real chain-ID and receipt decoding path. It accepts a matching `Anchored` event, rejects a log from another contract address, rejects a mismatched bundle digest, and rejects receipt metadata claiming the wrong chain or registry before issuing any RPC request.
+- Focused verification passed **8 tests / 42 assertions**; `bun run check` passed. `bun run test:api` passed **105 tests / 601 assertions**, with **14 PostgreSQL integration tests skipped** because this local run had no `TEST_DATABASE_URL`. Existing CI contains the disposable PostGIS service; at the time this checkpoint entry was written, this test had not yet received its own CI run.
+- This is mocked-RPC integration evidence only. It checks verifier behavior against an RPC-shaped fixture, not a live Sepolia transaction, independently operated RPC provider, deployed registry address, or physical mitigation claim.
