@@ -102,7 +102,8 @@ export function makeRecordRecurrenceView(
   if (!forecast || !model || forecast.status !== 'available' || model.status !== 'historical_backtest_passed') return null;
   if (forecast.modelVersion !== model.modelVersion || forecast.target !== TARGET || model.target !== TARGET
     || forecast.horizonDays !== 365 || model.horizonDays !== forecast.horizonDays
-    || !inRange(forecast.probability, 0, 1) || !validIsoDay(forecast.asOfDate)
+    || !finite(forecast.probability) || forecast.probability <= 0 || forecast.probability >= 1
+    || !validIsoDay(forecast.asOfDate)
     || forecast.asOfDate !== model.datasetLastObservedDate
     || !model.testOrigin || !model.testWindowEnd
     || !model.testCohort || !model.testBrierReference || !model.bootstrap

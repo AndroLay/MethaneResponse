@@ -81,3 +81,8 @@ test('hides estimates when the model, target, date, or status does not match', (
   expect(makeRecordRecurrenceView(forecast, { ...model(), datasetLastObservedDate: '2026-09-10' })).toBeNull();
   expect(makeRecordRecurrenceView(forecast, { ...model(), confidenceIntervals95: { ...model().confidenceIntervals95, rocAuc: { lower95: -0.1, upper95: 0.9 } } })).toBeNull();
 });
+
+test('does not display absolute certainty for a historical archive-record estimate', () => {
+  expect(makeRecordRecurrenceView({ ...forecast, probability: 0 }, model())).toBeNull();
+  expect(makeRecordRecurrenceView({ ...forecast, probability: 1 }, model())).toBeNull();
+});
