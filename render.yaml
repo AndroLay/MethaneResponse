@@ -3,7 +3,7 @@ services:
   - type: web
     name: methane-response-api
     runtime: node
-    buildCommand: bun install
+    buildCommand: bun install --frozen-lockfile
     startCommand: cd apps/api && bun run start
     healthCheckPath: /api/health
     envVars:
