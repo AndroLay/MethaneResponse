@@ -18,6 +18,26 @@ test('valid prepared document remains offline and retains provenance metadata', 
   expect(result.originalFileSha256).toBe('a'.repeat(64));
   expect(result.selectedPages[0].page).toBe(1);
 });
+test('open-license prepared evidence carries matching license and attribution declarations', async () => {
+  const openLicense = template();
+  const metadata = {
+    licenseName: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    attribution: 'Dowd et al. (2024), Atmospheric Measurement Techniques, DOI 10.5194/amt-17-1599-2024.',
+    licenseScopeConfirmed: true,
+  };
+  openLicense.apiPayload.documents[0].rightsDeclared = 'open_license';
+  Object.assign(openLicense.apiPayload.documents[0], metadata);
+  openLicense.localManifest.rightsStatus = 'open_license';
+  Object.assign(openLicense.localManifest, metadata);
+
+  const result = await validatePreparedEvidence(openLicense, 'KAZ_S_159', 'mitigation_confirmed');
+  expect(result).toMatchObject({ rightsDeclared: 'open_license', ...metadata });
+
+  const altered = structuredClone(openLicense);
+  altered.localManifest.attribution = 'A different attribution statement for this source.';
+  await expect(validatePreparedEvidence(altered, 'KAZ_S_159', 'mitigation_confirmed')).rejects.toThrow('license metadata mismatch');
+});
 test('cannot import evidence for a different source or modified excerpt', async () => {
   await expect(validatePreparedEvidence(template(),'LBY_S_143','mitigation_confirmed')).rejects.toThrow('does not match');
   const edited = template(); edited.apiPayload.documents[0].text += ' ADDED';

@@ -3,9 +3,12 @@ import { readFile } from 'node:fs/promises';
 import { issueReviewerToken } from '../apps/api/src/reviewer-auth';
 import { unexpectedCredentialEnvironmentNames } from './environment-assertions';
 
-const fixtureTitle = 'SYNTHETIC E2E FIXTURE — not source evidence';
-const fixtureQuote = 'A maintenance log records replacement of compressor valve KV-17 on 20 August 2026.';
-const fixtureExcerpt = `${fixtureTitle}. ${fixtureQuote} This generated test text contains no independent follow-up methane measurement and is not an operator record.`;
+const fixtureTitle = 'Dowd et al. (2024), First validation of high-resolution satellite-derived methane emissions from an active gas leak in the UK';
+const fixtureQuote = 'After detecting the leak in March 2023, the local utility company was contacted, and the leak was fixed by mid-June 2023.';
+const fixtureExcerpt = fixtureQuote;
+const fixtureSourceUrl = 'https://amt.copernicus.org/articles/17/1599/2024/amt-17-1599-2024.html';
+const fixtureAttribution = 'Dowd et al. (2024), Atmospheric Measurement Techniques, 17, 1599–1615, DOI 10.5194/amt-17-1599-2024, CC BY 4.0.';
+const claimText = 'For KAZ_S_159, this article reports that the leak was fixed by mid-June 2023.';
 
 type ExportedReview = {
   latestAudit?: {
@@ -25,7 +28,7 @@ type ExportedReview = {
         claimTextSha256?: string;
         assessmentInputSha256?: string;
         quotations?: Array<{ documentId: string; quote: string }>;
-        documentDigests?: Array<{ title: string }>;
+        documentDigests?: Array<{ title: string; rightsDeclared?: string; licenseName?: string; licenseUrl?: string; attribution?: string; licenseScopeConfirmed?: boolean; sha256?: string }>;
         review?: { reviewerId?: string; note?: string; sourceInspected?: boolean; parentBundleHash?: string };
         citationPublication?: { status?: string; authorConsent?: boolean };
       };
@@ -90,10 +93,19 @@ test('local mock AI citations receive a separate scoped review and remain privat
   await page.screenshot({ path: testInfo.outputPath('record-recurrence-validation-mobile.png') });
   await page.setViewportSize({ width: 1280, height: 800 });
 
-  await page.getByLabel('Exact claim to assess').fill('For KAZ_S_159, the operator completed the stated repair on 2026-08-20 and independently verified sustained methane reduction.');
+  await page.getByLabel('Exact claim to assess').fill(claimText);
   await page.getByLabel('Source document title').fill(fixtureTitle);
-  await page.getByLabel('Document processing rights').selectOption('owned');
+  await page.getByLabel('Document processing rights').selectOption('open_license');
+  await expect(page.getByRole('group', { name: 'Open-license details' })).toBeVisible();
+  const sourceUrlInput = page.getByLabel('Document URL (required for open license)');
+  await expect(sourceUrlInput).toHaveAttribute('required', '');
+  await sourceUrlInput.fill(fixtureSourceUrl);
+  await expect(page.getByRole('button', { name: 'Assess documented claim' })).toBeDisabled();
+  await page.getByLabel('License name').fill('CC BY 4.0');
+  await page.getByLabel('License deed URL').fill('https://creativecommons.org/licenses/by/4.0/');
+  await page.getByLabel('Required attribution').fill(fixtureAttribution);
   await page.getByLabel('Authorized document excerpt').fill(fixtureExcerpt);
+  await page.getByLabel(/I checked that this license and provider terms allow/).check();
   await page.getByLabel('Assessment access token (session only)').fill(aiAccessToken!);
   await page.getByLabel(/I am authorized to process this text and consent to transmission/).check();
 
@@ -117,6 +129,8 @@ test('local mock AI citations receive a separate scoped review and remain privat
   await expect(evidenceRegion.getByText('The exact submitted passages were not conclusive for this claim; human review is required.')).toBeVisible();
   await expect(evidenceRegion.locator('blockquote')).toContainText(fixtureQuote);
   await expect(evidenceRegion.locator('blockquote')).toContainText(fixtureTitle);
+  await expect(evidenceRegion).toContainText('Submitter declared open-license basis: CC BY 4.0');
+  await expect(evidenceRegion).toContainText(fixtureAttribution);
 
   await page.getByLabel('Human reviewer token (session only)').fill(reviewerToken);
   await page.getByLabel('Review note').fill('Request an independent follow-up measurement before evaluating the outcome.');
@@ -160,16 +174,20 @@ test('local mock AI citations receive a separate scoped review and remain privat
     expect.objectContaining({ documentId: 'submitted-excerpt-01', quote: fixtureQuote }),
   ]);
   expect(audit?.bundle?.intelligence?.documentDigests).toEqual([
-    expect.objectContaining({ title: fixtureTitle }),
+    expect.objectContaining({
+      title: fixtureTitle, rightsDeclared: 'open_license', licenseName: 'CC BY 4.0',
+      licenseUrl: 'https://creativecommons.org/licenses/by/4.0/', attribution: fixtureAttribution,
+      licenseScopeConfirmed: true, sha256: expect.stringMatching(/^[a-f0-9]{64}$/),
+    }),
   ]);
   expect(audit?.bundle?.intelligence).toMatchObject({
-    claimText: 'For KAZ_S_159, the operator completed the stated repair on 2026-08-20 and independently verified sustained methane reduction.',
+    claimText,
     claimPublication: { status: 'private', authorConsent: false },
   });
   expect(audit?.bundle?.intelligence?.claimTextSha256).toMatch(/^[a-f0-9]{64}$/);
   expect(audit?.bundle?.intelligence?.assessmentInputSha256).toMatch(/^[a-f0-9]{64}$/);
   expect(audit?.bundle?.reason).toContain('Reviewer requested additional evidence');
-  expect(JSON.stringify(exported)).not.toContain(fixtureExcerpt);
+  expect(JSON.stringify(audit?.bundle?.intelligence?.documentDigests)).not.toContain(fixtureExcerpt);
 
   const privateReportPath = `/api/audits/${encodeURIComponent(audit!.auditId!)}`;
   expect((await page.request.get(privateReportPath)).status()).toBe(404);

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare an authorized local TXT or selectable-text PDF excerpt for review.
+"""Prepare a locally extracted TXT or selectable-text PDF excerpt for review.
 
 This utility performs no network or AI calls. It does not verify document
 authenticity, license, scientific meaning, or methane mitigation outcomes.
@@ -18,7 +18,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 CLAIMS = ('source_detected', 'operator_notified', 'mitigation_confirmed')
-RIGHTS = ('owned', 'explicit_permission', 'link_only')
+RIGHTS = ('owned', 'explicit_permission', 'open_license', 'link_only')
 IDENTIFIER = re.compile(r'^[a-zA-Z0-9:_-]{1,64}$')
 MAX_BYTES = 16 * 1024 * 1024
 MAX_TEXT = 8_000
@@ -104,7 +104,8 @@ def extract_pages(path: Path, raw: bytes, requested_pages: tuple[int, ...] = ())
 
 def prepare_document(path: Path, *, source_id: str, claim_type: str, document_id: str,
                      title: str, source_url: str, rights_status: str,
-                     pages: tuple[int, ...] = ()) -> dict:
+                     pages: tuple[int, ...] = (), license_name: str = '', license_url: str = '',
+                     attribution: str = '', license_scope_confirmed: bool = False) -> dict:
     if not IDENTIFIER.fullmatch(source_id) or not IDENTIFIER.fullmatch(document_id):
         raise ValueError('Source and document IDs must be short safe identifiers')
     if claim_type not in CLAIMS or rights_status not in RIGHTS:
@@ -113,6 +114,16 @@ def prepare_document(path: Path, *, source_id: str, claim_type: str, document_id
         raise ValueError('Title is invalid or the source URL is not HTTPS')
     if rights_status == 'link_only':
         raise ValueError('Link-only evidence must remain at the publisher; do not extract or transmit text without permission')
+    open_license_metadata = (license_name, license_url, attribution, license_scope_confirmed)
+    if rights_status == 'open_license':
+        if not license_name.strip() or not attribution.strip() or not license_scope_confirmed:
+            raise ValueError('Open-license evidence requires license name, license URL, attribution, and scope confirmation')
+        if len(license_name.strip()) > 120 or not 10 <= len(attribution.strip()) <= 500:
+            raise ValueError('Open-license name or attribution is outside its allowed length')
+        if not _valid_https(license_url):
+            raise ValueError('License URL must use HTTPS without credentials')
+    elif any(open_license_metadata):
+        raise ValueError('Open-license metadata is valid only with open_license rights status')
     if not path.is_file() or path.stat().st_size > MAX_BYTES:
         raise ValueError('Missing document or document exceeds 16 MiB')
     raw = path.read_bytes()
@@ -144,6 +155,28 @@ def prepare_document(path: Path, *, source_id: str, claim_type: str, document_id
         raise ValueError('Selected text exceeds the 8,000-character AI limit; select fewer pages instead of silently truncating')
     if utf16_length < 80:
         raise ValueError('Less than 80 characters; select an adequately detailed evidence excerpt')
+    document_payload = {
+        'id': document_id, 'title': title, 'text': combined, 'sourceUrl': source_url,
+        'originalFileSha256': sha256(raw), 'rightsDeclared': rights_status,
+        'selectedPages': page_hashes,
+    }
+    manifest = {
+        'formatVersion': 1,
+        'originalFilename': path.name, 'documentSha256': sha256(raw),
+        'sourceUrl': source_url, 'rightsStatus': rights_status,
+        'selectedPages': page_hashes,
+        'extractedTextSha256': sha256(combined.encode('utf-8')),
+        'sourceAuthenticityChecked': False,
+        'scientificClaimVerified': False,
+        'note': 'User-supplied origin and rights declaration; verify publisher, license, source relevance, and claim support independently.',
+    }
+    if rights_status == 'open_license':
+        open_metadata = {
+            'licenseName': license_name.strip(), 'licenseUrl': license_url,
+            'attribution': attribution.strip(), 'licenseScopeConfirmed': True,
+        }
+        document_payload.update(open_metadata)
+        manifest.update(open_metadata)
     return {
         'apiPayload': {
             'sourceId': source_id,
@@ -151,22 +184,9 @@ def prepare_document(path: Path, *, source_id: str, claim_type: str, document_id
             # Import never counts as provider or publication consent.
             'consentToExternalProcessing': False,
             'consentToPublishCitations': False,
-            'documents': [{
-                'id': document_id, 'title': title, 'text': combined, 'sourceUrl': source_url,
-                'originalFileSha256': sha256(raw), 'rightsDeclared': rights_status,
-                'selectedPages': page_hashes,
-            }],
+            'documents': [document_payload],
         },
-        'localManifest': {
-            'formatVersion': 1,
-            'originalFilename': path.name, 'documentSha256': sha256(raw),
-            'sourceUrl': source_url, 'rightsStatus': rights_status,
-            'selectedPages': page_hashes,
-            'extractedTextSha256': sha256(combined.encode('utf-8')),
-            'sourceAuthenticityChecked': False,
-            'scientificClaimVerified': False,
-            'note': 'User-supplied origin and rights declaration; verify publisher, license, source relevance, and claim support independently.',
-        },
+        'localManifest': manifest,
     }
 
 
@@ -194,12 +214,18 @@ def main() -> None:
     parser.add_argument('--title', required=True)
     parser.add_argument('--source-url', required=True, help='Publisher URL, independently checked by the reviewer')
     parser.add_argument('--rights-status', required=True, choices=RIGHTS)
+    parser.add_argument('--license-name', default='', help='Required for --rights-status open_license')
+    parser.add_argument('--license-url', default='', help='HTTPS license deed URL for open-license evidence')
+    parser.add_argument('--attribution', default='', help='Attribution required by the document license')
+    parser.add_argument('--confirm-license-scope', action='store_true', help='Declare that the license scope was checked for excerpt, provider, and quote processing')
     parser.add_argument('--page', type=int, action='append', default=[], help='PDF page number; may be repeated')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     document = prepare_document(args.document, source_id=args.source_id, claim_type=args.claim_type,
                                 document_id=args.document_id, title=args.title, source_url=args.source_url,
-                                rights_status=args.rights_status, pages=tuple(args.page))
+                                rights_status=args.rights_status, pages=tuple(args.page),
+                                license_name=args.license_name, license_url=args.license_url,
+                                attribution=args.attribution, license_scope_confirmed=args.confirm_license_scope)
     write_private_json(args.output, document)
     excerpt = document['apiPayload']['documents'][0]['text']
     print(f'Prepared {len(excerpt)} excerpt characters. No external request was sent. Output: {args.output}')

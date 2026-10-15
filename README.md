@@ -68,7 +68,7 @@ The API health route is <http://localhost:3001/api/health>. It checks casebook a
 | `GET /api/sources?mode=demo` | Read explicitly synthetic fixtures |
 | `POST /api/audits` | Evaluate one typed claim and persist a version |
 | `GET /api/intelligence/insights?sourceId=...` | Read historical analysis for any source in the hash-bound pinned MARS snapshot |
-| `POST /api/intelligence/assessments` | Optional, consent-gated server-side assessment; every excerpt must declare `owned` or `explicit_permission`, and the declaration is recorded in the report |
+| `POST /api/intelligence/assessments` | Optional, consent-gated server-side assessment; each excerpt declares `owned`, `explicit_permission`, or a submitter-declared `open_license` with source, license deed, attribution, and scope confirmation; rights metadata is recorded in the report |
 | `POST /api/audits/:id/review` | Create an authenticated, immutable human-review revision for a v3 draft |
 | `GET /api/audits?sourceId=...&claimType=...` | Read audit history |
 | `GET /api/audits/:id/verify` | Verify local digest and, if configured, the exact registry transaction; private v3 reports require a `private_read` capability |
@@ -113,6 +113,21 @@ python scripts/prepare_evidence.py /path/to/report.pdf \
 ```
 
 The preparation command never calls a provider. Import the resulting JSON in the Evidence Auditor, verify the publisher and rights, then use the separate on-screen consent before any AI transmission.
+
+For an open-license excerpt, also provide the license deed, required attribution, and an explicit scope confirmation:
+
+```bash
+python scripts/prepare_evidence.py /path/to/report.pdf \
+  --source-id KAZ_S_159 --claim-type mitigation_confirmed \
+  --document-id paper-excerpt-01 --title "Paper excerpt" \
+  --source-url https://publisher.example/article \
+  --rights-status open_license --license-name "CC BY 4.0" \
+  --license-url https://creativecommons.org/licenses/by/4.0/ \
+  --attribution "Author, article title, publisher, DOI, CC BY 4.0" \
+  --confirm-license-scope --page 2 --output /tmp/evidence.json
+```
+
+This is a submitter declaration only. It does not independently verify the license, source, or whether provider terms permit the requested processing and quote retention. Provider-processing consent remains separate.
 
 To issue a short-lived reviewer token, configure `REVIEWER_AUTH_SECRET` only in the API environment, then run this locally and store its stdout as a credential:
 

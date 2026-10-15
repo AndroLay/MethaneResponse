@@ -31,6 +31,65 @@ test('document assessment requires an explicit rights declaration for every exce
     expect(unverified.error.issues.some((issue) => issue.path.join('.') === 'documents.0.rightsDeclared')).toBe(true);
   }
 });
+test('open-license declarations require a source, license, attribution, and explicit scope confirmation', () => {
+  const document = {
+    ...sample.documents[0],
+    rightsDeclared: 'open_license',
+    sourceUrl: 'https://amt.copernicus.org/articles/17/1599/2024/amt-17-1599-2024.html',
+    licenseName: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    attribution: 'Dowd et al. (2024), Atmospheric Measurement Techniques, DOI 10.5194/amt-17-1599-2024.',
+    licenseScopeConfirmed: true,
+  } as const;
+  const accepted = DocumentAssessmentInput.parse({ ...sample, documents: [document] });
+  expect(accepted.documents[0]).toMatchObject({
+    rightsDeclared: 'open_license',
+    licenseName: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    attribution: 'Dowd et al. (2024), Atmospheric Measurement Techniques, DOI 10.5194/amt-17-1599-2024.',
+    licenseScopeConfirmed: true,
+  });
+
+  for (const incomplete of [
+    { ...document, licenseName: undefined },
+    { ...document, licenseUrl: undefined },
+    { ...document, attribution: undefined },
+    { ...document, licenseScopeConfirmed: false },
+    { ...document, sourceUrl: undefined },
+    { ...document, licenseUrl: 'http://creativecommons.org/licenses/by/4.0/' },
+  ]) {
+    expect(DocumentAssessmentInput.safeParse({ ...sample, documents: [incomplete] }).success).toBe(false);
+  }
+});
+test('open-license declaration metadata is bound into the immutable audit digest', async () => {
+  const document = {
+    ...sample.documents[0],
+    rightsDeclared: 'open_license',
+    sourceUrl: 'https://amt.copernicus.org/articles/17/1599/2024/amt-17-1599-2024.html',
+    licenseName: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    attribution: 'Dowd et al. (2024), Atmospheric Measurement Techniques, DOI 10.5194/amt-17-1599-2024.',
+    licenseScopeConfirmed: true,
+  } as const;
+  const parsed = DocumentAssessmentInput.parse({ ...sample, documents: [document] });
+  const book = await loadCasebook();
+  const source = sourceFromCase(book.cases[0], book.provenance.catalogUrl, book.provenance);
+  const audit = createDocumentAudit({ ...parsed, sourceId: source.sourceId }, source, {
+    verdict: 'insufficient_evidence', reason: 'This unit test does not evaluate the paper or its reported event.', citations: [],
+  }, 1, { caseId: book.cases[0].caseId, externalEvidence: [], provenance: book.provenance });
+  const tampered = structuredClone(audit);
+  tampered.bundle.intelligence!.documentDigests[0]!.licenseUrl = 'https://example.org/other-license';
+
+  expect(audit.bundle.intelligence?.documentDigests[0]).toMatchObject({
+    rightsDeclared: 'open_license',
+    licenseName: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    attribution: 'Dowd et al. (2024), Atmospheric Measurement Techniques, DOI 10.5194/amt-17-1599-2024.',
+    licenseScopeConfirmed: true,
+  });
+  expect(auditIntegrityValid(audit)).toBe(true);
+  expect(auditIntegrityValid(tampered)).toBe(false);
+});
 test('v3 document digest retains original-file and selected-page provenance', async () => {
   const pageDigest = 'b'.repeat(64);
   const originalDigest = 'a'.repeat(64);

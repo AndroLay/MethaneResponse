@@ -1,8 +1,8 @@
 const host = '127.0.0.1';
 const port = Number(process.env.METHANE_E2E_MOCK_AI_PORT || 43140);
 const expectedApiKey = process.env.METHANE_E2E_MOCK_PROVIDER_KEY;
-const exactQuote = 'A maintenance log records replacement of compressor valve KV-17 on 20 August 2026.';
-const exactClaim = 'For KAZ_S_159, the operator completed the stated repair on 2026-08-20 and independently verified sustained methane reduction.';
+const exactQuote = 'After detecting the leak in March 2023, the local utility company was contacted, and the leak was fixed by mid-June 2023.';
+const exactClaim = 'For KAZ_S_159, this article reports that the leak was fixed by mid-June 2023.';
 
 if (!expectedApiKey) throw new Error('The E2E mock provider requires an ephemeral API key.');
 
@@ -77,7 +77,7 @@ Bun.serve({
       if (!skepticalQuoteMatches) return Response.json({ error: 'expected_exact_grounded_quote' }, { status: 400 });
       modelOutput = {
         verdict: 'insufficient_evidence',
-        reason: 'The test excerpt reports an action but has no independent follow-up methane measurement.',
+        reason: 'The excerpt describes the UK case and does not identify KAZ_S_159; it cannot support a claim about this MARS source.',
       };
     } else {
       firstPassRequests += 1;
@@ -89,7 +89,7 @@ Bun.serve({
       if (!exactInputQuoteMatches) return Response.json({ error: 'expected_test_excerpt' }, { status: 400 });
       modelOutput = {
         verdict: 'supported',
-        reason: 'The synthetic fixture reports that a valve replacement occurred.',
+        reason: 'The article excerpt reports a repair for the described UK event.',
         citations: [{ documentId: 'submitted-excerpt-01', quote: exactQuote }],
       };
     }

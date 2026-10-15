@@ -67,6 +67,14 @@ type Insight = {
 type Payload = { snapshot: { modelVersion: string; datasetSnapshotId: string | null; linkedObservationCount: number; sourceDataset: string | null; sourceProvider: string | null; datasetLicense: string | null; catalogUrl: string | null; datasetAttribution: string | null; upstreamArchiveSha256?: string | null; snapshotSha256: string; inputFileSha256: string; generatedAt: string; trainedModel: boolean; limitations: string[]; recordRecurrenceModel?: RecordRecurrenceModel; publisherIndicatorComparison?: PublisherIndicatorComparisonData }; insight: Insight | null };
 type PanelState = 'loading' | 'ready' | 'unavailable';
 const api = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+function safeHttpsUrl(value: string) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && !url.username && !url.password;
+  } catch {
+    return false;
+  }
+}
 
 function ObservedFluxTrendView({ trend, forecast, observations }: { trend: ObservedFluxTrend; forecast: Insight['forecast']; observations: MarsObservation[] }) {
   const dailyPoints = useMemo(() => aggregateObservedFluxPoints(observations), [observations]);
@@ -130,7 +138,11 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
   const [documentTitle, setDocumentTitle] = useState('');
   const [documentUrl, setDocumentUrl] = useState('');
   const [preparedDocument, setPreparedDocument] = useState<PreparedDocument | null>(null);
-  const [rightsDeclared, setRightsDeclared] = useState<'' | 'owned' | 'explicit_permission'>('');
+  const [rightsDeclared, setRightsDeclared] = useState<'' | 'owned' | 'explicit_permission' | 'open_license'>('');
+  const [licenseName, setLicenseName] = useState('');
+  const [licenseUrl, setLicenseUrl] = useState('');
+  const [attribution, setAttribution] = useState('');
+  const [licenseScopeConfirmed, setLicenseScopeConfirmed] = useState(false);
   const [importStatus, setImportStatus] = useState<string | null>(null);
   const [consent, setConsent] = useState(false);
   const [consentToPublishCitations, setConsentToPublishCitations] = useState(false);
@@ -154,6 +166,11 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
     setDocumentText('');
     setDocumentTitle('');
     setDocumentUrl('');
+    setRightsDeclared('');
+    setLicenseName('');
+    setLicenseUrl('');
+    setAttribution('');
+    setLicenseScopeConfirmed(false);
     setPreparedDocument(null);
     setImportStatus(null);
     setConsent(false);
@@ -197,6 +214,10 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
       if (investigationContext.current !== requestedContext) return;
       setPreparedDocument(prepared);
       setRightsDeclared(prepared.rightsDeclared);
+      setLicenseName(prepared.licenseName || '');
+      setLicenseUrl(prepared.licenseUrl || '');
+      setAttribution(prepared.attribution || '');
+      setLicenseScopeConfirmed(prepared.licenseScopeConfirmed === true);
       setDocumentTitle(prepared.title);
       setDocumentUrl(prepared.sourceUrl || '');
       setDocumentText(prepared.text);
@@ -216,7 +237,11 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
   }
 
   async function assess() {
-    if (!assessmentAllowed || synthetic || claimText.trim().length < 20 || !consent || !rightsDeclared || !aiAccessToken.trim() || !documentTitle.trim() || documentText.trim().length < 80 || !capability?.documentModelConfigured) return;
+    const openLicenseReady = rightsDeclared !== 'open_license'
+      || (licenseName.trim().length > 0 && licenseName.trim().length <= 120
+        && safeHttpsUrl(licenseUrl) && attribution.trim().length >= 10 && attribution.trim().length <= 500
+        && licenseScopeConfirmed && safeHttpsUrl(documentUrl));
+    if (!assessmentAllowed || synthetic || claimText.trim().length < 20 || !consent || !rightsDeclared || !openLicenseReady || !aiAccessToken.trim() || !documentTitle.trim() || documentText.trim().length < 80 || !capability?.documentModelConfigured) return;
     setLoading(true); setFailure(null);
     try {
       const response = await fetch(`${api}/api/intelligence/assessments`, {
@@ -224,7 +249,10 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
         body: JSON.stringify({ sourceId, claimType, claimText: claimText.trim(), consentToExternalProcessing: true,
           consentToPublishCitations,
           consentToPublishClaim,
-          documents: [{ id: preparedDocument?.id || 'submitted-excerpt-01', title: documentTitle.trim(), text: documentText.trim(), rightsDeclared, ...(documentUrl.trim() ? { sourceUrl: documentUrl.trim() } : {}), ...(preparedDocument ? { originalFileSha256: preparedDocument.originalFileSha256, selectedPages: preparedDocument.selectedPages } : {}) }] }),
+          documents: [{ id: preparedDocument?.id || 'submitted-excerpt-01', title: documentTitle.trim(), text: documentText.trim(), rightsDeclared,
+            ...(documentUrl.trim() ? { sourceUrl: documentUrl.trim() } : {}),
+            ...(rightsDeclared === 'open_license' ? { licenseName: licenseName.trim(), licenseUrl: licenseUrl.trim(), attribution: attribution.trim(), licenseScopeConfirmed } : {}),
+            ...(preparedDocument ? { originalFileSha256: preparedDocument.originalFileSha256, selectedPages: preparedDocument.selectedPages } : {}) }] }),
       });
       const payload = await parseResponse<{ audit: AuditResult }>(response);
       setGenerated(payload.audit); onAssessment(payload.audit); setReviewNote('');
@@ -334,15 +362,23 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
         {importStatus && <p className="intel-disclaimer" role="status">{importStatus}</p>}
         <p className="intel-disclaimer">Prepare authorized PDF/TXT excerpts with <code>python scripts/prepare_evidence.py</code>. Import runs locally in this browser and never sends the file or grants provider consent. Digest checks do not authenticate the source or establish scientific correctness.</p>
         <label>Source document title<input value={documentTitle} maxLength={160} onChange={event=>{setDocumentTitle(event.target.value);clearPreparedProvenance();}} placeholder="Operator response / field inspection report"/></label>
-        <label>Document URL (optional)<input type="url" value={documentUrl} onChange={event=>{setDocumentUrl(event.target.value);clearPreparedProvenance();}} placeholder="https://official-source.example/report"/></label>
-        <label>Document processing rights<select value={rightsDeclared} onChange={event=>setRightsDeclared(event.target.value as '' | 'owned' | 'explicit_permission')}><option value="">Choose your authorization…</option><option value="owned">I own this document or excerpt</option><option value="explicit_permission">I have explicit permission to process it</option></select></label>
+        <label>Document URL {rightsDeclared === 'open_license' ? '(required for open license)' : '(optional)'}<input type="url" required={rightsDeclared === 'open_license'} value={documentUrl} onChange={event=>{setDocumentUrl(event.target.value);clearPreparedProvenance();}} placeholder="https://official-source.example/report"/></label>
+        <label>Document processing rights<select value={rightsDeclared} onChange={event=>{setRightsDeclared(event.target.value as '' | 'owned' | 'explicit_permission' | 'open_license');setLicenseScopeConfirmed(false);}}><option value="">Choose your authorization…</option><option value="owned">I own this document or excerpt</option><option value="explicit_permission">I have explicit permission to process it</option><option value="open_license">Open license with attribution</option></select></label>
+        <p className="intel-disclaimer">Open-license declarations require the license name and deed URL, required attribution, and confirmation that the license and provider terms allow excerpt processing and private quote retention.</p>
+        {rightsDeclared === 'open_license' && <fieldset className="intel-license-fields">
+          <legend>Open-license details</legend>
+          <label>License name<input required maxLength={120} value={licenseName} onChange={event=>{setLicenseName(event.target.value);clearPreparedProvenance();}} placeholder="CC BY 4.0"/></label>
+          <label>License deed URL<input required type="url" value={licenseUrl} onChange={event=>{setLicenseUrl(event.target.value);clearPreparedProvenance();}} placeholder="https://creativecommons.org/licenses/by/4.0/"/></label>
+          <label>Required attribution<input required maxLength={500} value={attribution} onChange={event=>{setAttribution(event.target.value);clearPreparedProvenance();}} placeholder="Author, title, publisher, DOI, and license notice"/></label>
+          <label className="intel-consent"><input type="checkbox" checked={licenseScopeConfirmed} onChange={event=>{setLicenseScopeConfirmed(event.target.checked);clearPreparedProvenance();}}/> I checked that this license and provider terms allow sending this excerpt for processing and retaining its exact quotes in a private audit. This is my declaration, not an independent rights review.</label>
+        </fieldset>}
         <p className="intel-disclaimer">This is a submitter declaration. MethaneResponse does not independently verify copyright, permission, source authenticity, or completeness.</p>
         <label>Authorized document excerpt<textarea rows={4} maxLength={8000} value={documentText} onChange={event=>{setDocumentText(event.target.value);clearPreparedProvenance();}} placeholder="Paste the exact passage that relates to the selected claim…"/></label>
         <form className="intel-token-form" onSubmit={event=>event.preventDefault()}><label>Assessment access token (session only)<input type="password" autoComplete="off" value={aiAccessToken} onChange={event=>setAiAccessToken(event.target.value)} placeholder="AI assessment token"/></label></form>
         <label className="intel-consent"><input type="checkbox" checked={consent} onChange={event=>setConsent(event.target.checked)}/> I am authorized to process this text and consent to transmission to the configured AI provider.</label>
         <label className="intel-consent"><input type="checkbox" checked={consentToPublishCitations} onChange={event=>setConsentToPublishCitations(event.target.checked)}/> I separately permit the exact cited passages and submitted document title/URL to be made public later, only if a human reviewer approves and chooses publication.</label>
         <label className="intel-consent"><input type="checkbox" checked={consentToPublishClaim} onChange={event=>setConsentToPublishClaim(event.target.checked)}/> I separately permit the exact claim wording above to be included in a public reviewed report; the reviewer must also choose to publish it.</label>
-        <button type="button" className="intel-action" disabled={!assessmentAllowed || synthetic || claimText.trim().length < 20 || !consent || !rightsDeclared || !capability?.documentModelConfigured || !aiAccessToken.trim() || !documentTitle.trim() || documentText.trim().length < 80 || loading} onClick={()=>void assess()}>{loading ? 'Assessing evidence…' : 'Assess documented claim'}</button>
+        <button type="button" className="intel-action" disabled={!assessmentAllowed || synthetic || claimText.trim().length < 20 || !consent || !rightsDeclared || (rightsDeclared === 'open_license' && (!licenseName.trim() || licenseName.trim().length > 120 || !safeHttpsUrl(licenseUrl) || attribution.trim().length < 10 || attribution.trim().length > 500 || !licenseScopeConfirmed || !safeHttpsUrl(documentUrl))) || !capability?.documentModelConfigured || !aiAccessToken.trim() || !documentTitle.trim() || documentText.trim().length < 80 || loading} onClick={()=>void assess()}>{loading ? 'Assessing evidence…' : 'Assess documented claim'}</button>
         {synthetic && <p className="intel-warning">Document assessment is disabled for synthetic DEMO sources.</p>}
         {!synthetic && !assessmentAllowed && insightState === 'loading' && <p className="intel-empty" role="status">Confirming that this source exists in the pinned server snapshot…</p>}
         {!synthetic && !assessmentAllowed && insightState === 'unavailable' && <p className="intel-warning">The pinned server snapshot could not validate this source. A local map file alone does not authorize document assessment.</p>}

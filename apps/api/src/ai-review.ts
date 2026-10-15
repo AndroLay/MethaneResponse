@@ -15,7 +15,14 @@ export const DocumentAssessmentInput = z.object({
     title: z.string().min(1).max(160),
     text: z.string().min(80).max(8_000),
     originalFileSha256: z.string().regex(/^[0-9a-f]{64}$/).optional(),
-    rightsDeclared: z.enum(['owned', 'explicit_permission']),
+    rightsDeclared: z.enum(['owned', 'explicit_permission', 'open_license']),
+    licenseName: z.string().trim().min(1).max(120).optional(),
+    licenseUrl: z.string().url().startsWith('https://').refine((value) => {
+      const url = new URL(value);
+      return !url.username && !url.password;
+    }, { message: 'License URLs must not contain embedded credentials' }).optional(),
+    attribution: z.string().trim().min(10).max(500).optional(),
+    licenseScopeConfirmed: z.literal(true).optional(),
     selectedPages: z.array(z.object({
       page: z.number().int().min(1).max(250),
       textSha256: z.string().regex(/^[0-9a-f]{64}$/),
@@ -32,6 +39,16 @@ export const DocumentAssessmentInput = z.object({
     }
     if (document.selectedPages && new Set(document.selectedPages.map(page => page.page)).size !== document.selectedPages.length) {
       context.addIssue({ code: 'custom', path: ['selectedPages'], message: 'Selected page numbers must be unique' });
+    }
+    const openLicenseFields = [document.licenseName, document.licenseUrl, document.attribution, document.licenseScopeConfirmed];
+    if (document.rightsDeclared === 'open_license') {
+      if (!document.sourceUrl) context.addIssue({ code: 'custom', path: ['sourceUrl'], message: 'Open-license evidence requires a source URL' });
+      if (!document.licenseName) context.addIssue({ code: 'custom', path: ['licenseName'], message: 'Open-license evidence requires the license name' });
+      if (!document.licenseUrl) context.addIssue({ code: 'custom', path: ['licenseUrl'], message: 'Open-license evidence requires the license URL' });
+      if (!document.attribution) context.addIssue({ code: 'custom', path: ['attribution'], message: 'Open-license evidence requires an attribution statement' });
+      if (document.licenseScopeConfirmed !== true) context.addIssue({ code: 'custom', path: ['licenseScopeConfirmed'], message: 'The submitter must confirm the license scope for this processing path' });
+    } else if (openLicenseFields.some((value) => value !== undefined)) {
+      context.addIssue({ code: 'custom', path: ['rightsDeclared'], message: 'Open-license metadata can be supplied only with the open_license declaration' });
     }
   })).min(1).max(4),
 }).superRefine((value, ctx) => {
@@ -224,6 +241,12 @@ export function createDocumentAudit(
         ...(d.sourceUrl ? { sourceUrl: d.sourceUrl } : {}),
         ...(d.originalFileSha256 ? { originalFileSha256: d.originalFileSha256 } : {}),
         rightsDeclared: d.rightsDeclared,
+        ...(d.rightsDeclared === 'open_license' ? {
+          licenseName: d.licenseName,
+          licenseUrl: d.licenseUrl,
+          attribution: d.attribution,
+          licenseScopeConfirmed: d.licenseScopeConfirmed,
+        } : {}),
         ...(d.selectedPages ? { selectedPages: d.selectedPages.map(page => ({ ...page })) } : {}),
       })),
       quotations: checked.quotes.map(q => ({ documentId: q.documentId, quote: q.quote, quoteSha256: digest(q.quote) })),

@@ -43,6 +43,34 @@ def test_prepares_authorized_text_with_provenance_and_private_default(tmp_path):
         mod.write_private_json(private, result)
 
 
+def test_prepares_open_license_metadata_without_granting_ai_or_publication_consent(tmp_path):
+    path = tmp_path / 'open-license.txt'
+    path.write_text('A bounded source excerpt for validating license metadata only. ' * 3, encoding='utf-8')
+    page_text = path.read_text(encoding='utf-8').strip()
+    result = mod.prepare_document(path, **kwargs(
+        rights_status='open_license',
+        license_name='CC BY 4.0',
+        license_url='https://creativecommons.org/licenses/by/4.0/',
+        attribution='Dowd et al. (2024), AMT, DOI 10.5194/amt-17-1599-2024.',
+        license_scope_confirmed=True,
+    ))
+
+    assert result['apiPayload']['consentToExternalProcessing'] is False
+    assert result['apiPayload']['consentToPublishCitations'] is False
+    assert result['apiPayload']['documents'][0] == {
+        'id': 'private-report', 'title': 'Authorized sample report',
+        'text': f'[Document page 1]\n{page_text}', 'sourceUrl': 'https://example.org/report.pdf',
+        'originalFileSha256': mod.sha256(path.read_bytes()), 'rightsDeclared': 'open_license',
+        'licenseName': 'CC BY 4.0', 'licenseUrl': 'https://creativecommons.org/licenses/by/4.0/',
+        'attribution': 'Dowd et al. (2024), AMT, DOI 10.5194/amt-17-1599-2024.', 'licenseScopeConfirmed': True,
+        'selectedPages': [{'page': 1, 'textSha256': mod.sha256(page_text.encode('utf-8')),
+                           'excerptStartByte': len('[Document page 1]\n'.encode('utf-8')),
+                           'excerptLengthBytes': len(page_text.encode('utf-8'))}],
+    }
+    assert result['localManifest']['rightsStatus'] == 'open_license'
+    assert result['localManifest']['licenseUrl'] == 'https://creativecommons.org/licenses/by/4.0/'
+
+
 def test_rejects_link_only_rights_and_urls_with_credentials(tmp_path):
     path = tmp_path / 'sample.txt'
     path.write_text('Field evidence statement. ' * 8, encoding='utf-8')
@@ -50,6 +78,18 @@ def test_rejects_link_only_rights_and_urls_with_credentials(tmp_path):
         mod.prepare_document(path, **kwargs(rights_status='link_only'))
     with pytest.raises(ValueError, match='HTTPS'):
         mod.prepare_document(path, **kwargs(source_url='https://reviewer:secret@example.org/report'))
+
+
+def test_open_license_preparation_requires_complete_attributed_scope(tmp_path):
+    path = tmp_path / 'open-license.txt'
+    path.write_text('A bounded source excerpt for validating license metadata only. ' * 3, encoding='utf-8')
+    with pytest.raises(ValueError, match='license name, license URL, attribution, and scope confirmation'):
+        mod.prepare_document(path, **kwargs(rights_status='open_license'))
+    with pytest.raises(ValueError, match='HTTPS'):
+        mod.prepare_document(path, **kwargs(
+            rights_status='open_license', license_name='CC BY 4.0', license_url='http://example.org/license',
+            attribution='Dowd et al. (2024), AMT.', license_scope_confirmed=True,
+        ))
 
 
 def test_refuses_silent_truncation_unsupported_input_and_public_output(tmp_path):

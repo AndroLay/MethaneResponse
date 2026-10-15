@@ -1,7 +1,11 @@
 type DocumentRightsItem = {
   id: string;
   title: string;
-  rightsDeclared?: 'owned' | 'explicit_permission';
+  rightsDeclared?: 'owned' | 'explicit_permission' | 'open_license';
+  licenseName?: string;
+  licenseUrl?: string;
+  attribution?: string;
+  licenseScopeConfirmed?: true;
 };
 
 export default function DocumentRightsSummary({ documents }: { documents: readonly DocumentRightsItem[] }) {
@@ -16,7 +20,9 @@ export default function DocumentRightsSummary({ documents }: { documents: readon
             ? 'Submitter declared ownership'
             : document.rightsDeclared === 'explicit_permission'
               ? 'Submitter declared explicit permission to process'
-              : 'No rights declaration recorded in this audit';
+              : document.rightsDeclared === 'open_license'
+                ? `Submitter declared open-license basis: ${document.licenseName || 'license name missing'}`
+                : 'No rights declaration recorded in this audit';
 
           return (
             <li key={document.id}>
@@ -24,6 +30,11 @@ export default function DocumentRightsSummary({ documents }: { documents: readon
                 <b>{document.title}</b>
                 <span>{declaration}</span>
               </div>
+              {document.rightsDeclared === 'open_license' && <small>
+                {document.licenseScopeConfirmed ? 'Submitter confirmed processing scope.' : 'No processing-scope confirmation recorded.'}
+                {document.licenseUrl ? ` License reference: ${document.licenseUrl}.` : ''}
+                {document.attribution ? ` Attribution: ${document.attribution}` : ''}
+              </small>}
               <small>The submitter’s declaration is not independently verified.</small>
             </li>
           );

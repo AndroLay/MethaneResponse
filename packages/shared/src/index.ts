@@ -163,7 +163,11 @@ export type EvidenceBundle = {
       sha256: string;
       sourceUrl?: string;
       originalFileSha256?: string;
-      rightsDeclared?: 'owned' | 'explicit_permission';
+      rightsDeclared?: 'owned' | 'explicit_permission' | 'open_license';
+      licenseName?: string;
+      licenseUrl?: string;
+      attribution?: string;
+      licenseScopeConfirmed?: true;
       selectedPages?: { page: number; textSha256: string }[];
     }[];
     quotations: { documentId: string; quote: string; quoteSha256: string }[];

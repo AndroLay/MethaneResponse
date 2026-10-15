@@ -22,6 +22,8 @@ test('document assessment UI exposes a per-document rights declaration and its l
   expect(html).toContain('Exact claim to assess');
   expect(html).toContain('I own this document or excerpt');
   expect(html).toContain('I have explicit permission to process it');
+  expect(html).toContain('Open license with attribution');
+  expect(html).toContain('license and provider terms allow excerpt processing and private quote retention');
   expect(html).toContain('does not independently verify copyright, permission, source authenticity, or completeness');
 });
 
@@ -30,6 +32,8 @@ test('review rights summary distinguishes declarations from verified permissions
     documents: [
       { id: 'owned', title: 'Owned excerpt', rightsDeclared: 'owned' },
       { id: 'permitted', title: 'Permitted report', rightsDeclared: 'explicit_permission' },
+      { id: 'open', title: 'Open research paper', rightsDeclared: 'open_license', licenseName: 'CC BY 4.0',
+        licenseUrl: 'https://creativecommons.org/licenses/by/4.0/', attribution: 'Dowd et al. (2024), AMT, DOI 10.5194/amt-17-1599-2024.', licenseScopeConfirmed: true },
       { id: 'legacy', title: 'Historical report' },
     ],
   }));
@@ -37,6 +41,8 @@ test('review rights summary distinguishes declarations from verified permissions
   expect(html).toContain('Document processing-rights declarations');
   expect(html).toContain('Submitter declared ownership');
   expect(html).toContain('Submitter declared explicit permission to process');
+  expect(html).toContain('Submitter declared open-license basis: CC BY 4.0');
+  expect(html).toContain('Dowd et al. (2024), AMT, DOI 10.5194/amt-17-1599-2024.');
   expect(html).toContain('No rights declaration recorded in this audit');
-  expect(html.match(/not independently verified/g)).toHaveLength(3);
+  expect(html.match(/not independently verified/g)).toHaveLength(4);
 });

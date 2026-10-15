@@ -6,7 +6,11 @@ export type PreparedDocument = {
   text: string;
   sourceUrl?: string;
   originalFileSha256: string;
-  rightsDeclared: 'owned' | 'explicit_permission';
+  rightsDeclared: 'owned' | 'explicit_permission' | 'open_license';
+  licenseName?: string;
+  licenseUrl?: string;
+  attribution?: string;
+  licenseScopeConfirmed?: true;
   selectedPages: { page: number; textSha256: string }[];
 };
 
@@ -72,11 +76,33 @@ export async function validatePreparedEvidence(
   if (manifest.extractedTextSha256 !== await sha256Text(document.text)) {
     throw new Error('Extracted text checksum mismatch: file may be modified');
   }
-  if (document.rightsDeclared !== 'owned' && document.rightsDeclared !== 'explicit_permission') {
+  if (document.rightsDeclared !== 'owned' && document.rightsDeclared !== 'explicit_permission' && document.rightsDeclared !== 'open_license') {
     throw new Error('Document has no processing rights declaration');
   }
   if (manifest.rightsStatus !== document.rightsDeclared || manifest.sourceUrl !== document.sourceUrl) {
     throw new Error('Document license or origin metadata mismatch');
+  }
+  let openLicenseMetadata: Pick<PreparedDocument, 'licenseName' | 'licenseUrl' | 'attribution' | 'licenseScopeConfirmed'> = {};
+  if (document.rightsDeclared === 'open_license') {
+    if (typeof document.licenseName !== 'string' || !document.licenseName.trim() || document.licenseName.length > 120
+      || typeof document.attribution !== 'string' || document.attribution.trim().length < 10 || document.attribution.length > 500
+      || document.licenseScopeConfirmed !== true || !validHttpsWithoutCredentials(document.sourceUrl)
+      || !validHttpsWithoutCredentials(document.licenseUrl)) {
+      throw new Error('Open-license declaration is missing a valid source, license, attribution, or scope confirmation');
+    }
+    if (manifest.licenseName !== document.licenseName || manifest.licenseUrl !== document.licenseUrl
+      || manifest.attribution !== document.attribution || manifest.licenseScopeConfirmed !== true) {
+      throw new Error('Prepared evidence license metadata mismatch');
+    }
+    openLicenseMetadata = {
+      licenseName: document.licenseName,
+      licenseUrl: document.licenseUrl,
+      attribution: document.attribution,
+      licenseScopeConfirmed: true,
+    };
+  } else if (document.licenseName !== undefined || document.licenseUrl !== undefined
+    || document.attribution !== undefined || document.licenseScopeConfirmed !== undefined) {
+    throw new Error('Open-license metadata can be supplied only with the open_license declaration');
   }
   if (!Array.isArray(document.selectedPages) || document.selectedPages.length < 1 || document.selectedPages.length > 40
     || !Array.isArray(manifest.selectedPages) || manifest.selectedPages.length !== document.selectedPages.length) {
@@ -119,6 +145,7 @@ export async function validatePreparedEvidence(
     ...(typeof document.sourceUrl === 'string' ? { sourceUrl: document.sourceUrl } : {}),
     originalFileSha256: document.originalFileSha256,
     rightsDeclared: document.rightsDeclared,
+    ...openLicenseMetadata,
     selectedPages,
   };
 }
