@@ -13,6 +13,8 @@ Latest complete aggregate local evidence recorded in the 15 October checkpoint p
 
 ## Phases and gates
 
+Latest evidence refresh on 15 October: public `main` now points to [`45bf69b`](https://github.com/AndroLay/MethaneResponse/commit/45bf69bc88b99d48c3b93ffa959169b369e09c0e), and all three jobs passed in [CI run 38663837323](https://github.com/AndroLay/MethaneResponse/actions/runs/38663837323). The local Python pipeline passed **151 tests / 0 skips**; the optional streamed archive check matched the active CSV and GeoJSON bytes, SHA-256, lengths and `Content-MD5` values. This adds provenance integrity evidence only. The remaining external gates are still the rights-cleared human benchmark, live AI provider, durable cloud deployment, independent Sepolia receipt, and target-user pilot; see the [execution checkpoint](EXECUTION_CHECKPOINT_2026-10-15.md) for exact scope and limits.
+
 | Phase | Status | Deliverable and acceptance evidence | Score connection |
 |---|---|---|---|
 | **0. Local foundation** | **Complete on active snapshot** | Active snapshot `unep-mars-675417694883` was checked against archive/gzip/decoded hashes, history, counts, unique IDs, row semantics and date range; earlier snapshots remain preserved. Historical and demo data stay distinct; the local workflow runs from source history through audit, review, report, and verifier. Latest API/web/Python/Foundry gates are recorded in the execution checkpoint. | Technical baseline; protects all criteria from unsupported claims. |
