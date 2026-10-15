@@ -26,6 +26,30 @@ def sha256(path: Path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def test_current_casebook_links_the_official_canada_mitigation_record_without_copying_it():
+    casebook = read_json(ROOT / 'data/real/mars_casebook_2026-10-15.json')
+    selection = read_json(ROOT / 'data/real/mars_case_selection_2026-10-15.json')
+    case = next(item for item in casebook['cases'] if item['sourceId'] == 'CAN_S_002')
+    selected = next(item for item in selection['cases'] if item['sourceId'] == 'CAN_S_002')
+    expected = {
+        'title': 'Methane Alert and Response System (MARS) Confirmed Mitigation Action – Canada (CAN_S_002)',
+        'url': 'https://wedocs.unep.org/handle/20.500.11822/49811',
+        'publisher': 'United Nations Environment Programme',
+        'reportDate': '2026-07',
+        'license': 'Attribution-NonCommercial-NoDerivs 3.0 IGO',
+        'contentIncluded': False,
+    }
+
+    assert case['externalEvidence'] == [expected]
+    assert selected['externalEvidence'] == [expected]
+    assert case['source']['sourceId'] == 'CAN_S_002'
+    assert case['source']['synthetic'] is False
+    assert case['source']['mitigationConfirmed'] is None
+    assert len(case['plumes']) == 1
+    assert case['plumes'][0]['sourceId'] == 'CAN_S_002'
+    assert all('excerpt' not in reference and 'text' not in reference for reference in case['externalEvidence'])
+
+
 def test_active_mars_release_is_bound_across_history_map_geometry_intelligence_and_ledger():
     history_path = ROOT / 'data/real/mars_snapshot_history.json'
     history = read_json(history_path)
@@ -44,8 +68,8 @@ def test_active_mars_release_is_bound_across_history_map_geometry_intelligence_a
     ledger_evaluation = read_json(
         ROOT / 'data/processed/prospective/record-recurrence-evaluation-2026-10-14-v6-baseline.json'
     )
-    casebook_path = ROOT / 'data/real/mars_casebook_2026-10-14.json'
-    selection_path = ROOT / 'data/real/mars_case_selection_2026-10-14.json'
+    casebook_path = ROOT / 'data/real/mars_casebook_2026-10-15.json'
+    selection_path = ROOT / 'data/real/mars_case_selection_2026-10-15.json'
     casebook = read_json(casebook_path)
 
     snapshots = history['snapshots']
@@ -69,8 +93,8 @@ def test_active_mars_release_is_bound_across_history_map_geometry_intelligence_a
     assert current['geometryArchiveSha256'] == CURRENT_GEOMETRY_ARCHIVE_SHA256
     assert current['geometryIndexSha256'] == CURRENT_GEOMETRY_INDEX_SHA256
     assert current['intelligenceSnapshotSha256'] == CURRENT_INTELLIGENCE_SHA256
-    assert current['casebookSha256'] == '5010594d9de903ae38904e05e2a137c8701c4ded9fcc3ef433d322ec860dda94'
-    assert current['caseSelectionSha256'] == '77ec68cfd9e0302a755d36d38fa0d942abe3d2004221bcddf366e0f92f42e15f'
+    assert current['casebookSha256'] == '02601434e3ef431f6fa2432ae3e6a0069f52649df3f43a366cb203d41be56aa0'
+    assert current['caseSelectionSha256'] == 'eafc3721d7c75356058eda5057282f413ac0fb7ae3f62698e00819ba05915beb'
     assert history_path.read_bytes() == browser_history_path.read_bytes()
 
     assert sha256(browser_snapshot_path) == CURRENT_BROWSER_INPUT_SHA256

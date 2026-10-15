@@ -51,7 +51,7 @@ describe('API contract', () => {
     expect(res.status).toBe(200);
     const payload = await res.json();
     expect(payload.synthetic).toBe(false);
-    expect(payload.cases.map((item: { sourceId: string }) => item.sourceId)).toEqual(['KAZ_S_159', 'LBY_S_143', 'ARG_S_055']);
+    expect(payload.cases.map((item: { sourceId: string }) => item.sourceId)).toEqual(['KAZ_S_159', 'LBY_S_143', 'ARG_S_055', 'CAN_S_002']);
     expect(payload.provenance.archiveSha256).toBe('675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43');
   });
 
@@ -166,14 +166,19 @@ describe('API contract', () => {
     }
   });
 
-  test('does not infer mitigation from notification, feedback, or a linked report title', async () => {
-    const res = await app.request('/api/audits', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed' }) });
-    expect(res.status).toBe(201);
-    const audit = await res.json();
-    expect(audit.result).toBe('insufficient_evidence');
-    expect(audit.bundle.citedEvidence).toEqual([]);
-    expect(audit.bundle.externalEvidence[0].contentIncluded).toBe(false);
-    expect(audit.bundle.limitations).toContain('Linked report content is not included or independently reviewed.');
+  test('does not infer mitigation from notification, feedback, or link-only publisher records', async () => {
+    for (const sourceId of ['KAZ_S_159', 'CAN_S_002']) {
+      const res = await app.request('/api/audits', {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ sourceId, claimType: 'mitigation_confirmed' }),
+      });
+      expect(res.status).toBe(201);
+      const audit = await res.json();
+      expect(audit.result).toBe('insufficient_evidence');
+      expect(audit.bundle.citedEvidence).toEqual([]);
+      expect(audit.bundle.externalEvidence[0].contentIncluded).toBe(false);
+      expect(audit.bundle.limitations).toContain('Linked report content is not included or independently reviewed.');
+    }
   });
 
   test('source-level notified metadata does not prove that the operator was notified', async () => {
@@ -439,4 +444,3 @@ describe('API contract', () => {
     }
   });
 });
-

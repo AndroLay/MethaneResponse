@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+  "cases": [
+    {
+      "caseId": "MARS-REPORT-KAZ-S-159",
+      "sourceId": "KAZ_S_159",
+      "purpose": "A public UNEP MARS item documents a confirmed mitigation action for this source. The selected dataset snapshot supplies linked observation and notification context; the casebook does not independently validate the report evidence.",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-09-23",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "caseId": "MARS-REPORT-LBY-S-143",
+      "sourceId": "LBY_S_143",
+      "purpose": "A public UNEP MARS item documents a confirmed mitigation action for this source. The selected dataset snapshot supplies linked observation and notification context; the casebook does not independently validate the report evidence.",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action – Libya (LBY_S_143)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49430",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-04",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "caseId": "MARS-REPORT-ARG-S-055",
+      "sourceId": "ARG_S_055",
+      "purpose": "A public UNEP MARS item documents a confirmed mitigation action in Neuquen associated with this source ID. The selected dataset snapshot supplies linked observation and notification context; the casebook does not independently validate the report evidence.",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (MARS) Confirmed Mitigation Action – Argentina (ARG_S_055)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/44120",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2023-11",
+          "license": "Item-level license not displayed on the linked metadata page; rights status requires verification",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "caseId": "MARS-REPORT-CAN-S-002",
+      "sourceId": "CAN_S_002",
+      "purpose": "UNEP's July 2026 publisher record describes a confirmed mitigation action for CAN_S_002. MethaneResponse links the publisher metadata but does not copy or independently reassess the report; the pinned snapshot contains one linked historical plume record.",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (MARS) Confirmed Mitigation Action – Canada (CAN_S_002)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49811",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-07",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 ## UNEP MARS casebook data
 
-`data/real/mars_casebook_2026-10-14.json` is the active adapted selection from
+`data/real/mars_casebook_2026-10-15.json` is the active adapted selection from
 the UNEP International Methane Emissions Observatory (IMEO), Eye on Methane /
-MARS sources-and-plumes dataset. The October 11 and October 13 casebooks remain
+MARS sources-and-plumes dataset. The October 11, October 13, and October 14 casebooks remain
 as historical inputs. The casebooks are distributed under CC BY-NC-SA 4.0. Their
 archive URL, retrieval date, SHA-256, attribution and changes are recorded in
 `data/real/README.md`. The dataset license does not apply to this repository's
@@ -10,10 +10,11 @@ original software.
 
 ## Linked reports
 
-The casebook stores link metadata only. The linked Kazakhstan and Libya item
-pages identify CC BY-NC-ND 3.0 IGO terms; the linked Argentina item did not show
-an item-level license when reviewed on 2026-10-12. No report text or PDF is
-included. Check each item page before relying on or reproducing its content.
+The casebook stores link metadata only. The linked Kazakhstan, Libya, and
+Canada item pages identify CC BY-NC-ND 3.0 IGO terms; the linked Argentina item
+did not show an item-level license when reviewed on 2026-10-12. No report text
+or PDF is included. Check each item page before relying on or reproducing its
+content.
 
 ## Bundled interface imagery
 

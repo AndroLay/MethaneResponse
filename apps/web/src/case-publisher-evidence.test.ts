@@ -1,5 +1,21 @@
 import { expect, test } from 'bun:test';
-import { orderCasePublisherObservations } from './case-publisher-evidence';
+import { formatExternalEvidenceMetadata, orderCasePublisherObservations } from './case-publisher-evidence';
+
+test('external publisher references expose their date, license, and link-only status', () => {
+  expect(formatExternalEvidenceMetadata({
+    publisher: 'United Nations Environment Programme',
+    reportDate: '2026-07',
+    license: 'Attribution-NonCommercial-NoDerivs 3.0 IGO',
+    contentIncluded: false,
+  })).toBe('United Nations Environment Programme · report date 2026-07 · license Attribution-NonCommercial-NoDerivs 3.0 IGO · report content not copied');
+});
+
+test('external publisher references disclose missing dates instead of inventing them', () => {
+  expect(formatExternalEvidenceMetadata({
+    license: 'CC BY 4.0',
+    contentIncluded: false,
+  })).toBe('Publisher unspecified · report date not listed · license CC BY 4.0 · report content not copied');
+});
 
 test('case evidence defaults to the latest valid observation and keeps record choice deterministic', () => {
   const observations = [

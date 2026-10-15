@@ -1,4 +1,15 @@
 import type { MarsObservation } from './mars';
+import type { ExternalEvidenceReference } from '@methane/shared';
+
+export function formatExternalEvidenceMetadata(reference: Pick<
+  ExternalEvidenceReference,
+  'publisher' | 'reportDate' | 'license' | 'contentIncluded'
+>): string {
+  const publisher = reference.publisher?.trim() || 'Publisher unspecified';
+  const reportDate = reference.reportDate?.trim() || 'not listed';
+  const contentStatus = reference.contentIncluded ? 'report content included' : 'report content not copied';
+  return `${publisher} · report date ${reportDate} · license ${reference.license} · ${contentStatus}`;
+}
 
 /**
  * Orders source-linked records for the case evidence picker. Invalid dates and

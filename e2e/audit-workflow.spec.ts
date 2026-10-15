@@ -14,6 +14,37 @@ type ExportedAudit = {
   };
 };
 
+test('map case details show the official Canada report link with its date and license metadata', async ({ page }) => {
+  expect(unexpectedCredentialEnvironmentNames()).toEqual([]);
+  await page.route(/^https?:\/\//, route => {
+    const requestUrl = new URL(route.request().url());
+    if (requestUrl.hostname === '127.0.0.1' || requestUrl.hostname === 'localhost') return route.continue();
+    return route.abort();
+  });
+
+  await page.goto('/dashboard/map?sourceId=CAN_S_002');
+  await expect(page.getByRole('button', { name: 'Zoom to source on globe' })).toBeVisible();
+  await page.getByRole('button', { name: 'Zoom to source on globe' }).click();
+  await page.getByRole('button', { name: /View full case/ }).click();
+
+  const caseDialog = page.getByRole('dialog');
+  await expect(caseDialog).toBeVisible();
+  await caseDialog.getByRole('tab', { name: 'Evidence' }).click();
+  const reference = caseDialog.locator('.case-dialog-document-list > div').filter({
+    hasText: 'Methane Alert and Response System (MARS) Confirmed Mitigation Action – Canada (CAN_S_002)',
+  });
+  await reference.scrollIntoViewIfNeeded();
+  await expect(reference).toBeInViewport();
+  await expect(reference.locator('small')).toBeVisible();
+  await expect(reference.locator('small')).toHaveText(
+    'United Nations Environment Programme · report date 2026-07 · license Attribution-NonCommercial-NoDerivs 3.0 IGO · report content not copied',
+  );
+  await expect(reference.getByRole('link', { name: /Open publisher/ })).toHaveAttribute(
+    'href',
+    'https://wedocs.unep.org/handle/20.500.11822/49811',
+  );
+});
+
 test('historical MARS case can be audited, exported, verified, and tampering is rejected', async ({ page }) => {
   expect(unexpectedCredentialEnvironmentNames()).toEqual([]);
   const pageErrors: string[] = [];

@@ -5,7 +5,7 @@ import type { MarsObservation } from './mars';
 import { formatCaseLocation, paginateCases } from './case-table';
 import SatelliteLocationContext from './SatelliteLocationContext';
 import PublisherFootprintCard from './PublisherFootprintCard';
-import { orderCasePublisherObservations } from './case-publisher-evidence';
+import { formatExternalEvidenceMetadata, orderCasePublisherObservations } from './case-publisher-evidence';
 
 export type CaseDetailsTab = 'Summary' | 'Observations' | 'Evidence' | 'Timeline';
 
@@ -115,7 +115,7 @@ export default function CaseDetailsDialog({ source, observationChart, initialTab
           />
           <section className="case-dialog-document-list" aria-label="Linked source documents">
             <h3>Source documents and references</h3>
-            {source.externalEvidence?.map(evidence => <div key={evidence.url}><span><strong>{evidence.title}</strong><small>External reference · {evidence.publisher || 'Publisher not specified'} · content not copied</small></span><a href={evidence.url} target="_blank" rel="noreferrer">Open publisher ↗</a></div>)}
+            {source.externalEvidence?.map(evidence => <div key={evidence.url}><span><strong>{evidence.title}</strong><small>{formatExternalEvidenceMetadata(evidence)}</small></span><a href={evidence.url} target="_blank" rel="noreferrer">Open publisher ↗</a></div>)}
             {source.evidence.map(evidence => <div key={evidence.id}><span><strong>{evidence.title}</strong><small>{evidence.kind.replaceAll('_', ' ')} · {evidence.date || 'Date not supplied'}</small></span><a href={evidence.reference} target="_blank" rel="noreferrer">Open source ↗</a></div>)}
             {!source.externalEvidence?.length && !source.evidence.length && <p>No operator or mitigation documents are linked to this source. The publisher geometry verifies only a dated detection record; it cannot establish notification, repair or reduced emissions.</p>}
           </section>

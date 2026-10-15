@@ -16,8 +16,8 @@ The Creative Commons deed for [CC BY-NC-ND 3.0 IGO](https://creativecommons.org/
 
 ## Effect on the benchmark phase
 
-- The casebook currently points to three documents; the internal benchmark target is 10–20 authorized documents and at least 40 held-out claims across 10 source clusters.
-- None of these three items is currently marked `rightsStatus: cleared` for provider processing in the project's annotation protocol.
+- The October 14 casebook pointed to three items; the active October 15 casebook links four official item pages, including the Canada case below. The internal benchmark target remains 10–20 authorized documents and at least 40 held-out claims across 10 source clusters.
+- None of these four items is marked `rightsStatus: cleared` for provider processing in the project's annotation protocol.
 - The evaluator and annotation workflow are ready, but this casebook alone cannot produce the required benchmark or support an AI accuracy claim.
 - The source landing pages' abstracts are metadata about UNEP's own MARS case reports. They are not substitute independent measurements and should not be presented as application-verified physical mitigation evidence.
 
@@ -59,3 +59,10 @@ The benchmark runner now fails closed unless each submitted document has a revie
 ### Remaining WP-5 gap
 
 This screen now identifies thirteen plausible text-only works: five earlier candidates plus eight additional Copernicus papers. This count is a document shortlist, **not** thirteen independent source clusters or approved provider inputs. It does **not** meet the plan's target of 10–20 approved documents, at least 10 independent source clusters, 40+ held-out claims, or two independent annotators plus adjudication. No full text was downloaded for this update, no provider was called, and no gold labels were authored. Each candidate still needs claim/source mapping, reviewer rights-scope approval, provider-term review, and independent annotations. The AI release gate remains closed; the rules baseline stays active.
+
+
+## Additional MARS item linked on 2026-10-15
+
+The [UNEP MARS confirmed mitigation item for Canada (`CAN_S_002`)](https://wedocs.unep.org/handle/20.500.11822/49811) is dated July 2026. Its publisher metadata describes an IMEO-confirmed mitigation action in southeastern Alberta; the item metadata lists CC BY-NC-ND 3.0 IGO. The active October 14 MARS data snapshot contains the same source ID and one linked plume observation dated 2026-04-10. The casebook now stores the item title, URL, publisher, report date, and license only. It does not contain the report PDF or text, and that April observation is not a post-mitigation measurement.
+
+This reference is useful for source navigation and for distinguishing publisher-reported status from MethaneResponse's own evidence assessment. It is **not cleared** for AI-provider input, excerpt reproduction, or benchmark redistribution, and the casebook does not claim that MethaneResponse independently verified the report. The exact source and license match were confirmed from the [UNEP item metadata](https://wedocs.unep.org/items/0d8733b0-46f9-4338-87d6-2bf9c844582e); the metadata page did not respond to the browser's direct open request during this check. No PDF was downloaded, no excerpt was stored, and no provider was called.

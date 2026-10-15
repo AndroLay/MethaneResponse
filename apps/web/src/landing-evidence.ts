@@ -1,4 +1,4 @@
-import marsCasebook from '../../../data/real/mars_casebook_2026-10-14.json';
+import marsCasebook from '../../../data/real/mars_casebook_2026-10-15.json';
 
 const SOURCE_ID = 'KAZ_S_159';
 const OFFICIAL_REPORT_URL = 'https://wedocs.unep.org/handle/20.500.11822/49949';
