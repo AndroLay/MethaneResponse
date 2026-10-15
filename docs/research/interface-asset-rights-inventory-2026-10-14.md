@@ -74,4 +74,4 @@ location-context tiles are fetched from Esri/OpenFreeMap and have separate
 on-screen attribution and provider terms; they are not these bundled WebP
 files. The MARS source observations and publisher geometries also have their
 own attribution and dataset terms in `data/real/README.md` and
-`docs/MARS_PUBLISHER_GEOMETRY.md`.
+`docs/architecture/mars-publisher-geometry.md`.

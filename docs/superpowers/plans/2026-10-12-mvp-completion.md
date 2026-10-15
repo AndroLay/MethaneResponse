@@ -8,7 +8,7 @@
 
 **Tech Stack:** Bun 1.4, TypeScript, Hono, Zod, React 19, Vite, TanStack Query, MapLibre, Python 3.11+/uv/pytest, PostgreSQL/PostGIS, Solidity/Foundry, viem.
 
-**Spec:** `docs/next-steps.md`, `docs/architecture.md`, `docs/research/methane-response-repository-design.md`, `docs/data-and-claims.md`, and the user-provided MethaneResponse IEEE ClimateChain 2026 blueprint.
+**Spec:** `docs/history/next-steps.md`, `docs/architecture/overview.md`, `docs/research/methane-response-repository-design.md`, `docs/product/data-and-claims.md`, and the user-provided MethaneResponse IEEE ClimateChain 2026 blueprint.
 
 ## Global Constraints
 
@@ -35,14 +35,14 @@
 - `platform/database/migrations/`: applicable schema changes, nullable unlinked plume source, immutable audit revisions, provenance and chain metadata.
 - `services/data-pipeline/`: compact reviewed claim set and reproducible baseline evaluator.
 - `contracts/src/EvidenceRegistry.sol`, `contracts/test/EvidenceRegistry.t.sol`: append-only revision commitments and access-control checks.
-- `AGENTS.md`, `README.md`, `docs/next-steps.md`, `docs/deployment.md`, `docs/data-and-claims.md`, `docs/research/event.md`: truthful state, reproducible operations, attribution and blockers.
+- `AGENTS.md`, `README.md`, `docs/history/next-steps.md`, `docs/release/deployment.md`, `docs/product/data-and-claims.md`, `docs/release/event-requirements.md`: truthful state, reproducible operations, attribution and blockers.
 - `.github/workflows/ci.yml`, `LICENSE`, `NOTICE`: repeatable checks and license/attribution review artifacts.
 
 ## Milestones
 
 ### Task 1: Reconcile data boundaries and establish the claim contract
 
-**Files:** `AGENTS.md`, `packages/shared/src/index.ts`, `apps/api/src/audit.ts`, `apps/api/src/audit.test.ts`, `docs/data-and-claims.md`.
+**Files:** `AGENTS.md`, `packages/shared/src/index.ts`, `apps/api/src/audit.ts`, `apps/api/src/audit.test.ts`, `docs/product/data-and-claims.md`.
 
 - [x] Correct the broad synthetic-data rule while retaining DEMO fixture warnings.
 - [x] Define typed casebook metadata, MARS plume observations, source notification evidence, and link-only external report references.
@@ -92,7 +92,7 @@
 
 ### Task 6: Add complete local quality gates and honest delivery status
 
-**Files:** `package.json`, `.github/workflows/ci.yml`, `LICENSE`, `NOTICE`, `README.md`, `docs/next-steps.md`, `docs/delivery-notes.md`, `docs/UI_IMPLEMENTATION.md`, `docs/deployment.md`, `docs/research/event.md`, `render.yaml`.
+**Files:** `package.json`, `.github/workflows/ci.yml`, `LICENSE`, `NOTICE`, `README.md`, `docs/history/next-steps.md`, `docs/history/delivery-notes.md`, `docs/development/ui-implementation.md`, `docs/release/deployment.md`, `docs/release/event-requirements.md`, `render.yaml`.
 
 - [x] Provide root commands for frozen install, API/web checks, Python tests/evaluation, contract tests and production build; run the full local gates.
 - [x] Add CI for Bun, Python and Foundry using pinned or bounded versions; record any unavailable tool or service and its exact failed boundary.

@@ -10,7 +10,7 @@ const researchSources = [
     id: 'mars-methods',
     title: 'Technical Documentation for Methane Satellite Detection and Quantification',
     citation: 'UNEP IMEO · 2024',
-    href: 'https://wedocs.unep.org/items/c77a439f-9689-4164-874d-49045e6d097',
+    href: 'https://wedocs.unep.org/handle/20.500.11822/46241',
     summary: 'Describes satellite detection and flux-quantification methods. A mapped footprint or flux estimate remains an observation with method-specific uncertainty.',
   },
   {

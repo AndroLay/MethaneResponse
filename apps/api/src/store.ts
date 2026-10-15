@@ -5,9 +5,8 @@ import { dirname, resolve } from 'node:path';
 import type { AuditResult } from '@methane/shared';
 import { canonicalJson } from './canonical';
 import { pageAuditRecords, type AuditPage, type AuditPageOptions } from './audit-pagination';
-import type { RateLimitDecision, RateLimitScope } from './rate-limit';
 
-export type AuditStoreStatus = { backend: 'memory' | 'file' | 'postgres'; persistent: boolean; ready: boolean };
+export type AuditStoreStatus = { backend: 'memory' | 'file'; persistent: boolean; ready: boolean };
 export type AuditPageQuery = AuditPageOptions & { sourceId?: string; claimType?: AuditResult['claimType'] };
 
 export interface AuditStore {
@@ -18,7 +17,6 @@ export interface AuditStore {
   replace(audit: AuditResult): Promise<void>;
   reserveAnchor?(audit: AuditResult): Promise<boolean>;
   completeAnchor?(audit: AuditResult): Promise<void>;
-  consumeRateLimit?(scope: RateLimitScope, clientKeyHash: string, limit: number, windowMs: number): Promise<RateLimitDecision>;
   status(): Promise<AuditStoreStatus>;
 }
 
@@ -181,12 +179,7 @@ export class FileAuditStore implements AuditStore {
   }
 }
 
-export async function createConfiguredAuditStore(): Promise<AuditStore> {
-  if (process.env.DATABASE_URL) {
-    const { PostgresAuditStore } = await import('./postgres-store');
-    return PostgresAuditStore.connect(process.env.DATABASE_URL);
-  }
-  if (process.env.NODE_ENV === 'production') throw new Error('DATABASE_URL is required in production; file storage may be ephemeral.');
+export function createFileAuditStore(): AuditStore {
   const path = process.env.AUDIT_STORE_PATH || resolve(import.meta.dir, '../../../data/state/audits.json');
   return new FileAuditStore(path);
 }

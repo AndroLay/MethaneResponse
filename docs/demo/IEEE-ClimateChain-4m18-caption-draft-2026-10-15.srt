@@ -1,0 +1,69 @@
+1
+00:00:00,000 --> 00:00:18,000
+MethaneResponse helps analysts examine methane claims against traceable evidence.
+It supports UNEP MARS; it does not detect methane or replace it.
+
+2
+00:00:18,000 --> 00:00:36,000
+This prototype uses a versioned historical MARS snapshot.
+The feed is not live.
+
+3
+00:00:36,000 --> 00:00:57,000
+The snapshot contains 4,218 source locations and 30,414 plume records,
+with observations through 13 September 2026 UTC.
+
+4
+00:00:57,000 --> 00:01:15,000
+6,553 plume rows have no source ID and remain unlinked.
+A mapped source is not automatically a fully audited case.
+
+5
+00:01:15,000 --> 00:01:31,000
+KAZ_S_159 is a historical oil and gas source in Kazakhstan.
+Its recorded coordinates are 43.41337° N, 52.91829° E.
+
+6
+00:01:31,000 --> 00:01:54,000
+MARS links three dated plume observations to this source.
+The latest shown is 496 ± 226 kg/h on 11 July 2026 (EnMAP-DLR).
+
+7
+00:01:54,000 --> 00:02:09,000
+That is a satellite-estimated value for one observation,
+not current flux or continuous monitoring.
+
+8
+00:02:09,000 --> 00:02:27,000
+The claim under review is that the detected release was mitigated.
+The deterministic rules baseline returns “insufficient evidence.”
+
+9
+00:02:27,000 --> 00:02:39,000
+The linked report text is not included in this assessment.
+Missing later observations do not prove zero emissions or repair.
+
+10
+00:02:39,000 --> 00:02:59,000
+The recurrence panel concerns a later linked MARS archive record,
+not a forecast of future leakage, emissions, or mitigation.
+
+11
+00:02:59,000 --> 00:03:18,000
+The verifier page separates audit bundles from blockchain receipts.
+This screen lists one bundle and zero anchored receipts.
+
+12
+00:03:18,000 --> 00:03:38,000
+No Sepolia transaction is shown in this recording.
+A cryptographic digest cannot establish that mitigation occurred.
+
+13
+00:03:38,000 --> 00:03:58,000
+No Sepolia transaction or blockchain receipt is shown in this run.
+Blockchain anchoring is not configured for this recording.
+
+14
+00:03:58,000 --> 00:04:18,800
+No live AI provider or authenticated human review ran here.
+User benefit and emissions impact still require independent evaluation.

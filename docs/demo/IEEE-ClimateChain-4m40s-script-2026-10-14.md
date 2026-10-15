@@ -104,7 +104,7 @@ If the live local workflow differs from this draft, update the script and claim 
 
 - [Active snapshot manifest](../../apps/web/public/data/mars-snapshot-manifest.json)
 - [Curated MARS casebook](../../data/real/mars_casebook_2026-10-14.json)
-- [Data semantics and claim boundaries](../data-and-claims.md)
+- [Data semantics and claim boundaries](../product/data-and-claims.md)
 - [Current browser workflow evidence index](../evidence/ui-workflows-2026-10-14/README.md)
 - [Isolated audit/export/verifier rehearsal](../evidence/demo-workflow-2026-10-14/README.md)
-- [Execution checkpoint](../EXECUTION_CHECKPOINT_2026-10-14.md)
+- [Execution checkpoint](../history/execution-checkpoint-2026-10-14.md)

@@ -1,7 +1,7 @@
 import { createApp } from './app';
-import { createConfiguredAuditStore } from './store';
+import { createFileAuditStore } from './store';
 
-const store = await createConfiguredAuditStore();
+const store = createFileAuditStore();
 const app = createApp(store);
 
 export default {
@@ -11,4 +11,3 @@ export default {
     clientAddress: server.requestIP(request)?.address,
   }),
 };
-

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test } from 'bun:test';
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
@@ -17,7 +17,7 @@ function invokeCheckLocal(envOverrides: Record<string, string>) {
   for (const tool of ['bun', 'uv', 'forge']) {
     writeFileSync(
       join(stubBin, tool),
-      '#!/bin/sh\nprintf "%s\\n" "$0 $*" >> "$MR_CHECK_LOCAL_STUB_LOG"\nexit 0\n',
+      '#!/bin/sh\nprintf "%s DATABASE_URL=%s TEST_DATABASE_URL=%s\\n" "$0 $*" "${DATABASE_URL:-}" "${TEST_DATABASE_URL:-}" >> "$MR_CHECK_LOCAL_STUB_LOG"\nexit 0\n',
       { mode: 0o755 },
     );
   }
@@ -38,14 +38,6 @@ function invokeCheckLocal(envOverrides: Record<string, string>) {
   return { baselineOutput, invocations, result };
 }
 
-function expectRefusedBeforeWork(result: ReturnType<typeof spawnSync>, invocations: string) {
-  expect(result.status).toBe(2);
-  expect(`${result.stdout}${result.stderr}`).toContain('TEST_DATABASE_URL');
-  expect(`${result.stdout}${result.stderr}`).toContain('disposable');
-  expect(result.stdout).not.toContain('Baseline evaluation output:');
-  expect(existsSync(invocations)).toBe(false);
-}
-
 afterEach(() => {
   for (const directory of temporaryDirectories.splice(0)) {
     rmSync(directory, { recursive: true, force: true });
@@ -53,20 +45,21 @@ afterEach(() => {
 });
 
 describe('complete local verification gate', () => {
-  test('refuses to call test/build tools when TEST_DATABASE_URL is missing', () => {
-    const { invocations, result } = invokeCheckLocal({ TEST_DATABASE_URL: '' });
-    expectRefusedBeforeWork(result, invocations);
-    expect(`${result.stdout}${result.stderr}`).toContain('PostGIS');
-  });
-
-  test('refuses to run database integration tests against the application database URL', () => {
-    const sharedUrl = 'postgresql://localhost/methane_response';
+  test('runs without a database and scrubs obsolete database settings', () => {
     const { invocations, result } = invokeCheckLocal({
-      DATABASE_URL: sharedUrl,
-      TEST_DATABASE_URL: sharedUrl,
+      DATABASE_URL: 'postgresql://must-not-be-used.invalid/methane',
+      TEST_DATABASE_URL: 'postgresql://must-not-be-used.invalid/test',
     });
 
-    expectRefusedBeforeWork(result, invocations);
-    expect(`${result.stdout}${result.stderr}`).toContain('must be different from DATABASE_URL');
+    expect(result.status).toBe(0);
+    expect(existsSync(invocations)).toBe(true);
+    const calls = readFileSync(invocations, 'utf8');
+    expect(calls).toContain('bun install --frozen-lockfile');
+    expect(calls).toContain('bun run check');
+    expect(calls).toContain('bun run test:api');
+    expect(calls).toContain('bun run test:web');
+    expect(calls).toContain('forge test');
+    expect(calls).not.toContain('must-not-be-used.invalid');
   });
+
 });

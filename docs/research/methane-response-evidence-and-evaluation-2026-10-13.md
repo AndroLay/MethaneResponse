@@ -2,7 +2,7 @@
 
 **Diperiksa:** 14 Oktober 2026 (WITA)
 
-**Tujuan:** mengubah riset primer tentang MARS, observasi satelit, pengulangan emisi, dan sitasi AI menjadi keputusan produk yang dapat diuji. Catatan ini melengkapi [audit kandidat](methane-response-audit.md) dan [spesifikasi data/klaim](../data-and-claims.md); tidak mengklaim MethaneResponse telah mengurangi emisi.
+**Tujuan:** mengubah riset primer tentang MARS, observasi satelit, pengulangan emisi, dan sitasi AI menjadi keputusan produk yang dapat diuji. Catatan ini melengkapi [audit kandidat](methane-response-audit.md) dan [spesifikasi data/klaim](../product/data-and-claims.md); tidak mengklaim MethaneResponse telah mengurangi emisi.
 
 ## Temuan dan keputusan produk
 
@@ -63,7 +63,7 @@ Nilai rubrik juri tidak diprediksi di sini. Bukti teknis dan uji pengguna harus 
 - UNEP, [MARS and Eye on Methane](https://methanedata.unep.org/methane-alert-response-system) — alur detect/notify/mitigate/track, jeda publikasi, batas observasi satelit, dan PWF.
 - UNEP, [MARS methane plumes and sources data dictionary](https://methanedata.unep.org/dict-mars-emission-sources-plumes) — arti record plume/source, ID, tanggal, koordinat, `notified`, `feedback`, flux, uncertainty, persistency, status observasi, dan catatan requantifikasi setelah 20 Februari 2026.
 - UNEP, [MARS response rates data dictionary](https://methanedata.unep.org/dict-mars-response-rates) — denominator response rate dan perbedaan feedback dengan bukti pengurangan emisi.
-- UNEP IMEO, [Technical Documentation for Methane Satellite Detection and Quantification](https://wedocs.unep.org/items/c77a439f-9689-4164-874d-49045e6d097) — metode dan batas kuantifikasi.
+- UNEP IMEO, [Technical Documentation for Methane Satellite Detection and Quantification](https://wedocs.unep.org/handle/20.500.11822/46241) — metode dan batas kuantifikasi.
 - Sherwin et al., [Single-blind validation of space-based point-source detection and quantification of onshore methane emissions](https://pmc.ncbi.nlm.nih.gov/articles/PMC9992358/) — eksperimen terkontrol untuk mengukur deteksi, kuantifikasi, pengaruh angin, dan kasus tanpa retrieval; hasil tidak diperlakukan sebagai metrik aplikasi.
 - UNEP, [Persistency-weighted median flux rate](https://methanedata.unep.org/persistency-weighted-flux) — formula PWF, observasi berkualitas, cakupan enam bulan dan peringatan interpretasi.
 - IEA, [Global Methane Tracker 2026: Recent insights from methane emissions studies](https://www.iea.org/reports/global-methane-tracker-2026/recent-insights-from-methane-emissions-studies-2) — kemampuan dan batas beberapa keluarga sensor serta perlunya pengukuran multi-skala.

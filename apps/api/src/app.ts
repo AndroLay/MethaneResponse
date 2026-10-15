@@ -165,26 +165,16 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
   const aiRateLimitConfig = options.aiAssessmentRateLimit || { limit: 6, windowMs: 60_000 };
   const aiAssessmentRateLimiter = createFixedWindowRateLimiter(aiRateLimitConfig);
   const rateLimitSalt = randomBytes(32).toString('hex');
-  const rateLimitHashSecret = process.env.RATE_LIMIT_HASH_SECRET;
-  const persistentRateLimitConsumer = store.consumeRateLimit?.bind(store);
-  const sharedRateLimitActive = Boolean(persistentRateLimitConsumer && rateLimitHashSecret && rateLimitHashSecret.length >= 32);
-  const sharedRateLimitRequired = process.env.NODE_ENV === 'production' && Boolean(persistentRateLimitConsumer);
-  const rateLimitStatus = {
-    backend: sharedRateLimitActive ? 'postgres' : 'process-local',
-    shared: sharedRateLimitActive,
-    required: sharedRateLimitRequired,
-    ready: !sharedRateLimitRequired || sharedRateLimitActive,
-  };
+  const anchorStorageAvailable = Boolean(store.reserveAnchor && store.completeAnchor);
+  const rateLimitStatus = { backend: 'process-local', shared: false, required: false, ready: true } as const;
   const consumeClientRateLimit = async (
     scope: RateLimitScope,
     address: string,
     identity: string,
     config: FixedWindowRateLimitOptions,
     localLimiter: ReturnType<typeof createFixedWindowRateLimiter>,
-  ): Promise<RateLimitDecision | null> => {
-    if (sharedRateLimitRequired && !sharedRateLimitActive) return null;
-    const key = createRateLimitClientKey(sharedRateLimitActive ? rateLimitHashSecret! : rateLimitSalt, scope, address, identity);
-    if (sharedRateLimitActive) return persistentRateLimitConsumer!(scope, key, config.limit, config.windowMs);
+  ): Promise<RateLimitDecision> => {
+    const key = createRateLimitClientKey(rateLimitSalt, scope, address, identity);
     return localLimiter.consume(key);
   };
   const anchoringInFlight = new Set<string>();
@@ -196,7 +186,7 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
       casebookAccess.load().then(() => true, () => false),
     ]);
     const ready = storage.ready && casebookReady && rateLimitStatus.ready;
-    return c.json({ status: ready ? 'ok' : 'degraded', mode: 'mars-casebook-and-demo', storage, casebookReady, rateLimits: rateLimitStatus, chainConfigured: services.chainConfigured(), chainWriteConfigured: services.chainWriteConfigured() }, ready ? 200 : 503);
+    return c.json({ status: ready ? 'ok' : 'degraded', mode: 'mars-casebook-and-demo', storage, casebookReady, rateLimits: rateLimitStatus, chainConfigured: services.chainConfigured(), chainWriteConfigured: services.chainWriteConfigured() && anchorStorageAvailable }, ready ? 200 : 503);
   });
 
   app.get('/api/cases', async (c) => {
@@ -245,7 +235,7 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
       documentModelConfigured: services.aiConfigured() && aiAccessConfigured(),
       humanReviewConfigured: humanReviewConfigured(),
       chainConfigured: services.chainConfigured(),
-      chainWriteConfigured: services.chainWriteConfigured(),
+      chainWriteConfigured: services.chainWriteConfigured() && anchorStorageAvailable,
       modelMode: services.aiConfigured() && aiAccessConfigured() ? 'server-side-document-assessment' : 'deterministic-baseline-only',
     });
   });
@@ -336,16 +326,7 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     if (!services.aiConfigured()) return c.json({ error: 'Document assessment provider is not configured' }, 503);
     const address = c.env?.clientAddress?.trim() || 'unknown';
     const tokenFingerprint = createHash('sha256').update(token!).digest('hex');
-    let decision: RateLimitDecision | null;
-    try {
-      decision = await consumeClientRateLimit('ai_assessment', address, tokenFingerprint, aiRateLimitConfig, aiAssessmentRateLimiter);
-    } catch {
-      decision = null;
-    }
-    if (!decision) {
-      c.header('Retry-After', '5');
-      return c.json({ error: 'Shared rate limiting is unavailable; retry later.' }, 503);
-    }
+    const decision = await consumeClientRateLimit('ai_assessment', address, tokenFingerprint, aiRateLimitConfig, aiAssessmentRateLimiter);
     c.header('X-RateLimit-Limit', String(aiAssessmentRateLimiter.limit));
     c.header('X-RateLimit-Remaining', String(decision.remaining));
     c.header('X-RateLimit-Reset', String(Math.ceil(decision.resetAt / 1_000)));
@@ -433,16 +414,7 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     }
     // Use the server's socket address passed by the runtime; caller-supplied forwarding headers are ignored.
     const address = c.env?.clientAddress?.trim() || 'unknown';
-    let decision: RateLimitDecision | null;
-    try {
-      decision = await consumeClientRateLimit('audit_write', address, '', rateLimitConfig, auditRateLimiter);
-    } catch {
-      decision = null;
-    }
-    if (!decision) {
-      c.header('Retry-After', '5');
-      return c.json({ error: 'Shared rate limiting is unavailable; retry later.' }, 503);
-    }
+    const decision = await consumeClientRateLimit('audit_write', address, '', rateLimitConfig, auditRateLimiter);
     c.header('X-RateLimit-Limit', String(auditRateLimiter.limit));
     c.header('X-RateLimit-Remaining', String(decision.remaining));
     c.header('X-RateLimit-Reset', String(Math.ceil(decision.resetAt / 1_000)));
@@ -658,7 +630,7 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     if (!auditIntegrityValid(audit)) return c.json({ error: 'Local audit bundle or result integrity mismatch' }, 409);
     if (!services.chainConfigured()) return c.json({ error: 'Chain not configured' }, 503);
     if (!services.chainWriteConfigured()) return c.json({ error: 'Chain signing key not configured; no transaction intent was created' }, 503);
-    if (!store.reserveAnchor || !store.completeAnchor) return c.json({ error: 'Durable PostgreSQL anchor storage is required' }, 503);
+    if (!store.reserveAnchor || !store.completeAnchor) return c.json({ error: 'Blockchain anchoring is unavailable with the local file audit store' }, 503);
     if (anchoringInFlight.has(audit.auditId)) return c.json({ error: 'Anchoring is already in progress for this audit' }, 409);
     anchoringInFlight.add(audit.auditId);
     let broadcastAttempted = false;
@@ -702,7 +674,7 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     const isAdmin = bearerTokenMatches(c.req.header('authorization'), process.env.ADMIN_API_TOKEN);
     const reviewer = reviewerIdentity(c.req.header('authorization'), 'anchor');
     if (!isAdmin && !reviewer) return c.json({ error: 'Reconciliation requires anchor authorization' }, 401);
-    if (!store.reserveAnchor || !store.completeAnchor) return c.json({ error: 'Durable PostgreSQL reconciliation is required' }, 503);
+    if (!store.reserveAnchor || !store.completeAnchor) return c.json({ error: 'Blockchain reconciliation is unavailable with the local file audit store' }, 503);
     const body = await readBoundedJson(c.req.raw, 2_048);
     if (!body.ok) return c.json({ error: body.error }, body.status);
     const parsed = ReconcileReceiptInput.safeParse(body.value);

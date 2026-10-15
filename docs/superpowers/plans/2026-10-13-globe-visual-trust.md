@@ -8,7 +8,7 @@
 
 **Tech Stack:** React 19, TypeScript, MapLibre GL JS 5, Bun tests, NASA GIBS raster tiles, existing UNEP MARS snapshot and provenance.
 
-**Spec:** User-approved globe proposal in the 2026-10-13 conversation; existing limits in `AGENTS.md` and `docs/EARTH_RENDERING_3D.md`.
+**Spec:** User-approved globe proposal in the 2026-10-13 conversation; existing limits in `AGENTS.md` and `docs/architecture/earth-rendering.md`.
 
 ## Global Constraints
 
@@ -63,7 +63,7 @@
 
 **Files:**
 - Modify: `apps/web/src/MapPanel.tsx`
-- Modify: `docs/EARTH_RENDERING_3D.md`
+- Modify: `docs/architecture/earth-rendering.md`
 
 **Interfaces:**
 - Clicking a source marker continues to select its existing case and opens a text-only MapLibre popup containing the original MARS source ID, coordinates, historical maximum reported flux, record count, last observed date, snapshot identifier and hash when present, plus the official UNEP dataset link.

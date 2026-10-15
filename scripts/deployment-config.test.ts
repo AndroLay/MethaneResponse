@@ -13,10 +13,11 @@ test('Render deploys the locked Bun workspace reproducibly', () => {
   expect(renderConfig).toContain('healthCheckPath: /api/health');
 });
 
-test('Render keeps persistence, CORS origin, and rate-limit secret as dashboard values', () => {
-  for (const key of ['DATABASE_URL', 'WEB_ORIGIN', 'RATE_LIMIT_HASH_SECRET']) {
-    expect(renderConfig).toMatch(new RegExp(`key: ${key}\\s+sync: false`));
-  }
+test('Render preview uses file persistence and has no database settings', () => {
+  expect(renderConfig).toMatch(/key: WEB_ORIGIN\s+sync: false/);
+  expect(renderConfig).toContain('key: AUDIT_STORE_PATH\n        value: /tmp/methane-response-audits.json');
   expect(renderConfig).toContain('key: NODE_ENV\n        value: production');
+  expect(renderConfig).not.toContain('DATABASE_URL');
+  expect(renderConfig).not.toContain('RATE_LIMIT_HASH_SECRET');
   expect(renderConfig).not.toContain('VITE_');
 });

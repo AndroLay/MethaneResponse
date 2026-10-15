@@ -60,7 +60,7 @@
 
 ### Task 5: Improve adaptive Earth rendering without replacing MapLibre
 
-**Files:** `apps/web/src/earth-rendering.ts`, Earth rendering tests, `apps/web/src/MapPanel.tsx`, `apps/web/src/App.tsx`, `apps/web/src/styles.css`, `docs/EARTH_RENDERING_3D.md`.
+**Files:** `apps/web/src/earth-rendering.ts`, Earth rendering tests, `apps/web/src/MapPanel.tsx`, `apps/web/src/App.tsx`, `apps/web/src/styles.css`, `docs/architecture/earth-rendering.md`.
 
 - [x] Use a restrained dark-space/horizon palette and stable viewport-relative hillshade so camera movement does not move the apparent sun.
 - [x] Add natural/cinematic looks, gentle night overlay, null-flux marker styling, and conservative automatic quality downgrade.
@@ -100,7 +100,7 @@ The subsequent renderer update removed the forced-flat policy for software WebGL
 - [x] Run loopback-only Chromium UAT from the pinned 4,211-source map through a fixed-response abstaining model mock, human `needs_more_evidence` review, revision 8 report export, browser and CLI verification, and a fresh-process local file-store reopen. 24 Esri imagery tiles returned successfully; page and console errors were zero.
 - [x] Rerun frozen Bun install, TypeScript, API/web/verifier tests, Python, Foundry, and Vite build. Routine PostgreSQL tests remain skipped because the current run has no `TEST_DATABASE_URL`.
 
-The test excerpt/provider response were synthetic local fixtures. No external provider was called, no original mitigation document was reviewed, no PostGIS service was connected in this run, and no blockchain transaction was sent. See `docs/delivery-notes.md` for detailed results and artifacts.
+The test excerpt/provider response were synthetic local fixtures. No external provider was called, no original mitigation document was reviewed, no PostGIS service was connected in this run, and no blockchain transaction was sent. See `docs/history/delivery-notes.md` for detailed results and artifacts.
 
 
 ## Follow-up — 2026-10-13 mobile map overlay layout

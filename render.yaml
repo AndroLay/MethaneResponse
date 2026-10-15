@@ -11,9 +11,7 @@ services:
         value: 1.4.2
       - key: WEB_ORIGIN
         sync: false
-      - key: DATABASE_URL
-        sync: false
-      - key: RATE_LIMIT_HASH_SECRET
-        sync: false
+      - key: AUDIT_STORE_PATH
+        value: /tmp/methane-response-audits.json
       - key: NODE_ENV
         value: production

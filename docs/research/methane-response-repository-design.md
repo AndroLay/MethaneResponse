@@ -172,7 +172,7 @@ Tree mengikuti pola `apps/`, `contracts/`, `platform/`, `docs/`, dan `scripts/` 
 - Frontend: Vitest untuk komponen/format data; Playwright untuk satu alur demo dari detail sumber sampai hasil verifikasi.
 - Pemeriksaan ujung-ke-ujung: satu snapshot asli, satu bundle bukti, satu transaksi testnet yang dapat diperiksa, dan satu tamper drill yang jelas dilabeli.
 
-Perintah final belum dicantumkan karena lockfile, versi paket, migrasi, serta konfigurasi provider belum dibuat atau dijalankan. Tidak ada hasil build, test, ingest, atau deployment yang diklaim oleh dokumen desain ini. Rincian laporan yang disertakan pembuat starter dan status verifikasinya dicatat di `docs/delivery-notes.md`.
+Perintah final belum dicantumkan karena lockfile, versi paket, migrasi, serta konfigurasi provider belum dibuat atau dijalankan. Tidak ada hasil build, test, ingest, atau deployment yang diklaim oleh dokumen desain ini. Rincian laporan yang disertakan pembuat starter dan status verifikasinya dicatat di `docs/history/delivery-notes.md`.
 
 ## Kriteria penerimaan vertical slice
 

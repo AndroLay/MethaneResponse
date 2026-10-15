@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DEMO_SOURCES } from '@methane/shared';
 import { createAudit } from './audit';
-import { createConfiguredAuditStore, FileAuditStore, MemoryAuditStore } from './store';
+import { createFileAuditStore, FileAuditStore, MemoryAuditStore } from './store';
 
 describe('file-backed audit store', () => {
   test('keeps audit bundles and assigns increasing revisions after reopening', async () => {
@@ -80,21 +80,20 @@ describe('file-backed audit store', () => {
     }
   });
 
-  test('uses durable local file storage by default and refuses ephemeral production storage', async () => {
-    const env = { nodeEnv: process.env.NODE_ENV, databaseUrl: process.env.DATABASE_URL, auditPath: process.env.AUDIT_STORE_PATH };
+  test('uses the configured local file store in every runtime mode', async () => {
+    const env = { nodeEnv: process.env.NODE_ENV, auditPath: process.env.AUDIT_STORE_PATH };
     const directory = await mkdtemp(join(tmpdir(), 'methane-response-config-'));
     try {
-      delete process.env.NODE_ENV;
-      delete process.env.DATABASE_URL;
+      process.env.NODE_ENV = 'development';
       process.env.AUDIT_STORE_PATH = join(directory, 'audits.json');
-      const localStore = await createConfiguredAuditStore();
+      const localStore = createFileAuditStore();
       expect(await localStore.status()).toEqual({ backend: 'file', persistent: true, ready: true });
 
       process.env.NODE_ENV = 'production';
-      await expect(createConfiguredAuditStore()).rejects.toThrow('DATABASE_URL is required in production');
+      const productionStore = createFileAuditStore();
+      expect(await productionStore.status()).toEqual({ backend: 'file', persistent: true, ready: true });
     } finally {
       if (env.nodeEnv === undefined) delete process.env.NODE_ENV; else process.env.NODE_ENV = env.nodeEnv;
-      if (env.databaseUrl === undefined) delete process.env.DATABASE_URL; else process.env.DATABASE_URL = env.databaseUrl;
       if (env.auditPath === undefined) delete process.env.AUDIT_STORE_PATH; else process.env.AUDIT_STORE_PATH = env.auditPath;
       await rm(directory, { recursive: true, force: true });
     }

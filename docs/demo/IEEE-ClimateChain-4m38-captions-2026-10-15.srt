@@ -1,0 +1,59 @@
+1
+00:00:00,000 --> 00:00:25,000
+MethaneResponse helps analysts audit claims against traceable evidence.
+It supports UNEP MARS; it does not detect methane or replace it.
+
+2
+00:00:25,000 --> 00:00:50,000
+This view uses a versioned MARS archive with 4,218 source records
+and 30,414 plume records through 13 September 2026 UTC.
+
+3
+00:00:50,000 --> 00:01:14,000
+Rows without a source ID remain unlinked. Source markers show archive
+locations; they are not continuous measurements or methane concentration.
+
+4
+00:01:14,000 --> 00:01:40,000
+I selected KAZ_S_159 in Kazakhstan, an oil and gas source.
+Its recorded coordinates are 43.41337° N, 52.91829° E.
+
+5
+00:01:40,000 --> 00:01:56,000
+MARS links three historical observations to this source.
+The latest is 496 ± 226 kg/h on 11 July 2026 (EnMAP-DLR).
+
+6
+00:01:56,000 --> 00:02:10,000
+This is one satellite-estimated observation, not current flux.
+Missing later records do not prove zero emissions or a repair.
+
+7
+00:02:10,000 --> 00:02:33,000
+The claim is that this release has been mitigated.
+The deterministic rules baseline finds insufficient supporting evidence.
+
+8
+00:02:33,000 --> 00:02:55,000
+The linked report text is not part of this assessment.
+No live AI provider or authenticated reviewer is active in this run.
+
+9
+00:02:55,000 --> 00:03:25,000
+I export the audit bundle as JSON. It records the selected source,
+historical dataset snapshot, claim assessment and report revision.
+
+10
+00:03:25,000 --> 00:03:55,000
+The verifier recomputes the local SHA-256 digest and matches it.
+This report contains no blockchain receipt or on-chain transaction.
+
+11
+00:03:55,000 --> 00:04:20,000
+Changing the report causes digest verification to fail.
+That detects edits; it does not establish physical truth.
+
+12
+00:04:20,000 --> 00:04:37,350
+This local workflow does not prove mitigation, AI accuracy, cloud durability,
+user impact, or emissions reduction. Those gates remain to be tested.

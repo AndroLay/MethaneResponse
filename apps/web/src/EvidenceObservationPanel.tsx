@@ -138,7 +138,7 @@ export default function EvidenceObservationPanel({
         : historyError ? <div className="evidence-no-observations" role="alert"><strong>Source history could not be verified</strong><span>{historyError}</span>{onRetryHistory && <button type="button" className="outline-btn" onClick={onRetryHistory}>Retry history</button>}</div>
         : chart.points.length ? <>
         <div className="evidence-chart-wrap">
-          <svg className="evidence-observation-chart" viewBox="0 0 720 220" role="group" aria-label={`Timeline of ${summary.total} discrete MARS observation records; ${summary.quantified} include reported flux. Points are separate satellite overpasses, not continuous monitoring.`}>
+          <svg className="evidence-observation-chart" viewBox="0 0 720 220" role="group" aria-label={`Timeline of ${summary.total} discrete MARS observation records; ${summary.quantified} include reported flux. Each point is a separate satellite overpass, not continuous monitoring.`}>
             {[0, 1, 2, 3].map(index => {
               const y = chart.plotTop + index * (chart.plotBottom - chart.plotTop) / 3;
               const value = chart.domainMax - index * (chart.domainMax - chart.domainMin) / 3;

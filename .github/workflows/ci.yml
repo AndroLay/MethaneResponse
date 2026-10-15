@@ -10,21 +10,6 @@ permissions:
 jobs:
   javascript:
     runs-on: ubuntu-24.04
-    services:
-      postgis:
-        image: postgis/postgis:17-3.5-alpine
-        env:
-          POSTGRES_DB: methane_test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -h 127.0.0.1 -p 5432 -U postgres -d methane_test && PGPASSWORD=postgres psql -h 127.0.0.1 -p 5432 -U postgres -d methane_test -v ON_ERROR_STOP=1 -tAc 'SELECT postgis_lib_version()'"
-          --health-interval 5s
-          --health-start-period 30s
-          --health-timeout 5s
-          --health-retries 15
     steps:
       - uses: actions/checkout@v5
       - uses: oven-sh/setup-bun@v2
@@ -33,9 +18,6 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run check
       - run: bun run test:api
-        env:
-          CI: "true"
-          TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/methane_test
       - run: bun run test:web
       - run: bun run test:verifier
       - run: bun run build:web

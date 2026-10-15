@@ -318,8 +318,6 @@ async function main(): Promise<void> {
       HOST: '127.0.0.1',
       PORT: String(apiPort),
       WEB_ORIGIN: webUrl,
-      DATABASE_URL: '',
-      TEST_DATABASE_URL: '',
       AUDIT_STORE_PATH: join(stateDirectory, 'audits.json'),
       AI_BASE_URL: '',
       AI_API_KEY: '',
@@ -332,7 +330,6 @@ async function main(): Promise<void> {
       SEPOLIA_RPC_URL: '',
       AUDIT_REGISTRY_ADDRESS: '',
       SEPOLIA_PRIVATE_KEY: '',
-      RATE_LIMIT_HASH_SECRET: '',
     };
     api = launchServer('bun', ['--no-env-file', '--hot', 'apps/api/src/index.ts'], root, serviceEnvironment);
     await waitForEndpoint(`${apiUrl}/api/health`, api);

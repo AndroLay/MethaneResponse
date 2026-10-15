@@ -4,8 +4,8 @@ import { MemoryAuditStore } from './store';
 import { createAudit } from './audit';
 import { DEMO_SOURCES, type AuditResult } from '@methane/shared';
 
-// Models a durable, shared reservation; PostgreSQL independently enforces its
-// transaction-wide lock and pending unique index in postgres-store.test.ts.
+// Test double for route recovery behavior. The local prototype does not provide
+// cross-process transactional reservations, so live API anchoring stays disabled.
 class ReservingStore extends MemoryAuditStore {
   private pending = new Set<string>();
   async reserveAnchor(audit: AuditResult) {

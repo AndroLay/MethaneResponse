@@ -17,6 +17,7 @@ test('the data disclosure exposes traceable research sources without presenting 
   expect(html).toContain('Research &amp; methods');
   expect(html).toContain('MARS plumes &amp; sources data dictionary');
   expect(html).toContain('Technical Documentation for Methane Satellite Detection and Quantification');
+  expect(html).toContain('href="https://wedocs.unep.org/handle/20.500.11822/46241"');
   expect(html).toContain('Single-blind validation of space-based point-source detection');
   expect(html).toContain('Enabling Large Language Models to Generate Text with Citations');
   expect(html).toContain('These references inform product safeguards; they are not MethaneResponse performance results.');

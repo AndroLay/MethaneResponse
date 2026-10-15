@@ -92,12 +92,15 @@ test('historical MARS case can be audited, exported, verified, and tampering is 
   await expect(caseDialog.getByRole('table')).toContainText('kg/h');
   await caseDialog.getByRole('button', { name: 'Review evidence' }).click();
 
+  const auditSteps = page.getByRole('navigation', { name: 'Evidence audit steps' });
+  await auditSteps.getByRole('button', { name: /Observations/ }).click();
   await expect(page.getByText('KAZ_S_159 · Evidence inventory')).toBeVisible();
+  await auditSteps.getByRole('button', { name: /Overview/ }).click();
   await page.locator('#claim-audit').selectOption('mitigation_confirmed');
-  await page.getByRole('button', { name: 'Run evidence audit' }).click();
-  await expect(page.getByText(/No evidence of the required type\. Absence does not prove the claim is false\./)).toBeVisible();
+  await page.getByRole('button', { name: 'Run rules baseline' }).click();
+  await expect(page.locator('#audit-stage-overview').getByText(/No evidence of the required type\. Absence does not prove the claim is false\./)).toBeVisible();
 
-  await page.getByRole('button', { name: 'Reports' }).click();
+  await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Reports' }).click();
   const downloadReady = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download JSON report' }).click();
   const download = await downloadReady;
@@ -118,7 +121,7 @@ test('historical MARS case can be audited, exported, verified, and tampering is 
   expect(exported.latestAudit?.bundleHash).toMatch(/^0x[0-9a-f]{64}$/i);
   expect(exported.latestAudit?.bundle?.reason).toContain('No evidence of the required type');
 
-  await page.getByRole('button', { name: 'Blockchain' }).click();
+  await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Blockchain' }).click();
   const reportInput = page.getByLabel('Choose a JSON audit report');
   await reportInput.setInputFiles(downloadedPath!);
   await expect(page.getByText('Audit bundle SHA-256 digest matches.', { exact: true })).toBeVisible();
@@ -133,6 +136,81 @@ test('historical MARS case can be audited, exported, verified, and tampering is 
   });
   await expect(page.getByText('Audit bundle verification failed.', { exact: true })).toBeVisible();
   expect(pageErrors).toEqual([]);
+});
+
+test('guided investigation keeps the selected source and exposes discrete audit stages', async ({ page }, testInfo) => {
+  expect(unexpectedCredentialEnvironmentNames()).toEqual([]);
+  await page.route(/^https?:\/\//, route => {
+    const requestUrl = new URL(route.request().url());
+    if (requestUrl.hostname === '127.0.0.1' || requestUrl.hostname === 'localhost') return route.continue();
+    return route.abort();
+  });
+
+  await page.goto('/dashboard/cases?sourceId=KAZ_S_159');
+  const journey = page.getByRole('navigation', { name: 'Investigation workflow' });
+  await expect(journey).toBeVisible();
+  await expect(journey).toContainText('KAZ_S_159');
+  await journey.getByRole('button', { name: /Review selected source/ }).click();
+  await expect(page).toHaveURL(/\/dashboard\/audit\?sourceId=KAZ_S_159$/);
+  await page.screenshot({ path: testInfo.outputPath('guided-auditor-desktop.png'), fullPage: true });
+
+  const stages = page.getByRole('navigation', { name: 'Evidence audit steps' });
+  await expect(stages).toBeVisible();
+  await stages.getByRole('button', { name: 'Observations' }).click();
+  await expect(page.getByRole('tabpanel', { name: 'Observations' })).toBeVisible();
+  await expect(page.getByText('Observation timeline', { exact: true })).toBeVisible();
+  const timeline = page.getByRole('group', { name: /Timeline of \d+ discrete MARS observation records/ });
+  await expect(timeline).toBeVisible();
+  await expect(timeline.locator('.evidence-chart-trend-line')).toHaveCount(0);
+  await expect(timeline).toHaveAttribute('aria-label', /Each point is a separate satellite overpass/);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect.poll(() => page.locator('.app-main').evaluate(element => {
+    const rect = element.getBoundingClientRect();
+    return { left: Math.round(rect.left), width: Math.round(rect.width) };
+  })).toEqual({ left: 0, width: 390 });
+  const mobileLayout = await page.evaluate(() => {
+    const offenders = [...document.querySelectorAll('body *')].map(element => {
+      const rect = element.getBoundingClientRect();
+      return { tag: element.tagName.toLowerCase(), className: typeof element.className === 'string' ? element.className : '', left: Math.round(rect.left), right: Math.round(rect.right), width: Math.round(rect.width) };
+    }).filter(element => element.right > window.innerWidth + 1 || element.left < -1).sort((a, b) => b.right - a.right).slice(0, 8);
+    const scrollRoots = [...document.querySelectorAll('body *')].map(element => {
+      const rect = element.getBoundingClientRect();
+      return { tag: element.tagName.toLowerCase(), className: typeof element.className === 'string' ? element.className : '', left: Math.round(rect.left), width: Math.round(rect.width), client: element.clientWidth, scroll: element.scrollWidth };
+    }).filter(element => element.scroll > element.client + 1).sort((a, b) => (b.scroll - b.client) - (a.scroll - a.client)).slice(0, 12);
+    return { viewport: window.innerWidth, document: document.documentElement.scrollWidth, offenders, scrollRoots };
+  });
+  expect(mobileLayout.document, `mobile auditor should not cause page-level horizontal overflow: ${JSON.stringify(mobileLayout)}`).toBeLessThanOrEqual(mobileLayout.viewport);
+  const mobileStepsFit = await page.evaluate(() => [...document.querySelectorAll('.investigation-journey ol, .audit-stage-nav ol')].every(list => list.scrollWidth <= list.clientWidth + 1));
+  expect(mobileStepsFit, 'all investigation steps should be visible without horizontal scrolling on mobile').toBe(true);
+  await page.screenshot({ path: testInfo.outputPath('guided-auditor-mobile.png'), fullPage: true });
+  await page.setViewportSize({ width: 1600, height: 900 });
+
+  await stages.getByRole('button', { name: 'Document AI' }).click();
+  await expect(page.getByRole('tabpanel', { name: 'Document AI' })).toBeVisible();
+  await expect(page.getByText(/Document AI is disabled until server-side provider settings/)).toBeVisible();
+
+  await stages.getByRole('button', { name: 'Review' }).click();
+  await expect(page.getByRole('tabpanel', { name: 'Review' })).toBeVisible();
+  const footer = page.locator('.audit-stage-footer');
+  await expect(footer.getByRole('button', { name: 'Open report workspace' })).toBeVisible();
+  await footer.getByRole('button', { name: 'Open report workspace' }).click();
+  await expect(page).toHaveURL(/\/dashboard\/reports\?sourceId=KAZ_S_159$/);
+  const reportJourney = page.getByRole('navigation', { name: 'Investigation workflow' });
+  await reportJourney.getByRole('button', { name: /Check report integrity/ }).click();
+  await expect(page).toHaveURL(/\/dashboard\/blockchain\?sourceId=KAZ_S_159$/);
+});
+
+test('collapsed navigation reveals its label on keyboard focus', async ({ page }) => {
+  await page.goto('/dashboard/cases?sourceId=KAZ_S_159');
+  await page.getByRole('button', { name: 'Collapse navigation' }).click();
+  const mainNav = page.getByRole('navigation', { name: 'Main navigation' });
+  const mapLink = mainNav.getByRole('button', { name: 'Map Explorer' });
+  const casesLink = mainNav.getByRole('button', { name: 'Cases' });
+  await mapLink.focus();
+  await page.keyboard.press('Tab');
+  await expect(casesLink).toBeFocused();
+  await expect.poll(() => casesLink.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
+  await expect.poll(() => casesLink.evaluate(element => getComputedStyle(element, '::after').content)).toBe('"Cases"');
 });
 
 test('global historical map becomes usable when remote basemap tiles are unavailable', async ({ page }, testInfo) => {

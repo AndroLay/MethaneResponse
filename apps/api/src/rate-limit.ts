@@ -16,7 +16,7 @@ export type RateLimitDecision = {
   reason?: 'limit' | 'capacity';
 };
 
-/** Stable pseudonym for shared storage; the address and optional token fingerprint are never stored. */
+/** Bounded pseudonym for process-local rate-limit keys; raw addresses are never retained. */
 export function createRateLimitClientKey(secret: string, scope: RateLimitScope, address: string, identity = ''): string {
   if (secret.length < 32) throw new RangeError('Rate-limit hash secret must contain at least 32 characters');
   return createHmac('sha256', secret)

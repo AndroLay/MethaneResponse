@@ -327,115 +327,25 @@ describe('API contract', () => {
     expect((await write('192.0.2.10', '203.0.113.10')).status).toBe(201);
   });
 
-  test('fails closed in production when a PostgreSQL-backed shared limiter has no stable hash secret', async () => {
-    const names = ['NODE_ENV', 'ENABLE_PUBLIC_BASELINE_AUDITS', 'RATE_LIMIT_HASH_SECRET'] as const;
+  test('keeps the prototype API healthy in production mode with process-local rate limits', async () => {
+    const names = ['NODE_ENV', 'ENABLE_PUBLIC_BASELINE_AUDITS'] as const;
     const previous = new Map(names.map(name => [name, process.env[name]]));
-    let limiterCalls = 0;
-    const store = Object.assign(new MemoryAuditStore(), {
-      consumeRateLimit: async () => {
-        limiterCalls += 1;
-        return { allowed: true, remaining: 19, resetAt: Date.now() + 60_000 };
-      },
-    });
     process.env.NODE_ENV = 'production';
     process.env.ENABLE_PUBLIC_BASELINE_AUDITS = 'true';
-    delete process.env.RATE_LIMIT_HASH_SECRET;
     try {
+      const store = new MemoryAuditStore();
       const productionApp = createApp(store);
       const health = await productionApp.request('/api/health');
-      expect(health.status).toBe(503);
-      expect((await health.json()).rateLimits).toEqual({ backend: 'process-local', shared: false, required: true, ready: false });
+      expect(health.status).toBe(200);
+      expect((await health.json()).rateLimits).toEqual({ backend: 'process-local', shared: false, required: false, ready: true });
       const response = await productionApp.fetch(new Request('http://localhost/api/audits', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'source_detected' }),
       }), { clientAddress: '192.0.2.70' });
 
-      expect(response.status).toBe(503);
-      expect(await response.json()).toEqual({ error: 'Shared rate limiting is unavailable; retry later.' });
-      expect(limiterCalls).toBe(0);
-      expect((await store.list()).length).toBe(0);
-    } finally {
-      for (const [name, value] of previous) {
-        if (value === undefined) delete process.env[name];
-        else process.env[name] = value;
-      }
-    }
-  });
-
-  test('shares an HMAC-keyed write quota across separate API app instances', async () => {
-    const names = ['NODE_ENV', 'RATE_LIMIT_HASH_SECRET'] as const;
-    const previous = new Map(names.map(name => [name, process.env[name]]));
-    const secret = 'shared-rate-limit-test-secret-0123456789abcdef';
-    const address = '192.0.2.71';
-    let now = 10_000;
-    const buckets = new Map<string, { count: number; resetAt: number }>();
-    const store = Object.assign(new MemoryAuditStore(), {
-      async consumeRateLimit(scope: string, clientKeyHash: string, limit: number, windowMs: number) {
-        const key = `${scope}:${clientKeyHash}`;
-        let bucket = buckets.get(key);
-        if (!bucket || bucket.resetAt <= now) {
-          bucket = { count: 0, resetAt: now + windowMs };
-          buckets.set(key, bucket);
-        }
-        if (bucket.count >= limit) return { allowed: false, remaining: 0, resetAt: bucket.resetAt, reason: 'limit' as const };
-        bucket.count += 1;
-        return { allowed: true, remaining: limit - bucket.count, resetAt: bucket.resetAt };
-      },
-    });
-    process.env.NODE_ENV = 'test';
-    process.env.RATE_LIMIT_HASH_SECRET = secret;
-    try {
-      const options = { auditRateLimit: { limit: 1, windowMs: 60_000, now: () => now } };
-      const firstApp = createApp(store, undefined, undefined, options);
-      const secondApp = createApp(store, undefined, undefined, options);
-      const write = (target: typeof firstApp, forwardedFor: string) => target.fetch(new Request('http://localhost/api/audits', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-forwarded-for': forwardedFor },
-        body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'source_detected' }),
-      }), { clientAddress: address });
-
-      expect((await write(firstApp, '198.51.100.1')).status).toBe(201);
-      const blocked = await write(secondApp, '198.51.100.2');
-      expect(blocked.status).toBe(429);
-      expect(blocked.headers.get('retry-after')).toBe('60');
-      expect(buckets.size).toBe(1);
-      expect([...buckets.keys()].join(' ')).not.toContain(address);
-      now += 60_000;
-      expect((await write(secondApp, '198.51.100.3')).status).toBe(201);
-    } finally {
-      for (const [name, value] of previous) {
-        if (value === undefined) delete process.env[name];
-        else process.env[name] = value;
-      }
-    }
-  });
-
-  test('rejects shared writes when the PostgreSQL rate-limit store is unavailable', async () => {
-    const names = ['NODE_ENV', 'ENABLE_PUBLIC_BASELINE_AUDITS', 'RATE_LIMIT_HASH_SECRET'] as const;
-    const previous = new Map(names.map(name => [name, process.env[name]]));
-    let createCalls = 0;
-    const store = Object.assign(new MemoryAuditStore(), {
-      consumeRateLimit: async () => { throw new Error('database unavailable'); },
-      async create(...args: Parameters<MemoryAuditStore['create']>) {
-        createCalls += 1;
-        return new MemoryAuditStore().create(...args);
-      },
-    });
-    process.env.NODE_ENV = 'production';
-    process.env.ENABLE_PUBLIC_BASELINE_AUDITS = 'true';
-    process.env.RATE_LIMIT_HASH_SECRET = 'shared-rate-limit-test-secret-0123456789abcdef';
-    try {
-      const productionApp = createApp(store);
-      const response = await productionApp.fetch(new Request('http://localhost/api/audits', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ sourceId: 'KAZ_S_159', claimType: 'source_detected' }),
-      }), { clientAddress: '192.0.2.72' });
-      expect(response.status).toBe(503);
-      expect(await response.json()).toEqual({ error: 'Shared rate limiting is unavailable; retry later.' });
-      expect(response.headers.get('retry-after')).toBe('5');
-      expect(createCalls).toBe(0);
+      expect(response.status).toBe(201);
+      expect((await store.list()).length).toBe(1);
     } finally {
       for (const [name, value] of previous) {
         if (value === undefined) delete process.env[name];

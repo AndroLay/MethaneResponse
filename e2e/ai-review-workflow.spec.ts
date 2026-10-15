@@ -77,7 +77,10 @@ test('local mock AI citations receive a separate scoped review and remain privat
   expect(tokenProbe.status(), 'ephemeral assessment token reaches the isolated API process').toBe(400);
 
   await page.goto('/dashboard/audit?sourceId=KAZ_S_159');
+  const auditSteps = page.getByRole('navigation', { name: 'Evidence audit steps' });
+  await auditSteps.getByRole('button', { name: /Observations/ }).click();
   await expect(page.getByText('KAZ_S_159 · Evidence inventory')).toBeVisible();
+  await auditSteps.getByRole('button', { name: /Document AI/ }).click();
   await expect(page.getByText('DOCUMENT AI AVAILABLE', { exact: true })).toBeVisible();
   const validationStatus = page.getByText('Same-snapshot development holdout · prospective/external validation pending', { exact: true });
   await expect(validationStatus).toBeVisible();
@@ -140,7 +143,7 @@ test('local mock AI citations receive a separate scoped review and remain privat
   await expect(page.getByText(/report private/)).toBeVisible();
 
   const downloadReady = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Reports' }).click();
+  await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Reports' }).click();
   await page.getByRole('button', { name: 'Download JSON report' }).click();
   const download = await downloadReady;
   const downloadedPath = await download.path();
@@ -211,7 +214,7 @@ test('local mock AI citations receive a separate scoped review and remain privat
     skepticalQuoteMatches: true,
   });
 
-  await page.getByRole('button', { name: 'Blockchain' }).click();
+  await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Blockchain' }).click();
   await page.getByLabel('Choose a JSON audit report').setInputFiles(downloadedPath!);
   await expect(page.getByText('Audit bundle SHA-256 digest matches.', { exact: true })).toBeVisible();
   await expect(page.getByText('No blockchain receipt is included in this file.', { exact: true })).toBeVisible();

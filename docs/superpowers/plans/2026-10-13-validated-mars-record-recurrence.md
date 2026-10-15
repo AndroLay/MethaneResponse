@@ -28,7 +28,7 @@
 - Modify `apps/api/src/app.ts` and `apps/api/src/audit.test.ts`: expose model/evaluation metadata through intelligence insight and ranking responses.
 - Modify `apps/web/src/IntelligencePanel.tsx`, its focused tests, and `apps/web/src/styles.css`: show the source estimate, horizon, evaluated performance, loading/unavailable states, and limitations.
 - Create `data/processed/record-recurrence-evaluation.json`: machine-readable evidence containing method, frozen origins, hashes, cohort counts, calibration, final-test metrics, confidence intervals, baseline comparison, and release-gate result.
-- Modify `docs/data-and-claims.md` and `docs/next-steps.md`: document the target, reproduction command, exact results, and conditions needed for a future physical-emissions forecast.
+- Modify `docs/product/data-and-claims.md` and `docs/history/next-steps.md`: document the target, reproduction command, exact results, and conditions needed for a future physical-emissions forecast.
 
 ## Acceptance gates
 

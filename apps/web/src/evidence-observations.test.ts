@@ -49,6 +49,38 @@ describe('evidence observation view model', () => {
     expect(points[1]?.x).toBeLessThan(points[2]!.x);
   });
 
+  test('keeps dated satellite observations as separate points even when flux is reported', () => {
+    const chart = layoutEvidenceObservations([
+      { id: 'latest', date: '2026-01-01T00:00:00Z', fluxKgHr: 240, uncertaintyKgHr: null },
+      { id: 'earliest', date: '2024-01-01T00:00:00Z', fluxKgHr: 120, uncertaintyKgHr: null },
+      { id: 'middle', date: '2025-01-01T00:00:00Z', fluxKgHr: 0, uncertaintyKgHr: 0 },
+    ]);
+    expect(chart.points.map(point => point.kind)).toEqual(['quantified', 'quantified', 'quantified']);
+    expect('trendPath' in chart).toBe(false);
+  });
+
+  test('does not connect observations across missing flux values', () => {
+    const chart = layoutEvidenceObservations([
+      { id: 'latest', date: '2026-01-01T00:00:00Z', fluxKgHr: 300, uncertaintyKgHr: null },
+      { id: 'missing', date: '2025-01-01T00:00:00Z', fluxKgHr: null, uncertaintyKgHr: null },
+      { id: 'after-gap', date: '2025-06-01T00:00:00Z', fluxKgHr: 200, uncertaintyKgHr: null },
+      { id: 'earliest', date: '2024-01-01T00:00:00Z', fluxKgHr: 100, uncertaintyKgHr: null },
+    ]);
+    expect(chart.points.map(point => point.kind)).toEqual(['quantified', 'unquantified', 'quantified', 'quantified']);
+    expect('trendPath' in chart).toBe(false);
+  });
+
+  test('keeps a record with no flux distinct without drawing a line across the gap', () => {
+    const chart = layoutEvidenceObservations([
+      { id: 'one', date: '2024-01-01T00:00:00Z', fluxKgHr: 100, uncertaintyKgHr: null },
+      { id: 'missing', date: '2025-01-01T00:00:00Z', fluxKgHr: null, uncertaintyKgHr: null },
+      { id: 'two', date: '2026-01-01T00:00:00Z', fluxKgHr: 200, uncertaintyKgHr: null },
+    ]);
+
+    expect(chart.points.map(point => point.kind)).toEqual(['quantified', 'unquantified', 'quantified']);
+    expect('trendPath' in chart).toBe(false);
+  });
+
   test('builds a bounded contextual satellite image request only for valid coordinates', () => {
     const tiles = getSatelliteContextTiles(14.80445, -17.31093);
     expect(tiles).toHaveLength(3);

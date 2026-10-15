@@ -8,7 +8,7 @@
 
 **Tech Stack:** Existing Python standard-library snapshot builder, React/Vite/TypeScript, Web Crypto SHA-256, existing Bun tests and Playwright workflow. No dependency or database schema change.
 
-**Spec:** `AGENTS.md`, `docs/data-and-claims.md`, `docs/MARS_PUBLISHER_GEOMETRY.md`, and `docs/performance-optimization-2026-10-13.md`.
+**Spec:** `AGENTS.md`, `docs/product/data-and-claims.md`, `docs/architecture/mars-publisher-geometry.md`, and `docs/development/performance-optimization.md`.
 
 ## Global Constraints
 
@@ -80,7 +80,7 @@ Acceptance target for the pinned snapshot: initial source catalog plus the selec
 **Files:**
 - Add deterministic artifact write options to `services/data-pipeline/build_web_snapshot.py` CLI and write the pinned catalog/buckets under `apps/web/public/data/`.
 - Update `scripts/check-local.sh` only if artifact reproducibility becomes part of the established local gate.
-- Update `docs/performance-optimization-2026-10-13.md`, `docs/MARS_PUBLISHER_GEOMETRY.md`, and `docs/next-steps.md` with measured new transfer, integrity checks, fallbacks, and limitations.
+- Update `docs/development/performance-optimization.md`, `docs/architecture/mars-publisher-geometry.md`, and `docs/history/next-steps.md` with measured new transfer, integrity checks, fallbacks, and limitations.
 
 - [x] Regenerate progressive assets deterministically in separate temporary directories; the full snapshot and its manifest remained byte-identical to the tracked versions.
 - [x] Run `bash scripts/check-local.sh` with the full PostGIS suite enabled. The evaluator output was regenerated in `/tmp` and confirmed byte-identical to the already-dirty working report before the aggregate run; the gate then reported no tracked-file changes.
@@ -93,7 +93,7 @@ Acceptance target for the pinned snapshot: initial source catalog plus the selec
 
 ## Unresolved by local implementation
 
-This change cannot establish Esri coverage at every coordinate, cloud persistence, live AI-provider quality, per-user identity, Sepolia transaction availability, physical-device performance, or user-pilot usefulness. Those remain separate readiness gates in `docs/next-steps.md`.
+This change cannot establish Esri coverage at every coordinate, cloud persistence, live AI-provider quality, per-user identity, Sepolia transaction availability, physical-device performance, or user-pilot usefulness. Those remain separate readiness gates in `docs/history/next-steps.md`.
 
 ## Execution update — 2026-10-14
 
