@@ -24,6 +24,8 @@ A fresh HTTPS `HEAD` request to both official blob URLs returned HTTP 200 and th
 
 The live object headers still match the previously verified archive identity; no newer object was indicated. The 15 October check was metadata-only: it did not download or reparse either archive. The active snapshot therefore remains the completely verified 14 October retrieval, and the project makes no claim that the publisher exposes a live feed or a newer dated release.
 
+Reproduce this read-only freshness check with `python services/data-pipeline/check_mars_upstream.py`. It compares ETag, byte length, `Content-MD5`, and `Last-Modified` for both official objects against the latest row in `data/real/mars_snapshot_history.json`; exit status `0` means the metadata matches, `2` means at least one object differs, and `3` means the check is incomplete or unavailable. The command does not download files, calculate archive hashes, or promote data. A changed header is only a signal to retrieve the archive pinned to its ETag, run the full integrity/import checks, and review a new versioned snapshot before promotion. The reproducible check run on 2026-10-15 returned `unchanged` for both archives.
+
 There is also a live license wording difference: the catalog and MARS dictionary describe the dataset as CC BY-NC-SA 4.0, while the general terms page currently says CC BY-NC 4.0. The local archive contains a dataset-specific CC BY-NC-SA 4.0 notice, so this project follows that more restrictive specific notice and records the discrepancy for rights review.
 
 ## Imported MARS snapshot

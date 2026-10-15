@@ -1,5 +1,12 @@
 # MethaneResponse execution checkpoint — 15 October 2026
 
+## WP-1 — reproducible read-only MARS freshness check
+
+- Added `services/data-pipeline/check_mars_upstream.py`, a standard-library-only CLI that compares the latest pinned MARS snapshot's ETag, content length, `Content-MD5`, and `Last-Modified` with the official CSV and GeoJSON archive headers. It is read-only: it does not download files, compute file hashes, or alter snapshot history.
+- Regression coverage exercises matching metadata, a changed ETag, missing required headers, and a failed request. Focused Python tests passed **4/4**.
+- The live command `python services/data-pipeline/check_mars_upstream.py` returned `unchanged` for both official archives on 15 October; both still match `unep-mars-675417694883`. The check used read-only HTTPS `HEAD` requests and confirms metadata identity only, not newly downloaded bytes or a more recent dataset release.
+- Reproduction instructions and exit-code meanings are in [`data provenance`](data-and-claims.md).
+
 ## WP-3 / WP-10 — repeatable browser proof for the historical audit workflow
 
 - Added a pinned Playwright runner and a root `test:e2e` command. The runner starts its own loopback API and Vite servers, creates a fresh temporary file store, clears AI/reviewer/database/Sepolia credentials, and never reuses an existing developer server.
