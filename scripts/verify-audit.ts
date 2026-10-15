@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { chainConfigured, readReceipt, registryCaseId, verifyAnchorTransaction } from '../apps/api/src/chain';
+import { validateDocumentRightsMetadata } from '../packages/shared/src/index';
 import type { AuditResult } from '../packages/shared/src/index';
 
 // Keep offline bundle verification local to this CLI. Users can check exported
@@ -44,11 +45,20 @@ try {
   const report = JSON.parse(await readFile(reportPath, 'utf8')) as { latestAudit?: AuditResult } | AuditResult;
   const audit = ('latestAudit' in report ? report.latestAudit : report) as AuditResult | undefined;
   if (!audit?.bundle || !audit.bundleHash) throw new Error('No audit bundle was found in this JSON file.');
+  const rightsMetadataError = validateDocumentRightsMetadata(audit.bundle);
+  const documentDigests = audit.bundle.intelligence?.documentDigests;
+  const hasRightsDeclaration = !rightsMetadataError && Array.isArray(documentDigests)
+    && documentDigests.some((item) => item.rightsDeclared !== undefined);
   if (!verifyBundleIntegrity(audit)) {
     console.error('bundle_hash: INVALID');
     process.exit(1);
   }
   console.log('bundle_hash: VALID');
+  console.log(`document_rights_metadata: ${rightsMetadataError ? 'INVALID' : hasRightsDeclaration ? 'VALID' : 'NOT_RECORDED'}`);
+  if (rightsMetadataError) {
+    console.error(`document_rights_metadata: INVALID (${rightsMetadataError})`);
+    process.exit(1);
+  }
   console.log(`audit_id: ${audit.auditId}`);
   console.log(`revision: ${audit.revision}`);
   console.log(`sha256: ${audit.bundleHash}`);

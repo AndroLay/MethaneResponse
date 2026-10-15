@@ -84,6 +84,37 @@ test('verifies a historical v3 report whose document digest predates the rights 
   });
 });
 
+test('validates open-license declaration shape independently of the bundle hash', async () => {
+  const book = await loadCasebook();
+  const sourceCase = book.cases[0]!;
+  const source = sourceFromCase(sourceCase, book.provenance.catalogUrl, book.provenance);
+  const input = DocumentAssessmentInput.parse({
+    sourceId: source.sourceId,
+    claimType: 'mitigation_confirmed',
+    claimText: 'The submitted test evidence reports a specific action for this source.',
+    consentToExternalProcessing: true,
+    documents: [{
+      id: 'open-license-test', title: 'Synthetic verifier fixture',
+      text: 'Test-only synthetic excerpt text used to validate the report schema, not a quotation from a published document.',
+      sourceUrl: 'https://publisher.example/article', rightsDeclared: 'open_license',
+      licenseName: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+      attribution: 'Synthetic fixture attribution for verifier tests.', licenseScopeConfirmed: true,
+    }],
+  });
+  const audit = createDocumentAudit(input, source, {
+    verdict: 'insufficient_evidence', reason: 'Synthetic verifier fixture.', citations: [],
+  }, 1, { caseId: sourceCase.caseId, externalEvidence: [], provenance: book.provenance });
+
+  expect(await verifyImportedAuditReport(audit)).toMatchObject({ localDigest: 'valid' });
+
+  const malformed = structuredClone(audit);
+  malformed.bundle.intelligence!.documentDigests[0]!.licenseUrl = 'http://publisher.example/license';
+  malformed.bundleHash = `0x${createHash('sha256').update(canonicalJson(malformed.bundle)).digest('hex')}` as `0x${string}`;
+  const result = await verifyImportedAuditReport(malformed);
+  expect(result).toMatchObject({ localDigest: 'valid', documentRightsMetadata: 'invalid' });
+  expect(result.documentRightsMessage).toContain('license');
+});
+
 test('rejects an edited audit bundle even when its outer report still parses', async () => {
   const report = { latestAudit: structuredClone(makeAudit()), generatedAt: '2026-10-13T00:00:00.000Z' };
   report.latestAudit.bundle.reason = 'Changed after export';

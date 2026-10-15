@@ -1,4 +1,5 @@
 import { afterAll, beforeAll, describe, expect, test } from 'bun:test';
+import { createHash } from 'node:crypto';
 import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
@@ -7,6 +8,7 @@ import { createAudit } from '../apps/api/src/audit';
 import { createDocumentAudit, createReviewedAudit, DocumentAssessmentInput } from '../apps/api/src/ai-review';
 import { loadCasebook, sourceFromCase } from '../apps/api/src/casebook';
 import type { AuditResult } from '../packages/shared/src/index';
+import { canonicalJson } from '../apps/web/src/report-export';
 
 const repositoryRoot = resolve(import.meta.dir, '..');
 const verifierPath = resolve(import.meta.dir, 'verify-audit.ts');
@@ -94,5 +96,41 @@ describe('audit receipt CLI', () => {
     const mismatched = runVerifier(reportPath);
     expect(mismatched.exitCode).toBe(1);
     expect(mismatched.stderr).toContain('bundle_hash: INVALID');
+  });
+
+  test('rejects malformed open-license metadata even when its bundle hash is recomputed', async () => {
+    const book = await loadCasebook();
+    const sourceCase = book.cases[0]!;
+    const source = sourceFromCase(sourceCase, book.provenance.catalogUrl, book.provenance);
+    const input = DocumentAssessmentInput.parse({
+      sourceId: source.sourceId,
+      claimType: 'mitigation_confirmed',
+      claimText: 'The submitted test evidence reports a specific action for this source.',
+      consentToExternalProcessing: true,
+      documents: [{
+        id: 'open-license-test', title: 'Synthetic verifier fixture',
+        text: 'Test-only synthetic excerpt text used to validate the report schema, not a quotation from a published document.',
+        sourceUrl: 'https://publisher.example/article', rightsDeclared: 'open_license',
+        licenseName: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+        attribution: 'Synthetic fixture attribution for verifier tests.', licenseScopeConfirmed: true,
+      }],
+    });
+    const audit = createDocumentAudit(input, source, {
+      verdict: 'insufficient_evidence', reason: 'Synthetic verifier fixture.', citations: [],
+    }, 1, { caseId: sourceCase.caseId, externalEvidence: [], provenance: book.provenance });
+    const intactPath = join(temporaryDirectory, 'open-license-intact.json');
+    await writeFile(intactPath, JSON.stringify(audit));
+    expect(runVerifier(intactPath).exitCode).toBe(0);
+
+    const malformed = structuredClone(audit);
+    malformed.bundle.intelligence!.documentDigests[0]!.licenseUrl = 'http://publisher.example/license';
+    malformed.bundleHash = `0x${createHash('sha256').update(canonicalJson(malformed.bundle)).digest('hex')}` as `0x${string}`;
+    const malformedPath = join(temporaryDirectory, 'open-license-malformed.json');
+    await writeFile(malformedPath, JSON.stringify(malformed));
+    const invalid = runVerifier(malformedPath);
+    expect(invalid.exitCode).toBe(1);
+    expect(invalid.stdout).toContain('bundle_hash: VALID');
+    expect(invalid.stdout).toContain('document_rights_metadata: INVALID');
+    expect(invalid.stderr).toContain('document_rights_metadata: INVALID');
   });
 });

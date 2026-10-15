@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createElement } from 'react';
 import type { ComponentType } from 'react';
@@ -17,4 +17,7 @@ test('imported report verification keeps the visible and accessible file labels 
   expect(html).toContain('<span>Choose a JSON audit report</span>');
   expect(html).toContain('aria-label="Choose a JSON audit report"');
   expect(html).toContain('File contents are processed locally and are not uploaded.');
+  const component = readFileSync(componentPath, 'utf8');
+  expect(component).toContain('Document-rights fields are structurally complete and hash-bound.');
+  expect(component).toContain('The digest matches, but the document-rights metadata is malformed:');
 });

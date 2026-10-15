@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+export { validateDocumentRightsMetadata } from './document-rights';
+
 export const ClaimType = z.enum(['source_detected', 'operator_notified', 'mitigation_confirmed']);
 export type ClaimType = z.infer<typeof ClaimType>;
 export const AuditInput = z.object({

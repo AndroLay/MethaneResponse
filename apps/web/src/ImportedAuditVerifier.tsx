@@ -51,7 +51,7 @@ export default function ImportedAuditVerifier() {
     </label>
     {checking && <p className="imported-audit-state" role="status">Checking the audit digest…</p>}
     {fileError && <p className="imported-audit-state imported-audit-error" role="alert">{fileError}</p>}
-    {verification?.localDigest === 'valid' && <div className="imported-audit-result imported-audit-valid" role="status">
+    {verification?.localDigest === 'valid' && <div className="imported-audit-result imported-audit-valid" role={verification.documentRightsMetadata === 'invalid' ? 'alert' : 'status'}>
       <strong>Audit bundle SHA-256 digest matches.</strong>
       <dl>
         <div><dt>Source</dt><dd>{verification.sourceId}</dd></div>
@@ -63,6 +63,9 @@ export default function ImportedAuditVerifier() {
         <div className="imported-audit-hash"><dt>SHA-256</dt><dd>{verification.bundleHash}</dd></div>
       </dl>
       {verification.synthetic && <p className="imported-audit-caution"><strong>Synthetic DEMO</strong> · This report is not a real MARS case or evidence of mitigation.</p>}
+      {verification.documentRightsMetadata === 'valid' && <p className="imported-audit-caution">Document-rights fields are structurally complete and hash-bound. They are submitter declarations, not independent legal verification.</p>}
+      {verification.documentRightsMetadata === 'not_recorded' && <p className="imported-audit-caution">This audit does not record document-rights declarations; older bundles remain verifiable.</p>}
+      {verification.documentRightsMetadata === 'invalid' && <p className="imported-audit-caution">The digest matches, but the document-rights metadata is malformed: {verification.documentRightsMessage}</p>}
       <p>{receiptLabel(verification.receipt)}</p>
       {verification.exportContext === 'not_in_audit_hash' && <p className="imported-audit-caution">Export wrapper fields—such as dataset metadata and observations outside the audit bundle—are not covered by the audit digest.</p>}
       {verification.exportContext === 'manifest_valid' && <p className="imported-audit-caution">The export SHA-256 checksum matches the dataset and observation context. This checksum is not signed or anchored to a blockchain.</p>}

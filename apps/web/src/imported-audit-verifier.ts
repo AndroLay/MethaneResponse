@@ -1,4 +1,5 @@
 import { canonicalJson, verifyExportIntegrity } from './report-export';
+import { validateDocumentRightsMetadata } from '@methane/shared';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -13,6 +14,8 @@ export type ImportedAuditVerification = {
   synthetic?: boolean;
   reviewStatus?: string;
   historicalObservationCount?: number;
+  documentRightsMetadata?: 'valid' | 'invalid' | 'not_recorded';
+  documentRightsMessage?: string;
   receipt: 'not_present' | 'metadata_matches_event_unverified' | 'metadata_mismatch';
   exportContext: 'none' | 'not_in_audit_hash' | 'manifest_valid' | 'manifest_invalid' | 'manifest_unavailable';
   message?: string;
@@ -111,6 +114,13 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
   if (!isRecord(audit) || !isRecord(audit.bundle)) return invalid('No audit bundle was found in this JSON file.', exportContext);
 
   const bundle = audit.bundle;
+  const rightsMetadataError = validateDocumentRightsMetadata(bundle);
+  const documentDigests = isRecord(bundle.intelligence) && Array.isArray(bundle.intelligence.documentDigests)
+    ? bundle.intelligence.documentDigests
+    : [];
+  const documentRightsMetadata: ImportedAuditVerification['documentRightsMetadata'] = rightsMetadataError ? 'invalid'
+    : documentDigests.some(item => isRecord(item) && item.rightsDeclared !== undefined) ? 'valid'
+      : 'not_recorded';
   const citedEvidence = bundle.citedEvidence;
   if ((bundle.schemaVersion !== 2 && bundle.schemaVersion !== 3)
     || typeof audit.bundleHash !== 'string' || !HEX_256.test(audit.bundleHash)
@@ -155,6 +165,8 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
     sourceId: audit.sourceId as string, bundleHash: audit.bundleHash as string, result: audit.result as string, claimType: audit.claimType as string, synthetic: audit.synthetic as boolean,
     reviewStatus: isRecord(bundle.intelligence) && typeof bundle.intelligence.reviewStatus === 'string' ? bundle.intelligence.reviewStatus : undefined,
     ...(historicalObservationCount === undefined ? {} : { historicalObservationCount }),
+    documentRightsMetadata,
+    ...(rightsMetadataError ? { documentRightsMessage: rightsMetadataError } : {}),
     receipt: receiptStatus(audit), exportContext, message: 'This browser does not expose Web Crypto SHA-256; use the local CLI verifier.' };
 
   try {
@@ -171,16 +183,19 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
       synthetic: audit.synthetic as boolean,
       reviewStatus: isRecord(bundle.intelligence) && typeof bundle.intelligence.reviewStatus === 'string' ? bundle.intelligence.reviewStatus : undefined,
       ...(historicalObservationCount === undefined ? {} : { historicalObservationCount }),
+      documentRightsMetadata,
       receipt: receiptStatus(audit),
       exportContext,
     };
     return computed.toLowerCase() === audit.bundleHash.toLowerCase()
-      ? { localDigest: 'valid', ...shared }
+      ? { localDigest: 'valid', ...shared, ...(rightsMetadataError ? { documentRightsMessage: rightsMetadataError } : {}) }
       : { localDigest: 'invalid', ...shared, message: `Bundle SHA-256 mismatch. Computed ${computed}.` };
   } catch {
     return { localDigest: 'unavailable', auditId: audit.auditId as string, revision: audit.revision as number,
       sourceId: audit.sourceId as string, bundleHash: audit.bundleHash as string, result: audit.result as string, claimType: audit.claimType as string, synthetic: audit.synthetic as boolean,
       ...(historicalObservationCount === undefined ? {} : { historicalObservationCount }),
+      documentRightsMetadata,
+      ...(rightsMetadataError ? { documentRightsMessage: rightsMetadataError } : {}),
       receipt: receiptStatus(audit), exportContext, message: 'The audit bundle could not be encoded for SHA-256 verification.' };
   }
 }
