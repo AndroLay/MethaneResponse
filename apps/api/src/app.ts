@@ -75,9 +75,11 @@ function humanReviewConfigured(): boolean {
 function reviewerIdentity(header: string | undefined, scope: ReviewerScope) {
   const scoped = verifyReviewerToken(header, process.env.REVIEWER_AUTH_SECRET, scope);
   if (scoped) return scoped;
-  if (legacyReviewConfigured() && (process.env.NODE_ENV !== 'production' || process.env.ALLOW_LEGACY_SHARED_REVIEWER_TOKEN === 'true')
+  const legacyScopes: ReviewerScope[] = ['private_read', 'review'];
+  if (legacyScopes.includes(scope) && legacyReviewConfigured()
+    && (process.env.NODE_ENV !== 'production' || process.env.ALLOW_LEGACY_SHARED_REVIEWER_TOKEN === 'true')
     && bearerTokenMatches(header, process.env.HUMAN_REVIEW_TOKEN)) {
-    return { reviewerId: process.env.HUMAN_REVIEWER_ID!, scopes: ['private_read', 'review', 'anchor'] as ReviewerScope[] };
+    return { reviewerId: process.env.HUMAN_REVIEWER_ID!, scopes: legacyScopes };
   }
   return null;
 }

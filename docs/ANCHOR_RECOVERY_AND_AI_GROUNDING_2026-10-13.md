@@ -20,7 +20,7 @@ Set a distinct API-only `REVIEWER_AUTH_SECRET` of at least 32 bytes. `scripts/is
 - `review` appends an authenticated human decision as a new revision.
 - `anchor` permits chain write/reconciliation actions.
 
-Tokens are bearer credentials. The CLI prints one to stdout, so run it in a private terminal, capture it only in an approved secret store, and never log it. The legacy shared reviewer token remains a local-development compatibility path; production disables it unless `ALLOW_LEGACY_SHARED_REVIEWER_TOKEN=true` is explicitly configured.
+Tokens are bearer credentials. The CLI prints one to stdout, so run it in a private terminal, capture it only in an approved secret store, and never log it. The legacy shared reviewer token remains a local-development compatibility path; production disables it unless `ALLOW_LEGACY_SHARED_REVIEWER_TOKEN=true` is explicitly configured. Even with that compatibility flag, a legacy token can only retrieve private reports and submit review decisions. It cannot anchor or reconcile receipts; those actions require a separate scoped `anchor` token or the admin capability.
 
 ## Local evidence preparation and import
 
