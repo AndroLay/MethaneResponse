@@ -1,0 +1,1051 @@
+{
+  "schemaVersion": 3,
+  "recordedAt": "2026-10-15T10:00:48.707Z",
+  "sourceRevision": "9ab1daf9391fb0e31c4cfc52d5efd7bbaa3df95d",
+  "dataset": {
+    "snapshotId": "unep-mars-675417694883",
+    "sourceCount": 4218,
+    "plumeCount": 30414,
+    "sourceArchiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43"
+  },
+  "environment": {
+    "browser": "Chromium 153.0.8010.52",
+    "browserMode": "windowed",
+    "platform": "linux x64",
+    "runtime": "Bun 1.4.3",
+    "server": "Vite production preview + isolated local file-store API",
+    "renderTier": "system-selected Chromium WebGL; inspect observed renderer metadata",
+    "webglRendererMode": "system",
+    "webglRendererObservations": [
+      {
+        "available": true,
+        "vendor": "Google Inc. (AMD)",
+        "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)",
+        "sampleCount": 11,
+        "software": false
+      }
+    ],
+    "devicePixelRatio": 1,
+    "route": "/dashboard/map?sourceId=KAZ_S_159"
+  },
+  "build": {
+    "exitCode": 0,
+    "outputTail": "vite v7.3.7 building client environment for production...\ntransforming...\n✓ 238 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                       0.74 kB │ gzip:   0.44 kB\ndist/assets/mars-snapshot.worker-urhP9Eyx.js         11.58 kB\ndist/assets/MarsPublisherInsights-CoyjUJ3i.css       10.46 kB │ gzip:   2.87 kB\ndist/assets/LandingPage-oTQX72xs.css                 37.00 kB │ gzip:   8.89 kB\ndist/assets/MapPanel-DNVN2dqC.css                    69.92 kB │ gzip:  10.17 kB\ndist/assets/index-d7iUydIe.css                      206.41 kB │ gzip:  41.10 kB\ndist/assets/mars-snapshot-integrity-Dyf0WYfx.js       1.67 kB │ gzip:   0.69 kB\ndist/assets/map-imagery-BTMWFv2H.js                   2.33 kB │ gzip:   1.09 kB\ndist/assets/SettingsWorkspace-CjFaQRAZ.js             3.38 kB │ gzip:   1.17 kB\ndist/assets/AuditHistoryPanel-DJGwnEXR.js             4.58 kB │ gzip:   1.74 kB\ndist/assets/OperatorsWorkspace-EyCd4JV8.js            6.70 kB │ gzip:   2.08 kB\ndist/assets/PublisherFootprintCard-C7E4YiCs.js        6.96 kB │ gzip:   2.63 kB\ndist/assets/plume-geometries-DFMG05Hs.js              8.04 kB │ gzip:   2.82 kB\ndist/assets/CaseDetailsDialog-Cqhhccvv.js            10.06 kB │ gzip:   3.26 kB\ndist/assets/CasesWorkspace-7h8ap0to.js               10.94 kB │ gzip:   3.34 kB\ndist/assets/ImportedAuditVerifier-Dp2TVHUG.js        13.82 kB │ gzip:   4.24 kB\ndist/assets/EvidenceObservationPanel-BR8At_wH.js     14.13 kB │ gzip:   4.82 kB\ndist/assets/MarsPublisherInsights-CEesaFQa.js        26.09 kB │ gzip:   7.46 kB\ndist/assets/IntelligencePanel-Nipzck08.js            46.65 kB │ gzip:  13.81 kB\ndist/assets/LandingPage-BZKmt_WC.js                  46.70 kB │ gzip:  12.20 kB\ndist/assets/App-EpTrsBkp.js                         225.34 kB │ gzip:  65.68 kB\ndist/assets/index-Gman1mhP.js                       250.51 kB │ gzip:  78.76 kB\ndist/assets/MapPanel-B97K6g07.js                  1,122.98 kB │ gzip: 307.16 kB\n✓ built in 6.47s\n\n$ cd apps/web && bun run build\n$ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts\n../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment\n\n\"/** Anchors a pattern source. The interpolation lives here rather than at the call site because\n * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it\n * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */\"\n\nin \"../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js\" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.\n../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment\n\n\"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle.\"\n\nin \"../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js\" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.\n\n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit."
+  },
+  "method": {
+    "sampleCountPerViewport": 5,
+    "contextPolicy": "A new Chromium browser context is created for each sample; HTTP cache is isolated per context. OS, host and upstream caches are not cleared.",
+    "readinessDefinition": "Elapsed page navigation time until the map status announces 4,218 sources after MapLibre becomes usable.",
+    "transferBytesDefinition": "Chromium CDP encoded response body bytes received before sampling ended; excludes request/response headers and does not represent every byte on the wire.",
+    "decodedBytesDefinition": "Sum of decodedBodySize values exposed by PerformanceResourceTiming; cross-origin entries can be unavailable.",
+    "longTaskWindow": "Observed from document initialization through one second after map readiness.",
+    "webglRendererPolicy": "Chromium requests system-selected WebGL in windowed mode; the actual vendor and renderer are recorded per run, and system selection may still resolve to software.",
+    "browserModePolicy": "Chromium runs with the host display enabled; this mode can be used for a paired hardware/software renderer comparison on the same display path.",
+    "externalFallback": "One additional desktop context blocks all non-loopback HTTP(S) requests before navigation."
+  },
+  "viewports": {
+    "desktop": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "canvasCssPixels": {
+        "width": 645,
+        "height": 534
+      },
+      "attemptedRunCount": 5,
+      "usableRunCount": 5,
+      "runCount": 5,
+      "medianReadinessMs": 1806,
+      "medianTransferBytes": 1331410,
+      "medianDecodedBytes": 5064813,
+      "medianEncodedResponseBytesByHost": {
+        "127.0.0.1": 888069,
+        "server.arcgisonline.com": 212129,
+        "tiles.mapterhorn.com": 231212,
+        "unknown": 0
+      },
+      "observedLongTaskCount": 15,
+      "maximumLongTaskMs": 81,
+      "horizontalOverflowRuns": 0,
+      "pageErrorCount": 0,
+      "failedRequestCount": 0,
+      "runs": [
+        {
+          "readinessMs": 1887,
+          "transferBytes": 1510596,
+          "decodedBytes": 5064813,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 888069,
+            "unknown": 0,
+            "server.arcgisonline.com": 212129,
+            "tiles.mapterhorn.com": 410398
+          },
+          "longTasksMs": [
+            79,
+            62,
+            58,
+            51,
+            81
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 52,
+              "blockingDurationMs": 0,
+              "scripts": [
+                {
+                  "durationMs": 21,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                }
+              ]
+            },
+            {
+              "durationMs": 100,
+              "blockingDurationMs": 50,
+              "scripts": []
+            },
+            {
+              "durationMs": 163,
+              "blockingDurationMs": 35,
+              "scripts": [
+                {
+                  "durationMs": 80,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 29,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "module-script"
+                },
+                {
+                  "durationMs": 15,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 6,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                },
+                {
+                  "durationMs": 5,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 120,
+              "blockingDurationMs": 70,
+              "scripts": [
+                {
+                  "durationMs": 62,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 54,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 58,
+              "blockingDurationMs": 7,
+              "scripts": [
+                {
+                  "durationMs": 46,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 6,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 119,
+              "blockingDurationMs": 67,
+              "scripts": [
+                {
+                  "durationMs": 80,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 40,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 12,
+            "tiles.mapterhorn.com": 9
+          },
+          "canvasSize": {
+            "width": 645,
+            "height": 534
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1806,
+          "transferBytes": 1510597,
+          "decodedBytes": 5064813,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 888069,
+            "unknown": 0,
+            "server.arcgisonline.com": 212129,
+            "tiles.mapterhorn.com": 410399
+          },
+          "longTasksMs": [
+            66,
+            71,
+            61
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 72,
+              "blockingDurationMs": 22,
+              "scripts": [
+                {
+                  "durationMs": 72,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 73,
+              "blockingDurationMs": 7,
+              "scripts": []
+            },
+            {
+              "durationMs": 120,
+              "blockingDurationMs": 56,
+              "scripts": [
+                {
+                  "durationMs": 54,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 48,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 69,
+              "blockingDurationMs": 18,
+              "scripts": [
+                {
+                  "durationMs": 40,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 40,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 12,
+            "tiles.mapterhorn.com": 9
+          },
+          "canvasSize": {
+            "width": 645,
+            "height": 534
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1886,
+          "transferBytes": 1163024,
+          "decodedBytes": 5064813,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 888069,
+            "unknown": 0,
+            "server.arcgisonline.com": 212129,
+            "tiles.mapterhorn.com": 62826
+          },
+          "longTasksMs": [
+            71,
+            55
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 71,
+              "blockingDurationMs": 21,
+              "scripts": [
+                {
+                  "durationMs": 71,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 56,
+              "blockingDurationMs": 6,
+              "scripts": []
+            },
+            {
+              "durationMs": 103,
+              "blockingDurationMs": 53,
+              "scripts": [
+                {
+                  "durationMs": 50,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 49,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 73,
+              "blockingDurationMs": 20,
+              "scripts": [
+                {
+                  "durationMs": 42,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 34,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 12,
+            "tiles.mapterhorn.com": 3
+          },
+          "canvasSize": {
+            "width": 645,
+            "height": 534
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1741,
+          "transferBytes": 1331410,
+          "decodedBytes": 5064813,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 888069,
+            "unknown": 0,
+            "server.arcgisonline.com": 212129,
+            "tiles.mapterhorn.com": 231212
+          },
+          "longTasksMs": [
+            73,
+            57
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 56,
+              "blockingDurationMs": 6,
+              "scripts": []
+            },
+            {
+              "durationMs": 74,
+              "blockingDurationMs": 24,
+              "scripts": [
+                {
+                  "durationMs": 74,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 105,
+              "blockingDurationMs": 55,
+              "scripts": [
+                {
+                  "durationMs": 49,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 49,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 5,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 75,
+              "blockingDurationMs": 23,
+              "scripts": [
+                {
+                  "durationMs": 44,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 36,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 12,
+            "tiles.mapterhorn.com": 5
+          },
+          "canvasSize": {
+            "width": 645,
+            "height": 534
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1737,
+          "transferBytes": 1101276,
+          "decodedBytes": 5064813,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 888069,
+            "unknown": 0,
+            "server.arcgisonline.com": 212129,
+            "tiles.mapterhorn.com": 1078
+          },
+          "longTasksMs": [
+            74,
+            50,
+            60
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 74,
+              "blockingDurationMs": 24,
+              "scripts": [
+                {
+                  "durationMs": 74,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 110,
+              "blockingDurationMs": 59,
+              "scripts": [
+                {
+                  "durationMs": 52,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 50,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 71,
+              "blockingDurationMs": 19,
+              "scripts": [
+                {
+                  "durationMs": 43,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 33,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 12,
+            "tiles.mapterhorn.com": 2
+          },
+          "canvasSize": {
+            "width": 645,
+            "height": 534
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        }
+      ]
+    },
+    "mobileViewportEmulation": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "canvasCssPixels": {
+        "width": 323,
+        "height": 438
+      },
+      "attemptedRunCount": 5,
+      "usableRunCount": 5,
+      "runCount": 5,
+      "medianReadinessMs": 1715,
+      "medianTransferBytes": 1002863,
+      "medianDecodedBytes": 5064813,
+      "medianEncodedResponseBytesByHost": {
+        "127.0.0.1": 888069,
+        "server.arcgisonline.com": 114163,
+        "tiles.mapterhorn.com": 631,
+        "unknown": 0
+      },
+      "observedLongTaskCount": 10,
+      "maximumLongTaskMs": 76,
+      "horizontalOverflowRuns": 0,
+      "pageErrorCount": 0,
+      "failedRequestCount": 0,
+      "runs": [
+        {
+          "readinessMs": 1730,
+          "transferBytes": 1002863,
+          "decodedBytes": 5064813,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 888069,
+            "unknown": 0,
+            "server.arcgisonline.com": 114163,
+            "tiles.mapterhorn.com": 631
+          },
+          "longTasksMs": [
+            75,
+            58
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 75,
+              "blockingDurationMs": 25,
+              "scripts": [
+                {
+                  "durationMs": 75,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 107,
+              "blockingDurationMs": 56,
+              "scripts": [
+                {
+                  "durationMs": 53,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 49,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 80,
+              "blockingDurationMs": 27,
+              "scripts": [
+                {
+                  "durationMs": 44,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 26,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 6,
+            "tiles.mapterhorn.com": 1
+          },
+          "canvasSize": {
+            "width": 323,
+            "height": 438
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1696,
+          "transferBytes": 1002232,
+          "decodedBytes": 5064813,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 888069,
+            "unknown": 0,
+            "server.arcgisonline.com": 114163
+          },
+          "longTasksMs": [
+            75,
+            59
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 75,
+              "blockingDurationMs": 25,
+              "scripts": [
+                {
+                  "durationMs": 75,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 103,
+              "blockingDurationMs": 52,
+              "scripts": [
+                {
+                  "durationMs": 51,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 44,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 74,
+              "blockingDurationMs": 21,
+              "scripts": [
+                {
+                  "durationMs": 44,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 25,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 6
+          },
+          "canvasSize": {
+            "width": 323,
+            "height": 438
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1736,
+          "transferBytes": 1232964,
+          "decodedBytes": 5064813,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 888069,
+            "unknown": 0,
+            "server.arcgisonline.com": 114163,
+            "tiles.mapterhorn.com": 230732
+          },
+          "longTasksMs": [
+            76,
+            56
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 77,
+              "blockingDurationMs": 27,
+              "scripts": [
+                {
+                  "durationMs": 77,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 105,
+              "blockingDurationMs": 55,
+              "scripts": [
+                {
+                  "durationMs": 50,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                },
+                {
+                  "durationMs": 49,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            },
+            {
+              "durationMs": 76,
+              "blockingDurationMs": 24,
+              "scripts": [
+                {
+                  "durationMs": 42,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 29,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 6,
+            "tiles.mapterhorn.com": 4
+          },
+          "canvasSize": {
+            "width": 323,
+            "height": 438
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1680,
+          "transferBytes": 1002853,
+          "decodedBytes": 5064813,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 888069,
+            "unknown": 0,
+            "server.arcgisonline.com": 114163,
+            "tiles.mapterhorn.com": 621
+          },
+          "longTasksMs": [
+            71,
+            55
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 72,
+              "blockingDurationMs": 22,
+              "scripts": [
+                {
+                  "durationMs": 72,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 99,
+              "blockingDurationMs": 49,
+              "scripts": [
+                {
+                  "durationMs": 48,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 45,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 66,
+              "blockingDurationMs": 14,
+              "scripts": [
+                {
+                  "durationMs": 38,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 26,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 6,
+            "tiles.mapterhorn.com": 1
+          },
+          "canvasSize": {
+            "width": 323,
+            "height": 438
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        },
+        {
+          "readinessMs": 1715,
+          "transferBytes": 1064635,
+          "decodedBytes": 5064813,
+          "encodedResponseBytesByHost": {
+            "127.0.0.1": 888069,
+            "unknown": 0,
+            "server.arcgisonline.com": 114163,
+            "tiles.mapterhorn.com": 62403
+          },
+          "longTasksMs": [
+            73,
+            57
+          ],
+          "longAnimationFrames": [
+            {
+              "durationMs": 73,
+              "blockingDurationMs": 23,
+              "scripts": [
+                {
+                  "durationMs": 73,
+                  "source": "127.0.0.1/assets/App-EpTrsBkp.js",
+                  "functionName": "",
+                  "invokerType": "resolve-promise"
+                }
+              ]
+            },
+            {
+              "durationMs": 102,
+              "blockingDurationMs": 51,
+              "scripts": [
+                {
+                  "durationMs": 51,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                },
+                {
+                  "durationMs": 46,
+                  "source": "127.0.0.1/assets/index-Gman1mhP.js",
+                  "functionName": "Ol",
+                  "invokerType": "event-listener"
+                }
+              ]
+            },
+            {
+              "durationMs": 72,
+              "blockingDurationMs": 20,
+              "scripts": [
+                {
+                  "durationMs": 41,
+                  "source": "127.0.0.1/assets/MapPanel-B97K6g07.js",
+                  "functionName": "",
+                  "invokerType": "user-callback"
+                }
+              ]
+            }
+          ],
+          "horizontalOverflow": false,
+          "pageErrors": [],
+          "failedRequests": [],
+          "ready": true,
+          "cdpResponseCount": 27,
+          "responseHosts": {
+            "127.0.0.1": 15,
+            "unknown": 4,
+            "server.arcgisonline.com": 6,
+            "tiles.mapterhorn.com": 2
+          },
+          "canvasSize": {
+            "width": 323,
+            "height": 438
+          },
+          "webglRenderer": {
+            "available": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 680M (radeonsi rembrandt ACO), OpenGL 4.6)"
+          },
+          "mapStatusText": "4,218 sources",
+          "degradedNoticeVisible": false,
+          "fatalMapFallbackVisible": false,
+          "snapshotVisible": true,
+          "sourceVisible": true
+        }
+      ]
+    }
+  },
+  "fallback": {
+    "externalHttpBlocked": true,
+    "mapRemainedUsable": true,
+    "degradedNoticeVisible": true,
+    "fatalMapFallbackVisible": false,
+    "mapStatusText": "4,218 sources",
+    "horizontalOverflow": false,
+    "pageErrors": [],
+    "failedRequestCount": 22,
+    "screenshot": "/tmp/methaneresponse-map-performance-2026-10-15-9ab1daf/external-tiles-blocked.png"
+  },
+  "screenshots": {
+    "directory": "/tmp/methaneresponse-map-performance-2026-10-15-9ab1daf",
+    "retention": "Local diagnostic only; not copied into the public repository because imagery-provider redistribution rights have not been cleared."
+  },
+  "limitations": [
+    "Windowed host rendering and mobile viewport emulation do not establish physical-phone GPU performance or FPS.",
+    "Development-server timing is not a deployed production/CDN measurement.",
+    "Third-party tile availability, browser scheduling and network conditions can change between runs.",
+    "Transfer bytes omit headers and may differ from operating-system network totals."
+  ],
+  "result": "measurement_completed_local"
+}

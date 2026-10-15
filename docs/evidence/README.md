@@ -11,6 +11,7 @@ These records describe checks that were actually run, including their data snaps
 | [Audit export and tamper-detection demo](demo-workflow-2026-10-14/README.md) | JSON export, local digest verification, process restart, and rejection of a modified bundle | No on-chain receipt; local SHA-256 is not physical-truth evidence |
 | [UI workspace captures](ui-workflows-2026-10-14/README.md) | Cases pagination, Map Explorer, Evidence Auditor, Operators, Settings, map styles, and fallback states | Chromium screenshots from a dated UI revision |
 | [Performance measurements](map-performance-amd-radeon-680m-windowed-2026-10-15.json) | Recorded renderer metrics for the named hardware/runtime scenario | Do not generalize to other GPUs, phones, networks, or FPS targets |
+| [Map performance on public revision `9ab1daf`](map-performance-amd-radeon-680m-windowed-2026-10-15-9ab1daf.json) | Five fresh contexts each at 1280×800 and 390×844 viewport emulation on Chromium 153 / AMD Radeon 680M using the production preview | Desktop GPU and viewport emulation only; not a physical phone or deployed CDN measurement |
 | [Target-user pilot protocol](target-user-pilot-protocol.md) | Reproducible task prompts, consent/privacy limits, measures, and reporting template | Protocol only; no participants or user-study results have been collected |
 
 ## Read evidence correctly
