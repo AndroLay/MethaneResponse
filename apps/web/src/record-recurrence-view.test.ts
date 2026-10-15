@@ -61,6 +61,7 @@ test('presents the calibrated probability with its exact archive-record target a
   const view = makeRecordRecurrenceView(forecast, model());
 
   expect(view?.probabilityPercent).toBe('91.7%');
+  expect(view?.validationStatus).toBe('Same-snapshot development holdout · prospective/external validation pending');
   expect(view?.targetLabel).toContain('linked MARS detection record');
   expect(view?.asOfDate).toBe('2026-09-11');
   expect(view?.testSourceCount).toBe(3130);
@@ -77,6 +78,7 @@ test('hides estimates when the model, target, date, or status does not match', (
   expect(makeRecordRecurrenceView({ ...forecast, modelVersion: 'another-model' }, model())).toBeNull();
   expect(makeRecordRecurrenceView(forecast, { ...model(), status: 'not_available' })).toBeNull();
   expect(makeRecordRecurrenceView({ ...forecast, probability: Number.NaN }, model())).toBeNull();
+  expect(makeRecordRecurrenceView(forecast, { ...model(), evaluationRole: undefined })).toBeNull();
   expect(makeRecordRecurrenceView(forecast, { ...model(), releaseGateResults: { calibration: false } })).toBeNull();
   expect(makeRecordRecurrenceView(forecast, { ...model(), datasetLastObservedDate: '2026-09-10' })).toBeNull();
   expect(makeRecordRecurrenceView(forecast, { ...model(), confidenceIntervals95: { ...model().confidenceIntervals95, rocAuc: { lower95: -0.1, upper95: 0.9 } } })).toBeNull();

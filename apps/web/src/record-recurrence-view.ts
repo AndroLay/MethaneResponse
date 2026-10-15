@@ -39,6 +39,7 @@ export type RecordRecurrenceModel = {
 
 export type RecordRecurrenceView = {
   probabilityPercent: string;
+  validationStatus: string;
   targetLabel: string;
   asOfDate: string;
   horizonDays: number;
@@ -100,6 +101,7 @@ export function makeRecordRecurrenceView(
   model: RecordRecurrenceModel | undefined,
 ): RecordRecurrenceView | null {
   if (!forecast || !model || forecast.status !== 'available' || model.status !== 'historical_backtest_passed') return null;
+  if (!model.evaluationRole?.startsWith('retrospective_temporal_development_holdout')) return null;
   if (forecast.modelVersion !== model.modelVersion || forecast.target !== TARGET || model.target !== TARGET
     || forecast.horizonDays !== 365 || model.horizonDays !== forecast.horizonDays
     || !finite(forecast.probability) || forecast.probability <= 0 || forecast.probability >= 1
@@ -149,6 +151,7 @@ export function makeRecordRecurrenceView(
   const aucDelta = intervals.rocAucDeltaVsBaseline!;
   return {
     probabilityPercent: `${(forecast.probability * 100).toFixed(1)}%`,
+    validationStatus: 'Same-snapshot development holdout · prospective/external validation pending',
     targetLabel: 'At least one future linked MARS detection record within 365 days',
     asOfDate: forecast.asOfDate,
     horizonDays: forecast.horizonDays,

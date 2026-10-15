@@ -34,7 +34,7 @@ type ExportedReview = {
   sourceDataset?: { snapshotId?: string };
 };
 
-test('local mock AI citations receive a separate scoped review and remain private until publication consent', async ({ page }) => {
+test('local mock AI citations receive a separate scoped review and remain private until publication consent', async ({ page }, testInfo) => {
   expect(unexpectedCredentialEnvironmentNames([
     'METHANE_E2E_AI_ACCESS_TOKEN',
     'METHANE_E2E_REVIEWER_SECRET',
@@ -76,6 +76,19 @@ test('local mock AI citations receive a separate scoped review and remain privat
   await page.goto('/dashboard/audit?sourceId=KAZ_S_159');
   await expect(page.getByText('KAZ_S_159 · Evidence inventory')).toBeVisible();
   await expect(page.getByText('DOCUMENT AI AVAILABLE', { exact: true })).toBeVisible();
+  const validationStatus = page.getByText('Same-snapshot development holdout · prospective/external validation pending', { exact: true });
+  await expect(validationStatus).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.locator('.app-main')).toHaveCSS('margin-left', '0px');
+  await validationStatus.scrollIntoViewIfNeeded();
+  await expect(validationStatus).toBeVisible();
+  const statusBounds = await validationStatus.boundingBox();
+  expect(statusBounds).not.toBeNull();
+  expect(statusBounds!.x).toBeGreaterThanOrEqual(0);
+  expect(statusBounds!.x + statusBounds!.width).toBeLessThanOrEqual(390);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth), 'the loaded Auditor layout should fit a 390px viewport').toBeLessThanOrEqual(390);
+  await page.screenshot({ path: testInfo.outputPath('record-recurrence-validation-mobile.png') });
+  await page.setViewportSize({ width: 1280, height: 800 });
 
   await page.getByLabel('Exact claim to assess').fill('For KAZ_S_159, the operator completed the stated repair on 2026-08-20 and independently verified sustained methane reduction.');
   await page.getByLabel('Source document title').fill(fixtureTitle);
