@@ -67,7 +67,7 @@ Do not combine the two workflows into a single “accuracy” or “time saved�
 
 ## Formative pass criterion
 
-The internal usability gate passes if at least **4 of 5** participants complete T1, T3, and T4 in the MethaneResponse workflow without substantive facilitator help, and no participant leaves with the belief that feedback, missing observations, a risk score, or a hash proves physical mitigation. This is a project decision threshold, not a competition score or a validated scientific standard. Any critical misunderstanding triggers a product/copy review even if the threshold is met.
+The internal usability gate passes if at least **80% of the enrolled sample** (rounded up; at least 4 of 5) complete each of T1, T3, and T4 in the MethaneResponse workflow without substantive facilitator help, and no participant leaves with the belief that feedback, missing observations, a risk score, or a hash proves physical mitigation. This is a project decision threshold, not a competition score or a validated scientific standard. Any critical misunderstanding triggers a product/copy review even if the threshold is met.
 
 ## Blank anonymized session record
 
