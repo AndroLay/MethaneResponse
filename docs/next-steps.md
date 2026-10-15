@@ -67,10 +67,10 @@ These remote actions require service accounts, private credentials and in the ch
 
 1. Confirm eligibility and timing with the organizer. The overview lists a 25 October 2026, 17:00 MSK deadline (22:00 WITA); the current Rules page says not to submit before 08:00 PT on the same date (23:00 WITA) and lists broader eligibility categories than the overview. See [`research/event.md`](research/event.md).
 2. Review asset redistribution rights. The interface image assets have no license manifest in this repository and are excluded from the project-code license by `NOTICE`.
-3. The owner reports the repository is public. Verify anonymous clone/read access and ensure the submitted revision matches the demonstrated build; review asset redistribution rights before submission.
+3. Public visibility and anonymous read access were verified on 15 October: the unauthenticated GitHub API reports `private=false` / `visibility=public`, and anonymous `git ls-remote` resolves both `HEAD` and `main` to `e9cae42117aaa87d7c1c862f5242c00b3a0c64fd`. Before submission, bind the submitted revision to the demonstrated build and review asset redistribution rights.
 4. Record a 3–5 minute demo, provide the final project description and accessible links, then submit from the participant's Devpost account.
 
-No registration, video, or submission has been made. The owner reports changing repository visibility to public; this workspace could not independently verify GitHub API/access because its connection to `api.github.com` failed.
+No Devpost registration or submission has been made. A local demo draft exists, but full normal-speed review and asset-rights review remain open. Anonymous GitHub API and Git ref checks on 15 October verified the public repository at `e9cae42117aaa87d7c1c862f5242c00b3a0c64fd`.
 
 ## Blocker log
 
@@ -83,7 +83,7 @@ No registration, video, or submission has been made. The owner reports changing 
 | Public API write abuse | PostgreSQL-backed shared counters and production fail-closed behavior are implemented locally; the HMAC secret and client-address source are not configured or tested behind a deployment proxy | Configure the same `RATE_LIMIT_HASH_SECRET` on all API replicas, then verify HTTP 429 behavior and trusted socket/IP handling at the actual ingress; keep gateway-level limits before public exposure |
 | Audit excerpt read access | Implemented locally: unauthenticated routes hide v3 drafts and unpublished reports; private list/detail require a configured human-review token and return `no-store`; the assessment token cannot read private content. Publication requires separate submitter and reviewer consent. Regression coverage passes. Tokens are shared service-wide, and public v3 bundles include exact quotations, submitted document title/URL, and reviewer note after publication. | Keep credentials private; before public deployment, add per-user identity/ownership if attribution or reviewer revocation is needed, then verify deployed-origin behavior |
 | Sepolia receipt | Contract is local-tested; no registry address, RPC, issuer key or transaction | Authorized deployer configures a funded issuer, deploys and performs end-to-end verification |
-| Public source repo | Owner reports it is public; anonymous access could not be checked from this workspace because GitHub API connection failed; asset rights unresolved | Verify public clone/read access and review/replace interface images as needed |
+| Public source repo | Verified public and anonymously readable on 15 October; `main` resolves to `e9cae42117aaa87d7c1c862f5242c00b3a0c64fd`. Interface asset rights remain unresolved. | Bind the final submission to the demonstrated commit and review or replace assets whose redistribution rights are unclear |
 | Competition rules | Eligibility, track form, and start/deadline statements conflict | Obtain written organizer clarification and recheck the official page |
 | Demo video and submission | Not created; requires a final running browser demo and participant account | Complete local acceptance, record 3–5 minutes, submit through participant account |
 
@@ -96,4 +96,4 @@ No registration, video, or submission has been made. The owner reports changing 
 5. Recheck imagery reachability on the intended network and inspect globe/terrain on accelerated desktop and physical mobile devices; latest local tile requests returned HTTP 200, but judge-network reachability and device performance remain unverified.
 6. If an on-chain demo is still required, obtain explicit authorization, configure a funded Sepolia issuer, anchor a human-reviewed report, and verify the transaction independently.
 7. Evaluate the record-recurrence model prospectively when a later licensed MARS snapshot is published; compare predictions generated before that release with subsequent linked archive records without refitting on the follow-up period.
-8. Resolve asset redistribution and competition submission requirements before making the repository public or recording the final demo.
+8. Resolve asset redistribution rights before recording the final demo; bind the demo and submission to the verified public revision, then complete the organizer-eligibility and submission-window checks.
