@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import os
 import sys
 import textwrap
 from pathlib import Path
@@ -113,9 +114,25 @@ def _one_page_pdf(text):
     return bytes(data)
 
 
+def require_poppler():
+    missing = [name for name in ('pdfinfo', 'pdftotext') if not mod.shutil.which(name)]
+    if not missing:
+        return
+    message = f'Poppler PDF tools are unavailable: {", ".join(missing)}'
+    if os.environ.get('CI', '').lower() in {'1', 'true', 'yes'}:
+        raise RuntimeError(f'CI requires Poppler for PDF extraction coverage: {", ".join(missing)}')
+    pytest.skip(message)
+
+
+def test_ci_pdf_extraction_gate_fails_if_poppler_is_missing(monkeypatch):
+    monkeypatch.setenv('CI', 'true')
+    monkeypatch.setattr(mod.shutil, 'which', lambda _name: None)
+    with pytest.raises(RuntimeError, match='CI requires Poppler'):
+        require_poppler()
+
+
 def test_real_poppler_extracts_a_selectable_pdf_when_available(tmp_path):
-    if not mod.shutil.which('pdfinfo') or not mod.shutil.which('pdftotext'):
-        pytest.skip('Poppler PDF tools are unavailable')
+    require_poppler()
     path = tmp_path / 'selectable-report.pdf'
     expected = 'Independent field inspection documented a completed equipment repair; a follow-up methane measurement remains necessary.'
     path.write_bytes(_one_page_pdf(expected))
