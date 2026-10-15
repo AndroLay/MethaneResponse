@@ -22,8 +22,8 @@ export function shouldAnalyzeObservationHistory(
   return recordMode === 'plumes' || dataLayer === 'observed-flux' || dataLayer === 'plume-footprints';
 }
 
-export function shouldLoadSelectedSourceHistory(route: 'dashboard' | 'map' | 'cases' | 'audit' | 'documents' | 'blockchain' | 'reports' | 'operators' | 'settings', caseDetailsOpen: boolean): boolean {
-  return route !== 'map' || caseDetailsOpen;
+export function shouldLoadSelectedSourceHistory(route: 'dashboard' | 'map' | 'indicators' | 'cases' | 'audit' | 'documents' | 'blockchain' | 'reports' | 'operators' | 'settings', caseDetailsOpen: boolean): boolean {
+  return (route !== 'map' && route !== 'indicators') || caseDetailsOpen;
 }
 
 export function shouldLoadCompleteObservationHistory(

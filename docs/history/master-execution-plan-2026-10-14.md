@@ -1,5 +1,7 @@
 # MethaneResponse — Rencana Eksekusi Induk
 
+> **Rencana historis.** Dokumen ini dibuat sebelum keputusan 15 Oktober untuk prototipe lokal berbasis berkas tanpa database. Estimasi dan tugas database/cloud di bawah dipertahankan sebagai konteks historis, bukan instruksi aktif. Gunakan [status implementasi saat ini](../release/current-implementation-status.md) dan jangan menyiapkan atau menambahkan kembali layanan database berdasarkan rencana ini.
+
 - **Versi rencana:** 1.5
 - **Tanggal pemeriksaan:** 15 Oktober 2026 (WITA)
 - **Tujuan:** memberi jalur kerja yang dapat diperiksa dari kondisi repo sekarang sampai submission hackathon, lalu sampai target internal kesiapan berbukti.

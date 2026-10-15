@@ -1,4 +1,4 @@
-export type WorkspaceRoute = 'dashboard' | 'map' | 'cases' | 'audit' | 'documents' | 'blockchain' | 'reports' | 'operators' | 'settings';
+export type WorkspaceRoute = 'dashboard' | 'map' | 'indicators' | 'cases' | 'audit' | 'documents' | 'blockchain' | 'reports' | 'operators' | 'settings';
 export type DefaultWorkspace = 'dashboard' | 'map' | 'cases' | 'audit';
 export type WorkspaceMapTheme = 'satellite' | 'grayscale' | 'street' | 'dark';
 export type EarthRenderPreference = 'auto' | 'eco' | 'balanced' | 'quality';
@@ -20,7 +20,7 @@ export const DEFAULT_WORKSPACE_PREFERENCES: WorkspacePreferences = {
   sidebarCollapsed: false,
 };
 
-const workspaceRoutes: WorkspaceRoute[] = ['dashboard', 'map', 'cases', 'audit', 'documents', 'blockchain', 'reports', 'operators', 'settings'];
+const workspaceRoutes: WorkspaceRoute[] = ['dashboard', 'map', 'indicators', 'cases', 'audit', 'documents', 'blockchain', 'reports', 'operators', 'settings'];
 const defaultWorkspaces: DefaultWorkspace[] = ['dashboard', 'map', 'cases', 'audit'];
 const mapThemes: WorkspaceMapTheme[] = ['satellite', 'grayscale', 'street', 'dark'];
 const earthPreferences: EarthRenderPreference[] = ['auto', 'eco', 'balanced', 'quality'];

@@ -30,6 +30,14 @@ The MARS dictionary defines `source_name` as the source identifier and `id_plume
 
 Each selection is pinned to one archive hash. Re-select and review cases when the upstream snapshot changes. The casebook contains link metadata only for the external reports, not their PDFs, excerpts, or extracted content. The Kazakhstan, Libya, and Canada item pages state CC BY-NC-ND 3.0 IGO; the Argentina item page did not show an item-level license at review time. These links are not cleared for AI-provider processing, excerpt reproduction, or benchmark redistribution. Verify rights for each exact use before processing or reproducing content.
 
+## Official MARS publisher indicators
+
+The local **MARS Indicators** workspace uses two additional publisher archives, retained with dated retrieval metadata and full hashes in [`mars_publisher_archives/`](mars_publisher_archives/README.md): nine monthly Top 50 lists from January–September 2026 and eight country response-rate windows, whose latest period is 2025-08-01–2026-07-31. The browser projection is lazy-loaded and bound by `mars-publisher-indicators.manifest.json` to the active source/plume snapshot. All 50 source IDs in every retained Top 50 list match the active snapshot by exact identifier.
+
+The Top 50 CSV has no explicit rank field and its row order does not consistently sort the six-month flux values. The UI therefore compares source-list membership between monthly releases rather than presenting invented rank changes. It displays the publisher's six-month average flux in t/h with the published standard deviation. Country response rows show the exact feedback numerator, notified-source denominator, percentage, and period. Neither source-level feedback nor country response rate is evidence of physical mitigation.
+
+The September 2026 UNEP snapshot report that summarizes mitigation is linked from the workspace but not reproduced. Its WeDocs item metadata lists CC BY-NC-ND 3.0 IGO; no PDF, table, image, text or mitigation count is copied or machine-parsed into this repository. Review the report directly with UNEP's current item terms.
+
 ## Reproduction
 
 To reproduce the active casebook, download the matching official archive to the ignored `data/raw/` directory, then run:

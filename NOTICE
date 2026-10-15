@@ -8,6 +8,18 @@ archive URL, retrieval date, SHA-256, attribution and changes are recorded in
 `data/real/README.md`. The dataset license does not apply to this repository's
 original software.
 
+## UNEP MARS publisher indicator archives
+
+The dated source ZIPs in `data/real/mars_publisher_archives/releases/2026-10-15/`
+and normalized `apps/web/public/data/mars-publisher-indicators.json` contain
+UNEP IMEO / MARS Top 50 and country response-rate datasets. They are distributed
+under the dataset-specific CC BY-NC-SA 4.0 terms shown in the UNEP MARS catalog
+and included publisher archive. Attribution, source URLs, retrieval timestamps,
+archive hashes, normalization changes, and the binding source snapshot are
+recorded in `data/real/mars_publisher_archives/README.md` and its retrieval
+provenance file. This data license is separate from the repository's MIT code
+license.
+
 ## Linked reports
 
 The casebook stores link metadata only. The linked Kazakhstan, Libya, and

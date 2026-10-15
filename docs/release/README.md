@@ -2,6 +2,7 @@
 
 | Guide | Purpose |
 |---|---|
+| [Current implementation status](current-implementation-status.md) | Active local prototype scope, what is implemented, verification status, and remaining external gates |
 | [Deployment status](deployment.md) | Local file persistence and hosted-preview behavior; no database deployment |
 | [IEEE ClimateChain requirements](event-requirements.md) | Official submission checklist, judging criteria, and unresolved event conflicts |
 | [Judge evidence matrix](judge-evidence-matrix.md) | Product behaviors mapped to evidence and remaining validation gaps |

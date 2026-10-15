@@ -9,6 +9,7 @@
 | [Real methane map](real-map.md) | Snapshot loading, source/plume records, interactions, and map layers |
 | [Earth rendering](earth-rendering.md) | MapLibre projection, terrain, lighting, quality profiles, and fallbacks |
 | [Publisher geometry](mars-publisher-geometry.md) | MARS geometry source, matching, provenance, and interpretation limits |
+| [MARS publisher-indicator archives](../../data/real/mars_publisher_archives/README.md) | Versioned monthly Top 50 and country response-rate releases, hashes, rebuild steps and limits |
 
 The prior Postgres-backed anchor reservation/recovery path has been removed. The dated [anchor recovery implementation note](grounded-evidence-and-anchor-recovery.md) is retained as historical design evidence; it is not the active storage architecture.
 

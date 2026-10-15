@@ -7,6 +7,8 @@
 - The download/dictionary pages identify dataset terms as **CC BY-NC-SA 4.0**. Verify terms at the time of retrieval and maintain proper attribution and ShareAlike obligations for adaptations.
 - The general [Eye on Methane terms page](https://methanedata.unep.org/terms-of-use) currently says CC BY-NC 4.0. The downloaded MARS archive includes a CC BY-NC-SA 4.0 license file and the MARS download page gives that dataset-specific license; `data/real/` follows the dataset/archive-specific terms. Recheck before refreshing or redistributing the data.
 
+The [MARS publisher-indicator archive notes](../../data/real/mars_publisher_archives/README.md) document the additional 2026 monthly Top 50 and country response-rate releases, their exact archive hashes, and the generated browser snapshot. The official September 2026 mitigation snapshot is linked only; WeDocs lists the item as CC BY-NC-ND 3.0 IGO, so this project does not copy or parse its report content.
+
 ### Upstream refresh check — 2026-10-14
 
 The live [UNEP download catalog](https://methanedata.unep.org/download-dataset) says MARS source/plume exports are available as CSV and GeoJSON and that data updates monthly; it does not show a publication timestamp or archive checksum in the page content. The [current MARS dictionary](https://methanedata.unep.org/dict-mars-plumes) says Sentinel-2, Landsat-8/9, EMIT, PRISMA and EnMAP plumes were requantified after 2026-02-20, and defines plume observations separately from source locations. This documents upstream methodology, not independent validation of each estimate in this project.

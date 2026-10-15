@@ -20,6 +20,15 @@ Use reproducible, versioned files for public MARS source data and derived browse
 
 These items are the product direction; they are not all implemented merely by recording this decision.
 
+## Implementation update — 2026-10-15
+
+- The Top 50 and country response-rate portions of priority 2 are implemented from the UNEP catalog-linked archives in `data/real/mars_publisher_archives/releases/2026-10-15/`. Nine Top 50 months and eight country-period releases are normalized into a hash-manifested browser snapshot and lazy-loaded by the MARS Indicators workspace.
+- Exact MARS source IDs bind each Top 50 monthly release to `unep-mars-675417694883`; no coordinate/fuzzy join is used. Country response numerator, denominator, percentage, and exact dates are retained.
+- Priority 3 is enforced: the CSV does not include an explicit rank field, so the app does not infer rank changes from source row order. It compares only publisher-list membership.
+- Priority 4 and 5 are enforced in the display and tests: feedback remains an administrative engagement measure; no missing observations are changed to zero, and no repair is inferred.
+- The September 2026 mitigation snapshot has exact period metadata, but its UNEP WeDocs item lists CC BY-NC-ND 3.0 IGO. MethaneResponse adds a versioned link-only reference and does not bundle, parse, or adapt the report. A local machine-readable mitigation dataset remains out of scope until UNEP publishes a clearly licensed reusable source or rights are otherwise confirmed.
+- Rebuild steps, archive and output hashes, periods, and bounds are documented in `data/real/mars_publisher_archives/README.md` and `docs/release/current-implementation-status.md`.
+
 ## Consequences
 
 - Local audit history works across API restarts as long as the same JSON file remains available.

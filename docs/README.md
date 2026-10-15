@@ -16,11 +16,12 @@ Documentation is grouped by purpose. Start with the root [README](../README.md) 
 
 ## Use the right source of truth
 
-1. Current product behavior: source code, tests, and the root [README](../README.md).
-2. Active data release: [`data/real/README.md`](../data/real/README.md) and the bundled snapshot manifests.
-3. Results from a specific test: its dated record under [evidence](evidence/README.md).
-4. Current event requirements: the [official Devpost page](https://ieee-climatechain-hack.devpost.com/); unresolved conflicts are recorded in [event notes](release/event-requirements.md).
-5. Earlier plans and measurements: [history](history/README.md); counts and results remain tied to their original data snapshot and revision.
+1. Current implementation and active plan status: [current implementation status](release/current-implementation-status.md).
+2. Current product behavior: source code, tests, and the root [README](../README.md).
+3. Active data release: [`data/real/README.md`](../data/real/README.md) and the bundled snapshot manifests.
+4. Results from a specific test: its dated record under [evidence](evidence/README.md).
+5. Current event requirements: the [official Devpost page](https://ieee-climatechain-hack.devpost.com/); unresolved conflicts are recorded in [event notes](release/event-requirements.md).
+6. Earlier plans and measurements: [history](history/README.md); counts and results remain tied to their original data snapshot and revision.
 
 ## Prototype scope
 

@@ -2,6 +2,8 @@
 
 > Catatan bertanggal ini mempertahankan bukti yang dikumpulkan saat PostGIS masih ada di implementasi. Keputusan 15 Oktober menghapus database dari scope aktif; lihat [keputusan scope prototipe](../architecture/decisions/2026-10-15-local-prototype-no-database.md). Hasil PostGIS di bawah adalah bukti historis, bukan dependensi atau kriteria kerja saat ini.
 
+> **Jangan gunakan angka, snapshot, status skor, atau daftar gate dalam dokumen ini sebagai status terkini.** Isinya dibekukan per 14 Oktober dan mencakup hitungan uji serta asumsi deployment lama. Untuk implementasi, verifikasi, dan PR aktif, ikuti [status implementasi terkini](current-implementation-status.md), yang juga mencatat integrasi MARS Indicators 15 Oktober.
+
 Dokumen ini membedakan hasil yang dapat diperiksa dari target yang belum terbukti. Ini **bukan nilai juri**. Halaman resmi Devpost memuat lima kriteria kualitatif tanpa bobot atau skala numerik resmi; target 18/20 adalah target internal pemilik proyek. [Rubrik resmi](https://ieee-climatechain-hack.devpost.com/)
 
 ## Kesimpulan

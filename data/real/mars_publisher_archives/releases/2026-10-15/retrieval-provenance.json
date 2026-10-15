@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "retrievedAt": "2026-10-15T08:42:24Z",
+  "license": "CC BY-NC-SA 4.0",
+  "archives": {
+    "top50": {
+      "sourceUrl": "https://methanedata.unep.org/downloads/top50_emitters/latest/unep_methanedata_topemitter_sources.zip",
+      "retrievedAt": "2026-10-15T08:42:24Z",
+      "lastModified": "2026-09-16T10:38:28Z",
+      "etag": "0x8DF13DEA5300E30",
+      "contentMd5": "J8IaPcoYLabMDnM/bJ0ROA==",
+      "sha256": "3189023da6e6c2e003a8f64ee40f450f45bce6601c8751767369393eba994509",
+      "bytes": 250054
+    },
+    "responseRates": {
+      "sourceUrl": "https://methanedata.unep.org/downloads/response_rate/unep_methanedata_responserate.zip",
+      "retrievedAt": "2026-10-15T08:42:22Z",
+      "lastModified": "2026-09-17T14:11:42Z",
+      "etag": "0x8DF14C5993FB43C",
+      "contentMd5": "AD1Bm/EaaQL0J7SQi5ZC8w==",
+      "sha256": "3d855e839fb90c8073fcd7e04f7da6070b8602ab2663587e114a407e79eebb9a",
+      "bytes": 37668
+    }
+  },
+  "retrievalNote": "Downloaded from the UNEP MARS catalog-linked endpoints using the official catalog page as Referer. Source ZIP sizes and hashes were checked locally. The publisher archive was not modified.",
+  "mitigationSnapshotReference": {
+    "title": "MARS Snapshot: Top 50 Emitters, Country Responses and Mitigation - September 2026 Update",
+    "period": "2026-09",
+    "publisherUrl": "https://wedocs.unep.org/items/2c7fe37c-2485-4f37-b496-fa53c9f7dacc",
+    "publisherHandle": "https://wedocs.unep.org/handle/20.500.11822/49953",
+    "license": "CC BY-NC-ND 3.0 IGO (publisher item metadata)",
+    "checkedAt": "2026-10-15T08:43:00Z",
+    "handling": "official-link-only; report content not downloaded, copied, or parsed"
+  }
+}

@@ -45,6 +45,78 @@ test('map case details show the official Canada report link with its date and li
   );
 });
 
+test('MARS publisher indicators load lazily, preserve monthly/country history, paginate, and jump to an exact source', async ({ page }, testInfo) => {
+  expect(unexpectedCredentialEnvironmentNames()).toEqual([]);
+  const pageErrors: string[] = [];
+  page.on('pageerror', error => pageErrors.push(error.message));
+  await page.route(/^https?:\/\//, route => {
+    const requestUrl = new URL(route.request().url());
+    if (requestUrl.hostname === '127.0.0.1' || requestUrl.hostname === 'localhost') return route.continue();
+    return route.abort();
+  });
+
+  await page.goto('/dashboard/indicators?sourceId=MEX_S_003');
+  await expect(page.getByRole('heading', { name: 'Publisher Indicators' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Top 50 methane sources' })).toBeVisible();
+  await expect(page.locator('.mpi-summary-grid')).toContainText('9');
+  await expect(page.getByLabel('Top 50 publisher release month')).toHaveValue('2026-09');
+  const topTable = page.getByRole('table').filter({ has: page.getByRole('columnheader', { name: 'Six-month average flux' }) });
+  await expect(topTable.getByRole('row')).toHaveCount(11);
+  await topTable.getByRole('row', { name: /MEX_S_003/ }).getByRole('button', { name: 'Open MEX_S_003 in Map Explorer' }).click();
+  await expect(page).toHaveURL(/\/dashboard\/map\?sourceId=MEX_S_003$/);
+  await expect(page.locator('.selected-source-card')).toBeVisible();
+  await expect(page.locator('.selected-source-card')).toContainText('MEX_S_003');
+
+  await page.goto('/dashboard/indicators?sourceId=MEX_S_003');
+  await page.getByRole('tab', { name: /Country response history/ }).click();
+  await expect(page.getByRole('heading', { name: 'MARS response rates by country' })).toBeVisible();
+  await expect(page.getByLabel('Country response reporting period')).toHaveValue('2025-08-01:2026-07-31');
+  const responseTable = page.getByRole('table').filter({ has: page.getByRole('columnheader', { name: 'With feedback / notified' }) });
+  await expect(responseTable.getByRole('row')).toHaveCount(11);
+  await page.getByLabel('Rows per page').selectOption('50');
+  await expect(responseTable.getByRole('row')).toHaveCount(35);
+  const algeria = responseTable.getByRole('row', { name: /Algeria/ });
+  await algeria.getByRole('button', { name: 'View response history for Algeria' }).click();
+  await expect(page.locator('.mpi-history')).toContainText('Algeria');
+  await page.locator('.mpi-history-details summary').click();
+  const algeriaHistory = page.locator('.mpi-history-list>div');
+  const previousAlgeriaPeriod = algeriaHistory.nth(6);
+  await expect(previousAlgeriaPeriod).toContainText('2025-07-01 – 2026-06-30');
+  await expect(previousAlgeriaPeriod).toContainText('2 with feedback / 135 notified');
+  const latestAlgeriaPeriod = algeriaHistory.last();
+  await expect(latestAlgeriaPeriod).toContainText('2025-08-01 – 2026-07-31');
+  await expect(latestAlgeriaPeriod).toContainText('1 with feedback / 166 notified');
+  await expect(page.getByText(/does not identify which source was repaired, establish physical mitigation, or prove that emissions fell/)).toBeVisible();
+  await page.evaluate(() => { if (document.activeElement instanceof HTMLElement) document.activeElement.blur(); });
+  await page.screenshot({ path: testInfo.outputPath('mars-indicators-country-history-desktop.png'), fullPage: true });
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect.poll(() => page.locator('.app-main').evaluate(element => {
+    const rect = element.getBoundingClientRect();
+    return { left: Math.round(rect.left), width: Math.round(rect.width) };
+  })).toEqual({ left: 0, width: 390 });
+  await expect(page.getByText('Swipe or scroll the table horizontally to view all columns', { exact: true })).toBeVisible();
+  await expect(page.locator('.mpi-table-wrap').last()).toHaveAttribute('tabindex', '0');
+  const mobileLayout = await page.evaluate(() => ({
+    viewport: window.innerWidth,
+    document: document.documentElement.scrollWidth,
+    layout: ['.app', '.app-main', '.workspace-content', '.mpi-workspace', '.mpi-panel', '.mpi-response-layout', '.mpi-response-table-card', '.mpi-table-wrap', '.mpi-response-table'].map(selector => {
+      const element = document.querySelector(selector);
+      if (!element) return { selector, missing: true };
+      const rect = element.getBoundingClientRect();
+      return { selector, left: Math.round(rect.left), right: Math.round(rect.right), width: Math.round(rect.width), scroll: element.scrollWidth, client: element.clientWidth, overflowX: getComputedStyle(element).overflowX };
+    }),
+    offenders: [...document.querySelectorAll('body *')].map(element => {
+      const rect = element.getBoundingClientRect();
+      return { tag: element.tagName.toLowerCase(), className: typeof element.className === 'string' ? element.className : '', left: Math.round(rect.left), right: Math.round(rect.right), scroll: element.scrollWidth, client: element.clientWidth };
+    }).filter(item => item.right > window.innerWidth + 1 || item.left < -1 || item.scroll > item.client + 1).sort((a, b) => b.right - a.right).slice(0, 12),
+  }));
+  expect(mobileLayout.document, `wide data tables may scroll inside their panel but must not widen the page: ${JSON.stringify(mobileLayout)}`).toBeLessThanOrEqual(mobileLayout.viewport);
+  await page.evaluate(() => { if (document.activeElement instanceof HTMLElement) document.activeElement.blur(); });
+  await page.screenshot({ path: testInfo.outputPath('mars-indicators-country-history-mobile.png'), fullPage: true });
+  expect(pageErrors).toEqual([]);
+});
+
 test('historical MARS case can be audited, exported, verified, and tampering is rejected', async ({ page }) => {
   expect(unexpectedCredentialEnvironmentNames()).toEqual([]);
   const pageErrors: string[] = [];
@@ -205,11 +277,14 @@ test('collapsed navigation reveals its label on keyboard focus', async ({ page }
   await page.getByRole('button', { name: 'Collapse navigation' }).click();
   const mainNav = page.getByRole('navigation', { name: 'Main navigation' });
   const mapLink = mainNav.getByRole('button', { name: 'Map Explorer' });
+  const indicatorsLink = mainNav.getByRole('button', { name: 'MARS Indicators' });
   const casesLink = mainNav.getByRole('button', { name: 'Cases' });
   await mapLink.focus();
   await page.keyboard.press('Tab');
-  await expect(casesLink).toBeFocused();
-  await expect.poll(() => casesLink.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
+  await expect(indicatorsLink).toBeFocused();
+  await expect.poll(() => indicatorsLink.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
+  await expect.poll(() => indicatorsLink.evaluate(element => getComputedStyle(element, '::after').content)).toBe('"MARS Indicators"');
+  await casesLink.focus();
   await expect.poll(() => casesLink.evaluate(element => getComputedStyle(element, '::after').content)).toBe('"Cases"');
 });
 

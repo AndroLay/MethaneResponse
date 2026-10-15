@@ -36,6 +36,7 @@ describe('map panel viewport loading', () => {
   test('loads history only for case details and complete archive layers that are actually visible', () => {
     expect(shouldLoadSelectedSourceHistory('map', false)).toBe(false);
     expect(shouldLoadSelectedSourceHistory('map', true)).toBe(true);
+    expect(shouldLoadSelectedSourceHistory('indicators', false)).toBe(false);
     expect(shouldLoadSelectedSourceHistory('cases', false)).toBe(true);
     expect(shouldLoadCompleteObservationHistory(false, true, 'plumes', 'observed-flux')).toBe(false);
     expect(shouldLoadCompleteObservationHistory(true, false, 'plumes', 'observed-flux')).toBe(false);

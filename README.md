@@ -31,6 +31,10 @@ Satellite observations can support a detection claim. They do not, by themselves
 
 Browse the versioned MARS snapshot on a MapLibre map, filter source records, inspect dated plume observations, and review the data provenance. The map is a historical data view, not a live methane sensor or a concentration surface.
 
+### Compare official MARS releases
+
+Open **MARS Indicators** to browse nine monthly Top 50 source lists and eight country response-rate reporting periods, inspect exact flux units and feedback numerator/denominator, compare list membership over time, and jump to an exactly matched source in Map Explorer. The data and manifest are loaded only when that workspace opens. The Top 50 file has no explicit rank field, so the app does not infer rank changes from CSV row order. The September 2026 mitigation report is linked from UNEP as a publisher source; its CC BY-NC-ND report content is not copied into this project.
+
 ### Prioritize what to investigate
 
 Review recurrence, temporal patterns, anomaly screens, and an explainable investigation-priority heuristic. The recurrence analysis estimates another linked MARS archive record; it is not a calibrated probability of future leakage or a measurement of future emissions.

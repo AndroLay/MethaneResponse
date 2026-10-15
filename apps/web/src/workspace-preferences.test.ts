@@ -36,6 +36,7 @@ describe('workspace preferences', () => {
     expect(preferencesModule.getInitialWorkspace('/dashboard', preferences)).toBe('cases');
     expect(preferencesModule.getInitialWorkspace('/dashboard/audit', preferences)).toBe('audit');
     expect(preferencesModule.getInitialWorkspace('/dashboard/operators', preferences)).toBe('operators');
+    expect(preferencesModule.getInitialWorkspace('/dashboard/indicators', preferences)).toBe('indicators');
     expect(preferencesModule.getInitialWorkspace('/dashboard/unknown', preferences)).toBe('dashboard');
   });
 });
