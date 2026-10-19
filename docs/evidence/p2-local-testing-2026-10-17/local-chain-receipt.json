@@ -1,0 +1,23 @@
+{
+  "label": "DEMO — disposable local Anvil, not public Sepolia evidence",
+  "recordedAt": "2026-10-17T12:54:14.130Z",
+  "chainId": 31337,
+  "auditId": "7476a7d3-1c21-4513-b408-47725bd8e250",
+  "bundleHash": "0x64ccb6e756229f76f5c4b89a6a2279ed44596a1b7694f1d7c34618f31747d165",
+  "receipt": {
+    "chainId": 31337,
+    "registryAddress": "0x9f72e4c78e6db9d231a1390e5dad30b127d6a803",
+    "txHash": "0x2da76b8d3572918708ca8d98c4e0d6aebf624fbc8eef88229572ebb9433aeafa",
+    "issuer": "0x518df9F3E51Ea5ed5bCA80759c8b608516F3aF00",
+    "version": 1,
+    "blockNumber": "2",
+    "blockHash": "0x20135299a3e349fdf022342218b9755cd5700e984ab519cdb6b751c5cf4c6d46",
+    "confirmations": 1
+  },
+  "independentVerifier": "VALID_LATEST then VALID_HISTORICAL",
+  "modifiedBundle": "REJECTED",
+  "forgedIssuer": "REJECTED",
+  "crashBeforeBroadcast": "SIGKILL; pending; no nonce consumed",
+  "crashAfterBroadcast": "SIGKILL; confirmed by reconciliation",
+  "revertedTransaction": "REVERTED; audit unanchored"
+}

@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-18T11:15:34.235809+00:00",
+  "repository": {
+    "remote": "https://github.com/AndroLay/MethaneResponse",
+    "branch": "main",
+    "baseCommit": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+    "publication": "not performed; current working changes preserved",
+    "sourceInventory": "/tmp/MethaneResponse-publication-manifest-2026-10-18.json",
+    "publicTargetReadOnlyCheck": {
+      "visibility": "public",
+      "defaultBranch": "main",
+      "remoteMainCommit": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+      "matchesLocalBase": true,
+      "connectedGitHubPermission": "push",
+      "writePerformed": false
+    }
+  },
+  "renderPreview": {
+    "status": "local production-mode configuration and runtime verified; no public service deployed",
+    "serviceName": "methaneresponse-preview",
+    "workspace": "Andro's workspace",
+    "plan": "free",
+    "region": "singapore",
+    "autoDeploy": "off",
+    "healthCheck": "/api/health",
+    "store": "temporary JSON under /tmp; not durable",
+    "secrets": "no AI, database, reviewer, RPC or signing secrets configured",
+    "workspaceReadOnlyCheck": "only Evidrilo services were present; no MethaneResponse service was changed or created",
+    "costBoundary": "Free compute is subject to shared monthly hours and usage limits; bandwidth or build overage can be billed."
+  },
+  "localChecks": {
+    "command": "bash scripts/check-local.sh",
+    "log": "/tmp/methaneresponse-delivery-check-all.log",
+    "result": "passed",
+    "bunInstallFrozenLockfile": "passed (local Bun 1.4.3; repo/CI/Render pin 1.4.2)",
+    "typechecksAndCheck": "passed",
+    "api": {
+      "passed": 201,
+      "failed": 0,
+      "assertions": 1132
+    },
+    "web": {
+      "passed": 253,
+      "failed": 0,
+      "assertions": 164995
+    },
+    "verifierAndTooling": {
+      "passed": 54,
+      "failed": 0,
+      "assertions": 219
+    },
+    "python": {
+      "passed": 212,
+      "failed": 0
+    },
+    "foundry": {
+      "passed": 4,
+      "failed": 0
+    },
+    "buildWeb": "passed",
+    "bundleBudget": {
+      "appGzipBytes": 71894,
+      "routeChunks": 8,
+      "mapPanelRawBytes": 1122953,
+      "mapPanelGzipBytes": 304890,
+      "note": "MapPanel still triggers Vite advisory for raw chunks above 500 KB."
+    },
+    "gitDiffCheck": "passed",
+    "deliveryScripts": {
+      "shellSyntax": "passed",
+      "pythonCompile": "passed",
+      "browserSmoke": "passed"
+    }
+  },
+  "browserWorkflow": {
+    "mode": "local production build + Bun/Hono on one origin",
+    "sourceId": "KAZ_S_159",
+    "datasetSnapshotId": "unep-mars-675417694883",
+    "flow": [
+      "Cases",
+      "historical observations and uncertainty",
+      "evidence auditor rules baseline",
+      "browser-local follow-up",
+      "report export and local verification",
+      "altered report rejected by SHA-256 verifier"
+    ],
+    "pageErrors": 0,
+    "blockedExternalHosts": 0,
+    "screenshots": [
+      {
+        "path": "docs/demo/delivery-2026-10-18/assets/01-source-directory.png",
+        "sha256": "8d7e53c1da6358ebe1a14e4a507f9da5ed633d75e2c417a7684e07379385ac48"
+      },
+      {
+        "path": "docs/demo/delivery-2026-10-18/assets/02-full-case-observations.png",
+        "sha256": "f973cc1bfcb7b0eb4974c6d5fa4bf447e19eea2d2e954e7784a9e36561edaddc"
+      },
+      {
+        "path": "docs/demo/delivery-2026-10-18/assets/03-observation-timeline.png",
+        "sha256": "87585fd2d561ac17d0cdd8ab0ecc4157546e2c7218ce5e4c390edff7c1f19b13"
+      },
+      {
+        "path": "docs/demo/delivery-2026-10-18/assets/04-source-detection-result.png",
+        "sha256": "7c425e9c0a730ef5c46bc2144694925a57e628bdd3e3769a3a432cf5e83e4cc6"
+      },
+      {
+        "path": "docs/demo/delivery-2026-10-18/assets/05-mitigation-insufficient.png",
+        "sha256": "320eb0eca71f9b3fb08094c3484de3deb45315484f15606091a3e53f25823406"
+      },
+      {
+        "path": "docs/demo/delivery-2026-10-18/assets/06-local-casework.png",
+        "sha256": "09769d93730844a7976652bb5f630319819a27cf34293f0a808e6fa525b970e5"
+      },
+      {
+        "path": "docs/demo/delivery-2026-10-18/assets/07-report-digest-valid.png",
+        "sha256": "1f7396f50384a0bdc1b9ecf867122cf99ae59c6057bcf3dd6d7e22cd73ee6d5e"
+      },
+      {
+        "path": "docs/demo/delivery-2026-10-18/assets/08-tampered-report-rejected.png",
+        "sha256": "63723ba7d6e51ba4a5bc115f2df8adf44cd60d9f64ec34f9aee0b149a3dfe8b0"
+      }
+    ],
+    "outcomes": {
+      "sourceRecord": "KAZ_S_159 · unep-mars-675417694883",
+      "sourceDetection": "required references present for selected event scope",
+      "mitigationClaim": "insufficient_evidence for selected event scope",
+      "report": "local bundle digest and export-context checksum match",
+      "alteredReport": "changing the hashed reason and its summary while leaving bundleHash unchanged produces a SHA-256 mismatch",
+      "receipt": "not included"
+    },
+    "limitations": [
+      "historical snapshot, not live monitoring",
+      "Chromium used SwiftShader; no physical GPU measurement",
+      "local digest is not a blockchain receipt or proof of physical mitigation",
+      "Map Explorer globe was omitted from the final footage because public basemap tiles did not render consistently in headless capture; case imagery and publisher geometry are included."
+    ]
+  },
+  "video": {
+    "status": "local final file; not uploaded",
+    "path": "/tmp/MethaneResponse-delivery-2026-10-18/MethaneResponse-IEEE-ClimateChain-4m.mp4",
+    "bytes": 12530711,
+    "sha256": "a800eac58b9d5759d6fcb850a25e256eb382bf51e16492fb9dcbdd8eb441aa93",
+    "durationSeconds": 240.0,
+    "video": {
+      "codec": "h264",
+      "width": 1920,
+      "height": 1080,
+      "fps": "30/1",
+      "pixelFormat": "yuv420p",
+      "colorRange": "limited (tv)"
+    },
+    "audio": {
+      "codec": "aac",
+      "sampleRateHz": 48000,
+      "channels": 2,
+      "integratedLufs": -20.9,
+      "truePeakDbfs": -8.6
+    },
+    "captions": {
+      "language": "English",
+      "burnedIn": true,
+      "sidecar": "/tmp/MethaneResponse-delivery-2026-10-18/MethaneResponse-IEEE-ClimateChain-4m.en.srt",
+      "entries": 19,
+      "lastCaptionEndsAt": "00:04:00,000"
+    },
+    "music": "original deterministic instrumental; no narration",
+    "capture": {
+      "path": "/tmp/MethaneResponse-delivery-2026-10-18/actual-app-capture.webm",
+      "sha256": "58ed31c403dffb46a7d23285415197e0d0e48fc7f0348cc0b8b6729bc0b63a21",
+      "pageErrors": 0
+    },
+    "fullDecode": "passed"
+  },
+  "notionPackage": {
+    "status": "ZIP ready for import; not imported or published",
+    "path": "/tmp/MethaneResponse-Notion-2026-10-18.zip",
+    "bytes": 2655229,
+    "sha256": "852b0f5f4279a1b28d97e0d3eae3b3655309f1394f7ddb91df7fb074a6af1799",
+    "pages": 6,
+    "screenshots": 8,
+    "localLinks": "passed",
+    "zipCrc": "passed",
+    "manifest": "/tmp/MethaneResponse-Notion-2026-10-18.manifest.json",
+    "liveImportVisualCheck": "not performed; no Notion authoring connection in this session"
+  },
+  "externalActions": {
+    "renderDeployment": "pending explicit approval; service does not exist",
+    "githubCommitPush": "pending explicit approval",
+    "notionImportPublish": "not performed",
+    "videoUpload": "not performed"
+  }
+}

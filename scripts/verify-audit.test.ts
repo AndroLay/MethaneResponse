@@ -8,15 +8,15 @@ import { createAudit } from '../apps/api/src/audit';
 import { createDocumentAudit, createReviewedAudit, DocumentAssessmentInput } from '../apps/api/src/ai-review';
 import { loadCasebook, sourceFromCase } from '../apps/api/src/casebook';
 import type { AuditResult } from '../packages/shared/src/index';
-import { canonicalJson } from '../apps/web/src/report-export';
+import { addExportIntegrity, canonicalJson } from '../apps/web/src/report-export';
 
 const repositoryRoot = resolve(import.meta.dir, '..');
 const verifierPath = resolve(import.meta.dir, 'verify-audit.ts');
 let temporaryDirectory = '';
 
-function runVerifier(reportPath: string) {
+function runVerifier(reportPath: string, flags: string[] = []) {
   const result = Bun.spawnSync({
-    cmd: [process.execPath, verifierPath, reportPath],
+    cmd: [process.execPath, '--no-env-file', verifierPath, reportPath, ...flags],
     cwd: repositoryRoot,
     stdout: 'pipe',
     stderr: 'pipe',
@@ -31,6 +31,103 @@ function runVerifier(reportPath: string) {
 describe('audit receipt CLI', () => {
   beforeAll(async () => { temporaryDirectory = await mkdtemp(join(tmpdir(), 'methane-audit-verify-')); });
   afterAll(async () => { if (temporaryDirectory) await rm(temporaryDirectory, { recursive: true, force: true }); });
+
+  test('checks the export context checksum and rejects wrapper tampering', async () => {
+    const source = DEMO_SOURCES[0];
+    const audit = createAudit(source, { sourceId: source.sourceId, claimType: 'source_detected' });
+    const payload = await addExportIntegrity({ latestAudit: audit, claim: audit.claimType, selectedSourceId: audit.sourceId, disclaimer: 'DEMO checksum is unsigned and not physical proof.' });
+    const path = join(temporaryDirectory, 'context-checksum.json');
+    await writeFile(path, JSON.stringify(payload));
+    const intact = runVerifier(path);
+    expect(intact.exitCode).toBe(0);
+    expect(intact.stdout).toContain('export_context_checksum: VALID');
+    expect(runVerifier(path, ['--require-context']).exitCode).toBe(0);
+    await writeFile(path, JSON.stringify({ ...payload, claim: 'mitigation_confirmed' }));
+    const changed = runVerifier(path);
+    expect(changed.exitCode).toBe(1);
+    expect(changed.stderr).toContain('export_context_checksum: INVALID');
+  });
+
+  test('legacy wrappers remain verifiable with an explicit context limitation', async () => {
+    const source = DEMO_SOURCES[0];
+    const audit = createAudit(source, { sourceId: source.sourceId, claimType: 'source_detected' });
+    const path = join(temporaryDirectory, 'legacy-wrapper-context.json');
+    await writeFile(path, JSON.stringify({ latestAudit: audit }));
+    const checked = runVerifier(path);
+    expect(checked.exitCode).toBe(0);
+    expect(checked.stdout).toContain('export_context_checksum: NOT_RECORDED');
+    expect(checked.stdout).toContain('Wrapper fields are outside the audit bundle digest');
+    expect(runVerifier(path, ['--require-context']).exitCode).toBe(1);
+  });
+
+  test('rejects rechecksummed export claims that disagree with the saved audit', async () => {
+    const source = DEMO_SOURCES[0];
+    const audit = createAudit(source, { sourceId: source.sourceId, claimType: 'source_detected' });
+    const path = join(temporaryDirectory, 'context-inconsistent-claim.json');
+    await writeFile(path, JSON.stringify(await addExportIntegrity({ latestAudit: audit, claim: 'mitigation_confirmed', selectedSourceId: audit.sourceId })));
+    const checked = runVerifier(path);
+    expect(checked.exitCode).toBe(1);
+    expect(checked.stderr).toContain('export_context_fields: MISMATCH');
+  });
+
+  test('rejects rechecksummed dataset fields that disagree with audit provenance', async () => {
+    const book = await loadCasebook();
+    const source = sourceFromCase(book.cases[0]!, book.provenance.catalogUrl, book.provenance);
+    const audit = createAudit(source, { sourceId: source.sourceId, claimType: 'source_detected' }, { provenance: book.provenance });
+    const dataset = { snapshotId: audit.bundle.provenance!.snapshotId, archiveSha256: audit.bundle.provenance!.archiveSha256 };
+    const path = join(temporaryDirectory, 'context-inconsistent-dataset.json');
+    for (const changed of [dataset, { ...dataset, snapshotId: 'another-snapshot' }, { ...dataset, archiveSha256: 'f'.repeat(64) }]) {
+      await writeFile(path, JSON.stringify(await addExportIntegrity({ latestAudit: audit, sourceDataset: changed })));
+      const checked = runVerifier(path, ['--require-context']);
+      expect(checked.exitCode).toBe(changed === dataset ? 0 : 1);
+      if (changed !== dataset) expect(checked.stderr).toContain('export_context_fields: MISMATCH');
+    }
+  });
+
+  test('rejects unknown or repeated CLI options instead of silently weakening requirements', async () => {
+    const audit = createAudit(DEMO_SOURCES[0], { sourceId: DEMO_SOURCES[0].sourceId, claimType: 'source_detected' });
+    const path = join(temporaryDirectory, 'context-options.json');
+    await writeFile(path, JSON.stringify(audit));
+    for (const flags of [['--require-contxt'], ['--require-chian'], ['--require-context', '--require-context']]) {
+      const checked = runVerifier(path, flags);
+      expect(checked.exitCode).toBe(2);
+      expect(checked.stderr).toContain('Unknown or repeated option');
+    }
+    expect(runVerifier(path, ['--require-context']).exitCode).toBe(1);
+  });
+
+  test('legacy commitments remain valid and rehashed false physical semantics are rejected', async () => {
+    const audit = createAudit(DEMO_SOURCES[0], { sourceId: 'DEMO-001', claimType: 'source_detected' });
+    delete audit.bundle.assessmentSemantics;
+    audit.bundleHash = `0x${createHash('sha256').update(canonicalJson(audit.bundle)).digest('hex')}`;
+    const path = join(temporaryDirectory, 'legacy-p4.json');
+    await writeFile(path, JSON.stringify(audit));
+    expect(runVerifier(path).exitCode).toBe(0);
+    Object.assign(audit.bundle, { assessmentSemantics: { version: 1, basis: 'metadata_coverage', physicalVerification: 'verified' } });
+    audit.bundleHash = `0x${createHash('sha256').update(canonicalJson(audit.bundle)).digest('hex')}`;
+    await writeFile(path, JSON.stringify(audit));
+    expect(runVerifier(path).exitCode).toBe(1);
+  });
+
+  test('redacted summary verification checks historical bytes and never declares current publication active', async () => {
+    const summary = { schemaVersion: 1, kind: 'redacted_human_assessment', auditId: '00000000-0000-4000-8000-000000000001', revision: 1,
+      sourceId: 'DEMO-001', claimType: 'source_detected', result: 'insufficient_evidence', generatedAt: '2026-10-17T00:00:00Z', synthetic: true,
+      period: { startDate: '2026-09-01', endDate: '2026-09-30' }, reviewerStatus: 'unverified', conflictDeclaration: 'not_declared',
+      referenceCount: 0, citedReferenceCount: 0, referenceChecks: { retrieved: 0, digestMatched: 0, digestMismatched: 0, unchecked: 0 },
+      privateBundleHash: `0x${'a'.repeat(64)}`, limitations: ['DEMO; historical checksum is not physical truth.'] };
+    const record = { summary, summaryHash: `0x${createHash('sha256').update(canonicalJson(summary)).digest('hex')}` };
+    const path = join(temporaryDirectory, 'redacted-summary.json');
+    await writeFile(path, JSON.stringify(record));
+    const result = runVerifier(path);
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain('summary_hash: VALID');
+    expect(result.stdout).toContain('publication_status: NOT_CHECKED');
+    expect(result.stdout).not.toContain('publication_status: published');
+    expect(runVerifier(path, ['--require-chain']).exitCode).toBe(1);
+    expect(runVerifier(path, ['--require-context']).exitCode).toBe(1);
+    await writeFile(path, JSON.stringify({ ...record, summary: { ...summary, result: 'supported' } }));
+    expect(runVerifier(path).exitCode).toBe(1);
+  });
 
   test('accepts an intact local hash and rejects a changed evidence bundle', async () => {
     const source = DEMO_SOURCES[0];
@@ -133,4 +230,15 @@ describe('audit receipt CLI', () => {
     expect(invalid.stdout).toContain('document_rights_metadata: INVALID');
     expect(invalid.stderr).toContain('document_rights_metadata: INVALID');
   });
+});
+
+test('require-chain mode refuses an offline-only success', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'methane-required-chain-'));
+  try {
+    const audit = createAudit(DEMO_SOURCES[0], { sourceId: DEMO_SOURCES[0].sourceId, claimType: 'source_detected' });
+    const path = join(directory, 'report.json'); await writeFile(path, JSON.stringify(audit));
+    const checked = Bun.spawnSync([process.execPath, '--no-env-file', verifierPath, path, '--require-chain'], { env: { PATH: process.env.PATH }, stdout: 'pipe', stderr: 'pipe' });
+    expect(checked.exitCode).toBe(1);
+    expect(new TextDecoder().decode(checked.stderr)).toContain('chain_receipt: REQUIRED');
+  } finally { await rm(directory, { recursive: true, force: true }); }
 });

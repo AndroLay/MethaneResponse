@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "scope": "completed_agent_role_simulations_with_actual_local_transports",
+  "commands": [
+    {
+      "command": "bun run test:integration-roles --evidence NEW_PATH",
+      "exitCode": 0,
+      "tests": 1,
+      "namedScenarios": 13,
+      "assertions": 116,
+      "log": "logs/provider.log"
+    },
+    {
+      "command": "bun run test:chain-integration --evidence NEW_PATH",
+      "exitCode": 0,
+      "tests": 1,
+      "assertions": 35,
+      "log": "logs/chain.log"
+    },
+    {
+      "command": "bun run test:case-work-operations",
+      "exitCode": 0,
+      "tests": 2,
+      "log": "logs/case-work.log"
+    },
+    {
+      "command": "bun run test:publication-operations",
+      "exitCode": 0,
+      "tests": 1,
+      "log": "logs/publication.log"
+    },
+    {
+      "command": "bun --no-env-file test apps/api/src/ai-review.test.ts apps/api/src/skeptical-ai.test.ts apps/api/src/ai-review-api.test.ts scripts/deployment-config.test.ts",
+      "exitCode": 0,
+      "tests": 34,
+      "log": "logs/focused-unit.log"
+    },
+    {
+      "command": "bun run check",
+      "exitCode": 0,
+      "log": "logs/typecheck.log"
+    },
+    {
+      "command": "bun run build:web",
+      "exitCode": 0,
+      "log": "logs/build.log"
+    },
+    {
+      "command": "bun run check:web-bundle",
+      "exitCode": 0,
+      "appGzipBytes": 71689,
+      "log": "logs/bundle.log"
+    },
+    {
+      "command": "bun --no-env-file docs/evidence/integration-role-simulation-2026-10-18/production-preview-smoke.ts NEW_PATH",
+      "exitCode": 0,
+      "httpByteChecks": 4,
+      "artifact": "preview.json"
+    }
+  ],
+  "totalTestsThisIncrement": 39,
+  "fullCheckAllRerun": false,
+  "browserE2ERerun": false,
+  "externalProviderCalls": 0,
+  "externalProviderVerified": false,
+  "publicDeploymentVerified": false,
+  "sepoliaReceiptVerified": false,
+  "runtimeApplicationSourceChanged": false,
+  "limits": [
+    "Chain receipt is disposable Anvil31337, not Sepolia.",
+    "Production API and preview are separate local surfaces; no remoteendtoend proof.",
+    "Fixture output quality is not provider benchmark evidence; P6 activation decision unchanged.",
+    "Both provider passes can agree falsely; review boundary does not certify physical truth."
+  ],
+  "providerPartialBodyElapsedMs": 40198,
+  "historicalPacketChecksumsVerified": {
+    "domain-review-preparation-2026-10-18": 31,
+    "domain-review-remediation-2026-10-18": 51,
+    "p5-p6-agent-evaluation-2026-10-18": 22,
+    "p5-p6-agent-completion-2026-10-18": 76
+  }
+}

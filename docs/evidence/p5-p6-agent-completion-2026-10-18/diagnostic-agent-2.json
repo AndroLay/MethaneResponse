@@ -1,0 +1,1082 @@
+[
+  {
+    "claimId": "ARG_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARG_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARG_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARG_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARG_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARG_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-5",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Cuplikan menyatakan tidak ada catatan perbaikan atau rangkaian pengukuran setelah tindakan. Ketiadaan bukti tersebut tidak membuktikan perbaikan terjadi maupun tidak terjadi.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ]
+  }
+]

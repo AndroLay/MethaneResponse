@@ -3,6 +3,8 @@
 **Status:** ready-to-run protocol; no participants have been recruited and no pilot results have been collected.
 **Purpose:** collect small, auditable usability evidence for the ClimateChain prototype. This formative pilot cannot establish population-wide usefulness, time savings, AI quality, or climate impact.
 
+**18 October preparation:** a [two-case task/answer-key/manual packet](p5-p6-agent-evaluation-2026-10-18/p5-task-pack.md), private paired-task analyzer (`services/data-pipeline/pilot_study.py`), and separately labeled agent walkthrough are available. They do not count as human sessions. The packet's manual condition uses an archived publisher/source packet, not the live official portal; report that scope explicitly. Agent and human results, changed builds, and workflows with different materials stay separate. For T4, that packet compares verification time on supplied exports and records app export creation separately.
+
 ## Research question
 
 Can a researcher, auditor, or public-interest analyst use MethaneResponse to inspect a historical MARS source, distinguish observations from response metadata, assess whether a mitigation claim has adequate documentary support, and verify the integrity of an exported report?

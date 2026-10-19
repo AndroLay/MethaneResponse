@@ -1,5 +1,7 @@
 # MethaneResponse — Landing page implementation
 
+> **Catatan implementasi 13 Oktober 2026.** Hasil dan angka dalam dokumen ini mengikuti revisi asal. Untuk alur serta kemampuan terbaru gunakan [workflow](../product/user-workflow.md) dan [status aktif](../release/current-implementation-status.md).
+
 **Date:** 13 October 2026
 **Status:** Integrated with the interactive dashboard and pinned historical MARS casebook.
 

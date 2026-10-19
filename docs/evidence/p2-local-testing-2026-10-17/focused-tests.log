@@ -1,0 +1,51 @@
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/verify-audit.test.ts:
+(pass) audit receipt CLI > accepts an intact local hash and rejects a changed evidence bundle [716.84ms]
+(pass) audit receipt CLI > verifies an exported v3 human-review revision and rejects a changed decision [1097.89ms]
+(pass) audit receipt CLI > rejects malformed open-license metadata even when its bundle hash is recomputed [723.02ms]
+(pass) require-chain mode refuses an offline-only success [364.24ms]
+
+apps/api/src/anchor-intent.test.ts:
+(pass) failed network send remains reserved and blocks a different API replica [38.57ms]
+(pass) only an independently matching transaction event can reconcile an ambiguous anchor [13.12ms]
+(pass) missing chain signer is rejected before creating a durable transaction intent [4.01ms]
+(pass) RPC chain mismatch fails during preflight before reserving an intent or broadcasting [4.63ms]
+(pass) restart recovers the exact transaction without rebroadcast and exposes only safe status metadata [9.82ms]
+(pass) a changed configured target is rejected before reserving or sending [3.91ms]
+
+apps/api/src/anchor-store.test.ts:
+(pass) signed transaction identity survives a restart before broadcast and blocks all competing revisions [4.92ms]
+(pass) completion atomically commits receipt and intent, rejects a fake receipt and preserves bundle bytes [4.66ms]
+(pass) a missing initialized audit file fails closed after restart [1.13ms]
+(pass) legacy array migration preserves audit hashes and rejects concurrent reservation [2.83ms]
+(pass) reverted attempts release the issuer only for a fresh nonce and completion cannot be forged [4.69ms]
+(pass) corrupt initialization marker and audit state fail closed [1.29ms]
+(pass) confirmed completion is idempotent and its receipt cannot be changed [4.32ms]
+
+apps/api/src/chain-recovery.test.ts:
+(pass) a configured signer requires an explicit chain write opt-in [0.41ms]
+(pass) local chain configuration is restricted to loopback and denied in production [0.25ms]
+
+apps/api/src/chain.test.ts:
+(pass) registry case IDs > binds a stable case and claim category to its receipt record [0.55ms]
+(pass) historical receipt verification > accepts the exact historical transaction and matching event metadata [0.11ms]
+(pass) historical receipt verification > rejects mismatched bundle, case, issuer, version, block, transaction or status [0.25ms]
+(pass) Sepolia writer readiness requires a valid HTTPS RPC, registry and private key [32.12ms]
+(pass) RPC configuration rejects insecure public transport and embedded credentials [0.12ms]
+(pass) configured RPC must identify the expected Sepolia chain [0.27ms]
+(pass) independently verifies the configured registry event returned by RPC [24.52ms]
+(pass) receipt reads stop before contract access when the RPC reports another chain [4.17ms]
+
+apps/api/src/anchor-idempotency.test.ts:
+(pass) preflight prevents duplicate Sepolia anchoring when an identical bundle is already on chain [6.33ms]
+(pass) concurrent anchor requests share one in-flight guard [6.82ms]
+
+apps/api/src/anchor-authority.test.ts:
+(pass) revoked, expired and out-of-category reviewers cannot inspect, anchor or reconcile [10.43ms]
+(pass) revocation during broadcast prevents returning private report contents [9.19ms]
+
+ 31 pass
+ 0 fail
+ 128 expect() calls
+Ran 31 tests across 7 files. [3.51s]

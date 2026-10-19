@@ -1,5 +1,7 @@
 # Earth rendering: terrain, atmosphere, and mobile performance
 
+> **Catatan teknis dengan riwayat 12–13 Oktober 2026.** Desain rendering dijelaskan bersama hasil pada revisi asal; jumlah source, ukuran bundle dan browser runs di bagian bertanggal bukan hasil terkini. Panduan aktif: [peta](real-map.md), [arsitektur](overview.md), [status](../release/current-implementation-status.md).
+
 ## What the controls do
 
 The existing MapLibre map remains the only map renderer. The Earth Rendering panel adds:

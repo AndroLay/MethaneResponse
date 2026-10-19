@@ -6,9 +6,18 @@
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
-    "types": ["node", "bun"],
-    "typeRoots": ["./node_modules/@types", "./apps/api/node_modules/@types"],
-    "lib": ["ES2022", "DOM"]
+    "types": [
+      "node",
+      "bun"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./apps/api/node_modules/@types"
+    ],
+    "lib": [
+      "ES2022",
+      "DOM"
+    ]
   },
   "include": [
     "playwright.config.ts",
@@ -17,6 +26,12 @@
     "scripts/e2e-runner-utils.test.ts",
     "scripts/run-e2e.ts",
     "scripts/run-e2e-ai.ts",
-    "scripts/e2e-mock-ai-provider.ts"
+    "scripts/e2e-mock-ai-provider.ts",
+    "scripts/api-writer-lock.ts",
+    "scripts/start-api.ts",
+    "scripts/run-case-work-operations.ts",
+    "scripts/case-work-*.ts",
+    "scripts/*publication*.ts",
+    "scripts/*chain*.ts"
   ]
 }

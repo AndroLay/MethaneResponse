@@ -1,5 +1,9 @@
 # Intelligence, document review, and audit receipt integration
 
+> Snapshot desain terdahulu. Jalur write/recovery aktif P2 dijelaskan pada [runbook](../development/blockchain-recovery.md); transaksi Anvil lokal tidak menjadi bukti Sepolia publik.
+
+> **Arsip desain 12 Oktober 2026.** Angka data, mekanisme reviewer dan asumsi layanan di bawah mengikuti revisi asal. Panduan saat ini: [arsitektur](overview.md), [aliran data](data-flow.md), [trust](../product/trust-and-transparency.md) dan [status aktif](../release/current-implementation-status.md).
+
 **Status as of 2026-10-12:** implementation is in the active repository and locally testable. No external AI provider, public deployment, PostgreSQL service, Sepolia transaction, or physical mobile device has been verified from this workspace.
 
 > **Historical note:** this document predates the 2026-10-15 decision to remove database implementation. Its Postgres integration-test references describe earlier source revisions. The active API uses local JSON audit persistence; database setup is no longer part of this prototype. See the [current scope decision](decisions/2026-10-15-local-prototype-no-database.md).

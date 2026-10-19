@@ -1,17 +1,22 @@
-# Render native JavaScript runtime with Bun support.
+# Single-origin free preview: Hono API and the built Vite app share one service.
+# The /tmp audit store is intentionally temporary; this is not a durable workspace.
 services:
   - type: web
-    name: methane-response-api
+    name: methaneresponse-preview
     runtime: node
-    buildCommand: bun install --frozen-lockfile
+    plan: free
+    region: singapore
+    branch: main
+    autoDeployTrigger: off
+    buildCommand: command -v flock >/dev/null 2>&1 && bun install --frozen-lockfile && bun run build:web
     startCommand: cd apps/api && bun run start
     healthCheckPath: /api/health
     envVars:
       - key: BUN_VERSION
         value: 1.4.2
-      - key: WEB_ORIGIN
-        sync: false
       - key: AUDIT_STORE_PATH
-        value: /tmp/methane-response-audits.json
+        value: /tmp/methane-response-preview/audits.json
       - key: NODE_ENV
         value: production
+      - key: METHANE_PUBLIC_PREVIEW
+        value: "true"

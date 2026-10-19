@@ -1,0 +1,9 @@
+{
+  "assessor": "project root agent; not an independent human assessor",
+  "answerKey": "../p5-p6-agent-evaluation-2026-10-18/p5-task-pack.md",
+  "answerKeySha256": "b8d760cf8797e10aec390e36fa4361ce067967f0b39ca8e80a7bf645af43a180",
+  "scoringTime": "after all sessions; key and task definitions frozen before sessions",
+  "partialPolicy": "Correct conclusion with wrong protocol scope, unsupported action chronology, or verifier accepting the tested tamper is partly_correct. Navigation hints are retained; substantive hints excluded from unassisted counts.",
+  "criticalMisunderstandingDefinition": "Treating feedback, missing observations, score or checksum as proof of physical repair/zero methane. Other factual/protocol errors are graded separately.",
+  "humanResearchGatePassed": false
+}

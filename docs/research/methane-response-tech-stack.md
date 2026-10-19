@@ -1,5 +1,7 @@
 # Tech Stack MethaneResponse
 
+> **Riset pilihan stack terdahulu.** Rekomendasi di bawah merekam opsi ketika riset dilakukan. Stack yang benar-benar dipakai dijelaskan di [peta repo](../repository-map.md) dan [arsitektur aktif](../architecture/overview.md); database bukan bagian prototype saat ini.
+
 **Tanggal keputusan:** 11 Oktober 2026  
 **Tahap:** rekomendasi arsitektur untuk MVP hackathon; belum diimplementasikan atau diuji.
 

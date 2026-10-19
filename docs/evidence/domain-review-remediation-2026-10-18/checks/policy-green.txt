@@ -1,0 +1,31 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src/p4-evidence-policy.test.ts:
+(pass) new notification and mitigation evaluations require scope even with complete reference metadata [0.24ms]
+(pass) blank, absent, insecure and malformed pointers cannot support or contradict coverage [0.94ms]
+(pass) fixture pointers are usable only for explicitly synthetic evidence [0.11ms]
+(pass) recipient normalization is symmetric and invalid direct-call scope is conservative [0.07ms]
+(pass) the UTC day, strict calendar and strict timestamp determine scope and follow-up eligibility [0.27ms]
+(pass) source resolver and coverage use the same UTC observation day [323.80ms]
+
+src/scoped-audit.test.ts:
+(pass) scope validates real calendar dates and ordered bounds [2.07ms]
+(pass) scoped rules exclude undated, unrelated, wrong-recipient and out-of-period notices [0.35ms]
+(pass) a contrary record for another or unknown recipient cannot contradict the named-recipient claim [0.14ms]
+(pass) scoped coverage excludes impossible calendar dates [0.04ms]
+(pass) curated fallback keeps the same scoped persistence identity as the full snapshot [7.23ms]
+(pass) mitigation coverage requires an action and dated follow-up reference inside the scope [0.44ms]
+(pass) scope is hashed while legacy assessments keep their prior shape [0.74ms]
+(pass) baseline can select an older pinned observation and keeps distinct scope histories [16.44ms]
+(pass) a named-recipient scoped baseline does not expose user-entered scope through public history [4.17ms]
+
+src/human-assessment-api.test.ts:
+(pass) malformed primary and follow-up references are validation errors, never exceptions or HTTP 500 [18.75ms]
+(pass) human assessment works with AI disabled, stays private, and survives a file-store restart [19.88ms]
+(pass) human assessment enforces reviewer scope, evidence bounds and strong-result requirements [8.43ms]
+(pass) private human assessments cannot bypass the anchor restriction through reconciliation [5.24ms]
+
+ 19 pass
+ 0 fail
+ 133 expect() calls
+Ran 19 tests across 3 files. [689.00ms]

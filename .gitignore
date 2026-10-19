@@ -43,6 +43,9 @@ apps/web/public/data/mars-snapshot.json
 .playwright-cli/
 services/data-pipeline/.install-tmp/
 
+# Local video/capture outputs are generated artifacts, not source files.
+/delivery-output/
+
 # No bundled app assets have documented redistribution approval yet.
 /apps/web/public/assets/**
 

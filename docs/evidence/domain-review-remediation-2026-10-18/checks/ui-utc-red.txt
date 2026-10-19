@@ -1,0 +1,48 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src/investigation-plan.test.ts:
+ 7 | const noticeScope = { startDate: '2026-09-01', endDate: '2026-09-30', recipient: 'DEMO facility operator' };
+ 8 | 
+ 9 | test('observation context uses the same UTC day as the evidence evaluator', () => {
+10 |   const source = fixture(); source.evidence = [];
+11 |   source.observations = [{ id: 'offset-event', date: '2026-09-30T23:30:00-12:00', fluxKgHr: null, notified: false }];
+12 |   expect(getClaimCoverage(source, { startDate: '2026-09-30', endDate: '2026-09-30' })[0].status).toBe('missing');
+                                                                                                      ^
+error: expect(received).toBe(expected)
+
+Expected: "missing"
+Received: "observation_context"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/web/src/investigation-plan.test.ts:12:98)
+(fail) observation context uses the same UTC day as the evidence evaluator [1.04ms]
+(pass) metadata flags and linked reports never satisfy notification or mitigation requirements [0.69ms]
+(pass) coverage keeps contrary records scoped to their exact claim and deduplicates IDs [0.93ms]
+(pass) an available required-type reference leads to inspection and saving the baseline [0.26ms]
+(pass) an unreviewed document assessment leads to human review without closing the evidence gap [0.95ms]
+(pass) supported baseline guidance does not authenticate references or certify a repair [0.41ms]
+(pass) terminal document reviews require new evidence and a new assessment [0.55ms]
+(pass) inventory and plan calculations do not mutate source evidence [0.21ms]
+(pass) scope coverage excludes other dates, events, recipients and incomplete follow-up [0.78ms]
+(pass) a saved human determination is described as human and its request remains actionable [0.29ms]
+
+src/assessment-scope.test.ts:
+(pass) scope picker exposes dated DEMO detection references when no observation rows exist [20.18ms]
+12 | 
+13 | test('scope picker shows the UTC day instead of the timestamp local day', () => {
+14 |   const html = renderToStaticMarkup(createElement(AssessmentScopeEditor, {
+15 |     observations: [{ id: 'offset-event', date: '2026-09-30T23:30:00-12:00' }], onChange: () => {},
+16 |   }));
+17 |   expect(html).toContain('2026-10-01 · offset-event');
+                    ^
+error: expect(received).toContain(expected)
+
+Expected to contain: "2026-10-01 · offset-event"
+Received: "<section class=\"case-tool scope-editor\" aria-label=\"Assessment scope\"><h3>Event and assessment period</h3><p>Source-level baseline · no event or period bound. Apply a scope before recording a human determination.</p><div class=\"case-tool-grid\"><label>Period start<input type=\"date\" value=\"\"/></label><label>Period end<input type=\"date\" value=\"\"/></label><label>Observation event<select><option value=\"\" selected=\"\">Whole period · no single observation</option><option value=\"offset-event\">2026-09-30 · offset-event</option></select></label><label>Intended notification recipient<input maxLength=\"160\" placeholder=\"Required for a notification determination\" value=\"\"/></label></div><div class=\"case-tool-actions\"><button type=\"button\" class=\"outline-btn\">Apply assessment scope</button><button type=\"button\" class=\"outline-btn\" disabled=\"\">Use source-level baseline</button></div><small>Dates bound the evidence being assessed. Missing records remain unknown. A selected observation does not establish delivery or mitigation.</small></section>"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/web/src/assessment-scope.test.ts:17:16)
+(fail) scope picker shows the UTC day instead of the timestamp local day [1.60ms]
+
+ 10 pass
+ 2 fail
+ 29 expect() calls
+Ran 12 tests across 2 files. [137.00ms]

@@ -1,0 +1,24 @@
+$ bash scripts/check-local.sh
+$ cd apps/api && bun run typecheck && cd ../web && bun run typecheck && cd ../.. && bun run check:e2e
+$ tsc --noEmit
+$ tsc --noEmit
+$ tsc --project tsconfig.e2e.json
+$ cd apps/api && bun test
+ 193 pass
+ 0 fail
+Ran 193 tests across 32 files. [1.73s]
+$ cd apps/web && bun test
+ 247 pass
+ 0 fail
+Ran 247 tests across 51 files. [2.42s]
+$ bun test scripts/verify-audit.test.ts scripts/run-ai-benchmark.test.ts scripts/freeze-ai-assessment-inputs.test.ts scripts/deployment-config.test.ts scripts/map-performance-utils.test.ts scripts/check-local.test.ts
+ 37 pass
+ 0 fail
+Ran 37 tests across 6 files. [4.50s]
+$ cd apps/web && bun run build
+$ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+$ bun scripts/check-web-bundle.ts
+Web bundle budget passed: App 71689 gzip bytes; 8 route chunks; MapPanel 1122953 raw bytes.
+============================= 160 passed in 30.26s =============================
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 5.54ms (3.70ms CPU time)
+Ran 1 test suite in 54.82ms (5.54ms CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)

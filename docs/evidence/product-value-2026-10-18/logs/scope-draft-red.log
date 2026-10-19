@@ -1,0 +1,14 @@
+bun test v1.4.3 (c6da4a4d3)
+
+apps/web/src/assessment-scope.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+SyntaxError: Export named 'scopeDraftSchema' not found in module '/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/web/src/assessment-scope.ts'.
+-------------------------------
+
+
+ 0 pass
+ 1 fail
+ 1 error
+Ran 1 test across 1 file. [86.00ms]

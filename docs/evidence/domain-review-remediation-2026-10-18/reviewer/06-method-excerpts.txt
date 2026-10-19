@@ -1,0 +1,197 @@
+P4 v2 method excerpts. Full source digests accompany this packet. No human expert verdict exists.
+
+===== packages/shared/src/evidence-policy.ts =====
+/** A pointer's syntax is checked here; its contents and authenticity are not. */
+export function isSecureEvidenceReference(value: unknown): value is string {
+  if (typeof value !== 'string' || value.length > 2000 || value !== value.trim() || !value.startsWith('https://')) return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && Boolean(url.hostname) && !url.username && !url.password;
+  } catch { return false; }
+}
+
+/** Strict calendar day in UTC. MARS timestamps without an offset are interpreted as UTC. */
+export function evidenceUtcDay(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined;
+  const match = /^(\d{4}-\d{2}-\d{2})(?:[T ](\d{2}):(\d{2}):(\d{2})(\.\d{1,9})?(Z|[+-]\d{2}:\d{2})?)?$/.exec(value);
+  if (!match) return undefined;
+  const day = match[1];
+  const midnight = Date.parse(`${day}T00:00:00Z`);
+  if (!Number.isFinite(midnight) || new Date(midnight).toISOString().slice(0, 10) !== day) return undefined;
+  if (!match[2]) return day;
+  if (Number(match[2]) > 23 || Number(match[3]) > 59 || Number(match[4]) > 59) return undefined;
+  const timestamp = Date.parse(`${day}T${match[2]}:${match[3]}:${match[4]}${match[5] || ''}${match[6] || 'Z'}`);
+  return Number.isFinite(timestamp) ? new Date(timestamp).toISOString().slice(0, 10) : undefined;
+}
+
+/** DEMO fixtures can use local pointers. Real evidence must use a secure web pointer. */
+export function hasEvidencePointer(value: unknown, synthetic: boolean): boolean {
+  return isSecureEvidenceReference(value) || (synthetic === true && typeof value === 'string'
+    && value.length <= 2000 && /^fixture:\/\/[a-zA-Z0-9][a-zA-Z0-9/_:.-]*$/.test(value));
+}
+
+
+===== packages/shared/src/index.ts (coverage) =====
+/** Required reference types for the deterministic coverage baseline; not physical verification. */
+export const CLAIM_SUPPORT_KIND: Readonly<Record<ClaimType, Evidence['kind']>> = Object.freeze({
+  source_detected: 'detection',
+  operator_notified: 'notification',
+  mitigation_confirmed: 'mitigation_confirmation',
+});
+
+/** Same eligibility rules for the saved baseline and its inventory preview. */
+export function evidenceMatchesScope(evidence: Evidence, scope: AuditScope): boolean {
+  const date = evidenceUtcDay(evidence.date);
+  if (!date || evidenceUtcDay(scope.startDate) !== scope.startDate || evidenceUtcDay(scope.endDate) !== scope.endDate
+    || scope.startDate > scope.endDate || date < scope.startDate || date > scope.endDate) return false;
+  return !scope.observationId || (evidence.observationId || (evidence.kind === 'detection' ? evidence.id : undefined)) === scope.observationId;
+}
+export function claimEvidence(evidence: Evidence[], claimType: ClaimType, scope?: AuditScope) {
+  const relevant = evidence.filter(e => (e.kind === CLAIM_SUPPORT_KIND[claimType] && (!e.claimType || e.claimType === claimType)) || (e.kind === 'contradiction' && e.claimType === claimType));
+  const eligible = relevant.filter(e => {
+    const date = evidenceUtcDay(e.date);
+    if (!date || !hasEvidencePointer(e.reference, e.synthetic)) return false;
+    if (claimType !== 'source_detected' && !scope) return false;
+    if (scope && !evidenceMatchesScope(e, scope)) return false;
+    if (claimType === 'operator_notified' && (!scope?.recipient?.trim()
+      || e.recipient?.trim().toLowerCase() !== scope.recipient.trim().toLowerCase())) return false;
+    if (e.kind === 'mitigation_confirmation') {
+      const followUp = evidenceUtcDay(e.followUpDate);
+      if (!e.action?.trim() || !hasEvidencePointer(e.followUpReference, e.synthetic)
+        || !followUp || followUp < date || !scope || followUp > scope.endDate) return false;
+    }
+    return true;
+  });
+  return { supporting: eligible.filter(e => e.kind !== 'contradiction'), contradictions: eligible.filter(e => e.kind === 'contradiction'),
+    excludedCount: new Set(relevant.filter(e => !eligible.includes(e)).map(e => e.id)).size };
+}
+
+
+
+===== packages/shared/src/assessment-semantics.ts =====
+import { z } from 'zod';
+import type { EvidenceBundle } from './index';
+
+export const AssessmentSemantics = z.object({
+  version: z.literal(1),
+  basis: z.enum(['metadata_coverage', 'human_assessment', 'model_document_assessment']),
+  physicalVerification: z.literal('not_established_by_application'),
+  referencePolicy: z.literal('scoped-reference-coverage-v2').optional(),
+}).strict();
+export type AssessmentSemantics = z.infer<typeof AssessmentSemantics>;
+
+export function assessmentSemantics(basis: AssessmentSemantics['basis']): AssessmentSemantics {
+  return { version: 1, basis, physicalVerification: 'not_established_by_application',
+    ...(basis === 'model_document_assessment' ? {} : { referencePolicy: 'scoped-reference-coverage-v2' as const }) };
+}
+
+/** Optional on historical bundles. Never rewrite a legacy commitment to add this field. */
+export function validateAssessmentSemantics(bundle: unknown): string | undefined {
+  if (!bundle || typeof bundle !== 'object' || Array.isArray(bundle)) return 'Missing assessment bundle';
+  const value = bundle as Record<string, unknown>;
+  if (!Object.hasOwn(value, 'assessmentSemantics')) return undefined;
+  const parsed = AssessmentSemantics.safeParse(value.assessmentSemantics);
+  if (!parsed.success) return 'Invalid assessment semantics or unsupported physical-verification claim';
+  const human = value.humanAssessment as Record<string, unknown> | undefined;
+  const model = value.intelligence as Record<string, unknown> | undefined;
+  const expected = value.schemaVersion === 2 && !human && !model ? 'metadata_coverage'
+    : value.schemaVersion === 4 && human?.kind === 'human_evidence_assessment' && !model ? 'human_assessment'
+      : value.schemaVersion === 3 && model?.kind === 'llm_document_assessment' && !human ? 'model_document_assessment' : undefined;
+  if (parsed.data.basis !== expected) return 'Assessment basis does not match the bundle kind';
+  if ((expected !== 'model_document_assessment' && parsed.data.referencePolicy !== 'scoped-reference-coverage-v2')
+    || (expected === 'model_document_assessment' && parsed.data.referencePolicy !== undefined)) return 'Reference policy does not match the assessment basis';
+  return undefined;
+}
+
+/** Derive labels from the bundle kind, not caller-controlled envelope labels. */
+export function assessmentPresentation(bundle: Pick<EvidenceBundle, 'schemaVersion' | 'result' | 'humanAssessment' | 'intelligence' | 'assessmentSemantics'>) {
+  const physicalLabel = 'Physical verification: not established by this application';
+  const verdict = bundle.result.replaceAll('_', ' ');
+  if (bundle.schemaVersion === 4 && bundle.humanAssessment) return {
+    basis: 'human_assessment' as const, basisLabel: 'Human assessment', resultLabel: `Human determination: ${verdict}`,
+    explanation: 'The reviewer states that the source material was inspected. Identity, independence and physical outcomes are not certified by this application.', physicalLabel,
+    legacy: !bundle.assessmentSemantics,
+  };
+  if (bundle.schemaVersion === 3 && bundle.intelligence) return {
+    basis: 'model_document_assessment' as const, basisLabel: 'Model document assessment',
+    resultLabel: `${bundle.intelligence.reviewStatus === 'unreviewed' ? 'AI suggestion' : 'Reviewed AI assessment'}: ${verdict}`,
+    explanation: 'A model assessed user-supplied excerpts. A recorded human review does not turn the model output into an independent physical measurement.', physicalLabel,
+    legacy: !bundle.assessmentSemantics,
+  };
+  return { basis: 'metadata_coverage' as const, basisLabel: 'Reference metadata coverage',
+    resultLabel: bundle.result === 'supported' ? 'Required references present' : bundle.result === 'contradicted' ? 'Contrary reference present' : 'Insufficient reference coverage',
+    explanation: 'Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.', physicalLabel,
+    legacy: !bundle.assessmentSemantics,
+  };
+}
+
+
+===== apps/api/src/audit.ts =====
+import { createHash, randomUUID } from 'node:crypto';
+import { assessmentSemantics, claimEvidence, AuditScope, type AuditInput, type AuditResult, type Evidence, type EvidenceBundle, type ClaimType, type ExternalEvidenceReference, type MarsProvenance, type ResultLabel, type Source } from '@methane/shared';
+import { canonicalJson } from './canonical';
+
+export { evidenceMatchesScope } from '@methane/shared';
+
+export function assess(source: Pick<Source, 'evidence'>, claimType: ClaimType, scope?: AuditScope): {result: ResultLabel; reason: string; evidenceIds: string[]} {
+  if (claimType !== 'source_detected' && !scope) return { result: 'insufficient_evidence', reason: 'An explicit assessment scope with a date period is required for notification or mitigation reference coverage; name the recipient for notification. Existing records alone do not establish this claim.', evidenceIds: [] };
+  if (claimType === 'operator_notified' && !scope?.recipient?.trim()) return { result: 'insufficient_evidence', reason: 'Name the intended recipient in the assessment scope before evaluating notification reference coverage.', evidenceIds: [] };
+  const { supporting: eligibleSupporting, contradictions } = claimEvidence(source.evidence, claimType, scope);
+  const refs = [...new Set([...contradictions, ...eligibleSupporting].map((e) => e.id))].sort();
+  if (contradictions.length > 0 && eligibleSupporting.length > 0) {
+    return { result: 'insufficient_evidence', reason: 'Conflicting source records require human adjudication.', evidenceIds: refs };
+  }
+  if (contradictions.length > 0) {
+    return { result: 'contradicted', reason: 'An eligible reference is tagged as contrary to this claim and scope. Its substance and authenticity require human inspection.', evidenceIds: refs };
+  }
+  if (eligibleSupporting.length > 0) {
+    return { result: 'supported', reason: 'An evidence reference of the required type is present. This does not authenticate its contents.', evidenceIds: refs };
+  }
+  return { result: 'insufficient_evidence', reason: 'No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.', evidenceIds: [] };
+}
+
+export type AuditMetadata = {
+  caseId?: string;
+  revision?: number;
+  externalEvidence?: ExternalEvidenceReference[];
+  provenance?: MarsProvenance;
+  limitations?: string[];
+};
+
+type AuditSource = Pick<Source, 'sourceId' | 'synthetic' | 'evidence'>;
+
+export function createAudit(source: AuditSource, input: AuditInput, metadata: AuditMetadata = {}): AuditResult {
+  const assessment = assess(source, input.claimType, input.scope);
+  const generatedAt = new Date().toISOString();
+  const auditId = randomUUID();
+  const caseId = metadata.caseId || source.sourceId;
+  const revision = metadata.revision || 1;
+  // Deterministic field order; includes the source's referenced evidence content for tamper detection.
+  const citedEvidence = source.evidence
+    .filter((e) => assessment.evidenceIds.includes(e.id))
+    .sort((a, b) => a.id.localeCompare(b.id));
+  const bundle: EvidenceBundle = {
+    schemaVersion: 2,
+    assessmentSemantics: assessmentSemantics('metadata_coverage'),
+    ...(input.scope ? { scope: input.scope } : {}),
+    auditId,
+    caseId,
+    revision,
+    generatedAt,
+    sourceId: source.sourceId,
+    claimType: input.claimType,
+    result: assessment.result,
+    reason: assessment.reason,
+    citedEvidence,
+    externalEvidence: metadata.externalEvidence || [],
+    ...(metadata.provenance ? { provenance: metadata.provenance } : {}),
+    limitations: [
+      'This is a deterministic evidence-coverage baseline, not a scientific or legal certification.',
+      'A source-level notification or feedback record does not establish physical mitigation.',
+      ...(metadata.limitations || []),
+    ],
+    synthetic: source.synthetic,
+  };
+  const bundleHash = `0x${createHash('sha256').update(canonicalJson(bundle)).digest('hex')}` as const;
+  return { auditId, caseId, revision, sourceId: source.sourceId, claimType: input.claimType, ...assessment, bundleHash, generatedAt, synthetic: source.synthetic, bundle, anchored: false };
+}

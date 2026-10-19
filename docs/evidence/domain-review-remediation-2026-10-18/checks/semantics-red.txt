@@ -1,0 +1,45 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src/p4-assessment-semantics.test.ts:
+ 8 | const baseline = () => createAudit(DEMO_SOURCES[0], { sourceId: 'DEMO-001', claimType: 'source_detected' });
+ 9 | const rehash = (audit: ReturnType<typeof baseline>) => { audit.bundleHash = `0x${createHash('sha256').update(canonicalJson(audit.bundle)).digest('hex')}`; return audit; };
+10 | 
+11 | test('new baseline semantics are inside the integrity commitment', () => {
+12 |   const audit = baseline();
+13 |   expect(audit.bundle).toHaveProperty('assessmentSemantics', {
+                            ^
+error: expect(received).toHaveProperty(path, value)
+
+Expected path: "assessmentSemantics"
+
+Expected value: {
+  version: 1,
+  basis: "metadata_coverage",
+  physicalVerification: "not_established_by_application",
+  referencePolicy: "scoped-reference-coverage-v2",
+}
+
+Unable to find property
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/p4-assessment-semantics.test.ts:13:24)
+(fail) new baseline semantics are inside the integrity commitment [1.41ms]
+20 | });
+21 | 
+22 | test('a fresh digest cannot make an unsupported physical-verification claim valid', () => {
+23 |   const audit = baseline();
+24 |   Object.assign(audit.bundle, { assessmentSemantics: { version: 1, basis: 'metadata_coverage', physicalVerification: 'verified' } });
+25 |   expect(auditIntegrityValid(rehash(audit))).toBe(false);
+                                                  ^
+error: expect(received).toBe(expected)
+
+Expected: false
+Received: true
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/p4-assessment-semantics.test.ts:25:46)
+(fail) a fresh digest cannot make an unsupported physical-verification claim valid [0.77ms]
+(pass) legacy bundles without semantics keep their original digest and are accepted unchanged [0.37ms]
+
+ 1 pass
+ 2 fail
+ 5 expect() calls
+Ran 3 tests across 1 file. [56.00ms]

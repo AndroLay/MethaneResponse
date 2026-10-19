@@ -1,5 +1,7 @@
 # MethaneResponse Full Integration Implementation Plan
 
+> **Arsip rencana 2026-10-12.** Pekerjaan dan instruksi di bawah merekam revisi asal. Untuk kondisi sekarang gunakan [status aktif](../../release/current-implementation-status.md) dan [arsitektur](../../architecture/overview.md); asumsi database digantikan [ADR file lokal](../../architecture/decisions/2026-10-15-local-prototype-no-database.md). [Indeks rencana](README.md).
+
 > **For agentic workers:** The user explicitly authorized end-to-end implementation in the active repository. Execute the tasks in order; keep the existing dirty changes intact.
 
 **Goal:** Integrate grounded document review, version-bound observational intelligence, conservative MARS semantics, reviewed audit revisions, and a clearer adaptive MapLibre Earth experience into the existing MVP.

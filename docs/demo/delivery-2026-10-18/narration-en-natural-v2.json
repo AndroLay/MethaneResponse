@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "language": "en-US",
+  "voiceModel": "Kokoro-82M ONNX v1.0",
+  "voiceId": "af_heart",
+  "syntheticVoice": true,
+  "direction": "Conversational, warm, measured; use contractions and brief pauses while preserving evidence limits.",
+  "segments": [
+    {
+      "startSeconds": 0,
+      "endSeconds": 18,
+      "text": "Every methane alert starts a conversation: what can we actually verify? MethaneResponse brings the records, the claims, and their limits into one review."
+    },
+    {
+      "startSeconds": 18,
+      "endSeconds": 40,
+      "text": "Let’s start in Kazakhstan. This is a historical UNEP MARS source record, selected from a directory of thousands. It’s a dated snapshot, not a live feed."
+    },
+    {
+      "startSeconds": 40,
+      "endSeconds": 64,
+      "text": "Here are three satellite observations, each with its date, reported flux, and uncertainty. They’re separate snapshots; the gaps between them weren’t measured."
+    },
+    {
+      "startSeconds": 64,
+      "endSeconds": 95,
+      "text": "The timeline helps us compare those dates. Response and feedback fields are administrative records. They can tell us something was reported, but they don’t confirm a repair or prove emissions fell."
+    },
+    {
+      "startSeconds": 95,
+      "endSeconds": 120,
+      "text": "Before we assess anything, we choose one observation and its UTC date. That gives the review a clear scope: these are the records it considers."
+    },
+    {
+      "startSeconds": 120,
+      "endSeconds": 145,
+      "text": "First, the rules baseline checks a source-detection claim against the references in that scope. It tells us whether evidence is present. It doesn’t authenticate a document or make an AI judgment."
+    },
+    {
+      "startSeconds": 145,
+      "endSeconds": 170,
+      "text": "Now the claim is stronger: mitigation was confirmed. For this case and date range, the evidence is insufficient. A catalogue mentions a July action, but gives no exact date. So we can’t place it before or after these observations."
+    },
+    {
+      "startSeconds": 170,
+      "endSeconds": 190,
+      "text": "So the analyst asks for two things: an attributable action date and follow-up evidence. The note stays in this browser; it isn’t sent to an operator."
+    },
+    {
+      "startSeconds": 190,
+      "endSeconds": 208,
+      "text": "Let’s export the report and check it. The bundle digest and context checksum match. There’s no blockchain receipt here."
+    },
+    {
+      "startSeconds": 208,
+      "endSeconds": 228,
+      "text": "Now we change a hashed field but leave the stored digest alone. The verifier spots the mismatch and rejects the altered report."
+    },
+    {
+      "startSeconds": 228,
+      "endSeconds": 240,
+      "text": "A matching hash shows this export matches its digest. It doesn’t prove the evidence is true, the issuer is authorized, or the methane was repaired."
+    }
+  ]
+}

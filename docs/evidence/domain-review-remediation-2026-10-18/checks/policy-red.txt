@@ -1,0 +1,91 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src/p4-evidence-policy.test.ts:
+11 | const evaluate = (evidence: Evidence, claim: 'operator_notified' | 'mitigation_confirmed', selectedScope: typeof scope | undefined = scope) => assess({ evidence: [evidence] }, claim, selectedScope);
+12 | 
+13 | test('new notification and mitigation evaluations require scope even with complete reference metadata', () => {
+14 |   for (const [evidence, claim] of [[notice, 'operator_notified'], [mitigation, 'mitigation_confirmed']] as const) {
+15 |     const result = assess({ evidence: [evidence] }, claim);
+16 |     expect(result.result).toBe('insufficient_evidence');
+                               ^
+error: expect(received).toBe(expected)
+
+Expected: "insufficient_evidence"
+Received: "supported"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/p4-evidence-policy.test.ts:16:27)
+(fail) new notification and mitigation evaluations require scope even with complete reference metadata [2.74ms]
+20 | });
+21 | 
+22 | test('blank, absent, insecure and malformed pointers cannot support or contradict coverage', () => {
+23 |   for (const kind of ['notification', 'contradiction'] as const) {
+24 |     for (const reference of [undefined, '', '   ', 'not a url', 'http://example.org/report', 'https://u:p@example.org/report']) {
+25 |       expect(evaluate({ ...notice, kind, claimType: 'operator_notified', reference } as Evidence, 'operator_notified').result).toBe('insufficient_evidence');
+                                                                                                                                    ^
+error: expect(received).toBe(expected)
+
+Expected: "insufficient_evidence"
+Received: "supported"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/p4-evidence-policy.test.ts:25:128)
+(fail) blank, absent, insecure and malformed pointers cannot support or contradict coverage [0.35ms]
+33 | });
+34 | 
+35 | test('fixture pointers are usable only for explicitly synthetic evidence', () => {
+36 |   for (const synthetic of [true, false]) {
+37 |     const evidence = { ...notice, reference: 'fixture://notices/DEMO-1', synthetic };
+38 |     expect(evaluate(evidence, 'operator_notified').result).toBe(synthetic ? 'supported' : 'insufficient_evidence');
+                                                                ^
+error: expect(received).toBe(expected)
+
+Expected: "insufficient_evidence"
+Received: "supported"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/p4-evidence-policy.test.ts:38:60)
+(fail) fixture pointers are usable only for explicitly synthetic evidence [0.19ms]
+38 |     expect(evaluate(evidence, 'operator_notified').result).toBe(synthetic ? 'supported' : 'insufficient_evidence');
+39 |   }
+40 | });
+41 | 
+42 | test('recipient normalization is symmetric and invalid direct-call scope is conservative', () => {
+43 |   expect(evaluate({ ...notice, recipient: ' demo RECIPIENT a ' }, 'operator_notified', { ...scope, recipient: ' DEMO recipient A ' }).result).toBe('supported');
+                                                                                                                                                   ^
+error: expect(received).toBe(expected)
+
+Expected: "supported"
+Received: "insufficient_evidence"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/p4-evidence-policy.test.ts:43:143)
+(fail) recipient normalization is symmetric and invalid direct-call scope is conservative [0.13ms]
+44 |   expect(evaluate(notice, 'operator_notified', { ...scope, startDate: '2026-09-31' }).result).toBe('insufficient_evidence');
+45 | });
+46 | 
+47 | test('the UTC day, strict calendar and strict timestamp determine scope and follow-up eligibility', () => {
+48 |   const oneDay = { ...scope, startDate: '2026-09-30', endDate: '2026-09-30' };
+49 |   expect(evaluate({ ...notice, date: '2026-09-30T23:30:00-12:00' }, 'operator_notified', oneDay).result).toBe('insufficient_evidence');
+                                                                                                              ^
+error: expect(received).toBe(expected)
+
+Expected: "insufficient_evidence"
+Received: "supported"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/p4-evidence-policy.test.ts:49:106)
+(fail) the UTC day, strict calendar and strict timestamp determine scope and follow-up eligibility [0.17ms]
+47 |   if (input.datasetSnapshotId && input.datasetSnapshotId !== snapshotId) throw new ScopeError('Dataset snapshot changed; reload before assessing', 409);
+48 |   if (input.scope.observationId) {
+49 |     const event = source.evidence.find(item => item.kind === 'detection' && item.id === input.scope.observationId);
+50 |     if (!event) throw new ScopeError('Selected observation does not belong to this source and snapshot', 422);
+51 |     const date = event.date?.slice(0, 10);
+52 |     if (!date || date < input.scope.startDate || date > input.scope.endDate) throw new ScopeError('Selected observation must be inside the assessment period', 422);
+                                                                                        ^
+error: Selected observation must be inside the assessment period
+ status: 422,
+
+      at resolveScopedSource (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/scoped-source.ts:52:84)
+      at async <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/p4-evidence-policy.test.ts:65:26)
+(fail) source resolver and coverage use the same UTC observation day [322.11ms]
+
+ 0 pass
+ 6 fail
+ 6 expect() calls
+Ran 6 tests across 1 file. [391.00ms]

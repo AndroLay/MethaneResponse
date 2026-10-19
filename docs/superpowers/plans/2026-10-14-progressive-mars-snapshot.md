@@ -1,5 +1,7 @@
 # Progressive, Snapshot-Bound MARS Loading Plan
 
+> **Arsip rencana 2026-10-14.** Pekerjaan dan instruksi di bawah merekam revisi asal. Untuk kondisi sekarang gunakan [status aktif](../../release/current-implementation-status.md) dan [arsitektur](../../architecture/overview.md); asumsi database digantikan [ADR file lokal](../../architecture/decisions/2026-10-15-local-prototype-no-database.md). [Indeks rencana](README.md).
+
 > **Execution:** Inline implementation is authorized by the active full-integration request. Work in the current checkout; do not stage, commit, reset, deploy, or touch other repositories.
 
 **Goal:** Reduce initial browser transfer and memory while preserving every MARS source, linked and unlinked plume, original field, historical date, and snapshot binding.

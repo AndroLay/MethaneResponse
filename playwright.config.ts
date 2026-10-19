@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test';
 import { randomBytes } from 'node:crypto';
-import { mkdirSync, mkdtempSync, rmSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { buildE2ERunnerEnvironment, chooseE2ETemporaryRoot } from './scripts/e2e-runner-utils';
 
@@ -34,6 +34,9 @@ if (mockAiEnabled) {
   process.env.METHANE_E2E_REVIEWER_SECRET = mockReviewerSecret;
 }
 
+const reviewerDirectoryPath = join(stateDirectory, 'DEMO-reviewer-directory.json');
+writeFileSync(reviewerDirectoryPath, JSON.stringify({ schemaVersion: 1, reviewers: ['trust-demo-reviewer', 'team-demo-bob', 'publication-demo-reviewer'].map(reviewerId => ({ reviewerId, organization: 'DEMO fixture organization', checkedBy: 'demo-registrar', checkedAt: new Date(Date.now() - 86400000).toISOString(), expiresAt: new Date(Date.now() + 86400000).toISOString(), verificationReference: 'DEMO enrollment fixture only; no real identity is verified.', claimTypes: ['source_detected', 'operator_notified'], disabled: false })) }), { mode: 0o600 });
+
 const isolatedEnvironment = {
   ...workerEnvironment,
   TMPDIR: temporaryRoot,
@@ -49,6 +52,8 @@ const isolatedEnvironment = {
   HUMAN_REVIEW_TOKEN: '',
   HUMAN_REVIEWER_ID: '',
   REVIEWER_AUTH_SECRET: '',
+  REVIEWER_DIRECTORY_PATH: '',
+  REQUIRE_ATTESTED_HUMAN_REVIEWERS: '',
   ADMIN_API_TOKEN: '',
   SEPOLIA_RPC_URL: '',
   AUDIT_REGISTRY_ADDRESS: '',
@@ -77,6 +82,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     launchOptions: {
+      chromiumSandbox: true,
       ...(chromiumExecutable ? { executablePath: chromiumExecutable } : {}),
       args: ['--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader'],
     },
@@ -95,7 +101,7 @@ export default defineConfig({
       },
     }] : []),
     {
-      command: 'bun --no-env-file --hot apps/api/src/index.ts',
+      command: 'bun --no-env-file scripts/start-api.ts',
       url: `${apiUrl}/api/health`,
       reuseExistingServer: false,
       timeout: 90_000,
@@ -106,6 +112,7 @@ export default defineConfig({
         WEB_ORIGIN: webUrl,
         AI_REVIEW_TOKEN: mockAiEnabled ? mockAiAccessToken : '',
         REVIEWER_AUTH_SECRET: mockAiEnabled ? mockReviewerSecret : '',
+        REVIEWER_DIRECTORY_PATH: mockAiEnabled ? reviewerDirectoryPath : '',
         ...(mockAiEnabled ? {
           AI_BASE_URL: `${mockAiUrl}/v1`,
           AI_API_KEY: mockProviderApiKey,

@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 import { type AuditReceipt } from '@methane/shared';
 import { encodeAbiParameters, encodeEventTopics, type Hex } from 'viem';
-import { anchorReceipt, anchorReceiptMatches, assertSepoliaChainId, chainConfigured, chainWriteConfigured, isAllowedChainRpcUrl, readReceipt, registryCaseId, verifyAnchorTransaction } from './chain';
+import { prepareAnchor, anchorReceiptMatches, assertSepoliaChainId, chainConfigured, chainWriteConfigured, isAllowedChainRpcUrl, readReceipt, registryCaseId, verifyAnchorTransaction } from './chain';
 
 describe('registry case IDs', () => {
   test('binds a stable case and claim category to its receipt record', () => {
@@ -46,7 +46,7 @@ describe('historical receipt verification', () => {
 });
 
 test('Sepolia writer readiness requires a valid HTTPS RPC, registry and private key', () => {
-  const names = ['SEPOLIA_RPC_URL', 'AUDIT_REGISTRY_ADDRESS', 'SEPOLIA_PRIVATE_KEY'] as const;
+  const names = ['SEPOLIA_RPC_URL', 'AUDIT_REGISTRY_ADDRESS', 'SEPOLIA_PRIVATE_KEY', 'ENABLE_CHAIN_WRITES'] as const;
   const previous = Object.fromEntries(names.map(name => [name, process.env[name]]));
   try {
     process.env.SEPOLIA_RPC_URL = 'https://rpc.example/sepolia';
@@ -55,6 +55,7 @@ test('Sepolia writer readiness requires a valid HTTPS RPC, registry and private 
     expect(chainConfigured()).toBe(true);
     expect(chainWriteConfigured()).toBe(false);
     process.env.SEPOLIA_PRIVATE_KEY = `0x${'1'.repeat(64)}`;
+  process.env.ENABLE_CHAIN_WRITES = 'true';
     expect(chainWriteConfigured()).toBe(true);
     process.env.SEPOLIA_PRIVATE_KEY = `0x${'0'.repeat(64)}`;
     expect(chainWriteConfigured()).toBe(false);
@@ -107,6 +108,8 @@ test('independently verifies the configured registry event returned by RPC', asy
     transactionIndex: '0x0', blockHash, logIndex: '0x0', removed: false,
   };
   let logs = [validLog];
+  let canonicalHash = blockHash;
+  let head = '0x4d4';
   const methods: string[] = [];
   const originalFetch = globalThis.fetch;
   const previousRpc = process.env.SEPOLIA_RPC_URL;
@@ -123,7 +126,8 @@ test('independently verifies the configured registry event returned by RPC', asy
         contractAddress: null, logs, logsBloom: `0x${'0'.repeat(512)}`, status: '0x1',
         type: '0x2', effectiveGasPrice: '0x1',
       }
-      : null;
+      : request.method === 'eth_getBlockByNumber' ? { hash: canonicalHash, number: '0x4d2', timestamp: '0x0', transactions: [] }
+      : request.method === 'eth_blockNumber' ? head : null;
     return new Response(JSON.stringify({ jsonrpc: '2.0', id: request.id, result }), {
       status: 200, headers: { 'content-type': 'application/json' },
     });
@@ -138,8 +142,13 @@ test('independently verifies the configured registry event returned by RPC', asy
       valid: true, reason: 'anchor_event_matches', version: 4, blockNumber: '1234', transactionHash: txHash,
     });
     expect((verified as { issuer?: string }).issuer?.toLowerCase()).toBe(issuer.toLowerCase());
-    expect(methods).toEqual(['eth_chainId', 'eth_getTransactionReceipt']);
+    expect(methods).toEqual(['eth_chainId', 'eth_getTransactionReceipt', 'eth_getBlockByNumber', 'eth_blockNumber']);
 
+    head = '0x4d2';
+    expect(await verifyAnchorTransaction(caseId, bundleHash, receipt)).toMatchObject({ valid: false, reason: 'confirmations_pending' });
+    head = '0x4d4'; canonicalHash = `0x${'c'.repeat(64)}`;
+    expect(await verifyAnchorTransaction(caseId, bundleHash, receipt)).toMatchObject({ valid: false, reason: 'block_not_canonical' });
+    canonicalHash = blockHash;
     methods.length = 0;
     logs = [{ ...validLog, address: '0x0000000000000000000000000000000000000002' as Hex }];
     const forgedEmitter = await verifyAnchorTransaction(caseId, bundleHash, receipt);
@@ -172,13 +181,14 @@ test('independently verifies the configured registry event returned by RPC', asy
 });
 
 test('receipt reads stop before contract access when the RPC reports another chain', async () => {
-  const names = ['SEPOLIA_RPC_URL', 'AUDIT_REGISTRY_ADDRESS', 'SEPOLIA_PRIVATE_KEY'] as const;
+  const names = ['SEPOLIA_RPC_URL', 'AUDIT_REGISTRY_ADDRESS', 'SEPOLIA_PRIVATE_KEY', 'ENABLE_CHAIN_WRITES'] as const;
   const previous = Object.fromEntries(names.map(name => [name, process.env[name]]));
   const originalFetch = globalThis.fetch;
   const methods: string[] = [];
   process.env.SEPOLIA_RPC_URL = 'http://127.0.0.1:18545';
   process.env.AUDIT_REGISTRY_ADDRESS = '0x0000000000000000000000000000000000000001';
   process.env.SEPOLIA_PRIVATE_KEY = `0x${'1'.repeat(64)}`;
+  process.env.ENABLE_CHAIN_WRITES = 'true';
   globalThis.fetch = (async (_input: RequestInfo | URL, init?: RequestInit) => {
     const request = JSON.parse(String(init?.body)) as { method: string; id: number };
     methods.push(request.method);
@@ -191,7 +201,7 @@ test('receipt reads stop before contract access when the RPC reports another cha
       .rejects.toThrow('RPC chain ID mismatch');
     expect(methods).toEqual(['eth_chainId']);
     methods.length = 0;
-    await expect(anchorReceipt(registryCaseId('case-rpc-mismatch', 'source_detected'), `0x${'a'.repeat(64)}` as Hex))
+    await expect(prepareAnchor('DEMO', registryCaseId('case-rpc-mismatch', 'source_detected'), `0x${'a'.repeat(64)}` as Hex))
       .rejects.toThrow('RPC chain ID mismatch');
     expect(methods).toEqual(['eth_chainId']);
     methods.length = 0;

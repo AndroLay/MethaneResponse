@@ -1,0 +1,1322 @@
+[
+  {
+    "claimId": "ARG_S_001-probe-1",
+    "claimTextSha256": "36073e5d69892e8048543405889d6a982327aa11067074296594259be99fec05",
+    "assessmentInputSha256": "cb1a288bfd43fe7e690ecb3f23a957e85b77d619306ee5ce6586ef5e4c737075",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"sourceId\": \"ARG_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARG_S_001-probe-2",
+    "claimTextSha256": "34fc3d472183b539e93a3daa295871a10696615c49d476f246e53619e8746385",
+    "assessmentInputSha256": "1ef0483613db4eacdc0f6351d869350c858f07eef3ede0c00c29b3bb19d0fedc",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"fluxKgHr\": 246.0"
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARG_S_001-probe-3",
+    "claimTextSha256": "5b41a09021e36db6bc732d21c04e53b1f470f900ceade79d124880a9682cbe6d",
+    "assessmentInputSha256": "5731533438abb2a603136a11021986f7afaa5319e63c03dc678ae5a72fb25041",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"date\": \"2023-01-21T16:17:47\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARG_S_001-probe-4",
+    "claimTextSha256": "1c726d363c526d19eddeff0de9f697d9fa5a623da22845fa2458547baec1a8a9",
+    "assessmentInputSha256": "0a23dfdcbe7e0a95201770767d49e090b588e12b8a235cbb173f20d5205550fb",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"fluxKgHr\": 246.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARG_S_001-probe-5",
+    "claimTextSha256": "a3b8254ac748d67a72e664fb7ca34e47f964aa1f66741eee4eade96a432039bc",
+    "assessmentInputSha256": "4d9a07df1c0de452f248e4a0a3a15cba570cf58b9548c8e5c42e399ab4954ad5",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Yes\""
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARG_S_001-probe-6",
+    "claimTextSha256": "57e956dd70d1f4a2e8e90b5aac9ebecc38717aef8cd59f0a5cbe5a9a49f47e78",
+    "assessmentInputSha256": "67a0d4daef5e4723173b7d080a5bfbc3e5c798408e6a89089a5f3c02727a568d",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARM_S_001-probe-1",
+    "claimTextSha256": "cdfd495622576f84bd3886b6e8a9125fc481e521919f928a5795150235141a00",
+    "assessmentInputSha256": "c0da874a1a744646ede999ca72c6407433b38849719ce91079e955e2b0d1075b",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"sourceId\": \"ARM_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARM_S_001-probe-2",
+    "claimTextSha256": "c394558ecb953120caeddba8c695d70ef072b5bdc142d340e582e9e265d1833f",
+    "assessmentInputSha256": "af58fb8e430a5d372c5540328c46fa1dc4ac52b77f68d4195348609008f2a596",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"fluxKgHr\": 2013.0"
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARM_S_001-probe-3",
+    "claimTextSha256": "85a1e449a4fad01f2d041f7ed45ac3cce96e486b174a8e4665f60854c48e07cf",
+    "assessmentInputSha256": "1ec214c7b29f172e9e36b4aa451e8d02bb795e96dbb53e0153cd2e7d127c354b",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"date\": \"2026-08-18T07:56:18\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARM_S_001-probe-4",
+    "claimTextSha256": "baf01239cad3c144ffc124b5b856b4b0928d315ed35fe917ff07f981f49181eb",
+    "assessmentInputSha256": "c37b8ebf7e9bdaec27e3c819f620c1ef21a4a4d066d89cd13a3b1136640634e4",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"fluxKgHr\": 2013.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARM_S_001-probe-5",
+    "claimTextSha256": "8ab1687dba347f40313e2ed81f11321c0f872bb112caa41f6ff7ec9e386edf54",
+    "assessmentInputSha256": "f56d3b37cf53552dc7564f00398d6b3f84c7ec2dc569d5b3163f8d2bc0226cf5",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "ARM_S_001-probe-6",
+    "claimTextSha256": "a1fcbea9fa0f9f0dfdf1ceca8a311a5d1bfc4da8f70bb4f631bb2b62849c9a98",
+    "assessmentInputSha256": "26b739757c39cda737b26b44c75ab31bcb62bc2d109812db36b77e6171a3ce57",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AUS_S_001-probe-1",
+    "claimTextSha256": "6673fb32a71a73be80bd505dff6f62395500abd653c09e225ae53aa49bbfdd8b",
+    "assessmentInputSha256": "d19942021986ee000a2ec560b6235a6d723b200d2e117da594f5efb2bd42cb44",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"sourceId\": \"AUS_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AUS_S_001-probe-2",
+    "claimTextSha256": "d8846eb9df742e32785863cf3edef8eb3292ab1dcc4d12a5ddc74481a53aed8b",
+    "assessmentInputSha256": "5167cfa1d9ba1b093980057f40fc03b7c8ec2c94be7a7b4637971ff4722a60ba",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"fluxKgHr\": 1934.0"
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AUS_S_001-probe-3",
+    "claimTextSha256": "03d398dd109612a04e43d9a694fe131c7920088d7580ca169ea77e3576770e71",
+    "assessmentInputSha256": "d0ea1ec7c3670eb04b32215b654629af25353aefc5703e12b923c2ef3c8ba5fd",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"date\": \"2026-07-23T00:36:17\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AUS_S_001-probe-4",
+    "claimTextSha256": "50bafd2fafd0af67c1567f600daed118735a43ae6d056dc8097644399fc906b7",
+    "assessmentInputSha256": "db107c8f9c2316f360d3c13a8375ccf975c87bef3b8a3bb71c4a6b772242ba4e",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"fluxKgHr\": 1934.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AUS_S_001-probe-5",
+    "claimTextSha256": "cdfbbe327dfebe089cd64e31bf40e43cf7c7117d0aacf59e43f6b759bda0d4d8",
+    "assessmentInputSha256": "db95b668c7946869ccd3a14d2719421faa10e1e2804457863496df22c2c7e1dd",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AUS_S_001-probe-6",
+    "claimTextSha256": "c6a1eec524b79a87e5a2763f9e62673c4e687dcd5f802a6b125ee45746daad78",
+    "assessmentInputSha256": "6d0543ae108154e0ebbd8da7ea32b561f96050b9ed3c6916f7b7b0376605fb2f",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AZE_S_001-probe-1",
+    "claimTextSha256": "44d814241893bc322fb104adb499403d1efe885d557ff30e0fa2ad2e52dfad52",
+    "assessmentInputSha256": "a509128f67a506002693fe3224880578622acb36582068f9df5d5be6f6885dc0",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"sourceId\": \"AZE_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AZE_S_001-probe-2",
+    "claimTextSha256": "2ecf9e6b5878cbd3791e6ed68c7ab6828664787c535c2105efdfe1dc87b3bd41",
+    "assessmentInputSha256": "23b96b015be7412f8f1501d2be4c1493570fcd1c4d0fa685341084227dc9580b",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"fluxKgHr\": 5167.0"
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AZE_S_001-probe-3",
+    "claimTextSha256": "c917012a65801a3ded6eada212a4e42d7bb7a0d0a1b1b44e4795e906289f5555",
+    "assessmentInputSha256": "8903816f2917b88dbd099ce231e7a61ce6f69387e218101558bfd888aa30767d",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"date\": \"2026-08-22T08:03:02\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AZE_S_001-probe-4",
+    "claimTextSha256": "2519eabb7a2820129f8f569a34606df9a157941253a36bb23e54f92863650c81",
+    "assessmentInputSha256": "d7ca628705ee2ebff6e483847eade416a6c5c82c806e925702f5fa028756f2a6",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"fluxKgHr\": 5167.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AZE_S_001-probe-5",
+    "claimTextSha256": "aec63d91654234a5fae92039642ee1ebd6236a2239d63cd8231ae33a07b616da",
+    "assessmentInputSha256": "516015d2ecded458d085d9a7335b442c00155d6f2dcf3e365644bcbfafdc54a2",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Yes\""
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "AZE_S_001-probe-6",
+    "claimTextSha256": "d731df49eb39e2b6254032ac8a7a3c0a1b73a0bbb3f7fa420878367a9bf6d3a5",
+    "assessmentInputSha256": "2f63a6647f7453a7210c589d34a055454c2ac53eee11c89c7f84314a49db8191",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BGD_S_001-probe-1",
+    "claimTextSha256": "d648402348633d1186b7b210cd6a23b17e665971668c514761a71b51b5b51cf4",
+    "assessmentInputSha256": "3941fb8df4c3754e8c2b9e82f06e7b9a377fec42b906bd289d1c72c173b0e812",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"sourceId\": \"BGD_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BGD_S_001-probe-2",
+    "claimTextSha256": "2135a38ec83df18a0910908282b1cd72355eb5905d65b6d315220852acc6e1f0",
+    "assessmentInputSha256": "66c227c4b1a9dbb7ceebe513c35894e9d755ba40ff8da75d68c87550f76b0cd9",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"fluxKgHr\": 803.0"
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BGD_S_001-probe-3",
+    "claimTextSha256": "0167f41867278b7e036f6197670e80cc85704a5b37c911b66fe0afd23e2da6b1",
+    "assessmentInputSha256": "201e877c05d12a2aa2b7d5031022b39fcb46af88a0126dc527128702a1f33ee8",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"date\": \"2025-10-22T05:09:47\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BGD_S_001-probe-4",
+    "claimTextSha256": "b36780589b7c7ce3b02a2291bb8b95cc80207846c00c4e042560cf04cf0e6547",
+    "assessmentInputSha256": "7f6fa6f7cfc9a7186bf07786b14a3ef438589706b7997a2a5fbcec7cbaad127a",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"fluxKgHr\": 803.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BGD_S_001-probe-5",
+    "claimTextSha256": "0505a5107dbf8f7ff409b58ab0b7e08894dc7449c4868563b3dcd7ea42f3c390",
+    "assessmentInputSha256": "582f20be01a16c99b878a2283579db3b42204c789b7aa12a676249568eb8baf3",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BGD_S_001-probe-6",
+    "claimTextSha256": "71bbb75fdfff32e7c9120cd34a88b2dfdf4f6d46e6e165f8afbe8f2cc2be9bd8",
+    "assessmentInputSha256": "84af7caa57be84b86e2b8cb9122849756362c9014da2b67dff0953f3147af164",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BHR_S_001-probe-1",
+    "claimTextSha256": "360282fd2bb25befdd04e458efd618a24b0ff8314fa050439fde4b7870cc9533",
+    "assessmentInputSha256": "6c4361a77aa935f5725e44ce3417961f503b91639e0335388e46b74113ec03a7",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"sourceId\": \"BHR_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BHR_S_001-probe-2",
+    "claimTextSha256": "bc66f78d004422aa0cec09fe8e87708891087678309bef39bb42e0b6c81693d0",
+    "assessmentInputSha256": "3584feed75ae072baba01ab1f0112b07e9c3e1b41188de4f6f7333a02caf013d",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"fluxKgHr\": 793.0"
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BHR_S_001-probe-3",
+    "claimTextSha256": "c928fda92d775eb997cfeca55263727a782e8dd3d8ebafe1c7d2b9794e9d80ca",
+    "assessmentInputSha256": "69bf5776cb32db579256cc54e27c711d860bbf37e89b417a2e79c77b6e6c6680",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"date\": \"2024-03-13T07:40:59\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BHR_S_001-probe-4",
+    "claimTextSha256": "c84a0177b0f4f943cfa3ba14d21c22ab02fbf979a89fc6a4d58b35ebb21f0d81",
+    "assessmentInputSha256": "f9c734cdbf8cf2b370ec621c58f4473442b550e261da569da270f26f8c77d9c1",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"fluxKgHr\": 793.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BHR_S_001-probe-5",
+    "claimTextSha256": "204ff8949c68159e6be60f37b7a2ecb0185e025b6270a2043cab1308849d66d1",
+    "assessmentInputSha256": "116426bf13c679aa0932cb4f01d99e33f73688cc3469cd16eafbe6b52b3d3aee",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"No\""
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BHR_S_001-probe-6",
+    "claimTextSha256": "510aeefb6cbe3b25fc062e863f84475e484afb2be4570fa754acdbe66461ef83",
+    "assessmentInputSha256": "9ab474bc251ae91e13a85184ba3837c1c559b33fb4108d4b5f1376d85a05f8fa",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BOL_S_001-probe-1",
+    "claimTextSha256": "22dba2febabc58b6671f4e7559aca251655777d853eb1b9d684620690f4d1b5f",
+    "assessmentInputSha256": "f382618d851d9b9d701be48fa396232a65df3fbc339180fa0f9099a854823efb",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"sourceId\": \"BOL_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BOL_S_001-probe-2",
+    "claimTextSha256": "7df1ebcbc174a86fefa31b9e34b85584f886377af02cd28c0d1046e8f0db9e2e",
+    "assessmentInputSha256": "badc76641ff5efb574794d5904faa3f9be190954a7f5e627804908d97f44fa92",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"fluxKgHr\": 1565.0"
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BOL_S_001-probe-3",
+    "claimTextSha256": "2159f653cb8d3f48ff0277bb4fe3c14a7d074fcdac5e70d7ec703e4112381c1c",
+    "assessmentInputSha256": "840db0bf776113f2cffa1b3ec5f347134779a666cf842ecec9cb3951823f0868",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"date\": \"2026-05-21T16:15:04\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BOL_S_001-probe-4",
+    "claimTextSha256": "0685527d5e94c658ccf862aaa5a68981c2441a19f41ce6c467354171dd12b191",
+    "assessmentInputSha256": "fa7878e011e9d3fbfe9c01f65cd29433b843d6ee2cd7b303e2e2870f3fc58066",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"fluxKgHr\": 1565.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BOL_S_001-probe-5",
+    "claimTextSha256": "8af1a74d39d93506fdbf978045c0b424706f318ee41f9b4a22285eba364deeda",
+    "assessmentInputSha256": "36a9d5562e45b14d858588dd7494dec34bb06d626a57188a4c58581ef6a38dcf",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BOL_S_001-probe-6",
+    "claimTextSha256": "9ff3afd471fd40468a050c7b4ee183883258a9b26c5e25beae47e0c4806fd785",
+    "assessmentInputSha256": "6f7e161037943e972eb4b5f3593cceb2061e69a845b57e7fd23021149371205a",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BRA_S_001-probe-1",
+    "claimTextSha256": "3d7bbd4042cfa8e9ac02476009b1fafe0e1f78eca0acce6024baed7a0bb2967f",
+    "assessmentInputSha256": "282ee5435b9c5bb4aacd934383cc1f175b71503cf1aa3552271e6ef4464d3eae",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"sourceId\": \"BRA_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BRA_S_001-probe-2",
+    "claimTextSha256": "31cc4c03deb2356abce46412df333f5c2519adf0b5069600e1b53cc8d80fb802",
+    "assessmentInputSha256": "f1d21c0e7e1eb1adb5b4d1bc4f974555a8cab8179ba29e0d73ee438f72618b60",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"fluxKgHr\": 1693.0"
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BRA_S_001-probe-3",
+    "claimTextSha256": "8a9cd2c66a9e47ab724007bb1ade8d73cdfb4c0a90f87c9a2b8cedb761fd8ddf",
+    "assessmentInputSha256": "64b207984b8a20d02e658f020744fd649d9524ce4ce55773cd2f46443c7bd61f",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"date\": \"2025-08-22T13:49:12\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BRA_S_001-probe-4",
+    "claimTextSha256": "5601c756f83b478295661f65ada5a5c0147f742f8a4fee15f6eede20ba89cd86",
+    "assessmentInputSha256": "b8e31395524b449b2052652de7bad317648facbd1ae11290a81953769bec6544",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"fluxKgHr\": 1693.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BRA_S_001-probe-5",
+    "claimTextSha256": "fbb9a21262c1545427badfa142a652ead947fc831087e3c684360ead65c5b204",
+    "assessmentInputSha256": "d2007ab54eef4062f3ce849c73a85dd5ab3305902847fed67eae60c689a92830",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BRA_S_001-probe-6",
+    "claimTextSha256": "081f59c79bb51ca63569ba18656eae940c5c253b9ae36c0d495f20498765505a",
+    "assessmentInputSha256": "5c5e32b385a9d3a803a071943a404bc5c605c95debdb92e2af6ae3ed5125b894",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BWA_S_001-probe-1",
+    "claimTextSha256": "c3dd33399ddacc2200ccd75dc731fa2a28718c426b57d33496c18673fc792d69",
+    "assessmentInputSha256": "8c115f821d84c1cb5029e54d11774065454ddcbe60ebaa81221e17dbea27aa09",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"sourceId\": \"BWA_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BWA_S_001-probe-2",
+    "claimTextSha256": "de1af0145ad60383eef95659be9762a288ffd2cccd96a596a83c3b3eb6afed23",
+    "assessmentInputSha256": "00967f4e9ad6bf7a3c73f1f5790a15b7b9c58a541ac01f65f5a94f02dc97adea",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"fluxKgHr\": 1784.0"
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BWA_S_001-probe-3",
+    "claimTextSha256": "568525bea7fd7041fd38ab4410c7ff31a61d74c5b23d88e7947c739e39e78e77",
+    "assessmentInputSha256": "41571c5bfd28a4d14922037c80f376fcfd31c4b777ca70525c7d82ebed722966",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"date\": \"2025-08-30T08:51:48\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BWA_S_001-probe-4",
+    "claimTextSha256": "85bb2610b8e1695a5f22c43370467442341c8f1dfb3a822dda5084ad1295031c",
+    "assessmentInputSha256": "4b83b2a89a8fe98db19e3870b7616b0c30aee5ed5be949672fc750b49e34d9c8",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"fluxKgHr\": 1784.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BWA_S_001-probe-5",
+    "claimTextSha256": "9dd59bbf6c7e580afd9e6020d0b1d029291d6ba3853087c295926e11b958604f",
+    "assessmentInputSha256": "870b54cc0ec1c79376e84f4529a4ca21629999a42516a1c218f455bd2dd6d60d",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "BWA_S_001-probe-6",
+    "claimTextSha256": "65bbf74eecc2f29129190ce19d16ff45f8a73e069cbfabf23b02d35e95f3003d",
+    "assessmentInputSha256": "61e445e10245c222f5e96155238f3f104eda885ed5e23ff8f57c7f6adffedbc2",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CAN_S_001-probe-1",
+    "claimTextSha256": "4efc9025ab3d37944e4d99d122edb5bfd4390ee856b05e1a419003347a4fe4f7",
+    "assessmentInputSha256": "ec8be2d7b84e755ca51aec4f1bf68f09bf488cca60078fd99903e2956020f73d",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"sourceId\": \"CAN_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CAN_S_001-probe-2",
+    "claimTextSha256": "1ec6e8fa55e3bbb0dffc1fe8b076fe56757cbc9f3338a47bf8ce8dec40ee3749",
+    "assessmentInputSha256": "f5c09be16e6cb6ee1c2b5dae57ae2c4cf4696905bba1bad9d11e923c1b86e676",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"fluxKgHr\": 4587.0"
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CAN_S_001-probe-3",
+    "claimTextSha256": "9a4b12b829f79563e5f97280ab7bbc251a3abc2f3212dfdeb716f1a91199c51f",
+    "assessmentInputSha256": "2747d11bd3418bc27e69b1d4ebeaf9657dd4a68547eae0d6014ab501a9aaf973",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"date\": \"2024-10-10T20:10:28\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CAN_S_001-probe-4",
+    "claimTextSha256": "4fbaf5af0331a4acde03ff7aae0116139414b9bf746edfe7b77a4e878f58b218",
+    "assessmentInputSha256": "122fcea4c3f884b95c9183cbf99aa8ef6b408c0f7997f70cc62b06023087b590",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"fluxKgHr\": 4587.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CAN_S_001-probe-5",
+    "claimTextSha256": "4913e2c45034d722cff8000772ccef99fc521aaf3048176177a1feafe381818c",
+    "assessmentInputSha256": "bb06615aa278713ea3e6fabdee75c15a290094fc5802a93d907d9b3a77f0980c",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CAN_S_001-probe-6",
+    "claimTextSha256": "3cbace40c00096d590c02d921d81b514c447871ce542b54f9ce6365beacbdeb1",
+    "assessmentInputSha256": "b109694e9b5c6e40c4e5762c332d0cabd24001b7c74fedfb8e7fc8caaac0e10d",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHL_S_001-probe-1",
+    "claimTextSha256": "b301d08b5ba3873ffd6b56713dca3c4f5829f7117e761faf90a17d8a47cb90b0",
+    "assessmentInputSha256": "cbbe023374bc66dcf05ab873349f77cab17e4a1315380bf1e2288219042bdbfc",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"sourceId\": \"CHL_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHL_S_001-probe-2",
+    "claimTextSha256": "fff6c0411e2301e09dd611110af3f8c25c08a57c199f1e60cd01debfef7f3145",
+    "assessmentInputSha256": "46c756c405d0c90b8e8461b8e64992f6fe708790d6898c6e4197ff23943e86a6",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"fluxKgHr\": 10856.0"
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHL_S_001-probe-3",
+    "claimTextSha256": "05de46290ff9f4d66b8c621022457bd130196e6a048f47333f604407174053ca",
+    "assessmentInputSha256": "47b5799e5e5f1dff1d09a3b5e5f3569207de931e906a823c33f29341767b04e9",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"date\": \"2026-03-07T13:16:02\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHL_S_001-probe-4",
+    "claimTextSha256": "16d8cc96e1da22ed79c72918d5f8dd9c5242ad5290446b7a46fd55c72730c766",
+    "assessmentInputSha256": "1a5f3315bbceb0cadb9800f2d9e57f37a1fdae1f5c597d7c2c4b5a7e9bf92bf7",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"fluxKgHr\": 10856.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHL_S_001-probe-5",
+    "claimTextSha256": "532fbacb981da6a44e1955823fe31f60fed2b8673ec5b89dfe2307204c155b51",
+    "assessmentInputSha256": "d981298ac3a041d0acea3762a8f303d836c362ef6388d044ede6f40be2fef65b",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHL_S_001-probe-6",
+    "claimTextSha256": "ad278caa8cf1fb7518f879047974c262533e90af2d4f7956d0ae7071717bc4fc",
+    "assessmentInputSha256": "f455b53091013761d26ab79cb4d2b4adf1d89b3f59cf161a4acecab7db9b056b",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHN_S_001-probe-1",
+    "claimTextSha256": "9f8b9f8116d3da023116a5783411d45001658d120d5e3cea89c607ab403ce5bf",
+    "assessmentInputSha256": "f10d8e347399d36d6150a2d852747dafb6eb489ceea3a1e9026e5d291b069fff",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"sourceId\": \"CHN_S_001\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHN_S_001-probe-2",
+    "claimTextSha256": "d02b2e2de5497fc2f5d7d31815358f3b41e3253a83f20487025684c0f9f5a7c2",
+    "assessmentInputSha256": "c393f7a94a7eb7266652bfbe20cc9ccf1f1638017edfa1c2ec8dcfbc919869f3",
+    "proposedVerdict": "supported",
+    "verdict": "supported",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"fluxKgHr\": 1119.0"
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHN_S_001-probe-3",
+    "claimTextSha256": "46cad22bc5f4e74b0b9c4c44ba34527335c58431d260438635994d8dae747aed",
+    "assessmentInputSha256": "9742b1be0d4faaf5f5129663e1406dc2098ac00885663f9a7f7661b29b6d1961",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"date\": \"2025-10-05T04:26:26\""
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHN_S_001-probe-4",
+    "claimTextSha256": "63c23ecfe3f11e15d35f90c8d493ef7eafbe35fba100b1cf3f1165a1eca54f14",
+    "assessmentInputSha256": "41709d43a833567fd8a199d06313bf9b732745dcdffd765731de8281942fdf14",
+    "proposedVerdict": "contradicted",
+    "verdict": "contradicted",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"fluxKgHr\": 1119.0"
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHN_S_001-probe-5",
+    "claimTextSha256": "7c3a6d1d267c990e799e3edfc188ef6e9617811f73e1b3c0ca44c3fbfd8a8b88",
+    "assessmentInputSha256": "6b4d9c8dc18f48b587eea843b386e67ccf9f84498791ff24cd84e4b0c07babe5",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Yes\""
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ],
+    "proposedCitationCount": 2,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  },
+  {
+    "claimId": "CHN_S_001-probe-6",
+    "claimTextSha256": "f720f2d7d37970391d9723f5b26038cd34ec01accc71405494ed38547704bd71",
+    "assessmentInputSha256": "a5795dd09db4059213673f4ab9df0eef10453e790b0634a619eb72d1e1327cd1",
+    "proposedVerdict": "insufficient_evidence",
+    "verdict": "insufficient_evidence",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ],
+    "proposedCitationCount": 1,
+    "citationValidationFailures": 0,
+    "executionMode": "agent_offline",
+    "providerBenchmarkCompleted": false
+  }
+]

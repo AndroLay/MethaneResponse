@@ -1,0 +1,1178 @@
+[
+  {
+    "claimId": "ARG_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"sourceId\": \"ARG_S_001\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"sourceId\": \"ARG_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARG_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"fluxKgHr\": 246.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARG_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"date\": \"2023-01-21T16:17:47\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARG_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\","
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"fluxKgHr\": 246.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARG_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARG_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARM_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"sourceId\": \"ARM_S_001\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"sourceId\": \"ARM_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARM_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"fluxKgHr\": 2013.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARM_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"date\": \"2026-08-18T07:56:18\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARM_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\","
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"fluxKgHr\": 2013.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARM_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "ARM_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AUS_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"sourceId\": \"AUS_S_001\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"sourceId\": \"AUS_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AUS_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"fluxKgHr\": 1934.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AUS_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"date\": \"2026-07-23T00:36:17\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AUS_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\","
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"fluxKgHr\": 1934.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AUS_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AUS_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AZE_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"sourceId\": \"AZE_S_001\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"sourceId\": \"AZE_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AZE_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"fluxKgHr\": 5167.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AZE_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"date\": \"2026-08-22T08:03:02\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AZE_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\","
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"fluxKgHr\": 5167.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AZE_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "AZE_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BGD_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"sourceId\": \"BGD_S_001\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"sourceId\": \"BGD_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BGD_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"fluxKgHr\": 803.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BGD_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"date\": \"2025-10-22T05:09:47\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BGD_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\","
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"fluxKgHr\": 803.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BGD_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BGD_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BHR_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"sourceId\": \"BHR_S_001\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"sourceId\": \"BHR_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BHR_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"fluxKgHr\": 793.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BHR_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"date\": \"2024-03-13T07:40:59\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BHR_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\","
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"fluxKgHr\": 793.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BHR_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BHR_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BOL_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"sourceId\": \"BOL_S_001\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"sourceId\": \"BOL_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BOL_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"fluxKgHr\": 1565.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BOL_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"date\": \"2026-05-21T16:15:04\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BOL_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\","
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"fluxKgHr\": 1565.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BOL_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BOL_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BRA_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"sourceId\": \"BRA_S_001\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"sourceId\": \"BRA_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BRA_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"fluxKgHr\": 1693.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BRA_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"date\": \"2025-08-22T13:49:12\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BRA_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\","
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"fluxKgHr\": 1693.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BRA_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BRA_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BWA_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"sourceId\": \"BWA_S_001\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"sourceId\": \"BWA_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BWA_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"fluxKgHr\": 1784.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BWA_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"date\": \"2025-08-30T08:51:48\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BWA_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\","
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"fluxKgHr\": 1784.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BWA_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "BWA_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CAN_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"sourceId\": \"CAN_S_001\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"sourceId\": \"CAN_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CAN_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"fluxKgHr\": 4587.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CAN_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"date\": \"2024-10-10T20:10:28\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CAN_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\","
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"fluxKgHr\": 4587.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CAN_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CAN_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHL_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"sourceId\": \"CHL_S_001\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"sourceId\": \"CHL_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHL_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"fluxKgHr\": 10856.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHL_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"date\": \"2026-03-07T13:16:02\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHL_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\","
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"fluxKgHr\": 10856.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHL_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHL_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHN_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"sourceId\": \"CHN_S_001\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"sourceId\": \"CHN_S_001\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHN_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"fluxKgHr\": 1119.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHN_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"date\": \"2025-10-05T04:26:26\","
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHN_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Explicit equality/conflict in the supplied archive record; no inference about physical truth.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\","
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"fluxKgHr\": 1119.0,"
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHN_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  },
+  {
+    "claimId": "CHN_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "The supported record grammar cannot establish this proposition; missing event evidence is not contradiction.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\""
+      }
+    ],
+    "baselineVersion": "archive-record-rules-v1",
+    "basis": "document_assessment"
+  }
+]

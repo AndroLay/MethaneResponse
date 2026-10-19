@@ -1,0 +1,155 @@
+{
+  "status": "passed",
+  "sourceRevision": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "capturedAt": "2026-10-15T16:31:31.755Z",
+  "viewport": {
+    "width": 1600,
+    "height": 1000
+  },
+  "externalHttp": "blocked",
+  "browserSandbox": true,
+  "aiProvider": "disabled",
+  "chainWrites": "disabled",
+  "synthetic": false,
+  "captures": [
+    {
+      "file": "01-historical-map.png",
+      "description": "Historical KAZ_S_159 source-location map with external basemap requests blocked; not plume geometry or live imagery.",
+      "url": "http://127.0.0.1:4189/dashboard/map?sourceId=KAZ_S_159",
+      "framing": "fullPage",
+      "sha256": "1820c5830829f2ff76f49c522065facd2db0ffa8c66ded230830b67e1d73e3ea",
+      "bytes": 656156
+    },
+    {
+      "file": "02-source-observations.png",
+      "description": "Three discrete historical MARS observations for KAZ_S_159.",
+      "url": "http://127.0.0.1:4189/dashboard/map?sourceId=KAZ_S_159",
+      "framing": "fullPage",
+      "sha256": "fe55be782405e7ad935e21508ec98e323a15ea1e6a23084436df1419a73a98e1",
+      "bytes": 298971
+    },
+    {
+      "file": "03-detection-supported.png",
+      "description": "Deterministic source-detection assessment supported by supplied historical records.",
+      "url": "http://127.0.0.1:4189/dashboard/audit?sourceId=KAZ_S_159",
+      "framing": "fullPage",
+      "sha256": "1c3c005949fd032a3091beab2394eff2d1201dab902c8a20c2696b69b5dd07ab",
+      "bytes": 287419
+    },
+    {
+      "file": "04-mitigation-insufficient.png",
+      "description": "Deterministic mitigation assessment abstains; absence of evidence does not prove the claim false.",
+      "url": "http://127.0.0.1:4189/dashboard/audit?sourceId=KAZ_S_159",
+      "framing": "fullPage",
+      "sha256": "1996ae42d33139b3a81b0e9e9d5f5e3b55267ea0b810db47236d4b2a5ba30f1e",
+      "bytes": 288781
+    },
+    {
+      "file": "05-local-verification.png",
+      "description": "Local canonical audit-bundle SHA-256 matches; no blockchain receipt.",
+      "url": "http://127.0.0.1:4189/dashboard/blockchain?sourceId=KAZ_S_159",
+      "framing": ".imported-audit-verifier",
+      "sha256": "deb5dd9c54b721a74f8a413e77661c2308454439e832cd1ec995a03312ec3ab7",
+      "bytes": 109336
+    },
+    {
+      "file": "06-modified-bundle-rejected.png",
+      "description": "Inconsistent report copy is rejected at summary/bundle field comparison before the canonical digest check.",
+      "url": "http://127.0.0.1:4189/dashboard/blockchain?sourceId=KAZ_S_159",
+      "framing": ".imported-audit-verifier",
+      "sha256": "d3ce35eb9899b4841993d3e1bbaea6ea5d002a92b33a52ceae62cc2b5513a062",
+      "bytes": 63365
+    },
+    {
+      "file": "07-publisher-top50.png",
+      "description": "Official publisher Top 50 monthly selection, September 2026; membership is not inferred rank.",
+      "url": "http://127.0.0.1:4189/dashboard/indicators?sourceId=KAZ_S_159",
+      "framing": "fullPage",
+      "sha256": "a63926fe7af6bb516e5a8de46eb46d104242ed94562597441b6d984317f9448a",
+      "bytes": 674732
+    },
+    {
+      "file": "08-country-response-history.png",
+      "description": "Official country feedback reporting periods; administrative engagement, not repairs.",
+      "url": "http://127.0.0.1:4189/dashboard/indicators?sourceId=KAZ_S_159",
+      "framing": "fullPage",
+      "sha256": "a9bae779c57b6bc44833eae438c7fd76c4563ef0f9fec62a417e1ee9937fe218",
+      "bytes": 490037
+    },
+    {
+      "file": "09-source-summary.png",
+      "description": "KAZ_S_159 Summary: publisher notification and feedback fields are Yes; historical metadata does not prove repair.",
+      "url": "http://127.0.0.1:4189/dashboard/map?sourceId=KAZ_S_159",
+      "framing": "dialog[open]",
+      "sha256": "1a532490acbf5491f91835d3fa416437169b208205e5e04801a153b268c4a780",
+      "bytes": 80318,
+      "capturedAt": "2026-10-15T16:36:51.882Z"
+    }
+  ],
+  "pageErrors": [],
+  "export": {
+    "file": "audit-report.json",
+    "sha256": "4a02965512e9ea2c852d9fb873167391dfa766f3787bc61eda45d7a3a7979d65",
+    "bundleHash": "0x3547eaf96b8d8f7ed4ffe492131b9d9ed21e048a82501bbaa1558498b568be64",
+    "sourceId": "KAZ_S_159",
+    "claimType": "mitigation_confirmed",
+    "result": "insufficient_evidence",
+    "receipt": null
+  },
+  "assertedWorkflow": [
+    "selected_source_KAZ_S_159",
+    "three_historical_observations",
+    "source_detected_supported",
+    "mitigation_confirmed_insufficient_evidence",
+    "unchanged_bundle_digest_valid_no_receipt",
+    "modified_bundle_summary_inconsistency_rejected",
+    "publisher_month_2026_09",
+    "country_history_Algeria",
+    "source_summary_notification_and_feedback_Yes"
+  ],
+  "tamperScope": {
+    "changedField": "latestAudit.bundle.reason",
+    "unchangedSummary": true,
+    "observedFailure": "Audit summary fields do not match the hashed bundle.",
+    "isolatedBundleHashMismatch": false
+  },
+  "runtime": {
+    "api": "Bun/Hono development",
+    "web": "Vite development",
+    "browser": "system Chromium, headless, sandbox enabled",
+    "renderer": "ANGLE SwiftShader, not a performance benchmark",
+    "apiLoopbackPort": 43219,
+    "webLoopbackPort": 4189,
+    "auditStore": "isolated temporary JSON file",
+    "testSuiteRerun": false
+  },
+  "limitations": [
+    "Local development workflow only; not production/deployed/physical-device validation.",
+    "External basemap requests blocked; source markers remain visible in fallback.",
+    "No external AI call, human review, chain transaction or authenticated Notion import.",
+    "Not a recorded or timed presenter rehearsal."
+  ],
+  "localChecks": {
+    "independentVerifierCommand": "bun --no-env-file scripts/verify-audit.ts docs/demo/notion/audit-report.json",
+    "independentVerifierExitCode": 0,
+    "bundleHash": "VALID",
+    "chainReceipt": "ABSENT",
+    "documentRightsMetadata": "NOT_RECORDED",
+    "note": "No document text is supplied by this rules-baseline walkthrough."
+  },
+  "visualInspection": {
+    "status": "reviewed",
+    "files": [
+      "01-historical-map.png",
+      "02-source-observations.png",
+      "03-detection-supported.png",
+      "04-mitigation-insufficient.png",
+      "05-local-verification.png",
+      "06-modified-bundle-rejected.png",
+      "07-publisher-top50.png",
+      "08-country-response-history.png",
+      "09-source-summary.png"
+    ],
+    "scope": "Readability of actual UI results, selected case, observations, provenance and visible fallback; not authenticated Notion layout QA."
+  }
+}

@@ -1,0 +1,725 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MethaneResponse | Review metode P4</title><style>
+:root{color-scheme:light;--ink:#18342f;--muted:#4a615b;--line:#d6e0da;--paper:#fff;--accent:#145b48}
+*{box-sizing:border-box}body{margin:0;background:#f2f5f1;color:var(--ink);font:16px/1.65 system-ui,sans-serif}
+.cover,main,footer{max-width:1080px;margin:auto;padding:36px 40px;background:var(--paper)}
+.cover{border-top:8px solid var(--accent);padding-bottom:26px}.eyebrow{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1,h2,h3{line-height:1.25;scroll-margin-top:24px}h1{font:700 38px/1.15 Georgia,serif;margin:12px 0}h2{font-size:26px}h3{font-size:20px}
+.intro{max-width:76ch;color:var(--muted)}.status{padding:14px 18px;background:#f1f6ed;border-left:4px solid #658442}
+nav ol{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px;padding-left:22px}a{color:#125c72;text-underline-offset:3px;overflow-wrap:anywhere}a:focus-visible{outline:3px solid #c29025;outline-offset:3px}
+section{border-top:1px solid var(--line);padding:20px 0 38px}p,li{max-width:90ch}code{font-size:.88em;overflow-wrap:anywhere}pre{padding:16px;background:#f2f5f3;white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#edf3ee}blockquote{margin-left:0;padding-left:18px;border-left:3px solid var(--line)}
+footer{border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.back{font-size:13px}
+@media(max-width:720px){.cover,main,footer{padding:24px 18px}h1{font-size:30px}nav ol{display:block}nav li{margin:8px 0}table{font-size:12px}th,td{padding:7px 5px}}
+@media print{body{background:white;font-size:10pt}.cover,main,footer{max-width:none;padding:12mm 0}.cover{border-top-width:2mm}nav,.back{display:none}section{break-before:page}h2,h3{break-after:avoid}tr,pre{break-inside:avoid}a{color:inherit}th{background:#eee}table{font-size:8pt}}
+</style></head><body><header class="cover" id="top"><div class="eyebrow">MethaneResponse · Review independen · 18 Oktober 2026</div><h1>Permintaan review metode<br>dan interpretasi bukti</h1><p class="intro">P4-2026-10-18-v1 · 6 kasus metadata historis nyata + 6 kasus DEMO · 60–75 menit atau asinkron.</p><p class="status"><strong>Paket persiapan.</strong> Belum ada pakar terkonfirmasi atau hasil review manusia. Kami meminta kritik metode; formulir tetap kosong. Keluaran baseline diberikan terpisah setelah penilaian awal.</p><p>Halaman dapat dibaca offline dan dicetak. Isi <a href="04-response-form.md">salinan formulir</a> pada dokumen privat; halaman ini tidak menyimpan jawaban. Tautan sumber eksternal memerlukan internet.</p><nav aria-label="Daftar isi"><h2>Bahan review</h2><ol><li><a href="#doc-00-START-HERE">MethaneResponse — permintaan review metode</a></li><li><a href="#doc-01-method-brief">Ringkasan metode untuk pakar</a></li><li><a href="#doc-02-review-protocol">Protokol review dokumenter</a></li><li><a href="#doc-03-cases">Kasus untuk penilaian awal</a></li><li><a href="#doc-04-response-form">Formulir jawaban pakar — kosong</a></li><li><a href="#doc-05-source-register">Daftar sumber dan hak bahan</a></li></ol></nav></header><main><section id="doc-00-START-HERE"><h2>MethaneResponse — permintaan review metode</h2>
+<p><strong>Paket:</strong> P4-2026-10-18-v1 · <strong>Bahasa:</strong> Indonesia · <strong>Bentuk:</strong> review dokumenter, sekitar 60–75 menit atau jawaban tertulis asinkron.</p>
+<p>Setelah mengekstrak ZIP, buka <strong><a href="index.html">index.html</a></strong> di browser untuk membaca seluruh bahan secara offline. Formulir dapat disalin dari berkas Markdown ke dokumen privat; halaman HTML ini tidak menyimpan atau mengirim jawaban.</p>
+<p>Terima kasih telah mempertimbangkan penilaian independen terhadap prototipe ini. Kami meminta kritik atas kesesuaian metode dan interpretasi bukti. Kami tidak meminta endorsement, penilaian juri, atau pengesahan bahwa suatu fasilitas telah diperbaiki.</p>
+<h3>Urutan baca</h3>
+<ol>
+<li><a href="#doc-01-method-brief">Ringkasan metode</a>.</li>
+<li><a href="#doc-02-review-protocol">Protokol</a> dan <a href="#doc-05-source-register">sumber</a>.</li>
+<li><a href="#doc-03-cases">Dua belas kasus</a>. Detail terstruktur tersedia di <a href="cases.json">cases.json</a>.</li>
+<li>Isi <a href="#doc-04-response-form">formulir jawaban</a>. Kategori label dan metode boleh dipersoalkan; jawaban “belum dapat dinilai” diterima.</li>
+<li>Bila diperlukan, periksa <a href="06-method-excerpts.txt">potongan kode</a>.</li>
+</ol>
+<p>Tuliskan penilaian awal sebelum melihat keluaran implementasi per kasus. Setelah itu fasilitator akan memberikan paket perbandingan terpisah. Ini membantu mencatat perbedaan pendapat; bukan desain studi buta atau pengukuran akurasi independen.</p>
+<h3>Yang disertakan</h3>
+<p>Enam kasus memakai <strong>metadata historis nyata UNEP IMEO MARS</strong>. Enam kasus <strong>DEMO</strong> sepenuhnya rekaan untuk menguji batas penalaran, konflik dan periode. URL <code>example.org/DEMO-*</code> adalah penanda rekaan dan tidak perlu dibuka. Semua laporan publisher tetap berupa tautan metadata; PDF dan isinya tidak disertakan.</p>
+<p>Adaptasi data ini memakai snapshot <code>unep-mars-675417694883</code>, diambil 14 Oktober 2026. Sumber: <a href="https://methanedata.unep.org/download-dataset">Eye on Methane</a>. Lisensi: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> dan <a href="LICENSE-DATA.txt">notice data</a>. Perubahan: pilihan metadata dinormalisasi menjadi kasus review; tanggal, nilai dan ID asal dipertahankan. Tidak ada pengukuran baru atau inferensi konfirmasi mitigasi.</p>
+<h3>Pengembalian dan consent</h3>
+<p>Kembalikan formulir melalui kanal privat yang disepakati dengan pengirim. Jangan menaruh identitas, kontak, tanda tangan, materi rahasia atau isi laporan terbatas di repo publik. Fasilitator mencatat kompetensi dan hubungan dengan tim secara privat. Publikasi ringkasan, kutipan, nama dan afiliasi memerlukan pilihan izin terpisah; tidak diasumsikan dari kesediaan mereview.</p>
+<p>Pengirim menyepakati tanggal pengembalian dengan Anda. Target internal tim adalah 20 Oktober 2026 pukul 12.00 WITA (04.00 UTC); target ini tidak mewajibkan Anda menerima permintaan atau memperpendek pemeriksaan yang diperlukan.</p>
+<a class="back" href="#top">Kembali ke daftar isi</a></section><section id="doc-01-method-brief"><h2>Ringkasan metode untuk pakar</h2>
+<h3>Pertanyaan yang ingin diuji</h3>
+<p>Apakah metode dan bahasa MethaneResponse membantu peneliti/analis membedakan observasi historis, metadata notifikasi, respons pemangku kepentingan dan bukti tindakan/follow-up, tanpa mengubah ketiadaan bukti menjadi kesimpulan fisik?</p>
+<p>Produk ini adalah proof of concept investigasi data historis. MARS/IMEO tetap penyedia data dan analisis asal. MethaneResponse tidak membuat deteksi satelit baru, tidak mengirim notifikasi resmi, tidak melakukan pengukuran lapangan, dan belum membuktikan pengurangan emisi atau manfaat pengguna.</p>
+<h3>Masukan, scope dan provenance</h3>
+<ul>
+<li>Kasus nyata memakai casebook empat sumber dalam snapshot <code>unep-mars-675417694883</code>; paket mengambil enam pertanyaan dari empat sumber tersebut. Tidak ada klaim sampel representatif.</li>
+<li>Source ID dan plume ID tidak dipertukarkan. Scope memuat tanggal mulai/akhir dan, bila dipilih, observation ID. Untuk klaim notifikasi yang spesifik, penerima juga diperlukan.</li>
+<li>Waktu observasi berbeda dari waktu pembaruan record atau tanggal terbit laporan. Paket mempertahankan timestamp asal; pembatasan periode aturan memakai hari kalender dari timestamp tersebut.</li>
+<li>Flux memakai kg/h; uncertainty yang dicantumkan adalah field standard deviation publisher, bukan interval kepercayaan atau uncertainty model aplikasi. Tidak ada asumsi distribusi atau interpolasi antarobservasi.</li>
+<li><code>notified</code> dan <code>feedback</code> pada source merupakan metadata agregat. Paket tidak membentuk tanggal/penerima notifikasi spesifik dari flag itu.</li>
+</ul>
+<p>Definisi field dapat dibandingkan dengan <a href="https://methanedata.unep.org/dict-mars-plumes">kamus MARS</a>. Data yang direview adalah snapshot tetap; pemeriksaan halaman referensi pada 18 Oktober tidak memperbarui arsip data.</p>
+<h3>Aturan deterministik yang berjalan</h3>
+<table>
+<thead>
+<tr>
+<th>Claim category</th>
+<th>Reference kind yang diperiksa</th>
+<th>Batas operasional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>source_detected</code></td>
+<td><code>detection</code></td>
+<td>Record relevan dengan tanggal/event; aplikasi tidak mengulang retrieval satelit</td>
+</tr>
+<tr>
+<td><code>operator_notified</code></td>
+<td><code>notification</code></td>
+<td>Referensi bertanggal dan penerima/event yang cocok; source-level flag tidak cukup untuk penerima tertentu</td>
+</tr>
+<tr>
+<td><code>mitigation_confirmed</code></td>
+<td><code>mitigation_confirmation</code></td>
+<td>Pada scope yang diterapkan, field tindakan, tanggal follow-up dan referensinya harus ada serta berada dalam periode yang sesuai</td>
+</tr>
+</tbody>
+</table>
+<p><code>supported</code> berarti ada referensi metadata jenis yang diperlukan menurut aturan. <code>contradicted</code> memerlukan referensi contrary yang secara eksplisit cocok dengan claim category dan scope. Jika dukungan dan contrary sama-sama memenuhi syarat, aturan mengeluarkan <code>insufficient_evidence</code>. Referensi yang hilang atau di luar scope juga menghasilkan <code>insufficient_evidence</code>; hal itu tidak menyatakan klaim salah.</p>
+<p><strong>Pertanyaan kritis:</strong> kelengkapan field bukan pemeriksaan keaslian, kesesuaian isi atau kualitas pengukuran. Kasus D05 sengaja meminta Anda menilai apakah label <code>supported</code>/<code>mitigation_confirmed</code> masih berisiko disalahpahami walau batas ini dijelaskan. Rekomendasi mengubah label atau menambah gerbang substantif diterima. Nama kategori internal bukan sertifikasi otoritas MARS.</p>
+<p>Baseline hanya menilai jenis referensi dan scope. Ia tidak membuktikan bahwa setiap kalimat bebas dalam exact claim didukung. Human assessment menyimpan claim wording, determination, rationale, referensi dan next evidence request; reviewer harus memeriksa hubungan substantif itu. Pertimbangkan apakah kontrol saat ini memadai atau memerlukan pemisahan klaim lebih ketat.</p>
+<h3>Penilaian manusia, trust dan publikasi</h3>
+<p>Human assessment menghasilkan private schema 4 dengan parent hash. Reviewer dapat menyatakan insufficient meskipun metadata lolos aturan, atau menyelesaikan konflik dengan rationale. Pada hasil supported/contradicted, referensi bertipe dan scope yang sesuai tetap diperlukan. Aplikasi belum memiliki reviewer domain nyata yang didaftarkan.</p>
+<p>Direktori operator mencatat kewenangan kategori, expiry/revocation; conflict of interest merupakan deklarasi terpisah. Ini tidak mengautentikasi kompetensi atau independensi secara eksternal. Publisher URL retrieval/digest opsional memeriksa origin/bytes sesuai batas teknis, bukan isi dokumen atau outcome fisik. AI opsional belum mempunyai benchmark independen dan tidak digunakan pada paket ini.</p>
+<p>Ringkasan publik hanya field allowlist dengan consent per revisi. Koreksi/withdrawal menambah riwayat; full assessment tetap privat. Checksum dan receipt memeriksa integritas/versi. Checksum offline tidak menunjukkan status publikasi kini. Integrasi chain yang dibuktikan saat ini adalah jaringan lokal Anvil; belum ada receipt Sepolia publik.</p>
+<h3>Perbandingan dengan kerangka publisher</h3>
+<p><a href="https://www.unep.org/en/what-we-do/energy/methane/how-mars-works">UNEP</a> menjelaskan empat komponen MARS: deteksi/atribusi, notifikasi/engagement, tindakan pemangku kepentingan, dan tracking/pembelajaran. <a href="https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system">IEA–IMEO</a> memisahkan penerimaan/penugasan, pemberitahuan operator, respons, verifikasi/follow-up, dan dokumentasi. Pemetaan produk ke bagian dokumentasi bukti merupakan keputusan desain tim; ini tidak menyatakan integrasi atau validasi resmi.</p>
+<p><a href="https://methanedata.unep.org/frequently-asked-questions">FAQ IMEO</a> menjelaskan keterbatasan kesempatan deteksi dan respons stakeholder. Karena itu, penilaian fisik perlu mempertimbangkan konteks tindakan, kemampuan sensor dan bukti setelah tindakan. Paket tidak mengartikan tidak adanya record selanjutnya sebagai emisi nol.</p>
+<h3>Hasil yang diminta</h3>
+<p>Tuliskan apakah interpretasi, scope, uncertainty dan label layak untuk prototipe ini; sertakan sumber/locator bila menolak suatu keputusan. Untuk tiap kelemahan, sebutkan kesimpulan yang berisiko berubah, perbaikan minimum, bukti yang masih diperlukan dan keahlian di luar cakupan Anda. Review dokumenter ini tidak meminta Anda mengesahkan keaslian laporan yang tidak disertakan atau fasilitas yang tidak Anda inspeksi.</p>
+<a class="back" href="#top">Kembali ke daftar isi</a></section><section id="doc-02-review-protocol"><h2>Protokol review dokumenter</h2>
+<p><strong>Versi:</strong> P4-2026-10-18-v1. <strong>Rancangan:</strong> satu atau lebih pakar manusia relevan, review kualitatif. Ini bukan studi akurasi model, pilot pengguna, audit legal atau sertifikasi fasilitas.</p>
+<h3>Sebelum sesi</h3>
+<p>Fasilitator mengonfirmasi kompetensi yang relevan, hubungan dengan tim dan konflik kepentingan. Penilai bukan penulis produk atau agent AI. Catatan verifikasi/identitas/consent disimpan privat; kode seperti E01 hanya pseudonim, bukan jaminan anonimitas. Jika keahlian mencakup remote sensing saja, jangan menganggap MRV/otorisasi audit sudah ikut dinilai.</p>
+<p>Pastikan versi paket, snapshot, jenis review dan batas waktu diterima. Perubahan kode atau prompt setelah freeze harus mendapat versi baru, penjelasan selisih dan penentuan bagian yang perlu direview ulang. Jangan mengganti kasus berdasarkan jawaban yang disukai.</p>
+<h3>Fase A — penilaian awal, sekitar 35–45 menit</h3>
+<ol>
+<li>Baca brief, sumber dan kasus. Tidak perlu memasang aplikasi. Semua tautan eksternal opsional; jika sumber tidak dapat dibuka, catat bagian yang belum dapat dinilai.</li>
+<li>Untuk setiap kasus, tentukan kesimpulan yang didukung <strong>bahan yang disertakan</strong>, scope yang tepat, alasan dan next evidence request. Pilihan: supported / contradicted / insufficient evidence / label tidak memadai / belum dapat dinilai.</li>
+<li>Bedakan kesimpulan tentang keberadaan record, klaim publisher dan keadaan fisik. Pakar boleh memberikan kesimpulan berbeda dari baseline; tidak ada kunci jawaban pakar yang sudah diisi.</li>
+<li>Jangan menggunakan pengukuran/laporan privat tanpa izin. PDF pihak ketiga tidak disalin; jika Anda memeriksa dokumen di situs asal, catat URL/locator serta lingkup pemeriksaan, tanpa menempelkan konten terbatas.</li>
+</ol>
+<p>Fasilitator hanya menjelaskan format/istilah. Bantuan substantif, dokumen tambahan atau penyimpangan waktu dicatat. Jangan memandu penilai menuju label tertentu. Formulir awal disimpan sebelum memberikan output aplikasi.</p>
+<h3>Fase B — perbandingan implementasi, sekitar 15–20 menit</h3>
+<p>Berikan paket comparison berisi baseline aktual. Untuk setiap perbedaan, catat apakah masalah terletak pada aturan, jenis evidence, scope, bahasa label, bahan yang kurang atau keterbatasan review. Kesepakatan dengan implementasi tidak dihitung sebagai validasi fisik atau skor akurasi. Tidak ada threshold persentase untuk memaksa P4 lulus.</p>
+<p>Tinjau delapan domain pada formulir: rantai bukti, scope/identitas, tiga label, uncertainty, next request, interpretasi publisher, batas trust/integrity dan batas manfaat. Jelaskan risiko D05 dan claim wording yang tidak dipahami otomatis oleh baseline.</p>
+<h3>Fase C — temuan dan pemeriksaan ulang</h3>
+<p>Setiap temuan mempunyai ID, domain/kasus, dampak, dasar rujukan, versi dan perbaikan yang dapat diperiksa. Severity disepakati berdasarkan konsekuensi:</p>
+<ul>
+<li><strong>Critical:</strong> memungkinkan kesimpulan fisik keliru yang serius atau pengungkapan data yang seharusnya privat.</li>
+<li><strong>Major:</strong> mengubah penilaian/scope/interpretasi penting atau menghilangkan bukti yang diperlukan.</li>
+<li><strong>Minor:</strong> kejelasan/penyajian yang tidak mengubah kesimpulan.</li>
+</ul>
+<p>Tim mencatat keputusan accept / reject with rationale / defer dan perubahan terkait. Temuan critical/major tidak dianggap selesai hanya karena ditambah disclaimer. Pakar memeriksa ulang bagian yang berubah, menyatakan resolved / unresolved / unable to reassess, dan mencatat versi. Temuan tidak boleh ditutup sepihak dengan keputusan implementer bila keberatan domain material belum terselesaikan.</p>
+<h3>Hasil dan izin</h3>
+<p>Ringkasan akhir memuat tanggal, versi, keahlian/lingkup, kasus yang diperiksa/tidak diperiksa, temuan, perbaikan dan batas. Review selesai hanya bila benar-benar dilakukan dan temuan material telah ditutup serta diperiksa ulang. Jika belum, status tetap in progress.</p>
+<p>Pakar memilih izin terpisah untuk partisipasi, publikasi ringkasan yang disetujui, kutipan yang disetujui serta nama/afiliasi. Penolakan publikasi tidak membatalkan masukan privat. Jika ringkasan tidak boleh dipublikasikan, catat pembatasannya; jangan mengunggah jawaban atau menyatakan hasil publik yang tidak diizinkan. Tidak ada recording/audio/provider processing secara default.</p>
+<a class="back" href="#top">Kembali ke daftar isi</a></section><section id="doc-03-cases"><h2>Kasus untuk penilaian awal</h2>
+<p><strong>Versi:</strong> P4-2026-10-18-v1. Enam kasus metadata historis nyata dan enam kasus DEMO. Tidak ada jawaban pakar yang sudah diisi. Nilai flux dan standard deviation ditampilkan sebagai field terpisah, bukan confidence interval. Untuk setiap kasus, berikan kesimpulan yang dapat didukung, alasan/locator, batas scope dan bukti berikutnya.</p>
+<p>Kasus nyata berasal dari UNEP IMEO Eye on Methane / MARS, snapshot <code>unep-mars-675417694883</code>, CC BY-NC-SA 4.0. Adaptasi: pilihan metadata dan pertanyaan review; ID/nilai/tanggal asal dipertahankan. <a href="#doc-05-source-register">Sumber/lisensi</a>. Untuk DEMO, semua bukti dan URL rekaan; jangan mengambil URL example.org.</p>
+<h3>R01 — KAZ_S_159 — REAL_HISTORICAL_METADATA</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> MARS mencatat observasi methane pada KAZ_S_159 dalam periode 2024-06-07 sampai 2024-06-07.</p>
+<p><strong>Claim category:</strong> <code>source_detected</code>. <strong>Periode:</strong> 2024-06-07 sampai 2024-06-07.
+<strong>Observation ID:</strong> <code>82758651-76f4-4e06-b4ab-c247ce765192</code>. <strong>Penerima:</strong> tidak ditetapkan.</p>
+<p>Apakah record yang diberikan mendukung deteksi pada kejadian ini? Jelaskan batas atribusi dan uncertainty.</p>
+<p>Metadata source: notified <code>Yes</code>, feedback <code>Yes</code>; feedback scope <code>source</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Plume ID</th>
+<th>Timestamp observasi asal</th>
+<th>Flux kg/h</th>
+<th>Standard deviation kg/h</th>
+<th>Plume notified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>82758651-76f4-4e06-b4ab-c247ce765192</code></td>
+<td>2024-06-07T08:05:04</td>
+<td>591</td>
+<td>335</td>
+<td>False</td>
+</tr>
+<tr>
+<td><code>7529d451-018f-4da3-9114-59b76c3a3bcd</code></td>
+<td>2026-06-05T07:40:02</td>
+<td>307</td>
+<td>66</td>
+<td>True</td>
+</tr>
+<tr>
+<td><code>941806b5-2afe-46ac-baac-a0230880cede</code></td>
+<td>2026-07-11T08:12:14</td>
+<td>496</td>
+<td>226</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<p>Item publisher (metadata link-only; isi laporan tidak disertakan):</p>
+<ul>
+<li><a href="https://wedocs.unep.org/handle/20.500.11822/49949">United Nations Environment Programme — 2026-09-23</a>: Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159). Notice tersimpan: Attribution-NonCommercial-NoDerivs 3.0 IGO.</li>
+</ul>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>R02 — KAZ_S_159 — REAL_HISTORICAL_METADATA</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> Operator fasilitas KAZ_S_159 telah menerima notifikasi kejadian 82758651-76f4-4e06-b4ab-c247ce765192 pada 2024-06-07.</p>
+<p><strong>Claim category:</strong> <code>operator_notified</code>. <strong>Periode:</strong> 2024-06-07 sampai 2024-06-07.
+<strong>Observation ID:</strong> <code>82758651-76f4-4e06-b4ab-c247ce765192</code>. <strong>Penerima:</strong> Operator yang dimaksud belum diidentifikasi dalam paket.</p>
+<p>Apakah flag source-level cukup untuk menyatakan operator tertentu menerima notifikasi kejadian ini? Sebutkan informasi yang perlu ditambahkan.</p>
+<p>Metadata source: notified <code>Yes</code>, feedback <code>Yes</code>; feedback scope <code>source</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Plume ID</th>
+<th>Timestamp observasi asal</th>
+<th>Flux kg/h</th>
+<th>Standard deviation kg/h</th>
+<th>Plume notified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>82758651-76f4-4e06-b4ab-c247ce765192</code></td>
+<td>2024-06-07T08:05:04</td>
+<td>591</td>
+<td>335</td>
+<td>False</td>
+</tr>
+<tr>
+<td><code>7529d451-018f-4da3-9114-59b76c3a3bcd</code></td>
+<td>2026-06-05T07:40:02</td>
+<td>307</td>
+<td>66</td>
+<td>True</td>
+</tr>
+<tr>
+<td><code>941806b5-2afe-46ac-baac-a0230880cede</code></td>
+<td>2026-07-11T08:12:14</td>
+<td>496</td>
+<td>226</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<p>Item publisher (metadata link-only; isi laporan tidak disertakan):</p>
+<ul>
+<li><a href="https://wedocs.unep.org/handle/20.500.11822/49949">United Nations Environment Programme — 2026-09-23</a>: Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159). Notice tersimpan: Attribution-NonCommercial-NoDerivs 3.0 IGO.</li>
+</ul>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>R03 — KAZ_S_159 — REAL_HISTORICAL_METADATA</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> Tindakan mitigasi pada KAZ_S_159 telah dikonfirmasi dalam periode 2024-06-01 sampai 2026-09-30.</p>
+<p><strong>Claim category:</strong> <code>mitigation_confirmed</code>. <strong>Periode:</strong> 2024-06-01 sampai 2026-09-30.
+<strong>Observation ID:</strong> <code>tidak dipilih; scope periode</code>. <strong>Penerima:</strong> tidak ditetapkan.</p>
+<p>Bandingkan penilaian atas metadata yang disertakan dengan klaim pada judul item publisher. Apa yang dapat dinilai tanpa membaca bukti tindakan/follow-up?</p>
+<p>Metadata source: notified <code>Yes</code>, feedback <code>Yes</code>; feedback scope <code>source</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Plume ID</th>
+<th>Timestamp observasi asal</th>
+<th>Flux kg/h</th>
+<th>Standard deviation kg/h</th>
+<th>Plume notified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>82758651-76f4-4e06-b4ab-c247ce765192</code></td>
+<td>2024-06-07T08:05:04</td>
+<td>591</td>
+<td>335</td>
+<td>False</td>
+</tr>
+<tr>
+<td><code>7529d451-018f-4da3-9114-59b76c3a3bcd</code></td>
+<td>2026-06-05T07:40:02</td>
+<td>307</td>
+<td>66</td>
+<td>True</td>
+</tr>
+<tr>
+<td><code>941806b5-2afe-46ac-baac-a0230880cede</code></td>
+<td>2026-07-11T08:12:14</td>
+<td>496</td>
+<td>226</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<p>Item publisher (metadata link-only; isi laporan tidak disertakan):</p>
+<ul>
+<li><a href="https://wedocs.unep.org/handle/20.500.11822/49949">United Nations Environment Programme — 2026-09-23</a>: Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159). Notice tersimpan: Attribution-NonCommercial-NoDerivs 3.0 IGO.</li>
+</ul>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>R04 — CAN_S_002 — REAL_HISTORICAL_METADATA</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> Tindakan mitigasi pada CAN_S_002 telah dikonfirmasi dalam periode 2026-04-01 sampai 2026-07-31.</p>
+<p><strong>Claim category:</strong> <code>mitigation_confirmed</code>. <strong>Periode:</strong> 2026-04-01 sampai 2026-07-31.
+<strong>Observation ID:</strong> <code>tidak dipilih; scope periode</code>. <strong>Penerima:</strong> tidak ditetapkan.</p>
+<p>Bandingkan waktu observasi April dan tanggal item publisher Juli. Bukti apa yang diperlukan untuk menilai perubahan setelah tindakan?</p>
+<p>Metadata source: notified <code>Yes</code>, feedback <code>Yes</code>; feedback scope <code>source</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Plume ID</th>
+<th>Timestamp observasi asal</th>
+<th>Flux kg/h</th>
+<th>Standard deviation kg/h</th>
+<th>Plume notified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>35328376-5922-43c4-9076-c97af6231527</code></td>
+<td>2026-04-10T19:07:29</td>
+<td>1044</td>
+<td>370</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<p>Item publisher (metadata link-only; isi laporan tidak disertakan):</p>
+<ul>
+<li><a href="https://wedocs.unep.org/handle/20.500.11822/49811">United Nations Environment Programme — 2026-07</a>: Methane Alert and Response System (MARS) Confirmed Mitigation Action – Canada (CAN_S_002). Notice tersimpan: Attribution-NonCommercial-NoDerivs 3.0 IGO.</li>
+</ul>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>R05 — LBY_S_143 — REAL_HISTORICAL_METADATA</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> Tindakan mitigasi pada LBY_S_143 telah dikonfirmasi dalam periode 2025-12-01 sampai 2026-04-30.</p>
+<p><strong>Claim category:</strong> <code>mitigation_confirmed</code>. <strong>Periode:</strong> 2025-12-01 sampai 2026-04-30.
+<strong>Observation ID:</strong> <code>tidak dipilih; scope periode</code>. <strong>Penerima:</strong> tidak ditetapkan.</p>
+<p>Apa arti keterbatasan satu observasi terkait dan item publisher yang hanya ditautkan bagi klaim ini?</p>
+<p>Metadata source: notified <code>Yes</code>, feedback <code>Yes</code>; feedback scope <code>source</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Plume ID</th>
+<th>Timestamp observasi asal</th>
+<th>Flux kg/h</th>
+<th>Standard deviation kg/h</th>
+<th>Plume notified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>a8e4a775-4654-46b2-af16-bb9b4742e79d</code></td>
+<td>2025-12-23T10:08:43</td>
+<td>537</td>
+<td>240</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<p>Item publisher (metadata link-only; isi laporan tidak disertakan):</p>
+<ul>
+<li><a href="https://wedocs.unep.org/handle/20.500.11822/49430">United Nations Environment Programme — 2026-04</a>: Methane Alert and Response System (Mars) Confirmed Mitigation Action – Libya (LBY_S_143). Notice tersimpan: Attribution-NonCommercial-NoDerivs 3.0 IGO.</li>
+</ul>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>R06 — ARG_S_055 — REAL_HISTORICAL_METADATA</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> Tindakan mitigasi pada ARG_S_055 telah dikonfirmasi dalam periode 2023-01-01 sampai 2023-11-30.</p>
+<p><strong>Claim category:</strong> <code>mitigation_confirmed</code>. <strong>Periode:</strong> 2023-01-01 sampai 2023-11-30.
+<strong>Observation ID:</strong> <code>tidak dipilih; scope periode</code>. <strong>Penerima:</strong> tidak ditetapkan.</p>
+<p>Bagaimana Anda membatasi kesimpulan ketika konten laporan tidak disertakan dan hak penggunaan dokumen belum dikonfirmasi?</p>
+<p>Metadata source: notified <code>Yes</code>, feedback <code>Yes</code>; feedback scope <code>source</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Plume ID</th>
+<th>Timestamp observasi asal</th>
+<th>Flux kg/h</th>
+<th>Standard deviation kg/h</th>
+<th>Plume notified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>72fe0850-d0b1-4699-9d0b-00585b41b786</code></td>
+<td>2023-01-29T13:03:33</td>
+<td>3929</td>
+<td>1514</td>
+<td>True</td>
+</tr>
+<tr>
+<td><code>486ca723-1394-4bef-b4e1-fc132952995d</code></td>
+<td>2023-03-06T14:31:19</td>
+<td>1443</td>
+<td>599</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<p>Item publisher (metadata link-only; isi laporan tidak disertakan):</p>
+<ul>
+<li><a href="https://wedocs.unep.org/handle/20.500.11822/44120">United Nations Environment Programme — 2023-11</a>: Methane Alert and Response System (MARS) Confirmed Mitigation Action – Argentina (ARG_S_055). Notice tersimpan: Item-level license not displayed on the linked metadata page; rights status requires verification.</li>
+</ul>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>D01 — DEMO-P4 — DEMO_SYNTHETIC_ONLY</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> DEMO recipient A telah menerima notifikasi event DEMO-P4-OBS pada September 2026.</p>
+<p><strong>Claim category:</strong> <code>operator_notified</code>. <strong>Periode:</strong> 2026-09-01 sampai 2026-09-30.
+<strong>Observation ID:</strong> <code>DEMO-P4-OBS</code>. <strong>Penerima:</strong> DEMO recipient A.</p>
+<p>Apakah metadata ini memenuhi hubungan tanggal, event dan penerima? Apakah keaslian tanda terima telah diuji?</p>
+<p><strong>DEMO — seluruh evidence metadata berikut diciptakan proyek; tidak ada sumber atau tindakan nyata.</strong></p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;DEMO-P4-notice&quot;,
+  &quot;kind&quot;: &quot;notification&quot;,
+  &quot;claimType&quot;: &quot;operator_notified&quot;,
+  &quot;title&quot;: &quot;DEMO invented notification receipt&quot;,
+  &quot;reference&quot;: &quot;https://example.org/DEMO-notice&quot;,
+  &quot;date&quot;: &quot;2026-09-04&quot;,
+  &quot;synthetic&quot;: true,
+  &quot;observationId&quot;: &quot;DEMO-P4-OBS&quot;,
+  &quot;recipient&quot;: &quot;DEMO recipient A&quot;
+}
+</code></pre>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>D02 — DEMO-P4 — DEMO_SYNTHETIC_ONLY</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> DEMO recipient A telah menerima notifikasi event DEMO-P4-OBS pada September 2026.</p>
+<p><strong>Claim category:</strong> <code>operator_notified</code>. <strong>Periode:</strong> 2026-09-01 sampai 2026-09-30.
+<strong>Observation ID:</strong> <code>DEMO-P4-OBS</code>. <strong>Penerima:</strong> DEMO recipient A.</p>
+<p>Apakah referensi bertentangan secara eksplisit dan relevan dengan klaim ini? Apa batas inferensinya?</p>
+<p><strong>DEMO — seluruh evidence metadata berikut diciptakan proyek; tidak ada sumber atau tindakan nyata.</strong></p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;DEMO-P4-contrary&quot;,
+  &quot;kind&quot;: &quot;contradiction&quot;,
+  &quot;claimType&quot;: &quot;operator_notified&quot;,
+  &quot;title&quot;: &quot;DEMO invented explicit contrary record&quot;,
+  &quot;reference&quot;: &quot;https://example.org/DEMO-notice&quot;,
+  &quot;date&quot;: &quot;2026-09-04&quot;,
+  &quot;synthetic&quot;: true,
+  &quot;observationId&quot;: &quot;DEMO-P4-OBS&quot;,
+  &quot;recipient&quot;: &quot;DEMO recipient A&quot;
+}
+</code></pre>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>D03 — DEMO-P4 — DEMO_SYNTHETIC_ONLY</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> DEMO recipient A telah menerima notifikasi event DEMO-P4-OBS pada September 2026.</p>
+<p><strong>Claim category:</strong> <code>operator_notified</code>. <strong>Periode:</strong> 2026-09-01 sampai 2026-09-30.
+<strong>Observation ID:</strong> <code>DEMO-P4-OBS</code>. <strong>Penerima:</strong> DEMO recipient A.</p>
+<p>Bagaimana Anda menangani dua referensi relevan yang saling bertentangan?</p>
+<p><strong>DEMO — seluruh evidence metadata berikut diciptakan proyek; tidak ada sumber atau tindakan nyata.</strong></p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;DEMO-P4-notice&quot;,
+  &quot;kind&quot;: &quot;notification&quot;,
+  &quot;claimType&quot;: &quot;operator_notified&quot;,
+  &quot;title&quot;: &quot;DEMO invented notification receipt&quot;,
+  &quot;reference&quot;: &quot;https://example.org/DEMO-notice&quot;,
+  &quot;date&quot;: &quot;2026-09-04&quot;,
+  &quot;synthetic&quot;: true,
+  &quot;observationId&quot;: &quot;DEMO-P4-OBS&quot;,
+  &quot;recipient&quot;: &quot;DEMO recipient A&quot;
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;DEMO-P4-contrary&quot;,
+  &quot;kind&quot;: &quot;contradiction&quot;,
+  &quot;claimType&quot;: &quot;operator_notified&quot;,
+  &quot;title&quot;: &quot;DEMO invented explicit contrary record&quot;,
+  &quot;reference&quot;: &quot;https://example.org/DEMO-notice&quot;,
+  &quot;date&quot;: &quot;2026-09-04&quot;,
+  &quot;synthetic&quot;: true,
+  &quot;observationId&quot;: &quot;DEMO-P4-OBS&quot;,
+  &quot;recipient&quot;: &quot;DEMO recipient A&quot;
+}
+</code></pre>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>D04 — DEMO-P4 — DEMO_SYNTHETIC_ONLY</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> Tindakan mitigasi pada DEMO-P4 telah dikonfirmasi untuk event DEMO-P4-OBS pada September 2026.</p>
+<p><strong>Claim category:</strong> <code>mitigation_confirmed</code>. <strong>Periode:</strong> 2026-09-01 sampai 2026-09-30.
+<strong>Observation ID:</strong> <code>DEMO-P4-OBS</code>. <strong>Penerima:</strong> DEMO recipient A.</p>
+<p>Bagaimana batas periode memengaruhi kelayakan follow-up ini?</p>
+<p><strong>DEMO — seluruh evidence metadata berikut diciptakan proyek; tidak ada sumber atau tindakan nyata.</strong></p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;DEMO-P4-action&quot;,
+  &quot;kind&quot;: &quot;mitigation_confirmation&quot;,
+  &quot;claimType&quot;: &quot;mitigation_confirmed&quot;,
+  &quot;title&quot;: &quot;DEMO invented action and follow-up declaration&quot;,
+  &quot;reference&quot;: &quot;https://example.org/DEMO-action&quot;,
+  &quot;date&quot;: &quot;2026-09-10&quot;,
+  &quot;synthetic&quot;: true,
+  &quot;observationId&quot;: &quot;DEMO-P4-OBS&quot;,
+  &quot;action&quot;: &quot;DEMO component replacement declared by a reviewer&quot;,
+  &quot;followUpDate&quot;: &quot;2026-10-01&quot;,
+  &quot;followUpReference&quot;: &quot;https://example.org/DEMO-follow-up&quot;
+}
+</code></pre>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>D05 — DEMO-P4 — DEMO_SYNTHETIC_ONLY</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> Tindakan mitigasi pada DEMO-P4 telah dikonfirmasi untuk event DEMO-P4-OBS pada September 2026.</p>
+<p><strong>Claim category:</strong> <code>mitigation_confirmed</code>. <strong>Periode:</strong> 2026-09-01 sampai 2026-09-30.
+<strong>Observation ID:</strong> <code>DEMO-P4-OBS</code>. <strong>Penerima:</strong> DEMO recipient A.</p>
+<p>Apakah field metadata lengkap memadai untuk status ini? Usulkan label atau bukti tambahan bila diperlukan. Seluruh referensi tetap rekaan.</p>
+<p><strong>DEMO — seluruh evidence metadata berikut diciptakan proyek; tidak ada sumber atau tindakan nyata.</strong></p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;DEMO-P4-action&quot;,
+  &quot;kind&quot;: &quot;mitigation_confirmation&quot;,
+  &quot;claimType&quot;: &quot;mitigation_confirmed&quot;,
+  &quot;title&quot;: &quot;DEMO invented action and follow-up declaration&quot;,
+  &quot;reference&quot;: &quot;https://example.org/DEMO-action&quot;,
+  &quot;date&quot;: &quot;2026-09-10&quot;,
+  &quot;synthetic&quot;: true,
+  &quot;observationId&quot;: &quot;DEMO-P4-OBS&quot;,
+  &quot;action&quot;: &quot;DEMO component replacement declared by a reviewer&quot;,
+  &quot;followUpDate&quot;: &quot;2026-09-20&quot;,
+  &quot;followUpReference&quot;: &quot;https://example.org/DEMO-follow-up&quot;
+}
+</code></pre>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<h3>D06 — DEMO-P4 — DEMO_SYNTHETIC_ONLY</h3>
+<p><strong>Klaim yang diuji (bukan pernyataan fakta proyek):</strong> Tindakan mitigasi pada DEMO-P4 telah dikonfirmasi untuk event DEMO-P4-OBS pada September 2026.</p>
+<p><strong>Claim category:</strong> <code>mitigation_confirmed</code>. <strong>Periode:</strong> 2026-09-01 sampai 2026-09-30.
+<strong>Observation ID:</strong> <code>DEMO-P4-OBS</code>. <strong>Penerima:</strong> DEMO recipient A.</p>
+<p>Jika tidak ada pengukuran lanjutan dalam paket, kesimpulan apa yang dapat atau tidak dapat dibuat tentang emisi setelah tindakan?</p>
+<p><strong>DEMO — seluruh evidence metadata berikut diciptakan proyek; tidak ada sumber atau tindakan nyata.</strong>
+Tidak ada referensi atau pengukuran lanjutan yang diberikan.</p>
+<p>Penilaian awal: isi formulir; keluaran implementasi diberikan terpisah setelah jawaban awal dicatat.</p>
+<a class="back" href="#top">Kembali ke daftar isi</a></section><section id="doc-04-response-form"><h2>Formulir jawaban pakar — kosong</h2>
+<p><strong>Paket:</strong> P4-2026-10-18-v1. Isi salinan privat. Formulir ini belum merupakan hasil review.</p>
+<p>Kode reviewer: ______ · Tanggal: ______ · Versi/checksum paket: ______</p>
+<p>Keahlian yang relevan (kategori umum): ______</p>
+<p>Lingkup yang dapat dinilai: ______ · Di luar kompetensi atau akses: ______</p>
+<p>Hubungan dengan tim dan konflik (rincian privat kepada fasilitator): ______</p>
+<h3>A. Kasus, sebelum melihat keluaran aplikasi</h3>
+<p>Pilihan kesimpulan: <strong>supported / contradicted / insufficient evidence / label tidak memadai / belum dapat dinilai</strong>. Untuk setiap kasus, bedakan penilaian metadata dari keadaan fisik. Isi alasan/rujukan dan bukti berikutnya; jangan hanya mengisi label.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Kesimpulan awal dan batasnya</th>
+<th>Alasan, locator/URL dan scope</th>
+<th>Next evidence request</th>
+<th>Keyakinan kualitatif / yang belum dapat dinilai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R01</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>R02</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>R03</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>R04</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>R05</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>R06</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D01 DEMO</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D02 DEMO</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D03 DEMO</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D04 DEMO</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D05 DEMO</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D06 DEMO</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Kasus yang tidak diperiksa dan alasannya: ______</p>
+<p>Waktu/bahan/bantuan tambahan atau penyimpangan protokol: ______</p>
+<p>Catatan fase A disimpan pada tanggal/waktu: ______</p>
+<h3>B. Metode dan perbandingan setelah keluaran aplikasi diberikan</h3>
+<p>Pilihan: <strong>memadai untuk scope / perlu perbaikan / belum dapat dinilai</strong>. Jelaskan syaratnya.</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Penilaian, alasan dan perbaikan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Detection → notification → response → mitigation/follow-up tetap terpisah</td>
+<td></td>
+</tr>
+<tr>
+<td>Source, event, periode, penerima dan chronology cocok</td>
+<td></td>
+</tr>
+<tr>
+<td>Arti supported/contradicted/insufficient, termasuk D05 dan exact claim bebas</td>
+<td></td>
+</tr>
+<tr>
+<td>Flux, units, standard deviation, sampling dan non-detection</td>
+<td></td>
+</tr>
+<tr>
+<td>Next evidence request dapat ditindaklanjuti dan tidak melampaui mandat</td>
+<td></td>
+</tr>
+<tr>
+<td>Metadata publisher dibanding isi laporan dan assessment independen</td>
+<td></td>
+</tr>
+<tr>
+<td>Reviewer attestation, digest, chain dan status publik tidak disalahartikan</td>
+<td></td>
+</tr>
+<tr>
+<td>Batas manfaat pengguna/iklim dan klaim yang boleh disampaikan</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Perbedaan utama dari baseline per kasus, termasuk jika Anda setuju hanya dengan syarat tertentu: ______</p>
+<h3>C. Temuan</h3>
+<p>Salin blok ini untuk setiap temuan. Tidak ada temuan dianggap diberikan sebelum Anda mengisinya.</p>
+<pre><code class="language-text">Finding ID:
+Case/domain:
+Affected packet/code/data version:
+Severity and consequence:
+Observation and supporting locator:
+Conclusion or wording at risk:
+Required change or evidence:
+Scope that you could not evaluate:
+</code></pre>
+<h3>D. Pilihan izin — isi terpisah, kosong berarti belum diberikan</h3>
+<ul>
+<li>Partisipasi review dokumenter: setuju / tidak setuju / perlu penjelasan.</li>
+<li>Ringkasan publik hanya setelah saya menyetujui teks final: setuju / tidak setuju.</li>
+<li>Kutipan tertentu setelah saya menyetujui teks dan konteksnya: setuju / tidak setuju.</li>
+<li>Nama dan afiliasi dipublikasikan dalam teks final yang disetujui: setuju / tidak setuju.</li>
+<li>Recording: tidak dilakukan; perubahan memerlukan persetujuan terpisah.</li>
+</ul>
+<p>Identitas, kontak, signature dan bukti kompetensi dikirim privat, tidak diisi dalam artefak publik.</p>
+<h3>E. Pemeriksaan ulang setelah perbaikan</h3>
+<p>Finding ID: ______ · Versi/perubahan yang dilihat: ______ · Tanggal: ______</p>
+<p>Status: resolved / unresolved / unable to reassess. Dasar pemeriksaan ulang: ______</p>
+<p>Temuan material yang masih terbuka dan akibatnya: ______</p>
+<p>Ringkasan akhir yang diizinkan dipublikasikan (atau “tidak diizinkan”): ______</p>
+<a class="back" href="#top">Kembali ke daftar isi</a></section><section id="doc-05-source-register"><h2>Daftar sumber dan hak bahan</h2>
+<p><strong>Halaman primer diperiksa:</strong> 18 Oktober 2026. Ini pemeriksaan dokumenter oleh penulis paket; belum ada pakar manusia atau pengukuran fisik yang mengesahkan hasilnya. Halaman web dapat berubah; penilaian memakai tanggal dan snapshot yang dicatat.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Sumber</th>
+<th>Dipakai untuk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S1</td>
+<td>UNEP, <a href="https://www.unep.org/en/what-we-do/energy/methane/how-mars-works">How MARS works</a></td>
+<td>Empat tahap layanan; tindak lanjut merupakan bagian MARS yang sudah ada. Produk bukan pengganti layanan ini</td>
+</tr>
+<tr>
+<td>S2</td>
+<td>IMEO, <a href="https://methanedata.unep.org/frequently-asked-questions">Eye on Methane FAQ</a></td>
+<td>Batas deteksi/coverage, notifikasi/feedback dan interpretasi respons</td>
+</tr>
+<tr>
+<td>S3</td>
+<td>IMEO, <a href="https://methanedata.unep.org/dict-mars-plumes">MARS data dictionary</a></td>
+<td>Source/plume ID, timestamp, kg/h, standard deviation, source-level notified dan feedback</td>
+</tr>
+<tr>
+<td>S4</td>
+<td>IEA–IMEO, <a href="https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system">Responding to Satellite Notifications from MARS</a>, 4 Mei 2026</td>
+<td>Lima tahap respons, dengan verifikasi/follow-up dan dokumentasi sebagai kegiatan tersendiri; pedoman nonbinding, bukan jaminan tenggat</td>
+</tr>
+<tr>
+<td>S5</td>
+<td>IMEO, <a href="https://methanedata.unep.org/download-dataset">download catalog</a></td>
+<td>Identitas sumber data lokal; paket tidak mengambil ulang arsip atau mempromosikan snapshot baru</td>
+</tr>
+</tbody>
+</table>
+<p>S1–S4 diparafrasekan secara terbatas, tanpa menyalin artikel atau laporan lengkap. Halaman IEA menyatakan CC BY 4.0; paket tetap merujuk sumber aslinya.</p>
+<h3>Data lokal yang dibekukan</h3>
+<p>UNEP International Methane Emissions Observatory, <em>Eye on Methane / MARS detected sources and plumes</em>. Diambil 14 Oktober 2026, snapshot <code>unep-mars-675417694883</code>, arsip SHA-256 <code>675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43</code>. Empat source yang dipilih: KAZ_S_159, CAN_S_002, LBY_S_143, ARG_S_055.</p>
+<p>Lisensi data: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>, <a href="LICENSE-DATA.txt">notice asal</a>. Atribusi: Contains data from UNEP IMEO Eye on Methane / MARS. Perubahan: subset metadata diubah menjadi kasus review, sementara ID/tanggal/nilai asal dipertahankan; field feedback tetap source-level. Tidak ada konfirmasi mitigasi baru yang diinferensikan. Lisensi data tidak otomatis berlaku untuk laporan terpisah di bawah ini.</p>
+<h3>Item publisher — tautan metadata saja</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Item publisher</th>
+<th>Tanggal/notice yang tersimpan dalam casebook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KAZ_S_159</td>
+<td><a href="https://wedocs.unep.org/handle/20.500.11822/49949">UNEP item 49949</a></td>
+<td>23 September 2026; CC BY-NC-ND 3.0 IGO</td>
+</tr>
+<tr>
+<td>CAN_S_002</td>
+<td><a href="https://wedocs.unep.org/handle/20.500.11822/49811">UNEP item 49811</a></td>
+<td>Juli 2026; CC BY-NC-ND 3.0 IGO</td>
+</tr>
+<tr>
+<td>LBY_S_143</td>
+<td><a href="https://wedocs.unep.org/handle/20.500.11822/49430">UNEP item 49430</a></td>
+<td>April 2026; CC BY-NC-ND 3.0 IGO</td>
+</tr>
+<tr>
+<td>ARG_S_055</td>
+<td><a href="https://wedocs.unep.org/handle/20.500.11822/44120">UNEP item 44120</a></td>
+<td>November 2023; hak item belum dikonfirmasi</td>
+</tr>
+</tbody>
+</table>
+<p>Tanggal dan notice item di atas berasal dari inventaris lokal bertanggal 14–15 Oktober; belum diperbarui atau dijadikan izin baru pada 18 Oktober. PDF, abstract report dan kutipannya tidak disalin ke paket atau dikirim ke provider. Pakar boleh memeriksa situs asal secara manual sesuai hak/akses yang berlaku; pemeriksaan tersebut harus dibedakan dari pemeriksaan paket metadata saja.</p>
+<p>Judul publisher yang menyebut confirmed mitigation tidak diubah menjadi hasil verifikasi MethaneResponse. Sebaliknya, kekurangan bahan dalam paket bukan alasan menyatakan laporan publisher salah.</p>
+<h3>DEMO</h3>
+<p>D01–D06 dibuat oleh proyek khusus sebagai kontrol penalaran. Nama, referensi, tindakan dan follow-up seluruhnya rekaan. <code>example.org/DEMO-*</code> bukan dokumen bukti. Kasus ini tidak diatribusikan kepada UNEP, operator atau fasilitas nyata dan tidak dipakai sebagai gold benchmark P6.</p>
+<a class="back" href="#top">Kembali ke daftar isi</a></section></main><footer>Adaptasi metadata UNEP IMEO / MARS: CC BY-NC-SA 4.0. <a href="LICENSE-DATA.txt">Notice data</a> · <a href="07-version.json">Versi sumber</a>. Prototipe independen; tidak menyatakan dukungan UNEP/IEA atau validasi perbaikan fisik.</footer></body></html>

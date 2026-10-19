@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 12,
+  "scope": "Local presentation/video delivery; application behavior and frozen application evidence unchanged",
+  "video": {
+    "path": "delivery-output/story-v12/MethaneResponse-Final-Presentation-Demo-v12.mp4",
+    "sha256": "9b087b3b65f117937cb064e05a3af03030fa7ca80df8146d35efe00b067682b9",
+    "bytes": 35124445,
+    "durationSeconds": 267.92,
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "frameCount": 6698,
+    "allFrameStepsSeconds": 0.04,
+    "codec": "h264",
+    "pixelFormat": "yuv420p",
+    "technicalStatus": "pass"
+  },
+  "audio": {
+    "voiceSynthetic": true,
+    "voiceCloning": false,
+    "voice": "en-US-AvaMultilingualNeural",
+    "voiceCues": 47,
+    "speechCueSpanSeconds": 222.345,
+    "maximumScheduledInterCueGapSeconds": 2.97,
+    "maximumMeasuredVoiceQuietSeconds": 3.12,
+    "quietDefinition": "10 ms RMS below -42 dBFS for at least 400 ms; narration-only track",
+    "integratedLUFS": -18.01,
+    "truePeakDBTP": -3.56,
+    "channels": 2,
+    "sampleRate": 48000,
+    "score": "Retained original v4 instrumental, ducked under speech and faded at the new ending"
+  },
+  "captions": {
+    "groups": 96,
+    "minimumWordsPerGroup": 3,
+    "minimumDurationSeconds": 0.896959,
+    "embeddedTrackMatchesSidecar": true,
+    "sidecar": "delivery-output/story-v12/MethaneResponse-Final-Presentation-Demo-v12.mp4.en.srt"
+  },
+  "checks": {
+    "currentTimingCompositionAndProvenanceRegressions": {"passed": 16, "failed": 0},
+    "retainedV10RendererCompatibilityTests": {"passed": 6, "failed": 0},
+    "freshEncodedExportTechnicalChecks": {"passed": 18, "failed": 0},
+    "pythonSyntaxCompilation": "pass",
+    "fullStreamDecode": "pass",
+    "frameCadence": "pass",
+    "embeddedCaptionEquality": "pass",
+    "transitionFrameSamples": 42,
+    "normalSpeedAudiovisualPlaybackAndHumanListening": "not_performed",
+    "physicalPhonePlayback": "not_performed",
+    "newFullApplicationAcceptanceSuite": "not_run_application_source_unchanged"
+  },
+  "presentation": {
+    "scenes": 18,
+    "realApplicationShots": 8,
+    "realApplicationActionSeconds": 114,
+    "applicationInteractionSpeedChanged": false,
+    "openingBenefitCueSeconds": 7.68,
+    "actionGuideFontPx": 40,
+    "previousActionGuideFontPx": 22,
+    "sharedWindowIntroductions": 1,
+    "shortDissolveJoins": 4,
+    "studyDurationSeconds": 35,
+    "frameReview": "Rendered study frames, all explanatory composition stills, full-export technical contact sheet, 42 transition samples, matched v11/v12 evidence-request frames, original/changed/original result frames and closing frame inspected"
+  },
+  "provenance": {
+    "sourceId": "KAZ_S_159",
+    "snapshotId": "unep-mars-675417694883",
+    "sourceCapture": "delivery-output/story-v10/capture-master/actual-ui.webm",
+    "sourceCaptureSha256": "3de8dc98ffd4cb0e9aaf00f3a1b8838949cc84e7a04bce9257af3e0a0a4a2b98",
+    "scriptSha256": "5e56f82347f49a4f6b5e233b9e3eb7f51c3302cc79d934e90ae99bf5ba946d99",
+    "narrationSha256": "7f726a8ee13230b17fb306573a2c03576085fba977c915cc88dd3c3cc71575af",
+    "claimsLedger": "docs/demo/delivery-2026-10-19-story-v4/03-Sources-and-Claims.md",
+    "applicationEvidence": "Historical source data and actual retained local UI capture; not a live AI/chain demonstration"
+  },
+  "detailedEvidenceDirectory": "delivery-output/story-v12/",
+  "technicalReport": "delivery-output/story-v12/review-final/report.json",
+  "verificationLog": "delivery-output/story-v12/verification-summary.json",
+  "creativeStatus": "Sampled visual review performed; full normal-speed playback, human listening and audience comprehension not verified",
+  "publication": {"localFile": true, "uploaded": false, "deployed": false, "notionPublished": false},
+  "readyForUnqualifiedPublicationClaim": false
+}

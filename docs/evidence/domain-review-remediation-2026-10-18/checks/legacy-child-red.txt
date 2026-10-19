@@ -1,0 +1,23 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src/ai-review.test.ts:
+202 |   expect(auditIntegrityValid(reviewed)).toBe(true);
+203 |   expect(reviewed.bundle.intelligence?.reviewStatus).toBe('rejected');
+204 |   expect(reviewed.bundle.intelligence?.review?.parentBundleHash).toBe(draft.bundleHash);
+205 |   expect(reviewed.bundleHash).not.toBe(draft.bundleHash);
+206 |   expect(reviewed.anchored).toBe(false);
+207 |   expect(reviewed.bundle.assessmentSemantics?.basis).toBe('model_document_assessment');
+                                                           ^
+error: expect(received).toBe(expected)
+
+Expected: "model_document_assessment"
+Received: undefined
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/ai-review.test.ts:207:54)
+(fail) review is a new immutable bundle version; original stays verifiable [18.21ms]
+
+ 0 pass
+ 14 filtered out
+ 1 fail
+ 7 expect() calls
+Ran 1 test across 1 file. [73.00ms]

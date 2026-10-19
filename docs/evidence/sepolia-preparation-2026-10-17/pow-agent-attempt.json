@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17T12:48:13.628157+00:00",
+  "authorization": "user explicitly requested agent to try the PoW faucet in this turn",
+  "url": "https://sepolia-faucet.pk910.de/",
+  "issuer": "0x211334Ab7398e2A7268014c31809bd712F033afa",
+  "surface": "isolated Chromium session; browser sandbox enabled",
+  "attempts": [
+    {
+      "attempt": 1,
+      "action": "entered public issuer and clicked Start Mining",
+      "result": "Could not start session",
+      "message": "[INVALID_CAPTCHA] captcha check failed: invalid token"
+    },
+    {
+      "attempt": 2,
+      "action": "one normal page reload, entered same issuer, clicked Start Mining again",
+      "result": "Could not start session",
+      "message": "[INVALID_CAPTCHA] captcha check failed: invalid token"
+    }
+  ],
+  "miningStarted": false,
+  "rewardClaimed": false,
+  "captchaBypassAttempted": false,
+  "readOnlyChainCheck": {
+    "chainId": 11155111,
+    "balanceTestEth": "0",
+    "pendingNonce": 0,
+    "performedDuringThisAttempt": true
+  },
+  "publicDeploymentSent": false,
+  "anchorSent": false,
+  "capture": "pow-faucet-captcha-rejection.png",
+  "status": "funding blocked by rejected faucet CAPTCHA verification; P2 public integration remains incomplete"
+}

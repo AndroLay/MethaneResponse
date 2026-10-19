@@ -1,0 +1,40 @@
+{
+  "label": "DEMO — disposable local Anvil, not public Sepolia evidence",
+  "recordedAt": "2026-10-18T08:33:05.711Z",
+  "chainId": 31337,
+  "auditId": "b6829b73-10b1-48e0-b26d-a6a203b04406",
+  "bundleHash": "0x9231022cf5352fd4f2495623f3af135fb32945d4a75dae7479869d78b319cfff",
+  "receipt": {
+    "chainId": 31337,
+    "registryAddress": "0x4dbad66f2e082fb817f69fe94cc9ebbc4ddffc83",
+    "txHash": "0x88d42885a27539c160936972c1ecbe21d25a3345bd66bb63a8276d29e5dad6d5",
+    "issuer": "0x049415D9c2C11AB2aF08ae1F5c32868E819efa20",
+    "version": 1,
+    "blockNumber": "2",
+    "blockHash": "0xc11da9257ded5680dd398cb6a1246c9663e5a6008b1c7836a0e2ffbf7ecb7453",
+    "confirmations": 1
+  },
+  "independentVerifier": "VALID_LATEST then VALID_HISTORICAL",
+  "modifiedBundle": "REJECTED",
+  "forgedIssuer": "REJECTED",
+  "crashBeforeBroadcast": "SIGKILL; pending; no nonce consumed",
+  "crashAfterBroadcast": "SIGKILL; confirmed by reconciliation",
+  "revertedTransaction": "REVERTED; audit unanchored",
+  "lostRpcAcknowledgement": {
+    "transport": "real loopback RPC proxy replaces acknowledgement with HTTP 502 after Anvil acceptance",
+    "acceptedTransactions": 1,
+    "apiStatus": 502,
+    "retryStatus": 409,
+    "recovery": "reopened store; exact stored hash reconciled; one nonce consumed; independent CLI exit 0",
+    "receipt": {
+      "chainId": 31337,
+      "registryAddress": "0x4dbad66f2e082fb817f69fe94cc9ebbc4ddffc83",
+      "txHash": "0x966e26470e2e5d368dc53b29245de5bab98e310ffe34999c937cc942df4c54fd",
+      "issuer": "0x049415D9c2C11AB2aF08ae1F5c32868E819efa20",
+      "version": 3,
+      "blockNumber": "4",
+      "blockHash": "0xcaa07132965ee75290d8f7b62724fd8e4ebf9205fd5555a2a5737dad3bdf1bd5",
+      "confirmations": 1
+    }
+  }
+}

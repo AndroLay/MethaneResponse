@@ -1,0 +1,674 @@
+[
+  {
+    "claimId": "AFG_S_001-probe-1",
+    "sourceId": "AFG_S_001",
+    "split": "train",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AFG_S_001-probe-2",
+    "sourceId": "AFG_S_001",
+    "split": "train",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AFG_S_001-probe-3",
+    "sourceId": "AFG_S_001",
+    "split": "train",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AFG_S_001-probe-4",
+    "sourceId": "AFG_S_001",
+    "split": "train",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AFG_S_001-probe-5",
+    "sourceId": "AFG_S_001",
+    "split": "train",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AFG_S_001-probe-6",
+    "sourceId": "AFG_S_001",
+    "split": "train",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AGO_S_001-probe-1",
+    "sourceId": "AGO_S_001",
+    "split": "train",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AGO_S_001-probe-2",
+    "sourceId": "AGO_S_001",
+    "split": "train",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AGO_S_001-probe-3",
+    "sourceId": "AGO_S_001",
+    "split": "train",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AGO_S_001-probe-4",
+    "sourceId": "AGO_S_001",
+    "split": "train",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AGO_S_001-probe-5",
+    "sourceId": "AGO_S_001",
+    "split": "train",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AGO_S_001-probe-6",
+    "sourceId": "AGO_S_001",
+    "split": "train",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ALB_S_001-probe-1",
+    "sourceId": "ALB_S_001",
+    "split": "dev",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ALB_S_001-probe-2",
+    "sourceId": "ALB_S_001",
+    "split": "dev",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ALB_S_001-probe-3",
+    "sourceId": "ALB_S_001",
+    "split": "dev",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ALB_S_001-probe-4",
+    "sourceId": "ALB_S_001",
+    "split": "dev",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ALB_S_001-probe-5",
+    "sourceId": "ALB_S_001",
+    "split": "dev",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ALB_S_001-probe-6",
+    "sourceId": "ALB_S_001",
+    "split": "dev",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARE_S_004-probe-1",
+    "sourceId": "ARE_S_004",
+    "split": "dev",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARE_S_004-probe-2",
+    "sourceId": "ARE_S_004",
+    "split": "dev",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARE_S_004-probe-3",
+    "sourceId": "ARE_S_004",
+    "split": "dev",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARE_S_004-probe-4",
+    "sourceId": "ARE_S_004",
+    "split": "dev",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARE_S_004-probe-5",
+    "sourceId": "ARE_S_004",
+    "split": "dev",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARE_S_004-probe-6",
+    "sourceId": "ARE_S_004",
+    "split": "dev",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARG_S_001-probe-1",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARG_S_001-probe-2",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARG_S_001-probe-3",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARG_S_001-probe-4",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARG_S_001-probe-5",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARG_S_001-probe-6",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARM_S_001-probe-1",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARM_S_001-probe-2",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARM_S_001-probe-3",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARM_S_001-probe-4",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARM_S_001-probe-5",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "ARM_S_001-probe-6",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AUS_S_001-probe-1",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AUS_S_001-probe-2",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AUS_S_001-probe-3",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AUS_S_001-probe-4",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AUS_S_001-probe-5",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AUS_S_001-probe-6",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AZE_S_001-probe-1",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AZE_S_001-probe-2",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AZE_S_001-probe-3",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AZE_S_001-probe-4",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AZE_S_001-probe-5",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "AZE_S_001-probe-6",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BGD_S_001-probe-1",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BGD_S_001-probe-2",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BGD_S_001-probe-3",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BGD_S_001-probe-4",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BGD_S_001-probe-5",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BGD_S_001-probe-6",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BHR_S_001-probe-1",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BHR_S_001-probe-2",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BHR_S_001-probe-3",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BHR_S_001-probe-4",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BHR_S_001-probe-5",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BHR_S_001-probe-6",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BOL_S_001-probe-1",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BOL_S_001-probe-2",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BOL_S_001-probe-3",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BOL_S_001-probe-4",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BOL_S_001-probe-5",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BOL_S_001-probe-6",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BRA_S_001-probe-1",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BRA_S_001-probe-2",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BRA_S_001-probe-3",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BRA_S_001-probe-4",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BRA_S_001-probe-5",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BRA_S_001-probe-6",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BWA_S_001-probe-1",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BWA_S_001-probe-2",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BWA_S_001-probe-3",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BWA_S_001-probe-4",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BWA_S_001-probe-5",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "BWA_S_001-probe-6",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CAN_S_001-probe-1",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CAN_S_001-probe-2",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CAN_S_001-probe-3",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CAN_S_001-probe-4",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CAN_S_001-probe-5",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CAN_S_001-probe-6",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHL_S_001-probe-1",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHL_S_001-probe-2",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHL_S_001-probe-3",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHL_S_001-probe-4",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHL_S_001-probe-5",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHL_S_001-probe-6",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHN_S_001-probe-1",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHN_S_001-probe-2",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "verdict": "supported",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHN_S_001-probe-3",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHN_S_001-probe-4",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "verdict": "contradicted",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHN_S_001-probe-5",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  },
+  {
+    "claimId": "CHN_S_001-probe-6",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "verdict": "insufficient_evidence",
+    "basis": "explicit record equality/conflict or absent event evidence; authored reference, not human gold"
+  }
+]

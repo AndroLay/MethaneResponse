@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "feature": "P3-publication-lifecycle",
+  "createdAt": "2026-10-18T03:14:13.018043+00:00",
+  "baseRevision": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "checkout": "existing uncommitted working tree; prior changes preserved; no commit/push",
+  "status": "verified-local",
+  "p3CriteriaVerified": 6,
+  "scope": "redacted schema4 public summaries; full bundle stays private; legacy/schema3 access preserved; one Linux API writer",
+  "sourceFileCount": 274,
+  "sourceManifestSha256": "298ad16a4f97164667efa8b6e486ecc7492007f507ec4e228fb37d9140d72881",
+  "sourceManifestScope": "API/web/shared TypeScript, Python and Solidity sources, E2E and scripts, selected public configs and lockfiles; excludes secrets, runtime state, third-party reports, builds and docs",
+  "runtimes": {
+    "bun": "1.4.3",
+    "repositoryBunPin": "1.4.2",
+    "projectPython": "3.12.13",
+    "chromium": "153.0.8010.52 Arch Linux",
+    "forge": "1.8.5",
+    "anvil": "1.8.5",
+    "chromiumSandbox": true
+  },
+  "checks": {
+    "checkAll": {
+      "command": "bun --no-env-file run check:all",
+      "exitCode": 0,
+      "api": {
+        "passed": 164,
+        "files": 29,
+        "assertions": 975
+      },
+      "web": {
+        "passed": 240,
+        "files": 50,
+        "assertions": 164951
+      },
+      "verifier": {
+        "passed": 36,
+        "files": 6,
+        "assertions": 150
+      },
+      "pythonPassed": 160,
+      "foundryPassed": 4,
+      "baselineConformanceCases": 15,
+      "typecheck": "API/web/E2E passed",
+      "frozenInstall": "no changes",
+      "build": "passed",
+      "bundle": {
+        "appGzipBytes": 74957,
+        "budgetBytes": 75000,
+        "requiredRouteChunks": 8,
+        "mapPanelRawBytesAdvisory": 1122953
+      }
+    },
+    "e2e": {
+      "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium bun run test:e2e",
+      "exitCode": 0,
+      "mainPassed": 14,
+      "privatePassed": 9,
+      "totalScenarios": 23,
+      "newP3Scenarios": 4,
+      "runnerRegressionPassed": 3,
+      "runnerRegressionAssertions": 6,
+      "externalRequests": "blocked",
+      "chromiumSandbox": true
+    },
+    "publicationOperations": {
+      "command": "bun run test:publication-operations",
+      "exitCode": 0,
+      "passed": 1,
+      "assertions": 15
+    },
+    "caseworkRegression": {
+      "command": "bun run test:case-work-operations",
+      "exitCode": 0,
+      "passed": 2,
+      "assertions": 17
+    },
+    "chainRegression": {
+      "command": "bun run test:chain-integration",
+      "exitCode": 0,
+      "passed": 1,
+      "assertions": 22,
+      "network": "Anvil loopback 31337"
+    },
+    "tlsRegression": {
+      "command": "bun --no-env-file test scripts/evidence-transport.test.ts",
+      "exitCode": 0,
+      "passed": 1,
+      "assertions": 10
+    },
+    "e2eTypecheckAfterSelectorUpdate": {
+      "command": "bun --no-env-file run check:e2e",
+      "exitCode": 0
+    }
+  },
+  "review": {
+    "kind": "independent read-only implementation agent",
+    "domainExpert": false,
+    "remainingConsequentialFindingsInNarrowedRereview": 0,
+    "fixedFindings": [
+      "human parent blocked by interposed baseline",
+      "directory authority recheck inside queued commit",
+      "multiple active public records accepted",
+      "load latest human parent through normal UI",
+      "reload public current list after withdrawal"
+    ]
+  },
+  "visualReview": {
+    "desktopViewport": [
+      1280,
+      900
+    ],
+    "mobileViewport": [
+      390,
+      844
+    ],
+    "fullPageCaptures": true,
+    "inspected": true,
+    "credentialClearedBeforeCapture": true,
+    "physicalPhone": false
+  },
+  "limits": [
+    "local disposable runs, no remote deployment",
+    "offline summary digest does not verify live publication status or issuer",
+    "withdrawal cannot erase downloaded copies or blockchain",
+    "server chronology unsigned; operator backup replacement not protected",
+    "one writer, filesystem durability, no multi-instance guarantee",
+    "cross-request pagination not frozen",
+    "schema2 envelope needs roll-forward; old P2 binary cannot read it",
+    "no expert/pilot/provider evaluation results; P4-P6 pending",
+    "Sepolia deployment and receipt still pending"
+  ],
+  "artifacts": {
+    "DEMO-publication-desktop.png": "2cec5de2a47f478146a3117afd41173cb9eebaa1e62bfec083fd20efc93f878d",
+    "baseline-conformance.json": "395414c365ce4e322596048dce622836e49132a917d3cdd1fea0440454f726a8",
+    "DEMO-publication-mobile.png": "6412bc015a84e64abb2d031a0b7254dcec3609299f42736acd7ef1a390a45926"
+  }
+}

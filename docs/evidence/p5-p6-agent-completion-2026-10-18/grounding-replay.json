@@ -1,0 +1,24 @@
+{
+  "toolSha256": "90f560abbd35b8fe21745845ee72d57b4b06a5c7df9b66cf731f08da9eb631b1",
+  "providerCalls": 0,
+  "results": [
+    {
+      "predictionFile": "diagnostic-rules.json",
+      "exitCode": 0,
+      "deepEqualToRetainedGrounding": true,
+      "assessmentCount": 72
+    },
+    {
+      "predictionFile": "diagnostic-agent-1.json",
+      "exitCode": 0,
+      "deepEqualToRetainedGrounding": true,
+      "assessmentCount": 72
+    },
+    {
+      "predictionFile": "diagnostic-agent-2.json",
+      "exitCode": 0,
+      "deepEqualToRetainedGrounding": true,
+      "assessmentCount": 72
+    }
+  ]
+}

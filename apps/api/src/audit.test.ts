@@ -9,15 +9,16 @@ import { loadCasebook } from './casebook';
 import { MemoryAuditStore } from './store';
 
 describe('conservative evidence baseline', () => {
+  const demoScope = { startDate: '2026-08-01', endDate: '2026-09-30', recipient: 'DEMO facility operator' };
   test('notification is not repair confirmation', () => {
     expect(assess(DEMO_SOURCES[0], 'mitigation_confirmed').result).toBe('insufficient_evidence');
-    expect(assess(DEMO_SOURCES[0], 'operator_notified').result).toBe('supported');
+    expect(assess(DEMO_SOURCES[0], 'operator_notified', demoScope).result).toBe('supported');
   });
   test('synthetic explicit contrary record can yield contradiction', () => {
-    expect(assess(DEMO_SOURCES[1], 'operator_notified').result).toBe('contradicted');
+    expect(assess(DEMO_SOURCES[1], 'operator_notified', demoScope).result).toBe('contradicted');
   });
   test('synthetic confirmation must be typed confirmation', () => {
-    expect(assess(DEMO_SOURCES[1], 'mitigation_confirmed').result).toBe('supported');
+    expect(assess(DEMO_SOURCES[1], 'mitigation_confirmed', demoScope).result).toBe('supported');
   });
   test('claim-specific evidence cannot support a different claim type', () => {
     const detectionTaggedForNotification = {

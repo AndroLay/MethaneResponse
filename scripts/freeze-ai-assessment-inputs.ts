@@ -17,6 +17,10 @@ type FrozenClaimDigest = {
   claimId: string;
   claimTextSha256: string;
   assessmentInputSha256: string;
+  sourceId?: string;
+  split?: 'train' | 'dev' | 'test';
+  claimType?: string;
+  documentIds?: string[];
 };
 
 export type FrozenAssessmentInputManifest = {
@@ -24,6 +28,7 @@ export type FrozenAssessmentInputManifest = {
   inputFileSha256: string;
   claimCount: number;
   claims: FrozenClaimDigest[];
+  partitionFreeze: 'not_supplied' | 'source_and_document_disjoint';
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -48,12 +53,15 @@ function requireOwnerOnly(mode: number, label: string) {
   }
 }
 
-export function freezeAssessmentInputManifest(rows: unknown[], rawInput: Uint8Array): FrozenAssessmentInputManifest {
+export function freezeAssessmentInputManifest(rows: unknown[], rawInput: Uint8Array, options: { requirePartitions?: boolean } = {}): FrozenAssessmentInputManifest {
   if (rawInput.byteLength < 1 || rawInput.byteLength > MAX_INPUT_BYTES) {
     throw new Error(`Candidate inputs must be between 1 byte and ${MAX_INPUT_BYTES} bytes`);
   }
   if (!rows.length || rows.length > MAX_CLAIMS) throw new Error(`Candidate file must contain 1 to ${MAX_CLAIMS} claims`);
   const seen = new Set<string>();
+  const partitions = options.requirePartitions || rows.some(row => isRecord(row) && row.split !== undefined);
+  const sourceSplits = new Map<string, string>();
+  const documentSplits = new Map<string, string>();
   const claims = rows.map((row): FrozenClaimDigest => {
     if (!isRecord(row) || typeof row.claimId !== 'string' || !ID.test(row.claimId)) throw new Error('Candidate row requires a valid claimId');
     if (seen.has(row.claimId)) throw new Error(`Duplicate claimId: ${row.claimId}`);
@@ -61,6 +69,19 @@ export function freezeAssessmentInputManifest(rows: unknown[], rawInput: Uint8Ar
     const hashes = assessmentInputHashes(input);
     if (!hashes) throw new Error(`An exact bounded claim statement is required for ${row.claimId}`);
     seen.add(row.claimId);
+    if (partitions) {
+      if (typeof row.split !== 'string' || !['train', 'dev', 'test'].includes(row.split) || row.synthetic !== false) {
+        throw new Error('A real, non-synthetic train/dev/test partition is required for every row');
+      }
+      const split = row.split as 'train' | 'dev' | 'test';
+      if (sourceSplits.has(input.sourceId) && sourceSplits.get(input.sourceId) !== split) throw new Error('Source-disjoint split violation');
+      sourceSplits.set(input.sourceId, split);
+      for (const document of input.documents) {
+        if (documentSplits.has(document.id) && documentSplits.get(document.id) !== split) throw new Error('Document-disjoint split violation');
+        documentSplits.set(document.id, split);
+      }
+      return { claimId: row.claimId, ...hashes, sourceId: input.sourceId, split, claimType: input.claimType, documentIds: input.documents.map(d => d.id) };
+    }
     return { claimId: row.claimId, ...hashes };
   });
   return {
@@ -68,6 +89,7 @@ export function freezeAssessmentInputManifest(rows: unknown[], rawInput: Uint8Ar
     inputFileSha256: createHash('sha256').update(rawInput).digest('hex'),
     claimCount: claims.length,
     claims,
+    partitionFreeze: partitions ? 'source_and_document_disjoint' : 'not_supplied',
   };
 }
 
@@ -104,13 +126,13 @@ function parseCandidateJsonl(text: string) {
   return rows;
 }
 
-export async function writeFrozenAssessmentInputManifest(inputPath: string, outputPath: string) {
+export async function writeFrozenAssessmentInputManifest(inputPath: string, outputPath: string, options: { requirePartitions?: boolean } = {}) {
   const source = await resolvePrivateInput(inputPath);
   const target = await resolvePrivateOutput(outputPath);
   if (source === target) throw new Error('Digest output must not overwrite candidate inputs');
   const raw = await readFile(source);
   const text = new TextDecoder('utf-8', { fatal: true }).decode(raw);
-  const manifest = freezeAssessmentInputManifest(parseCandidateJsonl(text), raw);
+  const manifest = freezeAssessmentInputManifest(parseCandidateJsonl(text), raw, options);
   const payload = `${JSON.stringify(manifest, null, 2)}\n`;
   const parent = dirname(target);
   const scratch = await mkdtemp(join(parent, '.methane-response-input-digests-'));
@@ -146,19 +168,21 @@ function parseArguments(args: string[]) {
     const separator = argument.indexOf('=');
     if (!argument.startsWith('--') || separator < 0) throw new Error('Expected --input=PATH and --output=PATH');
     const key = argument.slice(2, separator);
-    if (!['input', 'output'].includes(key) || values.has(key)) throw new Error('Expected one --input and one --output option');
+    if (!['input', 'output', 'require-partitions'].includes(key) || values.has(key)) throw new Error('Unknown or duplicate freeze option');
     values.set(key, argument.slice(separator + 1));
   }
   const input = values.get('input');
   const output = values.get('output');
   if (!input || !output) throw new Error('Both --input and --output are required');
-  return { input, output };
+  const partitionFlag = values.get('require-partitions');
+  if (partitionFlag !== undefined && partitionFlag !== 'yes') throw new Error('--require-partitions must be yes');
+  return { input, output, requirePartitions: partitionFlag === 'yes' };
 }
 
 async function main() {
-  const { input, output } = parseArguments(process.argv.slice(2));
-  const manifest = await writeFrozenAssessmentInputManifest(input, output);
-  process.stdout.write(`Frozen ${manifest.claimCount} assessment input digests. The output contains hashes only and no provider was called.\n`);
+  const { input, output, requirePartitions } = parseArguments(process.argv.slice(2));
+  const manifest = await writeFrozenAssessmentInputManifest(input, output, { requirePartitions });
+  process.stdout.write(`Frozen ${manifest.claimCount} assessment input digests and any partition identifiers. No claim/excerpt text is copied and no provider was called.\n`);
 }
 
 if (import.meta.main) {

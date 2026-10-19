@@ -2,13 +2,17 @@
   "name": "methane-response",
   "private": true,
   "version": "0.1.0",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev:web": "cd apps/web && bun run dev",
     "dev:api": "cd apps/api && bun run dev",
     "build:web": "cd apps/web && bun run build",
-    "check": "cd apps/api && bun run typecheck && cd ../web && bun run typecheck && cd ../.. && bun run check:e2e",
+    "check": "cd apps/api && bun run typecheck && cd ../web && bun run typecheck && cd ../.. && bun run check:e2e && bun run check:evaluation",
     "check:e2e": "tsc --project tsconfig.e2e.json",
+    "check:evaluation": "tsc --project scripts/tsconfig.evaluation.json",
     "test:api": "cd apps/api && bun test",
     "test:web": "cd apps/web && bun test",
     "test:e2e": "bash scripts/run-e2e.sh",
@@ -16,13 +20,18 @@
     "measure:map-performance": "bun scripts/measure-map-performance.ts",
     "check:web-bundle": "bun scripts/check-web-bundle.ts",
     "freeze:ai-inputs": "bun scripts/freeze-ai-assessment-inputs.ts",
-    "test:verifier": "bun test scripts/verify-audit.test.ts scripts/run-ai-benchmark.test.ts scripts/freeze-ai-assessment-inputs.test.ts scripts/deployment-config.test.ts scripts/map-performance-utils.test.ts scripts/check-local.test.ts",
+    "test:verifier": "bun test scripts/verify-audit.test.ts scripts/run-ai-benchmark.test.ts scripts/freeze-ai-assessment-inputs.test.ts scripts/verify-agent-diagnostic.test.ts scripts/deployment-config.test.ts scripts/map-performance-utils.test.ts scripts/check-local.test.ts scripts/product-value-evaluation.test.ts",
     "test:local-gates": "bun test scripts/check-local.test.ts",
+    "test:case-work-operations": "bun --no-env-file scripts/run-case-work-operations.ts",
+    "test:publication-operations": "bun --no-env-file scripts/run-publication-operations.ts",
+    "test:integration-roles": "bun --no-env-file scripts/run-integration-roles.ts",
     "test:data": "cd services/data-pipeline && uv run --locked --extra research pytest",
     "evaluate:baseline": "cd services/data-pipeline && uv run python evaluate_baseline.py --output reports/baseline-evaluation.json",
     "test:contracts": "cd contracts && forge test",
     "check:all": "bash scripts/check-local.sh",
-    "verify:audit": "bun scripts/verify-audit.ts"
+    "verify:audit": "bun scripts/verify-audit.ts",
+    "test:chain-integration": "bun --no-env-file scripts/run-chain-integration.ts",
+    "evaluate:product-value": "bun --no-env-file scripts/product-value-evaluation.ts"
   },
   "engines": {
     "bun": ">=1.2.0"

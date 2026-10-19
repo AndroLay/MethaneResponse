@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "scope": "local_engineering_and_agent_evaluation_not_human_study_or_live_provider",
+  "sourceArchiveSha256": "6bd8f2d8dd4341fd1546f29673470581d81857158cf473fee513b3ee09a99633",
+  "checkAll": {
+    "command": "bun run check:all",
+    "exitCode": 0,
+    "apiTests": 193,
+    "webTests": 247,
+    "verifierToolingTests": 41,
+    "pythonTests": 190,
+    "contractTests": 4,
+    "totalTests": 675,
+    "logSha256": "ea3e66ea529fc193a6d049b3f4a029cc1ca4d0efd9edef3bda71470969153d1a",
+    "appGzipBytes": 71689,
+    "requiredRouteChunks": 8
+  },
+  "sourceBindingsVerified": 290,
+  "dataBindingsVerified": 139,
+  "zipCrcCheck": "passed",
+  "localPacketLinks": "valid",
+  "historicalArtifactHashesUnchanged": {
+    "P4v1": 31,
+    "P4v2": 51
+  },
+  "publicSummaryProjection": "unchanged",
+  "agentAppWalkthrough": {
+    "agentCount": 1,
+    "KAZTasks": [
+      "T1",
+      "T2",
+      "T3",
+      "T4"
+    ],
+    "ARGTasks": [
+      "T1",
+      "T2"
+    ],
+    "manualWorkflowRun": false,
+    "humanSessions": 0,
+    "timingCollected": false
+  },
+  "agentAnalyzerIngestion": {
+    "path": "p5-agent-retrospective-analysis.json",
+    "retrospectiveOnly": true,
+    "recordedKAZTasks": 4,
+    "additionalARGChecksInWalkthrough": 2,
+    "humanPilotGatePassed": false,
+    "exitFormRecorded": false
+  },
+  "agentMetadataClaims": {
+    "claims": 12,
+    "sources": 4,
+    "provisionalLabels": 2,
+    "humanGoldClaims": 0,
+    "liveProviderCalls": 0,
+    "independentBenchmarkEligible": false
+  },
+  "independentAgentReview": {
+    "initialFindings": 5,
+    "finalAdditionalFindings": 3,
+    "additionalFindingsFixedAndReadOnlyConfirmed": 3,
+    "fullGateRerunByReviewer": false
+  },
+  "researchStatus": {
+    "P4": "waiting_at_user_direction",
+    "P5": "human_pilot_pending",
+    "P6": "rights_independent_gold_provider_benchmark_pending"
+  }
+}

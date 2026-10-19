@@ -1,5 +1,7 @@
 # Desain Repository MethaneResponse
 
+> **Proposal repository terdahulu.** Dokumen ini menjelaskan rancangan saat riset awal, bukan susunan kode saat ini. Baca [peta repo](../repository-map.md), [arsitektur aktif](../architecture/overview.md) dan [ADR file lokal](../architecture/decisions/2026-10-15-local-prototype-no-database.md).
+
 **Tanggal:** 11 Oktober 2026 (WITA)  
 **Status:** starter telah diimpor ke root repository; fondasi demo sintetis ada, integrasi runtime belum diverifikasi  
 **Ruang kerja proyek:** `/home/andro/dev/projects/Devpost/iEEE-Methane-response`  

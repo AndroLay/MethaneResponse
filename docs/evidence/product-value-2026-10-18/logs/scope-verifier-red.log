@@ -1,0 +1,44 @@
+bun test v1.4.3 (c6da4a4d3)
+
+apps/web/src/assessment-scope.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module './assessment-scope' from '/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/web/src/assessment-scope.test.ts'
+-------------------------------
+
+
+apps/web/src/imported-audit-verifier.test.ts:
+14 | 
+15 | test('strict context verification requires a complete report instead of a raw or legacy bundle', async () => {
+16 |   const audit = makeAudit();
+17 |   for (const report of [audit, { latestAudit: audit }]) {
+18 |     const result = await verifyImportedAuditReport(report, { requireExportContext: true });
+19 |     expect(result.localDigest).toBe('invalid');
+                                    ^
+error: expect(received).toBe(expected)
+
+Expected: "invalid"
+Received: "valid"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/web/src/imported-audit-verifier.test.ts:19:32)
+(fail) strict context verification requires a complete report instead of a raw or legacy bundle [18.81ms]
+(pass) strict context verification accepts the app export and rejects changed outer context [3.56ms]
+(pass) export observation timestamps must match the committed UTC day [6.58ms]
+(pass) new semantics reject a rehashed physical-verification claim while legacy bundle bytes remain valid [0.94ms]
+(pass) verifies a valid exported audit bundle and marks wrapper context as unsigned [0.36ms]
+(pass) verifies the current v3 human-reviewed report revision without claiming chain proof [16.81ms]
+(pass) verifies a historical v3 report whose document digest predates the rights declaration field [1.01ms]
+(pass) validates open-license declaration shape independently of the bundle hash [1.51ms]
+(pass) rejects an edited audit bundle even when its outer report still parses [0.32ms]
+(pass) rejects changed exported observations when the report includes an export checksum [0.33ms]
+(pass) rejects report summary fields that no longer match the hashed bundle [0.19ms]
+(pass) keeps a locally valid digest separate from receipt metadata and live chain verification [0.40ms]
+(pass) flags receipt metadata mismatch without misreporting the independently valid bundle hash [0.37ms]
+(pass) rejects malformed input instead of treating a missing bundle as a valid report [0.10ms]
+
+ 13 pass
+ 2 fail
+ 1 error
+ 24 expect() calls
+Ran 15 tests across 2 files. [253.00ms]

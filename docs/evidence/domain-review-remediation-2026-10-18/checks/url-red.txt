@@ -1,0 +1,23 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src/human-assessment-api.test.ts:
+22 |   process.env.REVIEWER_AUTH_SECRET = secret;
+23 |   try {
+24 |     for (const field of ['reference', 'followUpReference'] as const) {
+25 |       for (const value of ['     ', 'not a url', 'https://', 'http://example.org/report', 'https://user:password@example.org/report']) {
+26 |         const body = { ...input, evidence: [{ ...input.evidence[0], [field]: value }] };
+27 |         expect(() => HumanAssessmentInput.safeParse(body)).not.toThrow();
+                                                                    ^
+error: expect(received).not.toThrow()
+
+Error name: "TypeError"
+Error message: "Invalid URL"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/api/src/human-assessment-api.test.ts:27:64)
+(fail) malformed primary and follow-up references are validation errors, never exceptions or HTTP 500 [8.07ms]
+
+ 0 pass
+ 3 filtered out
+ 1 fail
+ 1 expect() calls
+Ran 1 test across 1 file. [261.00ms]

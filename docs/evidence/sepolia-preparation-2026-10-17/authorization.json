@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17T12:32:57.934405+00:00",
+  "authorization": "user explicitly approved all three proposed operations in this session",
+  "reviewSha256": "0bd021d6d91fa8602de37bbef842b8e57ddf8b48ae88c1534bfce69e6267403d",
+  "chainId": 11155111,
+  "issuer": "0x211334Ab7398e2A7268014c31809bd712F033afa",
+  "registryAddress": "0x0F78a787142abF509b6A7178bA1bfDfb9c8b202d",
+  "auditId": "52d1031b-bdf0-4bc7-803c-8a59040975ab",
+  "bundleHash": "0xc8bf622d1c87752a6d76dd5cca0c2e1897e78a1d017fe7b35f1b85951f82d442",
+  "approvedOperations": [
+    "one free 0.1 Sepolia test ETH faucet claim from Chain Platform",
+    "one EvidenceRegistry deployment",
+    "one source_detected baseline anchor via durable-intent API"
+  ],
+  "feeLimits": {
+    "currency": "Sepolia test ETH",
+    "maxFeePerGasWei": "1000000000",
+    "combinedGasLimitCeiling": "4000000",
+    "combinedMaxNetworkFeeWei": "4000000000000000",
+    "combinedMaxNetworkFeeTestEth": "0.004",
+    "fundingRequestTestEth": "0.01",
+    "currentSuggestedMaxFeePerGasWei": "38",
+    "currentSuggestedMaxPriorityFeePerGasWei": "2",
+    "currentSuggestedFeeWithinCeiling": true,
+    "transferValueWei": "0",
+    "confirmations": 2
+  },
+  "mainnetOrRealMoneyAuthorized": false,
+  "reapprovalRequiredForSameScope": false,
+  "status": "authorized; awaiting successful faucet funding"
+}

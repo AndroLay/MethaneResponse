@@ -1,5 +1,7 @@
 # MethaneResponse MVP Completion Implementation Plan
 
+> **Arsip rencana 2026-10-12.** Pekerjaan dan instruksi di bawah merekam revisi asal. Untuk kondisi sekarang gunakan [status aktif](../../release/current-implementation-status.md) dan [arsitektur](../../architecture/overview.md); asumsi database digantikan [ADR file lokal](../../architecture/decisions/2026-10-15-local-prototype-no-database.md). [Indeks rencana](README.md).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Deliver a locally runnable, independently reviewable MethaneResponse MVP that audits its three attributed UNEP MARS cases, preserves audit revisions, and reports integrity receipts without claiming physical mitigation.

@@ -1,0 +1,799 @@
+{
+  "packetVersion": "P4-2026-10-18-v2",
+  "dataset": {
+    "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+    "dataset": "Eye on Methane / MARS detected sources and plumes",
+    "catalogUrl": "https://methanedata.unep.org/download-dataset",
+    "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+    "retrievedAt": "2026-10-14T06:10:12+00:00",
+    "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "snapshotId": "unep-mars-675417694883",
+    "license": "CC BY-NC-SA 4.0",
+    "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+    "localFileName": "sources_plumes_csv.zip"
+  },
+  "limitations": [
+    "Selected historical metadata, not a live feed or independent physical verification.",
+    "DEMO cases and example.org URLs are invented; no document was retrieved.",
+    "Publisher reports remain link-only; no report text or new rights clearance is included.",
+    "These are domain review prompts, not gold labels or an independent benchmark."
+  ],
+  "cases": [
+    {
+      "id": "R01",
+      "kind": "REAL_HISTORICAL_METADATA",
+      "sourceId": "KAZ_S_159",
+      "claimType": "source_detected",
+      "claimTextForReview": "MARS mencatat observasi methane pada KAZ_S_159 dalam periode 2024-06-07 sampai 2024-06-07.",
+      "scope": {
+        "startDate": "2024-06-07",
+        "endDate": "2024-06-07",
+        "observationId": "82758651-76f4-4e06-b4ab-c247ce765192"
+      },
+      "question": "Apakah record yang diberikan mendukung deteksi pada kejadian ini? Jelaskan batas atribusi dan uncertainty.",
+      "flags": {
+        "notified": "Yes",
+        "feedback": "Yes",
+        "feedbackScope": "source"
+      },
+      "observations": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "date": "2024-06-07T08:05:04",
+          "fluxKgHr": 591,
+          "uncertaintyKgHr": 335,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": false,
+          "actionable": "No",
+          "tile": "ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "date": "2026-06-05T07:40:02",
+          "fluxKgHr": 307,
+          "uncertaintyKgHr": 66,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "date": "2026-07-11T08:12:14",
+          "fluxKgHr": 496,
+          "uncertaintyKgHr": 226,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "evidence": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2024-06-07T08:05:04",
+          "synthetic": false
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-06-05T07:40:02",
+          "synthetic": false
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-07-11T08:12:14",
+          "synthetic": false
+        },
+        {
+          "id": "KAZ_S_159:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "publisherItems": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-09-23",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "kind": "REAL_HISTORICAL_METADATA",
+      "sourceId": "KAZ_S_159",
+      "claimType": "operator_notified",
+      "claimTextForReview": "Operator fasilitas KAZ_S_159 telah menerima notifikasi kejadian 82758651-76f4-4e06-b4ab-c247ce765192 pada 2024-06-07.",
+      "scope": {
+        "startDate": "2024-06-07",
+        "endDate": "2024-06-07",
+        "observationId": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "recipient": "Operator yang dimaksud belum diidentifikasi dalam paket"
+      },
+      "question": "Apakah flag source-level cukup untuk menyatakan operator tertentu menerima notifikasi kejadian ini? Sebutkan informasi yang perlu ditambahkan.",
+      "flags": {
+        "notified": "Yes",
+        "feedback": "Yes",
+        "feedbackScope": "source"
+      },
+      "observations": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "date": "2024-06-07T08:05:04",
+          "fluxKgHr": 591,
+          "uncertaintyKgHr": 335,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": false,
+          "actionable": "No",
+          "tile": "ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "date": "2026-06-05T07:40:02",
+          "fluxKgHr": 307,
+          "uncertaintyKgHr": 66,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "date": "2026-07-11T08:12:14",
+          "fluxKgHr": 496,
+          "uncertaintyKgHr": 226,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "evidence": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2024-06-07T08:05:04",
+          "synthetic": false
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-06-05T07:40:02",
+          "synthetic": false
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-07-11T08:12:14",
+          "synthetic": false
+        },
+        {
+          "id": "KAZ_S_159:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "publisherItems": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-09-23",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "id": "R03",
+      "kind": "REAL_HISTORICAL_METADATA",
+      "sourceId": "KAZ_S_159",
+      "claimType": "mitigation_confirmed",
+      "claimTextForReview": "Tindakan mitigasi pada KAZ_S_159 telah dikonfirmasi dalam periode 2024-06-01 sampai 2026-09-30.",
+      "scope": {
+        "startDate": "2024-06-01",
+        "endDate": "2026-09-30"
+      },
+      "question": "Bandingkan penilaian atas metadata yang disertakan dengan klaim pada judul item publisher. Apa yang dapat dinilai tanpa membaca bukti tindakan/follow-up?",
+      "flags": {
+        "notified": "Yes",
+        "feedback": "Yes",
+        "feedbackScope": "source"
+      },
+      "observations": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "date": "2024-06-07T08:05:04",
+          "fluxKgHr": 591,
+          "uncertaintyKgHr": 335,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": false,
+          "actionable": "No",
+          "tile": "ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "date": "2026-06-05T07:40:02",
+          "fluxKgHr": 307,
+          "uncertaintyKgHr": 66,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "date": "2026-07-11T08:12:14",
+          "fluxKgHr": 496,
+          "uncertaintyKgHr": 226,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "evidence": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2024-06-07T08:05:04",
+          "synthetic": false
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-06-05T07:40:02",
+          "synthetic": false
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-07-11T08:12:14",
+          "synthetic": false
+        },
+        {
+          "id": "KAZ_S_159:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "publisherItems": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-09-23",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "id": "R04",
+      "kind": "REAL_HISTORICAL_METADATA",
+      "sourceId": "CAN_S_002",
+      "claimType": "mitigation_confirmed",
+      "claimTextForReview": "Tindakan mitigasi pada CAN_S_002 telah dikonfirmasi dalam periode 2026-04-01 sampai 2026-07-31.",
+      "scope": {
+        "startDate": "2026-04-01",
+        "endDate": "2026-07-31"
+      },
+      "question": "Bandingkan waktu observasi April dan tanggal item publisher Juli. Bukti apa yang diperlukan untuk menilai perubahan setelah tindakan?",
+      "flags": {
+        "notified": "Yes",
+        "feedback": "Yes",
+        "feedbackScope": "source"
+      },
+      "observations": [
+        {
+          "id": "35328376-5922-43c4-9076-c97af6231527",
+          "date": "2026-04-10T19:07:29",
+          "fluxKgHr": 1044,
+          "uncertaintyKgHr": 370,
+          "fluxUnit": "kg/h",
+          "satellite": "EMIT - NASA",
+          "lat": 51.48142,
+          "lon": -112.40669,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "EMIT_L1B_RAD_001_20260410T190729_2610012_006",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "evidence": [
+        {
+          "id": "35328376-5922-43c4-9076-c97af6231527",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EMIT - NASA plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-04-10T19:07:29",
+          "synthetic": false
+        },
+        {
+          "id": "CAN_S_002:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "publisherItems": [
+        {
+          "title": "Methane Alert and Response System (MARS) Confirmed Mitigation Action – Canada (CAN_S_002)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49811",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-07",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "id": "R05",
+      "kind": "REAL_HISTORICAL_METADATA",
+      "sourceId": "LBY_S_143",
+      "claimType": "mitigation_confirmed",
+      "claimTextForReview": "Tindakan mitigasi pada LBY_S_143 telah dikonfirmasi dalam periode 2025-12-01 sampai 2026-04-30.",
+      "scope": {
+        "startDate": "2025-12-01",
+        "endDate": "2026-04-30"
+      },
+      "question": "Apa arti keterbatasan satu observasi terkait dan item publisher yang hanya ditautkan bagi klaim ini?",
+      "flags": {
+        "notified": "Yes",
+        "feedback": "Yes",
+        "feedbackScope": "source"
+      },
+      "observations": [
+        {
+          "id": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+          "date": "2025-12-23T10:08:43",
+          "fluxKgHr": 537,
+          "uncertaintyKgHr": 240,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 29.04183,
+          "lon": 20.78159,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000169963_20251223T100843Z_002_V010505_20251224T002720Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "evidence": [
+        {
+          "id": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2025-12-23T10:08:43",
+          "synthetic": false
+        },
+        {
+          "id": "LBY_S_143:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "publisherItems": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action – Libya (LBY_S_143)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49430",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-04",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "id": "R06",
+      "kind": "REAL_HISTORICAL_METADATA",
+      "sourceId": "ARG_S_055",
+      "claimType": "mitigation_confirmed",
+      "claimTextForReview": "Tindakan mitigasi pada ARG_S_055 telah dikonfirmasi dalam periode 2023-01-01 sampai 2023-11-30.",
+      "scope": {
+        "startDate": "2023-01-01",
+        "endDate": "2023-11-30"
+      },
+      "question": "Bagaimana Anda membatasi kesimpulan ketika konten laporan tidak disertakan dan hak penggunaan dokumen belum dikonfirmasi?",
+      "flags": {
+        "notified": "Yes",
+        "feedback": "Yes",
+        "feedbackScope": "source"
+      },
+      "observations": [
+        {
+          "id": "72fe0850-d0b1-4699-9d0b-00585b41b786",
+          "date": "2023-01-29T13:03:33",
+          "fluxKgHr": 3929,
+          "uncertaintyKgHr": 1514,
+          "fluxUnit": "kg/h",
+          "satellite": "EMIT - NASA",
+          "lat": -38.74681,
+          "lon": -68.19767,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "EMIT_L1B_RAD_001_20230129T130333_2302908_047",
+          "detectionInstitution": "NASA JPL EMIT",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "486ca723-1394-4bef-b4e1-fc132952995d",
+          "date": "2023-03-06T14:31:19",
+          "fluxKgHr": 1443,
+          "uncertaintyKgHr": 599,
+          "fluxUnit": "kg/h",
+          "satellite": "PRISMA - ASI",
+          "lat": -38.74681,
+          "lon": -68.19767,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "PRS_L1_STD_OFFL_20230306143119_20230306143123_0001",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "evidence": [
+        {
+          "id": "72fe0850-d0b1-4699-9d0b-00585b41b786",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EMIT - NASA plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2023-01-29T13:03:33",
+          "synthetic": false
+        },
+        {
+          "id": "486ca723-1394-4bef-b4e1-fc132952995d",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS PRISMA - ASI plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2023-03-06T14:31:19",
+          "synthetic": false
+        },
+        {
+          "id": "ARG_S_055:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "publisherItems": [
+        {
+          "title": "Methane Alert and Response System (MARS) Confirmed Mitigation Action – Argentina (ARG_S_055)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/44120",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2023-11",
+          "license": "Item-level license not displayed on the linked metadata page; rights status requires verification",
+          "contentIncluded": false
+        }
+      ]
+    },
+    {
+      "id": "D01",
+      "kind": "DEMO_SYNTHETIC_ONLY",
+      "sourceId": "DEMO-P4",
+      "claimType": "operator_notified",
+      "claimTextForReview": "DEMO recipient A telah menerima notifikasi event DEMO-P4-OBS pada September 2026.",
+      "scope": {
+        "startDate": "2026-09-01",
+        "endDate": "2026-09-30",
+        "observationId": "DEMO-P4-OBS",
+        "recipient": "DEMO recipient A"
+      },
+      "question": "Apakah metadata ini memenuhi hubungan tanggal, event dan penerima? Apakah keaslian tanda terima telah diuji?",
+      "flags": {
+        "notified": "DEMO only",
+        "feedback": "DEMO only",
+        "feedbackScope": "source"
+      },
+      "observations": [],
+      "evidence": [
+        {
+          "id": "DEMO-P4-notice",
+          "kind": "notification",
+          "claimType": "operator_notified",
+          "title": "DEMO invented notification receipt",
+          "reference": "https://example.org/DEMO-notice",
+          "date": "2026-09-04",
+          "synthetic": true,
+          "observationId": "DEMO-P4-OBS",
+          "recipient": "DEMO recipient A"
+        }
+      ],
+      "publisherItems": []
+    },
+    {
+      "id": "D02",
+      "kind": "DEMO_SYNTHETIC_ONLY",
+      "sourceId": "DEMO-P4",
+      "claimType": "operator_notified",
+      "claimTextForReview": "DEMO recipient A telah menerima notifikasi event DEMO-P4-OBS pada September 2026.",
+      "scope": {
+        "startDate": "2026-09-01",
+        "endDate": "2026-09-30",
+        "observationId": "DEMO-P4-OBS",
+        "recipient": "DEMO recipient A"
+      },
+      "question": "Apakah referensi bertentangan secara eksplisit dan relevan dengan klaim ini? Apa batas inferensinya?",
+      "flags": {
+        "notified": "DEMO only",
+        "feedback": "DEMO only",
+        "feedbackScope": "source"
+      },
+      "observations": [],
+      "evidence": [
+        {
+          "id": "DEMO-P4-contrary",
+          "kind": "contradiction",
+          "claimType": "operator_notified",
+          "title": "DEMO invented explicit contrary record",
+          "reference": "https://example.org/DEMO-notice",
+          "date": "2026-09-04",
+          "synthetic": true,
+          "observationId": "DEMO-P4-OBS",
+          "recipient": "DEMO recipient A"
+        }
+      ],
+      "publisherItems": []
+    },
+    {
+      "id": "D03",
+      "kind": "DEMO_SYNTHETIC_ONLY",
+      "sourceId": "DEMO-P4",
+      "claimType": "operator_notified",
+      "claimTextForReview": "DEMO recipient A telah menerima notifikasi event DEMO-P4-OBS pada September 2026.",
+      "scope": {
+        "startDate": "2026-09-01",
+        "endDate": "2026-09-30",
+        "observationId": "DEMO-P4-OBS",
+        "recipient": "DEMO recipient A"
+      },
+      "question": "Bagaimana Anda menangani dua referensi relevan yang saling bertentangan?",
+      "flags": {
+        "notified": "DEMO only",
+        "feedback": "DEMO only",
+        "feedbackScope": "source"
+      },
+      "observations": [],
+      "evidence": [
+        {
+          "id": "DEMO-P4-notice",
+          "kind": "notification",
+          "claimType": "operator_notified",
+          "title": "DEMO invented notification receipt",
+          "reference": "https://example.org/DEMO-notice",
+          "date": "2026-09-04",
+          "synthetic": true,
+          "observationId": "DEMO-P4-OBS",
+          "recipient": "DEMO recipient A"
+        },
+        {
+          "id": "DEMO-P4-contrary",
+          "kind": "contradiction",
+          "claimType": "operator_notified",
+          "title": "DEMO invented explicit contrary record",
+          "reference": "https://example.org/DEMO-notice",
+          "date": "2026-09-04",
+          "synthetic": true,
+          "observationId": "DEMO-P4-OBS",
+          "recipient": "DEMO recipient A"
+        }
+      ],
+      "publisherItems": []
+    },
+    {
+      "id": "D04",
+      "kind": "DEMO_SYNTHETIC_ONLY",
+      "sourceId": "DEMO-P4",
+      "claimType": "mitigation_confirmed",
+      "claimTextForReview": "Tindakan mitigasi pada DEMO-P4 telah dikonfirmasi untuk event DEMO-P4-OBS pada September 2026.",
+      "scope": {
+        "startDate": "2026-09-01",
+        "endDate": "2026-09-30",
+        "observationId": "DEMO-P4-OBS",
+        "recipient": "DEMO recipient A"
+      },
+      "question": "Bagaimana batas periode memengaruhi kelayakan follow-up ini?",
+      "flags": {
+        "notified": "DEMO only",
+        "feedback": "DEMO only",
+        "feedbackScope": "source"
+      },
+      "observations": [],
+      "evidence": [
+        {
+          "id": "DEMO-P4-action",
+          "kind": "mitigation_confirmation",
+          "claimType": "mitigation_confirmed",
+          "title": "DEMO invented action and follow-up declaration",
+          "reference": "https://example.org/DEMO-action",
+          "date": "2026-09-10",
+          "synthetic": true,
+          "observationId": "DEMO-P4-OBS",
+          "action": "DEMO component replacement declared by a reviewer",
+          "followUpDate": "2026-10-01",
+          "followUpReference": "https://example.org/DEMO-follow-up"
+        }
+      ],
+      "publisherItems": []
+    },
+    {
+      "id": "D05",
+      "kind": "DEMO_SYNTHETIC_ONLY",
+      "sourceId": "DEMO-P4",
+      "claimType": "mitigation_confirmed",
+      "claimTextForReview": "Tindakan mitigasi pada DEMO-P4 telah dikonfirmasi untuk event DEMO-P4-OBS pada September 2026.",
+      "scope": {
+        "startDate": "2026-09-01",
+        "endDate": "2026-09-30",
+        "observationId": "DEMO-P4-OBS",
+        "recipient": "DEMO recipient A"
+      },
+      "question": "Apakah field metadata lengkap memadai untuk status ini? Usulkan label atau bukti tambahan bila diperlukan. Seluruh referensi tetap rekaan.",
+      "flags": {
+        "notified": "DEMO only",
+        "feedback": "DEMO only",
+        "feedbackScope": "source"
+      },
+      "observations": [],
+      "evidence": [
+        {
+          "id": "DEMO-P4-action",
+          "kind": "mitigation_confirmation",
+          "claimType": "mitigation_confirmed",
+          "title": "DEMO invented action and follow-up declaration",
+          "reference": "https://example.org/DEMO-action",
+          "date": "2026-09-10",
+          "synthetic": true,
+          "observationId": "DEMO-P4-OBS",
+          "action": "DEMO component replacement declared by a reviewer",
+          "followUpDate": "2026-09-20",
+          "followUpReference": "https://example.org/DEMO-follow-up"
+        }
+      ],
+      "publisherItems": []
+    },
+    {
+      "id": "D06",
+      "kind": "DEMO_SYNTHETIC_ONLY",
+      "sourceId": "DEMO-P4",
+      "claimType": "mitigation_confirmed",
+      "claimTextForReview": "Tindakan mitigasi pada DEMO-P4 telah dikonfirmasi untuk event DEMO-P4-OBS pada September 2026.",
+      "scope": {
+        "startDate": "2026-09-01",
+        "endDate": "2026-09-30",
+        "observationId": "DEMO-P4-OBS",
+        "recipient": "DEMO recipient A"
+      },
+      "question": "Jika tidak ada pengukuran lanjutan dalam paket, kesimpulan apa yang dapat atau tidak dapat dibuat tentang emisi setelah tindakan?",
+      "flags": {
+        "notified": "DEMO only",
+        "feedback": "DEMO only",
+        "feedbackScope": "source"
+      },
+      "observations": [],
+      "evidence": [],
+      "publisherItems": []
+    }
+  ]
+}

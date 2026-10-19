@@ -108,7 +108,7 @@ export function validateCandidates(rows: unknown[], maxClaims: number) {
     }
     for (const [documentId, document] of inputDocuments) {
       const approval = approvedDocuments.get(documentId)!;
-      if (document.sourceUrl && document.sourceUrl !== approval.documentUrl) {
+      if (!document.sourceUrl || document.sourceUrl !== approval.documentUrl) {
         throw new Error(`Rights review source URL does not match submitted document ${documentId}`);
       }
     }
@@ -182,6 +182,9 @@ async function resolvePrivateOutputPath(path: string) {
   }
   const privateOutput = resolve(actualParent, basename(path));
   privateOutputPath(privateOutput);
+  if (process.platform !== 'win32' && ((await stat(actualParent)).mode & 0o077) !== 0) {
+    throw new Error('Private benchmark output directory must have owner-only permissions');
+  }
   return privateOutput;
 }
 
@@ -192,6 +195,7 @@ export async function executeBenchmarkToPrivateFile(
   candidates: ReturnType<typeof validateCandidates>,
   outputPath: string,
   assessor: BenchmarkAssessor = requestModelAssessment,
+  options: { recordProviderFailures?: boolean } = {},
 ) {
   const privateOutput = await resolvePrivateOutputPath(outputPath);
   const lockPath = `${privateOutput}.lock`;
@@ -208,21 +212,42 @@ export async function executeBenchmarkToPrivateFile(
   await lockHandle.close();
 
   let scratchDirectory: string | undefined;
+  const modelVersion = String(process.env.AI_MODEL || 'unconfigured');
   try {
     const records = [];
     for (const { claimId, input, rightsReviewSha256, claimTextSha256, assessmentInputSha256 } of candidates) {
-      const raw = await assessor(input);
-      const checked = verifyCitations(input, raw);
+      const started = performance.now();
+      let checked: ReturnType<typeof verifyCitations> | undefined;
+      let errorCode: string | undefined;
+      try {
+        const raw = await assessor(input);
+        checked = verifyCitations(input, raw);
+      } catch (error) {
+        if (!options.recordProviderFailures) throw error;
+        // Provider exceptions can contain document text, headers or credentials.
+        // Persist a closed category, never the exception message/stack.
+        const message = error instanceof Error ? error.message : '';
+        errorCode = error instanceof Error && (error.name === 'AbortError' || error.name === 'TimeoutError')
+          ? 'timeout'
+          : /^ai_provider_http_\d{3}$/.test(message) ? message : 'provider_error';
+      }
       records.push({
         claimId,
-        verdict: checked.result,
-        citations: checked.quotes,
+        verdict: checked?.result ?? null,
+        citations: checked?.quotes ?? [],
         rightsReviewSha256,
         claimTextSha256,
         assessmentInputSha256,
-        modelVersion: String(process.env.AI_MODEL),
+        modelVersion,
         promptVersion: PROMPT_VERSION,
-        citationValidationFailures: checked.rejected,
+        citationValidationFailures: checked?.rejected ?? null,
+        execution: {
+          status: checked ? 'completed' : 'provider_failure',
+          elapsedMs: Math.round((performance.now() - started) * 100) / 100,
+          ...(errorCode ? { errorCode } : {}),
+          costUsd: null, // This adapter does not expose provider billing/usage.
+        },
+        configuration: { temperature: 0, timeoutMs: 40_000, maximumProviderRequestsPerClaim: 2, automaticRetries: 0 },
       });
     }
 
@@ -257,6 +282,10 @@ async function main() {
   const sourcePath = await realpath(source);
   const sourceInfo = await stat(sourcePath);
   if (!sourceInfo.isFile() || sourceInfo.size > maxInputBytes) throw new Error('Benchmark input must be a file up to 16 MiB');
+  privateOutputPath(sourcePath);
+  if (process.platform !== 'win32' && ((sourceInfo.mode | (await stat(dirname(sourcePath))).mode) & 0o077) !== 0) {
+    throw new Error('Private benchmark input file and directory must have owner-only permissions');
+  }
   const contents = await readFile(sourcePath, 'utf8');
   if (Buffer.byteLength(contents, 'utf8') > maxInputBytes) throw new Error('Benchmark input exceeds 16 MiB');
   let rows: unknown[];
@@ -269,8 +298,8 @@ async function main() {
 
   const privateOutput = await resolvePrivateOutputPath(output);
   if (privateOutput === sourcePath) throw new Error('Output must not overwrite evidence inputs');
-  const processed = await executeBenchmarkToPrivateFile(candidates, privateOutput);
-  process.stdout.write(`Processed ${processed} reviewed held-out claims. Rights-review digests are included; prediction output is private and independent human evaluation is still required.\n`);
+  const processed = await executeBenchmarkToPrivateFile(candidates, privateOutput, requestModelAssessment, { recordProviderFailures: true });
+  process.stdout.write(`Recorded ${processed} held-out attempts, including any provider failures. Private output requires independent evaluation; an attempt is not necessarily a model prediction.\n`);
 }
 
 if (import.meta.main) {

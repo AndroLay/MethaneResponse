@@ -1,0 +1,49 @@
+{
+  "auditId": "228f8e4a-ca23-4fb5-8aa6-8482745d89de",
+  "caseId": "DEMO-001",
+  "revision": 1,
+  "sourceId": "DEMO-001",
+  "claimType": "source_detected",
+  "result": "supported",
+  "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+  "evidenceIds": [
+    "DEMO-OBS-001"
+  ],
+  "bundleHash": "0x1fe24ca697969fca095366454856b030ee5123e6fb90297e5174b2079515470b",
+  "generatedAt": "2026-10-18T09:22:45.943Z",
+  "synthetic": true,
+  "bundle": {
+    "schemaVersion": 2,
+    "assessmentSemantics": {
+      "version": 1,
+      "basis": "metadata_coverage",
+      "physicalVerification": "not_established_by_application",
+      "referencePolicy": "scoped-reference-coverage-v2"
+    },
+    "auditId": "228f8e4a-ca23-4fb5-8aa6-8482745d89de",
+    "caseId": "DEMO-001",
+    "revision": 1,
+    "generatedAt": "2026-10-18T09:22:45.943Z",
+    "sourceId": "DEMO-001",
+    "claimType": "source_detected",
+    "result": "supported",
+    "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+    "citedEvidence": [
+      {
+        "id": "DEMO-OBS-001",
+        "kind": "detection",
+        "title": "Synthetic plume observation",
+        "reference": "fixture://observations/DEMO-OBS-001",
+        "date": "2026-09-01",
+        "synthetic": true
+      }
+    ],
+    "externalEvidence": [],
+    "limitations": [
+      "This is a deterministic evidence-coverage baseline, not a scientific or legal certification.",
+      "A source-level notification or feedback record does not establish physical mitigation."
+    ],
+    "synthetic": true
+  },
+  "anchored": false
+}

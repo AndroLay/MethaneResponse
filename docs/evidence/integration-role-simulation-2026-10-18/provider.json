@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "label": "DEMO role simulations; actual local HTTPS and production API processes, not an external provider or public hosting",
+  "recordedAt": "2026-10-18T08:48:48.286Z",
+  "roles": [
+    "anonymous visitor",
+    "analyst",
+    "skeptical reviewer",
+    "provider adversary",
+    "service operator"
+  ],
+  "scenarios": [
+    {
+      "role": "anonymous visitor",
+      "scenario": "consent, rights and authentication before provider",
+      "outcome": "401/400/400; zero provider calls; zero audits"
+    },
+    {
+      "role": "analyst",
+      "scenario": "two agreeing passes remain private unreviewed suggestions",
+      "outcome": "two TLS calls; supported suggestion/unreviewed; private 404; anchor 409; physical truth not established (deliberate false-positive fixture)"
+    },
+    {
+      "role": "skeptical reviewer",
+      "scenario": "second pass disagrees on physical mitigation",
+      "outcome": "abstained after two TLS calls"
+    },
+    {
+      "role": "provider adversary",
+      "scenario": "fabricated exact quotation",
+      "outcome": "abstained; no second call"
+    },
+    {
+      "role": "provider adversary",
+      "scenario": "http503",
+      "outcome": "generic 502; no new revision; no redirect target call"
+    },
+    {
+      "role": "provider adversary",
+      "scenario": "http429",
+      "outcome": "generic 502; no new revision; no redirect target call"
+    },
+    {
+      "role": "provider adversary",
+      "scenario": "redirect",
+      "outcome": "generic 502; no new revision; no redirect target call"
+    },
+    {
+      "role": "provider adversary",
+      "scenario": "invalid-json",
+      "outcome": "generic 502; no new revision; no redirect target call"
+    },
+    {
+      "role": "provider adversary",
+      "scenario": "bad-schema",
+      "outcome": "generic 502; no new revision; no redirect target call"
+    },
+    {
+      "role": "provider adversary",
+      "scenario": "bad-second-pass",
+      "outcome": "generic 502; no new revision; no redirect target call"
+    },
+    {
+      "role": "provider adversary",
+      "scenario": "oversized",
+      "outcome": "generic 502; no new revision; no redirect target call"
+    },
+    {
+      "role": "provider adversary",
+      "scenario": "slow-body",
+      "outcome": "generic 502; no new revision; no redirect target call; 40198ms partial-body deadline"
+    },
+    {
+      "role": "service operator",
+      "scenario": "production defaults, CORS, private modes and restart",
+      "outcome": "production defaults/CORS/private 0600; listening API SIGKILL observed down; three immutable drafts survive restart on same local volume"
+    }
+  ],
+  "externalProviderCalls": 0,
+  "publicDeploymentVerified": false,
+  "sepoliaReceiptVerified": false,
+  "limitations": [
+    "Provider responses are deterministic fixture outputs, not AI quality results.",
+    "Agreeing passes can preserve false support; suggestion and human-review boundary are tested.",
+    "Model version is the configured alias, not a verified served model identity.",
+    "API restarts isolate the process-local limiter between scenarios.",
+    "Local volume crash survival is not cloud durability; CORS is not authorization."
+  ]
+}

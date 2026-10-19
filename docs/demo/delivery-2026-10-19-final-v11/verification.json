@@ -1,0 +1,33 @@
+{
+  "video": "delivery-output/story-v11/MethaneResponse-Final-Presentation-Demo-v11.mp4",
+  "sha256": "63c20c927d215963ec8a3d50153732067d63cae0a978e5f01f0fd69aa14584ba",
+  "durationSeconds": 248.48,
+  "bytes": 46775674,
+  "localRegressionTests": {
+    "current": 12,
+    "archivedCamera": 6,
+    "passing": 18
+  },
+  "technicalAudit": {
+    "checksPassing": 18,
+    "status": "pass",
+    "loudnessLUFS": -18.01,
+    "truePeakDBTP": -3.87,
+    "frames": 6212,
+    "allFrameStepsSeconds": 0.04,
+    "embeddedCaptionsMatchSidecar": true
+  },
+  "narration": {
+    "synthetic": true,
+    "voice": "en-US-AvaMultilingualNeural",
+    "cues": 48,
+    "captionGroups": 88,
+    "maxInterCueGapSeconds": 2.91,
+    "maxWaveformQuietSeconds": 3.05
+  },
+  "observed": "21 composition stills, selected actual 31-second study frames, final 27 audit samples and 36 transition frames; no complete normal-speed watch or audio listening",
+  "fullPlayback": "not_reviewed",
+  "listening": "not_reviewed",
+  "externalPublication": "not_performed",
+  "outputEvidence": "delivery-output/story-v11/verification-summary.json"
+}

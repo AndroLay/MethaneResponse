@@ -1,0 +1,68 @@
+{
+  "createdAt": "2026-10-16T23:58:58.525561+00:00",
+  "baselineCommit": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "state": "uncommitted working tree; earlier changes preserved",
+  "scope": "five approved workflow continuity fixes",
+  "runtimes": {
+    "bun": "1.4.3",
+    "chromium": "153.0.8010.52",
+    "vite": "7.3.7"
+  },
+  "tests": {
+    "api": 116,
+    "web": 229,
+    "verifier": 34,
+    "mainChromium": 13,
+    "privateAndMockAIChromium": 3,
+    "captureRepeat": 1,
+    "runnerEnvironmentPerBrowserInvocation": 3
+  },
+  "checks": {
+    "typescript": "passed",
+    "e2eTypesAfterCaptureAdjustment": "passed",
+    "webBuild": "passed",
+    "bundleBudget": "passed",
+    "diffWhitespace": "passed"
+  },
+  "bundle": {
+    "appGzipBytes": 73147,
+    "appBudgetBytes": 75000,
+    "requiredLazyRouteChunks": 8,
+    "mapRawBytes": 1122953
+  },
+  "independentReadOnlyReview": "findings addressed; no remaining scoped blocker reported",
+  "implementationFileCount": 24,
+  "implementationManifestSha256": "5240300a80882c7f205882483b7af1bea3911031329f7e9feeeddd8a69bd0539",
+  "captures": [
+    {
+      "file": "human-follow-up-desktop.png",
+      "width": 1600,
+      "height": 2835,
+      "sha256": "69191d0c2192a960103f2678de8f0d33180de332e2befd3cb74f1f138ee2527b"
+    },
+    {
+      "file": "human-follow-up-mobile.png",
+      "width": 390,
+      "height": 4679,
+      "sha256": "cab7daf49736b0487125b80dd678ae056b1b0efc07fcabb2222e43bea36cc447"
+    },
+    {
+      "file": "multiple-investigations-mobile.png",
+      "width": 390,
+      "height": 4229,
+      "sha256": "964227a1858b86bf5b531a39c8cca14280c7de869c54a886a14b3b9221983875"
+    },
+    {
+      "file": "scoped-coverage-desktop.png",
+      "width": 1280,
+      "height": 2894,
+      "sha256": "eedaf5e435c5f5abf69d1e47d21cfb3617585865497dac83269d2e083604ee73"
+    }
+  ],
+  "limits": [
+    "local browser persistence; tab-local recovery; no transactional simultaneous-tab writes",
+    "human screenshot references are DEMO metadata on historical source data",
+    "metadata and workflow checks only; no physical mitigation certification",
+    "local mock provider only; no external messaging, deployment or chain transaction"
+  ]
+}

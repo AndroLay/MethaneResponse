@@ -1,0 +1,459 @@
+{
+  "schemaVersion": 1,
+  "actualAgentCount": 2,
+  "repeatedSessionCount": 6,
+  "humanParticipantCount": 0,
+  "scheduledTasks": 48,
+  "recordedTasks": 48,
+  "missingTasks": [],
+  "metrics": {
+    "manual": {
+      "T1": {
+        "scheduled": 6,
+        "recorded": 6,
+        "completed": 6,
+        "correctWithoutSubstantiveHelp": 6,
+        "correctness": {
+          "correct": 6
+        },
+        "assistance": {
+          "none": 6
+        },
+        "observedWallSeconds": {
+          "count": 6,
+          "median": 7.804,
+          "min": 5.093040964,
+          "max": 35.996338
+        }
+      },
+      "T2": {
+        "scheduled": 6,
+        "recorded": 6,
+        "completed": 6,
+        "correctWithoutSubstantiveHelp": 6,
+        "correctness": {
+          "correct": 6
+        },
+        "assistance": {
+          "none": 6
+        },
+        "observedWallSeconds": {
+          "count": 6,
+          "median": 6.221015154,
+          "min": 2.797,
+          "max": 15.682914
+        }
+      },
+      "T3": {
+        "scheduled": 6,
+        "recorded": 6,
+        "completed": 6,
+        "correctWithoutSubstantiveHelp": 3,
+        "correctness": {
+          "correct": 3,
+          "partly_correct": 3
+        },
+        "assistance": {
+          "none": 6
+        },
+        "observedWallSeconds": {
+          "count": 6,
+          "median": 6.7275,
+          "min": 1.727,
+          "max": 12.125083396
+        }
+      },
+      "T4": {
+        "scheduled": 6,
+        "recorded": 6,
+        "completed": 6,
+        "correctWithoutSubstantiveHelp": 1,
+        "correctness": {
+          "correct": 6
+        },
+        "assistance": {
+          "none": 1,
+          "substantive_hint": 5
+        },
+        "observedWallSeconds": {
+          "count": 6,
+          "median": 23.0459254175,
+          "min": 8.718343542,
+          "max": 56.973
+        }
+      }
+    },
+    "app": {
+      "T1": {
+        "scheduled": 6,
+        "recorded": 6,
+        "completed": 6,
+        "correctWithoutSubstantiveHelp": 6,
+        "correctness": {
+          "correct": 6
+        },
+        "assistance": {
+          "none": 4,
+          "navigation_hint": 2
+        },
+        "observedWallSeconds": {
+          "count": 6,
+          "median": 40.6708415,
+          "min": 9.851,
+          "max": 125.41216084
+        }
+      },
+      "T2": {
+        "scheduled": 6,
+        "recorded": 6,
+        "completed": 6,
+        "correctWithoutSubstantiveHelp": 6,
+        "correctness": {
+          "correct": 6
+        },
+        "assistance": {
+          "none": 4,
+          "navigation_hint": 2
+        },
+        "observedWallSeconds": {
+          "count": 6,
+          "median": 34.307159999999996,
+          "min": 9.093,
+          "max": 102.816755542
+        }
+      },
+      "T3": {
+        "scheduled": 6,
+        "recorded": 6,
+        "completed": 6,
+        "correctWithoutSubstantiveHelp": 4,
+        "correctness": {
+          "correct": 4,
+          "partly_correct": 2
+        },
+        "assistance": {
+          "none": 4,
+          "navigation_hint": 2
+        },
+        "observedWallSeconds": {
+          "count": 6,
+          "median": 71.16803754200001,
+          "min": 18.274,
+          "max": 203.401332127
+        }
+      },
+      "T4": {
+        "scheduled": 6,
+        "recorded": 6,
+        "completed": 6,
+        "correctWithoutSubstantiveHelp": 1,
+        "correctness": {
+          "partly_correct": 3,
+          "correct": 3
+        },
+        "assistance": {
+          "substantive_hint": 5,
+          "none": 1
+        },
+        "observedWallSeconds": {
+          "count": 6,
+          "median": 36.998433844000004,
+          "min": 17.364897434,
+          "max": 116.682
+        }
+      }
+    }
+  },
+  "pairedTasks": [
+    {
+      "sessionId": "A01",
+      "taskId": "T1",
+      "manualMinusAppWallSeconds": -82.90248233599999
+    },
+    {
+      "sessionId": "A01",
+      "taskId": "T2",
+      "manualMinusAppWallSeconds": -97.127725234
+    },
+    {
+      "sessionId": "A01",
+      "taskId": "T3",
+      "manualMinusAppWallSeconds": -200.752803396
+    },
+    {
+      "sessionId": "A01",
+      "taskId": "T4",
+      "manualMinusAppWallSeconds": null
+    },
+    {
+      "sessionId": "A02",
+      "taskId": "T1",
+      "manualMinusAppWallSeconds": 15.565
+    },
+    {
+      "sessionId": "A02",
+      "taskId": "T2",
+      "manualMinusAppWallSeconds": -1.482000000000001
+    },
+    {
+      "sessionId": "A02",
+      "taskId": "T3",
+      "manualMinusAppWallSeconds": null
+    },
+    {
+      "sessionId": "A02",
+      "taskId": "T4",
+      "manualMinusAppWallSeconds": null
+    },
+    {
+      "sessionId": "A03",
+      "taskId": "T1",
+      "manualMinusAppWallSeconds": -120.319119876
+    },
+    {
+      "sessionId": "A03",
+      "taskId": "T2",
+      "manualMinusAppWallSeconds": -33.914180109
+    },
+    {
+      "sessionId": "A03",
+      "taskId": "T3",
+      "manualMinusAppWallSeconds": -93.374991688
+    },
+    {
+      "sessionId": "A03",
+      "taskId": "T4",
+      "manualMinusAppWallSeconds": null
+    },
+    {
+      "sessionId": "A04",
+      "taskId": "T1",
+      "manualMinusAppWallSeconds": -4.386
+    },
+    {
+      "sessionId": "A04",
+      "taskId": "T2",
+      "manualMinusAppWallSeconds": -23.539
+    },
+    {
+      "sessionId": "A04",
+      "taskId": "T3",
+      "manualMinusAppWallSeconds": null
+    },
+    {
+      "sessionId": "A04",
+      "taskId": "T4",
+      "manualMinusAppWallSeconds": null
+    },
+    {
+      "sessionId": "A05",
+      "taskId": "T1",
+      "manualMinusAppWallSeconds": -34.957345
+    },
+    {
+      "sessionId": "A05",
+      "taskId": "T2",
+      "manualMinusAppWallSeconds": -22.639405999999997
+    },
+    {
+      "sessionId": "A05",
+      "taskId": "T3",
+      "manualMinusAppWallSeconds": -148.386825
+    },
+    {
+      "sessionId": "A05",
+      "taskId": "T4",
+      "manualMinusAppWallSeconds": null
+    },
+    {
+      "sessionId": "A06",
+      "taskId": "T1",
+      "manualMinusAppWallSeconds": -0.5579999999999998
+    },
+    {
+      "sessionId": "A06",
+      "taskId": "T2",
+      "manualMinusAppWallSeconds": -6.295999999999999
+    },
+    {
+      "sessionId": "A06",
+      "taskId": "T3",
+      "manualMinusAppWallSeconds": null
+    },
+    {
+      "sessionId": "A06",
+      "taskId": "T4",
+      "manualMinusAppWallSeconds": null
+    }
+  ],
+  "pairedObservedCount": 15,
+  "pairedManualMinusAppWallSecondsMedian": -33.914180109,
+  "exitCriticalBeliefCount": 0,
+  "duringTaskCriticalMisunderstandingCount": 0,
+  "findings": [
+    {
+      "sessionId": "A01",
+      "finding": "Satu agent mengerjakan seluruh kondisi; pembelajaran dari A01 dibawa ke sesi berikutnya, jadi sesi tidak independen."
+    },
+    {
+      "sessionId": "A01",
+      "finding": "Chromium mencatat 0 console errors dan 14 warnings setelah navigasi dashboard; detail warning tidak ditangkap. Landing melaporkan 2 warnings. Tidak terlihat console error."
+    },
+    {
+      "sessionId": "A01",
+      "finding": "Pada T3, run pertama sebelum menekan Apply assessment scope memberi insufficient coverage; setelah menerapkan tanggal 2026-04-10 sampai 2026-07-31 dan observation event, baseline ulang tetap Insufficient reference coverage."
+    },
+    {
+      "sessionId": "A01",
+      "finding": "Waktu pembuatan export app dicatat terpisah: 2026-10-18T07:05:14.737141857Z sampai 2026-10-18T07:05:57.100772879Z (42.363631022 detik). T4 dimulai setelah file tersedia."
+    },
+    {
+      "sessionId": "A01",
+      "finding": "Tidak ada perubahan pada repo."
+    },
+    {
+      "sessionId": "A03",
+      "finding": "Satu agent mengerjakan semua kondisi; A03 menggunakan pengetahuan packet dan navigasi dari A01, sehingga bukan peserta independen."
+    },
+    {
+      "sessionId": "A03",
+      "finding": "Kondisi manual hanya membaca packet dan baseline yang diberikan."
+    },
+    {
+      "sessionId": "A03",
+      "finding": "Pada app, run-code batch gagal dengan SyntaxError: Unexpected identifier page (A03 T1) dan TypeError: __fn__ is not a function (A03 T2); lanjut memakai aksi CLI eksplisit dan snapshot. Ini error alat otomasi, bukan error aplikasi."
+    },
+    {
+      "sessionId": "A03",
+      "finding": "Chromium menunjukkan 0 console errors dan 8 warnings setelah pencarian sumber; pesan warning tidak dikumpulkan. Tidak terlihat console error."
+    },
+    {
+      "sessionId": "A03",
+      "finding": "Cakupan auditor diterapkan 2025-12-23 sampai 2026-04-30 dan baseline menyatakan Insufficient reference coverage."
+    },
+    {
+      "sessionId": "A03",
+      "finding": "Waktu pembuatan export app terpisah: 2026-10-18T07:17:23.426342698Z sampai 2026-10-18T07:17:55.853675861Z (32.427333163 detik). T4 mulai setelah export tersedia."
+    },
+    {
+      "sessionId": "A03",
+      "finding": "T4 memakai substantive hint dari koordinator mengenai checksum konteks export; hasil tidak independen."
+    },
+    {
+      "sessionId": "A03",
+      "finding": "Tidak ada perubahan repo."
+    },
+    {
+      "sessionId": "A05",
+      "finding": "Satu agent/model mengerjakan seluruh sesi; A05 mengulang kasus dan navigasi yang sudah dikenal, jadi bukan evaluasi independen atau blind."
+    },
+    {
+      "sessionId": "A05",
+      "finding": "Deviasi manual A05: filter Python pertama mencetak objek root yang mencakup kedua case; metadata CAN ikut terlihat sebelum kondisi app CAN. Tidak ada akses ke source implementasi atau hasil agent lain."
+    },
+    {
+      "sessionId": "A05",
+      "finding": "Perintah jq tidak tersedia (zsh: command not found: jq); pembacaan packet manual dialihkan ke Python."
+    },
+    {
+      "sessionId": "A05",
+      "finding": "T2 memakai ulang flux dan status yang sudah terlihat pada T1; waktu T2 tetap hanya interval T2 dan tidak tumpang tindih. App T2 memeriksa priority 27.5/80 dan keterbatasan UI setelah rincian plume terlihat di T1."
+    },
+    {
+      "sessionId": "A05",
+      "finding": "App T3: klik pertama Evidence Auditor terhalang dialog case yang masih terbuka; dialog ditutup lalu navigasi berhasil. Setelah scope diterapkan, ref e1580 kedaluwarsa; snapshot baru memberi ref e1722 untuk menjalankan rules baseline."
+    },
+    {
+      "sessionId": "A05",
+      "finding": "Browser app menunjukkan 0 console errors dan 14 warnings; teks warning tidak disimpan. Tidak ada error console browser yang terlihat."
+    },
+    {
+      "sessionId": "A05",
+      "finding": "Export app dibuat 2026-10-18T07:27:29.238911767Z\u20132026-10-18T07:27:59.790405843Z (30.551494076 detik); T4 mulai sesudah file tersedia."
+    },
+    {
+      "sessionId": "A05",
+      "finding": "T4 diberi substantive_hint karena parent menginformasikan cakupan checksum CLI. Pada app A05, perubahan sourceDataset.snapshotId tidak mengubah status hash VALID maupun digest; temuan ini bukan hasil independen."
+    },
+    {
+      "sessionId": "A02",
+      "finding": "T2 app menggunakan data kasus yang dibaca saat T1; waktu T2 tidak tumpang tindih dengan T1."
+    },
+    {
+      "sessionId": "A02",
+      "finding": "App LBY T3 menguji scope 2025-12-24 sampai 2026-04-30; satu pengukuran 2025-12-23 dikeluarkan scope."
+    },
+    {
+      "sessionId": "A02",
+      "finding": "T4 app: mengubah envelope field claim tidak mengubah bundle_hash yang diverifikasi CLI; perubahan latestAudit.bundle.result terdeteksi."
+    },
+    {
+      "sessionId": "A02",
+      "finding": "Console browser: 0 errors, 14 warnings; warning WebGL GPU stall/ReadPixels dan MapLibre READ-usage buffer. Awal CLI sempat EROFS saat membuat log daemon di /home/andro/.cache; retry escalated lokal berhasil."
+    },
+    {
+      "sessionId": "A02",
+      "finding": "Manual T4: satu perintah awal memakai working directory yang membuat salinan sementara di repo; salinan diketahui lewat mtime dan dihapus. Tidak ada artefak hasil tersisa di repo."
+    },
+    {
+      "sessionId": "A04",
+      "finding": "App T2 score CAN 27.5/80 medium; source tidak tercantum pada release Top 50 September 2026 ketika difilter, yang tidak berarti methane berhenti."
+    },
+    {
+      "sessionId": "A04",
+      "finding": "App T3 coverage diuji pada 2026-04-11 sampai 2026-07-31; baseline April dikecualikan dan tidak ada dokumen mitigasi yang memenuhi tipe."
+    },
+    {
+      "sessionId": "A04",
+      "finding": "Browser verifier asli menyatakan export checksum sesuai context dan bundle digest sesuai. UI menjelaskan checksum tidak ditandatangani/anchored, bundle digest tidak mencakup context list, dan tidak mengautentikasi dokumen atau bukti fisik."
+    },
+    {
+      "sessionId": "A04",
+      "finding": "Browser verifier upload pertama gagal karena fileChooser belum dibuka; setelah klik Choose a JSON audit report lalu upload, original/tampered terverifikasi."
+    },
+    {
+      "sessionId": "A04",
+      "finding": "Console browser: 0 errors, 13 warnings selama navigasi app; WebGL/map rendering warnings tercatat. T4 browser verification ditandai substantive_hint berdasarkan pesan parent selama sesi."
+    },
+    {
+      "sessionId": "A06",
+      "finding": "T2 app menggunakan sinyal yang dibaca saat T1; waktu T2 tidak tumpang tindih dan data tidak dibaca ulang."
+    },
+    {
+      "sessionId": "A06",
+      "finding": "App LBY T3 mencakup 2025-12-23 sampai 2026-04-30: satu observasi untuk deteksi sumber, nol referensi mitigasi required-type, dan satu link publisher tanpa isi yang ditelaah."
+    },
+    {
+      "sessionId": "A06",
+      "finding": "App LBY export dibuat pada 07:07:56.174Z saat memilih aturan baseline; unduhan dimulai 07:08:14.254Z dan file tersedia 07:08:15.563Z (1.309 s, terpisah dari durasi T4). CLI menerima bundle asli dan menolak perubahan latestAudit.bundle.result."
+    },
+    {
+      "sessionId": "A06",
+      "finding": "Console browser A06: 0 errors dan 14 warnings; isi warning tidak direproduksi dalam checkpoint."
+    },
+    {
+      "sessionId": "A06",
+      "finding": "Manual CAN T2 memakai nilai yang sudah dibaca saat T1; tidak membaca packet ulang dan tidak menggandakan waktu."
+    },
+    {
+      "sessionId": "A06",
+      "finding": "Manual CAN T4 memakai baseline /tmp/methane-p56-completion/CAN_S_002-baseline.json; mengubah hanya bundle.result pada salinan menghasilkan bundle_hash INVALID."
+    },
+    {
+      "sessionId": "A06",
+      "finding": "Percobaan jq gagal karena command jq tidak ditemukan; pemeriksaan struktur dilanjutkan memakai Node.js. Tidak ada file yang diubah di repo dalam kondisi ini."
+    }
+  ],
+  "executionComplete": true,
+  "humanResearchGatePassed": false,
+  "publicReleaseApproved": false,
+  "limitations": [
+    "Two agents perform six repeated sessions; sessions are not six independent participants.",
+    "Order is counterbalanced across sessions, but agents retain prior task/case knowledge and repeat their assigned order.",
+    "Task elapsed wall time includes tool/model latency and prior-task information reuse; it is not human task time.",
+    "The manual source packet is curated metadata, and a verifier export is supplied; this is not native MARS portal usability.",
+    "Both cases are visible in the manual packet; cross-case exposure and facilitator hints are retained as protocol deviations.",
+    "Correctness is judged by the project agent using a frozen answer key, not by independent human assessors.",
+    "Confidence was not imputed, and missing durations are not zero."
+  ]
+}

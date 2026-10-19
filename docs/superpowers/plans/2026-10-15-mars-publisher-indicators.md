@@ -1,5 +1,7 @@
 # MARS publisher indicators — local integration
 
+> **Arsip rencana 2026-10-15.** Pekerjaan dan instruksi di bawah merekam revisi asal. Untuk kondisi sekarang gunakan [status aktif](../../release/current-implementation-status.md) dan [arsitektur](../../architecture/overview.md); asumsi database digantikan [ADR file lokal](../../architecture/decisions/2026-10-15-local-prototype-no-database.md). [Indeks rencana](README.md).
+
 ## Goal
 
 Complete the accepted 15 October prototype-scope decision by adding the official monthly UNEP MARS Top 50 source releases and country response-rate releases to the local, database-free application. The work must be attributable, hash-bound, reproducible, navigable to the existing source map, and explicit about what each indicator does not prove.

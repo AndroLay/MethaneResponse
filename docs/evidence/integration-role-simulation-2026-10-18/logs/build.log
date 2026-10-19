@@ -1,0 +1,59 @@
+$ cd apps/web && bun run build
+$ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+vite v7.3.7 building client environment for production...
+transforming...
+../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment
+
+"/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+ * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+ * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+
+in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 264 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                       0.74 kB │ gzip:   0.44 kB
+dist/assets/mars-snapshot.worker-urhP9Eyx.js         11.58 kB
+dist/assets/MarsPublisherInsights-CoyjUJ3i.css       10.46 kB │ gzip:   2.85 kB
+dist/assets/LandingPage-oTQX72xs.css                 37.00 kB │ gzip:   8.82 kB
+dist/assets/MapPanel-DNVN2dqC.css                    69.92 kB │ gzip:  10.05 kB
+dist/assets/index-BHnfQOZy.css                      218.07 kB │ gzip:  42.84 kB
+dist/assets/anchor-result-CCc6H6sH.js                 1.00 kB │ gzip:   0.44 kB
+dist/assets/mars-snapshot-integrity-DmmGIJz3.js       1.67 kB │ gzip:   0.69 kB
+dist/assets/map-imagery-BTMWFv2H.js                   2.33 kB │ gzip:   1.08 kB
+dist/assets/shared-work-api-lafaTEKJ.js               2.46 kB │ gzip:   1.21 kB
+dist/assets/SettingsWorkspace-9DZiFouH.js             3.38 kB │ gzip:   1.17 kB
+dist/assets/AnchorControls-BfMruYfG.js                4.49 kB │ gzip:   1.86 kB
+dist/assets/AssessmentTrustPanel-BGhI3TKB.js          5.47 kB │ gzip:   2.37 kB
+dist/assets/ImportedAuditVerifier-D0nZkF_p.js         6.08 kB │ gzip:   1.95 kB
+dist/assets/investigation-brief-LhDVIVCu.js           6.58 kB │ gzip:   2.87 kB
+dist/assets/OperatorsWorkspace-ebANmGD1.js            6.70 kB │ gzip:   2.09 kB
+dist/assets/PublisherFootprintCard-CpvnaOKx.js        6.96 kB │ gzip:   2.62 kB
+dist/assets/investigation-plan-dZmwKBUc.js            6.97 kB │ gzip:   2.54 kB
+dist/assets/plume-geometries-DFMG05Hs.js              8.04 kB │ gzip:   2.82 kB
+dist/assets/imported-audit-verifier-D3nYdB8c.js       8.32 kB │ gzip:   2.78 kB
+dist/assets/TransparencyPanel-Ce8HXqZ2.js             9.86 kB │ gzip:   3.41 kB
+dist/assets/CaseDetailsDialog-dVoRZ1sQ.js            10.06 kB │ gzip:   3.24 kB
+dist/assets/AuditHistoryPanel-Dnp8rbiM.js            12.93 kB │ gzip:   4.12 kB
+dist/assets/SharedCaseWorkPanel-B6KVebHQ.js          14.12 kB │ gzip:   4.66 kB
+dist/assets/EvidenceObservationPanel-B4_V-gd0.js     14.13 kB │ gzip:   4.81 kB
+dist/assets/HumanAssessmentPanel-CBKDC6E7.js         14.29 kB │ gzip:   5.11 kB
+dist/assets/CasesWorkspace-BNdFviEt.js               15.47 kB │ gzip:   4.95 kB
+dist/assets/EvidenceAuditorWorkflow-CLoSzH-7.js      20.28 kB │ gzip:   6.24 kB
+dist/assets/MarsPublisherInsights-D2brCiYr.js        26.09 kB │ gzip:   7.43 kB
+dist/assets/IntelligencePanel-itFU9E1F.js            46.07 kB │ gzip:  13.57 kB
+dist/assets/LandingPage-ktxZayTC.js                  46.70 kB │ gzip:  12.17 kB
+dist/assets/App-Bo6McDBF.js                         243.39 kB │ gzip:  71.15 kB
+dist/assets/index-xQdjlqoU.js                       250.52 kB │ gzip:  77.87 kB
+dist/assets/MapPanel-aMhjaoTd.js                  1,122.95 kB │ gzip: 304.89 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 6.18s

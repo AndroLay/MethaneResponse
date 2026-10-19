@@ -1,0 +1,83 @@
+{
+  "packetVersion": "P4-2026-10-18-v2",
+  "checkedDate": "2026-10-18",
+  "commands": [
+    {
+      "command": "sha256sum --check --quiet docs/evidence/domain-review-remediation-2026-10-18/implementation-files.sha256",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "bun --no-env-file docs/evidence/domain-review-remediation-2026-10-18/maintainer/reproduce-cases.ts --check",
+      "exitCode": 0,
+      "output": "Verified 12 frozen cases (6 real metadata / 6 DEMO) and current deterministic baseline. No expert labels exist."
+    },
+    {
+      "command": "bun run tsc --project docs/evidence/domain-review-remediation-2026-10-18/maintainer/tsconfig.json",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "python -c import hashlib,pathlib; p=pathlib.Path('docs/evidence/domain-review-preparation-2026-10-18'); assert all(hashlib.sha256((p / n).read_bytes()).hexdigest() == h for h,n in (line.split('  ',1) for line in (p / 'checksums.sha256').read_text().splitlines()))",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "documents": {
+    "markdownFiles": 23,
+    "localFileLinks": 216,
+    "htmlAnchors": 7,
+    "htmlLinks": 48,
+    "offlineHtmlMatchesMarkdown": true
+  },
+  "sourceFilesChecked": 236,
+  "archives": [
+    {
+      "file": "MethaneResponse-P4-reviewer-v2.zip",
+      "sha256": "632379dbee2f4c6747a5b9abd50a817286df34feadce6e0ac46d2e00f194cec4",
+      "bytes": 53950,
+      "members": [
+        "MethaneResponse-P4-reviewer-v2/00-START-HERE.md",
+        "MethaneResponse-P4-reviewer-v2/01-method-brief.md",
+        "MethaneResponse-P4-reviewer-v2/02-review-protocol.md",
+        "MethaneResponse-P4-reviewer-v2/03-cases.md",
+        "MethaneResponse-P4-reviewer-v2/04-response-form.md",
+        "MethaneResponse-P4-reviewer-v2/05-source-register.md",
+        "MethaneResponse-P4-reviewer-v2/06-method-excerpts.txt",
+        "MethaneResponse-P4-reviewer-v2/07-version.json",
+        "MethaneResponse-P4-reviewer-v2/LICENSE-DATA.txt",
+        "MethaneResponse-P4-reviewer-v2/SHA256SUMS",
+        "MethaneResponse-P4-reviewer-v2/SOURCE-FILES.sha256",
+        "MethaneResponse-P4-reviewer-v2/cases.json",
+        "MethaneResponse-P4-reviewer-v2/index.html"
+      ],
+      "crcAndOriginalBytes": "passed",
+      "phase": "A_INITIAL_EXPERT_ASSESSMENT"
+    },
+    {
+      "file": "MethaneResponse-P4-comparison-v2.zip",
+      "sha256": "b3cbafc6fc811f97f49e2b1ae91603695050992e6179347bd7727426ee915aaa",
+      "bytes": 6707,
+      "members": [
+        "MethaneResponse-P4-comparison-v2/07-version.json",
+        "MethaneResponse-P4-comparison-v2/SHA256SUMS",
+        "MethaneResponse-P4-comparison-v2/baseline-observations.json",
+        "MethaneResponse-P4-comparison-v2/comparison-readme.md",
+        "MethaneResponse-P4-comparison-v2/research-remediation.md"
+      ],
+      "crcAndOriginalBytes": "passed",
+      "phase": "B_IMPLEMENTATION_COMPARISON"
+    }
+  ],
+  "originalP4HumanCheckboxesUnchecked": 5,
+  "limits": [
+    "No expert review, consent, results or recheck exists.",
+    "Technical remediation changed app behavior; current application checks are recorded separately in verification-results.md. This packet check is not a scientific or human review.",
+    "No contact, external mutation, provider invocation, report download or deployment."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "ownedApiFixtureProcessesHoldingWriterLock": 0,
+  "scope": "current UID; exact index.ts argv plus /tmp or /dev/shm methane-integration-roles writer lock FD",
+  "processesKilledByCleanupScan": 0,
+  "otherProcessesInspectedForSecrets": false,
+  "note": "Command finally blocks stop and await direct API, Anvil and preview child processes; provider TLS server stop(true)."
+}

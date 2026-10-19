@@ -1,0 +1,22 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src/investigation-plan.test.ts:
+(pass) observation context uses the same UTC day as the evidence evaluator [0.92ms]
+(pass) metadata flags and linked reports never satisfy notification or mitigation requirements [0.59ms]
+(pass) coverage keeps contrary records scoped to their exact claim and deduplicates IDs [0.65ms]
+(pass) an available required-type reference leads to inspection and saving the baseline [0.13ms]
+(pass) an unreviewed document assessment leads to human review without closing the evidence gap [0.75ms]
+(pass) supported baseline guidance does not authenticate references or certify a repair [0.34ms]
+(pass) terminal document reviews require new evidence and a new assessment [0.48ms]
+(pass) inventory and plan calculations do not mutate source evidence [0.15ms]
+(pass) scope coverage excludes other dates, events, recipients and incomplete follow-up [0.46ms]
+(pass) a saved human determination is described as human and its request remains actionable [0.26ms]
+
+src/assessment-scope.test.ts:
+(pass) scope picker exposes dated DEMO detection references when no observation rows exist [12.71ms]
+(pass) scope picker shows the UTC day instead of the timestamp local day [0.97ms]
+
+ 12 pass
+ 0 fail
+ 31 expect() calls
+Ran 12 tests across 2 files. [104.00ms]

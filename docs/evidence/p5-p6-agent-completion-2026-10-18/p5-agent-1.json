@@ -1,0 +1,435 @@
+{
+  "agentId": "agent1",
+  "model": "not exposed in runtime",
+  "environment": "Local application at http://127.0.0.1:4452; private app/API state supplied for this evaluation; browser CLI commands run from /tmp.",
+  "browser": "Chromium, sandbox enabled, Playwright wrapper session p5-complete-agent1; persistent PTY used to keep the session alive.",
+  "sessionResults": [
+    {
+      "sessionId": "A01",
+      "order": [
+        "manual:LBY_S_143",
+        "app:CAN_S_002"
+      ],
+      "tasks": [
+        {
+          "workflow": "manual",
+          "caseId": "LBY_S_143",
+          "taskId": "T1",
+          "startedAt": "2026-10-18T06:54:09.349432954Z",
+          "endedAt": "2026-10-18T06:54:15.000000000Z",
+          "elapsedSeconds": 5.650567046,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "LBY_S_143, snapshot unep-mars-675417694883; plume a8e4a775-4654-46b2-af16-bb9b4742e79d terakhir teramati 2025-12-23 10:08:43 UTC, 537 ± 240 kg/h. Ini data historis, bukan kondisi saat ini; packet hanya memuat satu plume tertaut dan tidak memuat pengukuran pascatindakan.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "manual",
+          "caseId": "LBY_S_143",
+          "taskId": "T2",
+          "startedAt": "2026-10-18T06:54:22.310969692Z",
+          "endedAt": "2026-10-18T06:54:28.000000000Z",
+          "elapsedSeconds": 5.689030308,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "Ya, tindak lanjut layak diprioritaskan untuk memperoleh pengukuran baru: sinyal historisnya 537 ± 240 kg/h pada 2025-12-23 dan persistency 0.0/category absent. Batas: hanya satu plume tertaut di casebook; notified/feedback Yes adalah metadata tingkat sumber, tanpa dokumen atau pengukuran pascatindakan. Packet tidak memberi skor numerik.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "manual",
+          "caseId": "LBY_S_143",
+          "taskId": "T3",
+          "startedAt": "2026-10-18T06:54:34.351471269Z",
+          "endedAt": "2026-10-18T06:54:37.000000000Z",
+          "elapsedSeconds": 2.648528731,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "Tidak cukup. Packet hanya memberi tautan item UNEP bertanggal 2026-04 dan judul mitigasi terkonfirmasi; isi laporan tidak disertakan, mitigationConfirmed null, dan tidak ada pengukuran pascatindakan. Berikutnya perlu catatan tindakan bertanggal dan tertaut ke sumber serta pengukuran methane setelah tindakan dengan lokasi, metode, nilai/limit deteksi, dan ketidakpastian; idealnya pengukuran ulang.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "manual",
+          "caseId": "LBY_S_143",
+          "taskId": "T4",
+          "startedAt": "2026-10-18T06:54:44.364720793Z",
+          "endedAt": "2026-10-18T06:55:10.371571628Z",
+          "elapsedSeconds": 26.006850835,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "Verifier asli: bundle_hash VALID; document_rights_metadata NOT_RECORDED; chain_receipt ABSENT. Salinan dengan satu perubahan pada bundle.reason menghasilkan bundle_hash INVALID. Hash membuktikan integritas bundle yang diperiksa, bukan perbaikan fisik atau berhentinya emisi.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A01-LBY-manual-export-original.json",
+            "/tmp/methane-p56-completion/agent1/results/A01-LBY-manual-export-tampered.json",
+            "/tmp/methane-p56-completion/agent1/results/A01-LBY-verification.txt"
+          ]
+        },
+        {
+          "workflow": "app",
+          "caseId": "CAN_S_002",
+          "taskId": "T1",
+          "startedAt": "2026-10-18T06:57:35.561613736Z",
+          "endedAt": "2026-10-18T06:59:04.114663118Z",
+          "elapsedSeconds": 88.553049382,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "CAN_S_002 pada snapshot unep-mars-675417694883: plume terakhir 2026-04-10 19:07:29 UTC, 1,044 ± 370 kg/h. Case detail menampilkan satu plume tertaut/terkuantifikasi. Ini bukan data saat ini atau pemantauan kontinu; arsip global sampai 2026-09-13, dan tidak adanya baris plume berikutnya bukan bukti nol emisi.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "app",
+          "caseId": "CAN_S_002",
+          "taskId": "T2",
+          "startedAt": "2026-10-18T06:59:24.566205804Z",
+          "endedAt": "2026-10-18T07:01:07.382961346Z",
+          "elapsedSeconds": 102.816755542,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "Saya akan meminta tindak lanjut: sinyal historisnya plume 1,044 ± 370 kg/h dan notification/feedback source metadata Yes; batasnya hanya satu observasi tertaut dan tidak ada bukti pascatindakan. UI menjelaskan prioritas antrean adalah heuristik berbasis referensi, bukan probabilitas/bukti; skor khusus CAN_S_002 tidak terlihat pada detail yang saya buka.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "app",
+          "caseId": "CAN_S_002",
+          "taskId": "T3",
+          "startedAt": "2026-10-18T07:01:29.393739025Z",
+          "endedAt": "2026-10-18T07:04:52.795071152Z",
+          "elapsedSeconds": 203.401332127,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "Tidak cukup untuk klaim pengukuran methane pascatindakan hingga akhir Juli. Saya menerapkan cakupan 2026-04-10–2026-07-31 dengan plume 35328376-5922-43c4-9076-c97af6231527; rules baseline memberi Insufficient reference coverage karena tidak ada referensi bertipe cocok pada pointer/tanggal/cakupan. UI menghitung 1 observasi dan 1 tautan publisher, tetapi isi laporan tidak disertakan/ditelaah; flag notified/feedback bukan bukti tindakan atau hasil fisik. Minta tanggal dan rekaman tindakan serta pengukuran pascatindakan bertanggal, tertaut lokasi/sumber, metode, batas deteksi, nilai dan ketidakpastian, disertai pengukuran ulang. DocumentAI tidak dipakai karena provider dinyatakan mati.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A01-CAN-app-audit-scope.png"
+          ]
+        },
+        {
+          "workflow": "app",
+          "caseId": "CAN_S_002",
+          "taskId": "T4",
+          "startedAt": "2026-10-18T07:05:57.100772879Z",
+          "endedAt": "2026-10-18T07:06:36.666175567Z",
+          "elapsedSeconds": 39.565402688,
+          "completed": true,
+          "assistance": "substantive_hint",
+          "confidence": null,
+          "answer": "Export asli: bundle_hash VALID; document_rights_metadata NOT_RECORDED; chain_receipt ABSENT. Setelah satu field konteks luar bundle diubah (sourceDataset.snapshotId), verifier tetap melaporkan bundle_hash VALID dan digest yang sama. Ini menunjukkan validasi CLI yang dipakai tidak mendeteksi perubahan konteks export tersebut; hash audit bukan bukti fisik. T4 dilakukan setelah hint dari koordinator bahwa checksum konteks belum diperiksa, jadi hasil ini bukan evaluasi independen.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A01-CAN-app-export-original.json",
+            "/tmp/methane-p56-completion/agent1/results/A01-CAN-app-export-tampered.json",
+            "/tmp/methane-p56-completion/agent1/results/A01-CAN-app-verification.txt"
+          ]
+        }
+      ],
+      "physicalProofBeliefs": {
+        "feedback": false,
+        "missingObservations": false,
+        "scoreOrHash": false
+      },
+      "findings": [
+        "Satu agent mengerjakan seluruh kondisi; pembelajaran dari A01 dibawa ke sesi berikutnya, jadi sesi tidak independen.",
+        "Chromium mencatat 0 console errors dan 14 warnings setelah navigasi dashboard; detail warning tidak ditangkap. Landing melaporkan 2 warnings. Tidak terlihat console error.",
+        "Pada T3, run pertama sebelum menekan Apply assessment scope memberi insufficient coverage; setelah menerapkan tanggal 2026-04-10 sampai 2026-07-31 dan observation event, baseline ulang tetap Insufficient reference coverage.",
+        "Waktu pembuatan export app dicatat terpisah: 2026-10-18T07:05:14.737141857Z sampai 2026-10-18T07:05:57.100772879Z (42.363631022 detik). T4 dimulai setelah file tersedia.",
+        "Tidak ada perubahan pada repo."
+      ],
+      "sessionOrdinal": 1
+    },
+    {
+      "sessionId": "A03",
+      "order": [
+        "manual:CAN_S_002",
+        "app:LBY_S_143"
+      ],
+      "tasks": [
+        {
+          "workflow": "manual",
+          "caseId": "CAN_S_002",
+          "taskId": "T1",
+          "startedAt": "2026-10-18T07:07:58.906959036Z",
+          "endedAt": "2026-10-18T07:08:04.000000000Z",
+          "elapsedSeconds": 5.093040964,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "CAN_S_002, snapshot unep-mars-675417694883; plume 35328376-5922-43c4-9076-c97af6231527 terakhir 2026-04-10 19:07:29 UTC, 1,044 ± 370 kg/h. Tidak terkini; packet hanya menampilkan satu plume tertaut dan tidak mencatat pengukuran pascatindakan.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "manual",
+          "caseId": "CAN_S_002",
+          "taskId": "T2",
+          "startedAt": "2026-10-18T07:08:14.171321387Z",
+          "endedAt": "2026-10-18T07:08:19.000000000Z",
+          "elapsedSeconds": 4.828678613,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "Ya, tindak lanjut pantas diprioritaskan: sinyal historisnya flux 1,044 ± 370 kg/h dan persistency 0.33 ± 0.27/category frequent. Batas: casebook berisi satu plume tertaut; notified/feedback Yes hanya metadata tingkat sumber, tanpa dokumen atau pengukuran pascatindakan. Tidak ada skor numerik pada packet.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "manual",
+          "caseId": "CAN_S_002",
+          "taskId": "T3",
+          "startedAt": "2026-10-18T07:10:27.874916604Z",
+          "endedAt": "2026-10-18T07:10:40.000000000Z",
+          "elapsedSeconds": 12.125083396,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "Tidak cukup untuk klaim pengukuran methane pascatindakan sebelum akhir Juli. Packet hanya memberi metadata/link item UNEP bertanggal 2026-07 berjudul Confirmed Mitigation Action; isi laporan tidak disertakan, mitigationConfirmed null, dan observasi terakhir 2026-04-10. Berikutnya perlu isi laporan yang boleh dinilai, tanggal dan sumber tindakan, lalu pengukuran methane setelah tindakan yang tertaut ke lokasi/sumber, bermetode dan memiliki batas deteksi serta ketidakpastian; idealnya pengukuran ulang.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "manual",
+          "caseId": "CAN_S_002",
+          "taskId": "T4",
+          "startedAt": "2026-10-18T07:10:53.697053146Z",
+          "endedAt": "2026-10-18T07:11:02.415396688Z",
+          "elapsedSeconds": 8.718343542,
+          "completed": true,
+          "assistance": "substantive_hint",
+          "confidence": null,
+          "answer": "Verifier export asli menyatakan bundle_hash VALID; document_rights_metadata NOT_RECORDED; chain_receipt ABSENT. Salinan dengan bundle.reason diubah menghasilkan bundle_hash INVALID. Integritas bundle tidak membuktikan kejadian atau perbaikan fisik. T4 dikerjakan setelah hint koordinator tentang batas checksum konteks, jadi bukan evaluasi independen.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A03-CAN-manual-export-original.json",
+            "/tmp/methane-p56-completion/agent1/results/A03-CAN-manual-export-tampered.json",
+            "/tmp/methane-p56-completion/agent1/results/A03-CAN-manual-verification.txt"
+          ]
+        },
+        {
+          "workflow": "app",
+          "caseId": "LBY_S_143",
+          "taskId": "T1",
+          "startedAt": "2026-10-18T07:11:44.587839160Z",
+          "endedAt": "2026-10-18T07:13:50.000000000Z",
+          "elapsedSeconds": 125.41216084,
+          "completed": true,
+          "assistance": "navigation_hint",
+          "confidence": null,
+          "answer": "LBY_S_143 pada snapshot unep-mars-675417694883: observation timeline menunjukkan plume terakhir 2025-12-23 (537 ± 240 kg/h; satu plume terkuantifikasi). ID snapshot terlihat pada landing/global archive, tidak pada detail sumber; not terkini, historis, dan bukan pemantauan kontinu. Tidak ada later observation di casebook bukan bukti nol emisi.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "app",
+          "caseId": "LBY_S_143",
+          "taskId": "T2",
+          "startedAt": "2026-10-18T07:14:21.257141278Z",
+          "endedAt": "2026-10-18T07:15:00.000000000Z",
+          "elapsedSeconds": 38.742858722,
+          "completed": true,
+          "assistance": "navigation_hint",
+          "confidence": null,
+          "answer": "Ya, tindak lanjut wajar: ada observasi historis 537 ± 240 kg/h dan metadata notified/feedback Yes; halaman menunjukkan satu plume tertaut. Batasnya flags hanya metadata sumber dan tidak ada pengukuran pascatindakan. Antrean menjelaskan priority sebagai heuristik referensi, bukan probabilitas/bukti; skor khusus LBY_S_143 tidak terlihat pada detail yang dibuka.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "app",
+          "caseId": "LBY_S_143",
+          "taskId": "T3",
+          "startedAt": "2026-10-18T07:15:14.847298196Z",
+          "endedAt": "2026-10-18T07:17:00.347373280Z",
+          "elapsedSeconds": 105.500075084,
+          "completed": true,
+          "assistance": "navigation_hint",
+          "confidence": null,
+          "answer": "Tidak cukup untuk klaim pengukuran methane pascatindakan sebelum akhir April. Saya menerapkan cakupan 2025-12-23–2026-04-30 dengan plume a8e4a775-4654-46b2-af16-bb9b4742e79d; rules baseline memberi Insufficient reference coverage. UI mencatat 1 observasi dan 1 tautan publisher, tetapi tautan/flag administratif bukan dokumen yang dinilai dan tidak mengonfirmasi hasil fisik. Perlu catatan tindakan bertanggal dan pengukuran pascatindakan tertaut ke sumber/lokasi, metode, nilai/batas deteksi serta ketidakpastian, idealnya berulang. DocumentAI tidak dipakai karena provider dinyatakan mati.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A03-LBY-app-audit-scope.png"
+          ]
+        },
+        {
+          "workflow": "app",
+          "caseId": "LBY_S_143",
+          "taskId": "T4",
+          "startedAt": "2026-10-18T07:17:55.853675861Z",
+          "endedAt": "2026-10-18T07:18:13.218573295Z",
+          "elapsedSeconds": 17.364897434,
+          "completed": true,
+          "assistance": "substantive_hint",
+          "confidence": null,
+          "answer": "Export UI asli: bundle_hash VALID; document_rights_metadata NOT_RECORDED; chain_receipt ABSENT. Setelah sourceDataset.snapshotId (field konteks luar bundle) diubah, verifier tetap memberi bundle_hash VALID dan digest yang sama. CLI yang digunakan tidak mendeteksi perubahan konteks ini; hash audit tidak membuktikan methane berkurang/perbaikan fisik. T4 dipengaruhi hint koordinator tentang checksum konteks sehingga bukan evaluasi independen.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A03-LBY-app-export-original.json",
+            "/tmp/methane-p56-completion/agent1/results/A03-LBY-app-export-tampered.json",
+            "/tmp/methane-p56-completion/agent1/results/A03-LBY-app-verification.txt"
+          ]
+        }
+      ],
+      "physicalProofBeliefs": {
+        "feedback": false,
+        "missingObservations": false,
+        "scoreOrHash": false
+      },
+      "findings": [
+        "Satu agent mengerjakan semua kondisi; A03 menggunakan pengetahuan packet dan navigasi dari A01, sehingga bukan peserta independen.",
+        "Kondisi manual hanya membaca packet dan baseline yang diberikan.",
+        "Pada app, run-code batch gagal dengan SyntaxError: Unexpected identifier page (A03 T1) dan TypeError: __fn__ is not a function (A03 T2); lanjut memakai aksi CLI eksplisit dan snapshot. Ini error alat otomasi, bukan error aplikasi.",
+        "Chromium menunjukkan 0 console errors dan 8 warnings setelah pencarian sumber; pesan warning tidak dikumpulkan. Tidak terlihat console error.",
+        "Cakupan auditor diterapkan 2025-12-23 sampai 2026-04-30 dan baseline menyatakan Insufficient reference coverage.",
+        "Waktu pembuatan export app terpisah: 2026-10-18T07:17:23.426342698Z sampai 2026-10-18T07:17:55.853675861Z (32.427333163 detik). T4 mulai setelah export tersedia.",
+        "T4 memakai substantive hint dari koordinator mengenai checksum konteks export; hasil tidak independen.",
+        "Tidak ada perubahan repo."
+      ],
+      "sessionOrdinal": 2
+    },
+    {
+      "sessionId": "A05",
+      "sessionOrdinal": 3,
+      "order": [
+        "manual:LBY_S_143",
+        "app:CAN_S_002"
+      ],
+      "tasks": [
+        {
+          "workflow": "manual",
+          "caseId": "LBY_S_143",
+          "taskId": "T1",
+          "startedAt": "2026-10-18T07:19:54.151170989Z",
+          "endedAt": "2026-10-18T07:20:30.147508903Z",
+          "elapsedSeconds": 35.996338,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "LBY_S_143; snapshot UNEP MARS unep-mars-675417694883; plume terakhir a8e4a775-4654-46b2-af16-bb9b4742e79d pada 2025-12-23T10:08:43, flux 537 ± 240 kg/h. Ini bukan kondisi saat ini: snapshot historis yang diambil 2026-10-14, hanya satu plume tertaut dan tidak ada pengukuran pascatindakan.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "manual",
+          "caseId": "LBY_S_143",
+          "taskId": "T2",
+          "startedAt": "2026-10-18T07:20:35.932449805Z",
+          "endedAt": "2026-10-18T07:20:51.615363050Z",
+          "elapsedSeconds": 15.682914,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "Investigasi lanjutan masuk akal, tanpa satu prioritas wajib: sinyal historisnya plume actionable 537 ± 240 kg/h dan ringkasan persistency 0.0 (kategori absent); notified/feedback Yes hanya metadata tingkat sumber. Batasnya satu plume tertaut dan tidak ada pengukuran pascatindakan. Packet tidak memberi skor prioritas numerik.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "manual",
+          "caseId": "LBY_S_143",
+          "taskId": "T3",
+          "startedAt": "2026-10-18T07:20:55.418154508Z",
+          "endedAt": "2026-10-18T07:21:02.745863353Z",
+          "elapsedSeconds": 7.327709,
+          "completed": true,
+          "assistance": "none",
+          "confidence": null,
+          "answer": "Tidak cukup. Metadata hanya menautkan laporan UNEP bertanggal 2026-04; isinya tidak disertakan dan mitigationConfirmed=null. Perlu catatan tindakan/perbaikan yang bertanggal dan teratribusi, lalu pengukuran methane pascatindakan yang tertaut ke lokasi/sumber, dengan waktu, metode/instrumen, batas deteksi dan ketidakpastian; pengukuran ulang memperkuatnya.",
+          "artifactPaths": []
+        },
+        {
+          "workflow": "manual",
+          "caseId": "LBY_S_143",
+          "taskId": "T4",
+          "startedAt": "2026-10-18T07:21:12.419966905Z",
+          "endedAt": "2026-10-18T07:21:39.674191960Z",
+          "elapsedSeconds": 27.254225,
+          "completed": true,
+          "assistance": "substantive_hint",
+          "confidence": null,
+          "answer": "Export baseline asli: bundle_hash VALID; document_rights_metadata NOT_RECORDED; chain_receipt ABSENT. Salinan yang hanya mengubah bundle.reason menjadi INVALID. Ini memeriksa integritas hash untuk isi yang dicakup, bukan membuktikan perbaikan fisik atau penurunan emisi.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A05-LBY-manual-export-original.json",
+            "/tmp/methane-p56-completion/agent1/results/A05-LBY-manual-export-tampered.json",
+            "/tmp/methane-p56-completion/agent1/results/A05-LBY-manual-verification.txt"
+          ]
+        },
+        {
+          "workflow": "app",
+          "caseId": "CAN_S_002",
+          "taskId": "T1",
+          "startedAt": "2026-10-18T07:22:36.990765746Z",
+          "endedAt": "2026-10-18T07:23:47.944448223Z",
+          "elapsedSeconds": 70.953683,
+          "completed": true,
+          "assistance": "navigation_hint",
+          "confidence": null,
+          "answer": "CAN_S_002; snapshot unep-mars-675417694883; plume tertaut terakhir 35328376-5922-43c4-9076-c97af6231527 pada 2026-04-10 (tanggal ditampilkan UI), 1,044 ± 370 kg/h. Hanya satu observasi; arsip historis sampai 2026-09-13 UTC, bukan feed langsung atau pemantauan berkelanjutan. Baris lebih baru yang tidak ada bukan bukti nol methane.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-case.png"
+          ]
+        },
+        {
+          "workflow": "app",
+          "caseId": "CAN_S_002",
+          "taskId": "T2",
+          "startedAt": "2026-10-18T07:24:03.119054900Z",
+          "endedAt": "2026-10-18T07:24:41.441374317Z",
+          "elapsedSeconds": 38.32232,
+          "completed": true,
+          "assistance": "navigation_hint",
+          "confidence": null,
+          "answer": "Follow-up layak dipertimbangkan: sinyal historis 1,044 ± 370 kg/h dan field notified/feedback Yes; batasnya satu plume tertaut tanpa pengukuran pascatindakan. Antrean menampilkan priority 27.5/80 · medium, tetapi UI menyebutnya heuristic berbasis referensi, bukan probabilitas atau bukti mitigasi; komponen hitungnya tidak dijelaskan di layar ini.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-case.png"
+          ]
+        },
+        {
+          "workflow": "app",
+          "caseId": "CAN_S_002",
+          "taskId": "T3",
+          "startedAt": "2026-10-18T07:24:47.009686781Z",
+          "endedAt": "2026-10-18T07:27:22.724220447Z",
+          "elapsedSeconds": 155.714534,
+          "completed": true,
+          "assistance": "navigation_hint",
+          "confidence": null,
+          "answer": "Cakupan yang diterapkan: 2026-04-10 sampai 2026-07-31 inklusif UTC, dengan event plume 35328376-5922-43c4-9076-c97af6231527. Rules baseline: Insufficient reference coverage; 1 observasi termuat dan 1 tautan laporan publisher, tetapi isi laporan tidak disertakan/dinilai dan tidak ada reference wajib yang cocok. Metadata tidak cukup untuk klaim pengukuran methane pascatindakan. Perlu catatan tindakan bertanggal dan bukti pengukuran methane setelahnya yang tertaut, dengan metode, lokasi/waktu, batas deteksi dan ketidakpastian. Document AI opsional/tidak dikonfigurasi; tidak dijalankan karena provider dinyatakan mati.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-audit-scope.png"
+          ]
+        },
+        {
+          "workflow": "app",
+          "caseId": "CAN_S_002",
+          "taskId": "T4",
+          "startedAt": "2026-10-18T07:28:13.999850478Z",
+          "endedAt": "2026-10-18T07:28:48.431315573Z",
+          "elapsedSeconds": 34.431465,
+          "completed": true,
+          "assistance": "substantive_hint",
+          "confidence": null,
+          "answer": "Export asli: bundle_hash VALID; document_rights_metadata NOT_RECORDED; chain_receipt ABSENT; audit 9c571284-3a82-44fc-b43c-9951d2bfe40d revision 2. Waktu membuat export dicatat terpisah: 2026-10-18T07:27:29.238911767Z–2026-10-18T07:27:59.790405843Z (30.551494076 detik). Salinan dengan sourceDataset.snapshotId diubah tetap VALID dan digest sama; verifier ini tidak mendeteksi perubahan konteks itu. Hash/receipt membahas integritas dan kronologi, bukan bukti methane benar-benar turun atau peralatan diperbaiki.",
+          "artifactPaths": [
+            "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-export-original.json",
+            "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-export-tampered.json",
+            "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-verification.txt"
+          ]
+        }
+      ],
+      "physicalProofBeliefs": {
+        "feedback": false,
+        "missingObservations": false,
+        "scoreOrHash": false
+      },
+      "findings": [
+        "Satu agent/model mengerjakan seluruh sesi; A05 mengulang kasus dan navigasi yang sudah dikenal, jadi bukan evaluasi independen atau blind.",
+        "Deviasi manual A05: filter Python pertama mencetak objek root yang mencakup kedua case; metadata CAN ikut terlihat sebelum kondisi app CAN. Tidak ada akses ke source implementasi atau hasil agent lain.",
+        "Perintah jq tidak tersedia (zsh: command not found: jq); pembacaan packet manual dialihkan ke Python.",
+        "T2 memakai ulang flux dan status yang sudah terlihat pada T1; waktu T2 tetap hanya interval T2 dan tidak tumpang tindih. App T2 memeriksa priority 27.5/80 dan keterbatasan UI setelah rincian plume terlihat di T1.",
+        "App T3: klik pertama Evidence Auditor terhalang dialog case yang masih terbuka; dialog ditutup lalu navigasi berhasil. Setelah scope diterapkan, ref e1580 kedaluwarsa; snapshot baru memberi ref e1722 untuk menjalankan rules baseline.",
+        "Browser app menunjukkan 0 console errors dan 14 warnings; teks warning tidak disimpan. Tidak ada error console browser yang terlihat.",
+        "Export app dibuat 2026-10-18T07:27:29.238911767Z–2026-10-18T07:27:59.790405843Z (30.551494076 detik); T4 mulai sesudah file tersedia.",
+        "T4 diberi substantive_hint karena parent menginformasikan cakupan checksum CLI. Pada app A05, perubahan sourceDataset.snapshotId tidak mengubah status hash VALID maupun digest; temuan ini bukan hasil independen."
+      ]
+    }
+  ],
+  "limitations": [
+    "Semua 24 tugas di tiga sesi selesai, tetapi ketiganya dijalankan berurutan oleh satu agent/model; ada carryover dan sesi bukan peserta independen.",
+    "Pada manual A05, filter packet sempat menampilkan objek root yang juga memuat metadata CAN sebelum kondisi app CAN; deviasi dicatat di findings.",
+    "Document AI tidak dipanggil karena provider dinyatakan mati dalam instruksi; UI menyebut jalurnya optional/not configured.",
+    "Isi laporan publisher tidak dibuka; penilaian menggunakan metadata/link yang ditampilkan dan tidak mengklaim hak pemrosesan konten.",
+    "CLI verifier menandai app export tetap VALID setelah sourceDataset.snapshotId diubah; konteks itu tidak tercakup oleh hasil hash yang dilaporkan. T4 menerima substantive_hint dari parent tentang batas checksum CLI.",
+    "Browser mencatat 0 console errors dan 14 warnings; isi warning tidak direkam. Tidak ada perubahan repo; artifact disimpan di folder /tmp ownership agent1.",
+    "Confidence bernilai null karena agent bukan responden manusia; keyakinan tentang bukti fisik dicatat terpisah dan seluruhnya false."
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "language": "en-US",
+  "voiceModel": "Kokoro-82M ONNX v1.0",
+  "voiceId": "af_sarah",
+  "syntheticVoice": true,
+  "segments": [
+    {
+      "startSeconds": 0,
+      "endSeconds": 18,
+      "text": "Every methane alert raises a question: what do the records actually establish? MethaneResponse makes that question traceable, one source and one claim at a time. It keeps observations, assessments, and evidence limits distinct."
+    },
+    {
+      "startSeconds": 18,
+      "endSeconds": 40,
+      "text": "We begin with a historical UNEP MARS source record in Kazakhstan. The directory makes it possible to search thousands of source locations, inspect one selected source, and move into its dated observations. This dataset is a snapshot, not a live feed."
+    },
+    {
+      "startSeconds": 40,
+      "endSeconds": 64,
+      "text": "This source has three recorded satellite observations. Each row keeps its date, reported flux, and uncertainty together. They are discrete measurements, not a continuous reading, and no line should imply that methane was measured between those observation dates."
+    },
+    {
+      "startSeconds": 64,
+      "endSeconds": 95,
+      "text": "The timeline makes the event dates easy to compare without filling gaps. Plume records describe observations; response and feedback fields describe administrative metadata. A response can document communication or a reported action, but feedback by itself does not confirm equipment repair or prove emissions declined."
+    },
+    {
+      "startSeconds": 95,
+      "endSeconds": 120,
+      "text": "Before any assessment, choose the relevant observation event and define the date range. Here, we select a single event and apply its inclusive UTC calendar day. The saved scope makes clear exactly which records the later assessment will consider."
+    },
+    {
+      "startSeconds": 120,
+      "endSeconds": 145,
+      "text": "We first run the deterministic rules baseline on a source-detection claim. It checks whether the required references are present for this selected source and event. That is an evidence-coverage result. It is not an AI judgment, and it does not independently authenticate a linked document."
+    },
+    {
+      "startSeconds": 145,
+      "endSeconds": 170,
+      "text": "Then we evaluate a different claim: confirmed mitigation. For this narrow submitted scope, the result is insufficient evidence. The catalogue includes a July action summary, but this casebook does not record its exact action date. Without that timing, the app cannot establish which observation occurred before or after the reported action."
+    },
+    {
+      "startSeconds": 170,
+      "endSeconds": 190,
+      "text": "The analyst records the next useful request: an attributable action timestamp and follow-up evidence linked to it. In this preview, notes are saved only in the current browser. They are not sent to an operator, and they are not a formal assignment."
+    },
+    {
+      "startSeconds": 190,
+      "endSeconds": 208,
+      "text": "Next, we export the JSON audit report and verify the same file. Its bundle digest and export-context checksum match. There is no blockchain receipt in this report."
+    },
+    {
+      "startSeconds": 208,
+      "endSeconds": 228,
+      "text": "Now we change a hashed field while leaving the stored digest untouched. The verifier recomputes the report and detects a mismatch. The altered export is rejected, showing that its contents changed."
+    },
+    {
+      "startSeconds": 228,
+      "endSeconds": 240,
+      "text": "That hash preserves record integrity. It does not prove the evidence is true, identify an authorized issuer, or show that methane mitigation happened."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "packetVersion": "P4-2026-10-18-v1",
+  "preparedDate": "2026-10-18",
+  "baseHead": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "workingTreeHasUncommittedChanges": true,
+  "status": "PREPARATION_ONLY_NO_EXPERT_RESULTS",
+  "confirmedExperts": 0,
+  "sessions": 0,
+  "expertResponses": 0,
+  "snapshotId": "unep-mars-675417694883",
+  "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+  "sourceBindingSha256": "e2b000299bc3645a96574927016dc29186e3200c8ce136ee0838d8351d300460",
+  "casesSha256": "b51b27e3e92fb1655c551f48b3e45005a53c079e524ec99218643a8fa29a6881",
+  "implementationComparisonSha256": "22b1dda5772c271eed97e134569f314207ea7059f3a2d1c1427903a0a8b62d4f",
+  "sourceBindingScope": "Selected methods/data/docs/tools; all 274 app implementation files checked against unchanged P3 manifest.",
+  "dataLicense": "CC BY-NC-SA 4.0; publisher reports not reproduced"
+}

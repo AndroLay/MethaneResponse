@@ -1,0 +1,10 @@
+Original export
+bundle_hash: VALID
+document_rights_metadata: NOT_RECORDED
+audit_id: a6424eea-c808-4428-a984-ca7cafab8996
+revision: 1
+sha256: 0x2396b3116690a66eed7b07f5ae96bc63b65a7d8808a4cfb00d2a1056e3ed5ff5
+chain_receipt: ABSENT
+
+Tampered copy (bundle.reason changed)
+bundle_hash: INVALID

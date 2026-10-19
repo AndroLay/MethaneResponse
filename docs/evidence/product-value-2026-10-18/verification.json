@@ -1,0 +1,65 @@
+{
+  "scope": "local product workflow and functional comparison",
+  "fullGate": {
+    "command": "bun run check:all",
+    "exitCode": 0,
+    "api": 193,
+    "web": 253,
+    "tooling": 54,
+    "python": 212,
+    "foundry": 4,
+    "total": 716,
+    "logSha256": "5be4a08d5ad1ed1e5734c1aca730afb981fff7b01aafb306e9c451bcf481a032",
+    "appGzipBytes": 71724
+  },
+  "browser": {
+    "exitCode": 0,
+    "scenarios": 4,
+    "chromiumSandbox": true,
+    "desktop": [
+      1600,
+      1000
+    ],
+    "mobileViewport": [
+      390,
+      844
+    ],
+    "realMobileDevice": false,
+    "localOnly": true,
+    "logSha256": "050ef40aab36b87661a3e4e8cb75883a7478e366d05d54f6f7c17285fdc74feb"
+  },
+  "productionBindingsChecked": 118,
+  "casebookHashMatches": true,
+  "frozenInputsMatch": true,
+  "historicalPackets": [
+    {
+      "packet": "domain-review-preparation-2026-10-18",
+      "checked": 31,
+      "valid": true
+    },
+    {
+      "packet": "domain-review-remediation-2026-10-18",
+      "checked": 51,
+      "valid": true
+    },
+    {
+      "packet": "p5-p6-agent-evaluation-2026-10-18",
+      "checked": 22,
+      "valid": true
+    },
+    {
+      "packet": "p5-p6-agent-completion-2026-10-18",
+      "checked": 76,
+      "valid": true
+    },
+    {
+      "packet": "integration-role-simulation-2026-10-18",
+      "checked": 24,
+      "valid": true
+    }
+  ],
+  "manualPythonReplayLogIdentical": true,
+  "humanResearchGatePassed": false,
+  "publicDeploymentVerified": false,
+  "physicalOutcomeEstablished": false
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17T12:36:00.076285+00:00",
+  "status": "awaiting free test ETH; original faucet unsuitable for new issuer",
+  "originalFaucet": {
+    "url": "https://faucet.chainplatform.co/faucets/ethereum-sepolia",
+    "findingSource": "user reported page response after completing the human step",
+    "message": "You need at least 0.001 ETH on mainnet to request testnet tokens.",
+    "mainnetFundingRequestedByAgent": false
+  },
+  "alternative": {
+    "url": "https://faucet.quicknode.com/ethereum/sepolia",
+    "checkedSurface": [
+      "current official FAQ via web",
+      "read-only isolated Chromium first-step page"
+    ],
+    "documentedRequirement": "base drip permits brand new wallet without minimum mainnet balance or QuickNode account; verification still required",
+    "addressFieldAvailable": true,
+    "ethereumSepoliaSelected": true,
+    "claimSubmittedByAgent": false,
+    "claimSuccessVerified": false
+  },
+  "issuer": "0x211334Ab7398e2A7268014c31809bd712F033afa",
+  "deploymentAndAnchorApprovalStillValid": true,
+  "publicDeploymentSent": false,
+  "anchorSent": false
+}

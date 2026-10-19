@@ -1,0 +1,63 @@
+{
+  "packetVersion": "P4-2026-10-18-v1",
+  "preparedDate": "2026-10-18",
+  "preparationStatus": "READY_TO_SEND",
+  "overallP4Status": "IN_PROGRESS_HUMAN_REVIEW_NOT_STARTED",
+  "confirmedExperts": 0,
+  "sessions": 0,
+  "expertResults": 0,
+  "caseCount": {
+    "realHistoricalMetadata": 6,
+    "syntheticDemo": 6
+  },
+  "version": "reviewer/07-version.json",
+  "sourceBinding": "source-files.sha256",
+  "sourceFilesChecked": 38,
+  "checks": "preparation-checks.json",
+  "checksSha256": "5899e32de373bcf867e1c6c73165d7cbed9cb419093dc2e9a7c0feff4d37c05a",
+  "archives": [
+    {
+      "file": "MethaneResponse-P4-reviewer-v1.zip",
+      "sha256": "d0394926342d456f24e50f76d341ff6ad0cd9c9262885a190b78851f9e609703",
+      "bytes": 41805,
+      "members": [
+        "MethaneResponse-P4-reviewer-v1/00-START-HERE.md",
+        "MethaneResponse-P4-reviewer-v1/01-method-brief.md",
+        "MethaneResponse-P4-reviewer-v1/02-review-protocol.md",
+        "MethaneResponse-P4-reviewer-v1/03-cases.md",
+        "MethaneResponse-P4-reviewer-v1/04-response-form.md",
+        "MethaneResponse-P4-reviewer-v1/05-source-register.md",
+        "MethaneResponse-P4-reviewer-v1/06-method-excerpts.txt",
+        "MethaneResponse-P4-reviewer-v1/07-version.json",
+        "MethaneResponse-P4-reviewer-v1/LICENSE-DATA.txt",
+        "MethaneResponse-P4-reviewer-v1/SHA256SUMS",
+        "MethaneResponse-P4-reviewer-v1/SOURCE-FILES.sha256",
+        "MethaneResponse-P4-reviewer-v1/cases.json",
+        "MethaneResponse-P4-reviewer-v1/index.html"
+      ],
+      "crcAndOriginalBytes": "passed",
+      "phase": "A_INITIAL_EXPERT_ASSESSMENT"
+    },
+    {
+      "file": "MethaneResponse-P4-comparison-v1.zip",
+      "sha256": "f3503140cdd2d9d796d893763b67121ee7513e58a8ae12fb37eb1007fc169560",
+      "bytes": 2807,
+      "members": [
+        "MethaneResponse-P4-comparison-v1/07-version.json",
+        "MethaneResponse-P4-comparison-v1/SHA256SUMS",
+        "MethaneResponse-P4-comparison-v1/baseline-observations.json",
+        "MethaneResponse-P4-comparison-v1/comparison-readme.md"
+      ],
+      "crcAndOriginalBytes": "passed",
+      "phase": "B_IMPLEMENTATION_COMPARISON"
+    }
+  ],
+  "offlineReader": "reviewer/index.html",
+  "browserPreview": "browser-preview.json",
+  "generator": {
+    "python": "3.14.7",
+    "markdownItPy": "4.2.0",
+    "network": false
+  },
+  "humanCompletionCriteria": "Original five P4 checkboxes; actual qualified independent review, material fixes/recheck and consented summary remain pending."
+}

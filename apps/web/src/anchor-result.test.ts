@@ -29,3 +29,10 @@ test('rejects receipt metadata for another audit or an unverified full result', 
   })).toThrow('does not match');
   expect(() => mergeAnchorResponse(audit, { ...audit, auditId: 'other-audit', anchored: true, receipt })).toThrow('does not match');
 });
+
+test('rejects non-positive or unsafe receipt versions and insufficiently described confirmations', () => {
+  for (const version of [0, -1, Number.MAX_SAFE_INTEGER + 1]) {
+    expect(() => mergeAnchorResponse(audit, { status: 'anchored', auditId: audit.auditId, bundleHash: audit.bundleHash, receipt: { ...receipt, version } })).toThrow('does not match');
+  }
+  expect(() => mergeAnchorResponse(audit, { status: 'anchored', auditId: audit.auditId, bundleHash: audit.bundleHash, receipt: { ...receipt, confirmations: 0 } })).toThrow('does not match');
+});

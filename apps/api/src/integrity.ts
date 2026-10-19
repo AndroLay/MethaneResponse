@@ -1,11 +1,11 @@
 import { createHash } from 'node:crypto';
-import type { AuditResult } from '@methane/shared';
+import { validateAssessmentSemantics, type AuditResult } from '@methane/shared';
 import { canonicalJson } from './canonical';
 
 export function auditIntegrityValid(audit: AuditResult): boolean {
   const bundle = audit.bundle;
   const digest = `0x${createHash('sha256').update(canonicalJson(bundle)).digest('hex')}`;
-  return digest === audit.bundleHash
+  return !validateAssessmentSemantics(bundle) && digest === audit.bundleHash
     && audit.auditId === bundle.auditId
     && audit.caseId === bundle.caseId
     && audit.revision === bundle.revision

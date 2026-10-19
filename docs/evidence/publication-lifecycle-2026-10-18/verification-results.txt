@@ -1,0 +1,72 @@
+## Full local gate
+ 164 pass
+ 0 fail
+ 975 expect() calls
+Ran 164 tests across 29 files. [1356.00ms]
+ 240 pass
+ 0 fail
+ 164951 expect() calls
+Ran 240 tests across 50 files. [1.60s]
+ 36 pass
+ 0 fail
+ 150 expect() calls
+Ran 36 tests across 6 files. [2.42s]
+Web bundle budget passed: App 74957 gzip bytes; 8 route chunks; MapPanel 1122953 raw bytes.
+============================= 160 passed in 33.23s =============================
+Ran 4 tests for test/EvidenceRegistry.t.sol:EvidenceRegistryTest
+Ran 1 test suite in 19.95ms (6.30ms CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)
+
+## Complete browser invocation
+ 3 pass
+ 0 fail
+ 6 expect() calls
+Ran 3 tests across 1 file. [17.00ms]
+  ✓   1 [chromium] › e2e/audit-workflow.spec.ts:17:5 › analyst case work resumes after refresh with a bounded scope and a work-status queue (12.8s)
+  ✓   2 [chromium] › e2e/audit-workflow.spec.ts:60:5 › claim requirements guide investigation and export a readable snapshot-bound brief (10.8s)
+  ✓   3 [chromium] › e2e/audit-workflow.spec.ts:105:5 › saved assessments can be compared by claim without creating extra revisions (4.3s)
+  ✓   4 [chromium] › e2e/audit-workflow.spec.ts:134:5 › late audit and verification responses cannot overwrite a changed investigation (6.1s)
+  ✓   5 [chromium] › e2e/audit-workflow.spec.ts:183:5 › opening a saved revision takes precedence over an earlier pending assessment (4.3s)
+  ✓   6 [chromium] › e2e/audit-workflow.spec.ts:214:5 › map case details show the official Canada report link with its date and license metadata (4.3s)
+  ✓   7 [chromium] › e2e/audit-workflow.spec.ts:245:5 › MARS publisher indicators load lazily, preserve monthly/country history, paginate, and jump to an exact source (4.9s)
+  ✓   8 [chromium] › e2e/audit-workflow.spec.ts:317:5 › historical MARS case can be audited, exported, verified, and tampering is rejected (13.1s)
+  ✓   9 [chromium] › e2e/audit-workflow.spec.ts:410:5 › guided investigation keeps the selected source and exposes discrete audit stages (6.6s)
+  ✓  10 [chromium] › e2e/audit-workflow.spec.ts:472:5 › collapsed navigation reveals its label on keyboard focus (3.7s)
+  ✓  11 [chromium] › e2e/audit-workflow.spec.ts:488:5 › global historical map becomes usable when remote basemap tiles are unavailable (3.6s)
+  ✓  12 [chromium] › e2e/audit-workflow.spec.ts:506:5 › unsaved work is guarded and recovered while separate investigations keep independent scopes (11.8s)
+  ✓  13 [chromium] › e2e/audit-workflow.spec.ts:569:5 › human drafts recover exact metadata without credentials or inspection confirmation and skip optional AI (8.4s)
+  ✓  14 [chromium] › e2e/audit-workflow.spec.ts:614:5 › chain recovery controls protect credentials and never retry a pending write (UI fixture) (8.9s)
+  14 passed (1.8m)
+  ✓  1 [chromium] › e2e/ai-review-workflow.spec.ts:13:5 › shared team investigations import explicitly, hand off across isolated sessions, and retain conflicting drafts (22.7s)
+  ✓  2 [chromium] › e2e/ai-review-workflow.spec.ts:127:5 › DEMO trust controls publish only an opted-in redacted summary with independently checked checksum (11.8s)
+  ✓  3 [chromium] › e2e/ai-review-workflow.spec.ts:199:5 › DEMO publication correction and withdrawal stay consistent after reload and failed refresh (12.5s)
+  ✓  4 [chromium] › e2e/ai-review-workflow.spec.ts:264:5 › DEMO publication history loads older pages without reviving superseded versions (5.2s)
+  ✓  5 [chromium] › e2e/ai-review-workflow.spec.ts:294:5 › DEMO human correction recovers its parent after a baseline and protects an unsaved draft (6.1s)
+  ✓  6 [chromium] › e2e/ai-review-workflow.spec.ts:334:5 › DEMO withdrawal reloads the current list after a concurrent public correction (7.1s)
+  ✓  7 [chromium] › e2e/ai-review-workflow.spec.ts:388:5 › human-only evidence decisions save private revisions and export without invoking document AI (13.9s)
+  ✓  8 [chromium] › e2e/ai-review-workflow.spec.ts:486:5 › local mock AI citations receive a separate scoped review and remain private until publication consent (12.6s)
+  ✓  9 [chromium] › e2e/ai-review-workflow.spec.ts:696:5 › late document responses stay out of a restarted claim investigation (6.1s)
+  9 passed (1.7m)
+
+## Publication operations
+ 1 pass
+ 0 fail
+ 15 expect() calls
+Ran 1 test across 1 file. [1033.00ms]
+
+## Casework regression
+ 2 pass
+ 0 fail
+ 17 expect() calls
+Ran 2 tests across 2 files. [1.76s]
+
+## Chain regression
+ 1 pass
+ 0 fail
+ 22 expect() calls
+Ran 1 test across 1 file. [8.30s]
+
+## TLS regression
+ 1 pass
+ 0 fail
+ 10 expect() calls
+Ran 1 test across 1 file. [4.18s]

@@ -1,6 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { z } from 'zod';
-import { type AuditResult, type ClaimType, type Evidence, type ReviewSource, type MarsProvenance, type ExternalEvidenceReference, type ResultLabel, type EvidenceBundle } from '@methane/shared';
+import { assessmentSemantics, type AuditResult, type ClaimType, type Evidence, type ReviewSource, type MarsProvenance, type ExternalEvidenceReference, type ResultLabel, type EvidenceBundle } from '@methane/shared';
 import { canonicalJson } from './canonical';
 
 export const DocumentAssessmentInput = z.object({
@@ -216,6 +216,7 @@ export function createDocumentAudit(
   const inputHashes = assessmentInputHashes(input);
   const bundle: EvidenceBundle = {
     schemaVersion: 3, auditId, caseId: options.caseId, revision, generatedAt: timestamp,
+    assessmentSemantics: assessmentSemantics('model_document_assessment'),
     sourceId: input.sourceId, claimType: input.claimType, result: checked.result, reason: checked.reason,
     citedEvidence, externalEvidence: options.externalEvidence,
     ...(options.provenance ? { provenance: options.provenance } : {}),
@@ -331,6 +332,7 @@ export function createReviewedAudit(parent: AuditResult, revision: number, revie
     }),
     review: { reviewerId, reviewedAt: generatedAt, note: review.note, parentBundleHash: parent.bundleHash, sourceInspected: review.sourceInspected } };
   const bundle: EvidenceBundle = { ...parent.bundle, auditId, revision, generatedAt, result, reason, intelligence,
+    assessmentSemantics: assessmentSemantics('model_document_assessment'),
     limitations: [...parent.bundle.limitations, ...(review.status === 'needs_more_evidence' ? ['Additional evidence was requested; this revision does not resolve the claim.'] : []), 'Reviewer disposition does not establish operator identity, document authenticity, physical mitigation, or reduced emissions.'],
   };
   const bundleHash = `0x${digest(canonicalJson(bundle))}` as `0x${string}`;

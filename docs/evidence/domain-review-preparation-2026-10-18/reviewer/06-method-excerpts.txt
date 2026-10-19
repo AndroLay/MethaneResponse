@@ -1,0 +1,46 @@
+SOURCE: apps/api/src/audit.ts
+Extracted from current working tree 18 October 2026. Original full-file hash in source-files.sha256. This is application code, not UNEP/IEA methodology.
+export function assess(source: Pick<Source, 'evidence'>, claimType: ClaimType, scope?: AuditScope): {result: ResultLabel; reason: string; evidenceIds: string[]} {
+  const { supporting: eligibleSupporting, contradictions } = claimEvidence(source.evidence, claimType, scope);
+  const refs = [...new Set([...contradictions, ...eligibleSupporting].map((e) => e.id))].sort();
+  if (contradictions.length > 0 && eligibleSupporting.length > 0) {
+    return { result: 'insufficient_evidence', reason: 'Conflicting source records require human adjudication.', evidenceIds: refs };
+  }
+  if (contradictions.length > 0) {
+    return { result: 'contradicted', reason: 'An explicit contrary record exists for this specific claim (fixture baseline).', evidenceIds: refs };
+  }
+  if (eligibleSupporting.length > 0) {
+    return { result: 'supported', reason: 'An evidence reference of the required type is present. This does not authenticate its contents.', evidenceIds: refs };
+  }
+  return { result: 'insufficient_evidence', reason: 'No evidence of the required type. Absence does not prove the claim is false.', evidenceIds: [] };
+}
+
+
+SOURCE: packages/shared/src/index.ts
+Extracted from current working tree 18 October 2026. Original full-file hash in source-files.sha256. This is application code, not UNEP/IEA methodology.
+/** Required reference types for the deterministic coverage baseline; not physical verification. */
+export const CLAIM_SUPPORT_KIND: Readonly<Record<ClaimType, Evidence['kind']>> = Object.freeze({
+  source_detected: 'detection',
+  operator_notified: 'notification',
+  mitigation_confirmed: 'mitigation_confirmation',
+});
+
+/** Same eligibility rules for the saved baseline and its inventory preview. */
+export function evidenceMatchesScope(evidence: Evidence, scope: AuditScope): boolean {
+  const date = evidence.date?.slice(0, 10);
+  const timestamp = date ? Date.parse(`${date}T00:00:00Z`) : NaN;
+  if (!date || !Number.isFinite(timestamp) || new Date(timestamp).toISOString().slice(0, 10) !== date || date < scope.startDate || date > scope.endDate) return false;
+  return !scope.observationId || (evidence.observationId || (evidence.kind === 'detection' ? evidence.id : undefined)) === scope.observationId;
+}
+export function claimEvidence(evidence: Evidence[], claimType: ClaimType, scope?: AuditScope) {
+  const relevant = evidence.filter(e => (e.kind === CLAIM_SUPPORT_KIND[claimType] && (!e.claimType || e.claimType === claimType)) || (e.kind === 'contradiction' && e.claimType === claimType));
+  const eligible = relevant.filter(e => !scope || (evidenceMatchesScope(e, scope)
+    && (claimType !== 'operator_notified' || Boolean(scope.recipient && e.recipient?.trim().toLocaleLowerCase() === scope.recipient.toLocaleLowerCase()))
+    && (e.kind !== 'mitigation_confirmation' || Boolean(e.action?.trim() && e.followUpReference && e.followUpDate
+      && /^\d{4}-\d{2}-\d{2}$/.test(e.followUpDate) && !Number.isNaN(Date.parse(e.followUpDate))
+      && new Date(e.followUpDate).toISOString().slice(0, 10) === e.followUpDate
+      && e.followUpDate >= e.date!.slice(0, 10) && e.followUpDate <= scope.endDate))));
+  return { supporting: eligible.filter(e => e.kind !== 'contradiction'), contradictions: eligible.filter(e => e.kind === 'contradiction'),
+    excludedCount: new Set(relevant.filter(e => !eligible.includes(e)).map(e => e.id)).size };
+}
+

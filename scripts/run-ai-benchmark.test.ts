@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test';
 import { randomUUID } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, readFile, readdir, rm, stat, symlink, writeFile } from 'node:fs/promises';
+import { chmod, mkdtemp, readFile, readdir, rm, stat, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { DocumentAssessmentInput, assessmentInputHashes } from '../apps/api/src/ai-review';
@@ -11,7 +11,8 @@ const excerpt = 'An operator filed a repair notice, but this report does not est
 const input = { sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed' as const,
   claimText: 'The operator completed the specified repair at source KAZ_S_159 on 2026-09-10 and verified sustained methane reduction.',
   consentToExternalProcessing: true as const,
-  documents: [{ id: 'report-01', title: 'Permission-cleared report', text: excerpt, rightsDeclared: 'explicit_permission' as const }] };
+  documents: [{ id: 'report-01', title: 'Permission-cleared report', text: excerpt, rightsDeclared: 'explicit_permission' as const,
+    sourceUrl: 'https://evidence.example/report-01' }] };
 const inputHashes = assessmentInputHashes(DocumentAssessmentInput.parse(input))!;
 const valid = {
   claimId: 'claim-01', split: 'test', synthetic: false,
@@ -244,4 +245,47 @@ test('benchmark CLI does not create an output directory through a symlink into t
     await rm(targetDirectory, { recursive: true, force: true });
     await rm(directory, { recursive: true, force: true });
   }
+});
+
+test('complete-attempt mode retains sanitized failures, latency and no invented verdict', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'methane-ai-attempt-ledger-'));
+  const output = join(directory, 'attempts.jsonl');
+  let calls = 0;
+  try {
+    const count = await executeBenchmarkToPrivateFile(validateCandidates([valid, { ...valid, claimId: 'claim-02' }], 2), output, async () => {
+      calls += 1;
+      if (calls === 1) throw new Error('SECRET_PRIVATE_EXCERPT_AND_KEY');
+      return { verdict: 'insufficient_evidence', reason: 'The submitted text does not establish the claim.', citations: [] };
+    }, { recordProviderFailures: true });
+    expect(count).toBe(2);
+    const raw = await readFile(output, 'utf8');
+    expect(raw).not.toContain('SECRET_PRIVATE_EXCERPT_AND_KEY');
+    const rows = raw.trim().split('\n').map(line => JSON.parse(line));
+    expect(rows[0].verdict).toBeNull();
+    expect(rows[0].citations).toEqual([]);
+    expect(rows[0].execution.status).toBe('provider_failure');
+    expect(rows[0].execution.errorCode).toBe('provider_error');
+    expect(rows[0].execution.elapsedMs).toBeGreaterThanOrEqual(0);
+    expect(rows[0].execution.costUsd).toBeNull();
+    expect(rows[1].execution.status).toBe('completed');
+  } finally { await rm(directory, { recursive: true, force: true }); }
+});
+
+test('benchmark rights require the document URL in frozen input, not a separate unrelated approval', () => {
+  const { sourceUrl: _url, ...document } = input.documents[0];
+  const changed = DocumentAssessmentInput.parse({ ...input, documents: [document] });
+  expect(() => validateCandidates([{ ...valid, input: changed, ...assessmentInputHashes(changed) }], 1)).toThrow('source URL');
+});
+
+test('shared output directory is rejected before any provider request', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'methane-ai-shared-output-'));
+  let calls = 0;
+  await chmod(directory, 0o755);
+  try {
+    await expect(executeBenchmarkToPrivateFile(validateCandidates([valid], 1), join(directory, 'attempts.jsonl'), async () => {
+      calls += 1;
+      return { verdict: 'insufficient_evidence', reason: 'Not enough grounded evidence is present.', citations: [] };
+    })).rejects.toThrow('owner-only');
+    expect(calls).toBe(0);
+  } finally { await rm(directory, { recursive: true, force: true }); }
 });

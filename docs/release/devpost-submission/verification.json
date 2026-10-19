@@ -1,0 +1,55 @@
+{
+  "scope": "Local Devpost submission content and allowlisted judging attachment",
+  "checkedDate": "2026-10-19",
+  "applicationRuntimeModified": false,
+  "formContent": {
+    "projectNameCharacters": 15,
+    "elevatorPitchCharacters": 143,
+    "builtWithTags": 15,
+    "requestedStoryHeadings": 7,
+    "localMarkdownLinks": "pass"
+  },
+  "tests": {
+    "contentAndArchiveRegressionsPassed": 8,
+    "failed": 0,
+    "pythonSyntaxCompilation": "pass",
+    "originalReportActualVerifierCLI": "accepted_exit_0",
+    "changedReportActualVerifierCLI": "rejected_exit_1_as_expected",
+    "fullApplicationSuite": "not_rerun_for_documentation_and_packaging_only_changes"
+  },
+  "attachment": {
+    "path": "delivery-output/devpost-submission-2026-10-19/MethaneResponse-Devpost-Judging-Pack.zip",
+    "bytes": 1978578,
+    "sha256": "e665e340f52e335474c57ca20a1ab65bd4f9116076851d9178f5941c3298f0a2",
+    "members": 22,
+    "limitBytesConservative": 35000000,
+    "crcAndChecksumValidation": "pass",
+    "deterministicArchiveRegression": "pass",
+    "overwriteExistingArchive": "refused"
+  },
+  "gallery": {
+    "images": 6,
+    "eachBelowBytes": 5000000,
+    "nativeDimensions": [1920, 1080],
+    "aspectRatio": "16:9; the form recommends 3:2",
+    "pixelsModified": false,
+    "sourceCaptureSha256": "3de8dc98ffd4cb0e9aaf00f3a1b8838949cc84e7a04bce9257af3e0a0a4a2b98",
+    "review": "All six retained real UI screenshots inspected; basemap attribution retained"
+  },
+  "scientificAndProductClaims": {
+    "source": "Current repository scope and retained claims ledger",
+    "testCount716": "Historical frozen October 18 result, not a new run",
+    "liveAIQualityClaimed": false,
+    "publicSepoliaReceiptClaimed": false,
+    "humanStudyOrMeasuredEmissionReductionClaimed": false,
+    "thirdPartyReportBodyIncluded": false
+  },
+  "externalState": {
+    "repositoryCurrentPublicRevision": "not_verified; web reader cache miss, shell network domain blocked",
+    "livePrototypeURL": "pending",
+    "uploadedVideoURL": "pending",
+    "formSaved": false,
+    "fileUploaded": false,
+    "submitted": false
+  }
+}

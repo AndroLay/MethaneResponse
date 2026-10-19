@@ -1,8 +1,12 @@
 # Catatan Hackathon — IEEE ClimateChain Global Hackathon 2026
 
-**Diperiksa ulang:** 15 Oktober 2026
+**Refresh untuk submission, 19 Oktober 2026:** Rules dan Overview dibaca langsung. Keduanya masih menampilkan deadline header 25 Oktober pukul 17.00 UTC+03 (22.00 WITA). Body Rules saat ini tidak memuat kalimat earliest-submission yang bertentangan dan dicatat pada pemeriksaan lama di bawah. Perbedaan kelayakan tetap ada: Overview menyebut students only, sedangkan Rules memuat kategori lebih luas. Paket [isi submission](devpost-submission/README.md) dan [alignment aturan](devpost-submission/rules-check.md) memakai pembacaan terbaru ini. Video 3–5 menit, track alignment, source repository dan lima kriteria tetap tercantum. Status form/publikasi/submission belum dikonfirmasi; paragraf bertanggal lebih lama dipertahankan sebagai riwayat akses.
+
+**Diperiksa ulang:** 16 Oktober 2026
 **Sumber utama:** halaman resmi Devpost
 **Status peserta/proyek:** belum dikonfirmasi; catatan ini tidak mendaftarkan peserta atau mengirim proyek.
+
+**Pemeriksaan terbaru, 16 Oktober 2026:** [Overview](https://ieee-climatechain-hack.devpost.com/) dan [Rules](https://ieee-climatechain-hack.devpost.com/rules) dapat dibaca langsung. Overview tetap menyebut students only dan batas 25 Oktober, 17.00 MSK (22.00 WITA). Rules tetap memperluas kategori peserta dan menyebut waktu mulai 08.00 PT pada tanggal yang sama (23.00 WITA). Konflik kelayakan dan jam belum terselesaikan. Halaman Dates gagal dibaca; tidak ada klarifikasi panitia yang diperoleh. Kebutuhan video 3–5 menit menjadi dasar naskah baru 4:30; tidak ada bobot numerik rubrik yang ditemukan. Ini pemeriksaan aturan dan persiapan materi lokal, bukan pendaftaran atau submission. Paragraf bertanggal 15 Oktober di bawah adalah riwayat akses, bukan status terbaru.
 
 **Refresh lanjutan dari halaman resmi (15 Oktober 2026):** pembacaan overview melalui reader saat ini kembali menampilkan deadline **25 Oktober 2026 pukul 17.00 MSK** dan ringkasan peserta **“Students only”**. Bagian *About* pada halaman yang sama masih mengundang innovators, developers, researchers, dan climate enthusiasts, jadi ada ketidakselarasan internal di Overview. Pembukaan langsung Rules kali ini mengembalikan **403**; karena itu, aturan lebih luas yang sempat terbaca pada pass sebelumnya tetap bukti historis halaman, bukan konfirmasi aturan yang berlaku sekarang. Overview yang terbaca saat ini meminta deskripsi proyek, video demo 3–5 menit, repository publik, prototype/demo, dan menyebut lima kriteria kualitatif tanpa bobot numerik. Tidak ada klarifikasi panitia yang ditemukan atau dikirim. Detail tetap dicatat di bawah dan belum boleh dianggap menyelesaikan eligibility maupun konflik jam submission.
 

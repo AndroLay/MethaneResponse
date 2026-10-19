@@ -1,0 +1,250 @@
+{
+  "agentCount": 1,
+  "analysis": "agent_assisted_workflow_check",
+  "criticalTaskFindings": 0,
+  "exitChecks": {
+    "criticalBeliefCount": 0,
+    "notRecorded": 1,
+    "recorded": 0
+  },
+  "humanParticipantCount": 0,
+  "inputSha256": {
+    "exits": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "study": "d0f2fb43ec4da484e82af0bdb33ca791180b42b3272c639319c5a1b66695eb1d",
+    "tasks": "38ee0c3f7e3ddf57d0b768afb55d12afa75287514739258b12f3ae9782a16493"
+  },
+  "limitations": [
+    "Facilitator-supplied correctness and participant type are attestations, not independently authenticated facts.",
+    "Null timing is unavailable, never zero. Incomplete/incorrect pairs remain in denominators.",
+    "Positive manual-minus-app time means faster recorded app execution on these matched tasks only.",
+    "Report workflow/case/order/help and case comparability; this small sample does not establish population time savings or climate impact.",
+    "Agent timings are tool execution times, not human usability measurements. Human and agent studies must remain separate.",
+    "This private aggregate requires a separate consent and disclosure review before publication."
+  ],
+  "paired": {
+    "T1": {
+      "completeCorrectPairs": 0,
+      "incompleteOrIncorrectPairs": 1,
+      "manualMinusAppSeconds": null,
+      "manualMinusAppSecondsWithoutSubstantiveHelp": null,
+      "pairsWithSubstantiveHelp": 0,
+      "scheduledPairs": 1
+    },
+    "T2": {
+      "completeCorrectPairs": 0,
+      "incompleteOrIncorrectPairs": 1,
+      "manualMinusAppSeconds": null,
+      "manualMinusAppSecondsWithoutSubstantiveHelp": null,
+      "pairsWithSubstantiveHelp": 0,
+      "scheduledPairs": 1
+    },
+    "T3": {
+      "completeCorrectPairs": 0,
+      "incompleteOrIncorrectPairs": 1,
+      "manualMinusAppSeconds": null,
+      "manualMinusAppSecondsWithoutSubstantiveHelp": null,
+      "pairsWithSubstantiveHelp": 0,
+      "scheduledPairs": 1
+    },
+    "T4": {
+      "completeCorrectPairs": 0,
+      "incompleteOrIncorrectPairs": 1,
+      "manualMinusAppSeconds": null,
+      "manualMinusAppSecondsWithoutSubstantiveHelp": null,
+      "pairsWithSubstantiveHelp": 0,
+      "scheduledPairs": 1
+    }
+  },
+  "pilotGate": {
+    "blockers": [
+      "Agent execution does not satisfy the human pilot gate",
+      "Human pilot requires 5-8 independent relevant participants",
+      "Some scheduled paired tasks are not recorded",
+      "Exit checks are missing or retain physical-proof misconceptions"
+    ],
+    "passed": false,
+    "requiredIndependentCompletionsPerTask": 1
+  },
+  "publicReleaseApproved": false,
+  "recordedTaskCount": 4,
+  "scheduledParticipantCount": 1,
+  "schemaVersion": 1,
+  "snapshotSha256": "02601434e3ef431f6fa2432ae3e6a0069f52649df3f43a366cb203d41be56aa0",
+  "sourceArchiveSha256": "6bd8f2d8dd4341fd1546f29673470581d81857158cf473fee513b3ee09a99633",
+  "studySha256": "aaa5ecb2543ccf61597fc7d09a91cecc107b804502267d64af210a60941f762d",
+  "tasks": {
+    "app": {
+      "T1": {
+        "assistanceCounts": {
+          "navigation_hint": 0,
+          "none": 1,
+          "repeat_prompt": 0,
+          "substantive_hint": 0
+        },
+        "completed": 1,
+        "confidence": null,
+        "correctnessCounts": {
+          "abstained": 0,
+          "correct": 1,
+          "incorrect": 0,
+          "partly_correct": 0
+        },
+        "independentCorrect": 1,
+        "notRecorded": 0,
+        "observedSecondsIncludingIncomplete": null,
+        "recorded": 1,
+        "scheduled": 1
+      },
+      "T2": {
+        "assistanceCounts": {
+          "navigation_hint": 0,
+          "none": 1,
+          "repeat_prompt": 0,
+          "substantive_hint": 0
+        },
+        "completed": 1,
+        "confidence": null,
+        "correctnessCounts": {
+          "abstained": 0,
+          "correct": 1,
+          "incorrect": 0,
+          "partly_correct": 0
+        },
+        "independentCorrect": 1,
+        "notRecorded": 0,
+        "observedSecondsIncludingIncomplete": null,
+        "recorded": 1,
+        "scheduled": 1
+      },
+      "T3": {
+        "assistanceCounts": {
+          "navigation_hint": 0,
+          "none": 1,
+          "repeat_prompt": 0,
+          "substantive_hint": 0
+        },
+        "completed": 1,
+        "confidence": null,
+        "correctnessCounts": {
+          "abstained": 0,
+          "correct": 1,
+          "incorrect": 0,
+          "partly_correct": 0
+        },
+        "independentCorrect": 1,
+        "notRecorded": 0,
+        "observedSecondsIncludingIncomplete": null,
+        "recorded": 1,
+        "scheduled": 1
+      },
+      "T4": {
+        "assistanceCounts": {
+          "navigation_hint": 0,
+          "none": 1,
+          "repeat_prompt": 0,
+          "substantive_hint": 0
+        },
+        "completed": 1,
+        "confidence": null,
+        "correctnessCounts": {
+          "abstained": 0,
+          "correct": 1,
+          "incorrect": 0,
+          "partly_correct": 0
+        },
+        "independentCorrect": 1,
+        "notRecorded": 0,
+        "observedSecondsIncludingIncomplete": null,
+        "recorded": 1,
+        "scheduled": 1
+      }
+    },
+    "manual": {
+      "T1": {
+        "assistanceCounts": {
+          "navigation_hint": 0,
+          "none": 0,
+          "repeat_prompt": 0,
+          "substantive_hint": 0
+        },
+        "completed": 0,
+        "confidence": null,
+        "correctnessCounts": {
+          "abstained": 0,
+          "correct": 0,
+          "incorrect": 0,
+          "partly_correct": 0
+        },
+        "independentCorrect": 0,
+        "notRecorded": 1,
+        "observedSecondsIncludingIncomplete": null,
+        "recorded": 0,
+        "scheduled": 1
+      },
+      "T2": {
+        "assistanceCounts": {
+          "navigation_hint": 0,
+          "none": 0,
+          "repeat_prompt": 0,
+          "substantive_hint": 0
+        },
+        "completed": 0,
+        "confidence": null,
+        "correctnessCounts": {
+          "abstained": 0,
+          "correct": 0,
+          "incorrect": 0,
+          "partly_correct": 0
+        },
+        "independentCorrect": 0,
+        "notRecorded": 1,
+        "observedSecondsIncludingIncomplete": null,
+        "recorded": 0,
+        "scheduled": 1
+      },
+      "T3": {
+        "assistanceCounts": {
+          "navigation_hint": 0,
+          "none": 0,
+          "repeat_prompt": 0,
+          "substantive_hint": 0
+        },
+        "completed": 0,
+        "confidence": null,
+        "correctnessCounts": {
+          "abstained": 0,
+          "correct": 0,
+          "incorrect": 0,
+          "partly_correct": 0
+        },
+        "independentCorrect": 0,
+        "notRecorded": 1,
+        "observedSecondsIncludingIncomplete": null,
+        "recorded": 0,
+        "scheduled": 1
+      },
+      "T4": {
+        "assistanceCounts": {
+          "navigation_hint": 0,
+          "none": 0,
+          "repeat_prompt": 0,
+          "substantive_hint": 0
+        },
+        "completed": 0,
+        "confidence": null,
+        "correctnessCounts": {
+          "abstained": 0,
+          "correct": 0,
+          "incorrect": 0,
+          "partly_correct": 0
+        },
+        "independentCorrect": 0,
+        "notRecorded": 1,
+        "observedSecondsIncludingIncomplete": null,
+        "recorded": 0,
+        "scheduled": 1
+      }
+    }
+  },
+  "collectionNote": "Retrospective engineering ingestion of four KAZ app tasks, not a pre-frozen pilot. Two ARG app task checks remain supplementary in the walkthrough. No manual tasks, exit form, timings or confidence were collected."
+}

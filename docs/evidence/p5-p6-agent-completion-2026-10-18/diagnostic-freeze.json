@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "frozenAt": "2026-10-18T06:56:00.987373+00:00",
+  "scope": "DEMO authored diagnostic; NOT original real-claim/provider/human P6 benchmark",
+  "snapshotSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+  "snapshotProvenance": {
+    "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+    "dataset": "Eye on Methane / MARS detected sources and plumes",
+    "localFileName": "sources_plumes_csv.zip",
+    "catalogUrl": "https://methanedata.unep.org/download-dataset",
+    "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+    "retrievedAt": "2026-10-14T06:10:12+00:00",
+    "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "snapshotId": "unep-mars-675417694883",
+    "license": "CC BY-NC-SA 4.0",
+    "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred."
+  },
+  "excludedPilotSources": [
+    "ARG_S_055",
+    "CAN_S_002",
+    "KAZ_S_159",
+    "LBY_S_143"
+  ],
+  "selection": "First eligible distinct countries by sorted sourceId; latest quantified linked record per source.",
+  "partitions": {
+    "train": {
+      "sources": [
+        "AFG_S_001",
+        "AGO_S_001"
+      ],
+      "documentIds": [
+        "record-AFG_S_001",
+        "record-AGO_S_001"
+      ],
+      "claims": 12
+    },
+    "dev": {
+      "sources": [
+        "ALB_S_001",
+        "ARE_S_004"
+      ],
+      "documentIds": [
+        "record-ALB_S_001",
+        "record-ARE_S_004"
+      ],
+      "claims": 12
+    },
+    "test": {
+      "sources": [
+        "ARG_S_001",
+        "ARM_S_001",
+        "AUS_S_001",
+        "AZE_S_001",
+        "BGD_S_001",
+        "BHR_S_001",
+        "BOL_S_001",
+        "BRA_S_001",
+        "BWA_S_001",
+        "CAN_S_001",
+        "CHL_S_001",
+        "CHN_S_001"
+      ],
+      "documentIds": [
+        "record-ARG_S_001",
+        "record-ARM_S_001",
+        "record-AUS_S_001",
+        "record-AZE_S_001",
+        "record-BGD_S_001",
+        "record-BHR_S_001",
+        "record-BOL_S_001",
+        "record-BRA_S_001",
+        "record-BWA_S_001",
+        "record-CAN_S_001",
+        "record-CHL_S_001",
+        "record-CHN_S_001"
+      ],
+      "claims": 72
+    }
+  },
+  "materialsSha256": {
+    "diagnostic-inputs.json": "6292a181d4345617f9b19bc5fdd402723882b486571fd73dc0e698c04089bbbc",
+    "diagnostic-reference.json": "f860d5eeaf08afc36e8576bf9a87a2f4222d620ccb8b95e7898fe765051afc22",
+    "diagnostic-rules.json": "8c52302c1f9ce13c0dc575022b4ec32976e9cff7a2de123ced34e4cb5ed85fca",
+    "diagnostic-agent-pack.json": "35488244f4743b1b1aba595ca5bbdbb8f69d51fb80d25dff53ad812d88e53fdf"
+  },
+  "baselineSha256": "9977a29a4e7e396fa17e11ad8eccb62c91e34cb80397bd18b5d5c2c4aacc3ba5",
+  "generatorSha256": "1cf6ea854619e545fb7d98e53484369f2a1187e638f6ec3f3f40c59cade185a2",
+  "agentPromptVersion": "archive-agent-diagnostic-v1",
+  "model": "gpt-6-luna",
+  "reasoningEffort": "max",
+  "scoring": "exact claim sets; three classes; source-cluster paired accuracy bootstrap400 seed20261018; app exact-quote verifier",
+  "timing": "whole agent elapsed only; per-claim latency and billed cost unavailable",
+  "humanResearchGatePassed": false,
+  "providerBenchmarkCompleted": false,
+  "activationEligible": false
+}

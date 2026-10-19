@@ -1,0 +1,87 @@
+{
+  "kind": "local_historical_metadata_reports",
+  "physicalMitigationEstablished": false,
+  "outcomes": [
+    {
+      "sourceId": "KAZ_S_159",
+      "file": "kaz_s_159-mitigation-report.json",
+      "scope": {
+        "startDate": "2024-06-07",
+        "endDate": "2026-10-14"
+      },
+      "result": "insufficient_evidence",
+      "evidenceIds": [],
+      "verification": {
+        "localDigest": "valid",
+        "auditId": "953b3aa5-b288-4b6d-9c69-ba5d9c4ec7f5",
+        "revision": 1,
+        "sourceId": "KAZ_S_159",
+        "bundleHash": "0xbbc0f6ead9b76810c5fc9d1646f6e754af184bd65d0737e3933dda81735b2d62",
+        "result": "insufficient_evidence",
+        "assessmentBasis": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "claimType": "mitigation_confirmed",
+        "synthetic": false,
+        "historicalObservationCount": 3,
+        "documentRightsMetadata": "not_recorded",
+        "receipt": "not_present",
+        "exportContext": "manifest_valid"
+      },
+      "persistedToApi": false
+    },
+    {
+      "sourceId": "LBY_S_143",
+      "file": "lby_s_143-mitigation-report.json",
+      "scope": {
+        "startDate": "2025-12-23",
+        "endDate": "2026-10-14"
+      },
+      "result": "insufficient_evidence",
+      "evidenceIds": [],
+      "verification": {
+        "localDigest": "valid",
+        "auditId": "4e475035-0052-43b4-95de-0f45a6564201",
+        "revision": 1,
+        "sourceId": "LBY_S_143",
+        "bundleHash": "0x84f55ffb39be0d9ffcc95dbcc03c0d9af20fccd12019d4fee346b043629743fe",
+        "result": "insufficient_evidence",
+        "assessmentBasis": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "claimType": "mitigation_confirmed",
+        "synthetic": false,
+        "historicalObservationCount": 1,
+        "documentRightsMetadata": "not_recorded",
+        "receipt": "not_present",
+        "exportContext": "manifest_valid"
+      },
+      "persistedToApi": false
+    },
+    {
+      "sourceId": "CAN_S_002",
+      "file": "can_s_002-mitigation-report.json",
+      "scope": {
+        "startDate": "2026-04-10",
+        "endDate": "2026-10-14"
+      },
+      "result": "insufficient_evidence",
+      "evidenceIds": [],
+      "verification": {
+        "localDigest": "valid",
+        "auditId": "fb289c4c-7e8e-4f4a-a154-a5d3869b2eeb",
+        "revision": 1,
+        "sourceId": "CAN_S_002",
+        "bundleHash": "0xf269bbf4964db7170a7c3f6551bac58b3c99b8e12f22a4f1505fb09619316999",
+        "result": "insufficient_evidence",
+        "assessmentBasis": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "claimType": "mitigation_confirmed",
+        "synthetic": false,
+        "historicalObservationCount": 1,
+        "documentRightsMetadata": "not_recorded",
+        "receipt": "not_present",
+        "exportContext": "manifest_valid"
+      },
+      "persistedToApi": false
+    }
+  ]
+}

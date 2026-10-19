@@ -1,0 +1,17 @@
+{
+  "startedAtUTC": "2026-10-18T07:15:35Z",
+  "endedAtUTC": "2026-10-18T07:17:39Z",
+  "inputSha256": "35488244f4743b1b1aba595ca5bbdbb8f69d51fb80d25dff53ad812d88e53fdf",
+  "requestedModel": "gpt-6-luna",
+  "requestedEffort": "max",
+  "actualModel": "unknown (not exposed)",
+  "totalWallTimeSeconds": 124,
+  "perClaimLatencySeconds": null,
+  "billedCost": null,
+  "providerAppCalls": 0,
+  "methodLimitations": [
+    "Penilaian hanya menggunakan teks pada pack input beku yang ditugaskan; tidak ada browsing atau pemeriksaan sumber eksternal.",
+    "Kebenaran fisik di luar isi rekaman tidak diverifikasi; pack menyebut metadata historis tanpa bukti tanda terima penerima, catatan perbaikan, atau rangkaian pengukuran pasca-aksi.",
+    "Flag notifikasi tidak cukup untuk menetapkan tanda terima event oleh operator tertentu; waktu per klaim dan biaya tidak terukur."
+  ]
+}

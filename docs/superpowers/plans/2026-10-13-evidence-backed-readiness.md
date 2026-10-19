@@ -1,5 +1,7 @@
 # Evidence-Backed ClimateChain Readiness Plan
 
+> **Arsip rencana 2026-10-13.** Pekerjaan dan instruksi di bawah merekam revisi asal. Untuk kondisi sekarang gunakan [status aktif](../../release/current-implementation-status.md) dan [arsitektur](../../architecture/overview.md); asumsi database digantikan [ADR file lokal](../../architecture/decisions/2026-10-15-local-prototype-no-database.md). [Indeks rencana](README.md).
+
 > **Execution:** Inline implementation requested by the user; no external deployment or submission is authorized by this plan.
 
 **Goal:** Close reproducible local product and verification gaps for MethaneResponse, then report criterion evidence and blockers without claiming an official score.

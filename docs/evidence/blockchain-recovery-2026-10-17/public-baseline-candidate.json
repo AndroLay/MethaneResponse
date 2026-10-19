@@ -1,0 +1,86 @@
+{
+  "auditId": "e789857f-0118-48cb-915b-76f69ff58131",
+  "caseId": "MARS-REPORT-KAZ-S-159",
+  "revision": 1,
+  "sourceId": "KAZ_S_159",
+  "claimType": "source_detected",
+  "result": "supported",
+  "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+  "evidenceIds": [
+    "7529d451-018f-4da3-9114-59b76c3a3bcd",
+    "82758651-76f4-4e06-b4ab-c247ce765192",
+    "941806b5-2afe-46ac-baac-a0230880cede"
+  ],
+  "bundleHash": "0xcde93cec8864aac5a9f190e19153388ec4a6024ed885afd165720ac84eb9ae20",
+  "generatedAt": "2026-10-17T12:03:54.647Z",
+  "synthetic": false,
+  "bundle": {
+    "schemaVersion": 2,
+    "auditId": "e789857f-0118-48cb-915b-76f69ff58131",
+    "caseId": "MARS-REPORT-KAZ-S-159",
+    "revision": 1,
+    "generatedAt": "2026-10-17T12:03:54.647Z",
+    "sourceId": "KAZ_S_159",
+    "claimType": "source_detected",
+    "result": "supported",
+    "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+    "citedEvidence": [
+      {
+        "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "kind": "detection",
+        "claimType": "source_detected",
+        "title": "UNEP MARS EnMAP - DLR plume observation",
+        "reference": "https://methanedata.unep.org/download-dataset",
+        "date": "2026-06-05T07:40:02",
+        "synthetic": false
+      },
+      {
+        "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "kind": "detection",
+        "claimType": "source_detected",
+        "title": "UNEP MARS EnMAP - DLR plume observation",
+        "reference": "https://methanedata.unep.org/download-dataset",
+        "date": "2024-06-07T08:05:04",
+        "synthetic": false
+      },
+      {
+        "id": "941806b5-2afe-46ac-baac-a0230880cede",
+        "kind": "detection",
+        "claimType": "source_detected",
+        "title": "UNEP MARS EnMAP - DLR plume observation",
+        "reference": "https://methanedata.unep.org/download-dataset",
+        "date": "2026-07-11T08:12:14",
+        "synthetic": false
+      }
+    ],
+    "externalEvidence": [
+      {
+        "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+        "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+        "publisher": "United Nations Environment Programme",
+        "reportDate": "2026-09-23",
+        "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+        "contentIncluded": false
+      }
+    ],
+    "provenance": {
+      "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+      "dataset": "Eye on Methane / MARS detected sources and plumes",
+      "catalogUrl": "https://methanedata.unep.org/download-dataset",
+      "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+      "retrievedAt": "2026-10-14T06:10:12+00:00",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "snapshotId": "unep-mars-675417694883",
+      "license": "CC BY-NC-SA 4.0",
+      "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+      "localFileName": "sources_plumes_csv.zip"
+    },
+    "limitations": [
+      "This is a deterministic evidence-coverage baseline, not a scientific or legal certification.",
+      "A source-level notification or feedback record does not establish physical mitigation.",
+      "Public baseline candidate only: no physical mitigation is asserted. Not yet persisted in an operational audit store or anchored. Public target and operation require approval."
+    ],
+    "synthetic": false
+  },
+  "anchored": false
+}

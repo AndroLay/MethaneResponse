@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "feature": "P1-shared-casework",
+  "createdAt": "2026-10-17T11:13:59.044455+00:00",
+  "baseRevision": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "checkout": "existing uncommitted working tree; user edits preserved; no commit/push",
+  "status": "verified-local",
+  "scope": "one small team, one Linux API writer and private local file persistence",
+  "sourceFileCount": 271,
+  "sourceManifestSha256": "54b4ce1d4c55296e758ef61730c2203c0848489cd28b5b431251a87aab68116b",
+  "runtimes": {
+    "bun": "1.4.3",
+    "repoBunPin": "1.4.2",
+    "node": "24.18.0",
+    "projectPython": "3.12.13",
+    "chromium": "153.0.8010.52",
+    "chromiumSandbox": true,
+    "flock": "util-linux 2.42.4",
+    "uv": "0.13.0",
+    "forge": "1.8.5"
+  },
+  "checks": {
+    "checkAll": "passed, exit 0",
+    "frozenInstall": "no changes",
+    "typecheck": "API/web/E2E/operations passed",
+    "api": {
+      "passed": 138,
+      "files": 25,
+      "assertions": 826
+    },
+    "web": {
+      "passed": 234,
+      "files": 48,
+      "assertions": 164923
+    },
+    "verifier": {
+      "passed": 34,
+      "files": 6,
+      "assertions": 142
+    },
+    "caseworkOperations": {
+      "passed": 2,
+      "assertions": 17,
+      "surface": "isolated CLI and actual loopback API process crash/restart"
+    },
+    "tlsTransport": {
+      "passed": 1,
+      "assertions": 10,
+      "surface": "disposable local TLS fixture"
+    },
+    "python": {
+      "passed": 160
+    },
+    "foundry": {
+      "passed": 4,
+      "skipped": 0
+    },
+    "baselineConformance": {
+      "sampleSize": 15,
+      "realExamples": 9,
+      "demoExamples": 6,
+      "allExpectedLabelsMatch": true,
+      "artifact": "baseline-conformance.json"
+    },
+    "nonBrowserTotalExcludingRunnerHelpers": 573,
+    "browser": {
+      "main": 13,
+      "privateManualSharedMockAi": 5,
+      "distinctTotal": 18,
+      "runnerHelperTests": 3,
+      "runnerHelperAssertions": 6,
+      "surface": "local isolated Chromium, two contexts for P1; remote requests blocked",
+      "phaseDurationsMinutes": [
+        1.6,
+        1.1
+      ]
+    },
+    "bundle": {
+      "appGzipBytes": 74537,
+      "budgetBytes": 75000,
+      "requiredRouteChunks": 8,
+      "mapPanelRawBytes": 1122953
+    },
+    "review": "Independent read-only static review; lost-state reset, stale queue and late automatic history response fixed. Full final suites passed with red/green regressions.",
+    "documentation": {
+      "documents": 25,
+      "localLinksChecked": 392,
+      "caseworkRoutesDocumented": 4,
+      "passed": true
+    }
+  },
+  "dataset": {
+    "snapshotId": "unep-mars-675417694883",
+    "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "sourceInBrowserScenario": "KAZ_S_159",
+    "teamNotesAndIdentities": "DEMO fixtures; not real enrollment or field evidence"
+  },
+  "captures": [
+    {
+      "file": "shared-casework-history-desktop.png",
+      "dimensions": [
+        607,
+        255
+      ],
+      "sha256": "fd4b460d952671465c6d45af99102e001892c6b249971584a3da9e785342d0d0"
+    },
+    {
+      "file": "shared-casework-mobile.png",
+      "dimensions": [
+        346,
+        2029
+      ],
+      "sha256": "4819c302b72f534e93b19aef8fe4cb3c8fa078d4245c2fd2455cce08ff4c8f9c"
+    }
+  ],
+  "limits": [
+    "Local only; no target remote origin, hosted volume or off-host backup verified.",
+    "No actual disk exhaustion/power cut; injected ENOSPC and actual process SIGKILL tested.",
+    "A lost entire volume including initialization marker cannot be distinguished from a new installation.",
+    "One cooperative writer; no multi-instance guarantee, at-rest encryption or realtime polling.",
+    "No real reviewer enrollment, domain expert review, pilot results, model benchmark, external publishing or blockchain transaction.",
+    "P2 through P6 remain pending.",
+    "Bun actual runtime differs from the unchanged repository pin; MapPanel raw-size advisory remains."
+  ]
+}

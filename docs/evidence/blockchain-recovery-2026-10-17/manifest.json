@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "feature": "P2-durable-anchor-recovery",
+  "createdAt": "2026-10-17T12:17:44.373615+00:00",
+  "baseRevision": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "checkout": "existing uncommitted working tree; prior user edits preserved; no commit/push",
+  "functionalStatus": "verified-local",
+  "publicIntegrationStatus": "pending-target-and-operation-approval",
+  "scope": "one Linux API writer, dedicated issuer, local filesystem; Anvil loopback 31337 separated from Sepolia 11155111",
+  "sourceFileCount": 276,
+  "sourceManifestSha256": "725217cf6d3be927da013ce46a77452bf809e4fdb950387fb9241b0d0f6bd969",
+  "sourceManifestScope": "API/web/shared sources, scripts, E2E, Python and Solidity sources, selected public config/lockfiles; excludes secrets, runtime state, third-party reports and build outputs",
+  "runtimes": {
+    "bun": "1.4.3",
+    "node": "v26.10.0",
+    "projectPython": "Python 3.12.13",
+    "chromium": "Chromium 153.0.8010.52 Arch Linux",
+    "forge": "forge Version: 1.8.5",
+    "anvil": "anvil Version: 1.8.5",
+    "flock": "flock from util-linux 2.42.4",
+    "viem": "2.57.4",
+    "chromiumSandbox": true,
+    "repositoryBunPin": "1.4.2"
+  },
+  "checks": {
+    "checkAll": "passed, exit 0",
+    "frozenInstall": "no changes",
+    "typecheck": "API/web/E2E/operation scripts passed",
+    "api": {
+      "passed": 151,
+      "failed": 0,
+      "assertions": 872,
+      "files": 28
+    },
+    "web": {
+      "passed": 236,
+      "failed": 0,
+      "assertions": 164930,
+      "files": 49
+    },
+    "verifier": {
+      "passed": 35,
+      "failed": 0,
+      "assertions": 144,
+      "files": 6
+    },
+    "python": {
+      "passed": 160
+    },
+    "foundry": {
+      "passed": 4,
+      "skipped": 0
+    },
+    "chainIntegration": {
+      "passed": 1,
+      "assertions": 22,
+      "exitCode": 0,
+      "surface": "real disposable Anvil contract, child SIGKILL before/after broadcast, revert, historical receipt, separate CLI and tamper checks"
+    },
+    "caseworkOperations": {
+      "passed": 2,
+      "assertions": 17,
+      "exitCode": 0,
+      "surface": "isolated backup/restore/writer lock and real API process crash/restart"
+    },
+    "nonBrowserDistinctTotalExcludingRunnerHelpers": 589,
+    "browser": {
+      "main": 14,
+      "privateManualSharedMockAi": 5,
+      "distinctTotal": 19,
+      "exitCodeMain": 0,
+      "exitCodePrivate": 0,
+      "runnerHelperTests": 3,
+      "focusedRepeatsExcluded": true,
+      "phaseInvocations": "final source checked with separate baseline and private phase calls to preserve captures",
+      "provider": "deterministic local mock only"
+    },
+    "bundle": {
+      "appGzipBytes": 74704,
+      "appBudgetBytes": 75000,
+      "requiredRouteChunks": 8,
+      "mapPanelRawBytes": 1122953,
+      "result": "passed; lazy MapPanel raw-size advisory retained"
+    },
+    "baselineConformance": {
+      "sampleSize": 15,
+      "realExamples": 9,
+      "demoExamples": 6,
+      "result": "all pinned labels match; not an independent accuracy estimate",
+      "artifact": "baseline-conformance.json"
+    },
+    "candidateOfflineVerifier": {
+      "exitCode": 0,
+      "bundleHash": "VALID",
+      "chainReceipt": "ABSENT"
+    },
+    "documentationPaths": {
+      "documents": 18,
+      "relativePathsChecked": 309,
+      "missing": [],
+      "scope": "relative file targets only; HTTP links and markdown anchor rendering not revalidated"
+    }
+  },
+  "localChainEvidence": {
+    "artifact": "local-chain-receipt.json",
+    "chainId": 31337,
+    "disposable": true,
+    "defaultConfirmations": 2,
+    "fixtureConfirmations": 1,
+    "publicSepoliaTransaction": false
+  },
+  "publicCandidate": {
+    "artifact": "public-baseline-candidate.json",
+    "auditId": "e789857f-0118-48cb-915b-76f69ff58131",
+    "sourceId": "KAZ_S_159",
+    "claimType": "source_detected",
+    "bundleHash": "0xcde93cec8864aac5a9f190e19153388ec4a6024ed885afd165720ac84eb9ae20",
+    "synthetic": false,
+    "operationallyPersisted": false,
+    "anchored": false,
+    "review": "sepolia-operation-review.md"
+  },
+  "dataset": {
+    "snapshotId": "unep-mars-675417694883",
+    "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "browserSource": "KAZ_S_159",
+    "chainFixtures": "DEMO; no physical mitigation assertion"
+  },
+  "independentReview": {
+    "mode": "read-only code review, gpt-6-sol/high",
+    "closedFindings": [
+      "current reviewer directory authority and private-read response guard",
+      "confirmed receipt immutability and exact idempotence",
+      "target inspection and binding before submission"
+    ],
+    "focusedReReview": "no new high/medium blockers in assessed scope",
+    "limit": "implementation review, not domain expert or comprehensive security audit"
+  },
+  "captures": [
+    {
+      "file": "DEMO-chain-controls-desktop.png",
+      "dimensions": [
+        1600,
+        3251
+      ],
+      "sha256": "f8221495069ef40db4f5bcd0d7db27ec012d6ac3180973a8f9183375f16bc79b"
+    },
+    {
+      "file": "DEMO-chain-controls-mobile.png",
+      "dimensions": [
+        390,
+        5099
+      ],
+      "sha256": "0d3e99d64b38d43108db199d26403d5be02360c957acf490ac3290c2c567f4b5"
+    }
+  ],
+  "limits": [
+    "No public Sepolia RPC/registry/signer configured or public transaction sent. Target and operation approval required by AGENTS.md and P2 plan.",
+    "Pending may remain indefinitely if crash occurs before broadcast or a transaction is not found; no automatic retransmission/cancellation/replacement.",
+    "File and directory fsync tested via implementation/process tests, not physical power loss, remote disk failure, volume loss or stale backup rollback.",
+    "One cooperating Linux writer and exclusive issuer; no multi-instance or external wallet nonce coordination.",
+    "Canonicality checked on demand, no reorg watcher or Ethereum finality guarantee.",
+    "Revocation immediately after final directory check can race with broadcast; directory and blockchain are not atomic.",
+    "Independent verifier process shares chain implementation and trusts configured RPC.",
+    "UI responses are DEMO fixtures; actual transactions verified separately on disposable local chain. No physical device/screen reader acceptance claimed.",
+    "P3-P6, human domain expert review, real-user pilot, model benchmark and deployment remain pending."
+  ]
+}

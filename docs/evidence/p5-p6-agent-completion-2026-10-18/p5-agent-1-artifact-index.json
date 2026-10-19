@@ -1,0 +1,112 @@
+[
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A01-CAN-app-audit-scope.png",
+    "retainedPath": "p5-artifacts/agent1/A01-CAN-app-audit-scope.png",
+    "sha256": "c82d60ab9472ed2279c0216c3c7f9621dbd7c28717b8c58dd168c4f8c73ef549"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A01-CAN-app-export-original.json",
+    "retainedPath": "p5-artifacts/agent1/A01-CAN-app-export-original.json",
+    "sha256": "418c4097daed1cdbe0072aa45293c716dbbe4e63a8f9f05294e82a8d400b33f6"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A01-CAN-app-export-tampered.json",
+    "retainedPath": "p5-artifacts/agent1/A01-CAN-app-export-tampered.json",
+    "sha256": "a88f66c739e5b578fc92aee46dda8f4117b84a2df61afaf339bc47cbfca0d8c3"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A01-CAN-app-verification.txt",
+    "retainedPath": "p5-artifacts/agent1/A01-CAN-app-verification.txt",
+    "sha256": "a4afac2fe0d876b88c66e6df16800afdc751ed4730a5d7ed828c3ecb8c6a59dc"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A01-LBY-manual-export-original.json",
+    "retainedPath": "p5-artifacts/agent1/A01-LBY-manual-export-original.json",
+    "sha256": "50f16a5a46bf1817d7335f2337b27d0048098e95d87d57c3639b6baa70337380"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A01-LBY-manual-export-tampered.json",
+    "retainedPath": "p5-artifacts/agent1/A01-LBY-manual-export-tampered.json",
+    "sha256": "65f4710a76b106a2eff0ff4137dd764ce2be3332241c61b3de03db17a06252ff"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A01-LBY-verification.txt",
+    "retainedPath": "p5-artifacts/agent1/A01-LBY-verification.txt",
+    "sha256": "54de45837fe22b22376559f174dddb47685169b0ea8e7050a946140e74faba23"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A03-CAN-manual-export-original.json",
+    "retainedPath": "p5-artifacts/agent1/A03-CAN-manual-export-original.json",
+    "sha256": "d1b4bd8a4806a18646588df828bcc6c7315b1b15ca949c8bcdd4ba2649cffe47"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A03-CAN-manual-export-tampered.json",
+    "retainedPath": "p5-artifacts/agent1/A03-CAN-manual-export-tampered.json",
+    "sha256": "ec7944e23dc3e60edaeb536806698ecf8f52f79b684fefa3e4b60aba6268f1ce"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A03-CAN-manual-verification.txt",
+    "retainedPath": "p5-artifacts/agent1/A03-CAN-manual-verification.txt",
+    "sha256": "cd8bd7b2741435837d5b3a4a1b25e3724dd45921ff1c854f784d19d92bbc30b6"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A03-LBY-app-audit-scope.png",
+    "retainedPath": "p5-artifacts/agent1/A03-LBY-app-audit-scope.png",
+    "sha256": "d75ec9dc612af160105b1b6666117ef32548f73765ea7bad51bdf55f225ab77e"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A03-LBY-app-export-original.json",
+    "retainedPath": "p5-artifacts/agent1/A03-LBY-app-export-original.json",
+    "sha256": "23a9137bd6cd2b9cbf1ca1cb49f796360d3c7d8075d177dce212b52a351102ce"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A03-LBY-app-export-tampered.json",
+    "retainedPath": "p5-artifacts/agent1/A03-LBY-app-export-tampered.json",
+    "sha256": "6f0aea61e056eff89c905836be25951b7acff3ccd6f79d7b3674b07a8eb05c14"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A03-LBY-app-verification.txt",
+    "retainedPath": "p5-artifacts/agent1/A03-LBY-app-verification.txt",
+    "sha256": "674fc5116611a56999e26d2e9afeb299f5f4540532abdec3b504e4459d07b9b6"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-audit-scope.png",
+    "retainedPath": "p5-artifacts/agent1/A05-CAN-app-audit-scope.png",
+    "sha256": "c82d60ab9472ed2279c0216c3c7f9621dbd7c28717b8c58dd168c4f8c73ef549"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-case.png",
+    "retainedPath": "p5-artifacts/agent1/A05-CAN-app-case.png",
+    "sha256": "b2932c60ecf46fbd145cea8ff99a8a6e246877b108ce9fc7175b4b62ef302604"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-export-original.json",
+    "retainedPath": "p5-artifacts/agent1/A05-CAN-app-export-original.json",
+    "sha256": "7b9629d31c5536e434b077928e57602dc61d3aa3e21bc6f15960cb8afa1a2cf8"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-export-tampered.json",
+    "retainedPath": "p5-artifacts/agent1/A05-CAN-app-export-tampered.json",
+    "sha256": "aadeeaf1b562dc4eb48b39d4613756e956d91751e47ef130d5ab2f0dd194cf42"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A05-CAN-app-verification.txt",
+    "retainedPath": "p5-artifacts/agent1/A05-CAN-app-verification.txt",
+    "sha256": "7986f550daae0da90afd4e9b437f14ae9986e20a1b6f46a483cdbe05c5ee53e7"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A05-LBY-manual-export-original.json",
+    "retainedPath": "p5-artifacts/agent1/A05-LBY-manual-export-original.json",
+    "sha256": "50f16a5a46bf1817d7335f2337b27d0048098e95d87d57c3639b6baa70337380"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A05-LBY-manual-export-tampered.json",
+    "retainedPath": "p5-artifacts/agent1/A05-LBY-manual-export-tampered.json",
+    "sha256": "19223c9dea7f1d58bd6bacf290669037ebb0cb51a102d841ab2e2e8569129329"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent1/results/A05-LBY-manual-verification.txt",
+    "retainedPath": "p5-artifacts/agent1/A05-LBY-manual-verification.txt",
+    "sha256": "9e296f5930570039cde4ba6baa7705c96aac5b5ac97103c8b46f97310ec43b2f"
+  }
+]

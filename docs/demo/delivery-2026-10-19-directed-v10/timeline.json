@@ -1,0 +1,23 @@
+[
+  {"id":"hook","start":0,"end":10,"kind":"model","chapter":"The evidence question"},
+  {"id":"source","start":10,"end":18,"kind":"app","shot":"source","step":0,"instruction":"Open one real historical source"},
+  {"id":"climate","start":18,"end":40,"kind":"model","chapter":"Why this matters"},
+  {"id":"system","start":40,"end":68,"kind":"model","chapter":"MARS + independent review"},
+  {"id":"catalog-model","start":68,"end":80,"kind":"model","chapter":"What is in the casebook"},
+  {"id":"catalog","start":80,"end":92,"kind":"app","shot":"catalog","step":0,"instruction":"Inspect the source-linked reference"},
+  {"id":"observation-model","start":92,"end":104,"kind":"model","chapter":"Measurements and uncertainty"},
+  {"id":"observations","start":104,"end":119,"kind":"app","shot":"observations","step":0,"instruction":"Compare three dated observations"},
+  {"id":"ambiguity","start":119,"end":140,"kind":"model","chapter":"An exact day matters"},
+  {"id":"audit","start":140,"end":171,"kind":"app","shot":"audit","step":1,"instruction":"Set the scope, then assess the claim"},
+  {"id":"result","start":171,"end":188,"kind":"model","chapter":"A useful, bounded answer"},
+  {"id":"casework","start":188,"end":202,"kind":"app","shot":"casework","step":3,"instruction":"Turn the gap into a specific evidence request"},
+  {"id":"next","start":202,"end":209,"kind":"model","chapter":"What to request next"},
+  {"id":"report","start":209,"end":220,"kind":"app","shot":"report","step":4,"instruction":"Export and check the local report"},
+  {"id":"digest","start":220,"end":228,"kind":"model","chapter":"What the fingerprint binds"},
+  {"id":"change","start":228,"end":234,"kind":"model","chapter":"A controlled integrity test"},
+  {"id":"tamper","start":234,"end":247,"kind":"app","shot":"tamper","step":4,"instruction":"Load a copy with one hashed field changed"},
+  {"id":"mismatch","start":247,"end":251,"kind":"model","chapter":"The changed copy is detected"},
+  {"id":"original","start":251,"end":261,"kind":"app","shot":"original","step":4,"instruction":"Check the untouched original again"},
+  {"id":"limits","start":261,"end":273,"kind":"model","chapter":"Integrity and physical truth"},
+  {"id":"close","start":273,"end":290,"kind":"model","chapter":"Make the next investigation traceable"}
+]

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "scope": "Read-only review of the local provider/analyst/skeptic integration-role run",
+  "command": "bun run test:integration-roles --evidence /tmp/methane-provider-roles/provider.json",
+  "workingDirectory": "/home/andro/dev/projects/Devpost/iEEE-Methane-response",
+  "exitCode": 0,
+  "runDurationSeconds": 46.87,
+  "testSummary": "1 pass, 0 fail, 116 assertions; 13 scripted role scenarios",
+  "runLog": "/tmp/methane-provider-roles/run.log",
+  "evidenceArtifact": "/tmp/methane-provider-roles/provider.json",
+  "fixtureSource": {
+    "path": "scripts/integration-role-runtime.test.ts",
+    "sha256": "3c97f8ab2ca03c05f587a12ea85db839b4de99895198cedc47cca8aa9cafdf7b"
+  },
+  "roleReview": {
+    "skepticalReviewer": {
+      "scenario": "A deterministic second pass disagreed with an optimistic supported verdict on mitigation.",
+      "observed": "The API returned insufficient_evidence after two local TLS provider calls.",
+      "conclusion": "The disagreement path abstains as intended; this says nothing about an external model's judgment quality."
+    },
+    "overtrustingAnalyst": {
+      "scenario": "A deliberate false-positive provider returned supported twice for an exact claim that equipment was repaired and independent post-action measurements established sustained methane reduction. The excerpt only documents an investigation, says repair was not independently checked, and supplies no post-action measurement.",
+      "observed": "The exact review confirms the excerpt is sent in pass one and only the grounded quotation is sent in pass two. The API preserved a supported but unreviewed suggestion, kept it private to an unauthenticated reader, and rejected anchoring with 409 using the expected human-review error. The bundle states physical verification is not established.",
+      "conclusion": "The fixture demonstrates the correlated-pass limitation and checks that the result stays a suggestion behind review and anchor controls. It does not test whether a real analyst would understand the UI."
+    },
+    "providerAdversary": {
+      "scenarios": [
+        "A fabricated citation not present in the submitted excerpt caused abstention after one call.",
+        "HTTP 503, HTTP 429, redirect, invalid JSON, invalid first-pass schema, invalid second-pass schema, oversized response, and a stalled partial response all produced a generic 502, no new audit revision, and no redirect-target request.",
+        "The partial-body case took 40198 ms, satisfying the fixture's 39-48 second window and demonstrating the API's configured deadline without an earlier provider-server idle timeout.",
+        "The invalid second-pass response required two provider calls before failing closed; other provider-failure cases failed after one call."
+      ],
+      "conclusion": "The deterministic local HTTPS fixture exercised the real API process, TLS trust, exact per-pass payload scope, provider authorization, response parsing, and failure boundary. Prompt-injection behavior was not evaluated by a model."
+    },
+    "anonymousVisitor": "Missing assessment authentication returned 401; missing consent and rights declarations returned 400; provider calls and audits remained at zero.",
+    "serviceOperator": "Production-mode local API accepted the configured CORS origin and did not allow an unrelated origin. The runner used flock -F to exec the API directly, canonicalized and prepared the audit path before launch, observed the API child exit, and confirmed /api/health was unreachable after SIGKILL before starting the replacement API. It kept the audit file mode at 0600 and recovered three immutable drafts from the same local path."
+  },
+  "priorAttempts": [
+    {
+      "runLog": "/tmp/methane-provider-roles/run-initial.log",
+      "exitCode": 1,
+      "boundary": "Private-history authorization returned 401 because the fixture directory used an invalid checkedBy identifier containing a space. The fixture was corrected to a valid identifier; no application change was made."
+    },
+    {
+      "runLog": "/tmp/methane-provider-roles/pre-timeout-fix.log",
+      "evidenceArtifact": "/tmp/methane-provider-roles/pre-timeout-fix.json",
+      "exitCode": 0,
+      "boundary": "The provider fixture's default 10-second idle timeout ended the partial response early. This was not accepted as deadline evidence; the fixture was updated to use a 60-second idle timeout and an explicit elapsed-time assertion."
+    },
+    {
+      "runLog": "/tmp/methane-provider-roles/before-assertion-review.log",
+      "evidenceArtifact": "/tmp/methane-provider-roles/before-assertion-review.json",
+      "exitCode": 0,
+      "boundary": "Earlier 11-scenario run passed 99 assertions and measured a 40173 ms partial-body deadline; it did not yet assert exact second-pass payload contents or exact anchor error text."
+    },
+    {
+      "runLog": "/tmp/methane-provider-roles/before-direct-api-crash.log",
+      "evidenceArtifact": "/tmp/methane-provider-roles/before-direct-api-crash.json",
+      "exitCode": 0,
+      "boundary": "Passed 116 assertions with direct flock -F API execution and a post-SIGKILL health check; the final run also added canonical audit-path preparation and readiness checks before and after health succeeds."
+    },
+    {
+      "runLog": "/tmp/methane-provider-roles/before-readiness-review.log",
+      "evidenceArtifact": "/tmp/methane-provider-roles/before-readiness-review.json",
+      "exitCode": 0,
+      "boundary": "Passed 116 assertions with direct API crash observation; it preceded canonical audit-path preparation and child-exit checks around readiness."
+    },
+    {
+      "runLog": "/tmp/methane-provider-roles/before-physical-claim.log",
+      "evidenceArtifact": "/tmp/methane-provider-roles/before-physical-claim.json",
+      "exitCode": 0,
+      "boundary": "Passed 116 assertions with canonical audit path and direct API crash proof, but the exact claim did not yet explicitly assert physical repair and post-action methane measurements; the final fixture strengthens that false-positive case."
+    }
+  ],
+  "externalLimits": [
+    "The provider was a deterministic local HTTPS fixture; externalProviderCalls is 0. No real model, provider retention policy, accuracy, or semantic citation quality was evaluated.",
+    "The roles are scripted test perspectives, not independent AI-agent sessions or human participants.",
+    "The embedded untrusted-instruction string was sent through the deterministic fixture; the test does not establish resistance by a real model.",
+    "The API child exit and listener-down assertion establish the tested local crash boundary; they do not establish deployment lifecycle behavior.",
+    "The recorded model version is the configured alias, not a verified provider-served model identity.",
+    "Local same-volume crash recovery does not establish public-host persistence or deployment behavior.",
+    "No public deployment was verified and no Sepolia receipt was checked."
+  ],
+  "repositoryChangesByReviewer": false
+}

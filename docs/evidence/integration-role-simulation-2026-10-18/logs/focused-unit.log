@@ -1,0 +1,48 @@
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/deployment-config.test.ts:
+(pass) Render deploys the locked Bun workspace reproducibly [0.11ms]
+(pass) Render preview uses file persistence and has no database settings [0.23ms]
+
+apps/api/src/skeptical-ai.test.ts:
+(pass) provider receives the exact bounded claim in both evidence passes [4.14ms]
+(pass) missing exact claim abstains without invoking the configured provider [0.71ms]
+(pass) skeptical pass fails closed when strong claim is not supported by exact quote [0.76ms]
+(pass) skeptical pass retains supported suggestion only when both passes agree [0.70ms]
+(pass) insufficient exact evidence does not call billable second pass [0.36ms]
+(pass) provider response size is bounded before JSON parsing [0.91ms]
+
+apps/api/src/ai-review.test.ts:
+(pass) AI provider URLs require HTTPS except for local development and reject embedded credentials [0.11ms]
+(pass) published source URLs cannot disclose embedded credentials [1.11ms]
+(pass) document assessment requires an explicit rights declaration for every excerpt [1.05ms]
+(pass) open-license declarations require a source, license, attribution, and explicit scope confirmation [1.02ms]
+(pass) open-license declaration metadata is bound into the immutable audit digest [18.55ms]
+(pass) v3 document digest retains original-file and selected-page provenance [1.81ms]
+(pass) nonexistent AI quotations force abstention [0.10ms]
+(pass) model narrative is not persisted because it may echo private excerpt text [0.11ms]
+(pass) v3 document bundle is canonically verifiable without external model [0.77ms]
+(pass) public human review omits exact claim text unless both submitter and reviewer consent [1.82ms]
+(pass) document rights declaration is covered by the canonical audit hash [0.82ms]
+(pass) review is a new immutable bundle version; original stays verifiable [0.92ms]
+(pass) requesting more evidence creates a distinct abstaining review revision [0.68ms]
+(pass) approval requires an inspected source and at least one exact validated quotation [0.53ms]
+(pass) v3 draft and human review revisions remain available after reopening the file store [10.16ms]
+
+apps/api/src/ai-review-api.test.ts:
+(pass) AI assessment refuses excerpts without rights declaration before calling the provider [6.83ms]
+(pass) AI assessment supports separate human decisions and immutable, verifiable report revisions [13.76ms]
+(pass) AI capability status never exposes server credentials [1.49ms]
+(pass) AI provider failure creates no audit revision [245.75ms]
+(pass) AI assessment accepts a non-curated source only from the pinned MARS snapshot and binds its history [5.80ms]
+(pass) AI assessment uses the active full snapshot for a curated source when its history matches [3.35ms]
+(pass) AI document assessments enforce a process-local rate limit before calling the provider [3.29ms]
+(pass) insight endpoint serves analysis for curated and other pinned MARS sources, but rejects unknown IDs [3.24ms]
+(pass) full-snapshot document report survives human review, store reopen, and digest verification [12.79ms]
+(pass) v3 claims and citations remain private until both submitter and reviewer explicitly permit publication [12.57ms]
+(pass) published review revision remains public after reopening the file store while its draft stays private [9.94ms]
+
+ 34 pass
+ 0 fail
+ 255 expect() calls
+Ran 34 tests across 4 files. [642.00ms]

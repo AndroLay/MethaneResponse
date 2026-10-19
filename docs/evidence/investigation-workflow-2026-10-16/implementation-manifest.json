@@ -1,0 +1,23 @@
+{
+  "baselineCommit": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "scope": "Uncommitted implementation files exercised by the recorded 16 October 2026 local checks; documentation and screenshots are recorded separately.",
+  "sha256": {
+    "packages/shared/src/index.ts": "ee63de27f607b3bad95497bc136b79aa296e23310db12677d891fef2bc5b6416",
+    "apps/api/src/audit.ts": "83a74267ebe82011fcf849945112e1350507fc773b59742485f196cfc69d5442",
+    "apps/web/src/App.tsx": "8596482c028084cf452df5e8fa9d19d94f68afb29aed17cd8082bcceae212a34",
+    "apps/web/src/AuditHistoryPanel.tsx": "a5861b9fd3480b88a8ac6305d278bc6b5c03cfe353d6ac640c504197b1d93736",
+    "apps/web/src/EvidenceAuditorWorkflow.tsx": "ce7ba733cf650e8d87c471ca5aa3a6c383d1bd47a8f8634917aac49f0acb7745",
+    "apps/web/src/main.tsx": "5fb3d31b279c3b1b9294ab052e3746b67e957423267fd6202dfc28fb1a1cb48b",
+    "apps/web/src/AuditRevisionComparison.tsx": "1a25c162b5f9e18b82503cb80b8328de8a02e1a9d79589c1374de2a701588e98",
+    "apps/web/src/EvidenceCoveragePanel.tsx": "8fce40e14942fc368db496debc46ab78b6ffa04ede1aedf39b9e4779bdbf9829",
+    "apps/web/src/audit-comparison.ts": "efee0415f0931a31c9aefaf52158c86b0eef32d8e5deb7ab61d25acb8dc4405b",
+    "apps/web/src/audit-comparison.test.ts": "9afa77bcf31145d927d3cff3b9820c97bc1ec11c61e4331ab7240bf7ecabc3a0",
+    "apps/web/src/investigation-plan.ts": "8482b3795ae665fea499961cacb5e8fb1025419b9ed769c1ffed60589d529a9c",
+    "apps/web/src/investigation-plan.test.ts": "5b34c88a740275739e530a56807e6d18647b1d12c10f3d5d8b294fff1e15c798",
+    "apps/web/src/investigation-brief.ts": "be0d731fae1af7515bc75dedefc4d444173e668e71963f6b3a2ec24bc8d4686b",
+    "apps/web/src/investigation-brief.test.ts": "ff4c34870d090775906760cfd5d9d69817c735fe64d4ac3df05fa2f8fd0c4ce3",
+    "apps/web/src/investigation-tools.css": "b30bcef7573b2d6aebca673ec08776288a2dc7d14660d8618da8010ce5e7c91a",
+    "e2e/audit-workflow.spec.ts": "8fd043cf13398a61bff251b3a1ff68a2035a9ba661520e04cb955f9ced73026a",
+    "e2e/ai-review-workflow.spec.ts": "26ed4e631cda97627d22f415f6e9ceeb30cadb814db761db2c0298b7c1b1c901"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17T12:41:59.544314+00:00",
+  "status": "funding not confirmed; both first faucets reject new issuer",
+  "quicknodeRuntimeFinding": {
+    "source": "user reported actual form rejection",
+    "url": "https://faucet.quicknode.com/ethereum/sepolia",
+    "message": "Invalid ETH mainnet balance. Please note, you'll need a small mainnet balance on this wallet in order to use the faucet. This is to prevent abuse.",
+    "conclusion": "actual reported form rejects zero-mainnet issuer despite contradictory official FAQ; withdraw prior suitability recommendation"
+  },
+  "powReadOnlyInspection": {
+    "url": "https://sepolia-faucet.pk910.de/",
+    "configUrl": "https://sepolia-faucet.pk910.de/api/getFaucetConfig",
+    "browserShows": [
+      "ETH address field",
+      "Start Mining button"
+    ],
+    "publicConfigShows": {
+      "coinSymbol": "SepETH",
+      "coinType": "native",
+      "minimumClaimTestEth": "0.05",
+      "clientModules": [
+        "captcha",
+        "ensname",
+        "pow",
+        "passport"
+      ],
+      "captchaRequiredForStart": true
+    },
+    "limits": "absence of a mainnet-wallet field in client config does not establish server eligibility; no session, mining or claim started; issuer acceptance and payout unverified"
+  },
+  "issuer": "0x211334Ab7398e2A7268014c31809bd712F033afa",
+  "deploymentAndAnchorApprovalStillValid": true,
+  "mainnetFundingRequested": false,
+  "deploymentSent": false,
+  "anchorSent": false
+}

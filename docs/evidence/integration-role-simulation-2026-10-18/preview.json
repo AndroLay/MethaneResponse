@@ -1,0 +1,32 @@
+{
+  "label": "Actual local Vite production preview; not public hosting",
+  "recordedAt": "2026-10-18T08:39:21.744Z",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "sha256": "e776fea9fa2d879d0de99f3582f84de471a96a23940b4babc271ceb3846708e5"
+    },
+    {
+      "path": "/dashboard/auditor",
+      "status": 200,
+      "sha256": "e776fea9fa2d879d0de99f3582f84de471a96a23940b4babc271ceb3846708e5"
+    },
+    {
+      "path": "/assets/index-xQdjlqoU.js",
+      "status": 200,
+      "sha256": "ae210be9b20e71bb9ddb5375caaddcbe9cf11fe5f3792e331d5a77b8fb93e118"
+    },
+    {
+      "path": "/data/mars-snapshot-manifest.json",
+      "status": 200,
+      "sha256": "2c46bfc456a02bd85203a380980007b6c5f069f36852df52077428a731089591"
+    }
+  ],
+  "publicDeploymentVerified": false,
+  "browserRenderingVerified": false,
+  "limitations": [
+    "API production process, state and CORS tested separately.",
+    "No public DNS, TLS termination, hosting filesystem or reverse proxy verified."
+  ]
+}

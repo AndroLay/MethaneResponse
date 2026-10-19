@@ -1,0 +1,22 @@
+$ bash scripts/run-e2e.sh "e2e/audit-workflow.spec.ts" --grep "scope presets|unsaved work|historical MARS case|analyst case work resumes"
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/e2e-runner-utils.test.ts:
+(pass) E2E runner environment > copies only explicitly allowlisted non-secret settings [0.15ms]
+(pass) E2E argument routing > runs only the matching phase when a workflow file is selected [0.27ms]
+(pass) E2E argument routing > keeps both workflow phases for unscoped or mixed selections [0.10ms]
+
+ 3 pass
+ 0 fail
+ 6 expect() calls
+Ran 3 tests across 1 file. [12.00ms]
+[WebServer] $ vite --host "127.0.0.1" --port "4179" --strictPort
+
+Running 4 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/audit-workflow.spec.ts:17:5 › scope presets and report verification work without a CLI on desktop and mobile (18.8s)
+  ✓  2 [chromium] › e2e/audit-workflow.spec.ts:79:5 › analyst case work resumes after refresh with a bounded scope and a work-status queue (10.2s)
+  ✓  3 [chromium] › e2e/audit-workflow.spec.ts:417:5 › historical MARS case can be audited, exported, verified, and tampering is rejected (14.0s)
+  ✓  4 [chromium] › e2e/audit-workflow.spec.ts:606:5 › unsaved work is guarded and recovered while separate investigations keep independent scopes (13.5s)
+
+  4 passed (58.7s)

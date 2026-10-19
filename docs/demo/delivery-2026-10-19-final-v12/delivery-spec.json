@@ -1,0 +1,15 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "fps": "25",
+  "duration_seconds": 267.92,
+  "duration_tolerance_seconds": 0.05,
+  "audio": "required",
+  "codec": "h264",
+  "pixel_format": "yuv420p",
+  "audio_channels": 2,
+  "audio_sample_rate": 48000,
+  "loudness_target_lufs": -18,
+  "loudness_tolerance_lu": 1.5,
+  "max_true_peak_dbfs": -2
+}

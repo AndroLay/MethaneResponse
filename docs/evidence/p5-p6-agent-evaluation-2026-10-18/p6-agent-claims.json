@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "analysis": "agent_assisted_metadata_claims",
+  "humanGold": false,
+  "providerBenchmark": false,
+  "datasetPath": "data/real/mars_casebook_2026-10-15.json",
+  "datasetFileSha256": "02601434e3ef431f6fa2432ae3e6a0069f52649df3f43a366cb203d41be56aa0",
+  "snapshotId": "unep-mars-675417694883",
+  "datasetArchiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+  "license": "CC BY-NC-SA 4.0",
+  "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+  "changes": "Selected source/plume metadata pointers and agent-derived provisional bounded statements; no report body copied.",
+  "limitations": [
+    "12 claims, four sources, only two provisional labels. Not eligible for the 40-claim/10-source/three-label P6 gate.",
+    "Agent labels and rules coverage are not independently human-adjudicated document correctness.",
+    "Report content is not included or cleared for provider use; Argentina item rights remain unverified."
+  ],
+  "claims": [
+    {
+      "claimId": "agent-KAZ_S_159-source_detected",
+      "sourceId": "KAZ_S_159",
+      "claimType": "source_detected",
+      "claimText": "The UNEP IMEO MARS snapshot records a methane plume linked to KAZ_S_159 at 2026-07-11T08:12:14.",
+      "provisionalLabel": "supported",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2026-07-11",
+        "endDate": "2026-07-11",
+        "observationId": "941806b5-2afe-46ac-baac-a0230880cede"
+      },
+      "pointers": [
+        "/cases/0/plumes/2"
+      ],
+      "rationale": "The supplied record explicitly links this dated plume to the source; this asserts the snapshot record, not current emissions."
+    },
+    {
+      "claimId": "agent-KAZ_S_159-operator_notified",
+      "sourceId": "KAZ_S_159",
+      "claimType": "operator_notified",
+      "claimText": "By 2026-09-23, the operator of KAZ_S_159 had received a notification about the plume observed at 2026-07-11T08:12:14.",
+      "provisionalLabel": "insufficient_evidence",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2026-07-11",
+        "endDate": "2026-09-23"
+      },
+      "pointers": [
+        "/cases/0/source",
+        "/cases/0/externalEvidence/0"
+      ],
+      "rationale": "Source-level notified/feedback flags and a link-only report title do not supply recipient delivery evidence or an inspected post-action method/result. Missing later observations do not prove zero methane."
+    },
+    {
+      "claimId": "agent-KAZ_S_159-mitigation_confirmed",
+      "sourceId": "KAZ_S_159",
+      "claimType": "mitigation_confirmed",
+      "claimText": "By 2026-09-23, mitigation at KAZ_S_159 had been physically confirmed using a post-action methane measurement.",
+      "provisionalLabel": "insufficient_evidence",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2026-07-11",
+        "endDate": "2026-09-23"
+      },
+      "pointers": [
+        "/cases/0/source",
+        "/cases/0/externalEvidence/0"
+      ],
+      "rationale": "Source-level notified/feedback flags and a link-only report title do not supply recipient delivery evidence or an inspected post-action method/result. Missing later observations do not prove zero methane."
+    },
+    {
+      "claimId": "agent-LBY_S_143-source_detected",
+      "sourceId": "LBY_S_143",
+      "claimType": "source_detected",
+      "claimText": "The UNEP IMEO MARS snapshot records a methane plume linked to LBY_S_143 at 2025-12-23T10:08:43.",
+      "provisionalLabel": "supported",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2025-12-23",
+        "endDate": "2025-12-23",
+        "observationId": "a8e4a775-4654-46b2-af16-bb9b4742e79d"
+      },
+      "pointers": [
+        "/cases/1/plumes/0"
+      ],
+      "rationale": "The supplied record explicitly links this dated plume to the source; this asserts the snapshot record, not current emissions."
+    },
+    {
+      "claimId": "agent-LBY_S_143-operator_notified",
+      "sourceId": "LBY_S_143",
+      "claimType": "operator_notified",
+      "claimText": "By the end of 2026-04, the operator of LBY_S_143 had received a notification about the plume observed at 2025-12-23T10:08:43.",
+      "provisionalLabel": "insufficient_evidence",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2025-12-23",
+        "endDate": "2026-04-30"
+      },
+      "pointers": [
+        "/cases/1/source",
+        "/cases/1/externalEvidence/0"
+      ],
+      "rationale": "Source-level notified/feedback flags and a link-only report title do not supply recipient delivery evidence or an inspected post-action method/result. Missing later observations do not prove zero methane."
+    },
+    {
+      "claimId": "agent-LBY_S_143-mitigation_confirmed",
+      "sourceId": "LBY_S_143",
+      "claimType": "mitigation_confirmed",
+      "claimText": "By the end of 2026-04, mitigation at LBY_S_143 had been physically confirmed using a post-action methane measurement.",
+      "provisionalLabel": "insufficient_evidence",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2025-12-23",
+        "endDate": "2026-04-30"
+      },
+      "pointers": [
+        "/cases/1/source",
+        "/cases/1/externalEvidence/0"
+      ],
+      "rationale": "Source-level notified/feedback flags and a link-only report title do not supply recipient delivery evidence or an inspected post-action method/result. Missing later observations do not prove zero methane."
+    },
+    {
+      "claimId": "agent-ARG_S_055-source_detected",
+      "sourceId": "ARG_S_055",
+      "claimType": "source_detected",
+      "claimText": "The UNEP IMEO MARS snapshot records a methane plume linked to ARG_S_055 at 2023-03-06T14:31:19.",
+      "provisionalLabel": "supported",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2023-03-06",
+        "endDate": "2023-03-06",
+        "observationId": "486ca723-1394-4bef-b4e1-fc132952995d"
+      },
+      "pointers": [
+        "/cases/2/plumes/1"
+      ],
+      "rationale": "The supplied record explicitly links this dated plume to the source; this asserts the snapshot record, not current emissions."
+    },
+    {
+      "claimId": "agent-ARG_S_055-operator_notified",
+      "sourceId": "ARG_S_055",
+      "claimType": "operator_notified",
+      "claimText": "By the end of 2023-11, the operator of ARG_S_055 had received a notification about the plume observed at 2023-03-06T14:31:19.",
+      "provisionalLabel": "insufficient_evidence",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2023-03-06",
+        "endDate": "2023-11-30"
+      },
+      "pointers": [
+        "/cases/2/source",
+        "/cases/2/externalEvidence/0"
+      ],
+      "rationale": "Source-level notified/feedback flags and a link-only report title do not supply recipient delivery evidence or an inspected post-action method/result. Missing later observations do not prove zero methane."
+    },
+    {
+      "claimId": "agent-ARG_S_055-mitigation_confirmed",
+      "sourceId": "ARG_S_055",
+      "claimType": "mitigation_confirmed",
+      "claimText": "By the end of 2023-11, mitigation at ARG_S_055 had been physically confirmed using a post-action methane measurement.",
+      "provisionalLabel": "insufficient_evidence",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2023-03-06",
+        "endDate": "2023-11-30"
+      },
+      "pointers": [
+        "/cases/2/source",
+        "/cases/2/externalEvidence/0"
+      ],
+      "rationale": "Source-level notified/feedback flags and a link-only report title do not supply recipient delivery evidence or an inspected post-action method/result. Missing later observations do not prove zero methane."
+    },
+    {
+      "claimId": "agent-CAN_S_002-source_detected",
+      "sourceId": "CAN_S_002",
+      "claimType": "source_detected",
+      "claimText": "The UNEP IMEO MARS snapshot records a methane plume linked to CAN_S_002 at 2026-04-10T19:07:29.",
+      "provisionalLabel": "supported",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2026-04-10",
+        "endDate": "2026-04-10",
+        "observationId": "35328376-5922-43c4-9076-c97af6231527"
+      },
+      "pointers": [
+        "/cases/3/plumes/0"
+      ],
+      "rationale": "The supplied record explicitly links this dated plume to the source; this asserts the snapshot record, not current emissions."
+    },
+    {
+      "claimId": "agent-CAN_S_002-operator_notified",
+      "sourceId": "CAN_S_002",
+      "claimType": "operator_notified",
+      "claimText": "By the end of 2026-07, the operator of CAN_S_002 had received a notification about the plume observed at 2026-04-10T19:07:29.",
+      "provisionalLabel": "insufficient_evidence",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2026-04-10",
+        "endDate": "2026-07-31"
+      },
+      "pointers": [
+        "/cases/3/source",
+        "/cases/3/externalEvidence/0"
+      ],
+      "rationale": "Source-level notified/feedback flags and a link-only report title do not supply recipient delivery evidence or an inspected post-action method/result. Missing later observations do not prove zero methane."
+    },
+    {
+      "claimId": "agent-CAN_S_002-mitigation_confirmed",
+      "sourceId": "CAN_S_002",
+      "claimType": "mitigation_confirmed",
+      "claimText": "By the end of 2026-07, mitigation at CAN_S_002 had been physically confirmed using a post-action methane measurement.",
+      "provisionalLabel": "insufficient_evidence",
+      "labelOrigin": "agent_provisional_metadata_inspection",
+      "scope": {
+        "startDate": "2026-04-10",
+        "endDate": "2026-07-31"
+      },
+      "pointers": [
+        "/cases/3/source",
+        "/cases/3/externalEvidence/0"
+      ],
+      "rationale": "Source-level notified/feedback flags and a link-only report title do not supply recipient delivery evidence or an inspected post-action method/result. Missing later observations do not prove zero methane."
+    }
+  ]
+}

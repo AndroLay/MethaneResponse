@@ -1,0 +1,30 @@
+bun test v1.4.3 (c6da4a4d3)
+
+apps/web/src/assessment-scope.test.ts:
+(pass) scope draft schema preserves incomplete fields without retaining unknown data [0.19ms]
+(pass) observation preset sorts normalized UTC days and excludes invalid dates [0.40ms]
+(pass) unapplied scope edits are distinct from a source-level or saved scope [0.13ms]
+(pass) scope picker exposes dated DEMO detection references when no observation rows exist [17.81ms]
+(pass) scope picker shows the UTC day instead of the timestamp local day [1.19ms]
+
+apps/web/src/imported-audit-verifier.test.ts:
+(pass) browser verifier defaults to complete context checking with a visible legacy option [1.23ms]
+(pass) strict context verification requires a complete report instead of a raw or legacy bundle [7.85ms]
+(pass) strict context verification accepts the app export and rejects changed outer context [3.47ms]
+(pass) export observation timestamps must match the committed UTC day [8.62ms]
+(pass) new semantics reject a rehashed physical-verification claim while legacy bundle bytes remain valid [0.82ms]
+(pass) verifies a valid exported audit bundle and marks wrapper context as unsigned [0.36ms]
+(pass) verifies the current v3 human-reviewed report revision without claiming chain proof [16.55ms]
+(pass) verifies a historical v3 report whose document digest predates the rights declaration field [1.53ms]
+(pass) validates open-license declaration shape independently of the bundle hash [3.37ms]
+(pass) rejects an edited audit bundle even when its outer report still parses [0.41ms]
+(pass) rejects changed exported observations when the report includes an export checksum [0.52ms]
+(pass) rejects report summary fields that no longer match the hashed bundle [0.31ms]
+(pass) keeps a locally valid digest separate from receipt metadata and live chain verification [0.60ms]
+(pass) flags receipt metadata mismatch without misreporting the independently valid bundle hash [0.69ms]
+(pass) rejects malformed input instead of treating a missing bundle as a valid report [0.13ms]
+
+ 20 pass
+ 0 fail
+ 44 expect() calls
+Ran 20 tests across 2 files. [166.00ms]

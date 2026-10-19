@@ -1,0 +1,55 @@
+1
+00:00:00,000 --> 00:00:18,000
+KAZ_S_159 · historical MARS record · UNEP catalogue title: “Confirmed Mitigation Action”
+
+2
+00:00:18,000 --> 00:00:40,000
+UNEP: methane accounts for roughly 30% of warming since pre-industrial times · climate context, not project impact
+
+3
+00:00:40,000 --> 00:01:08,000
+MARS: detection, notifications, follow-up · IEA: ~12% of notifications received a response in 2025 · response ≠ repair
+
+4
+00:01:08,000 --> 00:01:32,000
+UNEP abstract: IMEO confirmed action at Uzen Field in July 2026 · report contents not included here
+
+5
+00:01:32,000 --> 00:01:57,000
+EnMAP estimates · 591 ± 335 · 307 ± 66 · 496 ± 226 kg/h
+2024-06-07 · 2026-06-05 · 2026-07-11 · discrete observations
+
+6
+00:01:57,000 --> 00:02:28,000
+Selected scope · 2026-07-11 UTC · exact action day unavailable
+This observation cannot be ordered before or after the action
+
+7
+00:02:28,000 --> 00:03:06,000
+Rules baseline · insufficient evidence in this submitted bundle
+No eligible date-matched mitigation citation · not a finding of failure
+
+8
+00:03:06,000 --> 00:03:29,000
+Next: authorized action evidence with an exact date + method-appropriate follow-up
+Analyst note saved locally · no operator contacted
+
+10
+00:03:29,000 --> 00:03:48,000
+Local bundle SHA-256 ✓ · export-context checksum ✓
+No blockchain receipt
+
+11
+00:03:48,000 --> 00:04:11,000
+Altered copy → SHA-256 mismatch
+Integrity check only · not issuer or physical-truth proof
+
+11
+00:04:11,000 --> 00:04:33,000
+Original export selected again · local hashes match
+Consistency with in-file hashes · not trusted issuer proof
+
+12
+00:04:33,000 --> 00:04:50,000
+Rules baseline only · no live AI or public-chain receipt
+No emissions avoided or reviewer time saved measured

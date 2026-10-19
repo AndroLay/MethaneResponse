@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "durationSeconds": 290,
+  "language": "en-US",
+  "voiceModel": "Kokoro-82M ONNX v1.0",
+  "voiceId": "af_heart",
+  "syntheticVoice": true,
+  "direction": "Measured, conversational narration. Make the difference between a publisher record and the submitted evidence bundle unmistakable. Leave room for the UI result to be read.",
+  "segments": [
+    {
+      "startSeconds": 0,
+      "endSeconds": 18,
+      "text": "Here is KAZ_S_159, a real historical MARS source record. A linked UNEP catalogue item is titled Confirmed Mitigation Action. What can this review actually establish?"
+    },
+    {
+      "startSeconds": 18,
+      "endSeconds": 40,
+      "text": "Methane matters. UNEP attributes about thirty percent of warming since pre-industrial times to methane. That makes reliable follow-up important. It is climate context, not an impact claim for this prototype."
+    },
+    {
+      "startSeconds": 40,
+      "endSeconds": 68,
+      "text": "UNEP's MARS already detects major emissions, sends notifications, and follows responses. The IEA says about twelve percent of notifications received a response in twenty twenty-five. A response is not evidence of repair. MethaneResponse checks the claims that follow."
+    },
+    {
+      "startSeconds": 68,
+      "endSeconds": 92,
+      "text": "The official UNEP catalogue abstract says IMEO confirmed mitigation at Uzen Field in July twenty twenty-six. This casebook keeps the title, metadata, and link, not the report itself. We do not copy or re-audit that document."
+    },
+    {
+      "startSeconds": 92,
+      "endSeconds": 117,
+      "text": "Three separate EnMAP estimates appear here. June seventh, twenty twenty-four: five hundred ninety-one plus or minus three hundred thirty-five. June fifth, twenty twenty-six: three hundred seven plus or minus sixty-six. July eleventh: four hundred ninety-six plus or minus two hundred twenty-six kilograms per hour. These are dated estimates, not continuous monitoring."
+    },
+    {
+      "startSeconds": 117,
+      "endSeconds": 148,
+      "text": "We select July eleventh and apply that UTC day. The catalogue abstract says action occurred in July, but gives no exact day. We cannot say whether this observation came before or after it. The baseline now checks for a date-matched mitigation citation."
+    },
+    {
+      "startSeconds": 148,
+      "endSeconds": 186,
+      "text": "The deterministic baseline checks this mitigation claim against the submitted bundle and selected date. The bundle has a publisher title and link, but no eligible date-matched mitigation citation. So the result is insufficient evidence within this bundle. The UNEP catalogue abstract is separate; this result does not contradict it or say the action failed."
+    },
+    {
+      "startSeconds": 186,
+      "endSeconds": 209,
+      "text": "Next, a reviewer can request an authorized, attributable source passage with the exact action date, then compare it with method-appropriate follow-up evidence. This note captures the open question and request in this browser only; it does not contact an operator."
+    },
+    {
+      "startSeconds": 209,
+      "endSeconds": 228,
+      "text": "The exported report binds the audit to its source snapshot and scope. Here, the browser recomputes the bundle digest and export checksum, and both match. This is a local check; the file contains no blockchain receipt."
+    },
+    {
+      "startSeconds": 228,
+      "endSeconds": 251,
+      "text": "We change a reason bound into the audit and leave its stored bundle digest untouched. The verifier rejects the altered copy because the recomputed bundle hash differs. This controlled integrity test detects a changed file; it does not verify authorship or physical mitigation."
+    },
+    {
+      "startSeconds": 251,
+      "endSeconds": 273,
+      "text": "Now we select the untouched original export. Its bundle digest and context checksum match again. That shows the altered copy changed the result. Because the hashes travel inside the report, they do not prove who issued it or whether its physical claims are true."
+    },
+    {
+      "startSeconds": 273,
+      "endSeconds": 290,
+      "text": "That is the practical value: make records, evidence gaps, and the next request easier to inspect. This preview uses rules, not live AI or public blockchain. Emissions avoided and reviewer time saved have not been measured."
+    }
+  ]
+}

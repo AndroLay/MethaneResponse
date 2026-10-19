@@ -282,6 +282,7 @@ export default function IntelligencePanel({ sourceId, observations, claimType, s
       const response = await fetch(`${api}/api/audits/${encodeURIComponent(generated.auditId)}/anchor`, {
         method: 'POST', headers: { authorization: `Bearer ${humanAccessToken}` },
       });
+      if (response.status === 202) throw new Error('Transaction remains pending. Use Verification Center to inspect and reconcile before any new write.');
       const payload = await parseResponse<AnchorResponse>(response);
       const updated = mergeAnchorResponse(generated, payload);
       setGenerated(updated); onAssessment(updated);

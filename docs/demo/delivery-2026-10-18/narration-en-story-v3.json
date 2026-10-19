@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "language": "en-US",
+  "voiceModel": "Kokoro-82M ONNX v1.0",
+  "voiceId": "af_heart",
+  "syntheticVoice": true,
+  "direction": "Conversational, measured product story: climate relevance, MARS context, product role, real case, method, result, integrity and limits.",
+  "segments": [
+    {
+      "startSeconds": 0,
+      "endSeconds": 18,
+      "text": "Why methane? UNEP says it has accounted for roughly thirty percent of global warming since pre-industrial times. Cutting methane can slow near-term warming. Credible follow-up helps us distinguish documented action from an unverified claim."
+    },
+    {
+      "startSeconds": 18,
+      "endSeconds": 40,
+      "text": "MARS already detects very large methane events, notifies stakeholders, and tracks follow-up. The IEA reports that around twelve percent of MARS notifications received a response in 2025. That is a response rate, not a repair rate. That gap motivates independent evidence review."
+    },
+    {
+      "startSeconds": 40,
+      "endSeconds": 64,
+      "text": "MethaneResponse is not another detector. It is an evidence-review workspace for researchers, auditors, and public-interest teams. It connects a specific claim to a source, a date range, and the records available to support it. That makes provenance, claim scope, and uncertainty visible."
+    },
+    {
+      "startSeconds": 64,
+      "endSeconds": 95,
+      "text": "Let's use a real historical case: KAZ_S_159 in Kazakhstan. The pinned casebook records three EnMAP estimates: five hundred ninety-one plus or minus three hundred thirty-five, three hundred seven plus or minus sixty-six, and four hundred ninety-six plus or minus two hundred twenty-six kilograms per hour. The dates span 2024 to 2026. These are snapshots, not a continuous trend."
+    },
+    {
+      "startSeconds": 95,
+      "endSeconds": 120,
+      "text": "Before assessing a claim, choose the observation and its UTC calendar day. This makes the result reproducible and shows exactly which records are in scope. Missing observations remain unknown, not zero. A reviewer can repeat the same question against the same dated records."
+    },
+    {
+      "startSeconds": 120,
+      "endSeconds": 145,
+      "text": "For the source-detection claim, the deterministic rules baseline finds the required reference metadata in scope. That gives a repeatable answer to a specific question. It is not AI, and it does not prove the satellite measurement by itself. It checks metadata coverage, not document contents or physical truth."
+    },
+    {
+      "startSeconds": 145,
+      "endSeconds": 170,
+      "text": "Now test the mitigation claim. In this selected scope, reference coverage is insufficient. UNEP separately reports confirmed action in July 2026. Our casebook lacks its exact date, so we cannot place the July eleventh observation before or after it. That is a scope limit, not a contradiction of UNEP."
+    },
+    {
+      "startSeconds": 170,
+      "endSeconds": 190,
+      "text": "That points to the next useful request: an attributable action timestamp and follow-up evidence linked to it. The analyst note stays in this browser; it is not sent to an operator. This gives a reviewer a practical next step without forcing a verdict the available evidence cannot support."
+    },
+    {
+      "startSeconds": 190,
+      "endSeconds": 208,
+      "text": "Now export the report. Its bundle digest and context checksum match. This checks whether the exported file matches its recorded integrity values; no blockchain receipt is included here. Another reviewer can recompute the bundle digest."
+    },
+    {
+      "startSeconds": 208,
+      "endSeconds": 228,
+      "text": "We alter one hashed field but leave the stored digest untouched. The verifier detects the mismatch. That proves the export changed, not that its original claims are true or that mitigation occurred. It is a tamper check, not a test of methane outcomes."
+    },
+    {
+      "startSeconds": 228,
+      "endSeconds": 240,
+      "text": "That is the value: trace the claim, see what is missing, and know what evidence to ask for next. This prototype has not measured emissions avoided or time saved."
+    }
+  ]
+}

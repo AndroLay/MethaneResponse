@@ -1,0 +1,18 @@
+{
+  "startedAt": "2026-10-18T07:18:16Z",
+  "endedAtUTC": "2026-10-18T07:20:57Z",
+  "inputSHA256": "35488244f4743b1b1aba595ca5bbdbb8f69d51fb80d25dff53ad812d88e53fdf",
+  "requestedModel": "gpt-6-luna",
+  "requestedEffort": "max",
+  "actualModel": "unknown (not exposed)",
+  "totalWallTimeSeconds": 161,
+  "perClaimLatency": null,
+  "billedCost": null,
+  "providerAppCalls": 0,
+  "methodLimits": [
+    "Penilaian hanya menggunakan teks pada diagnostic-agent-pack.json yang dibekukan.",
+    "Tidak membuka web, laporan tertaut, provider aplikasi, implementasi, atau jawaban pembanding.",
+    "Klaim tentang isi rekaman dinilai terpisah dari kebenaran fisik; flag dan feedback tidak dianggap bukti perbaikan fisik.",
+    "Cuplikan tidak memuat laporan, tanda terima event khusus, catatan perbaikan, atau rangkaian pengukuran pascatindakan."
+  ]
+}

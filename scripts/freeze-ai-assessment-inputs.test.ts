@@ -11,6 +11,8 @@ const input = {
   claimType: 'mitigation_confirmed' as const,
   claimText: 'The operator completed the stated repair for KAZ_S_159 on 2026-09-10 and verified sustained methane reduction.',
   consentToExternalProcessing: true as const,
+  consentToPublishCitations: false,
+  consentToPublishClaim: false,
   documents: [{ id: 'private-report', title: 'Private report', text: excerpt, rightsDeclared: 'explicit_permission' as const }],
 };
 
@@ -71,4 +73,15 @@ test('private digest writer refuses a group-readable candidate file', async () =
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
+});
+
+test('partition freeze binds source/document/claim type before annotation and forbids leakage', () => {
+  const row = { claimId: 'claim-01', split: 'test', synthetic: false, input };
+  const manifest = freezeAssessmentInputManifest([row], Buffer.from('private-candidate'), { requirePartitions: true });
+  expect(manifest.partitionFreeze).toBe('source_and_document_disjoint');
+  expect(manifest.claims[0]).toMatchObject({ sourceId: 'KAZ_S_159', split: 'test', claimType: 'mitigation_confirmed', documentIds: ['private-report'] });
+  expect(() => freezeAssessmentInputManifest([row, { ...row, claimId: 'claim-02', split: 'dev' }], Buffer.from('split'), { requirePartitions: true })).toThrow('Source-disjoint');
+  const otherSource = { ...row, claimId: 'claim-02', split: 'dev', input: { ...input, sourceId: 'OTHER' } };
+  expect(() => freezeAssessmentInputManifest([row, otherSource], Buffer.from('split'), { requirePartitions: true })).toThrow('Document-disjoint');
+  expect(() => freezeAssessmentInputManifest([{ claimId: 'claim-01', input }], Buffer.from('missing'), { requirePartitions: true })).toThrow('partition');
 });

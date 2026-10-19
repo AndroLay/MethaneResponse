@@ -13,12 +13,15 @@ export default function ImportedAuditVerifier() {
   const [verification, setVerification] = useState<ImportedAuditVerification | null>(null);
   const [checking, setChecking] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
+  const [requireExportContext, setRequireExportContext] = useState(true);
+  const [chooseAgain, setChooseAgain] = useState(false);
 
   async function checkFile(event: ChangeEvent<HTMLInputElement>) {
     const file = event.currentTarget.files?.[0];
     event.currentTarget.value = '';
     setVerification(null);
     setFileError(null);
+    setChooseAgain(false);
     if (!file) return;
     if (file.size > MAX_REPORT_BYTES) {
       setFileError('The report exceeds the 5 MiB limit. Choose a smaller file.');
@@ -28,7 +31,7 @@ export default function ImportedAuditVerifier() {
     setChecking(true);
     try {
       const parsed: unknown = JSON.parse(await file.text());
-      setVerification(await verifyImportedAuditReport(parsed));
+      setVerification(await verifyImportedAuditReport(parsed, { requireExportContext }));
     } catch {
       setFileError('This file could not be read or verified. Choose a valid exported JSON report.');
     } finally {
@@ -43,10 +46,12 @@ export default function ImportedAuditVerifier() {
         <div className="panel-subtitle">Check an audit JSON file in this browser</div>
       </div>
     </div>
-    <p className="imported-audit-intro">Choose an exported report to recompute the audit bundle’s SHA-256 digest and check it against the report summary. File contents are processed locally and are not uploaded.</p>
+    <p className="imported-audit-intro">Download the JSON report, then choose that file here to check its bundle and export context. File contents are processed locally and are not uploaded. No command line is needed.</p>
+    <label className="verifier-context-option"><input type="checkbox" checked={requireExportContext} disabled={checking} onChange={event => { setRequireExportContext(event.target.checked); setVerification(null); setFileError(null); setChooseAgain(true); }}/><span>Require complete export context<small>Enabled for current reports. Turn off only to inspect a legacy or raw audit bundle with unverified export context.</small></span></label>
+    {chooseAgain && <p role="status">Choose the file again to verify it with the changed setting.</p>}
     <label className="imported-audit-file">
       <span>Choose a JSON audit report</span>
-      <input type="file" accept=".json,application/json" aria-label="Choose a JSON audit report" onChange={event => void checkFile(event)}/>
+      <input type="file" accept=".json,application/json" disabled={checking} aria-label="Choose a JSON audit report" onChange={event => void checkFile(event)}/>
       <small>Maximum file size: 5 MiB.</small>
     </label>
     {checking && <p className="imported-audit-state" role="status">Checking the audit digest…</p>}
@@ -57,7 +62,9 @@ export default function ImportedAuditVerifier() {
         <div><dt>Source</dt><dd>{verification.sourceId}</dd></div>
         <div><dt>Revision</dt><dd>{verification.revision}</dd></div>
         <div><dt>Claim</dt><dd>{verification.claimType?.replaceAll('_', ' ')}</dd></div>
-        <div><dt>Result</dt><dd>{verification.result?.replaceAll('_', ' ')}</dd></div>
+        <div><dt>Assessment basis</dt><dd>{verification.assessmentBasis}</dd></div>
+        <div><dt>Result</dt><dd>{verification.resultLabel}</dd></div>
+        <div><dt>Physical verification</dt><dd>Not established by this application</dd></div>
         {verification.historicalObservationCount !== undefined && <div><dt>Historical observations · context only</dt><dd>{verification.historicalObservationCount}</dd></div>}
         {verification.reviewStatus && <div><dt>Review</dt><dd>{verification.reviewStatus.replaceAll('_', ' ')}</dd></div>}
         <div className="imported-audit-hash"><dt>SHA-256</dt><dd>{verification.bundleHash}</dd></div>
@@ -67,11 +74,12 @@ export default function ImportedAuditVerifier() {
       {verification.documentRightsMetadata === 'not_recorded' && <p className="imported-audit-caution">This audit does not record document-rights declarations; older bundles remain verifiable.</p>}
       {verification.documentRightsMetadata === 'invalid' && <p className="imported-audit-caution">The digest matches, but the document-rights metadata is malformed: {verification.documentRightsMessage}</p>}
       <p>{receiptLabel(verification.receipt)}</p>
-      {verification.exportContext === 'not_in_audit_hash' && <p className="imported-audit-caution">Export wrapper fields—such as dataset metadata and observations outside the audit bundle—are not covered by the audit digest.</p>}
-      {verification.exportContext === 'manifest_valid' && <p className="imported-audit-caution">The export SHA-256 checksum matches the dataset and observation context. This checksum is not signed or anchored to a blockchain.</p>}
+      {(verification.exportContext === 'not_in_audit_hash' || verification.exportContext === 'none') && <p className="imported-audit-caution"><strong>Export context is not verified.</strong> Dataset metadata and observations outside the audit bundle are not covered by the audit digest.</p>}
+      {verification.exportContext === 'manifest_valid' && <p className="imported-audit-caution"><strong>Export context checksum matches.</strong> The dataset and observation context match this file’s checksum. This checksum is not signed or anchored to a blockchain.</p>}
       {verification.historicalObservationCount !== undefined && <p className="imported-audit-caution">Historical observations provide source context, not citations supporting a mitigation claim. The audit bundle digest does not cover this context list.</p>}
       {verification.exportContext === 'manifest_unavailable' && <p className="imported-audit-caution">The audit bundle is verifiable, but Web Crypto is unavailable to check the export context checksum.</p>}
       <p className="imported-audit-limit">This digest verifies the audit bundle against its stored hash. It does not verify document authenticity, physical mitigation, or emissions reductions.</p>
+      <p className="imported-audit-limit">A file and its checksum can both be replaced. Compare the digest with a trusted sender or a separately verified receipt to establish the expected version.</p>
       {verification.receipt === 'metadata_matches_event_unverified' && <p className="imported-audit-limit">To verify the event and issuer on Sepolia, use the verifier CLI with a read-only RPC URL and the matching registry address.</p>}
     </div>}
     {verification?.localDigest === 'invalid' && <div className="imported-audit-result imported-audit-error" role="alert">

@@ -1,0 +1,77 @@
+{
+  "packetVersion": "P4-2026-10-18-v1",
+  "checkedDate": "2026-10-18",
+  "commands": [
+    {
+      "command": "bun --no-env-file docs/evidence/domain-review-preparation-2026-10-18/maintainer/reproduce-cases.ts --check",
+      "exitCode": 0,
+      "output": "Verified 12 frozen cases (6 real metadata / 6 DEMO) and current deterministic baseline. No expert labels exist."
+    },
+    {
+      "command": "bun run tsc --project docs/evidence/domain-review-preparation-2026-10-18/maintainer/tsconfig.json",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "sha256sum --check --quiet docs/evidence/publication-lifecycle-2026-10-18/implementation-files.sha256",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "documents": {
+    "markdownFiles": 21,
+    "localFileLinks": 195,
+    "htmlAnchors": 7,
+    "htmlLinks": 48,
+    "offlineHtmlMatchesMarkdown": true
+  },
+  "sourceFilesChecked": 38,
+  "archives": [
+    {
+      "file": "MethaneResponse-P4-reviewer-v1.zip",
+      "sha256": "d0394926342d456f24e50f76d341ff6ad0cd9c9262885a190b78851f9e609703",
+      "bytes": 41805,
+      "members": [
+        "MethaneResponse-P4-reviewer-v1/00-START-HERE.md",
+        "MethaneResponse-P4-reviewer-v1/01-method-brief.md",
+        "MethaneResponse-P4-reviewer-v1/02-review-protocol.md",
+        "MethaneResponse-P4-reviewer-v1/03-cases.md",
+        "MethaneResponse-P4-reviewer-v1/04-response-form.md",
+        "MethaneResponse-P4-reviewer-v1/05-source-register.md",
+        "MethaneResponse-P4-reviewer-v1/06-method-excerpts.txt",
+        "MethaneResponse-P4-reviewer-v1/07-version.json",
+        "MethaneResponse-P4-reviewer-v1/LICENSE-DATA.txt",
+        "MethaneResponse-P4-reviewer-v1/SHA256SUMS",
+        "MethaneResponse-P4-reviewer-v1/SOURCE-FILES.sha256",
+        "MethaneResponse-P4-reviewer-v1/cases.json",
+        "MethaneResponse-P4-reviewer-v1/index.html"
+      ],
+      "crcAndOriginalBytes": "passed",
+      "phase": "A_INITIAL_EXPERT_ASSESSMENT"
+    },
+    {
+      "file": "MethaneResponse-P4-comparison-v1.zip",
+      "sha256": "f3503140cdd2d9d796d893763b67121ee7513e58a8ae12fb37eb1007fc169560",
+      "bytes": 2807,
+      "members": [
+        "MethaneResponse-P4-comparison-v1/07-version.json",
+        "MethaneResponse-P4-comparison-v1/SHA256SUMS",
+        "MethaneResponse-P4-comparison-v1/baseline-observations.json",
+        "MethaneResponse-P4-comparison-v1/comparison-readme.md"
+      ],
+      "crcAndOriginalBytes": "passed",
+      "phase": "B_IMPLEMENTATION_COMPARISON"
+    }
+  ],
+  "originalP4HumanCheckboxesUnchecked": 5,
+  "limits": [
+    "No expert review, consent, results or recheck exists.",
+    "App behavior unchanged; full app/browser suites not rerun for document preparation.",
+    "No contact, external mutation, provider invocation, report download or deployment."
+  ]
+}

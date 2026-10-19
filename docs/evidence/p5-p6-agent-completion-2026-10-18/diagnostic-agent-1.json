@@ -1,0 +1,890 @@
+[
+  {
+    "claimId": "ARG_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId ARG_S_001.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"sourceId\": \"ARG_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARG_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 246.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"fluxKgHr\": 246.0"
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARG_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2023-01-21T16:17:47, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"date\": \"2023-01-21T16:17:47\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARG_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 246.0 kg/h, bukan 346 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"fluxKgHr\": 246.0"
+      }
+    ]
+  },
+  {
+    "claimId": "ARG_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag notifikasi tidak membuktikan tanda terima untuk penerima dan event tertentu; excerpt menyatakan tanda terima itu tidak disertakan.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Yes\""
+      },
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "ARG_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-ARG_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId ARM_S_001.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"sourceId\": \"ARM_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 2013.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"fluxKgHr\": 2013.0"
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2026-08-18T07:56:18, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"date\": \"2026-08-18T07:56:18\""
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 2013.0 kg/h, bukan 2113 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"fluxKgHr\": 2013.0"
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag Not Applicable dan ketiadaan tanda terima event tidak cukup untuk memastikan operator menerima notifikasi sebelum observasi.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "ARM_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-ARM_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId AUS_S_001.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"sourceId\": \"AUS_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 1934.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"fluxKgHr\": 1934.0"
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2026-07-23T00:36:17, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"date\": \"2026-07-23T00:36:17\""
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 1934.0 kg/h, bukan 2034 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"fluxKgHr\": 1934.0"
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag Not Applicable dan ketiadaan tanda terima event tidak cukup untuk memastikan operator menerima notifikasi sebelum observasi.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "AUS_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-AUS_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId AZE_S_001.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"sourceId\": \"AZE_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 5167.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"fluxKgHr\": 5167.0"
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2026-08-22T08:03:02, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"date\": \"2026-08-22T08:03:02\""
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 5167.0 kg/h, bukan 5267 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"fluxKgHr\": 5167.0"
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag Yes tidak membuktikan tanda terima untuk penerima dan event tertentu; excerpt menyatakan tanda terima itu tidak disertakan.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Yes\""
+      },
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "AZE_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-AZE_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId BGD_S_001.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"sourceId\": \"BGD_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 803.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"fluxKgHr\": 803.0"
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2025-10-22T05:09:47, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"date\": \"2025-10-22T05:09:47\""
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 803.0 kg/h, bukan 903 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"fluxKgHr\": 803.0"
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag Not Applicable dan ketiadaan tanda terima event tidak cukup untuk memastikan operator menerima notifikasi sebelum observasi.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "BGD_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-BGD_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId BHR_S_001.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"sourceId\": \"BHR_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 793.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"fluxKgHr\": 793.0"
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2024-03-13T07:40:59, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"date\": \"2024-03-13T07:40:59\""
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 793.0 kg/h, bukan 893 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"fluxKgHr\": 793.0"
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-5",
+    "verdict": "contradicted",
+    "reason": "Flag sourceNotifiedFlag bernilai No, yang bertentangan dengan klaim bahwa operator menerima notifikasi terkait observasi.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"No\""
+      },
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "BHR_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-BHR_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId BOL_S_001.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"sourceId\": \"BOL_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 1565.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"fluxKgHr\": 1565.0"
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2026-05-21T16:15:04, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"date\": \"2026-05-21T16:15:04\""
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 1565.0 kg/h, bukan 1665 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"fluxKgHr\": 1565.0"
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag Not Applicable dan ketiadaan tanda terima event tidak cukup untuk memastikan operator menerima notifikasi sebelum observasi.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "BOL_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-BOL_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId BRA_S_001.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"sourceId\": \"BRA_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 1693.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"fluxKgHr\": 1693.0"
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2025-08-22T13:49:12, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"date\": \"2025-08-22T13:49:12\""
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 1693.0 kg/h, bukan 1793 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"fluxKgHr\": 1693.0"
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag Not Applicable dan ketiadaan tanda terima event tidak cukup untuk memastikan operator menerima notifikasi sebelum observasi.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "BRA_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-BRA_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId BWA_S_001.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"sourceId\": \"BWA_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 1784.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"fluxKgHr\": 1784.0"
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2025-08-30T08:51:48, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"date\": \"2025-08-30T08:51:48\""
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 1784.0 kg/h, bukan 1884 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"fluxKgHr\": 1784.0"
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag Not Applicable dan ketiadaan tanda terima event tidak cukup untuk memastikan operator menerima notifikasi sebelum observasi.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "BWA_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-BWA_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId CAN_S_001.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"sourceId\": \"CAN_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 4587.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"fluxKgHr\": 4587.0"
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2024-10-10T20:10:28, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"date\": \"2024-10-10T20:10:28\""
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 4587.0 kg/h, bukan 4687 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"fluxKgHr\": 4587.0"
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag Not Applicable dan ketiadaan tanda terima event tidak cukup untuk memastikan operator menerima notifikasi sebelum observasi.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "CAN_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-CAN_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId CHL_S_001.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"sourceId\": \"CHL_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 10856.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"fluxKgHr\": 10856.0"
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2026-03-07T13:16:02, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"date\": \"2026-03-07T13:16:02\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 10856.0 kg/h, bukan 10956 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"fluxKgHr\": 10856.0"
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag Not Applicable dan ketiadaan tanda terima event tidak cukup untuk memastikan operator menerima notifikasi sebelum observasi.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Not Applicable\""
+      },
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "CHL_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-CHL_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-1",
+    "verdict": "supported",
+    "reason": "Rekaman secara eksplisit mencantumkan sourceId CHN_S_001.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"sourceId\": \"CHN_S_001\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-2",
+    "verdict": "supported",
+    "reason": "Rekaman mencatat flux 1119.0 kg/h, sesuai dengan nilai pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"fluxKgHr\": 1119.0"
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"fluxUnit\": \"kg/h\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-3",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat tanggal 2025-10-05T04:26:26, berbeda dari timestamp pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"date\": \"2025-10-05T04:26:26\""
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-4",
+    "verdict": "contradicted",
+    "reason": "Rekaman mencatat flux 1119.0 kg/h, bukan 1219 kg/h seperti pada klaim.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"fluxKgHr\": 1119.0"
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-5",
+    "verdict": "insufficient_evidence",
+    "reason": "Flag Yes tidak membuktikan tanda terima untuk penerima dan event tertentu; excerpt menyatakan tanda terima itu tidak disertakan.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "\"sourceNotifiedFlag\": \"Yes\""
+      },
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "no report body, recipient-specific event receipt"
+      }
+    ]
+  },
+  {
+    "claimId": "CHN_S_001-probe-6",
+    "verdict": "insufficient_evidence",
+    "reason": "Excerpt tidak menyertakan catatan perbaikan atau pengukuran pasca-aksi untuk mengonfirmasi perbaikan fisik.",
+    "citations": [
+      {
+        "documentId": "record-CHN_S_001",
+        "quote": "no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt."
+      }
+    ]
+  }
+]

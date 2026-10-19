@@ -1,0 +1,2090 @@
+[
+  {
+    "claimId": "ARG_S_001-probe-1",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARG_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation b0a678bc-7d50-4d5e-816f-cc868bfd913c, the supplied archive record lists source ARG_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARG_S_001",
+          "title": "MARS archive metadata excerpt ARG_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARG_S_001\",\n  \"country\": \"Argentina\",\n  \"observation\": {\n    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\",\n    \"sourceId\": \"ARG_S_001\",\n    \"date\": \"2023-01-21T16:17:47\",\n    \"fluxKgHr\": 246.0,\n    \"uncertaintyKgHr\": 152.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARG_S_001-probe-2",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARG_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation b0a678bc-7d50-4d5e-816f-cc868bfd913c, the supplied archive record lists flux 246 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARG_S_001",
+          "title": "MARS archive metadata excerpt ARG_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARG_S_001\",\n  \"country\": \"Argentina\",\n  \"observation\": {\n    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\",\n    \"sourceId\": \"ARG_S_001\",\n    \"date\": \"2023-01-21T16:17:47\",\n    \"fluxKgHr\": 246.0,\n    \"uncertaintyKgHr\": 152.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARG_S_001-probe-3",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARG_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation b0a678bc-7d50-4d5e-816f-cc868bfd913c, the supplied archive record lists timestamp 2023-01-22T16:17:47.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARG_S_001",
+          "title": "MARS archive metadata excerpt ARG_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARG_S_001\",\n  \"country\": \"Argentina\",\n  \"observation\": {\n    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\",\n    \"sourceId\": \"ARG_S_001\",\n    \"date\": \"2023-01-21T16:17:47\",\n    \"fluxKgHr\": 246.0,\n    \"uncertaintyKgHr\": 152.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARG_S_001-probe-4",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARG_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation b0a678bc-7d50-4d5e-816f-cc868bfd913c, the supplied archive record lists flux 346 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARG_S_001",
+          "title": "MARS archive metadata excerpt ARG_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARG_S_001\",\n  \"country\": \"Argentina\",\n  \"observation\": {\n    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\",\n    \"sourceId\": \"ARG_S_001\",\n    \"date\": \"2023-01-21T16:17:47\",\n    \"fluxKgHr\": 246.0,\n    \"uncertaintyKgHr\": 152.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARG_S_001-probe-5",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARG_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of ARG_S_001 received a recipient-specific notification about observation b0a678bc-7d50-4d5e-816f-cc868bfd913c before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARG_S_001",
+          "title": "MARS archive metadata excerpt ARG_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARG_S_001\",\n  \"country\": \"Argentina\",\n  \"observation\": {\n    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\",\n    \"sourceId\": \"ARG_S_001\",\n    \"date\": \"2023-01-21T16:17:47\",\n    \"fluxKgHr\": 246.0,\n    \"uncertaintyKgHr\": 152.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARG_S_001-probe-6",
+    "sourceId": "ARG_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARG_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of ARG_S_001 after observation b0a678bc-7d50-4d5e-816f-cc868bfd913c was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARG_S_001",
+          "title": "MARS archive metadata excerpt ARG_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARG_S_001\",\n  \"country\": \"Argentina\",\n  \"observation\": {\n    \"id\": \"b0a678bc-7d50-4d5e-816f-cc868bfd913c\",\n    \"sourceId\": \"ARG_S_001\",\n    \"date\": \"2023-01-21T16:17:47\",\n    \"fluxKgHr\": 246.0,\n    \"uncertaintyKgHr\": 152.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARM_S_001-probe-1",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARM_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 1a898ce6-b103-43a1-aae5-f3ce1a9d9478, the supplied archive record lists source ARM_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARM_S_001",
+          "title": "MARS archive metadata excerpt ARM_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARM_S_001\",\n  \"country\": \"Armenia\",\n  \"observation\": {\n    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\",\n    \"sourceId\": \"ARM_S_001\",\n    \"date\": \"2026-08-18T07:56:18\",\n    \"fluxKgHr\": 2013.0,\n    \"uncertaintyKgHr\": 537.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARM_S_001-probe-2",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARM_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 1a898ce6-b103-43a1-aae5-f3ce1a9d9478, the supplied archive record lists flux 2013 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARM_S_001",
+          "title": "MARS archive metadata excerpt ARM_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARM_S_001\",\n  \"country\": \"Armenia\",\n  \"observation\": {\n    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\",\n    \"sourceId\": \"ARM_S_001\",\n    \"date\": \"2026-08-18T07:56:18\",\n    \"fluxKgHr\": 2013.0,\n    \"uncertaintyKgHr\": 537.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARM_S_001-probe-3",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARM_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 1a898ce6-b103-43a1-aae5-f3ce1a9d9478, the supplied archive record lists timestamp 2026-08-19T07:56:18.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARM_S_001",
+          "title": "MARS archive metadata excerpt ARM_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARM_S_001\",\n  \"country\": \"Armenia\",\n  \"observation\": {\n    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\",\n    \"sourceId\": \"ARM_S_001\",\n    \"date\": \"2026-08-18T07:56:18\",\n    \"fluxKgHr\": 2013.0,\n    \"uncertaintyKgHr\": 537.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARM_S_001-probe-4",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARM_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 1a898ce6-b103-43a1-aae5-f3ce1a9d9478, the supplied archive record lists flux 2113 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARM_S_001",
+          "title": "MARS archive metadata excerpt ARM_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARM_S_001\",\n  \"country\": \"Armenia\",\n  \"observation\": {\n    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\",\n    \"sourceId\": \"ARM_S_001\",\n    \"date\": \"2026-08-18T07:56:18\",\n    \"fluxKgHr\": 2013.0,\n    \"uncertaintyKgHr\": 537.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARM_S_001-probe-5",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARM_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of ARM_S_001 received a recipient-specific notification about observation 1a898ce6-b103-43a1-aae5-f3ce1a9d9478 before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARM_S_001",
+          "title": "MARS archive metadata excerpt ARM_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARM_S_001\",\n  \"country\": \"Armenia\",\n  \"observation\": {\n    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\",\n    \"sourceId\": \"ARM_S_001\",\n    \"date\": \"2026-08-18T07:56:18\",\n    \"fluxKgHr\": 2013.0,\n    \"uncertaintyKgHr\": 537.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "ARM_S_001-probe-6",
+    "sourceId": "ARM_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "ARM_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of ARM_S_001 after observation 1a898ce6-b103-43a1-aae5-f3ce1a9d9478 was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-ARM_S_001",
+          "title": "MARS archive metadata excerpt ARM_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"ARM_S_001\",\n  \"country\": \"Armenia\",\n  \"observation\": {\n    \"id\": \"1a898ce6-b103-43a1-aae5-f3ce1a9d9478\",\n    \"sourceId\": \"ARM_S_001\",\n    \"date\": \"2026-08-18T07:56:18\",\n    \"fluxKgHr\": 2013.0,\n    \"uncertaintyKgHr\": 537.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AUS_S_001-probe-1",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AUS_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 6ee6cc76-decc-45a9-aeb3-390c7a2f43a9, the supplied archive record lists source AUS_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AUS_S_001",
+          "title": "MARS archive metadata excerpt AUS_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AUS_S_001\",\n  \"country\": \"Australia\",\n  \"observation\": {\n    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\",\n    \"sourceId\": \"AUS_S_001\",\n    \"date\": \"2026-07-23T00:36:17\",\n    \"fluxKgHr\": 1934.0,\n    \"uncertaintyKgHr\": 645.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AUS_S_001-probe-2",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AUS_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 6ee6cc76-decc-45a9-aeb3-390c7a2f43a9, the supplied archive record lists flux 1934 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AUS_S_001",
+          "title": "MARS archive metadata excerpt AUS_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AUS_S_001\",\n  \"country\": \"Australia\",\n  \"observation\": {\n    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\",\n    \"sourceId\": \"AUS_S_001\",\n    \"date\": \"2026-07-23T00:36:17\",\n    \"fluxKgHr\": 1934.0,\n    \"uncertaintyKgHr\": 645.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AUS_S_001-probe-3",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AUS_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 6ee6cc76-decc-45a9-aeb3-390c7a2f43a9, the supplied archive record lists timestamp 2026-07-24T00:36:17.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AUS_S_001",
+          "title": "MARS archive metadata excerpt AUS_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AUS_S_001\",\n  \"country\": \"Australia\",\n  \"observation\": {\n    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\",\n    \"sourceId\": \"AUS_S_001\",\n    \"date\": \"2026-07-23T00:36:17\",\n    \"fluxKgHr\": 1934.0,\n    \"uncertaintyKgHr\": 645.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AUS_S_001-probe-4",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AUS_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 6ee6cc76-decc-45a9-aeb3-390c7a2f43a9, the supplied archive record lists flux 2034 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AUS_S_001",
+          "title": "MARS archive metadata excerpt AUS_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AUS_S_001\",\n  \"country\": \"Australia\",\n  \"observation\": {\n    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\",\n    \"sourceId\": \"AUS_S_001\",\n    \"date\": \"2026-07-23T00:36:17\",\n    \"fluxKgHr\": 1934.0,\n    \"uncertaintyKgHr\": 645.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AUS_S_001-probe-5",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AUS_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of AUS_S_001 received a recipient-specific notification about observation 6ee6cc76-decc-45a9-aeb3-390c7a2f43a9 before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AUS_S_001",
+          "title": "MARS archive metadata excerpt AUS_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AUS_S_001\",\n  \"country\": \"Australia\",\n  \"observation\": {\n    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\",\n    \"sourceId\": \"AUS_S_001\",\n    \"date\": \"2026-07-23T00:36:17\",\n    \"fluxKgHr\": 1934.0,\n    \"uncertaintyKgHr\": 645.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AUS_S_001-probe-6",
+    "sourceId": "AUS_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AUS_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of AUS_S_001 after observation 6ee6cc76-decc-45a9-aeb3-390c7a2f43a9 was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AUS_S_001",
+          "title": "MARS archive metadata excerpt AUS_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AUS_S_001\",\n  \"country\": \"Australia\",\n  \"observation\": {\n    \"id\": \"6ee6cc76-decc-45a9-aeb3-390c7a2f43a9\",\n    \"sourceId\": \"AUS_S_001\",\n    \"date\": \"2026-07-23T00:36:17\",\n    \"fluxKgHr\": 1934.0,\n    \"uncertaintyKgHr\": 645.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AZE_S_001-probe-1",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AZE_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation fd76dff5-b47b-4298-a88e-56c6660f82cb, the supplied archive record lists source AZE_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AZE_S_001",
+          "title": "MARS archive metadata excerpt AZE_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AZE_S_001\",\n  \"country\": \"Azerbaijan\",\n  \"observation\": {\n    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\",\n    \"sourceId\": \"AZE_S_001\",\n    \"date\": \"2026-08-22T08:03:02\",\n    \"fluxKgHr\": 5167.0,\n    \"uncertaintyKgHr\": 1655.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Yes\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AZE_S_001-probe-2",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AZE_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation fd76dff5-b47b-4298-a88e-56c6660f82cb, the supplied archive record lists flux 5167 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AZE_S_001",
+          "title": "MARS archive metadata excerpt AZE_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AZE_S_001\",\n  \"country\": \"Azerbaijan\",\n  \"observation\": {\n    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\",\n    \"sourceId\": \"AZE_S_001\",\n    \"date\": \"2026-08-22T08:03:02\",\n    \"fluxKgHr\": 5167.0,\n    \"uncertaintyKgHr\": 1655.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Yes\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AZE_S_001-probe-3",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AZE_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation fd76dff5-b47b-4298-a88e-56c6660f82cb, the supplied archive record lists timestamp 2026-08-23T08:03:02.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AZE_S_001",
+          "title": "MARS archive metadata excerpt AZE_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AZE_S_001\",\n  \"country\": \"Azerbaijan\",\n  \"observation\": {\n    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\",\n    \"sourceId\": \"AZE_S_001\",\n    \"date\": \"2026-08-22T08:03:02\",\n    \"fluxKgHr\": 5167.0,\n    \"uncertaintyKgHr\": 1655.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Yes\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AZE_S_001-probe-4",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AZE_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation fd76dff5-b47b-4298-a88e-56c6660f82cb, the supplied archive record lists flux 5267 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AZE_S_001",
+          "title": "MARS archive metadata excerpt AZE_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AZE_S_001\",\n  \"country\": \"Azerbaijan\",\n  \"observation\": {\n    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\",\n    \"sourceId\": \"AZE_S_001\",\n    \"date\": \"2026-08-22T08:03:02\",\n    \"fluxKgHr\": 5167.0,\n    \"uncertaintyKgHr\": 1655.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Yes\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AZE_S_001-probe-5",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AZE_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of AZE_S_001 received a recipient-specific notification about observation fd76dff5-b47b-4298-a88e-56c6660f82cb before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AZE_S_001",
+          "title": "MARS archive metadata excerpt AZE_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AZE_S_001\",\n  \"country\": \"Azerbaijan\",\n  \"observation\": {\n    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\",\n    \"sourceId\": \"AZE_S_001\",\n    \"date\": \"2026-08-22T08:03:02\",\n    \"fluxKgHr\": 5167.0,\n    \"uncertaintyKgHr\": 1655.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Yes\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "AZE_S_001-probe-6",
+    "sourceId": "AZE_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "AZE_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of AZE_S_001 after observation fd76dff5-b47b-4298-a88e-56c6660f82cb was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-AZE_S_001",
+          "title": "MARS archive metadata excerpt AZE_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"AZE_S_001\",\n  \"country\": \"Azerbaijan\",\n  \"observation\": {\n    \"id\": \"fd76dff5-b47b-4298-a88e-56c6660f82cb\",\n    \"sourceId\": \"AZE_S_001\",\n    \"date\": \"2026-08-22T08:03:02\",\n    \"fluxKgHr\": 5167.0,\n    \"uncertaintyKgHr\": 1655.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"Yes\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BGD_S_001-probe-1",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BGD_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 8d5511cf-05c6-4691-a6a0-318655d71921, the supplied archive record lists source BGD_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BGD_S_001",
+          "title": "MARS archive metadata excerpt BGD_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BGD_S_001\",\n  \"country\": \"Bangladesh\",\n  \"observation\": {\n    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\",\n    \"sourceId\": \"BGD_S_001\",\n    \"date\": \"2025-10-22T05:09:47\",\n    \"fluxKgHr\": 803.0,\n    \"uncertaintyKgHr\": 198.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BGD_S_001-probe-2",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BGD_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 8d5511cf-05c6-4691-a6a0-318655d71921, the supplied archive record lists flux 803 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BGD_S_001",
+          "title": "MARS archive metadata excerpt BGD_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BGD_S_001\",\n  \"country\": \"Bangladesh\",\n  \"observation\": {\n    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\",\n    \"sourceId\": \"BGD_S_001\",\n    \"date\": \"2025-10-22T05:09:47\",\n    \"fluxKgHr\": 803.0,\n    \"uncertaintyKgHr\": 198.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BGD_S_001-probe-3",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BGD_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 8d5511cf-05c6-4691-a6a0-318655d71921, the supplied archive record lists timestamp 2025-10-23T05:09:47.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BGD_S_001",
+          "title": "MARS archive metadata excerpt BGD_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BGD_S_001\",\n  \"country\": \"Bangladesh\",\n  \"observation\": {\n    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\",\n    \"sourceId\": \"BGD_S_001\",\n    \"date\": \"2025-10-22T05:09:47\",\n    \"fluxKgHr\": 803.0,\n    \"uncertaintyKgHr\": 198.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BGD_S_001-probe-4",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BGD_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 8d5511cf-05c6-4691-a6a0-318655d71921, the supplied archive record lists flux 903 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BGD_S_001",
+          "title": "MARS archive metadata excerpt BGD_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BGD_S_001\",\n  \"country\": \"Bangladesh\",\n  \"observation\": {\n    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\",\n    \"sourceId\": \"BGD_S_001\",\n    \"date\": \"2025-10-22T05:09:47\",\n    \"fluxKgHr\": 803.0,\n    \"uncertaintyKgHr\": 198.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BGD_S_001-probe-5",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BGD_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of BGD_S_001 received a recipient-specific notification about observation 8d5511cf-05c6-4691-a6a0-318655d71921 before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BGD_S_001",
+          "title": "MARS archive metadata excerpt BGD_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BGD_S_001\",\n  \"country\": \"Bangladesh\",\n  \"observation\": {\n    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\",\n    \"sourceId\": \"BGD_S_001\",\n    \"date\": \"2025-10-22T05:09:47\",\n    \"fluxKgHr\": 803.0,\n    \"uncertaintyKgHr\": 198.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BGD_S_001-probe-6",
+    "sourceId": "BGD_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BGD_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of BGD_S_001 after observation 8d5511cf-05c6-4691-a6a0-318655d71921 was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BGD_S_001",
+          "title": "MARS archive metadata excerpt BGD_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BGD_S_001\",\n  \"country\": \"Bangladesh\",\n  \"observation\": {\n    \"id\": \"8d5511cf-05c6-4691-a6a0-318655d71921\",\n    \"sourceId\": \"BGD_S_001\",\n    \"date\": \"2025-10-22T05:09:47\",\n    \"fluxKgHr\": 803.0,\n    \"uncertaintyKgHr\": 198.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BHR_S_001-probe-1",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BHR_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 51e940a6-7901-41a9-b6a6-4fda381b2efe, the supplied archive record lists source BHR_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BHR_S_001",
+          "title": "MARS archive metadata excerpt BHR_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BHR_S_001\",\n  \"country\": \"Bahrain\",\n  \"observation\": {\n    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\",\n    \"sourceId\": \"BHR_S_001\",\n    \"date\": \"2024-03-13T07:40:59\",\n    \"fluxKgHr\": 793.0,\n    \"uncertaintyKgHr\": 316.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"No\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BHR_S_001-probe-2",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BHR_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 51e940a6-7901-41a9-b6a6-4fda381b2efe, the supplied archive record lists flux 793 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BHR_S_001",
+          "title": "MARS archive metadata excerpt BHR_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BHR_S_001\",\n  \"country\": \"Bahrain\",\n  \"observation\": {\n    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\",\n    \"sourceId\": \"BHR_S_001\",\n    \"date\": \"2024-03-13T07:40:59\",\n    \"fluxKgHr\": 793.0,\n    \"uncertaintyKgHr\": 316.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"No\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BHR_S_001-probe-3",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BHR_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 51e940a6-7901-41a9-b6a6-4fda381b2efe, the supplied archive record lists timestamp 2024-03-14T07:40:59.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BHR_S_001",
+          "title": "MARS archive metadata excerpt BHR_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BHR_S_001\",\n  \"country\": \"Bahrain\",\n  \"observation\": {\n    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\",\n    \"sourceId\": \"BHR_S_001\",\n    \"date\": \"2024-03-13T07:40:59\",\n    \"fluxKgHr\": 793.0,\n    \"uncertaintyKgHr\": 316.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"No\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BHR_S_001-probe-4",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BHR_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 51e940a6-7901-41a9-b6a6-4fda381b2efe, the supplied archive record lists flux 893 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BHR_S_001",
+          "title": "MARS archive metadata excerpt BHR_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BHR_S_001\",\n  \"country\": \"Bahrain\",\n  \"observation\": {\n    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\",\n    \"sourceId\": \"BHR_S_001\",\n    \"date\": \"2024-03-13T07:40:59\",\n    \"fluxKgHr\": 793.0,\n    \"uncertaintyKgHr\": 316.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"No\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BHR_S_001-probe-5",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BHR_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of BHR_S_001 received a recipient-specific notification about observation 51e940a6-7901-41a9-b6a6-4fda381b2efe before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BHR_S_001",
+          "title": "MARS archive metadata excerpt BHR_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BHR_S_001\",\n  \"country\": \"Bahrain\",\n  \"observation\": {\n    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\",\n    \"sourceId\": \"BHR_S_001\",\n    \"date\": \"2024-03-13T07:40:59\",\n    \"fluxKgHr\": 793.0,\n    \"uncertaintyKgHr\": 316.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"No\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BHR_S_001-probe-6",
+    "sourceId": "BHR_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BHR_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of BHR_S_001 after observation 51e940a6-7901-41a9-b6a6-4fda381b2efe was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BHR_S_001",
+          "title": "MARS archive metadata excerpt BHR_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BHR_S_001\",\n  \"country\": \"Bahrain\",\n  \"observation\": {\n    \"id\": \"51e940a6-7901-41a9-b6a6-4fda381b2efe\",\n    \"sourceId\": \"BHR_S_001\",\n    \"date\": \"2024-03-13T07:40:59\",\n    \"fluxKgHr\": 793.0,\n    \"uncertaintyKgHr\": 316.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"No\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BOL_S_001-probe-1",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BOL_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 4c17c3f0-fe7e-45b1-8ed9-26944deec1c9, the supplied archive record lists source BOL_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BOL_S_001",
+          "title": "MARS archive metadata excerpt BOL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BOL_S_001\",\n  \"country\": \"Bolivia (Plurinational State of)\",\n  \"observation\": {\n    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\",\n    \"sourceId\": \"BOL_S_001\",\n    \"date\": \"2026-05-21T16:15:04\",\n    \"fluxKgHr\": 1565.0,\n    \"uncertaintyKgHr\": 313.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BOL_S_001-probe-2",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BOL_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 4c17c3f0-fe7e-45b1-8ed9-26944deec1c9, the supplied archive record lists flux 1565 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BOL_S_001",
+          "title": "MARS archive metadata excerpt BOL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BOL_S_001\",\n  \"country\": \"Bolivia (Plurinational State of)\",\n  \"observation\": {\n    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\",\n    \"sourceId\": \"BOL_S_001\",\n    \"date\": \"2026-05-21T16:15:04\",\n    \"fluxKgHr\": 1565.0,\n    \"uncertaintyKgHr\": 313.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BOL_S_001-probe-3",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BOL_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 4c17c3f0-fe7e-45b1-8ed9-26944deec1c9, the supplied archive record lists timestamp 2026-05-22T16:15:04.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BOL_S_001",
+          "title": "MARS archive metadata excerpt BOL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BOL_S_001\",\n  \"country\": \"Bolivia (Plurinational State of)\",\n  \"observation\": {\n    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\",\n    \"sourceId\": \"BOL_S_001\",\n    \"date\": \"2026-05-21T16:15:04\",\n    \"fluxKgHr\": 1565.0,\n    \"uncertaintyKgHr\": 313.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BOL_S_001-probe-4",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BOL_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 4c17c3f0-fe7e-45b1-8ed9-26944deec1c9, the supplied archive record lists flux 1665 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BOL_S_001",
+          "title": "MARS archive metadata excerpt BOL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BOL_S_001\",\n  \"country\": \"Bolivia (Plurinational State of)\",\n  \"observation\": {\n    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\",\n    \"sourceId\": \"BOL_S_001\",\n    \"date\": \"2026-05-21T16:15:04\",\n    \"fluxKgHr\": 1565.0,\n    \"uncertaintyKgHr\": 313.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BOL_S_001-probe-5",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BOL_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of BOL_S_001 received a recipient-specific notification about observation 4c17c3f0-fe7e-45b1-8ed9-26944deec1c9 before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BOL_S_001",
+          "title": "MARS archive metadata excerpt BOL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BOL_S_001\",\n  \"country\": \"Bolivia (Plurinational State of)\",\n  \"observation\": {\n    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\",\n    \"sourceId\": \"BOL_S_001\",\n    \"date\": \"2026-05-21T16:15:04\",\n    \"fluxKgHr\": 1565.0,\n    \"uncertaintyKgHr\": 313.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BOL_S_001-probe-6",
+    "sourceId": "BOL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BOL_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of BOL_S_001 after observation 4c17c3f0-fe7e-45b1-8ed9-26944deec1c9 was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BOL_S_001",
+          "title": "MARS archive metadata excerpt BOL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BOL_S_001\",\n  \"country\": \"Bolivia (Plurinational State of)\",\n  \"observation\": {\n    \"id\": \"4c17c3f0-fe7e-45b1-8ed9-26944deec1c9\",\n    \"sourceId\": \"BOL_S_001\",\n    \"date\": \"2026-05-21T16:15:04\",\n    \"fluxKgHr\": 1565.0,\n    \"uncertaintyKgHr\": 313.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BRA_S_001-probe-1",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BRA_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9, the supplied archive record lists source BRA_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BRA_S_001",
+          "title": "MARS archive metadata excerpt BRA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BRA_S_001\",\n  \"country\": \"Brazil\",\n  \"observation\": {\n    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\",\n    \"sourceId\": \"BRA_S_001\",\n    \"date\": \"2025-08-22T13:49:12\",\n    \"fluxKgHr\": 1693.0,\n    \"uncertaintyKgHr\": 634.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BRA_S_001-probe-2",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BRA_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9, the supplied archive record lists flux 1693 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BRA_S_001",
+          "title": "MARS archive metadata excerpt BRA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BRA_S_001\",\n  \"country\": \"Brazil\",\n  \"observation\": {\n    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\",\n    \"sourceId\": \"BRA_S_001\",\n    \"date\": \"2025-08-22T13:49:12\",\n    \"fluxKgHr\": 1693.0,\n    \"uncertaintyKgHr\": 634.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BRA_S_001-probe-3",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BRA_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9, the supplied archive record lists timestamp 2025-08-23T13:49:12.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BRA_S_001",
+          "title": "MARS archive metadata excerpt BRA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BRA_S_001\",\n  \"country\": \"Brazil\",\n  \"observation\": {\n    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\",\n    \"sourceId\": \"BRA_S_001\",\n    \"date\": \"2025-08-22T13:49:12\",\n    \"fluxKgHr\": 1693.0,\n    \"uncertaintyKgHr\": 634.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BRA_S_001-probe-4",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BRA_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9, the supplied archive record lists flux 1793 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BRA_S_001",
+          "title": "MARS archive metadata excerpt BRA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BRA_S_001\",\n  \"country\": \"Brazil\",\n  \"observation\": {\n    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\",\n    \"sourceId\": \"BRA_S_001\",\n    \"date\": \"2025-08-22T13:49:12\",\n    \"fluxKgHr\": 1693.0,\n    \"uncertaintyKgHr\": 634.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BRA_S_001-probe-5",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BRA_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of BRA_S_001 received a recipient-specific notification about observation ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9 before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BRA_S_001",
+          "title": "MARS archive metadata excerpt BRA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BRA_S_001\",\n  \"country\": \"Brazil\",\n  \"observation\": {\n    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\",\n    \"sourceId\": \"BRA_S_001\",\n    \"date\": \"2025-08-22T13:49:12\",\n    \"fluxKgHr\": 1693.0,\n    \"uncertaintyKgHr\": 634.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BRA_S_001-probe-6",
+    "sourceId": "BRA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BRA_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of BRA_S_001 after observation ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9 was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BRA_S_001",
+          "title": "MARS archive metadata excerpt BRA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BRA_S_001\",\n  \"country\": \"Brazil\",\n  \"observation\": {\n    \"id\": \"ad7747c4-ebd7-4dbf-86d5-f079b60b0ce9\",\n    \"sourceId\": \"BRA_S_001\",\n    \"date\": \"2025-08-22T13:49:12\",\n    \"fluxKgHr\": 1693.0,\n    \"uncertaintyKgHr\": 634.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EnMAP - DLR\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BWA_S_001-probe-1",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BWA_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 24ab3598-e3e8-4be2-a158-9dcc4545decd, the supplied archive record lists source BWA_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BWA_S_001",
+          "title": "MARS archive metadata excerpt BWA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BWA_S_001\",\n  \"country\": \"Botswana\",\n  \"observation\": {\n    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\",\n    \"sourceId\": \"BWA_S_001\",\n    \"date\": \"2025-08-30T08:51:48\",\n    \"fluxKgHr\": 1784.0,\n    \"uncertaintyKgHr\": 693.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BWA_S_001-probe-2",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BWA_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 24ab3598-e3e8-4be2-a158-9dcc4545decd, the supplied archive record lists flux 1784 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BWA_S_001",
+          "title": "MARS archive metadata excerpt BWA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BWA_S_001\",\n  \"country\": \"Botswana\",\n  \"observation\": {\n    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\",\n    \"sourceId\": \"BWA_S_001\",\n    \"date\": \"2025-08-30T08:51:48\",\n    \"fluxKgHr\": 1784.0,\n    \"uncertaintyKgHr\": 693.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BWA_S_001-probe-3",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BWA_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 24ab3598-e3e8-4be2-a158-9dcc4545decd, the supplied archive record lists timestamp 2025-08-31T08:51:48.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BWA_S_001",
+          "title": "MARS archive metadata excerpt BWA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BWA_S_001\",\n  \"country\": \"Botswana\",\n  \"observation\": {\n    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\",\n    \"sourceId\": \"BWA_S_001\",\n    \"date\": \"2025-08-30T08:51:48\",\n    \"fluxKgHr\": 1784.0,\n    \"uncertaintyKgHr\": 693.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BWA_S_001-probe-4",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BWA_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 24ab3598-e3e8-4be2-a158-9dcc4545decd, the supplied archive record lists flux 1884 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BWA_S_001",
+          "title": "MARS archive metadata excerpt BWA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BWA_S_001\",\n  \"country\": \"Botswana\",\n  \"observation\": {\n    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\",\n    \"sourceId\": \"BWA_S_001\",\n    \"date\": \"2025-08-30T08:51:48\",\n    \"fluxKgHr\": 1784.0,\n    \"uncertaintyKgHr\": 693.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BWA_S_001-probe-5",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BWA_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of BWA_S_001 received a recipient-specific notification about observation 24ab3598-e3e8-4be2-a158-9dcc4545decd before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BWA_S_001",
+          "title": "MARS archive metadata excerpt BWA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BWA_S_001\",\n  \"country\": \"Botswana\",\n  \"observation\": {\n    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\",\n    \"sourceId\": \"BWA_S_001\",\n    \"date\": \"2025-08-30T08:51:48\",\n    \"fluxKgHr\": 1784.0,\n    \"uncertaintyKgHr\": 693.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "BWA_S_001-probe-6",
+    "sourceId": "BWA_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "BWA_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of BWA_S_001 after observation 24ab3598-e3e8-4be2-a158-9dcc4545decd was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-BWA_S_001",
+          "title": "MARS archive metadata excerpt BWA_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"BWA_S_001\",\n  \"country\": \"Botswana\",\n  \"observation\": {\n    \"id\": \"24ab3598-e3e8-4be2-a158-9dcc4545decd\",\n    \"sourceId\": \"BWA_S_001\",\n    \"date\": \"2025-08-30T08:51:48\",\n    \"fluxKgHr\": 1784.0,\n    \"uncertaintyKgHr\": 693.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CAN_S_001-probe-1",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CAN_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation a88a2e90-4a54-4646-89e9-b214c23242f9, the supplied archive record lists source CAN_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CAN_S_001",
+          "title": "MARS archive metadata excerpt CAN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CAN_S_001\",\n  \"country\": \"Canada\",\n  \"observation\": {\n    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\",\n    \"sourceId\": \"CAN_S_001\",\n    \"date\": \"2024-10-10T20:10:28\",\n    \"fluxKgHr\": 4587.0,\n    \"uncertaintyKgHr\": 780.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CAN_S_001-probe-2",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CAN_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation a88a2e90-4a54-4646-89e9-b214c23242f9, the supplied archive record lists flux 4587 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CAN_S_001",
+          "title": "MARS archive metadata excerpt CAN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CAN_S_001\",\n  \"country\": \"Canada\",\n  \"observation\": {\n    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\",\n    \"sourceId\": \"CAN_S_001\",\n    \"date\": \"2024-10-10T20:10:28\",\n    \"fluxKgHr\": 4587.0,\n    \"uncertaintyKgHr\": 780.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CAN_S_001-probe-3",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CAN_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation a88a2e90-4a54-4646-89e9-b214c23242f9, the supplied archive record lists timestamp 2024-10-11T20:10:28.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CAN_S_001",
+          "title": "MARS archive metadata excerpt CAN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CAN_S_001\",\n  \"country\": \"Canada\",\n  \"observation\": {\n    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\",\n    \"sourceId\": \"CAN_S_001\",\n    \"date\": \"2024-10-10T20:10:28\",\n    \"fluxKgHr\": 4587.0,\n    \"uncertaintyKgHr\": 780.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CAN_S_001-probe-4",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CAN_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation a88a2e90-4a54-4646-89e9-b214c23242f9, the supplied archive record lists flux 4687 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CAN_S_001",
+          "title": "MARS archive metadata excerpt CAN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CAN_S_001\",\n  \"country\": \"Canada\",\n  \"observation\": {\n    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\",\n    \"sourceId\": \"CAN_S_001\",\n    \"date\": \"2024-10-10T20:10:28\",\n    \"fluxKgHr\": 4587.0,\n    \"uncertaintyKgHr\": 780.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CAN_S_001-probe-5",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CAN_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of CAN_S_001 received a recipient-specific notification about observation a88a2e90-4a54-4646-89e9-b214c23242f9 before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CAN_S_001",
+          "title": "MARS archive metadata excerpt CAN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CAN_S_001\",\n  \"country\": \"Canada\",\n  \"observation\": {\n    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\",\n    \"sourceId\": \"CAN_S_001\",\n    \"date\": \"2024-10-10T20:10:28\",\n    \"fluxKgHr\": 4587.0,\n    \"uncertaintyKgHr\": 780.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CAN_S_001-probe-6",
+    "sourceId": "CAN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CAN_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of CAN_S_001 after observation a88a2e90-4a54-4646-89e9-b214c23242f9 was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CAN_S_001",
+          "title": "MARS archive metadata excerpt CAN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CAN_S_001\",\n  \"country\": \"Canada\",\n  \"observation\": {\n    \"id\": \"a88a2e90-4a54-4646-89e9-b214c23242f9\",\n    \"sourceId\": \"CAN_S_001\",\n    \"date\": \"2024-10-10T20:10:28\",\n    \"fluxKgHr\": 4587.0,\n    \"uncertaintyKgHr\": 780.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHL_S_001-probe-1",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHL_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation c610d4ac-97b9-4e45-837e-2a0123f6f763, the supplied archive record lists source CHL_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHL_S_001",
+          "title": "MARS archive metadata excerpt CHL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHL_S_001\",\n  \"country\": \"Chile\",\n  \"observation\": {\n    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\",\n    \"sourceId\": \"CHL_S_001\",\n    \"date\": \"2026-03-07T13:16:02\",\n    \"fluxKgHr\": 10856.0,\n    \"uncertaintyKgHr\": 3000.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHL_S_001-probe-2",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHL_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation c610d4ac-97b9-4e45-837e-2a0123f6f763, the supplied archive record lists flux 10856 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHL_S_001",
+          "title": "MARS archive metadata excerpt CHL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHL_S_001\",\n  \"country\": \"Chile\",\n  \"observation\": {\n    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\",\n    \"sourceId\": \"CHL_S_001\",\n    \"date\": \"2026-03-07T13:16:02\",\n    \"fluxKgHr\": 10856.0,\n    \"uncertaintyKgHr\": 3000.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHL_S_001-probe-3",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHL_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation c610d4ac-97b9-4e45-837e-2a0123f6f763, the supplied archive record lists timestamp 2026-03-08T13:16:02.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHL_S_001",
+          "title": "MARS archive metadata excerpt CHL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHL_S_001\",\n  \"country\": \"Chile\",\n  \"observation\": {\n    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\",\n    \"sourceId\": \"CHL_S_001\",\n    \"date\": \"2026-03-07T13:16:02\",\n    \"fluxKgHr\": 10856.0,\n    \"uncertaintyKgHr\": 3000.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHL_S_001-probe-4",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHL_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation c610d4ac-97b9-4e45-837e-2a0123f6f763, the supplied archive record lists flux 10956 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHL_S_001",
+          "title": "MARS archive metadata excerpt CHL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHL_S_001\",\n  \"country\": \"Chile\",\n  \"observation\": {\n    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\",\n    \"sourceId\": \"CHL_S_001\",\n    \"date\": \"2026-03-07T13:16:02\",\n    \"fluxKgHr\": 10856.0,\n    \"uncertaintyKgHr\": 3000.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHL_S_001-probe-5",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHL_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of CHL_S_001 received a recipient-specific notification about observation c610d4ac-97b9-4e45-837e-2a0123f6f763 before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHL_S_001",
+          "title": "MARS archive metadata excerpt CHL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHL_S_001\",\n  \"country\": \"Chile\",\n  \"observation\": {\n    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\",\n    \"sourceId\": \"CHL_S_001\",\n    \"date\": \"2026-03-07T13:16:02\",\n    \"fluxKgHr\": 10856.0,\n    \"uncertaintyKgHr\": 3000.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHL_S_001-probe-6",
+    "sourceId": "CHL_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHL_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of CHL_S_001 after observation c610d4ac-97b9-4e45-837e-2a0123f6f763 was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHL_S_001",
+          "title": "MARS archive metadata excerpt CHL_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHL_S_001\",\n  \"country\": \"Chile\",\n  \"observation\": {\n    \"id\": \"c610d4ac-97b9-4e45-837e-2a0123f6f763\",\n    \"sourceId\": \"CHL_S_001\",\n    \"date\": \"2026-03-07T13:16:02\",\n    \"fluxKgHr\": 10856.0,\n    \"uncertaintyKgHr\": 3000.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Not Applicable\",\n  \"sourceFeedbackFlag\": \"Not Applicable\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHN_S_001-probe-1",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHN_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 213aeeca-68e0-4eed-8302-0c15bc67319b, the supplied archive record lists source CHN_S_001.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHN_S_001",
+          "title": "MARS archive metadata excerpt CHN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHN_S_001\",\n  \"country\": \"China\",\n  \"observation\": {\n    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\",\n    \"sourceId\": \"CHN_S_001\",\n    \"date\": \"2025-10-05T04:26:26\",\n    \"fluxKgHr\": 1119.0,\n    \"uncertaintyKgHr\": 312.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"No\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHN_S_001-probe-2",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHN_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 213aeeca-68e0-4eed-8302-0c15bc67319b, the supplied archive record lists flux 1119 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHN_S_001",
+          "title": "MARS archive metadata excerpt CHN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHN_S_001\",\n  \"country\": \"China\",\n  \"observation\": {\n    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\",\n    \"sourceId\": \"CHN_S_001\",\n    \"date\": \"2025-10-05T04:26:26\",\n    \"fluxKgHr\": 1119.0,\n    \"uncertaintyKgHr\": 312.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"No\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHN_S_001-probe-3",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHN_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 213aeeca-68e0-4eed-8302-0c15bc67319b, the supplied archive record lists timestamp 2025-10-06T04:26:26.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHN_S_001",
+          "title": "MARS archive metadata excerpt CHN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHN_S_001\",\n  \"country\": \"China\",\n  \"observation\": {\n    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\",\n    \"sourceId\": \"CHN_S_001\",\n    \"date\": \"2025-10-05T04:26:26\",\n    \"fluxKgHr\": 1119.0,\n    \"uncertaintyKgHr\": 312.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"No\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHN_S_001-probe-4",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHN_S_001",
+      "claimType": "source_detected",
+      "claimText": "For observation 213aeeca-68e0-4eed-8302-0c15bc67319b, the supplied archive record lists flux 1219 kg/h.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHN_S_001",
+          "title": "MARS archive metadata excerpt CHN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHN_S_001\",\n  \"country\": \"China\",\n  \"observation\": {\n    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\",\n    \"sourceId\": \"CHN_S_001\",\n    \"date\": \"2025-10-05T04:26:26\",\n    \"fluxKgHr\": 1119.0,\n    \"uncertaintyKgHr\": 312.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"No\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHN_S_001-probe-5",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHN_S_001",
+      "claimType": "operator_notified",
+      "claimText": "The operator of CHN_S_001 received a recipient-specific notification about observation 213aeeca-68e0-4eed-8302-0c15bc67319b before its observation timestamp.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHN_S_001",
+          "title": "MARS archive metadata excerpt CHN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHN_S_001\",\n  \"country\": \"China\",\n  \"observation\": {\n    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\",\n    \"sourceId\": \"CHN_S_001\",\n    \"date\": \"2025-10-05T04:26:26\",\n    \"fluxKgHr\": 1119.0,\n    \"uncertaintyKgHr\": 312.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"No\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  },
+  {
+    "claimId": "CHN_S_001-probe-6",
+    "sourceId": "CHN_S_001",
+    "split": "test",
+    "synthetic": true,
+    "underlyingMetadataSynthetic": false,
+    "claimOrigin": "DEMO authored challenge; not a publisher assertion",
+    "input": {
+      "sourceId": "CHN_S_001",
+      "claimType": "mitigation_confirmed",
+      "claimText": "Physical repair of CHN_S_001 after observation 213aeeca-68e0-4eed-8302-0c15bc67319b was confirmed by post-action methane measurements.",
+      "consentToExternalProcessing": true,
+      "consentToPublishCitations": false,
+      "consentToPublishClaim": false,
+      "documents": [
+        {
+          "id": "record-CHN_S_001",
+          "title": "MARS archive metadata excerpt CHN_S_001",
+          "text": "{\n  \"dataset\": \"UNEP MARS\",\n  \"snapshotId\": \"unep-mars-675417694883\",\n  \"sourceId\": \"CHN_S_001\",\n  \"country\": \"China\",\n  \"observation\": {\n    \"id\": \"213aeeca-68e0-4eed-8302-0c15bc67319b\",\n    \"sourceId\": \"CHN_S_001\",\n    \"date\": \"2025-10-05T04:26:26\",\n    \"fluxKgHr\": 1119.0,\n    \"uncertaintyKgHr\": 312.0,\n    \"fluxUnit\": \"kg/h\",\n    \"satellite\": \"EMIT - NASA\"\n  },\n  \"sourceNotifiedFlag\": \"Yes\",\n  \"sourceFeedbackFlag\": \"No\",\n  \"limits\": \"Historical metadata only; no report body, recipient-specific event receipt, repair record or post-action measurement series is included in this excerpt.\"\n}",
+          "rightsDeclared": "open_license",
+          "sourceUrl": "https://methanedata.unep.org/download-dataset",
+          "licenseName": "CC BY-NC-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "attribution": "UNEP IMEO: MARS. Selection and formatting of historical archive metadata for a noncommercial authored challenge.",
+          "licenseScopeConfirmed": true
+        }
+      ]
+    }
+  }
+]

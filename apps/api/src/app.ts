@@ -1,8 +1,9 @@
 import { Hono, type Context } from 'hono';
 import { cors } from 'hono/cors';
-import { AuditInput, ClaimType, DEMO_SOURCES, type AuditReceipt, type AuditResult, type ExternalEvidenceReference, type MarsProvenance, type ReviewSource } from '@methane/shared';
+import { AuditInput, ClaimType, DEMO_SOURCES, HumanAssessmentInput, SharedWorkContext, SharedWorkId, SharedWorkInput, WithdrawalInput, transparencySummaryPayload, type TransparencyRecord, type EvidenceCheck, type AuditReceipt, type AuditResult, type ExternalEvidenceReference, type MarsProvenance, type ReviewSource } from '@methane/shared';
+import { PublicationError, publicationState, type PublicationEvent } from './publication';
 import { createAudit, type AuditMetadata } from './audit';
-import { anchorReceipt, chainConfigured, chainWriteConfigured, readReceipt, registryCaseId, verifyAnchorTransaction } from './chain';
+import { prepareAnchor, broadcastAnchor, inspectAnchorIntent, chainTarget, chainConfigured, chainWriteConfigured, readReceipt, registryCaseId, verifyAnchorTransaction } from './chain';
 import { findCaseBySourceId, listReviewSources, loadCasebook } from './casebook';
 import { MemoryAuditStore, type AuditStore } from './store';
 import { auditIntegrityValid } from './integrity';
@@ -13,10 +14,18 @@ import { createFixedWindowRateLimiter, createRateLimitClientKey, type FixedWindo
 import { scopedReviewerAuthConfigured, verifyReviewerToken, type ReviewerScope } from './reviewer-auth';
 import { decodeAuditCursor, DEFAULT_AUDIT_PAGE_SIZE, encodeAuditCursor, parseAuditPageLimit } from './audit-pagination';
 import { auditIsPubliclyReadable } from './audit-visibility';
+import { resolveScopedSource, ScopeError } from './scoped-source';
+import { createHumanAssessment } from './human-assessment';
 import { z } from 'zod';
+import { checkEvidenceReference, EVIDENCE_PUBLISHER_HOSTS } from './evidence-check';
+import { loadReviewerAssurance } from './reviewer-directory';
+import { canonicalJson } from './canonical';
+import { pageAuditRecords } from './audit-pagination';
+import { CaseWorkError, MemoryCaseWorkStore, type CaseWorkStore } from './case-work';
+import { isPublicPreviewAuditAllowed, PUBLIC_PREVIEW_SOURCE_IDS } from './public-preview';
 
 export type ApiBindings = { clientAddress?: string };
-export type CreateAppOptions = { auditRateLimit?: FixedWindowRateLimitOptions; aiAssessmentRateLimit?: FixedWindowRateLimitOptions };
+export type CreateAppOptions = { auditRateLimit?: FixedWindowRateLimitOptions; aiAssessmentRateLimit?: FixedWindowRateLimitOptions; caseWorkStore?: CaseWorkStore; publicBaselinePreview?: boolean };
 
 type CasebookAccess = {
   load: typeof loadCasebook;
@@ -25,24 +34,31 @@ type CasebookAccess = {
 };
 
 type AppServices = {
+  checkEvidenceReference: typeof checkEvidenceReference;
+  loadReviewerAssurance: typeof loadReviewerAssurance;
   aiConfigured: typeof defaultAiConfigured;
   requestModelAssessment: typeof requestModelAssessment;
   getIntelligenceSnapshot: typeof getIntelligenceSnapshot;
+  chainTarget: typeof chainTarget;
   chainConfigured: typeof chainConfigured;
   chainWriteConfigured: typeof chainWriteConfigured;
   readReceipt: typeof readReceipt;
-  anchorReceipt: typeof anchorReceipt;
+  prepareAnchor: typeof prepareAnchor;
+  broadcastAnchor: typeof broadcastAnchor;
+  inspectAnchorIntent: typeof inspectAnchorIntent;
   verifyAnchorTransaction: typeof verifyAnchorTransaction;
 };
 
 const defaultServices: AppServices = {
+  checkEvidenceReference,
+  loadReviewerAssurance,
   aiConfigured: defaultAiConfigured,
   requestModelAssessment,
   getIntelligenceSnapshot,
-  chainConfigured,
+  chainTarget, chainConfigured,
   chainWriteConfigured,
   readReceipt,
-  anchorReceipt,
+  prepareAnchor, broadcastAnchor, inspectAnchorIntent,
   verifyAnchorTransaction,
 };
 
@@ -82,10 +98,6 @@ function reviewerIdentity(header: string | undefined, scope: ReviewerScope) {
     return { reviewerId: process.env.HUMAN_REVIEWER_ID!, scopes: legacyScopes };
   }
   return null;
-}
-
-function privateAuditReadAuthorized(header: string | undefined): boolean {
-  return reviewerIdentity(header, 'private_read') !== null;
 }
 
 function varyByAuthorization(c: Context<{ Bindings: ApiBindings }>) {
@@ -159,13 +171,33 @@ const defaultCasebookAccess: CasebookAccess = {
 
 export function createApp(store: AuditStore, casebookAccess: CasebookAccess = defaultCasebookAccess, serviceOverrides: Partial<AppServices> = {}, options: CreateAppOptions = {}) {
   const services = { ...defaultServices, ...serviceOverrides };
+  const directoryPermits = (status: Awaited<ReturnType<typeof loadReviewerAssurance>>['status']) =>
+    !['revoked', 'outside_authority', 'directory_unavailable'].includes(status)
+    && (process.env.REQUIRE_ATTESTED_HUMAN_REVIEWERS !== 'true' || status === 'operator_attested');
+  async function anchorReviewerPermitted(reviewer: { reviewerId: string }, claim: ClaimType) {
+    // Spending issuer funds requires a current operator attestation, even in compatibility mode.
+    return (await services.loadReviewerAssurance(reviewer.reviewerId, claim)).status === 'operator_attested';
+  }
+  async function privateReadClaims(header: string | undefined) {
+    const reviewer = reviewerIdentity(header, 'private_read');
+    if (!reviewer) return new Set<ClaimType>();
+    const decisions = await Promise.all(ClaimType.options.map(async claim => ({ claim, allowed: directoryPermits((await services.loadReviewerAssurance(reviewer.reviewerId, claim)).status) })));
+    return new Set(decisions.filter(item => item.allowed).map(item => item.claim));
+  }
+  async function privateAuditReadAuthorized(header: string | undefined, claim: ClaimType) {
+    const reviewer = reviewerIdentity(header, 'private_read');
+    return Boolean(reviewer && directoryPermits((await services.loadReviewerAssurance(reviewer.reviewerId, claim)).status));
+  }
   const app = new Hono<{ Bindings: ApiBindings }>();
-  const rateLimitConfig = options.auditRateLimit || { limit: 20, windowMs: 60_000 };
+  const caseWorkStore = options.caseWorkStore || new MemoryCaseWorkStore();
+  const rateLimitConfig = options.auditRateLimit || (options.publicBaselinePreview
+    ? { limit: 6, windowMs: 60_000, maxEntries: 512 }
+    : { limit: 20, windowMs: 60_000 });
   const auditRateLimiter = createFixedWindowRateLimiter(rateLimitConfig);
   const aiRateLimitConfig = options.aiAssessmentRateLimit || { limit: 6, windowMs: 60_000 };
   const aiAssessmentRateLimiter = createFixedWindowRateLimiter(aiRateLimitConfig);
   const rateLimitSalt = randomBytes(32).toString('hex');
-  const anchorStorageAvailable = Boolean(store.reserveAnchor && store.completeAnchor);
+  const anchorStorageAvailable = Boolean(store.reserveAnchor && store.completeAnchor && store.getAnchorIntent && store.markAnchorReverted);
   const rateLimitStatus = { backend: 'process-local', shared: false, required: false, ready: true } as const;
   const consumeClientRateLimit = async (
     scope: RateLimitScope,
@@ -180,13 +212,100 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
   const anchoringInFlight = new Set<string>();
   app.use('/api/*', cors({ origin: process.env.WEB_ORIGIN || 'http://localhost:5173' }));
 
+  // Shared team state always requires a signed identity AND current directory
+  // authority. Legacy shared tokens and permissive audit-review flags do not apply.
+  const teamIdentity = (c: Context<{ Bindings: ApiBindings }>) => verifyReviewerToken(c.req.header('authorization'), process.env.REVIEWER_AUTH_SECRET, 'private_read');
+  const teamAllowed = async (id: string, claim: ClaimType) => (await services.loadReviewerAssurance(id, claim)).status === 'operator_attested';
+  const teamClaims = async (id: string) => new Set((await Promise.all(ClaimType.options.map(async claim => await teamAllowed(id, claim) ? claim : null))).filter((claim): claim is ClaimType => claim !== null));
+  function teamQuery(c: Context<{ Bindings: ApiBindings }>, requireSource = true) {
+    const synthetic = c.req.query('synthetic');
+    if (synthetic !== 'true' && synthetic !== 'false') return null;
+    const parsed = SharedWorkContext.safeParse({ sourceId: c.req.query('sourceId') || (requireSource ? '' : '_all'), synthetic: synthetic === 'true', datasetSnapshotId: c.req.query('datasetSnapshotId'), ...(c.req.query('archiveSha256') ? { archiveSha256: c.req.query('archiveSha256') } : {}) });
+    if (!parsed.success) return null;
+    return parsed.data;
+  }
+  const teamStorageError = (c: Context<{ Bindings: ApiBindings }>, error: unknown) => error instanceof CaseWorkError && error.code === 'conflict'
+    ? c.json({ error: 'This investigation changed. Load and compare the latest revision; your draft must be retained.', code: 'conflict' }, 409)
+    : error instanceof CaseWorkError && error.code === 'capacity'
+      ? c.json({ error: 'Shared casework capacity reached. Existing history is retained.', code: 'capacity' }, 413)
+      : c.json({ error: 'Shared casework storage is unavailable. Inspect the latest revision before retrying.', code: 'unavailable' }, 503);
+
+  app.get('/api/case-work/session', async (c) => {
+    preventPrivateResponseCaching(c);
+    const identity = teamIdentity(c);
+    if (!identity) return c.json({ error: 'A signed private-read reviewer token is required' }, 401);
+    const claims = [...await teamClaims(identity.reviewerId)];
+    if (!claims.length) return c.json({ error: 'No current team directory authority' }, 403);
+    return c.json({ reviewerId: identity.reviewerId, claimTypes: claims, canWrite: identity.scopes.includes('review'), storage: await caseWorkStore.status() });
+  });
+  app.get('/api/case-work', async (c) => {
+    preventPrivateResponseCaching(c);
+    const identity = teamIdentity(c);
+    if (!identity) return c.json({ error: 'Signed team access is required' }, 401);
+    const context = teamQuery(c, false);
+    if (!context) return c.json({ error: 'A pinned dataset context is required' }, 400);
+    try {
+      const claims = await teamClaims(identity.reviewerId);
+      const works = await caseWorkStore.list({ ...context, sourceId: c.req.query('sourceId') || undefined }, claims);
+      const stillAllowed = await teamClaims(identity.reviewerId);
+      return c.json({ works: works.filter(item => stillAllowed.has(item.claimType)) });
+    } catch (error) { return teamStorageError(c, error); }
+  });
+  app.get('/api/case-work/:id', async (c) => {
+    preventPrivateResponseCaching(c);
+    const identity = teamIdentity(c);
+    if (!identity) return c.json({ error: 'Signed team access is required' }, 401);
+    const context = teamQuery(c);
+    if (!context || !SharedWorkId.safeParse(c.req.param('id')).success) return c.json({ error: 'Invalid work context or ID' }, 400);
+    try {
+      const history = await caseWorkStore.history(context, c.req.param('id'));
+      const work = history[history.length - 1];
+      if (!work || !await teamAllowed(identity.reviewerId, work.claimType)) return c.json({ error: 'Investigation not found' }, 404);
+      return c.json({ work, history });
+    } catch (error) { return teamStorageError(c, error); }
+  });
+  app.put('/api/case-work/:id', async (c) => {
+    preventPrivateResponseCaching(c);
+    const identity = teamIdentity(c);
+    if (!identity) return c.json({ error: 'Signed team access is required' }, 401);
+    if (!identity.scopes.includes('review')) return c.json({ error: 'Both private_read and review scopes are required' }, 403);
+    const body = await readBoundedJson(c.req.raw, 16_384);
+    if (!body.ok) return c.json({ error: body.error }, body.status);
+    const parsed = SharedWorkInput.safeParse(body.value);
+    if (!parsed.success || !SharedWorkId.safeParse(c.req.param('id')).success) return c.json({ error: 'Invalid shared casework input' }, 400);
+    const { context, draft, expectedRevision } = parsed.data;
+    if (!await teamAllowed(identity.reviewerId, draft.claimType)) return c.json({ error: 'No current authority for this claim type' }, 403);
+    if (draft.assignee && !await teamAllowed(draft.assignee, draft.claimType)) return c.json({ error: 'Assignee is not currently authorized for this claim type' }, 422);
+    try {
+      const resolved = await resolveScopedSource({ sourceId: context.sourceId, claimType: draft.claimType, datasetSnapshotId: context.datasetSnapshotId, scope: draft.scope || { startDate: '1900-01-01', endDate: '9999-12-31' } }, services.getIntelligenceSnapshot, casebookAccess.find);
+      if (resolved.source.synthetic !== context.synthetic || (!context.synthetic && resolved.metadata.provenance?.archiveSha256 !== context.archiveSha256) || (context.synthetic && context.archiveSha256)) return c.json({ error: 'Dataset provenance changed; reload the dataset' }, 409);
+      if (draft.assessmentLink) {
+        const audit = await store.get(draft.assessmentLink.auditId);
+        if (!audit || audit.sourceId !== context.sourceId || audit.claimType !== draft.claimType || audit.synthetic !== context.synthetic || audit.bundleHash !== draft.assessmentLink.bundleHash
+          || canonicalJson(audit.bundle.scope || null) !== canonicalJson(draft.scope || null)
+          || (!context.synthetic && (audit.bundle.provenance?.snapshotId !== context.datasetSnapshotId || audit.bundle.provenance?.archiveSha256 !== context.archiveSha256))) return c.json({ error: 'Assessment link does not match this investigation' }, 422);
+      }
+      const work = await caseWorkStore.save(context, c.req.param('id'), draft, expectedRevision, identity.reviewerId, async () => {
+        const fresh = teamIdentity(c);
+        if (!fresh?.scopes.includes('review') || !await teamAllowed(fresh.reviewerId, draft.claimType) || (draft.assignee && !await teamAllowed(draft.assignee, draft.claimType))) throw new Error('Team authority changed before commit');
+      });
+      return c.json({ work }, expectedRevision === 0 ? 201 : 200);
+    } catch (error) {
+      if (error instanceof ScopeError) return c.json({ error: error.message }, error.status);
+      return teamStorageError(c, error);
+    }
+  });
+
   app.get('/api/health', async (c) => {
-    const [storage, casebookReady] = await Promise.all([
+    const [storage, casebookReady, caseWorkStorage] = await Promise.all([
       store.status(),
       casebookAccess.load().then(() => true, () => false),
+      caseWorkStore.status(),
     ]);
-    const ready = storage.ready && casebookReady && rateLimitStatus.ready;
-    return c.json({ status: ready ? 'ok' : 'degraded', mode: 'mars-casebook-and-demo', storage, casebookReady, rateLimits: rateLimitStatus, chainConfigured: services.chainConfigured(), chainWriteConfigured: services.chainWriteConfigured() && anchorStorageAvailable }, ready ? 200 : 503);
+    const ready = storage.ready && casebookReady && rateLimitStatus.ready && caseWorkStorage.ready;
+    return c.json({ status: ready ? 'ok' : 'degraded', mode: 'mars-casebook-and-demo', storage, caseWorkStorage, casebookReady, rateLimits: rateLimitStatus, chainConfigured: services.chainConfigured(), chainWriteConfigured: services.chainWriteConfigured() && anchorStorageAvailable,
+      ...(options.publicBaselinePreview ? { preview: { enabled: true, auditState: 'ephemeral', publicBaselineSources: PUBLIC_PREVIEW_SOURCE_IDS } } : {}),
+    }, ready ? 200 : 503);
   });
 
   app.get('/api/cases', async (c) => {
@@ -408,7 +527,7 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
   });
 
   app.post('/api/audits', async (c) => {
-    if (process.env.NODE_ENV === 'production' && process.env.ENABLE_PUBLIC_BASELINE_AUDITS !== 'true'
+    if (process.env.NODE_ENV === 'production' && !options.publicBaselinePreview && process.env.ENABLE_PUBLIC_BASELINE_AUDITS !== 'true'
       && !bearerTokenMatches(c.req.header('authorization'), process.env.ADMIN_API_TOKEN)) {
       return c.json({ error: 'Baseline audit creation requires administrator authorization in production' }, 401);
     }
@@ -428,6 +547,19 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     if (!body.ok) return c.json({ error: body.error }, body.status);
     const parsed = AuditInput.safeParse(body.value);
     if (!parsed.success) return c.json({ error: 'Invalid request', details: parsed.error.flatten() }, 400);
+    if (options.publicBaselinePreview && !isPublicPreviewAuditAllowed(parsed.data)) {
+      return c.json({ error: 'Public preview audits are limited to the three curated historical sources and non-recipient claims.' }, 403);
+    }
+    if (parsed.data.scope) {
+      if (parsed.data.scope.recipient) preventPrivateResponseCaching(c);
+      try {
+        const resolved = await resolveScopedSource({ ...parsed.data, scope: parsed.data.scope }, services.getIntelligenceSnapshot, casebookAccess.find);
+        const audit = await store.create(resolved.caseId, resolved.source.sourceId, parsed.data.claimType, revision => createAudit(resolved.source, parsed.data, { ...resolved.metadata, caseId: resolved.caseId, revision }));
+        return c.json(audit, 201);
+      } catch (error) {
+        return c.json({ error: error instanceof ScopeError ? error.message : 'Scoped audit could not be saved' }, error instanceof ScopeError ? error.status : 503);
+      }
+    }
     const demoSource = DEMO_SOURCES.find((item) => item.sourceId === parsed.data.sourceId);
     let found: Awaited<ReturnType<CasebookAccess['find']>> = null;
     let casebookUnavailable = false;
@@ -502,6 +634,150 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     }
   });
 
+  app.get('/api/reviewers/me', async c => {
+    preventPrivateResponseCaching(c);
+    const reviewer = reviewerIdentity(c.req.header('authorization'), 'review');
+    if (!reviewer) return c.json({ error: 'Reviewer authorization required' }, 401);
+    const claim = ClaimType.safeParse(c.req.query('claimType'));
+    if (!claim.success) return c.json({ error: 'A valid claimType is required' }, 400);
+    const assurance = await services.loadReviewerAssurance(reviewer.reviewerId, claim.data);
+    return c.json({ reviewerId: reviewer.reviewerId, assurance, publisherHosts: EVIDENCE_PUBLISHER_HOSTS,
+      attestedReviewersRequired: process.env.REQUIRE_ATTESTED_HUMAN_REVIEWERS === 'true' });
+  });
+
+  app.post('/api/human-assessments', async (c) => {
+    preventPrivateResponseCaching(c);
+    const reviewer = reviewerIdentity(c.req.header('authorization'), 'review');
+    if (!reviewer) return c.json({ error: 'An authorized human reviewer is required; no AI service is needed' }, 401);
+    const address = c.env?.clientAddress?.trim() || 'unknown';
+    const decision = await consumeClientRateLimit('audit_write', address, reviewer.reviewerId, rateLimitConfig, auditRateLimiter);
+    if (!decision.allowed) return c.json({ error: 'Too many assessment requests; try again later' }, 429);
+    const body = await readBoundedJson(c.req.raw, 65_536);
+    if (!body.ok) return c.json({ error: body.error }, body.status);
+    const parsed = HumanAssessmentInput.safeParse(body.value);
+    if (!parsed.success) return c.json({ error: 'Invalid human assessment', details: parsed.error.flatten() }, 400);
+    const input = parsed.data;
+    try {
+      const assurance = await services.loadReviewerAssurance(reviewer.reviewerId, input.claimType);
+      if (!directoryPermits(assurance.status)) {
+        return c.json({ error: 'Reviewer directory approval is revoked, outside this claim authority, or required but not current' }, 403);
+      }
+      const resolved = await resolveScopedSource(input, services.getIntelligenceSnapshot, casebookAccess.find);
+      const parent = input.parentAuditId ? await store.get(input.parentAuditId) : undefined;
+      if (input.parentAuditId && (!parent || parent.bundle.schemaVersion !== 4 || parent.caseId !== resolved.caseId || parent.claimType !== input.claimType || !auditIntegrityValid(parent))) {
+        return c.json({ error: 'Parent must be a matching human assessment with valid integrity' }, 409);
+      }
+      const urls = new Map<string, { reference: string; expected?: string }>();
+      for (const item of input.evidence) {
+        urls.set(`${item.reference}|${item.expectedSha256 || ''}`, { reference: item.reference, expected: item.expectedSha256 });
+        if (item.followUpReference) urls.set(`${item.followUpReference}|${item.followUpExpectedSha256 || ''}`, { reference: item.followUpReference, expected: item.followUpExpectedSha256 });
+      }
+      const candidates = [...urls.values()];
+      const referenceChecks: EvidenceCheck[] = [];
+      // Bound concurrent outgoing reads, with no model call or document persistence.
+      for (let index = 0; index < candidates.length; index += 3) {
+        referenceChecks.push(...await Promise.all(candidates.slice(index, index + 3).map(item => input.checkPublicReferences
+          ? services.checkEvidenceReference(item.reference, item.expected)
+          : Promise.resolve({ reference: item.reference, checkedAt: new Date().toISOString(), status: 'not_checked' as const }))));
+      }
+      if (input.result !== 'insufficient_evidence' && referenceChecks.some(item => item.status === 'digest_mismatch')) {
+        return c.json({ error: 'A reference digest mismatched. Resolve it or record insufficient evidence.' }, 422);
+      }
+      // Refresh approval after potentially slow retrieval, so a newly revoked entry cannot be used to save.
+      let currentAssurance = await services.loadReviewerAssurance(reviewer.reviewerId, input.claimType);
+      if (!directoryPermits(currentAssurance.status)) return c.json({ error: 'Reviewer approval changed; check current access before saving' }, 403);
+      const audit = await store.create(resolved.caseId, input.sourceId, input.claimType,
+        revision => createHumanAssessment(input, resolved, reviewer.reviewerId, revision, parent, {
+          reviewer: currentAssurance, referenceChecks, conflictDeclaration: input.conflictDeclaration || 'not_declared', publicSummaryConsent: input.publicSummaryConsent === true,
+        }), parent?.auditId, async () => {
+          currentAssurance = await services.loadReviewerAssurance(reviewer.reviewerId, input.claimType);
+          return directoryPermits(currentAssurance.status);
+        });
+      return c.json({ audit }, 201);
+    } catch (error) {
+      if (error instanceof ScopeError) return c.json({ error: error.message }, error.status);
+      if (error instanceof PublicationError) return c.json({ error: error.message }, error.status);
+      if (error instanceof Error && error.message === 'Review parent is no longer the latest unreviewed audit') return c.json({ error: 'The case revision changed; reload its latest human assessment' }, 409);
+      return c.json({ error: 'Human assessment could not be saved' }, 503);
+    }
+  });
+
+  const transparencyRecord = (audit: AuditResult, events: PublicationEvent[]): TransparencyRecord | null => {
+    if (!auditIntegrityValid(audit)) return null;
+    const summary = transparencySummaryPayload(audit);
+    if (!summary) return null;
+    return { summary, summaryHash: `0x${createHash('sha256').update(canonicalJson(summary)).digest('hex')}`, publication: publicationState(audit, events) };
+  };
+  app.get('/api/transparency', async c => {
+    c.header('Cache-Control', 'no-store');
+    const sourceId = c.req.query('sourceId');
+    const rawLimit = c.req.query('limit');
+    const rawCursor = c.req.query('cursor');
+    const view = c.req.query('view') || 'current';
+    const limit = rawLimit === undefined ? DEFAULT_AUDIT_PAGE_SIZE : parseAuditPageLimit(rawLimit);
+    const before = rawCursor === undefined ? undefined : decodeAuditCursor(rawCursor);
+    if (!limit || !['current', 'history'].includes(view) || (rawCursor !== undefined && !before) || (sourceId !== undefined && (!sourceId || sourceId.length > 128))) return c.json({ error: 'Invalid transparency filter or pagination' }, 400);
+    try {
+      const snapshot = await store.publicationSnapshot();
+      const eligible = snapshot.audits.filter(audit => (!sourceId || audit.sourceId === sourceId) && transparencySummaryPayload(audit) !== null);
+      const current = new Map<string, AuditResult>();
+      for (const audit of eligible) {
+        const key = JSON.stringify([audit.caseId, audit.claimType]);
+        if (!current.has(key) || current.get(key)!.revision < audit.revision) current.set(key, audit);
+      }
+      const visible = (view === 'history' ? eligible : [...current.values()]).filter(audit => transparencyRecord(audit, snapshot.events) !== null);
+      const page = pageAuditRecords(visible, { limit, before, visibility: 'all' });
+      return c.json({ summaries: page.audits.map(audit => transparencyRecord(audit, snapshot.events)!), hasMore: page.hasMore,
+        nextCursor: page.nextCursor ? encodeAuditCursor(page.nextCursor) : null });
+    } catch { return c.json({ error: 'Transparency summaries unavailable' }, 503); }
+  });
+  app.get('/api/transparency/:id', async c => {
+    c.header('Cache-Control', 'no-store');
+    try {
+      const snapshot = await store.publicationSnapshot();
+      const audit = snapshot.audits.find(item => item.auditId === c.req.param('id'));
+      const record = audit ? transparencyRecord(audit, snapshot.events) : null;
+      return record ? c.json(record) : c.json({ error: 'Public summary not found' }, 404);
+    } catch { return c.json({ error: 'Public summary unavailable' }, 503); }
+  });
+  app.get('/api/transparency/:id/verify', async c => {
+    c.header('Cache-Control', 'no-store');
+    try {
+      const snapshot = await store.publicationSnapshot();
+      const audit = snapshot.audits.find(item => item.auditId === c.req.param('id'));
+      const record = audit ? transparencyRecord(audit, snapshot.events) : null;
+      if (!record) return c.json({ error: 'Public summary not found' }, 404);
+      return c.json({ summaryHash: record.summaryHash, publication: record.publication, checkedAt: new Date().toISOString(),
+        limitation: 'Server-reported publication status at this check. Historical checksum does not certify current publication, identity or physical truth.' });
+    } catch { return c.json({ error: 'Publication status unavailable' }, 503); }
+  });
+  app.post('/api/transparency/:id/withdraw', async c => {
+    preventPrivateResponseCaching(c);
+    const reviewer = reviewerIdentity(c.req.header('authorization'), 'review');
+    if (!reviewer) return c.json({ error: 'An authorized human reviewer is required' }, 401);
+    const body = await readBoundedJson(c.req.raw, 4096);
+    if (!body.ok) return c.json({ error: body.error }, body.status);
+    const parsed = WithdrawalInput.safeParse(body.value);
+    if (!parsed.success) return c.json({ error: 'A publication version and a predefined withdrawal reason are required' }, 400);
+    try {
+      const snapshot = await store.publicationSnapshot();
+      const audit = snapshot.audits.find(item => item.auditId === c.req.param('id'));
+      if (!audit || !transparencyRecord(audit, snapshot.events)) return c.json({ error: 'Public summary not found' }, 404);
+      const permitted = async () => (await services.loadReviewerAssurance(reviewer.reviewerId, audit.claimType)).status === 'operator_attested';
+      if (!await permitted()) return c.json({ error: 'Current operator-attested review authority is required' }, 403);
+      const address = c.env?.clientAddress?.trim() || 'unknown';
+      const decision = await consumeClientRateLimit('audit_write', address, reviewer.reviewerId, rateLimitConfig, auditRateLimiter);
+      if (!decision.allowed) return c.json({ error: 'Too many publication requests; try again later' }, 429);
+      await store.withdrawPublication(audit.auditId, parsed.data.expectedVersion, parsed.data.reason, reviewer.reviewerId, permitted);
+      const saved = await store.publicationSnapshot();
+      const record = transparencyRecord(saved.audits.find(item => item.auditId === audit.auditId)!, saved.events);
+      return c.json(record);
+    } catch (error) {
+      if (error instanceof PublicationError) return c.json({ error: error.message }, error.status);
+      return c.json({ error: 'Withdrawal could not be confirmed; refresh publication status before retrying' }, 503);
+    }
+  });
+
   app.get('/api/audits', async (c) => {
     const sourceId = c.req.query('sourceId');
     if (sourceId !== undefined && sourceId.length > 128) return c.json({ error: 'Invalid sourceId filter' }, 400);
@@ -535,7 +811,8 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
 
   app.get('/api/audits/history', async (c) => {
     preventPrivateResponseCaching(c);
-    if (!privateAuditReadAuthorized(c.req.header('authorization'))) return c.json({ error: 'Authorized audit-history access is required' }, 401);
+    const permittedClaims = await privateReadClaims(c.req.header('authorization'));
+    if (!permittedClaims.size) return c.json({ error: 'Authorized audit-history access is required' }, 401);
     const sourceId = c.req.query('sourceId');
     const rawClaimType = c.req.query('claimType');
     const claimType = rawClaimType ? ClaimType.safeParse(rawClaimType) : undefined;
@@ -549,18 +826,16 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     const cursor = rawCursor === undefined ? null : decodeAuditCursor(rawCursor);
     if (rawCursor !== undefined && !cursor) return c.json({ error: 'Invalid audit pagination cursor' }, 400);
     try {
+      const visible = (await store.list(sourceId, claimType?.success ? claimType.data : undefined)).filter(audit => permittedClaims.has(audit.claimType));
       if (pageRequested) {
-        const page = await store.listPage({
-          sourceId,
-          claimType: claimType?.success ? claimType.data : undefined,
+        const page = pageAuditRecords(visible, {
           limit: parsedLimit ?? DEFAULT_AUDIT_PAGE_SIZE,
           before: cursor,
           visibility: 'all',
         });
         return c.json({ ...page, nextCursor: page.nextCursor ? encodeAuditCursor(page.nextCursor) : null });
       }
-      const audits = await store.list(sourceId, claimType?.success ? claimType.data : undefined);
-      return c.json({ audits: audits.sort((a, b) => a.sourceId.localeCompare(b.sourceId) || a.claimType.localeCompare(b.claimType) || a.revision - b.revision) });
+      return c.json({ audits: visible.sort((a, b) => a.sourceId.localeCompare(b.sourceId) || a.claimType.localeCompare(b.claimType) || a.revision - b.revision) });
     } catch {
       return c.json({ error: 'Audit history is unavailable' }, 503);
     }
@@ -568,7 +843,7 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
 
   app.get('/api/audits/:id', async (c) => {
     const audit = await store.get(c.req.param('id')).catch(() => undefined);
-    if (!audit || (!auditIsPubliclyReadable(audit) && !privateAuditReadAuthorized(c.req.header('authorization')))) {
+    if (!audit || (!auditIsPubliclyReadable(audit) && !await privateAuditReadAuthorized(c.req.header('authorization'), audit.claimType))) {
       preventPrivateResponseCaching(c);
       return c.json({ error: 'Audit not found' }, 404);
     }
@@ -590,6 +865,8 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     if (!parsed.success) return c.json({ error: 'Invalid review decision', details: parsed.error.flatten() }, 400);
     const parent = await store.get(c.req.param('id')).catch(() => undefined);
     if (!parent) return c.json({ error: 'Audit not found' }, 404);
+    const assurance = await services.loadReviewerAssurance(reviewer.reviewerId, parent.claimType);
+    if (!directoryPermits(assurance.status)) return c.json({ error: 'Reviewer directory approval does not permit this review' }, 403);
     if (parent.bundle.schemaVersion !== 3 || parent.bundle.intelligence?.reviewStatus !== 'unreviewed') {
       return c.json({ error: 'Only an unreviewed document assessment can receive a review revision' }, 409);
     }
@@ -621,6 +898,8 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     }
     const audit = await store.get(c.req.param('id')).catch(() => undefined);
     if (!audit) return c.json({ error: 'Audit not found' }, 404);
+    if (audit.bundle.schemaVersion === 4) return c.json({ error: 'Private human assessments cannot be anchored by this prototype' }, 409);
+    if (reviewer && !isAdmin && !await anchorReviewerPermitted(reviewer, audit.claimType)) return c.json({ error: 'Current reviewer authority does not permit this claim' }, 403);
     if (audit.bundle.schemaVersion === 3 && audit.bundle.intelligence?.reviewStatus === 'unreviewed') return c.json({ error: 'Human review is required before anchoring an AI assessment' }, 409);
     if (reviewer && !isAdmin && (audit.bundle.schemaVersion !== 3 || !audit.bundle.intelligence?.reviewStatus)) return c.json({ error: 'Reviewer anchoring is limited to human-reviewed document assessments' }, 403);
     if (audit.synthetic && process.env.NODE_ENV === 'production' && process.env.ALLOW_SYNTHETIC_CHAIN_ANCHORS !== 'true') {
@@ -630,43 +909,83 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     if (!auditIntegrityValid(audit)) return c.json({ error: 'Local audit bundle or result integrity mismatch' }, 409);
     if (!services.chainConfigured()) return c.json({ error: 'Chain not configured' }, 503);
     if (!services.chainWriteConfigured()) return c.json({ error: 'Chain signing key not configured; no transaction intent was created' }, 503);
-    if (!store.reserveAnchor || !store.completeAnchor) return c.json({ error: 'Blockchain anchoring is unavailable with the local file audit store' }, 503);
-    if (anchoringInFlight.has(audit.auditId)) return c.json({ error: 'Anchoring is already in progress for this audit' }, 409);
+    if (!store.reserveAnchor || !store.completeAnchor || !store.getAnchorIntent || !store.markAnchorReverted) return c.json({ error: 'Durable anchoring storage is unavailable' }, 503);
+    let expectedTarget: { chainId: number; registryAddress: string; issuer: string } | undefined;
+    if (c.req.raw.body !== null) {
+      const body = await readBoundedJson(c.req.raw, 2_048);
+      if (!body.ok) return c.json({ error: body.error }, body.status);
+      const parsed = z.object({ chainId: z.number().int(), registryAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/), issuer: z.string().regex(/^0x[a-fA-F0-9]{40}$/) }).strict().safeParse(body.value);
+      if (!parsed.success) return c.json({ error: 'Invalid expected target' }, 400);
+      expectedTarget = parsed.data;
+    }
+    if (anchoringInFlight.size) return c.json({ error: 'The dedicated issuer is busy; reconcile pending operations first' }, 409);
     anchoringInFlight.add(audit.auditId);
-    let broadcastAttempted = false;
+    let reserved = false;
+    let prepared: Awaited<ReturnType<typeof prepareAnchor>> | undefined;
     try {
       const current = await store.get(audit.auditId);
       if (current?.anchored) return c.json({ error: 'Already anchored', chainTxHash: current.chainTxHash }, 409);
+      const existing = await store.getAnchorIntent(audit.auditId);
+      if (existing?.state === 'pending') return c.json({ error: 'Pending transaction; reconcile before any new write', intent: existing }, 409);
       const registryId = registryCaseId(audit.caseId, audit.claimType);
       const latest = await services.readReceipt(registryId);
       if (latest.version > 0n && latest.hash.toLowerCase() === audit.bundleHash.toLowerCase()) {
-        return c.json({ error: 'Bundle already exists on chain; reconcile its receipt before retrying' }, 409);
+        return c.json({ error: 'Bundle already exists on chain; verify its existing receipt' }, 409);
       }
-      if (!(await store.reserveAnchor(audit))) {
-        return c.json({ error: 'A pending or completed chain operation exists; verify and reconcile before another write' }, 409);
+      prepared = await services.prepareAnchor(audit.auditId, registryId, audit.bundleHash);
+      if (expectedTarget && (expectedTarget.chainId !== prepared.draft.chainId
+        || expectedTarget.registryAddress.toLowerCase() !== prepared.draft.registryAddress.toLowerCase()
+        || expectedTarget.issuer.toLowerCase() !== prepared.draft.issuer.toLowerCase())) return c.json({ error: 'Configured target changed; inspect it again before approval' }, 409);
+      if (reviewer && !isAdmin && !await anchorReviewerPermitted(reviewer, audit.claimType)) return c.json({ error: 'Reviewer authority changed before reservation' }, 403);
+      if (!(await store.reserveAnchor(audit, prepared.draft))) return c.json({ error: 'A pending operation or stale nonce/version blocks this write' }, 409);
+      reserved = true;
+      await services.broadcastAnchor(prepared);
+      const intent = (await store.getAnchorIntent(audit.auditId))!;
+      const outcome = await services.inspectAnchorIntent(intent, true);
+      if (outcome.status === 'reverted') {
+        await store.markAnchorReverted(audit.auditId);
+        return c.json({ error: 'Transaction reverted; audit remains unanchored', txHash: intent.txHash }, 422);
       }
-      broadcastAttempted = true;
-      const receipt = await services.anchorReceipt(registryId, audit.bundleHash);
+      if (outcome.status === 'pending') return c.json({ status: 'pending', intent }, 202);
+      const receipt = outcome.receipt;
       const anchored = { ...audit, anchored: true, chainTxHash: receipt.txHash, receipt };
       await store.completeAnchor(anchored);
-      if (isAdmin || reviewer?.scopes.includes('private_read')) return c.json(anchored);
+      if (isAdmin || await privateAuditReadAuthorized(c.req.header('authorization'), audit.claimType)) return c.json(anchored);
       return c.json({ status: 'anchored', auditId: anchored.auditId, bundleHash: anchored.bundleHash, receipt });
     } catch {
-      return c.json({ error: broadcastAttempted
-        ? 'Anchor status is uncertain; inspect the chain and reconcile before retrying'
-        : 'Anchor preflight failed; no transaction was submitted' }, broadcastAttempted ? 502 : 503);
+      return c.json({ error: reserved
+        ? 'Anchor outcome is uncertain; use anchor-status and reconcile. Do not rebroadcast.'
+        : 'Anchor preflight failed; no transaction was submitted' }, reserved ? 502 : 503);
     } finally {
+      prepared = undefined;
       anchoringInFlight.delete(audit.auditId);
     }
   });
 
   const ReconcileReceiptInput = z.object({
-    chainId: z.literal(11155111),
+    chainId: z.union([z.literal(11155111), z.literal(31337)]),
     registryAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
     txHash: z.string().regex(/^0x[a-fA-F0-9]{64}$/),
     issuer: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
     version: z.number().int().positive().max(Number.MAX_SAFE_INTEGER),
-    blockNumber: z.string().regex(/^\d+$/),
+    blockNumber: z.string().regex(/^\d{1,19}$/),
+    blockHash: z.string().regex(/^0x[a-fA-F0-9]{64}$/).optional(),
+    confirmations: z.number().int().min(1).max(64).optional(),
+  });
+
+  app.get('/api/audits/:id/anchor-status', async (c) => {
+    preventPrivateResponseCaching(c);
+    const admin = bearerTokenMatches(c.req.header('authorization'), process.env.ADMIN_API_TOKEN);
+    const reviewer = reviewerIdentity(c.req.header('authorization'), 'anchor');
+    if (!admin && !reviewer) return c.json({ error: 'Anchor authorization required' }, 401);
+    const audit = await store.get(c.req.param('id')).catch(() => undefined);
+    if (!audit) return c.json({ error: 'Audit not found' }, 404);
+    if (reviewer && !admin && !await anchorReviewerPermitted(reviewer, audit.claimType)) return c.json({ error: 'Current reviewer authority does not permit this claim' }, 403);
+    if (reviewer && !admin && audit.bundle.schemaVersion !== 3) return c.json({ error: 'Audit not found' }, 404);
+    try {
+      if (!store.getAnchorIntent) return c.json({ error: 'Durable intent storage unavailable' }, 503);
+      return c.json({ auditId: audit.auditId, intent: await store.getAnchorIntent(audit.auditId) ?? null, target: await services.chainTarget().catch(() => null) });
+    } catch { return c.json({ error: 'Intent storage unavailable' }, 503); }
   });
 
   app.post('/api/audits/:id/reconcile', async (c) => {
@@ -674,40 +993,52 @@ export function createApp(store: AuditStore, casebookAccess: CasebookAccess = de
     const isAdmin = bearerTokenMatches(c.req.header('authorization'), process.env.ADMIN_API_TOKEN);
     const reviewer = reviewerIdentity(c.req.header('authorization'), 'anchor');
     if (!isAdmin && !reviewer) return c.json({ error: 'Reconciliation requires anchor authorization' }, 401);
-    if (!store.reserveAnchor || !store.completeAnchor) return c.json({ error: 'Blockchain reconciliation is unavailable with the local file audit store' }, 503);
-    const body = await readBoundedJson(c.req.raw, 2_048);
-    if (!body.ok) return c.json({ error: body.error }, body.status);
-    const parsed = ReconcileReceiptInput.safeParse(body.value);
-    if (!parsed.success) return c.json({ error: 'Invalid transaction receipt fields' }, 400);
+    let supplied: AuditReceipt | undefined;
+    if (c.req.raw.body !== null) {
+      const body = await readBoundedJson(c.req.raw, 2_048);
+      if (!body.ok) return c.json({ error: body.error }, body.status);
+      const parsed = ReconcileReceiptInput.safeParse(body.value);
+      if (!parsed.success) return c.json({ error: 'Invalid transaction receipt fields' }, 400);
+      supplied = parsed.data as AuditReceipt;
+    }
     const audit = await store.get(c.req.param('id')).catch(() => undefined);
     if (!audit) return c.json({ error: 'Audit not found' }, 404);
-    if (audit.anchored) return c.json({ status: 'already_reconciled', auditId: audit.auditId, receipt: audit.receipt });
-    if (audit.synthetic && process.env.NODE_ENV === 'production' && process.env.ALLOW_SYNTHETIC_CHAIN_ANCHORS !== 'true') {
-      return c.json({ error: 'Synthetic demonstration audits cannot be reconciled in production' }, 422);
-    }
-    if (audit.bundle.schemaVersion === 3 && audit.bundle.intelligence?.reviewStatus === 'unreviewed') {
-      return c.json({ error: 'An unreviewed assessment cannot be reconciled' }, 409);
-    }
+    if (audit.bundle.schemaVersion === 4 || audit.bundle.intelligence?.reviewStatus === 'unreviewed') return c.json({ error: 'Private or unreviewed assessments cannot be reconciled' }, 409);
+    if (reviewer && !isAdmin && !await anchorReviewerPermitted(reviewer, audit.claimType)) return c.json({ error: 'Current reviewer authority does not permit this claim' }, 403);
+    if (reviewer && !isAdmin && audit.bundle.schemaVersion !== 3) return c.json({ error: 'Reviewer anchoring is limited to reviewed document assessments' }, 403);
+    if (audit.synthetic && process.env.NODE_ENV === 'production' && process.env.ALLOW_SYNTHETIC_CHAIN_ANCHORS !== 'true') return c.json({ error: 'Synthetic anchors are disabled' }, 422);
     if (!auditIntegrityValid(audit)) return c.json({ error: 'Bundle integrity mismatch' }, 409);
+    if (!store.getAnchorIntent || !store.completeAnchor || !store.markAnchorReverted) return c.json({ error: 'Durable reconciliation storage is unavailable' }, 503);
     if (!services.chainConfigured()) return c.json({ error: 'Chain verification is not configured' }, 503);
+    if (anchoringInFlight.size) return c.json({ error: 'Issuer operation in progress' }, 409);
+    anchoringInFlight.add(audit.auditId);
     try {
-      const receipt = parsed.data as AuditReceipt;
-      const check = await services.verifyAnchorTransaction(registryCaseId(audit.caseId, audit.claimType), audit.bundleHash, receipt);
-      if (!check.valid) return c.json({ error: 'On-chain event does not match this bundle and receipt', reason: check.reason }, 422);
+      const intent = await store.getAnchorIntent(audit.auditId);
+      if (!intent) return c.json({ error: 'No durable intent exists; imported receipts require independent verification' }, 409);
+      if (supplied && (supplied.txHash !== intent.txHash || supplied.chainId !== intent.chainId
+        || supplied.registryAddress.toLowerCase() !== intent.registryAddress.toLowerCase()
+        || supplied.issuer.toLowerCase() !== intent.issuer.toLowerCase() || supplied.version !== intent.expectedVersion)) return c.json({ error: 'Receipt does not match stored intent' }, 422);
+      if (intent.state === 'confirmed') return c.json({ status: 'already_reconciled', auditId: audit.auditId, receipt: audit.receipt });
+      if (intent.state === 'reverted') return c.json({ status: 'reverted', auditId: audit.auditId, txHash: intent.txHash });
+      const outcome = await services.inspectAnchorIntent(intent);
+      if (reviewer && !isAdmin && !await anchorReviewerPermitted(reviewer, audit.claimType)) return c.json({ error: 'Reviewer authority changed during reconciliation' }, 403);
+      if (outcome.status === 'pending') return c.json({ status: 'pending', intent }, 202);
+      if (outcome.status === 'reverted') {
+        await store.markAnchorReverted(audit.auditId);
+        return c.json({ status: 'reverted', auditId: audit.auditId, txHash: intent.txHash });
+      }
+      const receipt = outcome.receipt;
+      if (supplied && supplied.blockNumber !== receipt.blockNumber) return c.json({ error: 'Receipt block mismatch' }, 422);
       const anchored = { ...audit, anchored: true, chainTxHash: receipt.txHash, receipt };
-      // Old receipts may not have an intent; a verified event is the only path
-      // that may create a missing reservation and finalize it.
-      await store.reserveAnchor(audit);
       await store.completeAnchor(anchored);
       return c.json({ status: 'reconciled', auditId: audit.auditId, bundleHash: audit.bundleHash, receipt });
-    } catch {
-      return c.json({ error: 'Could not verify or reconcile the submitted chain event' }, 503);
-    }
+    } catch { return c.json({ error: 'Chain verification unavailable; intent remains pending' }, 503); }
+    finally { anchoringInFlight.delete(audit.auditId); }
   });
 
   app.get('/api/audits/:id/verify', async (c) => {
     const audit = await store.get(c.req.param('id')).catch(() => undefined);
-    if (!audit || (!auditIsPubliclyReadable(audit) && !privateAuditReadAuthorized(c.req.header('authorization')))) {
+    if (!audit || (!auditIsPubliclyReadable(audit) && !await privateAuditReadAuthorized(c.req.header('authorization'), audit.claimType))) {
       preventPrivateResponseCaching(c);
       return c.json({ error: 'Audit not found' }, 404);
     }

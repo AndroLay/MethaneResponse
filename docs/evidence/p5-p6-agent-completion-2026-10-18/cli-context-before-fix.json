@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-18T07:19:15.112147+00:00",
+  "verifierSha256": "0c85df911e0c15db01ed057377d67b07477bca9f9107a00ca5c688e105a9b033",
+  "stage": "before_fix_not_pilot_timing",
+  "results": [
+    {
+      "path": "/home/andro/dev/projects/Devpost/iEEE-Methane-response/docs/evidence/p5-p6-agent-completion-2026-10-18/p5-artifacts/agent2/A02-LBY_S_143-original.json",
+      "sha256": "ec405d8ba1bca3f5483945fdce9a7c05bc69c29026b6e92867b67a3e2f89f009",
+      "exitCode": 0,
+      "stdout": "bundle_hash: VALID\ndocument_rights_metadata: NOT_RECORDED\naudit_id: a3e12a6a-0de8-4768-b471-adfcf4a205ad\nrevision: 1\nsha256: 0x7cb8aa35cc398d7ae5d8cf8c54013b47eba95662810f3993446c547374c066e0\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "/home/andro/dev/projects/Devpost/iEEE-Methane-response/docs/evidence/p5-p6-agent-completion-2026-10-18/p5-artifacts/agent2/A02-LBY_S_143-envelope-mutated.json",
+      "sha256": "fc4a0d899248117ec6e189253d6dccc3745da8c8ea4e39294e6f7c154e27a4cc",
+      "exitCode": 0,
+      "stdout": "bundle_hash: VALID\ndocument_rights_metadata: NOT_RECORDED\naudit_id: a3e12a6a-0de8-4768-b471-adfcf4a205ad\nrevision: 1\nsha256: 0x7cb8aa35cc398d7ae5d8cf8c54013b47eba95662810f3993446c547374c066e0\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "/tmp/methane-p56-completion/agent1/results/A01-CAN-app-export-tampered.json",
+      "sha256": "a88f66c739e5b578fc92aee46dda8f4117b84a2df61afaf339bc47cbfca0d8c3",
+      "exitCode": 0,
+      "stdout": "bundle_hash: VALID\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 0d57c20a-7073-4551-b8c8-f2d2c524d7a4\nrevision: 1\nsha256: 0x4f9c0403ea84aff7c49c6378f48a3a79ee6a4c61633eab062b0cd31887239952\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    }
+  ]
+}

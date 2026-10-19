@@ -1,0 +1,62 @@
+$ bash scripts/run-e2e.sh "e2e/audit-workflow.spec.ts" --grep "scope presets and report verification"
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/e2e-runner-utils.test.ts:
+(pass) E2E runner environment > copies only explicitly allowlisted non-secret settings [0.20ms]
+(pass) E2E argument routing > runs only the matching phase when a workflow file is selected [0.44ms]
+(pass) E2E argument routing > keeps both workflow phases for unscoped or mixed selections [0.14ms]
+
+ 3 pass
+ 0 fail
+ 6 expect() calls
+Ran 3 tests across 1 file. [12.00ms]
+[WebServer] $ vite --host "127.0.0.1" --port "4179" --strictPort
+
+Running 1 test using 1 worker
+
+  ✘  1 [chromium] › e2e/audit-workflow.spec.ts:17:5 › scope presets and report verification work without a CLI on desktop and mobile (23.1s)
+
+
+  1) [chromium] › e2e/audit-workflow.spec.ts:17:5 › scope presets and report verification work without a CLI on desktop and mobile 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  getByRole('region', { name: 'Assessment scope' }).getByLabel('Period end')
+    Expected: "2024-06-12"
+    Received: "2026-07-11"
+    Timeout:  20000ms
+
+    Call log:
+      - Expect "toHaveValue" getByRole('region', { name: 'Assessment scope' }).getByLabel('Period end') with timeout 20000ms
+      - waiting for getByRole('region', { name: 'Assessment scope' }).getByLabel('Period end')
+        43 × locator resolved to <input type="date" value="2026-07-11"/>
+           - unexpected value "2026-07-11"
+
+
+      26 |   await preset.click();
+      27 |   await expect(scope.getByLabel('Period start')).toHaveValue('2024-06-07');
+    > 28 |   await expect(scope.getByLabel('Period end')).toHaveValue('2024-06-12');
+         |                                                ^
+      29 |   await expect(scope.getByRole('status')).toContainText('not applied');
+      30 |   await expect(page.getByRole('button', { name: 'Run rules baseline' })).toBeDisabled();
+      31 |   await scope.getByRole('button', { name: 'Apply assessment scope' }).click();
+        at /home/andro/dev/projects/Devpost/iEEE-Methane-response/e2e/audit-workflow.spec.ts:28:48
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .playwright-cli/e2e-results/audit-workflow-scope-prese-166fd-a-CLI-on-desktop-and-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .playwright-cli/e2e-results/audit-workflow-scope-prese-166fd-a-CLI-on-desktop-and-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .playwright-cli/e2e-results/audit-workflow-scope-prese-166fd-a-CLI-on-desktop-and-mobile-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace .playwright-cli/e2e-results/audit-workflow-scope-prese-166fd-a-CLI-on-desktop-and-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › e2e/audit-workflow.spec.ts:17:5 › scope presets and report verification work without a CLI on desktop and mobile 
+error: "playwright" exited with code 1
+error: script "test:e2e" exited with code 1

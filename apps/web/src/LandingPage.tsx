@@ -65,15 +65,25 @@ interface LandingPageProps { onOpenDashboard: () => void }
 export default function LandingPage({ onOpenDashboard }: LandingPageProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
+  const [temporaryPreview, setTemporaryPreview] = useState(false);
   const evidenceReview = getLandingEvidenceReview();
   useEffect(() => {
     const close = () => setMobileMenuOpen(false);
     window.addEventListener('resize', close);
     return () => window.removeEventListener('resize', close);
   }, []);
+  useEffect(() => {
+    const controller = new AbortController();
+    void fetch('/api/health', { signal: controller.signal })
+      .then(response => response.ok ? response.json() as Promise<{ preview?: { enabled?: boolean } }> : null)
+      .then(payload => { if (payload?.preview?.enabled) setTemporaryPreview(true); })
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, []);
   return <div className="lp-shell" id="top">
     <a className="lp-skip" href="#lp-hero-title">Skip to content</a>
     <div className="lp-announcement"><span className="lp-announcement-dot"/> RESEARCH PROTOTYPE · IEEE CLIMATECHAIN 2026 <span className="lp-announcement-separator">/</span> <span>Evidence matters more than assumptions.</span></div>
+    {temporaryPreview && <div className="lp-preview-note" role="note">Free preview · historical data, temporary state. Audit records can disappear after idle sleep, restart or redeploy. Do not enter confidential material.</div>}
     <header className="lp-header">
       <div className="lp-container lp-navbar">
         <a href="#top" aria-label="MethaneResponse homepage" className="lp-brand-link"><Mark/></a>

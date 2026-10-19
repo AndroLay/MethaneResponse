@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-18T07:39:46.967207+00:00",
+  "agentScopeComplete": true,
+  "humanResearchGatePassed": false,
+  "providerBenchmarkCompleted": false,
+  "activationEligible": false,
+  "fullLocalGate": {
+    "command": "UV_CACHE_DIR=/tmp/methane-response-uv-cache bun run check:all",
+    "exitCode": 0,
+    "counts": {
+      "api": 193,
+      "web": 247,
+      "tooling": 52,
+      "python": 212,
+      "foundry": 4
+    },
+    "total": 708,
+    "typecheck": true,
+    "build": true,
+    "bundleBudget": true,
+    "appGzipBytes": 71689,
+    "rawLogPath": "/tmp/methane-p56-completion/full-gate-final.log",
+    "rawLogSha256": "44d0fcb2e921fb3413bba420f9746b74218016622d9ccd39aa76bd77c4128d91"
+  },
+  "artifactRecheck": {
+    "file": "cli-context-after-fix.json",
+    "uniqueJson": 25,
+    "checks": 50,
+    "allMatched": true,
+    "separateFromPilot": true
+  },
+  "applicationGroundingReplay": {
+    "file": "grounding-replay.json",
+    "assessments": 216,
+    "unchanged": true,
+    "providerCalls": 0
+  },
+  "analysisReplay": [
+    {
+      "script": "analyze-pilot.py",
+      "output": "p5-analysis.json",
+      "deepEqual": true
+    },
+    {
+      "script": "analyze-diagnostic.py",
+      "output": "diagnostic-analysis.json",
+      "deepEqual": true
+    }
+  ],
+  "pilotInvalidInputChecks": [
+    {
+      "case": "duplicate scoring",
+      "rejected": true,
+      "boundary": "Duplicate scoring rows"
+    },
+    {
+      "case": "duplicate task",
+      "rejected": true,
+      "boundary": "Unexpected/duplicate task"
+    },
+    {
+      "case": "negative duration",
+      "rejected": true,
+      "boundary": "Invalid observed duration"
+    },
+    {
+      "case": "timestamp duration mismatch",
+      "rejected": true,
+      "boundary": "Duration does not match observed timestamps"
+    },
+    {
+      "case": "non boolean completed",
+      "rejected": true,
+      "boundary": "Invalid completion flag"
+    },
+    {
+      "case": "wrong agent identity",
+      "rejected": true,
+      "boundary": "Wrong agent identity"
+    }
+  ],
+  "historicalPackets": [
+    {
+      "packet": "domain-review-preparation-2026-10-18",
+      "verifiedFiles": 31,
+      "unchanged": true
+    },
+    {
+      "packet": "domain-review-remediation-2026-10-18",
+      "verifiedFiles": 51,
+      "unchanged": true
+    },
+    {
+      "packet": "p5-p6-agent-evaluation-2026-10-18",
+      "verifiedFiles": 22,
+      "unchanged": true
+    }
+  ],
+  "publicSummaryProjection": {
+    "path": "packages/shared/src/transparency.ts",
+    "sha256": "c638dd93dd6fbc045034ebd371fca532a6ca3f0c7d1e66872df98d01b97f7747",
+    "unchanged": true
+  },
+  "review": {
+    "kind": "read_only_engineering_agent",
+    "scope": [
+      "CLI diff and regressions",
+      "P6 exact input and raw-grounded binding",
+      "P5 raw/scoring/aggregation",
+      "final docs and limits"
+    ],
+    "unresolvedMaterialCodeFindings": 0,
+    "notHumanDomainReview": true
+  },
+  "runtimeCleanup": {
+    "ownedBrowserSessionsClosed": 2,
+    "ownedPilotServerLaunchersStopped": 2
+  },
+  "notRun": [
+    "Full Playwright E2E suite was not rerun; actual paired agent browser sessions exercised the unchanged runtime.",
+    "Configured application model provider benchmark, human pilot, human expert review and physical methane verification were not performed.",
+    "No deployment, external publication or public chain transaction."
+  ]
+}

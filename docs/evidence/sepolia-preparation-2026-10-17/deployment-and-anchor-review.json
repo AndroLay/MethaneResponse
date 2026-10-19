@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17T12:28:57.808Z",
+  "status": "prepared; awaiting faucet funding and operation approval",
+  "publicWritesSent": 0,
+  "network": {
+    "name": "Sepolia",
+    "chainId": 11155111,
+    "rpc": "https://11155111.rpc.thirdweb.com",
+    "head": "11934155",
+    "blockHash": "0x796315e53534c7fee38f208e65121b0a64edaf9a85dc69f49ea27120b459dfcb",
+    "blockTimestamp": "1792240128"
+  },
+  "issuer": "0x211334Ab7398e2A7268014c31809bd712F033afa",
+  "issuerState": {
+    "balanceWei": "0",
+    "balanceTestEth": "0",
+    "latestNonce": 0,
+    "pendingNonce": 0
+  },
+  "deployment": {
+    "contract": "EvidenceRegistry",
+    "registryAddress": "0x0F78a787142abF509b6A7178bA1bfDfb9c8b202d",
+    "addressState": "predicted from nonce 0; no deployed bytecode",
+    "bytecodeKeccak256": "0xb98f97d8a6177a3b5b7805f73ff5a6ea595b897532ce0d7591e1f57873a76492",
+    "bytecodeSha256": "dafd652c1ffef383616069c56ece6538c2792c027c814b3dd3ada9852f056390",
+    "runtimeTemplateKeccak256": "0xdfb35570a30248a4c64d93c9d2ae20d1baeed44562436ec8b293a3836f1e7734",
+    "compiler": "solc 0.8.24; optimizer 200 runs",
+    "constructorArguments": [],
+    "estimatedGas": "2239773",
+    "estimateMethod": "RPC simulation with temporary balance override; no chain state changed",
+    "gasLimitCeiling": "3000000",
+    "ownerAndInitialIssuer": "0x211334Ab7398e2A7268014c31809bd712F033afa"
+  },
+  "anchor": {
+    "auditId": "52d1031b-bdf0-4bc7-803c-8a59040975ab",
+    "caseId": "MARS-REPORT-KAZ-S-159",
+    "sourceId": "KAZ_S_159",
+    "claimType": "source_detected",
+    "bundleHash": "0xc8bf622d1c87752a6d76dd5cca0c2e1897e78a1d017fe7b35f1b85951f82d442",
+    "revision": 1,
+    "synthetic": false,
+    "operation": "EvidenceRegistry.anchor(bytes32 caseId, bytes32 bundleHash)",
+    "expectedVersion": 1,
+    "gasLimitCeiling": "1000000",
+    "estimatedGas": "355539",
+    "estimateMethod": "RPC simulation with temporary code/storage/balance override; must re-estimate against deployed registry before broadcast"
+  },
+  "approvalBudget": {
+    "currency": "Sepolia test ETH",
+    "maxFeePerGasWei": "1000000000",
+    "combinedGasLimitCeiling": "4000000",
+    "combinedMaxNetworkFeeWei": "4000000000000000",
+    "combinedMaxNetworkFeeTestEth": "0.004",
+    "fundingRequestTestEth": "0.01",
+    "currentSuggestedMaxFeePerGasWei": "38",
+    "currentSuggestedMaxPriorityFeePerGasWei": "2",
+    "currentSuggestedFeeWithinCeiling": true,
+    "transferValueWei": "0",
+    "confirmations": 2
+  },
+  "boundaries": [
+    "Preparation is not deployment or an anchored receipt.",
+    "No Mainnet operations or real ETH purchases.",
+    "Exactly one deployment and one baseline anchor proposed; no setIssuer or automatic retries.",
+    "Recheck nonce, bytecode, gas/fee, balance and actual audit hash before any approved broadcast.",
+    "Receipt proves integrity and chronology; not physical methane mitigation."
+  ]
+}

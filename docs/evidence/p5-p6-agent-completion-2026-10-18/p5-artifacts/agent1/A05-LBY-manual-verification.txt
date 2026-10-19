@@ -1,0 +1,1 @@
+Original baseline export:\nbundle_hash: VALID\ndocument_rights_metadata: NOT_RECORDED\naudit_id: a6424eea-c808-4428-a984-ca7cafab8996\nrevision: 1\nsha256: 0x2396b3116690a66eed7b07f5ae96bc63b65a7d8808a4cfb00d2a1056e3ed5ff5\nchain_receipt: ABSENT\n\nTampered copy (bundle.reason changed):\nbundle_hash: INVALID\n

@@ -1,5 +1,7 @@
 # Globe Visual Trust Implementation Plan
 
+> **Arsip rencana 2026-10-13.** Pekerjaan dan instruksi di bawah merekam revisi asal. Untuk kondisi sekarang gunakan [status aktif](../../release/current-implementation-status.md) dan [arsitektur](../../architecture/overview.md); asumsi database digantikan [ADR file lokal](../../architecture/decisions/2026-10-15-local-prototype-no-database.md). [Indeks rencana](README.md).
+
 > **For agentic workers:** Execute inline in the active repository session. Steps use checkbox syntax for tracking.
 
 **Goal:** Make the MapLibre globe more consistent at world scale, reduce harsh night shading, and make each map marker easier to interpret and trace to its MARS snapshot.

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17T12:32:57.934405+00:00",
+  "surface": "isolated Chromium session; public faucet page",
+  "url": "https://faucet.chainplatform.co/faucets/ethereum-sepolia",
+  "chainId": 11155111,
+  "recipient": "0x211334Ab7398e2A7268014c31809bd712F033afa",
+  "requestedTestEth": "0.1",
+  "action": "filled public address and clicked Get 0.1 ETH once after authorization",
+  "result": "blocked by human CAPTCHA requirement",
+  "message": "Please complete the captcha verification first.",
+  "claimTransactionHash": null,
+  "fundingConfirmed": false,
+  "publicDeploymentSent": false,
+  "anchorSent": false,
+  "nextAction": "user completes CAPTCHA and faucet claim; then check on-chain balance before approved deployment",
+  "antiAbuseBypassAttempted": false
+}

@@ -1,0 +1,10 @@
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/product-value-evaluation.test.ts:
+(pass) comparison retains missing and incorrect cells in the frozen denominator [0.59ms]
+(pass) comparison refuses duplicate or unscheduled responses and scores objects independent of key order [0.18ms]
+
+ 2 pass
+ 0 fail
+ 5 expect() calls
+Ran 2 tests across 1 file. [66.00ms]

@@ -1,10 +1,15 @@
-# Product documentation
+# Produk dan alur investigasi
 
-| Guide | Purpose |
-|---|---|
-| [User workflow](user-workflow.md) | Explore a source, review observations, run a claim check, and verify the report |
-| [Data and claims](data-and-claims.md) | Provenance, data snapshot rules, units, uncertainty, and scientific claim boundaries |
-| [Prospective recurrence](prospective-recurrence.md) | Frozen record-recurrence predictions, future snapshot evaluation, and non-emissions interpretation |
-| [Prototype scope decision](../architecture/decisions/2026-10-15-local-prototype-no-database.md) | Current MARS-first product priorities and local-file persistence decision |
+[Pusat dokumentasi](../README.md)
 
-The app supports investigation and accountability. It does not detect methane, verify an operator's notification receipt, certify a repair, or measure emissions reductions caused by product use.
+| Urutan | Panduan | Isi |
+|---|---|---|
+| 1 | [Alur penggunaan](user-workflow.md) | Memilih sumber, menetapkan scope, menyimpan investigasi/penilaian, membandingkan revisi dan menyiapkan laporan |
+| 2 | [MARS dan peran produk](mars-response-workflow.md) | Alur resmi MARS dari deteksi hingga tindak lanjut, beserta pemetaan dukungan MethaneResponse |
+| 3 | [Data dan claims](data-and-claims.md) | Provenance, unit, uncertainty, versi data dan makna kategori klaim |
+| 4 | [Trust dan transparansi](trust-and-transparency.md) | Batas retrieval/digest, reviewer directory, consent dan publikasi minimal |
+| 5 | [Recurrence prospektif](prospective-recurrence.md) | Ledger prediksi record MARS, horizon outcome, prosedur evaluasi dan batas interpretasi |
+
+Produk mendukung investigasi data historis dan dokumentasi penilaian. Feedback bukan bukti perbaikan; missing observation bukan bukti emisi nol. Checksum/receipt tidak mengesahkan kebenaran fisik.
+
+Definisi istilah ada di [glosarium](../glossary.md), keputusan scope di [ADR](../architecture/decisions/2026-10-15-local-prototype-no-database.md), dan status fitur/bukti di [status implementasi](../release/current-implementation-status.md).

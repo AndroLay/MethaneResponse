@@ -1,0 +1,9 @@
+{
+  "promptFile": "p6-agent-instructions.md",
+  "promptSha256": "2a9f39839a91921fb2bd63a28874d649a56f0e7ab8cc1f59bb9b6e95d8060f34",
+  "createdBeforeAssessment": true,
+  "method": "same model family, separate fresh contexts; correlated agent evaluations, not human adjudication",
+  "actualAppProviderCalls": 0,
+  "perClaimLatencyMs": null,
+  "billedCostUsd": null
+}

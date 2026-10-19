@@ -1,0 +1,94 @@
+{
+  "scope": {
+    "role": "read-only local operator and skeptical chain verifier",
+    "repository": "/home/andro/dev/projects/Devpost/iEEE-Methane-response",
+    "repository_edits_by_reviewer": false,
+    "dotenv_or_key_files_read": false,
+    "external_transactions_or_deploys": false,
+    "tests_run": true,
+    "runtime_boundary": "disposable local processes, temp stores and loopback RPC only"
+  },
+  "commands": [
+    {
+      "command": "bun run test:chain-integration --evidence /tmp/methane-operator-roles/chain.json",
+      "exit_code": 0,
+      "result": "1 integration scenario passed; 35 expect calls; 0 failed",
+      "duration_seconds": 3.22,
+      "log": "/tmp/methane-operator-roles/chain.log",
+      "evidence": "/tmp/methane-operator-roles/chain.json"
+    },
+    {
+      "command": "bun run test:case-work-operations",
+      "exit_code": 0,
+      "result": "2 tests passed; 17 expect calls; 0 failed",
+      "coverage": [
+        "real API child process crash and restart with writer-lock recovery",
+        "offline backup/restore, overwrite refusal, active-writer lock protection"
+      ],
+      "duration_seconds": 1.71,
+      "log": "/tmp/methane-operator-roles/case-work.log"
+    },
+    {
+      "command": "bun run test:publication-operations",
+      "exit_code": 0,
+      "result": "1 test passed; 15 expect calls; 0 failed",
+      "coverage": "publication correction and withdrawal survive API SIGKILL with private event actors retained",
+      "duration_seconds": 0.805,
+      "log": "/tmp/methane-operator-roles/publication.log"
+    }
+  ],
+  "chain_evidence": {
+    "network": "disposable Anvil loopback, chainId 31337",
+    "signer": "random key with disposable local balance; private key not written to evidence",
+    "scenario_count": 1,
+    "assertion_count": 35,
+    "adversarial_paths": [
+      "transaction accepted and then RPC acknowledgement replaced with HTTP 502",
+      "API uncertain result and retry refusal while intent is pending",
+      "reconciliation of the exact accepted transaction hash",
+      "no duplicate transaction; pending account nonce increases by exactly one",
+      "independent CLI receipt verification",
+      "SIGKILL before broadcast and after broadcast",
+      "revert, latest-to-historical receipt transition, modified report and forged issuer rejection"
+    ],
+    "lost_rpc_acknowledgement": {
+      "transport": "loopback proxy forwards eth_sendRawTransaction to Anvil, then replaces the accepted response with HTTP 502",
+      "anvil_accepted_transaction_count": 1,
+      "api_status": 502,
+      "retry_status": 409,
+      "intent_state_before_reconcile": "pending",
+      "audit_anchored_before_reconcile": false,
+      "accepted_transaction_hash": "0x966e26470e2e5d368dc53b29245de5bab98e310ffe34999c937cc942df4c54fd",
+      "reconciled_receipt_hash": "0x966e26470e2e5d368dc53b29245de5bab98e310ffe34999c937cc942df4c54fd",
+      "receipt_version": 3,
+      "receipt_block_number": "4",
+      "nonce_assertion": "Anvil pending transaction count after reconciliation equals the count before the uncertain anchor plus one",
+      "nonce_before_numeric_value_serialized": false,
+      "nonce_after_numeric_value_serialized": false,
+      "independent_cli_verification_exit_code": 0
+    },
+    "process_boundary": {
+      "lost_acknowledgement_branch": "reopens FileAuditStore and creates a new Hono app in the test process; it is not a restart of a listening API server process",
+      "sigkill_branches": "separate chain-crash-fixture child processes are SIGKILLed before/after broadcast; the test process then opens the durable file and reconciles"
+    },
+    "evidence_file_label": "DEMO local chain; not public Sepolia evidence"
+  },
+  "findings": [
+    {
+      "severity": "none",
+      "text": "No defect found in the assigned local chain/recovery and operations boundaries in these runs."
+    },
+    {
+      "severity": "resolved_in_worktree",
+      "text": "The prior deployment guide claim that file storage lacked durable anchor intents has been corrected; the current paragraph describes the local Anvil path and pending Sepolia receipt accurately."
+    }
+  ],
+  "limits": [
+    "This proves only local code behavior on Anvil 31337. The chain and random signer are disposable; the receipt cannot be opened on a public explorer after Anvil stops.",
+    "No public service, Render runtime, HTTPS origin, remote filesystem durability, remote flock support, hosted backup/restore, or production access configuration was exercised by these three commands.",
+    "No Sepolia RPC, public registry, deployment, transaction, or receipt was used. Public Sepolia integration remains pending.",
+    "The CLI verifier runs in a separate process but uses the same chain implementation and configured node RPC; it is not an independently implemented verifier or independent node consensus check.",
+    "Receipt/hash evidence concerns integrity and version chronology only; it says nothing about physical methane measurements, repairs, or emissions reduction."
+  ],
+  "review_note": "The suite's proxy branch records actual statuses and the accepted/reconciled hash. The nonce delta is asserted from two runtime reads but the runner artifact does not retain their numeric values. Full outputs are in the linked log files; no repository files were edited by this reviewer."
+}

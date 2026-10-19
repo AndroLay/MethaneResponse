@@ -1,0 +1,247 @@
+{
+  "postHoc": true,
+  "primaryAnalysis": "comparison.json",
+  "originalManualSha256": "6631fd96624d73c3d7b634bdc0d42374e0b73c2a3d3a2d6b2ecc0ed843e6c39a",
+  "reason": "Prompts named localDigest but omitted its enum type. Manual returned booleans, app returned valid/invalid. The five primary mismatches are serialization differences, not wrong integrity decisions.",
+  "mapping": {
+    "true": "valid",
+    "false": "invalid"
+  },
+  "mappedCells": 5,
+  "method": "Map only boolean localDigest for the five integrity task IDs; no other fields, decisions, rubric, input, or raw response changed.",
+  "normalizedManual": {
+    "scheduled": 16,
+    "correct": 16,
+    "missing": 0,
+    "criticalOverclaims": 0,
+    "cells": [
+      {
+        "id": "KAZ_S_159:source_detected",
+        "status": "correct",
+        "expected": {
+          "result": "supported",
+          "evidenceIds": [
+            "82758651-76f4-4e06-b4ab-c247ce765192"
+          ],
+          "physicalMitigationEstablished": false
+        },
+        "actual": {
+          "result": "supported",
+          "evidenceIds": [
+            "82758651-76f4-4e06-b4ab-c247ce765192"
+          ],
+          "physicalMitigationEstablished": false
+        }
+      },
+      {
+        "id": "KAZ_S_159:operator_notified",
+        "status": "correct",
+        "expected": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        },
+        "actual": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        }
+      },
+      {
+        "id": "KAZ_S_159:mitigation_confirmed",
+        "status": "correct",
+        "expected": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        },
+        "actual": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        }
+      },
+      {
+        "id": "LBY_S_143:source_detected",
+        "status": "correct",
+        "expected": {
+          "result": "supported",
+          "evidenceIds": [
+            "a8e4a775-4654-46b2-af16-bb9b4742e79d"
+          ],
+          "physicalMitigationEstablished": false
+        },
+        "actual": {
+          "result": "supported",
+          "evidenceIds": [
+            "a8e4a775-4654-46b2-af16-bb9b4742e79d"
+          ],
+          "physicalMitigationEstablished": false
+        }
+      },
+      {
+        "id": "LBY_S_143:operator_notified",
+        "status": "correct",
+        "expected": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        },
+        "actual": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        }
+      },
+      {
+        "id": "LBY_S_143:mitigation_confirmed",
+        "status": "correct",
+        "expected": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        },
+        "actual": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        }
+      },
+      {
+        "id": "CAN_S_002:source_detected",
+        "status": "correct",
+        "expected": {
+          "result": "supported",
+          "evidenceIds": [
+            "35328376-5922-43c4-9076-c97af6231527"
+          ],
+          "physicalMitigationEstablished": false
+        },
+        "actual": {
+          "result": "supported",
+          "evidenceIds": [
+            "35328376-5922-43c4-9076-c97af6231527"
+          ],
+          "physicalMitigationEstablished": false
+        }
+      },
+      {
+        "id": "CAN_S_002:operator_notified",
+        "status": "correct",
+        "expected": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        },
+        "actual": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        }
+      },
+      {
+        "id": "CAN_S_002:mitigation_confirmed",
+        "status": "correct",
+        "expected": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        },
+        "actual": {
+          "result": "insufficient_evidence",
+          "evidenceIds": [],
+          "physicalMitigationEstablished": false
+        }
+      },
+      {
+        "id": "DEMO:integrity:intact",
+        "status": "correct",
+        "expected": {
+          "localDigest": "valid",
+          "authenticityEstablished": false
+        },
+        "actual": {
+          "localDigest": "valid",
+          "authenticityEstablished": false
+        }
+      },
+      {
+        "id": "DEMO:integrity:bundle-edit",
+        "status": "correct",
+        "expected": {
+          "localDigest": "invalid",
+          "authenticityEstablished": false
+        },
+        "actual": {
+          "localDigest": "invalid",
+          "authenticityEstablished": false
+        }
+      },
+      {
+        "id": "DEMO:integrity:context-edit",
+        "status": "correct",
+        "expected": {
+          "localDigest": "invalid",
+          "authenticityEstablished": false
+        },
+        "actual": {
+          "localDigest": "invalid",
+          "authenticityEstablished": false
+        }
+      },
+      {
+        "id": "DEMO:integrity:legacy",
+        "status": "correct",
+        "expected": {
+          "localDigest": "invalid",
+          "authenticityEstablished": false
+        },
+        "actual": {
+          "localDigest": "invalid",
+          "authenticityEstablished": false
+        }
+      },
+      {
+        "id": "DEMO:integrity:self-rehashed",
+        "status": "correct",
+        "expected": {
+          "localDigest": "valid",
+          "authenticityEstablished": false
+        },
+        "actual": {
+          "localDigest": "valid",
+          "authenticityEstablished": false
+        }
+      },
+      {
+        "id": "DEMO:lineage",
+        "status": "correct",
+        "expected": {
+          "recordedParent": true,
+          "reasonChanged": true,
+          "oldVersionPreserved": true
+        },
+        "actual": {
+          "recordedParent": true,
+          "reasonChanged": true,
+          "oldVersionPreserved": true
+        }
+      },
+      {
+        "id": "DEMO:utc",
+        "status": "correct",
+        "expected": {
+          "startDate": "2026-10-01",
+          "endDate": "2026-10-02",
+          "count": 2
+        },
+        "actual": {
+          "startDate": "2026-10-01",
+          "endDate": "2026-10-02",
+          "count": 2
+        }
+      }
+    ]
+  },
+  "conclusion": "Decision parity on this small authored set; no evidence of app superiority or human time savings."
+}

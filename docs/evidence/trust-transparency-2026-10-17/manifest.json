@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "feature": "trust-and-transparency",
+  "date": "2026-10-17",
+  "baseRevision": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "checkout": "uncommitted existing working tree; source files bound by implementation-files.sha256",
+  "checks": {
+    "api": {
+      "passed": 129,
+      "files": 23
+    },
+    "web": {
+      "passed": 230,
+      "files": 47
+    },
+    "verifier": {
+      "passed": 34,
+      "files": 6
+    },
+    "tlsTransport": {
+      "passed": 1,
+      "assertions": 10,
+      "surface": "real disposable local HTTPS server, no real publisher fetch"
+    },
+    "nonBrowserTotal": 394,
+    "typecheck": "API/web/E2E passed",
+    "build": "passed",
+    "bundle": {
+      "appGzipBytes": 73946,
+      "budgetBytes": 75000,
+      "requiredRouteChunks": 8
+    },
+    "browser": {
+      "main": 13,
+      "privateManualMockAi": 4,
+      "distinctTotal": 17,
+      "runnerRegressionsPerInvocation": 3,
+      "focusedDemoRepeat": 1,
+      "intermediateCombinedRun": "7 main passed; Vite exited SIGTERM/code 143; remaining cases failed to connect. Separate full phase runs passed."
+    },
+    "review": "independent read-only; two consequential findings fixed and re-reviewed"
+  },
+  "captures": [
+    {
+      "file": "trust-transparency-desktop.png",
+      "dimensions": [
+        1280,
+        2343
+      ]
+    },
+    {
+      "file": "trust-transparency-mobile.png",
+      "dimensions": [
+        390,
+        3962
+      ]
+    }
+  ],
+  "captureOrigin": "focused DEMO browser run; tokens cleared; synthetic references/reviewer enrollment, not real physical mitigation",
+  "implementationFileCount": 27,
+  "limitations": [
+    "Operator-attested reviewer identity requires actual external vetting; no real identity enrolled.",
+    "Declared conflicts are self-reported; independence is not independently certified.",
+    "Publisher retrieval checks origin and bytes, not document truth or issuer signatures.",
+    "Public summaries omit private evidence and reasoning; checksum is unsigned.",
+    "No external publication, credentials changed, remote deployment, real provider call or chain transaction.",
+    "Single-instance file persistence and existing MapPanel advisory remain.",
+    "Python/data and Foundry suites not rerun."
+  ]
+}

@@ -1,0 +1,561 @@
+{
+  "checkedAt": "2026-10-18T07:33:52.265473+00:00",
+  "stage": "after_fix_separate_from_pilot",
+  "verifierSha256": "d50da8625cbb268d277c6dae52d2ad4930279ee44e4156a3e951fc1c46022c82",
+  "retainedJsonCount": 25,
+  "checkCount": 50,
+  "passed": true,
+  "results": [
+    {
+      "path": "p5-artifacts/agent1/A01-CAN-app-export-original.json",
+      "sha256": "418c4097daed1cdbe0072aa45293c716dbbe4e63a8f9f05294e82a8d400b33f6",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 0d57c20a-7073-4551-b8c8-f2d2c524d7a4\nrevision: 1\nsha256: 0x4f9c0403ea84aff7c49c6378f48a3a79ee6a4c61633eab062b0cd31887239952\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent1/A01-CAN-app-export-original.json",
+      "sha256": "418c4097daed1cdbe0072aa45293c716dbbe4e63a8f9f05294e82a8d400b33f6",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 0d57c20a-7073-4551-b8c8-f2d2c524d7a4\nrevision: 1\nsha256: 0x4f9c0403ea84aff7c49c6378f48a3a79ee6a4c61633eab062b0cd31887239952\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent1/A01-CAN-app-export-tampered.json",
+      "sha256": "a88f66c739e5b578fc92aee46dda8f4117b84a2df61afaf339bc47cbfca0d8c3",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\n",
+      "stderr": "export_context_checksum: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A01-CAN-app-export-tampered.json",
+      "sha256": "a88f66c739e5b578fc92aee46dda8f4117b84a2df61afaf339bc47cbfca0d8c3",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\n",
+      "stderr": "export_context_checksum: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A01-LBY-manual-export-original.json",
+      "sha256": "50f16a5a46bf1817d7335f2337b27d0048098e95d87d57c3639b6baa70337380",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: a6424eea-c808-4428-a984-ca7cafab8996\nrevision: 1\nsha256: 0x2396b3116690a66eed7b07f5ae96bc63b65a7d8808a4cfb00d2a1056e3ed5ff5\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent1/A01-LBY-manual-export-original.json",
+      "sha256": "50f16a5a46bf1817d7335f2337b27d0048098e95d87d57c3639b6baa70337380",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\n",
+      "stderr": "export_context_checksum: REQUIRED\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A01-LBY-manual-export-tampered.json",
+      "sha256": "65f4710a76b106a2eff0ff4137dd764ce2be3332241c61b3de03db17a06252ff",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A01-LBY-manual-export-tampered.json",
+      "sha256": "65f4710a76b106a2eff0ff4137dd764ce2be3332241c61b3de03db17a06252ff",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A03-CAN-manual-export-original.json",
+      "sha256": "d1b4bd8a4806a18646588df828bcc6c7315b1b15ca949c8bcdd4ba2649cffe47",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 3e319dbd-5cc5-4749-bef3-f0c03f9c50df\nrevision: 1\nsha256: 0x073ba072e8ed4c2d1ff1731b65e82d61dd75aa5c068586674b66be68cd73a3ed\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent1/A03-CAN-manual-export-original.json",
+      "sha256": "d1b4bd8a4806a18646588df828bcc6c7315b1b15ca949c8bcdd4ba2649cffe47",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\n",
+      "stderr": "export_context_checksum: REQUIRED\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A03-CAN-manual-export-tampered.json",
+      "sha256": "ec7944e23dc3e60edaeb536806698ecf8f52f79b684fefa3e4b60aba6268f1ce",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A03-CAN-manual-export-tampered.json",
+      "sha256": "ec7944e23dc3e60edaeb536806698ecf8f52f79b684fefa3e4b60aba6268f1ce",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A03-LBY-app-export-original.json",
+      "sha256": "23a9137bd6cd2b9cbf1ca1cb49f796360d3c7d8075d177dce212b52a351102ce",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 3d4af894-7817-4b24-b947-ea53e63cb75c\nrevision: 1\nsha256: 0x0809013314e3b361dec16bb3df6aee71cd2acff7745ccb2fd8317ff1b0b61968\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent1/A03-LBY-app-export-original.json",
+      "sha256": "23a9137bd6cd2b9cbf1ca1cb49f796360d3c7d8075d177dce212b52a351102ce",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 3d4af894-7817-4b24-b947-ea53e63cb75c\nrevision: 1\nsha256: 0x0809013314e3b361dec16bb3df6aee71cd2acff7745ccb2fd8317ff1b0b61968\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent1/A03-LBY-app-export-tampered.json",
+      "sha256": "6f0aea61e056eff89c905836be25951b7acff3ccd6f79d7b3674b07a8eb05c14",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\n",
+      "stderr": "export_context_checksum: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A03-LBY-app-export-tampered.json",
+      "sha256": "6f0aea61e056eff89c905836be25951b7acff3ccd6f79d7b3674b07a8eb05c14",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\n",
+      "stderr": "export_context_checksum: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A05-CAN-app-export-original.json",
+      "sha256": "7b9629d31c5536e434b077928e57602dc61d3aa3e21bc6f15960cb8afa1a2cf8",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 9c571284-3a82-44fc-b43c-9951d2bfe40d\nrevision: 2\nsha256: 0x19b6c0970fe54a99a3325ca3025b4b4176e21621df4ab707674a9370d8b046dc\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent1/A05-CAN-app-export-original.json",
+      "sha256": "7b9629d31c5536e434b077928e57602dc61d3aa3e21bc6f15960cb8afa1a2cf8",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 9c571284-3a82-44fc-b43c-9951d2bfe40d\nrevision: 2\nsha256: 0x19b6c0970fe54a99a3325ca3025b4b4176e21621df4ab707674a9370d8b046dc\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent1/A05-CAN-app-export-tampered.json",
+      "sha256": "aadeeaf1b562dc4eb48b39d4613756e956d91751e47ef130d5ab2f0dd194cf42",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\n",
+      "stderr": "export_context_checksum: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A05-CAN-app-export-tampered.json",
+      "sha256": "aadeeaf1b562dc4eb48b39d4613756e956d91751e47ef130d5ab2f0dd194cf42",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\n",
+      "stderr": "export_context_checksum: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A05-LBY-manual-export-original.json",
+      "sha256": "50f16a5a46bf1817d7335f2337b27d0048098e95d87d57c3639b6baa70337380",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: a6424eea-c808-4428-a984-ca7cafab8996\nrevision: 1\nsha256: 0x2396b3116690a66eed7b07f5ae96bc63b65a7d8808a4cfb00d2a1056e3ed5ff5\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent1/A05-LBY-manual-export-original.json",
+      "sha256": "50f16a5a46bf1817d7335f2337b27d0048098e95d87d57c3639b6baa70337380",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\n",
+      "stderr": "export_context_checksum: REQUIRED\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A05-LBY-manual-export-tampered.json",
+      "sha256": "19223c9dea7f1d58bd6bacf290669037ebb0cb51a102d841ab2e2e8569129329",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent1/A05-LBY-manual-export-tampered.json",
+      "sha256": "19223c9dea7f1d58bd6bacf290669037ebb0cb51a102d841ab2e2e8569129329",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A02-CAN_S_002-original.json",
+      "sha256": "d1b4bd8a4806a18646588df828bcc6c7315b1b15ca949c8bcdd4ba2649cffe47",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 3e319dbd-5cc5-4749-bef3-f0c03f9c50df\nrevision: 1\nsha256: 0x073ba072e8ed4c2d1ff1731b65e82d61dd75aa5c068586674b66be68cd73a3ed\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent2/A02-CAN_S_002-original.json",
+      "sha256": "d1b4bd8a4806a18646588df828bcc6c7315b1b15ca949c8bcdd4ba2649cffe47",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\n",
+      "stderr": "export_context_checksum: REQUIRED\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A02-CAN_S_002-tampered.json",
+      "sha256": "3d8c425ad03b29d4cb0439366d95d65247000dd673877d826a48f012cbc8b5af",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A02-CAN_S_002-tampered.json",
+      "sha256": "3d8c425ad03b29d4cb0439366d95d65247000dd673877d826a48f012cbc8b5af",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A02-LBY_S_143-envelope-mutated.json",
+      "sha256": "fc4a0d899248117ec6e189253d6dccc3745da8c8ea4e39294e6f7c154e27a4cc",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\n",
+      "stderr": "export_context_checksum: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A02-LBY_S_143-envelope-mutated.json",
+      "sha256": "fc4a0d899248117ec6e189253d6dccc3745da8c8ea4e39294e6f7c154e27a4cc",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\n",
+      "stderr": "export_context_checksum: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A02-LBY_S_143-original.json",
+      "sha256": "ec405d8ba1bca3f5483945fdce9a7c05bc69c29026b6e92867b67a3e2f89f009",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: a3e12a6a-0de8-4768-b471-adfcf4a205ad\nrevision: 1\nsha256: 0x7cb8aa35cc398d7ae5d8cf8c54013b47eba95662810f3993446c547374c066e0\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent2/A02-LBY_S_143-original.json",
+      "sha256": "ec405d8ba1bca3f5483945fdce9a7c05bc69c29026b6e92867b67a3e2f89f009",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: a3e12a6a-0de8-4768-b471-adfcf4a205ad\nrevision: 1\nsha256: 0x7cb8aa35cc398d7ae5d8cf8c54013b47eba95662810f3993446c547374c066e0\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent2/A02-LBY_S_143-tampered.json",
+      "sha256": "97ac251112b8488a21e7480ffc0d39696e02ca09815892808c55e2b96fe36823",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A02-LBY_S_143-tampered.json",
+      "sha256": "97ac251112b8488a21e7480ffc0d39696e02ca09815892808c55e2b96fe36823",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A04-CAN_S_002-export-original.json",
+      "sha256": "f9606aa6d58e708139b06d7766aa016540028a5ec82d6a6619a6843d469e7821",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: c45771c8-40b0-4309-8cc0-d40ccb8b15da\nrevision: 1\nsha256: 0xc681747500f516d477859a40df15356a2b62fa7cffaf7ecabb568233e9e6d3cf\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent2/A04-CAN_S_002-export-original.json",
+      "sha256": "f9606aa6d58e708139b06d7766aa016540028a5ec82d6a6619a6843d469e7821",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: c45771c8-40b0-4309-8cc0-d40ccb8b15da\nrevision: 1\nsha256: 0xc681747500f516d477859a40df15356a2b62fa7cffaf7ecabb568233e9e6d3cf\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent2/A04-CAN_S_002-export-tampered.json",
+      "sha256": "44371bfdf67521b9d0037d9c5908d9419a01918594cb4abe762cdd91677e6abb",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A04-CAN_S_002-export-tampered.json",
+      "sha256": "44371bfdf67521b9d0037d9c5908d9419a01918594cb4abe762cdd91677e6abb",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A04-LBY_S_143-original.json",
+      "sha256": "50f16a5a46bf1817d7335f2337b27d0048098e95d87d57c3639b6baa70337380",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: a6424eea-c808-4428-a984-ca7cafab8996\nrevision: 1\nsha256: 0x2396b3116690a66eed7b07f5ae96bc63b65a7d8808a4cfb00d2a1056e3ed5ff5\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent2/A04-LBY_S_143-original.json",
+      "sha256": "50f16a5a46bf1817d7335f2337b27d0048098e95d87d57c3639b6baa70337380",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\n",
+      "stderr": "export_context_checksum: REQUIRED\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A04-LBY_S_143-tampered.json",
+      "sha256": "29f1057197ef1f9419276f91b2fe0383a589ca547fcde7cb3ec12c269522ff51",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A04-LBY_S_143-tampered.json",
+      "sha256": "29f1057197ef1f9419276f91b2fe0383a589ca547fcde7cb3ec12c269522ff51",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A06-CAN_S_002-manual-original.json",
+      "sha256": "d1b4bd8a4806a18646588df828bcc6c7315b1b15ca949c8bcdd4ba2649cffe47",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 3e319dbd-5cc5-4749-bef3-f0c03f9c50df\nrevision: 1\nsha256: 0x073ba072e8ed4c2d1ff1731b65e82d61dd75aa5c068586674b66be68cd73a3ed\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent2/A06-CAN_S_002-manual-original.json",
+      "sha256": "d1b4bd8a4806a18646588df828bcc6c7315b1b15ca949c8bcdd4ba2649cffe47",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: NOT_RECORDED\nWrapper fields are outside the audit bundle digest unless an export context checksum is recorded.\n",
+      "stderr": "export_context_checksum: REQUIRED\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A06-CAN_S_002-manual-tampered.json",
+      "sha256": "3d8c425ad03b29d4cb0439366d95d65247000dd673877d826a48f012cbc8b5af",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A06-CAN_S_002-manual-tampered.json",
+      "sha256": "3d8c425ad03b29d4cb0439366d95d65247000dd673877d826a48f012cbc8b5af",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A06-LBY_S_143-export-original.json",
+      "sha256": "b43ff4912082874602cd34758a658f815e63c09d033ecf698100e604ee7df9de",
+      "flags": [],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 25e21ce0-0f02-406b-91aa-98ac732595b1\nrevision: 1\nsha256: 0xd3506826f54422b91f0f71178d220fa3beee34c67ac010cd6f0bb9a4ac69b9f1\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent2/A06-LBY_S_143-export-original.json",
+      "sha256": "b43ff4912082874602cd34758a658f815e63c09d033ecf698100e604ee7df9de",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 0,
+      "exitCode": 0,
+      "matched": true,
+      "stdout": "bundle_hash: VALID\nexport_context_checksum: VALID\nThe export checksum is unsigned; it does not authenticate an issuer or physical truth.\ndocument_rights_metadata: NOT_RECORDED\naudit_id: 25e21ce0-0f02-406b-91aa-98ac732595b1\nrevision: 1\nsha256: 0xd3506826f54422b91f0f71178d220fa3beee34c67ac010cd6f0bb9a4ac69b9f1\nchain_receipt: ABSENT\n",
+      "stderr": ""
+    },
+    {
+      "path": "p5-artifacts/agent2/A06-LBY_S_143-export-tampered.json",
+      "sha256": "5834200e132f1508d58bcba5d860d6f9ea159ef2236a395b7c30671c75567254",
+      "flags": [],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    },
+    {
+      "path": "p5-artifacts/agent2/A06-LBY_S_143-export-tampered.json",
+      "sha256": "5834200e132f1508d58bcba5d860d6f9ea159ef2236a395b7c30671c75567254",
+      "flags": [
+        "--require-context"
+      ],
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "matched": true,
+      "stdout": "",
+      "stderr": "bundle_hash: INVALID\n"
+    }
+  ],
+  "scope": "Offline local replay, no chain or model provider. Strict mode requires export checksum; original manual raw audits intentionally fail strict mode."
+}

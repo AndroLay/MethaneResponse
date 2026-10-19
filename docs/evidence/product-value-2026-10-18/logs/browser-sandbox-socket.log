@@ -1,0 +1,60 @@
+$ bash scripts/run-e2e.sh "e2e/audit-workflow.spec.ts" --grep "scope presets and report verification"
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/e2e-runner-utils.test.ts:
+(pass) E2E runner environment > copies only explicitly allowlisted non-secret settings [0.14ms]
+(pass) E2E argument routing > runs only the matching phase when a workflow file is selected [0.31ms]
+(pass) E2E argument routing > keeps both workflow phases for unscoped or mixed selections [0.12ms]
+
+ 3 pass
+ 0 fail
+ 6 expect() calls
+Ran 3 tests across 1 file. [13.00ms]
+[WebServer] $ vite --host "127.0.0.1" --port "4179" --strictPort
+
+Running 1 test using 1 worker
+
+  ✘  1 [chromium] › e2e/audit-workflow.spec.ts:17:5 › scope presets and report verification work without a CLI on desktop and mobile (2ms)
+
+
+  1) [chromium] › e2e/audit-workflow.spec.ts:17:5 › scope presets and report verification work without a CLI on desktop and mobile 
+
+    Error: browserType.launch: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --enable-webgl --use-gl=angle --use-angle=swiftshader --user-data-dir=/dev/shm/playwright_chromiumdev_profile-bre3OX --remote-debugging-pipe --no-startup-window
+    <launched> pid=136
+    [pid=136][err] [136:136:1018/171402.168304:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/andro/.config/chromium/Crash Reports/settings.dat: Read-only file system (30)
+    [pid=136][err] [136:136:1018/171402.168407:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/andro/.config/chromium/Crash Reports/settings.dat: Read-only file system (30)
+    [pid=136][err] [136:136:1018/171402.212752:FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)
+    [pid=136][err] [1018/171402.213687:ERROR:third_party/crashpad/crashpad/util/linux/scoped_ptrace_attach.cc:27] ptrace: Operation not permitted (1)
+    Call log:
+      - <launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --enable-webgl --use-gl=angle --use-angle=swiftshader --user-data-dir=/dev/shm/playwright_chromiumdev_profile-bre3OX --remote-debugging-pipe --no-startup-window
+      - <launched> pid=136
+      - [pid=136][err] [136:136:1018/171402.168304:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/andro/.config/chromium/Crash Reports/settings.dat: Read-only file system (30)
+      - [pid=136][err] [136:136:1018/171402.168407:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/andro/.config/chromium/Crash Reports/settings.dat: Read-only file system (30)
+      - [pid=136][err] [136:136:1018/171402.212752:FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)
+      - [pid=136][err] [1018/171402.213687:ERROR:third_party/crashpad/crashpad/util/linux/scoped_ptrace_attach.cc:27] ptrace: Operation not permitted (1)
+      - [pid=136] <gracefully close start>
+      - [pid=136] <kill>
+      - [pid=136] <will force kill>
+      - [pid=136] <process did exit: exitCode=null, signal=SIGABRT>
+      - [pid=136] starting temporary directories cleanup
+      - [pid=136] finished temporary directories cleanup
+      - [pid=136] <gracefully close end>
+
+
+    Error Context: .playwright-cli/e2e-results/audit-workflow-scope-prese-166fd-a-CLI-on-desktop-and-mobile-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .playwright-cli/e2e-results/audit-workflow-scope-prese-166fd-a-CLI-on-desktop-and-mobile-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace .playwright-cli/e2e-results/audit-workflow-scope-prese-166fd-a-CLI-on-desktop-and-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › e2e/audit-workflow.spec.ts:17:5 › scope presets and report verification work without a CLI on desktop and mobile 
+error: "playwright" exited with code 1
+error: script "test:e2e" exited with code 1

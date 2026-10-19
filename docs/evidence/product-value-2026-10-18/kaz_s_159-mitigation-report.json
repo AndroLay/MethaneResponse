@@ -1,0 +1,172 @@
+{
+  "prototype": true,
+  "exportType": "audit_report",
+  "synthetic": false,
+  "product": "MethaneResponse",
+  "generatedAt": "2026-10-18T00:00:00Z",
+  "sourceDataset": {
+    "name": "Eye on Methane / MARS detected sources and plumes",
+    "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+    "snapshotId": "unep-mars-675417694883",
+    "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "inputFileSha256": null,
+    "loadedInputFileSha256": null,
+    "sourceUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+    "license": "CC BY-NC-SA 4.0",
+    "importedAt": "2026-10-14T06:10:12+00:00"
+  },
+  "selectedSourceId": "KAZ_S_159",
+  "sourceContextStatus": "bound_to_audit",
+  "observations": [],
+  "historicalContext": {
+    "kind": "historical_source_observations",
+    "relationship": "context_only_not_claim_evidence",
+    "datasetSnapshotId": "unep-mars-675417694883",
+    "observations": [
+      {
+        "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "date": "2024-06-07T08:05:04",
+        "fluxKgHr": 591,
+        "uncertaintyKgHr": 335,
+        "fluxUnit": "kg/h",
+        "satellite": "EnMAP - DLR",
+        "lat": 43.41337,
+        "lon": 52.91829,
+        "notified": false,
+        "actionable": "No",
+        "tile": "ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z",
+        "detectionInstitution": "UNEP IMEO MARS",
+        "quantificationInstitution": "UNEP IMEO MARS",
+        "totalEmissionTonnes": null,
+        "totalEmissionStdTonnes": null
+      },
+      {
+        "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "date": "2026-06-05T07:40:02",
+        "fluxKgHr": 307,
+        "uncertaintyKgHr": 66,
+        "fluxUnit": "kg/h",
+        "satellite": "EnMAP - DLR",
+        "lat": 43.41337,
+        "lon": 52.91829,
+        "notified": true,
+        "actionable": "Yes",
+        "tile": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z",
+        "detectionInstitution": "UNEP IMEO MARS",
+        "quantificationInstitution": "UNEP IMEO MARS",
+        "totalEmissionTonnes": null,
+        "totalEmissionStdTonnes": null
+      },
+      {
+        "id": "941806b5-2afe-46ac-baac-a0230880cede",
+        "date": "2026-07-11T08:12:14",
+        "fluxKgHr": 496,
+        "uncertaintyKgHr": 226,
+        "fluxUnit": "kg/h",
+        "satellite": "EnMAP - DLR",
+        "lat": 43.41337,
+        "lon": 52.91829,
+        "notified": true,
+        "actionable": "Yes",
+        "tile": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z",
+        "detectionInstitution": "UNEP IMEO MARS",
+        "quantificationInstitution": "UNEP IMEO MARS",
+        "totalEmissionTonnes": null,
+        "totalEmissionStdTonnes": null
+      }
+    ]
+  },
+  "unlinkedObservationCount": 0,
+  "externalEvidence": [
+    {
+      "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+      "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+      "publisher": "United Nations Environment Programme",
+      "reportDate": "2026-09-23",
+      "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+      "contentIncluded": false
+    }
+  ],
+  "claim": "mitigation_confirmed",
+  "latestAudit": {
+    "auditId": "953b3aa5-b288-4b6d-9c69-ba5d9c4ec7f5",
+    "caseId": "mars:unep-mars-675417694883:KAZ_S_159:scope:2caa763b0f3933dc0e9c527b",
+    "revision": 1,
+    "sourceId": "KAZ_S_159",
+    "claimType": "mitigation_confirmed",
+    "result": "insufficient_evidence",
+    "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+    "evidenceIds": [],
+    "bundleHash": "0xbbc0f6ead9b76810c5fc9d1646f6e754af184bd65d0737e3933dda81735b2d62",
+    "generatedAt": "2026-10-18T09:24:35.191Z",
+    "synthetic": false,
+    "bundle": {
+      "schemaVersion": 2,
+      "assessmentSemantics": {
+        "version": 1,
+        "basis": "metadata_coverage",
+        "physicalVerification": "not_established_by_application",
+        "referencePolicy": "scoped-reference-coverage-v2"
+      },
+      "scope": {
+        "startDate": "2024-06-07",
+        "endDate": "2026-10-14"
+      },
+      "auditId": "953b3aa5-b288-4b6d-9c69-ba5d9c4ec7f5",
+      "caseId": "mars:unep-mars-675417694883:KAZ_S_159:scope:2caa763b0f3933dc0e9c527b",
+      "revision": 1,
+      "generatedAt": "2026-10-18T09:24:35.191Z",
+      "sourceId": "KAZ_S_159",
+      "claimType": "mitigation_confirmed",
+      "result": "insufficient_evidence",
+      "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+      "citedEvidence": [],
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-09-23",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ],
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "catalogUrl": "https://methanedata.unep.org/download-dataset",
+        "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "snapshotId": "unep-mars-675417694883",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      },
+      "limitations": [
+        "This is a deterministic evidence-coverage baseline, not a scientific or legal certification.",
+        "A source-level notification or feedback record does not establish physical mitigation."
+      ],
+      "synthetic": false
+    },
+    "anchored": false
+  },
+  "disclaimer": "Historical UNEP observation snapshot; not live. Plume absence, notification, and feedback do not prove mitigation. This report records a versioned source dataset; a hash proves integrity, not physical repair.",
+  "sourceProvenance": {
+    "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+    "dataset": "Eye on Methane / MARS detected sources and plumes",
+    "catalogUrl": "https://methanedata.unep.org/download-dataset",
+    "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+    "retrievedAt": "2026-10-14T06:10:12+00:00",
+    "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "snapshotId": "unep-mars-675417694883",
+    "license": "CC BY-NC-SA 4.0",
+    "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+    "localFileName": "sources_plumes_csv.zip"
+  },
+  "exportIntegrity": {
+    "schemaVersion": 2,
+    "algorithm": "SHA-256",
+    "sha256": "0x2281a128b2390aef4b3a818690e6deebaf87c228843bc20a84a6bd501d34355e"
+  }
+}

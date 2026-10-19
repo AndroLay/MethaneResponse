@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "checkedDate": "2026-10-19",
+  "projectName": "MethaneResponse",
+  "elevatorPitch": "Trace methane claims to evidence. Explore historical satellite data, identify missing proof, and verify the integrity of investigation reports.",
+  "track": "Climate Data & Environmental Monitoring",
+  "projectStoryFile": "project-story.md",
+  "builtWith": ["React", "TypeScript", "Vite", "MapLibre GL JS", "Bun", "Hono", "Zod", "Python", "uv", "Solidity", "Foundry", "viem", "Ethereum", "SHA-256", "Playwright"],
+  "tryItOutLinks": [
+    {"label": "Source code", "url": "https://github.com/AndroLay/MethaneResponse", "status": "repository_address_from_project_not_latest_public_revision_verified"},
+    {"label": "Live prototype", "url": null, "status": "fill_after_deployment_and_public_workflow_verification"}
+  ],
+  "video": {
+    "url": null,
+    "status": "local_export_only_fill_with_uploaded_embeddable_video_URL",
+    "localPath": "delivery-output/story-v12/MethaneResponse-Final-Presentation-Demo-v12.mp4",
+    "sha256": "9b087b3b65f117937cb064e05a3af03030fa7ca80df8146d35efe00b067682b9",
+    "durationSeconds": 267.92
+  },
+  "uploadFile": "delivery-output/devpost-submission-2026-10-19/MethaneResponse-Devpost-Judging-Pack.zip",
+  "limitsFromProvidedForm": {
+    "elevatorPitchCharacters": 200,
+    "builtWithTags": 25,
+    "galleryImages": 15,
+    "galleryImageBytesConservative": 5000000,
+    "attachmentBytesConservative": 35000000,
+    "recommendedGalleryRatio": "3:2",
+    "projectNameCounterNote": "The form shows 44 characters left, not an independently confirmed total field limit. The selected name has 15 characters."
+  },
+  "externalSubmissionPerformed": false
+}

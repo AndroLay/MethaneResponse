@@ -5,6 +5,7 @@ import './styles.css';
 import './workspace.css';
 import './premium-redesign.css';
 import './asset-rights.css';
+import './investigation-tools.css';
 
 const App = lazy(() => import('./App'));
 const LandingPage = lazy(() => import('./LandingPage'));
@@ -32,4 +33,3 @@ createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}><SiteRouter /></QueryClientProvider>
   </React.StrictMode>,
 );
-

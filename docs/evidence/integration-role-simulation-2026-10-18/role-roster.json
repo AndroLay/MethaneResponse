@@ -1,0 +1,48 @@
+{
+  "coordination": "root; sole repository writer",
+  "agents": [
+    {
+      "task": "provider_roles",
+      "model": "gpt-6-luna",
+      "effort": "max",
+      "roles": [
+        "analyst",
+        "skeptical reviewer",
+        "provider adversary",
+        "anonymous visitor"
+      ],
+      "responsibility": "read-only scenario design and actual isolated TLS/API test execution; /tmp artifacts"
+    },
+    {
+      "task": "deployment_chain_roles",
+      "model": "gpt-6-luna",
+      "effort": "max",
+      "roles": [
+        "service operator",
+        "issuer",
+        "verifier"
+      ],
+      "responsibility": "read-only review and actual Anvil/casework/publication commands; /tmp artifacts"
+    },
+    {
+      "task": "p56_completion_review",
+      "model": "gpt-6-sol",
+      "effort": "high",
+      "roles": [
+        "engineering reviewer"
+      ],
+      "responsibility": "read-only critical review of fixtures/assertions, result attribution and evidence limits"
+    }
+  ],
+  "rootAdditionalChecks": [
+    "TypeScript",
+    "34 focused tests",
+    "production build and bundle gate",
+    "four HTTP production-preview checks"
+  ],
+  "limitations": [
+    "Role descriptions are authored task briefs, not human participant records.",
+    "The engineering reviewer role reviews test quality; not an independent domain or security audit.",
+    "The provider fixture deterministically simulates model replies; no external model inference is measured."
+  ]
+}

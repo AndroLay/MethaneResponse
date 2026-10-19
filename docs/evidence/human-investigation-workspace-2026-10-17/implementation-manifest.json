@@ -1,0 +1,178 @@
+{
+  "date": "2026-10-17",
+  "timezone": "Asia/Makassar",
+  "baselineCommit": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "binding": "Changed implementation and test files in the uncommitted working tree; not a complete repository attestation.",
+  "files": [
+    {
+      "path": "apps/api/src/app.ts",
+      "sha256": "972f46f404d1e004c77e6d3b37a81859d11b67a95ca590a2cc408ae46b69addd",
+      "bytes": 43802
+    },
+    {
+      "path": "apps/api/src/audit-visibility.ts",
+      "sha256": "0421856fe92a401fb264215e2e7a038cd4f3920e1760a6d4cf157e960cda8548",
+      "bytes": 272
+    },
+    {
+      "path": "apps/api/src/audit.ts",
+      "sha256": "b54f39592a6e89b0887c9d990ef82242d7bbe06e50e7b20403b619be4a53c0c8",
+      "bytes": 4664
+    },
+    {
+      "path": "apps/api/src/human-assessment-api.test.ts",
+      "sha256": "f0d06e0647d75b8618033a059f54e6b534909c74a2b548c5118862f2f8cbb13c",
+      "bytes": 7800
+    },
+    {
+      "path": "apps/api/src/human-assessment.ts",
+      "sha256": "d3977279a6ac51c5a4a13f042a45dccdc1c487c6c2cf309edfcdc50a90db35a6",
+      "bytes": 3964
+    },
+    {
+      "path": "apps/api/src/scoped-audit.test.ts",
+      "sha256": "cc0a3da3b57fba61a6e2e8b04c347530f20587f708dbb5e49f6498cd4562cc27",
+      "bytes": 6301
+    },
+    {
+      "path": "apps/api/src/scoped-source.ts",
+      "sha256": "96de7e825973c498278ec36280cd76946591a96d42340a7faa8956ff5e0c94e4",
+      "bytes": 3613
+    },
+    {
+      "path": "apps/api/src/store.ts",
+      "sha256": "bf6128f9d01dff9afca3a93a06d1ad5588ec8a8c3d2b54935e554e66c22d6657",
+      "bytes": 9049
+    },
+    {
+      "path": "apps/web/src/App.tsx",
+      "sha256": "ddb4e7376178ac386989f5642fa2bf1bdf288384130ee1c97cb586689b0fb9f0",
+      "bytes": 98327
+    },
+    {
+      "path": "apps/web/src/AssessmentScopeEditor.tsx",
+      "sha256": "6aaafa634bbec5d029aa17ae42ac76208fc2a7ce1affdb0faf32b6b299e3415c",
+      "bytes": 3432
+    },
+    {
+      "path": "apps/web/src/AuditHistoryPanel.tsx",
+      "sha256": "a5861b9fd3480b88a8ac6305d278bc6b5c03cfe353d6ac640c504197b1d93736",
+      "bytes": 5979
+    },
+    {
+      "path": "apps/web/src/AuditRevisionComparison.tsx",
+      "sha256": "1a25c162b5f9e18b82503cb80b8328de8a02e1a9d79589c1374de2a701588e98",
+      "bytes": 5987
+    },
+    {
+      "path": "apps/web/src/CaseWorkPanel.tsx",
+      "sha256": "cb6dc3968098fd2bf4175d409455d5790d565c4b0bec274eaef5c5b9b971512f",
+      "bytes": 3808
+    },
+    {
+      "path": "apps/web/src/CasesWorkspace.tsx",
+      "sha256": "c0c7288b6abc78e177d30ca872167dd4568aeedc964e738e2f861c0b774fe5dd",
+      "bytes": 18127
+    },
+    {
+      "path": "apps/web/src/EvidenceAuditorWorkflow.tsx",
+      "sha256": "be144451b18ff54f781d2d3f9438ef00349012852e154cd823188521dc0eb69a",
+      "bytes": 16160
+    },
+    {
+      "path": "apps/web/src/EvidenceCoveragePanel.tsx",
+      "sha256": "8fce40e14942fc368db496debc46ab78b6ffa04ede1aedf39b9e4779bdbf9829",
+      "bytes": 3089
+    },
+    {
+      "path": "apps/web/src/HumanAssessmentPanel.tsx",
+      "sha256": "f8ee8a33d6fb1cda5c2275fa001db44412b81a0db75df67cf26c2182b778e0dd",
+      "bytes": 9983
+    },
+    {
+      "path": "apps/web/src/assessment-scope.test.ts",
+      "sha256": "629679f586e66865687cfb58f94506968f84e842b0f9bfa67501f7bea5ca3e07",
+      "bytes": 610
+    },
+    {
+      "path": "apps/web/src/audit-comparison.test.ts",
+      "sha256": "9afa77bcf31145d927d3cff3b9820c97bc1ec11c61e4331ab7240bf7ecabc3a0",
+      "bytes": 4541
+    },
+    {
+      "path": "apps/web/src/audit-comparison.ts",
+      "sha256": "a5044dbc489bbd2274ac7ec1f80dddec6bccb3418bba39d32fb07e31435ef986",
+      "bytes": 5855
+    },
+    {
+      "path": "apps/web/src/audit-history.ts",
+      "sha256": "3b624f184d1fedcfc5398dbeada6025b46aa7d5a7539ea2b7c89cd332a46e5f8",
+      "bytes": 1583
+    },
+    {
+      "path": "apps/web/src/case-work.test.ts",
+      "sha256": "47d57a87bb03a685b7d3ded758fe19e983ef7284e34c36c90f90d38c21f50a2c",
+      "bytes": 3001
+    },
+    {
+      "path": "apps/web/src/case-work.ts",
+      "sha256": "9f9fbcd4b6d563df7cb7ce367a22377c5ec5c4c85f7606a8fcd85b5a322fe5bb",
+      "bytes": 3197
+    },
+    {
+      "path": "apps/web/src/human-report.test.ts",
+      "sha256": "4ccec81e199d7ed3cd145adff53c66bf7619de9bcfdc9fba684247e8799fd89f",
+      "bytes": 3862
+    },
+    {
+      "path": "apps/web/src/imported-audit-verifier.ts",
+      "sha256": "42cdb262573e278d432206c12bcaaef23a41897d9ca8978e97c0edd1d2e8278a",
+      "bytes": 12558
+    },
+    {
+      "path": "apps/web/src/investigation-brief.test.ts",
+      "sha256": "ff4c34870d090775906760cfd5d9d69817c735fe64d4ac3df05fa2f8fd0c4ce3",
+      "bytes": 6911
+    },
+    {
+      "path": "apps/web/src/investigation-brief.ts",
+      "sha256": "9c800180cb74c452a27cc1315b2b94ece81629a2e4da4426ef4ce6e417494127",
+      "bytes": 8881
+    },
+    {
+      "path": "apps/web/src/investigation-plan.test.ts",
+      "sha256": "5b34c88a740275739e530a56807e6d18647b1d12c10f3d5d8b294fff1e15c798",
+      "bytes": 5218
+    },
+    {
+      "path": "apps/web/src/investigation-plan.ts",
+      "sha256": "8482b3795ae665fea499961cacb5e8fb1025419b9ed769c1ffed60589d529a9c",
+      "bytes": 9106
+    },
+    {
+      "path": "apps/web/src/investigation-tools.css",
+      "sha256": "b152ea5f0dd4e54f7dacffc8d59fdc54428c588253dd8a55e5a158fa920c2d15",
+      "bytes": 9388
+    },
+    {
+      "path": "apps/web/src/main.tsx",
+      "sha256": "5fb3d31b279c3b1b9294ab052e3746b67e957423267fd6202dfc28fb1a1cb48b",
+      "bytes": 1576
+    },
+    {
+      "path": "e2e/ai-review-workflow.spec.ts",
+      "sha256": "ab58f0eb20c9cc37129364e32aa299649b7b9c27d7714af7ceb7f44ebbe3d051",
+      "bytes": 23552
+    },
+    {
+      "path": "e2e/audit-workflow.spec.ts",
+      "sha256": "dad5665ba9a4c479857f82f44115b60abf11b8e8a85fff523a75e64c74f48d69",
+      "bytes": 34125
+    },
+    {
+      "path": "packages/shared/src/index.ts",
+      "sha256": "b24d8129b5b560614b7ff7dfd97d9868da96159bfcc05c7e24d85fa7486a6941",
+      "bytes": 14965
+    }
+  ]
+}

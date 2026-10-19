@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "referenceKind": "authored_record_oracle_not_human_gold",
+  "claimCount": 72,
+  "sourceCount": 12,
+  "referenceLabels": {
+    "supported": 24,
+    "contradicted": 24,
+    "insufficient_evidence": 24
+  },
+  "confusionMatrix": {
+    "supported": {
+      "supported": 24,
+      "contradicted": 0,
+      "insufficient_evidence": 0,
+      "failure": 0
+    },
+    "contradicted": {
+      "supported": 0,
+      "contradicted": 24,
+      "insufficient_evidence": 0,
+      "failure": 0
+    },
+    "insufficient_evidence": {
+      "supported": 0,
+      "contradicted": 0,
+      "insufficient_evidence": 24,
+      "failure": 0
+    }
+  },
+  "perClass": {
+    "supported": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 24
+    },
+    "contradicted": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 24
+    },
+    "insufficient_evidence": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 24
+    }
+  },
+  "accuracy": 1.0,
+  "macroF1": 1.0,
+  "falseSupportedCount": 0,
+  "assessmentAbstentionCount": 24,
+  "failedOrMissingVerdictCount": 0,
+  "pairedAccuracyGain": {
+    "mean": 0,
+    "ci95": [
+      0,
+      0
+    ],
+    "bootstrapReplicates": 400,
+    "seed": 20261018,
+    "unit": "source"
+  },
+  "benefitDecision": "no_demonstrated_gain",
+  "humanResearchGatePassed": false,
+  "providerBenchmarkCompleted": false,
+  "activationEligible": false,
+  "limitations": [
+    "Authored record probes and a template-aware comparator; not naturally occurring third-party claims.",
+    "Reference labels come from explicit record comparisons, not independent human adjudication.",
+    "Agent calls are not the configured application's provider or its two-pass inference path."
+  ]
+}

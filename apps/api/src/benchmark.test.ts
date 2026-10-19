@@ -29,7 +29,11 @@ describe('reviewed baseline benchmark conformance', () => {
       expect(source).toBeDefined();
       const caseId = source && 'caseId' in source ? source.caseId : undefined;
       if (row.caseId) expect(caseId).toBe(row.caseId);
-      const result = assess(source!, row.claimType);
+      // Fixture conformance, not human-labelled scientific accuracy. Gold labels stay pinned;
+      // synthetic notice/action fixtures now declare the period and recipient explicitly.
+      const result = assess(source!, row.claimType, row.synthetic
+        ? { startDate: '2026-08-01', endDate: '2026-09-30', recipient: 'DEMO facility operator' }
+        : undefined);
       expect(result.result).toBe(row.expected);
       if (result.result === 'supported') expect(result.evidenceIds.length).toBeGreaterThan(0);
       if (!row.synthetic && row.claimType === 'mitigation_confirmed') {

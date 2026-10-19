@@ -1,0 +1,54 @@
+{
+  "auditId": "a6424eea-c808-4428-a984-ca7cafab8996",
+  "caseId": "LBY_S_143",
+  "revision": 1,
+  "sourceId": "LBY_S_143",
+  "claimType": "mitigation_confirmed",
+  "result": "insufficient_evidence",
+  "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+  "evidenceIds": [],
+  "bundleHash": "0x2396b3116690a66eed7b07f5ae96bc63b65a7d8808a4cfb00d2a1056e3ed5ff5",
+  "generatedAt": "2026-10-18T06:32:25.957Z",
+  "synthetic": false,
+  "bundle": {
+    "schemaVersion": 2,
+    "assessmentSemantics": {
+      "version": 1,
+      "basis": "metadata_coverage",
+      "physicalVerification": "not_established_by_application",
+      "referencePolicy": "scoped-reference-coverage-v2"
+    },
+    "scope": {
+      "startDate": "2025-12-23",
+      "endDate": "2026-04-30"
+    },
+    "auditId": "a6424eea-c808-4428-a984-ca7cafab8996",
+    "caseId": "LBY_S_143",
+    "revision": 1,
+    "generatedAt": "2026-10-18T06:32:25.957Z",
+    "sourceId": "LBY_S_143",
+    "claimType": "mitigation_confirmed",
+    "result": "confirmed_mitigation",
+    "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+    "citedEvidence": [],
+    "externalEvidence": [],
+    "provenance": {
+      "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+      "dataset": "Eye on Methane / MARS detected sources and plumes",
+      "catalogUrl": "https://methanedata.unep.org/download-dataset",
+      "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+      "retrievedAt": "2026-10-14T06:10:12+00:00",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "snapshotId": "unep-mars-675417694883",
+      "license": "CC BY-NC-SA 4.0",
+      "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+      "localFileName": "sources_plumes_csv.zip"
+    },
+    "limitations": [
+      "This is a deterministic evidence-coverage baseline, not a scientific or legal certification.",
+      "A source-level notification or feedback record does not establish physical mitigation."
+    ],
+    "synthetic": false
+  },
+  "anchored": false
+}

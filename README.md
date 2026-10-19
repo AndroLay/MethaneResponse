@@ -1,219 +1,128 @@
 # MethaneResponse
 
-**Independent evidence audits for historical methane observations.**
+**Menelusuri bukti di balik klaim tentang sumber metana, respons, dan mitigasi.**
 
-MethaneResponse helps researchers, auditors, and public-interest analysts inspect whether a claim about a methane source or its mitigation is supported by traceable evidence. It brings historical UNEP MARS records, source-linked documents, deterministic claim checks, human review, and verifiable audit history into one workflow.
+MethaneResponse membantu peneliti, auditor, dan analis memeriksa data historis UNEP MARS, membatasi klaim pada kejadian atau periode tertentu, mencatat penilaian, lalu membagikan hasil dengan batas bukti yang jelas.
 
-[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![MapLibre](https://img.shields.io/badge/MapLibre-GL-396CB2)](https://maplibre.org/)
-[![Bun](https://img.shields.io/badge/Bun-runtime-000000?logo=bun&logoColor=white)](https://bun.sh/)
-[![Hono](https://img.shields.io/badge/Hono-API-E36002)](https://hono.dev/)
-[![Python](https://img.shields.io/badge/Python-data_pipeline-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Solidity](https://img.shields.io/badge/Solidity-verifier-363636?logo=solidity&logoColor=white)](https://soliditylang.org/)
-[![License](https://img.shields.io/badge/Code-MIT-2f855a)](LICENSE)
+**Status:** proof of concept lokal untuk IEEE ClimateChain 2026. Web dan API memakai snapshot historis serta file JSON lokal. AI bersifat opsional. Write blockchain melalui API tersedia dengan opt-in server dan intent durabel. Pemulihan sudah diuji pada Anvil lokal; receipt Sepolia publik belum tersedia. Rincian kemampuan dan bukti terakhir ada di [status implementasi](docs/release/current-implementation-status.md).
 
-**IEEE ClimateChain 2026 · Climate Data & Environmental Monitoring · Local MVP / proof of concept**
+[P5/P6 melalui agent selesai](docs/evidence/p5-p6-agent-completion-2026-10-18/README.md): 48 tugas manual/app oleh dua agent dalam enam sesi berulang, 72 klaim test/12 sumber dinilai dua konteks agent, perbaikan CLI serta 708 tes lokal lulus. Hasil tidak menunjukkan manfaat AI dibanding rules pada challenge ini. Pilot manusia dan benchmark provider independen belum terpenuhi; P4 menunggu review sesuai arahan pengguna.
 
-> The web app and Bun/Hono API run locally with real historical data and a working audit flow. MARS snapshots and audit history use versioned local files; database services and adapters are outside the prototype scope. AI and Sepolia remain optional and are not live-configured in this workspace.
+## Mulai memahami repo
 
-[Product workflow](docs/product/user-workflow.md) · [Quick start](#quick-start) · [Architecture](#architecture) · [Evidence and limits](#what-is-implemented) · [Verification](#verification) · [Documentation map](docs/README.md) · [Competition notes](docs/release/event-requirements.md)
+| Kebutuhan | Baca |
+|---|---|
+| Memahami seluruh repo secara berurutan | [Pusat dokumentasi](docs/README.md) |
+| Menemukan folder dan file yang perlu diubah | [Peta repository](docs/repository-map.md) |
+| Memahami komponen dan hubungan antarlayanan | [Arsitektur](docs/architecture/overview.md) |
+| Mengikuti perjalanan pengguna | [Alur penggunaan](docs/product/user-workflow.md) |
+| Menjalankan aplikasi dan mengatur opsi | [Setup lokal](docs/development/local-setup.md) · [Konfigurasi](docs/development/configuration.md) |
+| Memahami istilah | [Glosarium](docs/glossary.md) |
 
-## Why MethaneResponse
+## Masalah dan alur produk
 
-UNEP's Methane Alert and Response System (MARS) already detects and reports major methane sources and tracks response metadata. MethaneResponse does not recreate that detection service. It addresses the next question: **can another person inspect the evidence behind a claim about a source, a response, or mitigation?**
+Deteksi satelit dapat mendukung klaim adanya observasi metana. Pemeriksaan penerimaan notifikasi, tindakan operator, dan mitigasi membutuhkan bukti yang berbeda. MethaneResponse menyediakan alur untuk memeriksa perbedaan tersebut.
 
-Satellite observations can support a detection claim. They do not, by themselves, prove that an operator received a notification or that equipment was repaired. MethaneResponse keeps those distinctions visible and returns *insufficient evidence* when the records do not support a stronger conclusion.
+```mermaid
+flowchart LR
+  A[Pilih sumber historis] --> B[Tinjau observasi]
+  B --> C[Tentukan klaim dan scope]
+  C --> D[Periksa cakupan bukti]
+  D --> E[Catat penilaian manusia]
+  E --> F[Bandingkan revisi dan ekspor laporan]
+  F --> G[Ringkasan publik dengan persetujuan]
+```
 
-## What users can do
+Pengguna dapat:
 
-### Explore historical sources
+- Menjelajahi sumber dan plume di **Map Explorer**, **Cases**, serta **MARS Indicators**.
+- Memilih prioritas investigasi dari ringkasan historis dan aturan yang dapat dijelaskan.
+- Menjalankan rules baseline untuk klaim deteksi, notifikasi, atau mitigasi.
+- Menyimpan penilaian manusia privat tanpa AI, dengan referensi, alasan, scope, dan permintaan bukti lanjutan.
+- Melanjutkan beberapa investigasi melalui catatan browser atau [workspace tim](docs/development/shared-casework.md): assignee, due date, konflik revisi, riwayat serta pemulihan draft per tab.
+- Memeriksa asal/digest referensi penerbit secara opsional, status otorisasi reviewer, serta konflik yang dideklarasikan.
+- Memeriksa checksum laporan JSON dan ringkasan publik yang telah disetujui. Markdown brief tersedia untuk dibaca atau diimpor ke dokumen/Notion.
 
-Browse the versioned MARS snapshot on a MapLibre map, filter source records, inspect dated plume observations, and review the data provenance. The map is a historical data view, not a live methane sensor or a concentration surface.
-
-### Compare official MARS releases
-
-Open **MARS Indicators** to browse nine monthly Top 50 source lists and eight country response-rate reporting periods, inspect exact flux units and feedback numerator/denominator, compare list membership over time, and jump to an exactly matched source in Map Explorer. The data and manifest are loaded only when that workspace opens. The Top 50 file has no explicit rank field, so the app does not infer rank changes from CSV row order. The September 2026 mitigation report is linked from UNEP as a publisher source; its CC BY-NC-ND report content is not copied into this project.
-
-### Prioritize what to investigate
-
-Review recurrence, temporal patterns, anomaly screens, and an explainable investigation-priority heuristic. The recurrence analysis estimates another linked MARS archive record; it is not a calibrated probability of future leakage or a measurement of future emissions.
-
-### Audit a specific claim
-
-Run a deterministic evidence-coverage baseline against one typed claim. Each finding carries its source, snapshot, and available citation data. Missing follow-up observations are not treated as zero emissions, and `feedback` metadata alone never confirms repair.
-
-### Review documents with safeguards
-
-Import a hashed PDF/TXT excerpt manifest and, when a server-side provider is configured, request a document-grounded assessment. Exact quotations are validated against submitted excerpts. AI remains optional, can abstain, and is a suggestion for a separate authorized human review—not proof of physical mitigation.
-
-### Preserve and verify audit history
-
-Save immutable audit revisions, export a versioned JSON report, and verify its canonical SHA-256 locally. The Solidity registry and receipt verifier remain in the repository, but API anchoring and reconciliation are disabled with the local file store. A chain receipt, when independently supplied and verified, proves integrity and version chronology, not physical truth.
-
-## Browser evidence
-
-These are real Chromium captures from an isolated local UAT on 14 October 2026, using the historical MARS snapshot. They document observed product behavior; they are not generated mockups or evidence of a cloud deployment, live AI, or on-chain transaction.
-
-<table>
-  <tr>
-    <td align="center" valign="top" width="33%"><strong>Explore a source</strong><br><a href="docs/evidence/live-local-uat-2026-10-14/01-map-explorer-kaz-s-159.png"><img src="docs/evidence/live-local-uat-2026-10-14/01-map-explorer-kaz-s-159.png" width="300" alt="MethaneResponse Map Explorer with a selected historical MARS source"></a><p>Historical source marker, snapshot context, and location imagery.</p></td>
-    <td align="center" valign="top" width="33%"><strong>Inspect observations</strong><br><a href="docs/evidence/live-local-uat-2026-10-14/03-case-observation-history.png"><img src="docs/evidence/live-local-uat-2026-10-14/03-case-observation-history.png" width="300" alt="Dated methane observations and uncertainty for a selected MARS source"></a><p>Dated overpasses with reported flux and uncertainty, not a continuous series.</p></td>
-    <td align="center" valign="top" width="33%"><strong>Verify an audit digest</strong><br><a href="docs/evidence/live-local-uat-2026-10-14/05-integrity-after-api-restart.png"><img src="docs/evidence/live-local-uat-2026-10-14/05-integrity-after-api-restart.png" width="300" alt="Local audit history and SHA-256 integrity verification"></a><p>Local audit survived an API process restart using the same file store.</p></td>
-  </tr>
-</table>
-
-The full procedures, screenshots, hashes, and exact test conditions are in [local browser UAT evidence](docs/evidence/live-local-uat-2026-10-14/README.md) and [the deterministic audit demo record](docs/evidence/demo-workflow-2026-10-14/README.md). The current working tree may include UI changes made after these dated captures.
+Document AI tersedia sebagai jalur opsional pada tingkat sumber. Hasil model memerlukan pemeriksaan kutipan dan peninjauan manusia; kualitas model eksternal belum diukur secara independen.
 
 ## Quick start
 
-### Requirements
-
-- Bun **1.4.2** (pinned in `.bun-version`) for the web app and API.
-- Python 3.11+ and `uv` for data-pipeline commands.
-- Foundry for Solidity contract tests.
-
-The bundled historical data snapshot is sufficient to run the web app and API; a new download or cloud account is not needed for the basic workflow.
+Gunakan **Bun 1.4.2** sesuai [.bun-version](.bun-version). Snapshot bawaan cukup untuk alur dasar; Python/`uv` diperlukan untuk pipeline, Foundry untuk kontrak.
 
 ```bash
-git clone https://github.com/AndroLay/MethaneResponse.git
-cd MethaneResponse
 bun install --frozen-lockfile
 ```
 
-Start the API in one terminal:
+Terminal pertama:
 
 ```bash
 bun run dev:api
 ```
 
-Start the web app in another terminal:
+Terminal kedua:
 
 ```bash
 bun run dev:web
 ```
 
-Open <http://localhost:5173>. The web app proxies `/api` to <http://localhost:3001>. Check the API state at <http://localhost:3001/api/health>.
+Buka <http://localhost:5173>. Vite meneruskan `/api` ke port `3001`; health API tersedia di <http://localhost:3001/api/health>. Baseline lokal tidak memerlukan `.env`. Panduan lengkap ada di [setup lokal](docs/development/local-setup.md).
 
-No `.env` file is required for the local baseline flow. If you want to configure local options, copy `.env.example` to `apps/api/.env` only when that file does not already exist. Secrets belong in the API environment; never put them in `apps/web` or a `VITE_*` variable.
+Untuk mencoba: buka [sumber KAZ_S_159](http://localhost:5173/dashboard/map?sourceId=KAZ_S_159), periksa observasinya, lalu jalankan rules baseline untuk klaim mitigasi di Evidence Auditor. Dengan bukti bawaan, hasilnya `insufficient_evidence`. Ekspor JSON, lalu verifikasi di Verification Center atau:
 
-### Follow a real-source demo path
+```bash
+bun run verify:audit path/to/report.json --require-context
+```
 
-1. Open [Map Explorer for `KAZ_S_159`](http://localhost:5173/dashboard/map?sourceId=KAZ_S_159).
-2. Inspect its source metadata, dated observations, reported flux, uncertainty, and snapshot provenance.
-3. Choose **Review evidence** and run the deterministic baseline for a mitigation claim. With the bundled records, the correct result is `insufficient_evidence`.
-4. Export the audit JSON and verify its digest in the Verification Center or with `bun run verify:audit <report.json>`.
-
-This flow uses a real historical source and a working local API. It does not call an AI provider, submit a report to blockchain, or establish whether a physical repair occurred.
-
-## What is implemented
-
-| Capability | Local status | What the evidence establishes |
-|---|---|---|
-| Historical MARS explorer and case table | Available | Browser snapshot, provenance, source/plume records, filters, and dated observation details |
-| Hono API and deterministic audit baseline | Available | API routes, typed claims, provenance-linked results, and abstention for unsupported claims |
-| Audit history | Available locally | Atomic JSON persistence and survival across an API process restart when the same file remains available |
-| Document-grounded AI path | Optional; provider not configured | Source code and mock-provider browser tests exist; no live provider quality or independent AI score is claimed |
-| Human review | Conditional | Authenticated, scoped reviewer flow exists; identity and a real reviewer session have not been validated in a deployed service |
-| Audit digest verification | Available locally | Canonical bundle digest can be checked locally; changing the bundle is detected |
-| Blockchain integrity | Local digest verification available | The contract and verifier remain in the repo; API anchoring/reconciliation is disabled with the local file store, and no live transaction exists |
-| User or climate impact | Not established | No user pilot, measured time savings, verified repair outcome, or emissions reduction attributable to this product |
-
-Audit history is written to an atomic local JSON file. It supports the single-process prototype workflow; a hosted preview may lose that file when its ephemeral filesystem is reset. See the [prototype scope decision](docs/architecture/decisions/2026-10-15-local-prototype-no-database.md).
+`--require-context` mewajibkan checksum konteks export. Untuk raw audit legacy tanpa checksum export, gunakan tanpa flag; CLI menyatakan batas konteksnya. Checksum tidak ditandatangani dan tidak mengautentikasi issuer atau fakta fisik.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-  MARS[Archived UNEP MARS data] --> PIPE[Python ingest, validate, hash]
-  PIPE --> SNAP[Versioned browser and analysis snapshots]
-  SNAP --> WEB[React, TypeScript, MapLibre]
-  WEB --> API[Bun, Hono, Zod API]
-  API --> RULES[Deterministic evidence baseline]
-  API --> STORE[Atomic JSON for local runs]
-  API -. optional, consent-gated .-> AI[Server-side document assessment]
-  AI --> REVIEW[Authenticated human review]
-  API --> HASH[Canonical audit bundle and SHA-256]
-  HASH --> VERIFY[Local browser and CLI verifier]
-  CONTRACT[EvidenceRegistry contract] -. external receipt can be checked .-> VERIFY
+  RAW[Arsip UNEP MARS] --> PIPE[Pipeline Python offline]
+  PIPE --> DATA[Snapshot dan manifest versi tetap]
+  DATA --> WEB[React / Vite / MapLibre]
+  DATA --> API[Bun / Hono / Zod]
+  WEB --> API
+  API --> RULES[Rules dan penilaian manusia]
+  API --> STORE[Riwayat audit JSON lokal]
+  API --> TEAM[Investigasi tim privat / CAS history]
+  API -. opsional .-> AI[Provider document AI]
+  STORE --> EXPORT[Laporan dan ringkasan dengan checksum]
 ```
 
-| Layer | Technology | Responsibility |
-|---|---|---|
-| Web | React, Vite, TypeScript, MapLibre | Historical data exploration, case review, audit workflow, report verifier |
-| API | Bun, Hono, Zod | Source/case APIs, deterministic claims, audit revisions, optional review and chain endpoints |
-| Local storage | Atomic JSON files | Versioned MARS snapshots and single-process audit history for the prototype |
-| Data pipeline | Python, `uv` | Reproducible import, normalization, source-history analysis, and evaluation |
-| Contract | Solidity, Foundry, viem | Evidence hash registry and receipt verification |
+| Folder | Tanggung jawab |
+|---|---|
+| [apps/web](apps/web/) | Antarmuka, peta, investigasi, laporan dan verifier browser |
+| [apps/api](apps/api/) | Validasi, baseline, penilaian/review, privasi dan file audit |
+| [packages/shared](packages/shared/) | Skema, tipe, aturan cakupan bukti dan fixture DEMO |
+| [services/data-pipeline](services/data-pipeline/) | Import, normalisasi, analisis dan evaluasi offline |
+| [data](data/) | Provenance, arsip, data turunan, fixture dan state lokal |
+| [contracts](contracts/) | EvidenceRegistry Solidity dan tes Foundry |
+| [scripts](scripts/) · [e2e](e2e/) | Alat verifikasi, persiapan bukti dan perjalanan browser |
+| [docs](docs/README.md) | Panduan aktif, keputusan, riset dan bukti bertanggal |
 
-Database services, migrations, and cloud persistence are intentionally excluded from the current prototype scope. No Supabase project or database setup is part of the workflow.
+API berjalan sebagai satu proses dengan file audit atomik dan file casework tim terpisah. Launcher memerlukan Linux `flock`; backup/restore memakai lock yang sama. [ADR P1](docs/architecture/decisions/2026-10-17-shared-casework-single-writer.md) mencatat batas kolaborasi lokal. PostgreSQL, PostGIS, Supabase, dan migrasi database telah dikeluarkan dari scope melalui [keputusan arsitektur](docs/architecture/decisions/2026-10-15-local-prototype-no-database.md).
 
-## Data integrity and scientific limits
+## Data dan batas interpretasi
 
-The bundled active browser snapshot is `unep-mars-675417694883`, retrieved from the UNEP archive on 14 October 2026 and checked against the upstream archive metadata on 15 October. It contains **4,218 source rows and 30,414 plume rows**, with observation dates from **29 October 2020 through 13 September 2026 UTC**. The snapshot is historical and does not refresh itself.
+Snapshot aktif `unep-mars-675417694883` berisi **4.218 source rows dan 30.414 plume rows**, dengan observasi **29 Oktober 2020–13 September 2026 UTC**. Data diunduh pada 14 Oktober 2026; pemeriksaan metadata upstream terakhir yang dicatat bertanggal 15 Oktober. Casebook empat sumber merupakan subset dengan konteks referensi. Fixture sintetis tetap diberi label **DEMO**. Lihat [provenance](data/real/README.md) dan [panduan data](docs/product/data-and-claims.md).
 
-- Original source/plume identifiers, observation dates, coordinates, reported units, uncertainty fields, and archive provenance are retained where published.
-- Unlinked plume records remain unresolved; missing flux and missing later observations are not converted to zero.
-- Source `notified` and `feedback` fields are publisher metadata. They do not prove receipt, repair, or reduced emissions.
-- Map imagery provides geographic context; it is not the satellite methane observation for a given overpass.
-- The active four-source audit casebook is a curated excerpt, not a complete independent audit of four facilities. External report links are metadata only unless exact source text and rights are separately supplied.
-- The dataset is distributed under **CC BY-NC-SA 4.0**. Some linked reports have separate terms; map tiles, bundled interface assets, and third-party material have separate rights. Read [`NOTICE`](NOTICE) and [snapshot provenance](data/real/README.md).
-
-## Optional services
-
-| Service | Configuration | Safeguard |
-|---|---|---|
-| AI provider | `AI_BASE_URL`, `AI_API_KEY`, and `AI_MODEL` on the API | Never expose credentials to the browser. Requires rights-cleared excerpts and explicit submission consent. Provider calls may incur cost. |
-| Reviewer authentication | `REVIEWER_AUTH_SECRET` and scoped reviewer credentials | Keep review/read/anchor scopes separate and short-lived. |
-| Sepolia receipt verification | RPC URL and registry address | Report anchoring/reconciliation is disabled in this file-store prototype; no transaction is sent. |
-
-See [`.env.example`](.env.example) for optional local settings and [deployment documentation](docs/release/deployment.md) for the prototype's file-storage behavior.
+- Snapshot merupakan arsip historis; pembaruan tidak berlangsung otomatis.
+- `notified` dan `feedback` adalah metadata penerbit. Keduanya tidak membuktikan penerimaan, perbaikan, atau pengurangan emisi.
+- Ketiadaan observasi lanjutan tidak berarti emisi nol. Estimasi recurrence membahas record MARS berikutnya, bukan kebocoran fisik masa depan.
+- Penilaian manusia adalah keputusan reviewer yang tercatat. Pemeriksaan URL/digest dan direktori reviewer memiliki [batas kepercayaan tersendiri](docs/product/trust-and-transparency.md).
+- Checksum mendeteksi perubahan isi. Receipt blockchain membuktikan komitmen integritas dan kronologi; keduanya tidak mengesahkan kebenaran fisik.
+- Catatan browser tidak dibagikan atau dicadangkan otomatis. Workspace tim memakai satu proses API dengan otorisasi dan histori; filesystem hosting sementara dapat hilang.
 
 ## Verification
 
-| Command | Checks |
-|---|---|
-| `bun run check` | API, web, and E2E TypeScript checks |
-| `bun run test:api` | Hono routes, baseline, local file persistence, review, and verifier behavior |
-| `bun run test:web` | Browser-facing component and workflow logic |
-| `bun run test:verifier` | Report integrity, map-performance helpers, and deployment/configuration guards |
-| `bun run test:e2e` | Local browser journeys with isolated services; AI uses a deterministic mock provider in its test workflow |
-| `bun run test:data` | Python ingestion, intelligence, and evaluation tests; requires `uv` |
-| `bun run test:contracts` | Foundry tests for the EvidenceRegistry contract |
-| `bun run build:web` | Production web bundle |
+Perintah, cakupan, dan prasyarat lengkap tersedia di [panduan pengujian](docs/testing/README.md). Mulai dari `bun run check`, `bun run test:api`, dan `bun run test:web` sesuai perubahan. Gunakan `bun run test:e2e` untuk perjalanan browser terisolasi; `bun run check:all` untuk gate lokal lintas subsistem.
 
-The dated [15 October execution checkpoint](docs/history/execution-checkpoint-2026-10-15.md) and [evidence index](docs/evidence/README.md) record exact commands, revisions, results, and limitations. A passing local suite is not evidence of live provider quality, cloud durability, Sepolia activity, user benefit, or emissions impact.
+[Bukti P1 17 Oktober](docs/evidence/shared-casework-2026-10-17/README.md) mencatat pemeriksaan pengembangan terakhir. Bukti bertanggal terikat pada file/revisi saat pemeriksaan dijalankan. Run mencakup konflik dua sesi, crash/restart, backup/restore dan regresi akses; batas remote tetap dinyatakan terpisah.
 
-## Repository map
+## Kompetisi, demo, dan lisensi
 
-| Path | Responsibility |
-|---|---|
-| `apps/web` | React workspaces, MapLibre explorer, case and audit UI |
-| `apps/api` | Hono API, evidence baseline, audit store, optional AI/reviewer/chain paths |
-| `packages/shared` | Shared Zod schemas and clearly labeled synthetic fixtures |
-| `services/data-pipeline` | UNEP MARS import, historical analysis, and evaluation tools |
-| `data/real` | Attributed real-data casebook and snapshot provenance/history |
-| `data/fixtures` | Synthetic fixtures, visibly labeled for demo/test use |
-| `contracts` | Solidity EvidenceRegistry and Foundry tests |
-| `scripts` | Local verification, report verification, document preparation, and quality guards |
-| `docs` | Product workflow, architecture, deployment, research, and dated evidence |
+[Catatan IEEE ClimateChain](docs/release/event-requirements.md) menyimpan persyaratan dan hal yang perlu dikonfirmasi ke penyelenggara. [Materi demo/Notion](docs/demo/README.md) adalah persiapan lokal; halaman Notion atau submission tidak dibuat otomatis oleh aplikasi.
 
-## Documentation
-
-- [Documentation index](docs/README.md) — current entry points, evidence, research, and historical notes.
-- [User workflow](docs/product/user-workflow.md) — how to run each workspace and what each result means.
-- [Architecture](docs/architecture/overview.md) — service boundaries and end-to-end flows.
-- [Data and claims](docs/product/data-and-claims.md) — provenance, dataset versioning, and scientific interpretation limits.
-- [Prototype scope decision](docs/architecture/decisions/2026-10-15-local-prototype-no-database.md) — local MARS snapshots and audit files; no database implementation.
-- [Deployment](docs/release/deployment.md) — prototype file persistence and hosted-preview behavior.
-- [Research index](docs/research/README.md) · [Verification evidence index](docs/evidence/README.md) · [Demo materials index](docs/demo/README.md)
-
-## IEEE ClimateChain 2026
-
-MethaneResponse targets **Climate Data & Environmental Monitoring**: a traceable workflow for examining environmental observations and claims. The published Devpost overview asks for a project description, a 3–5 minute demo video, a public code repository, and a prototype/demo; it does not list a cloud database as a submission requirement. See the [official event page](https://ieee-climatechain-hack.devpost.com/) and [event notes](docs/release/event-requirements.md) for eligibility and schedule caveats.
-
-The project does not claim to reduce methane directly. Its intended contribution is better access to source history, clearer distinction between reported response and documented mitigation, and audit records whose integrity can be independently checked.
-
-## License and attribution
-
-Original project software and project-authored documentation are MIT licensed. That license does not grant rights to UNEP MARS data, linked reports, map imagery, tiles, or third-party assets. See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`data/real/README.md`](data/real/README.md) before redistribution or external processing.
+Software asli dan dokumentasi buatan proyek berlisensi MIT. Data UNEP MARS memakai **CC BY-NC-SA 4.0**; laporan tertaut, imagery, tiles, dan aset pihak ketiga mengikuti ketentuannya masing-masing. Baca [LICENSE](LICENSE), [NOTICE](NOTICE), serta [atribusi data](data/real/README.md) sebelum mendistribusikan atau memprosesnya di layanan eksternal.

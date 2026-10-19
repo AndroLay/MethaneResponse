@@ -1,0 +1,386 @@
+[
+  {
+    "sessionId": "A01",
+    "workflow": "manual",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A01",
+    "workflow": "manual",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A01",
+    "workflow": "manual",
+    "taskId": "T3",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Membatasi kesimpulan pada metadata yang tersedia, meminta bukti tindakan dan pengukuran pascatindakan; scope aplikasi sesuai tugas jika digunakan."
+  },
+  {
+    "sessionId": "A01",
+    "workflow": "manual",
+    "taskId": "T4",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Export asli diterima dan perubahan bundle ditolak; jawaban membedakan integritas dan kebenaran fisik. Bantuan tetap dihitung terpisah."
+  },
+  {
+    "sessionId": "A01",
+    "workflow": "app",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A01",
+    "workflow": "app",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A01",
+    "workflow": "app",
+    "taskId": "T3",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Membatasi kesimpulan pada metadata yang tersedia, meminta bukti tindakan dan pengukuran pascatindakan; scope aplikasi sesuai tugas jika digunakan."
+  },
+  {
+    "sessionId": "A01",
+    "workflow": "app",
+    "taskId": "T4",
+    "correctness": "partly_correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Perubahan konteks dikenali lewat perbandingan berkas, tetapi CLI lama menerima tamper; kriteria penolakan verifier belum tercapai. Hint substantif dicatat."
+  },
+  {
+    "sessionId": "A03",
+    "workflow": "manual",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A03",
+    "workflow": "manual",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A03",
+    "workflow": "manual",
+    "taskId": "T3",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Membatasi kesimpulan pada metadata yang tersedia, meminta bukti tindakan dan pengukuran pascatindakan; scope aplikasi sesuai tugas jika digunakan."
+  },
+  {
+    "sessionId": "A03",
+    "workflow": "manual",
+    "taskId": "T4",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Export asli diterima dan perubahan bundle ditolak; jawaban membedakan integritas dan kebenaran fisik. Bantuan tetap dihitung terpisah."
+  },
+  {
+    "sessionId": "A03",
+    "workflow": "app",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A03",
+    "workflow": "app",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A03",
+    "workflow": "app",
+    "taskId": "T3",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Membatasi kesimpulan pada metadata yang tersedia, meminta bukti tindakan dan pengukuran pascatindakan; scope aplikasi sesuai tugas jika digunakan."
+  },
+  {
+    "sessionId": "A03",
+    "workflow": "app",
+    "taskId": "T4",
+    "correctness": "partly_correct",
+    "criticalMisunderstanding": false,
+    "rationale": "CLI lama menerima perubahan snapshot konteks; interpretasi batas hash tepat, namun kriteria penolakan tamper belum tercapai. Hint substantif dicatat."
+  },
+  {
+    "sessionId": "A05",
+    "workflow": "manual",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A05",
+    "workflow": "manual",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A05",
+    "workflow": "manual",
+    "taskId": "T3",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Membatasi kesimpulan pada metadata yang tersedia, meminta bukti tindakan dan pengukuran pascatindakan; scope aplikasi sesuai tugas jika digunakan."
+  },
+  {
+    "sessionId": "A05",
+    "workflow": "manual",
+    "taskId": "T4",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Export asli diterima dan perubahan bundle ditolak; jawaban membedakan integritas dan kebenaran fisik. Bantuan tetap dihitung terpisah."
+  },
+  {
+    "sessionId": "A05",
+    "workflow": "app",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A05",
+    "workflow": "app",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A05",
+    "workflow": "app",
+    "taskId": "T3",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Membatasi kesimpulan pada metadata yang tersedia, meminta bukti tindakan dan pengukuran pascatindakan; scope aplikasi sesuai tugas jika digunakan."
+  },
+  {
+    "sessionId": "A05",
+    "workflow": "app",
+    "taskId": "T4",
+    "correctness": "partly_correct",
+    "criticalMisunderstanding": false,
+    "rationale": "CLI lama menerima perubahan snapshot konteks; interpretasi batas hash tepat, namun kriteria penolakan tamper belum tercapai. Hint substantif dicatat."
+  },
+  {
+    "sessionId": "A02",
+    "workflow": "app",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A02",
+    "workflow": "app",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A02",
+    "workflow": "app",
+    "taskId": "T3",
+    "correctness": "partly_correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Kesimpulan insufficiency dan permintaan bukti tepat, tetapi scope dimulai 24 Desember, satu hari setelah observasi; tidak mengikuti rentang tanggal observasi hingga akhir bulan klaim."
+  },
+  {
+    "sessionId": "A02",
+    "workflow": "app",
+    "taskId": "T4",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Export asli diterima dan perubahan bundle ditolak; jawaban membedakan integritas dan kebenaran fisik. Bantuan tetap dihitung terpisah."
+  },
+  {
+    "sessionId": "A02",
+    "workflow": "manual",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A02",
+    "workflow": "manual",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A02",
+    "workflow": "manual",
+    "taskId": "T3",
+    "correctness": "partly_correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Kesimpulan tidak cukup tepat, tetapi alasan menyatakan observasi mendahului tindakan; tanggal tindakan tidak tersedia dalam packet."
+  },
+  {
+    "sessionId": "A02",
+    "workflow": "manual",
+    "taskId": "T4",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Export asli diterima dan perubahan bundle ditolak; jawaban membedakan integritas dan kebenaran fisik. Bantuan tetap dihitung terpisah."
+  },
+  {
+    "sessionId": "A04",
+    "workflow": "app",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A04",
+    "workflow": "app",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A04",
+    "workflow": "app",
+    "taskId": "T3",
+    "correctness": "partly_correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Kesimpulan insufficiency dan permintaan bukti tepat, tetapi scope dimulai 11 April, satu hari setelah observasi; tidak mengikuti rentang tanggal observasi hingga akhir bulan klaim."
+  },
+  {
+    "sessionId": "A04",
+    "workflow": "app",
+    "taskId": "T4",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Export asli diterima dan perubahan bundle ditolak; jawaban membedakan integritas dan kebenaran fisik. Bantuan tetap dihitung terpisah."
+  },
+  {
+    "sessionId": "A04",
+    "workflow": "manual",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A04",
+    "workflow": "manual",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A04",
+    "workflow": "manual",
+    "taskId": "T3",
+    "correctness": "partly_correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Kesimpulan tidak cukup tepat, tetapi alasan menganggap observasi mendahului periode klaim; klaim hanya menetapkan batas akhir, bukan tanggal tindakan atau awal periode."
+  },
+  {
+    "sessionId": "A04",
+    "workflow": "manual",
+    "taskId": "T4",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Export asli diterima dan perubahan bundle ditolak; jawaban membedakan integritas dan kebenaran fisik. Bantuan tetap dihitung terpisah."
+  },
+  {
+    "sessionId": "A06",
+    "workflow": "app",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A06",
+    "workflow": "app",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A06",
+    "workflow": "app",
+    "taskId": "T3",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Membatasi kesimpulan pada metadata yang tersedia, meminta bukti tindakan dan pengukuran pascatindakan; scope aplikasi sesuai tugas jika digunakan."
+  },
+  {
+    "sessionId": "A06",
+    "workflow": "app",
+    "taskId": "T4",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Export asli diterima dan perubahan bundle ditolak; jawaban membedakan integritas dan kebenaran fisik. Bantuan tetap dihitung terpisah."
+  },
+  {
+    "sessionId": "A06",
+    "workflow": "manual",
+    "taskId": "T1",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Identitas, snapshot, tanggal, flux, uncertainty/unit dan sifat historis sesuai kunci."
+  },
+  {
+    "sessionId": "A06",
+    "workflow": "manual",
+    "taskId": "T2",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Alasan memakai sinyal metadata historis serta keterbatasannya; tidak menyamakan heuristik/flags dengan bukti fisik."
+  },
+  {
+    "sessionId": "A06",
+    "workflow": "manual",
+    "taskId": "T3",
+    "correctness": "partly_correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Kesimpulan tidak cukup tepat; frasa observasi mendahului klaim berpotensi mengasumsikan kronologi tindakan yang tidak tersedia. Dinilai parsial secara konservatif, bukan sebagai kontradiksi publisher."
+  },
+  {
+    "sessionId": "A06",
+    "workflow": "manual",
+    "taskId": "T4",
+    "correctness": "correct",
+    "criticalMisunderstanding": false,
+    "rationale": "Export asli diterima dan perubahan bundle ditolak; jawaban membedakan integritas dan kebenaran fisik. Bantuan tetap dihitung terpisah."
+  }
+]

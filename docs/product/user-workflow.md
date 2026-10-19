@@ -1,58 +1,132 @@
-# MethaneResponse user workflow
+# Alur penggunaan MethaneResponse
 
-MethaneResponse helps users examine methane claims against traceable records. It supports investigation and public accountability; it does not detect methane, direct a repair, or establish that the product has reduced emissions.
+[Pusat dokumentasi](../README.md) · [Setup lokal](../development/local-setup.md) · [Alur resmi MARS dan pemetaan produk](mars-response-workflow.md)
 
-## Try the six benefits
+**Panduan aktif — 18 Oktober 2026.** Tujuan alur ini adalah mencatat apa yang dapat disimpulkan dari bukti tersedia dan apa yang masih perlu diperiksa. Aplikasi tidak mendeteksi metana baru, mengirim notifikasi operator, atau mengesahkan perbaikan lapangan.
 
-Run the local web and API services from the repository root with `bun run dev:web` and `bun run dev:api`, then open <http://localhost:5173>. The landing page's six benefit links open the corresponding workspace directly.
+## 1. Pilih dataset dan sumber
 
-| Benefit | Workspace | What can be checked |
-|---|---|---|
-| Explore sources globally | `/dashboard/map?sourceId=KAZ_S_159` | Historical source and plume locations, observation dates, reported flux and uncertainty, map layers, filters, and the loaded snapshot version. The archive is not a live feed. |
-| Prioritize investigation | `/dashboard/audit?sourceId=KAZ_S_159` | Recurrence, anomaly screening, available data sufficiency, and a reasoned investigation-priority heuristic. It is not a calibrated probability or forecast. |
-| Review a mitigation claim | `/dashboard/audit?sourceId=MEX_S_003` | Run the deterministic baseline for a non-curated source in the pinned full snapshot. Detection can cite one latest linked plume record; notification and mitigation claims remain insufficient without attributable evidence. Add an authorized document excerpt for optional AI assessment. |
-| Check audit integrity | `/dashboard/blockchain?sourceId=KAZ_S_159` | Verify the saved bundle digest locally or verify a real Sepolia receipt when one exists and the API is configured. A digest/receipt proves record integrity and version metadata, not physical truth. |
-| Prepare research material | `/dashboard/reports?sourceId=KAZ_S_159` | Review observations, provenance, linked references, audit state, and download the current audit as a SHA-256 protected JSON report. PDF generation is not available. |
-| Inspect response and mitigation status | `/dashboard/cases?sourceId=KAZ_S_159` | Review detection, MARS notification metadata, feedback, and mitigation as separate fields. Unknown or missing follow-up is not treated as zero emissions or a successful repair. |
+Jalankan web/API, lalu buka <http://localhost:5173>. Pilih sumber historis dari **Cases** atau **Map Explorer**; contoh: [KAZ_S_159](http://localhost:5173/dashboard/map?sourceId=KAZ_S_159).
 
-The example URLs use real historical MARS source identifiers. The source pages display the data release and coverage; observation dates do not imply continuous monitoring. MARS `notified` and `feedback` fields are preserved as publisher metadata, not interpreted as proof of receipt, repair, or reduced emissions.
+Snapshot bawaan `unep-mars-675417694883` mencakup 4.218 source rows dan 30.414 plume rows sampai 13 September 2026. Sebanyak 6.553 plume rows tanpa source ID tetap tidak tertaut. Casebook empat sumber adalah subset dengan konteks referensi. **Synthetic demo** memakai fixture buatan yang terpisah.
 
-## Cases table and map navigation
+| Workspace | Kegunaan |
+|---|---|
+| Map Explorer — `/dashboard/map` | Sumber/plume historis, layers, camera focus dan detail kasus |
+| Cases — `/dashboard/cases` | Search/filter, 25/50/100 rows per halaman, antrean dan investigasi tersimpan |
+| MARS Indicators — `/dashboard/indicators` | Sembilan rilis Top 50 bulanan dan delapan periode response rate negara |
+| Evidence Auditor — `/dashboard/audit` | Scope, observasi, coverage, penilaian dan riwayat |
+| Documents — `/dashboard/documents` | Referensi terkait source; tautan bukan berarti isi sudah diperiksa |
+| Operators — `/dashboard/operators` | Antrean tinjauan metadata notified/feedback; tidak mengontak operator |
+| Reports — `/dashboard/reports` | Laporan, brief dan ringkasan transparansi publik |
+| Verification Center — `/dashboard/blockchain` | Hash lokal dan status receipt bila benar-benar tersedia |
+| Settings — `/dashboard/settings` | Preferensi browser: workspace awal, basemap, kualitas Earth dan sidebar |
 
-The Cases workspace reads active historical snapshot `unep-mars-675417694883` and presents its 4,218 source records in a searchable, filterable table. The snapshot contains 30,414 plume rows through 2026-09-13; 6,553 rows without a source ID remain unlinked. Choose 25, 50, or 100 rows per page; the range indicator and first/previous/next/last controls make long result sets navigable without rendering every row at once. Selecting a row opens a compact detail dialog with separate summary, observations, evidence, and timeline views. Earlier releases remain available in snapshot history.
+**View full case** membuka dialog detail sambil mempertahankan konteks peta. **Open in Map Explorer** memusatkan kamera pada koordinat tersimpan. Lokasi tidak diberi alamat/kota yang tidak disediakan penerbit. Import GeoJSON dibaca lokal browser dan tidak mengganti snapshot server.
 
-Locations display the source's reported country and region alongside the stored latitude/longitude at its available precision. MARS does not provide a complete street address or a verified city for every source, so the interface does not infer one. Selecting a location opens Map Explorer for that source and focuses the map camera on the stored coordinates. This is a map focus, not a claim that the source footprint is more precise than the underlying dataset.
+## 2. Tinjau observasi dan konteks
 
-The snapshot is historical, not live. A source marker or plume record does not by itself establish an audited case, confirmed mitigation, or current emissions status. Check the snapshot provenance and observation timestamps before interpreting a location.
+Periksa tanggal, plume ID, flux dalam unit penerbit, uncertainty, nilai kosong dan provenance. Observasi adalah titik pengukuran diskret. Source density tidak mewakili konsentrasi metana; imagery lokasi bukan citra plume pada overpass tertentu. Legend/history peta dapat dibuka tanpa mengubah dataset.
 
-From Map Explorer, choose a source and press **View full case** to open its detail dialog immediately over the map. The dialog keeps the map context in place and provides summary, observations, evidence, and timeline tabs. **Open in Map Explorer** from Cases focuses the camera on the stored coordinates; it does not imply greater location precision than the source data.
+MARS `notified` dan `feedback` tetap metadata administratif. Response rate negara menghitung feedback atas sumber yang dinotifikasi; tidak menghitung perbaikan. Top 50 tidak memiliki kolom rank eksplisit, sehingga urutan CSV tidak menjadi peringkat yang direka. Lihat [data dan claims](data-and-claims.md).
 
-## Operators and Settings
+Insight recurrence/anomaly dan priority heuristic membantu memilih investigasi. Estimasi recurrence membahas record MARS tertaut berikutnya, bukan probabilitas kebocoran fisik. Prioritas hanya digunakan bila binding snapshot/archive cocok.
 
-The **Operators** workspace is a review queue for MARS source-level `notified`, `feedback`, operator-feedback, and government-feedback fields. Search by source, region, sector, or field value; filter by metadata type; page through the results; then open the case or continue to Evidence Auditor. A value such as `No` is still a publisher-reported field value. The page does not send notifications, contact an operator, verify delivery, or establish that a repair occurred.
+<a id="document-assessment-and-human-review"></a>
 
-The **Settings** workspace controls browser-local preferences: starting workspace for dashboard links, Map Explorer basemap, Earth rendering quality, and whether the desktop sidebar starts as a compact icon rail. Changes apply immediately and persist in this browser only. Direct workspace links still open their requested page. AI credentials, reviewer access, RPC endpoints, and signing keys remain server-side and are not exposed as browser settings. There is no database configuration in this prototype.
+## 3. Tentukan claim dan scope
 
-The sidebar collapse control switches between a labeled navigation panel and a compact icon rail on wider screens. On phones, the menu opens a temporary drawer and backdrop; selecting a page or tapping outside closes it.
+Di **Overview**, pilih `source_detected`, `operator_notified`, atau `mitigation_confirmed`. Isi **Period start**, **Period end**, optional **Observation event**, lalu **Apply assessment scope**. Event harus milik source dan berada dalam periode. Untuk notifikasi, sebutkan penerima. Periode perlu mencakup tindakan/follow-up yang ingin dinilai.
 
-## Map overlays
+**Use loaded observation period** mengisi batas tanggal dari seluruh riwayat yang telah dimuat; **Use selected observation day** membatasi satu event. Periksa preview lalu tekan **Apply assessment scope**. Preset bukan tanggal perbaikan atau periode follow-up. Selama ada edit yang belum diterapkan, **Run rules baseline** dinonaktifkan. Draft scope disimpan per konteks investigasi di SessionStorage dan pulih saat kembali ke halaman ini; jika storage diblokir, peringatan menyebut draft akan hilang saat meninggalkan halaman. Draft scope tidak memunculkan dialog navigasi ketika dapat dipulihkan.
 
-The map keeps the source count and cursor coordinates in compact edge labels. Historical date/feed status, the active basemap description, and pan/zoom/click guidance sit below the map canvas. The legend and observation-history controls start collapsed and can be opened when needed; opening them does not change the underlying dataset or turn an empty period into zero emissions.
+Coverage panel memperlihatkan syarat tipe bukti, referensi yang memenuhi, referensi yang dikeluarkan dan next checks. Preview dan API memakai selector yang sama. Metadata notified/feedback dan link-only reports tetap konteks. Memilih claim tidak otomatis menyimpan penilaian; **Run rules baseline** membuat revisi baseline.
 
-## Document assessment and human review
+Scoped rules mengeluarkan referensi tanpa tanggal, di luar periode, atau event yang tidak cocok. Notifikasi harus cocok penerima; mitigation-reference support memerlukan action, tanggal tindakan dan follow-up bertanggal sama/setelah tindakan dalam periode. Ini pemeriksaan hubungan metadata, bukan autentikasi referensi.
 
-The Evidence Auditor accepts user-supplied, rights-cleared text excerpts or a locally prepared PDF/TXT manifest. The original file can remain local; the browser checks the manifest and document hash. A provider request requires a configured server-side AI provider, an access token, and the user's separate consent. The model remains disabled when the provider is not configured. When enabled, the API validates exact quotations and fails closed when citations do not support a strong claim.
+**Use source-level baseline** menghapus scope untuk jalur legacy. Setiap scope persis mempunyai history sendiri. Editor menunggu dataset selesai dimuat; fallback sementara DEMO tidak dapat diedit sebagai sumber nyata.
 
-AI output is a suggestion, not proof. A configured reviewer must inspect the source and make a separate decision before a report can be published. The current local file store disables blockchain anchoring and reconciliation. Without provider credentials, the deterministic baseline remains usable and the AI controls clearly report that assessment is unavailable.
+## 4. Simpan investigasi kerja
 
-## Reports and blockchain
+Di **Analyst case work**, isi pertanyaan, working notes, evidence request, next action, serta status: **Investigate**, **Awaiting evidence**, **Deferred**, atau **Review recorded**. **Save case work** menyimpan konteks claim/scope bersama catatan.
 
-The downloaded report can be checked in the Verification Center or with `bun run verify:audit <report.json>`. Audit-cited observation rows are separate from `historicalContext`, which lists periodic source records only as context and never as evidence for mitigation. Both are omitted when the loaded source does not match the audit's pinned snapshot. The browser checks the export checksum locally and the CLI checks the canonical audit bundle without a chain; the export checksum is unsigned and can be recomputed, so it is not an attestation. The current local file store does not support transactional blockchain anchoring or reconciliation; the Solidity registry and verifier remain separate components.
+- **New investigation** membuat work ID lain untuk sumber/snapshot yang sama.
+- **Saved investigations** / **Resume saved investigation** membuka work item tertentu dan memulihkan claim/scope-nya.
+- Untuk menyimpan claim/periode berbeda, resume konteks yang dimaksud atau buat investigasi baru terlebih dahulu.
+- Cases memfilter status dari seluruh investigasi tersimpan dan mempertahankan pilihan aktif dari Auditor.
+- Status kerja adalah triage analis. Mengubah notes/status tidak membuat verdict, mengubah audit lama, atau menandakan perbaikan.
 
-## Prototype status
+<a id="workflow-continuity-17-october-2026"></a>
 
-- **Available locally:** historical MARS exploration, snapshot provenance/history, heuristic prioritization and anomaly screening, baseline claim audit, immutable local audit revisions, JSON export, and local digest verification.
-- **Conditional on external configuration:** model-assisted document assessment and authenticated human review/publication. Audit persistence uses a local JSON file; hosted preview files may be ephemeral.
-- **Not established:** independent AI benchmark quality, time saved for users, observed changes in investigation decisions, confirmed repairs from product use, or any methane emissions reduction attributable to MethaneResponse.
+### Melanjutkan investigasi bersama
 
-Use `bun run test:api` and `bun run test:web` to run the local API and browser-logic regression suites. Test results validate the prototype's software behavior; they do not substitute for provider, cloud, chain, or user validation.
+Pilih **Open shared workspace**, lalu hubungkan signed reviewer token yang berwenang di directory tim. **Shared investigations** memuat antrean server; **New shared investigation** membuat pekerjaan lain. Catat assignee, due date dan next action, lalu **Save shared work**. Anggota lain memakai token sendiri untuk melanjutkannya pada API yang sama. Cases menggunakan antrean tim selama terhubung; pembaruan dimuat melalui refresh eksplisit.
+
+Save yang stale ditolak; draft tetap ada. **Review latest revision** memperlihatkan versi server untuk dibandingkan. Pilih versi terbaru, atau tinjau seluruh field sebelum **Keep my draft on this revision** dan save lagi. Riwayat merekam aktor/versi. Jika refresh gagal, data server lama disembunyikan dan save dinonaktifkan; draft dipertahankan.
+
+Untuk notes browser yang sudah ada, **Preview browser import → Import as new shared investigation** membuat ID baru tanpa menghapus notes lokal atau menimpa server. Token hilang saat reload; reconnect diperlukan. Penggunaan bersama masih satu API/file privat lokal, bukan layanan hosted yang sudah diuji. Setup, akses dan pemulihan ada di [runbook](../development/shared-casework.md).
+
+### Recovery draft dan batas penyimpanan
+
+Dalam mode browser-local, notes tersimpan di LocalStorage, terikat real/DEMO mode, source, snapshot/archive dan work ID. Legacy v1 masih dapat dibaca; record v2 tidak menghapus aslinya. SessionStorage menyimpan recovery draft per tab untuk notes dan metadata human assessment yang belum selesai. Navigasi/pergantian konteks dan browser unload memiliki guard untuk edit belum tersimpan.
+
+Token, konfirmasi inspeksi, pilihan retrieval dan consent publikasi tidak dipulihkan. URL berisi userinfo ditolak dari persistence draft; jangan simpan credential, signed-access URL atau isi dokumen di text fields. Draft pulih memerlukan konfirmasi inspeksi baru. **Lock private history** membersihkan recovery manusia dan cache/seleksi privat.
+
+Penyimpanan browser tidak terenkripsi, tidak dibagikan antardevice dan tidak dicadangkan remote. Menutup tab dapat menghapus recovery. Jika storage penuh/diblokir, save ditandai gagal dan draft terlihat tetap tersedia; salinan lama mungkin masih ada. Per-item revision menolak save stale berurutan, tetapi write simultan antartab tidak transactional. Batas tersebut berlaku pada mode lokal; workspace bersama menggunakan CAS dan history server terpisah. Draft kedua mode tetap per tab dan tidak terenkripsi.
+
+## 5. Catat human assessment tanpa AI
+
+Setelah menerapkan scope, buka **Human assessment**:
+
+1. Masukkan exact claim, determination dan rationale yang menjelaskan keputusan.
+2. Daftarkan maksimal 12 referensi yang sudah diperiksa: URL HTTPS tanpa credential, page/record locator, tanggal, dan metadata event/penerima/action/follow-up bila relevan. Source terikat ke form dan divalidasi API.
+3. Gunakan **Check reviewer approval** untuk melihat status directory kategori; deklarasikan konflik secara terpisah.
+4. Bila diinginkan, masukkan expected SHA-256 dan aktifkan **Check public publisher references when saving** untuk URL penerbit yang didukung. Follow-up dapat memiliki URL/digest tersendiri.
+5. Isi optional next evidence request, konfirmasi source-inspection, lalu save memakai token scope `review`.
+
+Penilaian manual tidak mengunggah isi laporan atau memanggil model. Retrieval URL hanya dilakukan bila dipilih eksplisit. Status retrieved/digest matched membuktikan asal/bytes yang diperiksa, bukan kebenaran isi. Mismatch digest menghalangi save supported/contradicted; unknown/failed checks tetap terlihat.
+
+Reviewer menentukan outcome sendiri, terpisah dari rules coverage. Supported membutuhkan tipe referensi yang sesuai scope; contradicted membutuhkan matching contrary record; insufficient dapat disimpan tanpa referensi. Konflik bukti memerlukan alasan manusia yang jelas.
+
+Save menghasilkan **schema 4 privat** dengan parent hash, hasil coverage, reviewer assurance, status reference checks dan deklarasi konflik. Revisi berikutnya tidak menimpa revisi lama; parent stale ditolak sampai versi terbaru dibuka. History/digest privat memerlukan token `private_read`, termasuk kebijakan directory yang berlaku. [Panduan konfigurasi](../development/configuration.md) menjelaskan penerbitan capability dan strict mode.
+
+## 6. Tinjau riwayat dan lanjutkan permintaan bukti
+
+Di **Saved audit history**, buka revisi yang diizinkan. **Compare saved assessments** membandingkan dua revisi source/claim/mode yang sama: determination, alasan, review, citations, scope dan binding dataset/dokumen. Memilih perbandingan tidak mengganti laporan yang sedang dibuka. Perubahan verdict/dataset tidak otomatis membuktikan perubahan emisi.
+
+**Add saved request to follow-up** menambahkan permintaan tersimpan ke draft kerja secara eksplisit dengan audit ID/hash lineage. Source, mode, claim, scope, snapshot dan archive harus cocok. Status kerja tidak berubah; save tetap eksplisit. Field penuh dilaporkan tanpa menimpa teks yang sudah ada.
+
+## 7. Ekspor dan bagikan hasil yang sesuai
+
+| Keluaran | Penggunaan |
+|---|---|
+| JSON audit report | Artefak verifikasi; full human assessment berlabel privat dengan filename `PRIVATE-…` |
+| Markdown investigation brief | Ringkasan terbaca/optional import Notion; menghilangkan detail privat dan tidak mereproduksi kutipan dokumen |
+| Public transparency summary JSON | Artefak publik allowlist bila consent revisi diberikan; checksum terpisah |
+
+**Download investigation brief** mencakup provenance tersimpan, konteks historis yang diizinkan (hingga 50 baris beserta jumlah total), next checks dan batas. Nilai tidak tersedia tetap unavailable. Brief dapat diedit dan bukan laporan tersertifikasi. Tidak ada integrasi/publikasi Notion otomatis atau PDF generation.
+
+JSON memisahkan baris observasi yang dikutip audit dari `historicalContext`. Jika source/snapshot yang dimuat tidak cocok dengan audit tersimpan, konteks tidak dipaksakan ke laporan. Verifikasi JSON langsung di **Reports → Verify an exported report** atau Verification Center: pilih file hasil unduhan. **Require complete export context** aktif secara default dan memerlukan checksum konteks selain hash bundle. Berkas legacy/raw hanya diperiksa setelah opsi itu dimatikan secara eksplisit; perubahan opsi menghapus hasil dan meminta pilih file lagi. CLI alternatif: `bun run verify:audit path/to/report.json --require-context`. Helper kode tetap kompatibel dengan raw/legacy secara default; kebijakan ketat diteruskan eksplisit oleh UI. Unduhan pada waktu berbeda dapat mempunyai checksum luar berbeda; bundle hash tetap mengidentifikasi revisi yang sama. Checksum tidak ditandatangani dan bukan bukti kebenaran fisik.
+
+### Ringkasan transparansi publik
+
+Saat save human assessment, **I authorize a public redacted summary of this revision** bersifat unchecked secara default, reset setelah save, dan tidak dipulihkan dari draft. Consent membuka field terbatas seperti source/category/outcome/period, counts, status assurance/conflict historis, dan hash bundle. Exact claim, penerima, identitas reviewer, metadata referensi dan rationale tetap privat.
+
+Publik dapat membuka **Reports → Public transparency summaries** tanpa token, menelusuri halaman, mengunduh, dan memverifikasi checksum summary. Default memilih revisi publik terakhir per scope/claim; **Show publication history** membuka versi lama beserta penanda penggantian/penarikan. Koreksi berconsent baru menggantikan versi publik aktif sebelumnya; revisi privat tidak mengubahnya. Reviewer yang masih berwenang dapat menandai **Withdraw publication** dengan alasan baku dan konfirmasi. Salinan lama tetap mungkin tersedia. Checksum offline tidak membuktikan status publikasi saat ini; gunakan **Check current publication status**. [Panduan koreksi/penarikan](../development/publication-lifecycle.md) menjelaskan langkah, izin, konflik versi dan batasnya.
+
+<a id="optional-document-ai"></a>
+
+## Jalur opsional: Document AI
+
+Jalur ini source-level; hapus scope terikat bila ingin memakainya. Import manifest excerpt PDF/TXT atau excerpt rights-cleared. File asli dapat tetap lokal; browser memeriksa manifest dan document hash. Consent pemrosesan eksternal serta provider/token server wajib sebelum excerpt dikirim.
+
+API memvalidasi kutipan persis, dapat abstain, dan membuat schema 3 privat secara default. Reviewer berwenang kemudian approve, reject, atau request more evidence sebagai revisi terpisah. Publikasi lengkap mengikuti consent submitter/reviewer dan aturan schema 3; consent summary manual tidak menggantikannya. Tidak ada klaim benchmark AI independen atau bukti mitigasi dari output model.
+
+## Batas akhir alur
+
+File audit API mendukung satu proses lokal dan restart bila file sama masih tersedia; hosted temporary files dapat hilang. API memiliki anchoring/reconciliation dengan intent durabel; signing nonaktif secara default dan perlu konfigurasi server. Profil Anvil sudah diuji lokal; receipt Sepolia publik belum tersedia. Proyek belum membuktikan manfaat pengguna terukur, perbaikan fisik, atau pengurangan emisi yang disebabkan penggunaan MethaneResponse. Lihat [status implementasi](../release/current-implementation-status.md).
+
+
+## Contoh keputusan dan bukti manfaat
+
+[Tiga studi kasus historis](../research/three-historical-decision-cases-2026-10-18.md) menghubungkan fakta, celah bukti, keputusan dan permintaan berikutnya. [Paket penguatan alur dan perbandingan fungsi](../evidence/product-value-2026-10-18/README.md) mencatat pemeriksaan browser serta pembanding manual dengan data/alat yang sama. Hasil agent tidak disebut pilot pengguna manusia.

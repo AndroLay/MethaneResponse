@@ -1,8 +1,8 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { DEMO_SOURCES } from '@methane/shared';
-import type { AuditResult, ClaimType, ReviewSource } from '@methane/shared';
+import { assessmentPresentation, DEMO_SOURCES, InvestigationSelection, isAuditPublic } from '@methane/shared';
+import type { AuditResult, AuditScope, ClaimType, ReviewSource } from '@methane/shared';
 import type { MapDataLayer, MapProjection, MapTheme } from './MapPanel';
 import { MapPanelErrorBoundary } from './MapPanelErrorBoundary';
 import type { IntelligenceCapability } from './reviewer-capability';
@@ -19,13 +19,20 @@ import { filterObservationsToArchiveWindow, getMarsDashboardSummary, loadMarsFil
 import { loadVerifiedObservationBucket, loadVerifiedProgressiveCatalog, type ProgressiveMarsManifest } from './progressive-mars-loader';
 import type { MarsSnapshotManifest } from './mars-snapshot-integrity';
 import DataDisclosureDialog from './DataDisclosureDialog';
-import EvidenceAuditorWorkflow from './EvidenceAuditorWorkflow';
+const EvidenceAuditorWorkflow = lazy(() => import('./EvidenceAuditorWorkflow'));
 import InvestigationJourney from './InvestigationJourney';
+import AssessmentMeaning from './AssessmentMeaning';
+import CaseWorkPanel from './CaseWorkPanel';
+import { readCaseWork } from './case-work';
+import { clearHumanDrafts, readSessionDraft, writeSessionDraft } from './session-draft';
+import { confirmDraftNavigation } from './use-session-draft';
 
 const MapPanel = lazy(() => import('./MapPanel'));
 const AuditHistoryPanel = lazy(() => import('./AuditHistoryPanel'));
 const ImportedAuditVerifier = lazy(() => import('./ImportedAuditVerifier'));
 const CasesWorkspace = lazy(() => import('./CasesWorkspace'));
+const AnchorControls = lazy(() => import('./AnchorControls'));
+const TransparencyPanel = lazy(() => import('./TransparencyPanel'));
 const CaseDetailsDialog = lazy(() => import('./CaseDetailsDialog'));
 const OperatorsWorkspace = lazy(() => import('./OperatorsWorkspace'));
 const SettingsWorkspace = lazy(() => import('./SettingsWorkspace'));
@@ -97,7 +104,7 @@ const nav: { key: WorkspaceRoute; label: string; icon: IconName; target: string 
 ];
 const dateSeries = [2870, 2910, 2760, 2510, 2310, 2070, 1900, 1770, 1760, 1590, 1510, 1390];
 const caseIds = ['DEMO-001', 'DEMO-002'];
-const claimLabels: Record<ClaimType, string> = { source_detected: 'A methane source was detected', operator_notified: 'The source operator was notified', mitigation_confirmed: 'The detected methane release has been mitigated' };
+const claimLabels: Record<ClaimType, string> = { source_detected: 'A methane source was detected', operator_notified: 'The source operator was notified', mitigation_confirmed: 'Mitigation confirmation claim' };
 const claimDescriptions: Record<ClaimType, string> = { source_detected: 'Requires an identifiable observation record.', operator_notified: 'Requires actual evidence of notification, not an inference.', mitigation_confirmed: 'Requires explicit, attributable mitigation confirmation.' };
 
 async function fetchApi<T>(path: string, init?: RequestInit): Promise<T> {
@@ -141,6 +148,20 @@ function CardHeader({ title, subtitle, action, icon }: { title: string; subtitle
   return <div className="panel-head"><div><div className="panel-title">{icon && <Icon name={icon} size={15}/>} {title}</div>{subtitle && <div className="panel-subtitle">{subtitle}</div>}</div>{action && <div className="panel-action">{action}</div>}</div>;
 }
 function Chip({ children, tone = 'neutral' }: { children: ReactNode; tone?: 'neutral' | 'teal' | 'orange' | 'red' | 'blue' | 'violet' }) { return <span className={`chip chip-${tone}`}>{children}</span>; }
+
+function PreviewModeNotice() {
+  const { data } = useQuery({
+    queryKey: ['preview-mode-notice'],
+    queryFn: () => fetchApi<{ preview?: { enabled: boolean; auditState: string } }>('/health'),
+    staleTime: Infinity,
+    retry: false,
+  });
+  if (!data?.preview?.enabled) return null;
+  return <div className="preview-banner" role="note">
+    <Icon name="info" size={15}/>
+    <span><strong>Free preview · historical data, temporary state.</strong> Audit records may disappear after idle sleep, restart or redeploy. Do not enter confidential material.</span>
+  </div>;
+}
 
 function TrendChart({ range }: { range: string }) {
   const points = (range === '30 days' ? dateSeries.slice(6) : dateSeries).map((value, index, arr) => ({ x: 34 + index * 534 / Math.max(1, arr.length - 1), y: 22 + (3100 - value) * .061, value }));
@@ -213,12 +234,16 @@ export default function App() {
   const [onlySelected, setOnlySelected] = useState(false);
   const [countryFilter, setCountryFilter] = useState('All regions');
   const [sectorFilter, setSectorFilter] = useState('All sectors');
+  const [recoveredSelection] = useState(() => readSessionDraft('selection', new URLSearchParams(window.location.search).get('sourceId') || '', InvestigationSelection));
   const [claim, setClaim] = useState<ClaimType>('mitigation_confirmed');
-  const [audit, setAudit] = useState<AuditResult | null>(null);
+  const [workSelection, setWorkSelection] = useState<{ context: string; workId: string } | null>(recoveredSelection ? { context: recoveredSelection.context, workId: recoveredSelection.workId } : null);
+  const [scopeSelection, setScopeSelection] = useState<{ context: string; value?: AuditScope } | null>(recoveredSelection ? { context: recoveredSelection.context, value: recoveredSelection.scope } : null);
+  const [savedAudit, setAudit] = useState<AuditResult | null>(null);
+  const [auditSelectionGeneration, setAuditSelectionGeneration] = useState(0);
   const [auditHistoryAccessToken, setAuditHistoryAccessToken] = useState('');
   const [privateHistoryEnabled, setPrivateHistoryEnabled] = useState(false);
   const [privateHistorySession, setPrivateHistorySession] = useState(0);
-  const [verification, setVerification] = useState<string | null>(null);
+  const [verificationRecord, setVerification] = useState<{ auditId: string; bundleHash: string; message: string } | null>(null);
   const [reportExportError, setReportExportError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [searchFocused, setSearchFocused] = useState(false);
@@ -382,6 +407,34 @@ export default function App() {
   const sourceRetrievedAt = snapshot?.importedAt || source.provenance?.retrievedAt;
   const sourceLicense = snapshot?.license || source.provenance?.license;
   const sourceSnapshotId = snapshot?.snapshotId || source.provenance?.snapshotId;
+  const caseWorkContext = { sourceId: source.sourceId, datasetSnapshotId: source.synthetic ? 'DEMO' : sourceSnapshotId, archiveSha256: sourceArchiveHash, synthetic: source.synthetic };
+  const caseWorkKey = JSON.stringify(caseWorkContext);
+  const activeWorkId = workSelection?.context === caseWorkKey ? workSelection.workId : readCaseWork(caseWorkContext)?.workId || 'default';
+  const workPanelContext = { ...caseWorkContext, workId: activeWorkId };
+  // Do not accept edits against the temporary DEMO fallback while a real dataset loads.
+  const investigationReady = demoMode ? source.synthetic : !snapshotLoading && !source.synthetic && Boolean(snapshot || data?.synthetic === false);
+  const assessmentScope = scopeSelection?.context === caseWorkKey ? scopeSelection.value : undefined;
+  const selectionRestored = useRef(false);
+  useLayoutEffect(() => {
+    if (!investigationReady || selectionRestored.current) return;
+    selectionRestored.current = true;
+    if (recoveredSelection?.context === caseWorkKey) setClaim(recoveredSelection.claimType);
+  }, [investigationReady, caseWorkKey, recoveredSelection]);
+  useEffect(() => {
+    if (investigationReady) writeSessionDraft('selection', source.sourceId, InvestigationSelection, { context: caseWorkKey, sourceId: source.sourceId, claimType: claim, scope: assessmentScope, workId: activeWorkId });
+  }, [investigationReady, caseWorkKey, claim, JSON.stringify(assessmentScope), activeWorkId]);
+  const audit = savedAudit?.sourceId === source.sourceId && savedAudit.claimType === claim && savedAudit.synthetic === source.synthetic
+    && JSON.stringify(savedAudit.bundle.scope) === JSON.stringify(assessmentScope) ? savedAudit : null;
+  const verification = audit && verificationRecord?.auditId === audit.auditId && verificationRecord.bundleHash === audit.bundleHash ? verificationRecord.message : null;
+  // A new context object also rejects A → B → A responses from the earlier visit.
+  const contextKey = JSON.stringify([source.sourceId, activeWorkId, claim, assessmentScope, source.synthetic, sourceSnapshotId, sourceArchiveHash, snapshot?.provenance?.webSnapshotInputSha256, privateHistorySession, privateHistoryEnabled, auditSelectionGeneration]);
+  const currentAssessmentContext = useMemo(() => ({ key: contextKey }), [contextKey]);
+  const assessmentContext = useRef(currentAssessmentContext);
+  const verificationTarget = useRef({ context: currentAssessmentContext, auditId: audit?.auditId, bundleHash: audit?.bundleHash });
+  useLayoutEffect(() => {
+    assessmentContext.current = currentAssessmentContext;
+    verificationTarget.current = { context: currentAssessmentContext, auditId: audit?.auditId, bundleHash: audit?.bundleHash };
+  }, [currentAssessmentContext, audit?.auditId, audit?.bundleHash]);
   const sourceCanBeAudited = Boolean(source && (source.synthetic || source.caseId || (snapshot && !source.synthetic)));
   const documentAssessmentAllowed = Boolean(source && !source.synthetic && source.caseId);
   const mapObservations = useMemo(() => {
@@ -461,35 +514,44 @@ export default function App() {
     setPrivateHistoryEnabled(true);
   }
   function lockPrivateAuditHistory() {
+    clearHumanDrafts();
     void queryClient.cancelQueries({ predicate: isPrivateAuditHistoryQuery });
     queryClient.removeQueries({ predicate: isPrivateAuditHistoryQuery });
     setPrivateHistoryEnabled(false);
     setAuditHistoryAccessToken('');
-    const selectedIsPublic = audit && (audit.bundle.schemaVersion !== 3 || (
-      audit.bundle.intelligence?.reviewStatus === 'approved'
-      && audit.bundle.intelligence?.citationPublication?.status === 'public'
-      && audit.bundle.intelligence?.citationPublication?.authorConsent === true
-    ));
-    if (audit?.bundle.schemaVersion === 3 && !selectedIsPublic) {
+    const selectedIsPublic = savedAudit && isAuditPublic(savedAudit);
+    setAuditSelectionGeneration(previous => previous + 1);
+    if (savedAudit && !selectedIsPublic) {
       setAudit(null);
       setVerification(null);
     }
   }
-  function setCurrentAudit(result: AuditResult) {
+  function setCurrentAudit(result: AuditResult, context: typeof currentAssessmentContext) {
+    void queryClient.invalidateQueries({ queryKey: ['audit-history', result.sourceId] });
+    if (context !== assessmentContext.current) return;
+    if (result.sourceId !== source.sourceId || result.claimType !== claim || result.synthetic !== source.synthetic) return;
     setAudit(result);
     setVerification(null);
-    void queryClient.invalidateQueries({ queryKey: ['audit-history', result.sourceId] });
   }
   const auditMutation = useMutation({
-    mutationFn: ({ sourceId, claimType }: { sourceId: string; claimType: ClaimType }) => fetchApi<AuditResult>('/audits', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sourceId, claimType }) }),
-    onSuccess: setCurrentAudit,
+    mutationFn: ({ sourceId, claimType, scope, datasetSnapshotId }: { sourceId: string; claimType: ClaimType; scope?: AuditScope; datasetSnapshotId?: string; context: typeof currentAssessmentContext }) => fetchApi<AuditResult>('/audits', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sourceId, claimType, ...(scope ? { scope, datasetSnapshotId } : {}) }) }),
+    onSuccess: (result, variables) => setCurrentAudit(result, variables.context),
   });
-  const verifyMutation = useMutation({ mutationFn: (id: string) => fetchApi<{ status: string; integrityVerified: boolean; localDigestValid: boolean }>('/audits/' + encodeURIComponent(id) + '/verify'), onSuccess: response => setVerification(response.integrityVerified ? `On-chain receipt verified (${response.status})` : response.localDigestValid ? `Local SHA-256 valid · no on-chain verification (${response.status})` : `Local SHA-256 mismatch (${response.status})`) });
+  const verifyMutation = useMutation({
+    mutationFn: ({ auditId }: { auditId: string; bundleHash: string; context: typeof currentAssessmentContext }) => fetchApi<{ status: string; integrityVerified: boolean; localDigestValid: boolean }>('/audits/' + encodeURIComponent(auditId) + '/verify', auditHistoryAccessToken ? { headers: { authorization: `Bearer ${auditHistoryAccessToken}` } } : undefined),
+    onSuccess: (response, request) => {
+      const current = verificationTarget.current;
+      if (request.context !== current.context || request.auditId !== current.auditId || request.bundleHash !== current.bundleHash) return;
+      setVerification({ auditId: request.auditId, bundleHash: request.bundleHash, message: response.integrityVerified ? `On-chain receipt verified (${response.status})` : response.localDigestValid ? `Local SHA-256 valid · no on-chain verification (${response.status})` : `Local SHA-256 mismatch (${response.status})` });
+    },
+  });
+  const currentVerificationPending = verifyMutation.isPending && verifyMutation.variables?.context === currentAssessmentContext
+    && verifyMutation.variables.auditId === audit?.auditId && verifyMutation.variables.bundleHash === audit?.bundleHash;
   const sourceEvidence = source?.evidence || [];
   const displayedResults = useMemo(() => sources.filter(s => `${s.sourceId} ${s.name} ${s.region}`.toLowerCase().includes(search.toLowerCase())), [search, sources]);
-  const warning = audit?.bundle.schemaVersion === 3 ? audit.bundle.intelligence?.reviewStatus === 'unreviewed' ? 'AI suggestion · unreviewed' : audit.bundle.intelligence?.reviewStatus === 'approved' ? 'Document review accepted' : audit.bundle.intelligence?.reviewStatus === 'needs_more_evidence' ? 'Additional evidence requested' : 'Document review rejected' : audit?.result === 'contradicted' ? 'Contradicted' : audit?.result === 'supported' ? 'Supported' : 'Insufficient evidence';
+  const warning = audit ? assessmentPresentation(audit.bundle).resultLabel : 'Insufficient reference coverage';
   const alertText = audit ? audit.reason : realMode ? 'Satellite detections alone cannot establish whether emissions have stopped. Run the deterministic coverage baseline to inspect the selected claim.' : 'No independent mitigation confirmation is present for this selected synthetic fixture. Run a baseline audit to check the evidence.';
-  const verdictTone = audit?.result === 'supported' ? 'positive' : 'caution';
+  const verdictTone = audit?.result === 'supported' && audit.bundle.schemaVersion === 4 ? 'positive' : 'caution';
   const totalEvidence = sources.reduce((n,s) => n+s.evidence.length,0);
   const insights = sourceEvidence.filter(s => s.kind === 'mitigation_confirmation').length;
   const maxRecordedDate = snapshot?.lastObserved || sources.map(item => item.lastObserved || '').sort().at(-1) || undefined;
@@ -548,13 +610,14 @@ export default function App() {
   async function importDataset(file?: File) {
     if (!file) return;
     manualDatasetChoice.current = true;
+    if (!confirmDraftNavigation()) return;
     setDatasetError(null);setImporting(true);
-    try { const parsed = await loadMarsFile(file); setDemoMode(false);setProgressiveManifest(null);setSnapshotManifest(null);setSnapshot(parsed);setSelectedId(parsed.sources[0].sourceId);rememberSelectedSource(parsed.sources[0].sourceId);setAudit(null);setVerification(null);setSearch(''); }
+    try { const parsed = await loadMarsFile(file); setAuditSelectionGeneration(previous => previous + 1);setDemoMode(false);setProgressiveManifest(null);setSnapshotManifest(null);setSnapshot(parsed);setSelectedId(parsed.sources[0].sourceId);rememberSelectedSource(parsed.sources[0].sourceId);setAudit(null);setVerification(null);setSearch(''); }
     catch (error) { setDatasetError(error instanceof Error ? error.message : 'Unable to import dataset.'); }
     finally { setImporting(false); if (fileRef.current) fileRef.current.value = ''; }
   }
-  function useDemo() { manualDatasetChoice.current = true;setDemoMode(true);setProgressiveManifest(null);setSnapshotManifest(null);setSnapshot(null);setSelectedId('DEMO-001');rememberSelectedSource('DEMO-001');setAudit(null);setVerification(null);setSearch(''); }
-  function useCasebook() { manualDatasetChoice.current = true;setDemoMode(false);setProgressiveManifest(null);setSnapshotManifest(null);setSnapshot(null);setSelectedId('KAZ_S_159');rememberSelectedSource('KAZ_S_159');setAudit(null);setVerification(null);setSearch(''); }
+  function useDemo() { if (!confirmDraftNavigation()) return; manualDatasetChoice.current = true;setAuditSelectionGeneration(previous => previous + 1);setDemoMode(true);setProgressiveManifest(null);setSnapshotManifest(null);setSnapshot(null);setSelectedId('DEMO-001');rememberSelectedSource('DEMO-001');setAudit(null);setVerification(null);setSearch(''); }
+  function useCasebook() { if (!confirmDraftNavigation()) return; manualDatasetChoice.current = true;setAuditSelectionGeneration(previous => previous + 1);setDemoMode(false);setProgressiveManifest(null);setSnapshotManifest(null);setSnapshot(null);setSelectedId('KAZ_S_159');rememberSelectedSource('KAZ_S_159');setAudit(null);setVerification(null);setSearch(''); }
 
   function updateWorkspacePreferences(next: WorkspacePreferences) {
     setWorkspacePreferences(next);
@@ -563,7 +626,8 @@ export default function App() {
     setPreferencesSaveSucceeded(writeWorkspacePreferences(next));
   }
 
-  function navigate(item: typeof nav[number]) {
+  function navigate(item: typeof nav[number], alreadyConfirmed = false) {
+    if (!alreadyConfirmed && item.key !== activeNav && !confirmDraftNavigation()) return;
     setActiveNav(item.key); setMobileNav(false); setSearchFocused(false); setCaseDialogSourceId(null);
     const sourceId = new URLSearchParams(window.location.search).get('sourceId') || selectedId;
     const pathname = item.key === 'dashboard' ? '/dashboard' : `/dashboard/${item.key}`;
@@ -573,15 +637,26 @@ export default function App() {
   }
   useEffect(() => {
     const onPop = () => {
+      if (!confirmDraftNavigation()) { const path = activeNav === 'dashboard' ? '/dashboard' : `/dashboard/${activeNav}`; window.history.pushState({}, '', `${path}?sourceId=${encodeURIComponent(selectedId)}`); return; }
       const sourceId = new URLSearchParams(window.location.search).get('sourceId');
-      if (sourceId) setSelectedId(sourceId);
+      if (sourceId) {
+        setSelectedId(sourceId);
+        const recovered = readSessionDraft('selection', sourceId, InvestigationSelection);
+        const target = JSON.stringify({ ...caseWorkContext, sourceId });
+        if (recovered?.context === target) { setClaim(recovered.claimType); setScopeSelection({ context: target, value: recovered.scope }); setWorkSelection({ context: target, workId: recovered.workId }); } else { setScopeSelection(null); setWorkSelection(null); }
+      }
       setActiveNav(getInitialWorkspace(window.location.pathname, workspacePreferences));
     };
     window.addEventListener('popstate',onPop); return () => window.removeEventListener('popstate',onPop);
-  }, [workspacePreferences]);
+  }, [workspacePreferences, activeNav, selectedId, caseWorkKey]);
 
   function pickSource(id: string, preserveFilters = false) {
+    if (!confirmDraftNavigation()) return false;
+    setAuditSelectionGeneration(previous => previous + 1);
     setSelectedUnlinked(null);
+    const targetKey = JSON.stringify({ ...caseWorkContext, sourceId: id });
+    const recovered = readSessionDraft('selection', id, InvestigationSelection);
+    if (recovered?.context === targetKey) { setClaim(recovered.claimType); setScopeSelection({ context: targetKey, value: recovered.scope }); setWorkSelection({ context: targetKey, workId: recovered.workId }); } else { setScopeSelection(null); setWorkSelection(null); }
     if (!preserveFilters) { setCountryFilter('All regions'); setSectorFilter('All sectors'); setRange('All observations'); }
     setSelectedId(id);rememberSelectedSource(id);setAudit(null); setVerification(null);  setSearchFocused(false); setSearch('');
     const url = new URL(window.location.href);
@@ -589,9 +664,21 @@ export default function App() {
       url.searchParams.set('sourceId', id);
       window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
     }
+    return true;
   }
-  function openHistoricalAudit(item: AuditResult) { setAudit(item);setClaim(item.claimType);setVerification(null); }
-  async function exportReport() {
+  function openHistoricalAudit(item: AuditResult) { if (!confirmDraftNavigation()) return; setAuditSelectionGeneration(previous => previous + 1);setScopeSelection({ context: caseWorkKey, value: item.bundle.scope });setAudit(item);setClaim(item.claimType);setVerification(null); }
+  function changeAssessmentScope(value?: AuditScope) { if (JSON.stringify(value) !== JSON.stringify(assessmentScope) && !confirmDraftNavigation()) return false; setScopeSelection({ context: caseWorkKey, value }); setAudit(null); setVerification(null); return true; }
+  function resumeCaseWork(nextClaim: ClaimType, scope?: AuditScope, sourceId = source.sourceId, workId = 'default') {
+    if (!confirmDraftNavigation()) return;
+    setAuditSelectionGeneration(previous => previous + 1);
+    setSelectedId(sourceId); rememberSelectedSource(sourceId);
+    const context = JSON.stringify({ ...caseWorkContext, sourceId });
+    setWorkSelection({ context, workId }); setClaim(nextClaim); setScopeSelection({ context, value: scope }); setAudit(null); setVerification(null);
+    const url = new URL(window.location.href); url.searchParams.set('sourceId', sourceId); window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}`);
+    navigate(nav.find(item => item.key === 'audit')!, true);
+  }
+
+  async function exportReport(format: 'json' | 'markdown' = 'json') {
     setReportExportError(null);
     if (progressiveManifest && Number(source.plumeCount) > 0 && source.observations === undefined) {
       setReportExportError('Report export is paused until this source history has been verified from its pinned snapshot. Retry loading the case history first.');
@@ -600,8 +687,10 @@ export default function App() {
     try {
       const payload = buildReportExportPayload({ audit, claim, source, snapshot, sourceArchiveHash, realMode, generatedAt: new Date().toISOString() });
       const report = await addExportIntegrity(payload);
-      const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' }));
-      const a = document.createElement('a'); a.href = url; a.download = `methane-response-${(audit?.sourceId || source.sourceId).toLowerCase()}-audit.json`; a.click();
+      const markdown = format === 'markdown';
+      const contents = markdown ? (await import('./investigation-brief')).buildInvestigationBrief(report) : JSON.stringify(report, null, 2);
+      const url = URL.createObjectURL(new Blob([contents], { type: markdown ? 'text/markdown;charset=utf-8' : 'application/json' }));
+      const a = document.createElement('a'); a.href = url; a.download = `methane-response-${report.selectedSourceId.toLowerCase()}-${audit?.bundle.schemaVersion === 4 && !markdown ? 'PRIVATE-' : ''}${markdown ? 'investigation.md' : 'audit.json'}`; a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     } catch {
       setReportExportError('Browser SHA-256 tidak tersedia; ekspor belum dibuat. Coba dari browser modern melalui HTTPS atau localhost.');
@@ -643,15 +732,15 @@ export default function App() {
     settings: {eyebrow:'WORKSPACE CONFIGURATION',title:'Settings',description:'Choose how this browser opens and renders MethaneResponse workspaces.'},
   };
   const currentInfo = pageInfo[activeNav] || pageInfo.dashboard;
-  const switchPage = (name: string) => navigate(nav.find(item => item.key === name) || nav[0]);
+  const switchPage = (name: string, alreadyConfirmed = false) => navigate(nav.find(item => item.key === name) || nav[0], alreadyConfirmed);
   const openSourceInMap = (selectedSource: MarsSource) => {
     if (!getSourceMapFocusView(selectedSource)) return;
-    pickSource(selectedSource.sourceId);
+    if (!pickSource(selectedSource.sourceId)) return;
     setMapFocusRequest({ sourceId: selectedSource.sourceId, requestId: ++mapFocusSequence.current });
-    switchPage('map');
+    switchPage('map', true);
   };
   const openCaseDialog = (selectedSource: MarsSource) => {
-    pickSource(selectedSource.sourceId);
+    if (!pickSource(selectedSource.sourceId)) return;
     setCaseDialogSourceId(selectedSource.sourceId);
   };
   const renderMap = () => <section id="explorer" className={`panel map-panel ${expandedMap ? 'expanded-map' : ''}`}>
@@ -689,17 +778,18 @@ export default function App() {
     </aside>
     <div className="app-main">
       <header className="topbar"><button className="mobile-menu icon-button" aria-label="Open navigation" aria-expanded={mobileNav} aria-controls="workspace-sidebar" onClick={()=>setMobileNav(true)}><Icon name="menu"/></button>
-        <div className="top-search" ref={ref}><Icon name="search" size={18}/><input value={search} onChange={e=>{setSearch(e.target.value);setSearchFocused(true);}} onFocus={()=>setSearchFocused(true)} placeholder="Search locations, cases, satellites, or evidence…" aria-label="Search methane sources"/><kbd>⌘ K</kbd>{searchFocused && search.trim() && <div className="search-results">{displayedResults.slice(0,12).map(item=><button key={item.sourceId} onClick={()=>{pickSource(item.sourceId);setSearchFocused(false);switchPage('cases');}}><Icon name="pin" size={15}/><span><strong>{item.sourceId}</strong><small>{item.region} · {item.sector || 'Source'}</small></span></button>)}{!displayedResults.length && <div className="search-empty">No matching sources</div>}</div>}</div>
+        <div className="top-search" ref={ref}><Icon name="search" size={18}/><input value={search} onChange={e=>{setSearch(e.target.value);setSearchFocused(true);}} onFocus={()=>setSearchFocused(true)} placeholder="Search locations, cases, satellites, or evidence…" aria-label="Search methane sources"/><kbd>⌘ K</kbd>{searchFocused && search.trim() && <div className="search-results">{displayedResults.slice(0,12).map(item=><button key={item.sourceId} onClick={()=>{if (!pickSource(item.sourceId)) return;setSearchFocused(false);switchPage('cases', true);}}><Icon name="pin" size={15}/><span><strong>{item.sourceId}</strong><small>{item.region} · {item.sector || 'Source'}</small></span></button>)}{!displayedResults.length && <div className="search-empty">No matching sources</div>}</div>}</div>
         <div className="top-actions"><span className="environment-status"><span className={`data-status-indicator ${getDataStatusIndicatorKind(realMode)}`} aria-hidden="true"/> {realMode?'UNEP SNAPSHOT · NOT LIVE':'SYNTHETIC PREVIEW'}</span><button className="icon-button notification" aria-label="Data and prototype information" onClick={()=>setShowNotice(true)}><Icon name="bell" size={19}/><i/></button><div className="top-sep"/><button className="account" onClick={()=>setShowNotice(true)}><span className="avatar">MR</span><span className="account-copy"><strong>Research Workspace</strong><small>Prototype · no sign-in</small></span><Icon name="chevron" size={13}/></button></div>
       </header>
       <main id="dashboard-main" tabIndex={-1} className="dashboard-content workspace-content">
+        <PreviewModeNotice/>
         <section className="workspace-hero"><div className="hero-content"><div className="eyebrow"><span/> {currentInfo.eyebrow}</div><h1>{currentInfo.title}<span className="headline-accent">.</span></h1><p>{currentInfo.description}</p></div><div className="hero-actions">{activeNav==='dashboard' || activeNav==='reports'?<button className="outline-btn" disabled={activeNav==='reports'&&!audit} onClick={()=>void exportReport()}><Icon name="download" size={15}/> Export current report</button>:activeNav==='cases'||activeNav==='audit'?<button className="outline-btn" onClick={()=>switchPage('map')}><Icon name="map" size={15}/> Explore on map</button>:null}</div></section>
         {(['cases', 'audit', 'reports', 'blockchain'] as WorkspaceRoute[]).includes(activeNav) && <InvestigationJourney activeRoute={activeNav} sourceId={source.sourceId} audit={audit} verification={verification} onNavigate={route => { const item = nav.find(entry => entry.key === route); if (item) navigate(item); }}/>}
         {datasetError && <div role="alert" className="dataset-error">{datasetError}<button onClick={()=>setDatasetError(null)}>Dismiss</button></div>}
         {(activeNav==='dashboard'||activeNav==='map') && <div className="snapshot-bar"><span><Icon name="info" size={15}/><strong>{realMode?'Historical UNEP MARS data':'Synthetic demonstration'}</strong> · {datasetSummary.sourceCount.toLocaleString()} sources · {datasetSummary.observationCount.toLocaleString()} plume records ({datasetSummary.unlinkedObservationCount.toLocaleString()} without source ID) · {snapshot?.plumeObservationDateRange?.start||'date range unavailable'} to {snapshot?.plumeObservationDateRange?.end||maxRecordedDate?.slice(0,10)||'not reported'} · not live {snapshotLoading?'· loading pinned snapshot':''} · {sourceSnapshotId||'version not available'}</span><div className="dataset-actions"><input ref={fileRef} type="file" accept=".geojson,.json,application/json" hidden onChange={e=>void importDataset(e.target.files?.[0])}/><button className="dataset-btn" onClick={()=>fileRef.current?.click()} disabled={importing}><Icon name="database" size={14}/>{importing?'Importing…':'Import MARS GeoJSON'}</button><button className="dataset-demo-btn" onClick={realMode?useDemo:useCasebook}>{realMode?'Synthetic demo':'UNEP casebook'}</button></div></div>}
         {activeNav==='dashboard' && <>
           <div className="metrics-grid workspace-metrics"><Metric icon="pin" label={realMode?'Observed source records':'Sample source records'} value={datasetSummary.sourceCount.toLocaleString()} change={realMode?'versioned historical source rows':'synthetic fixtures'} variant="cyan"/><Metric icon="flame" label="Plume records in this snapshot" value={allLoadedPlumes.toLocaleString()} change={realMode?`${datasetSummary.linkedObservationCount.toLocaleString()} linked · ${unlinkedPlumes.toLocaleString()} unlinked`:'synthetic records'} variant="orange"/><Metric icon="database" label="Source feedback field = Yes" value={sourcesWithFeedback.toLocaleString()} change="source metadata; not proof of repair" variant="blue"/><Metric icon="shield" label="Independently verified mitigation" value="—" change="not assessed by this prototype" variant="green"/></div>
-          <div className="main-grid dashboard-map-grid">{renderMap()}<section className="panel activity-panel"><CardHeader title="Latest recorded observations" subtitle="Historical, not real-time alerts" action={<button className="text-link" onClick={()=>switchPage('cases')}>View all <Icon name="arrowRight" size={14}/></button>}/><div className="activity-list">{recentSources.map((item,i)=><button className="activity-row" key={item.sourceId} onClick={()=>{pickSource(item.sourceId);switchPage('cases');}}><span className="activity-image orange"><Icon name="flame" size={18}/></span><span className="activity-copy"><strong>{item.sourceId}</strong><small>{item.region}</small></span><time>{item.lastObserved?.slice(0,10)}</time></button>)}</div><div className="activity-bottom"><span className={`data-status-indicator ${getDataStatusIndicatorKind(realMode)}`} aria-hidden="true"/> Source: {realMode?'UNEP MARS historical snapshot':'synthetic fixture'}</div></section></div>
+          <div className="main-grid dashboard-map-grid">{renderMap()}<section className="panel activity-panel"><CardHeader title="Latest recorded observations" subtitle="Historical, not real-time alerts" action={<button className="text-link" onClick={()=>switchPage('cases')}>View all <Icon name="arrowRight" size={14}/></button>}/><div className="activity-list">{recentSources.map((item,i)=><button className="activity-row" key={item.sourceId} onClick={()=>{if (!pickSource(item.sourceId)) return;switchPage('cases', true);}}><span className="activity-image orange"><Icon name="flame" size={18}/></span><span className="activity-copy"><strong>{item.sourceId}</strong><small>{item.region}</small></span><time>{item.lastObserved?.slice(0,10)}</time></button>)}</div><div className="activity-bottom"><span className={`data-status-indicator ${getDataStatusIndicatorKind(realMode)}`} aria-hidden="true"/> Source: {realMode?'UNEP MARS historical snapshot':'synthetic fixture'}</div></section></div>
           <div className="workspace-overview-grid"><section className="panel overview-card"><CardHeader title="Investigation Focus" subtitle="Selected case · evidence status" icon="target" action={<button className="text-link" onClick={()=>switchPage('cases')}>Explore case <Icon name="arrowRight" size={13}/></button>}/><div className="overview-feature"><div className="overview-ring" role="group" aria-label={`${source.evidence.length} evidence references`}><strong>{source.evidence.length}</strong><span>evidence links</span></div><div className="overview-key"><b>{source.sourceId}</b><span>{source.region}</span><span>{source.observations?.length ?? (source.plumeCount || 0)} snapshot observations</span><span>Mitigation: not independently assessed</span></div></div></section><section className="panel overview-card"><CardHeader title="Methane Flux Observations" subtitle="Selected source · observed kg/h" icon="activity" action={<button className="text-link" onClick={()=>switchPage('cases')}>Inspect data <Icon name="arrowRight" size={13}/></button>}/><ObservationChart source={source} historyLoading={sourceHistoryLoading} historyError={sourceHistoryError} onRetry={retrySourceHistory}/></section><section className="panel overview-card"><CardHeader title="Evidence & Audit Status" subtitle="Evidence before assumptions" icon="shield" action={<button className="text-link" onClick={()=>switchPage('audit')}>Evidence Auditor <Icon name="arrowRight" size={13}/></button>}/><div className="overview-audit"><div className={`report-verdict ${verdictTone}`}>{audit?warning:'Awaiting review'}</div><p>{audit?.reason || 'No independent verification of physical mitigation has been performed for this source.'}</p><div className="overview-audit-stat"><span>Evidence references</span><strong>{source.evidence.length}</strong></div><div className="overview-audit-stat"><span>Public blockchain receipt</span><strong>{audit?.anchored?'Available':'Not anchored'}</strong></div></div></section></div>
           <div className="workspace-cta"><span><Icon name="info" size={17}/> Detailed evidence assessment, document sources and blockchain verification are organized in dedicated workspaces.</span><div><button onClick={()=>switchPage('audit')}>Evidence Auditor →</button><button onClick={()=>switchPage('blockchain')}>Blockchain →</button><button onClick={()=>switchPage('reports')}>Reports →</button></div></div>
         </>}
@@ -731,11 +821,17 @@ export default function App() {
             onSelectSource={id => pickSource(id, true)}
             onOpenMap={openSourceInMap}
             onReviewEvidence={() => switchPage('audit')}
+            onResumeWork={resumeCaseWork}
+          activeWork={{ sourceId: source.sourceId, workId: activeWorkId, claimType: claim, scope: assessmentScope }}
+            workReady={investigationReady}
           /></Suspense>
         </>}
-        {activeNav==='operators' && <Suspense fallback={<WorkspaceLoading label="operator workspace"/>}><OperatorsWorkspace sources={sources} datasetLabel={realMode ? 'UNEP MARS historical snapshot' : 'Synthetic demonstration'} onOpenCase={openCaseDialog} onReviewEvidence={selectedSource=>{pickSource(selectedSource.sourceId);switchPage('audit');}}/></Suspense>}
+        {activeNav==='operators' && <Suspense fallback={<WorkspaceLoading label="operator workspace"/>}><OperatorsWorkspace sources={sources} datasetLabel={realMode ? 'UNEP MARS historical snapshot' : 'Synthetic demonstration'} onOpenCase={openCaseDialog} onReviewEvidence={selectedSource=>{if (!pickSource(selectedSource.sourceId)) return;switchPage('audit', true);}}/></Suspense>}
         {activeNav==='settings' && <Suspense fallback={<WorkspaceLoading label="settings"/>}><SettingsWorkspace preferences={workspacePreferences} saveSucceeded={preferencesSaveSucceeded} onChange={updateWorkspacePreferences} onReset={()=>updateWorkspacePreferences({ ...DEFAULT_WORKSPACE_PREFERENCES })}/></Suspense>}
-        {activeNav === 'audit' && <EvidenceAuditorWorkflow
+        {activeNav === 'audit' && !investigationReady && (snapshotLoading || !data && !isError ? <WorkspaceLoading label="investigation dataset"/> : <section className="panel" role="status"><p>Investigation data is unavailable. Load a historical dataset or choose the explicit DEMO dataset to continue.</p></section>)}
+        {activeNav === 'audit' && investigationReady && <Suspense fallback={<WorkspaceLoading label="investigation"/>}><EvidenceAuditorWorkflow
+          draftContext={JSON.stringify([caseWorkContext, activeWorkId, claim, assessmentScope])}
+          key={contextKey}
           source={source}
           sources={sources}
           onSelectSource={pickSource}
@@ -752,28 +848,30 @@ export default function App() {
           sourceArchiveHash={sourceArchiveHash}
           onOpenGlobe={() => openSourceInMap(source)}
           claim={claim}
+          scope={assessmentScope}
+          onScopeChange={changeAssessmentScope}
           claimLabels={claimLabels}
           claimDescriptions={claimDescriptions}
-          onClaimChange={nextClaim => { setClaim(nextClaim); setAudit(null); }}
+          onClaimChange={nextClaim => { if (!confirmDraftNavigation()) return; setClaim(nextClaim); setAudit(null); setVerification(null); }}
           audit={audit}
           auditWarning={warning}
-          auditPending={auditMutation.isPending}
-          auditError={auditMutation.isError ? 'Audit request failed. Confirm the source is in the pinned snapshot and check API availability.' : undefined}
-          onRunAudit={() => auditMutation.mutate({ sourceId: source.sourceId, claimType: claim })}
+          auditPending={auditMutation.isPending && auditMutation.variables?.context === currentAssessmentContext}
+          auditError={auditMutation.isError && auditMutation.variables?.context === currentAssessmentContext ? 'Audit request failed. Confirm the source is in the pinned snapshot and check API availability.' : undefined}
+          onRunAudit={() => auditMutation.mutate({ sourceId: source.sourceId, claimType: claim, scope: assessmentScope, datasetSnapshotId: source.synthetic ? 'DEMO' : sourceSnapshotId, context: currentAssessmentContext })}
           documentAssessmentAllowed={documentAssessmentAllowed}
           intelligenceCapability={intelligenceStatusQuery.data || null}
           capabilityLoading={intelligenceStatusQuery.isLoading}
           capabilityError={intelligenceStatusQuery.isError ? intelligenceStatusQuery.error instanceof Error ? intelligenceStatusQuery.error.message : 'Unknown status error' : undefined}
           onRetryCapability={() => void intelligenceStatusQuery.refetch()}
-          onAssessment={setCurrentAudit}
-          onOpenDocuments={() => switchPage('documents')}
+          onAssessment={result => setCurrentAudit(result, currentAssessmentContext)}
+          onOpenDocuments={() => { setDocumentQuery(source.sourceId); switchPage('documents'); }}
           onOpenReports={() => switchPage('reports')}
           onOpenBlockchain={() => switchPage('blockchain')}
-        />}
-        {activeNav==='documents' && <><div className="workspace-mini-stats docs-stats"><div><Icon name="file"/><strong>{allDocuments.filter(d=>d.kind==='External report').length}</strong><span>Curated report links</span></div><div><Icon name="database"/><strong>{allDocuments.filter(d=>d.kind==='detection').length}</strong><span>Curated detection citations</span></div><div><Icon name="flame"/><strong>{snapshot?.plumeCount?.toLocaleString()||'—'}</strong><span>Plume records in loaded snapshot</span></div><div><Icon name="shield"/><strong>0</strong><span>Independently reviewed reports</span></div></div><div className="documents-workspace"><section className="panel doc-library"><CardHeader title="Evidence Library" icon="file" subtitle="Historical metadata and source links" action={<button className="outline-btn" onClick={()=>switchPage('audit')}><Icon name="sparkles" size={14}/> Assess evidence</button>}/><div className="document-filters"><div className="doc-search"><Icon name="search" size={17}/><input placeholder="Search documents, sources or keywords…" value={documentQuery} onChange={e=>setDocumentQuery(e.target.value)}/></div><span>{documentResults.length} visible references</span></div><div className="document-grid"><button className="document-upload-card" onClick={()=>switchPage('audit')}><Icon name="file" size={35}/><strong>Evaluate document evidence</strong><span>Use the secure excerpt review workspace. No documents are uploaded by this library.</span><b>Open Evidence Auditor →</b></button>{documentResults.map((doc,index)=><button key={doc.key} className={`document-tile ${currentDocument?.key===doc.key?'selected':''}`} onClick={()=>setSelectedDocument(doc.key)}><div className={`document-tile-art doc-art-${index%4}`}><Icon name={doc.kind==='External report'?'file':'activity'} size={35}/><span>{doc.kind==='External report'?'LINK':'DATA'}</span></div><strong>{doc.title}</strong><span className="document-tags">{doc.sourceId} · {doc.kind}</span><small>{doc.date||'No date supplied'} · {doc.issuer}</small></button>)}</div></section><aside className="panel document-inspector"><CardHeader title="Document Preview" icon="eye"/><div className="document-inspector-art"><Icon name="file" size={64}/><span>REFERENCE PREVIEW</span></div>{currentDocument?<><h2>{currentDocument.title}</h2><Chip tone={currentDocument.kind==='External report'?'orange':'teal'}>{currentDocument.kind}</Chip><div className="fact-list"><div><span>Source</span><button onClick={()=>{pickSource(currentDocument.sourceId);switchPage('cases');}}>{currentDocument.sourceId} ↗</button></div><div><span>Issuer / reference</span><strong>{currentDocument.issuer}</strong></div><div><span>Date</span><strong>{currentDocument.date||'Not provided'}</strong></div><div><span>License</span><strong>{currentDocument.license||'Check official terms'}</strong></div></div><a href={currentDocument.url} target="_blank" rel="noopener noreferrer" className="primary-btn doc-open-link">Open source record <Icon name="external" size={15}/></a><p className="note-small">This is a linked record, not an embedded copy or a verified extraction of the full document.</p></>:<p>No matching records.</p>}</aside></div><section className="panel snapshot-history-panel"><CardHeader title="Dataset Snapshot History" icon="database" subtitle="Only releases downloaded and hashed by this project are listed; observation dates are not continuous coverage."/><div className="table-wrap"><table className="workspace-table"><thead><tr><th>Retrieved</th><th>Snapshot ID</th><th>Archive SHA-256</th><th>Sources</th><th>Plume rows</th><th>Linked</th><th>Source ID missing</th><th>Observation dates</th></tr></thead><tbody>{snapshotHistory.map(item=><tr key={item.snapshotId}><td>{item.retrievedAt.slice(0,10)}</td><td>{item.snapshotId}</td><td><code className="mono" title={item.archiveSha256}>{item.archiveSha256.slice(0,12)}…</code></td><td>{item.sources.toLocaleString()}</td><td>{item.plumes.toLocaleString()}</td><td>{item.linkedPlumes.toLocaleString()}</td><td>{item.sourceIdMissingPlumes.toLocaleString()}</td><td>{item.observationDateRange.start} – {item.observationDateRange.end}</td></tr>)}</tbody></table></div>{!snapshotHistory.length&&<p className="note-small">Snapshot history metadata is unavailable in this build.</p>}<p className="note-small">The complete archive SHA-256 values are available in the <a href="/data/mars-snapshot-history.json" target="_blank" rel="noreferrer">full snapshot history JSON ↗</a>. Missing source IDs remain unlinked; this display does not infer a source or mitigation status.</p><div className="dataset-reference-links"><a href="https://methanedata.unep.org/download-dataset" target="_blank" rel="noreferrer">UNEP MARS dataset and terms ↗</a><a href="https://methanedata.unep.org/dict-mars-plumes" target="_blank" rel="noreferrer">MARS data dictionary ↗</a></div></section></>}
-        {activeNav==='blockchain' && <><div className="workspace-mini-stats chain-stats"><div><Icon name="file"/><strong>{audit?1:0}</strong><span>Current audit bundles</span></div><div><Icon name="shield"/><strong>{audit?.anchored?'1':'0'}</strong><span>Anchored receipts</span></div><div><Icon name="check"/><strong>{verification?.startsWith('On-chain receipt verified')?'1':'0'}</strong><span>Verified on chain this session</span></div><div><Icon name="database"/><strong>Sepolia</strong><span>Optional test network</span></div></div><div className="blockchain-workspace"><section className="panel blockchain-main"><CardHeader title="Verification Center" subtitle="From attributed evidence to verifiable digest" icon="link"/><div className="chain-flow"><div><Icon name="layers" size={27}/><strong>Evidence bundle</strong><span>Claims, citations and provenance</span></div><b>→</b><div><Icon name="database" size={27}/><strong>SHA-256 digest</strong><span>Reproducible data integrity</span></div><b>→</b><div><Icon name="cube" size={27}/><strong>Chain transaction</strong><span>Authorized issuer on Sepolia</span></div><b>→</b><div><Icon name="shield" size={27}/><strong>Receipt verification</strong><span>Compare issuer, version and event</span></div></div><CardHeader title="Audit receipt" subtitle="Current selected source" action={<button className="outline-btn" onClick={()=>switchPage('audit')}>New evidence audit →</button>}/><div className="chain-current"><span className="chain-current-icon"><Icon name="shield" size={25}/></span><div><strong>{audit?`Audit ${audit.auditId}`:'No receipt has been generated'}</strong><p>{audit?.reason||'Run a real evidence audit to create a versioned bundle. A public transaction is never simulated.'}</p><Chip tone={audit?.anchored?'teal':'orange'}>{audit?.anchored?'On-chain receipt recorded':'Not anchored'}</Chip></div></div><div className="fact-list"><div><span>Source</span><strong>{source.sourceId}</strong></div><div><span>Bundle SHA-256</span><strong className="mono">{audit?.bundleHash||'Not generated'}</strong></div><div><span>Audit revision</span><strong>{audit?.revision??'—'}</strong></div><div><span>Receipt version</span><strong>{audit?.receipt?.version??'—'}</strong></div><div><span>Transaction</span><strong className="mono">{audit?.chainTxHash||'No public transaction'}</strong></div></div><div className="audit-actions"><button className="outline-btn" disabled={!audit} onClick={copyHash}><Icon name="copy" size={15}/>{copied?'Copied':'Copy digest'}</button><button className="primary-btn" disabled={!audit||verifyMutation.isPending} onClick={()=>audit&&verifyMutation.mutate(audit.auditId)}><Icon name="shield" size={16}/>{verifyMutation.isPending?'Checking…':audit?.anchored?'Verify on-chain receipt':'Verify saved digest'}</button></div>{verification&&<p role="status" className="note-small">Verifier result: {verification}</p>}{audit?.chainTxHash&&<a className="chain-explorer-link" href={`https://sepolia.etherscan.io/tx/${audit.chainTxHash}`} target="_blank" rel="noreferrer">View public Sepolia transaction ↗</a>}</section><aside className="panel blockchain-aside"><CardHeader title="Receipt Details" icon="shield"/><div className="chain-receipt-badge"><Icon name={audit?.anchored?'check':'clock'} size={18}/>{audit?.anchored?'Recorded on Sepolia':'Awaiting blockchain receipt'}</div><h2>{source.sourceId}</h2><p>Historical methane evidence case</p><div className="fact-list"><div><span>Network</span><strong>Sepolia (testnet)</strong></div><div><span>Issuer</span><strong className="mono">{audit?.receipt?.issuer||'Not recorded'}</strong></div><div><span>Block</span><strong>{audit?.receipt?.blockNumber||'—'}</strong></div><div><span>Current verification</span><strong>{verification||'Not checked'}</strong></div></div><div className="workspace-timeline"><div><span className="timeline-node"/><time>Audit lifecycle</time><strong>{audit?'Bundle created':'No audit generated'}</strong><small>{audit?`Revision ${audit.revision}`:'Begin in Evidence Auditor'}</small></div>{audit?.anchored&&<div><span className="timeline-node"/><time>On-chain</time><strong>Receipt recorded</strong><small>Verify its integrity above</small></div>}</div><p className="note-small">Blockchain verifies the recorded digest and publisher metadata. It does not prove physical leak repair.</p></aside></div></>}
-        {activeNav==='reports' && <><div className="workspace-mini-stats report-stats"><div><Icon name="file"/><strong>{audit?1:0}</strong><span>Audit reports this session</span></div><div><Icon name="flame"/><strong>{sourcePlumes}</strong><span>Linked observations</span></div><div><Icon name="pin"/><strong>{filteredSources.length}</strong><span>Source locations</span></div><div><Icon name="shield"/><strong>—</strong><span>Independently verified mitigation</span></div></div><div className="reports-workspace"><div className="reports-left"><section className="panel report-summary-panel"><CardHeader title="Executive Summary" icon="reports" subtitle="Historical observations and audit evidence" action={<Chip tone={realMode?'teal':'orange'}>{realMode?'UNEP SNAPSHOT':'SYNTHETIC'}</Chip>}/><div className="report-summary-grid"><div><strong>{source.sourceId}</strong><span>Selected case</span></div><div><strong>{source.observations?.length ?? source.plumeCount ?? 0}</strong><span>Snapshot observations</span></div><div><strong>{source.evidence.length}</strong><span>Evidence references</span></div><div><strong>{audit?.result?.replaceAll('_',' ')||'Pending'}</strong><span>Assessment result</span></div></div><p>{audit?.reason||`The selected source appears in the ${realDatasetLabel}. Available metadata includes satellite detections and source-level status; it does not independently establish physical mitigation.`}</p>{audit?.bundle.schemaVersion === 3 && audit.bundle.intelligence?.reviewStatus === 'unreviewed' && <button className="outline-btn" onClick={()=>switchPage('audit')}>Continue human review <Icon name="arrowRight" size={14}/></button>}<button className="outline-btn" onClick={()=>switchPage('cases')}>Review selected case <Icon name="arrowRight" size={14}/></button></section><section className="panel"><CardHeader title="Observed Methane Flux" icon="activity" subtitle="Observed points in kg/h · not continuous"/><ObservationChart source={source} historyLoading={sourceHistoryLoading} historyError={sourceHistoryError} onRetry={retrySourceHistory}/></section><section className="panel report-checklist"><CardHeader title="Evidence completeness" icon="shield"/><div><Icon name="check" size={16}/> Source identifier and location <strong>Available</strong></div><div><Icon name="check" size={16}/> Satellite observations <strong>{source.observations?.length ?? source.plumeCount ?? 0} snapshot records</strong></div><div><Icon name="file" size={16}/> External reports <strong>{source.externalEvidence?.length||0} links</strong></div><div><Icon name="warning" size={16}/> Independently verified mitigation <strong>Not established</strong></div><div><Icon name="cube" size={16}/> Blockchain anchoring <strong>{audit?.anchored?'Receipt exists':'Not anchored'}</strong></div></section></div><section className="panel report-preview-panel"><CardHeader title="Report Preview" icon="eye" subtitle="Current source · generated from available evidence"/><div className="report-paper"><div className="paper-cover"><div className="paper-logo"><AppLogo/></div><span>RESEARCH PROTOTYPE · {new Date().getUTCFullYear()}</span><h2>Global Methane<br/>Intelligence Report</h2><p>Observations. Evidence. Action.</p><div className="paper-earth"/><div className="paper-cover-meta"><span>Case {source.sourceId}</span><span>Region: {source.region}</span><span>Status: {audit?audit.result:'Not audited'}</span></div></div><div className="paper-summary"><h3>Evidence assessment</h3><p>{audit?.reason||'No independent evidence audit has been completed for this case.'}</p><div className="fact-list"><div><span>Source</span><strong>{source.sourceId}</strong></div><div><span>Evidence references</span><strong>{source.evidence.length}</strong></div><div><span>Mitigation proof</span><strong>Not certified</strong></div></div></div></div><div className="report-export-actions"><button className="primary-btn" disabled={!audit} onClick={()=>void exportReport()}><Icon name="download" size={16}/> Download JSON report</button><button className="outline-btn" onClick={()=>switchPage('blockchain')}>Check integrity →</button></div>{reportExportError&&<p role="alert" className="inline-error">{reportExportError}</p>}<p className="note-small">The export is JSON. PDF report generation is not yet implemented; the on-screen cover is a layout preview, not a published document.</p></section></div></>}
-        {activeNav==='blockchain' && <Suspense fallback={<WorkspaceLoading label="blockchain verifier"/>}><ImportedAuditVerifier/></Suspense>}
+        /><CaseWorkPanel key={`${caseWorkKey}:${activeWorkId}`} context={workPanelContext} claimType={claim} scope={assessmentScope} onResume={resumeCaseWork}/></Suspense>}
+        {activeNav==='documents' && <><div className="workspace-mini-stats docs-stats"><div><Icon name="file"/><strong>{allDocuments.filter(d=>d.kind==='External report').length}</strong><span>Curated report links</span></div><div><Icon name="database"/><strong>{allDocuments.filter(d=>d.kind==='detection').length}</strong><span>Curated detection citations</span></div><div><Icon name="flame"/><strong>{snapshot?.plumeCount?.toLocaleString()||'—'}</strong><span>Plume records in loaded snapshot</span></div><div><Icon name="shield"/><strong>0</strong><span>Independently reviewed reports</span></div></div><div className="documents-workspace"><section className="panel doc-library"><CardHeader title="Evidence Library" icon="file" subtitle="Historical metadata and source links" action={<button className="outline-btn" onClick={()=>switchPage('audit')}><Icon name="sparkles" size={14}/> Assess evidence</button>}/><div className="document-filters"><div className="doc-search"><Icon name="search" size={17}/><input placeholder="Search documents, sources or keywords…" value={documentQuery} onChange={e=>setDocumentQuery(e.target.value)}/></div><span>{documentResults.length} visible references</span></div><div className="document-grid"><button className="document-upload-card" onClick={()=>switchPage('audit')}><Icon name="file" size={35}/><strong>Evaluate document evidence</strong><span>Use the secure excerpt review workspace. No documents are uploaded by this library.</span><b>Open Evidence Auditor →</b></button>{documentResults.map((doc,index)=><button key={doc.key} className={`document-tile ${currentDocument?.key===doc.key?'selected':''}`} onClick={()=>setSelectedDocument(doc.key)}><div className={`document-tile-art doc-art-${index%4}`}><Icon name={doc.kind==='External report'?'file':'activity'} size={35}/><span>{doc.kind==='External report'?'LINK':'DATA'}</span></div><strong>{doc.title}</strong><span className="document-tags">{doc.sourceId} · {doc.kind}</span><small>{doc.date||'No date supplied'} · {doc.issuer}</small></button>)}</div></section><aside className="panel document-inspector"><CardHeader title="Document Preview" icon="eye"/><div className="document-inspector-art"><Icon name="file" size={64}/><span>REFERENCE PREVIEW</span></div>{currentDocument?<><h2>{currentDocument.title}</h2><Chip tone={currentDocument.kind==='External report'?'orange':'teal'}>{currentDocument.kind}</Chip><div className="fact-list"><div><span>Source</span><button onClick={()=>{if (!pickSource(currentDocument.sourceId)) return;switchPage('cases', true);}}>{currentDocument.sourceId} ↗</button></div><div><span>Issuer / reference</span><strong>{currentDocument.issuer}</strong></div><div><span>Date</span><strong>{currentDocument.date||'Not provided'}</strong></div><div><span>License</span><strong>{currentDocument.license||'Check official terms'}</strong></div></div><a href={currentDocument.url} target="_blank" rel="noopener noreferrer" className="primary-btn doc-open-link">Open source record <Icon name="external" size={15}/></a><p className="note-small">This is a linked record, not an embedded copy or a verified extraction of the full document.</p></>:<p>No matching records.</p>}</aside></div><section className="panel snapshot-history-panel"><CardHeader title="Dataset Snapshot History" icon="database" subtitle="Only releases downloaded and hashed by this project are listed; observation dates are not continuous coverage."/><div className="table-wrap"><table className="workspace-table"><thead><tr><th>Retrieved</th><th>Snapshot ID</th><th>Archive SHA-256</th><th>Sources</th><th>Plume rows</th><th>Linked</th><th>Source ID missing</th><th>Observation dates</th></tr></thead><tbody>{snapshotHistory.map(item=><tr key={item.snapshotId}><td>{item.retrievedAt.slice(0,10)}</td><td>{item.snapshotId}</td><td><code className="mono" title={item.archiveSha256}>{item.archiveSha256.slice(0,12)}…</code></td><td>{item.sources.toLocaleString()}</td><td>{item.plumes.toLocaleString()}</td><td>{item.linkedPlumes.toLocaleString()}</td><td>{item.sourceIdMissingPlumes.toLocaleString()}</td><td>{item.observationDateRange.start} – {item.observationDateRange.end}</td></tr>)}</tbody></table></div>{!snapshotHistory.length&&<p className="note-small">Snapshot history metadata is unavailable in this build.</p>}<p className="note-small">The complete archive SHA-256 values are available in the <a href="/data/mars-snapshot-history.json" target="_blank" rel="noreferrer">full snapshot history JSON ↗</a>. Missing source IDs remain unlinked; this display does not infer a source or mitigation status.</p><div className="dataset-reference-links"><a href="https://methanedata.unep.org/download-dataset" target="_blank" rel="noreferrer">UNEP MARS dataset and terms ↗</a><a href="https://methanedata.unep.org/dict-mars-plumes" target="_blank" rel="noreferrer">MARS data dictionary ↗</a></div></section></>}
+        {activeNav==='blockchain' && <><div className="workspace-mini-stats chain-stats"><div><Icon name="file"/><strong>{audit?1:0}</strong><span>Current audit bundles</span></div><div><Icon name="shield"/><strong>{audit?.anchored?'1':'0'}</strong><span>Anchored receipts</span></div><div><Icon name="check"/><strong>{verification?.startsWith('On-chain receipt verified')?'1':'0'}</strong><span>Verified on chain this session</span></div><div><Icon name="database"/><strong>{audit?.receipt?.chainId === 31337 ? 'Local chain' : 'Sepolia'}</strong><span>Optional test network</span></div></div><div className="blockchain-workspace"><section className="panel blockchain-main"><CardHeader title="Verification Center" subtitle="From attributed evidence to verifiable digest" icon="link"/><div className="chain-flow"><div><Icon name="layers" size={27}/><strong>Evidence bundle</strong><span>Claims, citations and provenance</span></div><b>→</b><div><Icon name="database" size={27}/><strong>SHA-256 digest</strong><span>Reproducible data integrity</span></div><b>→</b><div><Icon name="cube" size={27}/><strong>Chain transaction</strong><span>{audit?.receipt?.chainId === 31337 ? 'Authorized issuer on local chain' : 'Authorized issuer on Sepolia'}</span></div><b>→</b><div><Icon name="shield" size={27}/><strong>Receipt verification</strong><span>Compare issuer, version and event</span></div></div><CardHeader title="Audit receipt" subtitle="Current selected source" action={<button className="outline-btn" onClick={()=>switchPage('audit')}>New evidence audit →</button>}/><div className="chain-current"><span className="chain-current-icon"><Icon name="shield" size={25}/></span><div><strong>{audit?`Audit ${audit.auditId}`:'No receipt has been generated'}</strong><p>{audit?.reason||'Run a real evidence audit to create a versioned bundle. A public transaction is never simulated.'}</p><Chip tone={audit?.anchored?'teal':'orange'}>{audit?.anchored?'On-chain receipt recorded':'Not anchored'}</Chip></div></div><div className="fact-list"><div><span>Source</span><strong>{source.sourceId}</strong></div><div><span>Bundle SHA-256</span><strong className="mono">{audit?.bundleHash||'Not generated'}</strong></div><div><span>Audit revision</span><strong>{audit?.revision??'—'}</strong></div><div><span>Receipt version</span><strong>{audit?.receipt?.version??'—'}</strong></div><div><span>Transaction</span><strong className="mono">{audit?.chainTxHash||'No public transaction'}</strong></div></div><div className="audit-actions"><button className="outline-btn" disabled={!audit} onClick={copyHash}><Icon name="copy" size={15}/>{copied?'Copied':'Copy digest'}</button><button className="primary-btn" disabled={!audit||currentVerificationPending} onClick={()=>audit&&verifyMutation.mutate({ auditId: audit.auditId, bundleHash: audit.bundleHash, context: currentAssessmentContext })}><Icon name="shield" size={16}/>{currentVerificationPending?'Checking…':audit?.anchored?'Verify on-chain receipt':'Verify saved digest'}</button></div>{verification&&<p role="status" className="note-small">Verifier result: {verification}</p>}{audit && <Suspense fallback={<WorkspaceLoading label="chain operations"/>}><AnchorControls key={audit.auditId} audit={audit} onAnchored={result => setCurrentAudit(result, currentAssessmentContext)}/></Suspense>}{audit?.chainTxHash && audit.receipt?.chainId === 11155111 && <a className="chain-explorer-link" href={`https://sepolia.etherscan.io/tx/${audit.chainTxHash}`} target="_blank" rel="noreferrer">View public Sepolia transaction ↗</a>}</section><aside className="panel blockchain-aside"><CardHeader title="Receipt Details" icon="shield"/><div className="chain-receipt-badge"><Icon name={audit?.anchored?'check':'clock'} size={18}/>{audit?.anchored?(audit.receipt?.chainId === 31337 ? 'Recorded on local chain' : 'Recorded on Sepolia'):'Awaiting blockchain receipt'}</div><h2>{source.sourceId}</h2><p>Historical methane evidence case</p><div className="fact-list"><div><span>Network</span><strong>{audit?.receipt?.chainId === 31337 ? 'Local development chain' : 'Sepolia (testnet)'}</strong></div><div><span>Issuer</span><strong className="mono">{audit?.receipt?.issuer||'Not recorded'}</strong></div><div><span>Block</span><strong>{audit?.receipt?.blockNumber||'—'}</strong></div><div><span>Current verification</span><strong>{verification||'Not checked'}</strong></div></div><div className="workspace-timeline"><div><span className="timeline-node"/><time>Audit lifecycle</time><strong>{audit?'Bundle created':'No audit generated'}</strong><small>{audit?`Revision ${audit.revision}`:'Begin in Evidence Auditor'}</small></div>{audit?.anchored&&<div><span className="timeline-node"/><time>On-chain</time><strong>Receipt recorded</strong><small>Verify its integrity above</small></div>}</div><p className="note-small">Blockchain verifies the recorded digest and publisher metadata. It does not prove physical leak repair.</p></aside></div></>}
+        {activeNav==='reports' && <><Suspense fallback={<WorkspaceLoading label="public transparency summaries"/>}><TransparencyPanel sourceId={source.sourceId}/></Suspense><div className="workspace-mini-stats report-stats"><div><Icon name="file"/><strong>{audit?1:0}</strong><span>Audit reports this session</span></div><div><Icon name="flame"/><strong>{sourcePlumes}</strong><span>Linked observations</span></div><div><Icon name="pin"/><strong>{filteredSources.length}</strong><span>Source locations</span></div><div><Icon name="shield"/><strong>—</strong><span>Independently verified mitigation</span></div></div><div className="reports-workspace"><div className="reports-left"><section className="panel report-summary-panel"><CardHeader title={audit?.bundle.schemaVersion === 4 ? "Private assessment summary" : "Executive Summary"} icon="reports" subtitle="Historical observations and audit evidence" action={<Chip tone={realMode?'teal':'orange'}>{realMode?'UNEP SNAPSHOT':'SYNTHETIC'}</Chip>}/><div className="report-summary-grid"><div><strong>{source.sourceId}</strong><span>Selected case</span></div><div><strong>{source.observations?.length ?? source.plumeCount ?? 0}</strong><span>Snapshot observations</span></div><div><strong>{source.evidence.length}</strong><span>Evidence references</span></div><div><strong>{audit ? assessmentPresentation(audit.bundle).resultLabel : 'Pending'}</strong><span>Assessment result</span></div></div><p>{audit?.reason||`The selected source appears in the ${realDatasetLabel}. Available metadata includes satellite detections and source-level status; it does not independently establish physical mitigation.`}</p>{audit && <AssessmentMeaning bundle={audit.bundle}/>}{audit?.bundle.schemaVersion === 3 && audit.bundle.intelligence?.reviewStatus === 'unreviewed' && <button className="outline-btn" onClick={()=>switchPage('audit')}>Continue human review <Icon name="arrowRight" size={14}/></button>}<button className="outline-btn" onClick={()=>switchPage('cases')}>Review selected case <Icon name="arrowRight" size={14}/></button></section><section className="panel"><CardHeader title="Observed Methane Flux" icon="activity" subtitle="Observed points in kg/h · not continuous"/><ObservationChart source={source} historyLoading={sourceHistoryLoading} historyError={sourceHistoryError} onRetry={retrySourceHistory}/></section><section className="panel report-checklist"><CardHeader title="Evidence completeness" icon="shield"/><div><Icon name="check" size={16}/> Source identifier and location <strong>Available</strong></div><div><Icon name="check" size={16}/> Satellite observations <strong>{source.observations?.length ?? source.plumeCount ?? 0} snapshot records</strong></div><div><Icon name="file" size={16}/> External reports <strong>{source.externalEvidence?.length||0} links</strong></div><div><Icon name="warning" size={16}/> Independently verified mitigation <strong>Not established</strong></div><div><Icon name="cube" size={16}/> Blockchain anchoring <strong>{audit?.anchored?'Receipt exists':'Not anchored'}</strong></div></section></div><section className="panel report-preview-panel"><CardHeader title={audit?.bundle.schemaVersion === 4 ? "Private report preview" : "Report Preview"} icon="eye" subtitle="Current source · generated from available evidence"/>{audit?.bundle.schemaVersion === 4 && <p className="private-report-notice" role="note">Private assessment: this preview and the full JSON contain confidential reasoning and reference metadata. Share the redacted public summary above. The Markdown brief omits private assessment details.</p>}<div className="report-paper"><div className="paper-cover"><div className="paper-logo"><AppLogo/></div><span>RESEARCH PROTOTYPE · {new Date().getUTCFullYear()}</span><h2>Global Methane<br/>Intelligence Report</h2><p>Observations. Evidence. Action.</p><div className="paper-earth"/><div className="paper-cover-meta"><span>Case {source.sourceId}</span><span>Region: {source.region}</span><span>Status: {audit ? assessmentPresentation(audit.bundle).resultLabel : 'Not audited'}</span></div></div><div className="paper-summary"><h3>Evidence assessment</h3><p>{audit?.reason||'No independent evidence audit has been completed for this case.'}</p><div className="fact-list"><div><span>Source</span><strong>{source.sourceId}</strong></div><div><span>Evidence references</span><strong>{source.evidence.length}</strong></div><div><span>Mitigation proof</span><strong>Not certified</strong></div></div></div></div><div className="report-export-actions"><button className="primary-btn" disabled={!audit} onClick={()=>void exportReport()}><Icon name="download" size={16}/> Download JSON report{audit?.bundle.schemaVersion === 4 ? ' (private)' : ''}</button><button className="outline-btn" disabled={!audit} onClick={()=>void exportReport('markdown')}><Icon name="file" size={16}/> Download investigation brief</button><button className="outline-btn" onClick={()=>switchPage('blockchain')}>Check integrity →</button></div>{reportExportError&&<p role="alert" className="inline-error">{reportExportError}</p>}<p className="note-small">The full JSON preserves the saved audit, including private fields when present. Use the redacted public summary for public sharing, or review the Markdown brief before sharing or importing into Notion. The editable brief is not a signed document. PDF generation is not implemented.</p></section></div></>}
+        {(activeNav==='reports' || activeNav==='blockchain') && <Suspense fallback={<WorkspaceLoading label="report verifier"/>}><ImportedAuditVerifier/></Suspense>}
         {(activeNav==='reports'||activeNav==='blockchain')&&<Suspense fallback={<WorkspaceLoading label="audit history"/>}><AuditHistoryPanel sourceId={source.sourceId} audits={auditHistory} selectedAuditId={audit?.auditId} isLoading={auditHistoryQuery.isLoading} isError={auditHistoryQuery.isError} isFetchingMore={auditHistoryQuery.isFetchingNextPage} hasMore={Boolean(auditHistoryQuery.hasNextPage)} isFetchingMoreError={auditHistoryQuery.isFetchNextPageError} errorMessage={auditHistoryQuery.error instanceof Error ? auditHistoryQuery.error.message : undefined} privateHistoryEnabled={privateHistoryEnabled} onOpen={openHistoricalAudit} onRefresh={()=>{void auditHistoryQuery.refetch();}} onLoadMore={()=>{void auditHistoryQuery.fetchNextPage();}} onUnlockPrivate={unlockPrivateAuditHistory} onLockPrivate={lockPrivateAuditHistory}/></Suspense>}
         <footer className="footer"><span>© 2026 MethaneResponse · Research prototype · Not affiliated with UNEP or IEEE</span><span>Historical observations ≠ confirmed mitigation <Icon name="shield" size={13}/></span></footer>
       </main>

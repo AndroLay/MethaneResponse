@@ -1,4 +1,6 @@
 import { expect, test } from 'bun:test';
+import { createHash } from 'node:crypto';
+import { canonicalJson } from './canonical';
 import { DocumentAssessmentInput, HumanReviewInput, verifyCitations, createDocumentAudit, createReviewedAudit, isAllowedAiBaseUrl } from './ai-review';
 import { auditIntegrityValid } from './integrity';
 import { sourceFromCase } from './casebook';
@@ -137,6 +139,7 @@ test('v3 document bundle is canonically verifiable without external model', asyn
   const parsed = DocumentAssessmentInput.parse({ ...sample, sourceId: source.sourceId });
   const audit = createDocumentAudit(parsed, source, { verdict: 'insufficient_evidence', reason: 'The report confirms an investigation but does not verify mitigation.', citations: [{ documentId: 'operator-log', quote: 'Repairs have not yet been independently verified' }] }, 1, { caseId: book.cases[0].caseId, externalEvidence: [], provenance: book.provenance });
   expect(audit.bundle.schemaVersion).toBe(3);
+  expect(audit.bundle.assessmentSemantics?.basis).toBe('model_document_assessment');
   expect(auditIntegrityValid(audit)).toBe(true);
   expect(audit.bundle.intelligence?.reviewStatus).toBe('unreviewed');
   expect(audit.bundle.intelligence?.claimText).toBe(sample.claimText);
@@ -162,6 +165,7 @@ test('public human review omits exact claim text unless both submitter and revie
   expect(publishedWithoutClaim.bundle.intelligence?.claimText).toBeUndefined();
   expect(publishedWithoutClaim.bundle.intelligence?.claimTextSha256).toMatch(/^[a-f0-9]{64}$/);
   expect(auditIntegrityValid(publishedWithoutClaim)).toBe(true);
+  expect(publishedWithoutClaim.bundle.assessmentSemantics?.basis).toBe('model_document_assessment');
 
   expect(() => createReviewedAudit(draft, 2, 'independent-reviewer', HumanReviewInput.parse({
     status: 'approved', note: 'Claim text publication was requested without submitter consent.', sourceInspected: true,
@@ -189,6 +193,10 @@ test('review is a new immutable bundle version; original stays verifiable', asyn
   const source = sourceFromCase(book.cases[0], book.provenance.catalogUrl, book.provenance);
   const parsed = DocumentAssessmentInput.parse({ ...sample, sourceId: source.sourceId });
   const draft = createDocumentAudit(parsed, source, { verdict: 'supported', reason: 'The submitted quote documents a report of investigation, not a physical repair.', citations: [{ documentId: 'operator-log', quote: 'The team inspected the facility' }] }, 1, { caseId: book.cases[0].caseId, externalEvidence: [] });
+  // Simulate a genuine pre-P4 bundle; a new child must record its own semantics.
+  delete draft.bundle.assessmentSemantics;
+  draft.bundleHash = `0x${createHash('sha256').update(canonicalJson(draft.bundle)).digest('hex')}`;
+  const legacyBytes = canonicalJson(draft.bundle);
   const reviewed = createReviewedAudit(draft, 2, 'independent-analyst', { status: 'rejected', note: 'Insufficient independent mitigation documentation', sourceInspected: false, publishCitations: false });
   expect(auditIntegrityValid(draft)).toBe(true);
   expect(auditIntegrityValid(reviewed)).toBe(true);
@@ -196,6 +204,8 @@ test('review is a new immutable bundle version; original stays verifiable', asyn
   expect(reviewed.bundle.intelligence?.review?.parentBundleHash).toBe(draft.bundleHash);
   expect(reviewed.bundleHash).not.toBe(draft.bundleHash);
   expect(reviewed.anchored).toBe(false);
+  expect(reviewed.bundle.assessmentSemantics?.basis).toBe('model_document_assessment');
+  expect(canonicalJson(draft.bundle)).toBe(legacyBytes);
 });
 
 test('requesting more evidence creates a distinct abstaining review revision', async () => {

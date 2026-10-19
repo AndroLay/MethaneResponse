@@ -1,0 +1,57 @@
+{
+  "packetVersion": "P4-2026-10-18-v1",
+  "checkedDate": "2026-10-18",
+  "type": "DOCUMENT_PREVIEW_NOT_EXPERT_REVIEW",
+  "browser": "Installed Chromium via Playwright CLI; sandbox enabled; task-owned temporary profile",
+  "surface": "Temporary loopback HTTP server serving reviewer directory only. Direct file URL navigation is blocked by the automation tool.",
+  "htmlSha256": "fe7a41e80d760982b7f73fc9ff1f83c2c8a5caaf1059019ffa401f9275ee8372",
+  "screenshots": [
+    {
+      "file": "captures/desktop.png",
+      "viewport": [
+        1280,
+        900
+      ],
+      "sha256": "19736f632bbd398418cd72795f7be730c7ccc3afa86a3d1e15b3a628b4b411e0",
+      "visuallyInspected": true
+    },
+    {
+      "file": "captures/mobile.png",
+      "viewport": [
+        390,
+        844
+      ],
+      "sha256": "845de7a93538347de41574e7feec166b926dfe28e79702c4e548a4dfa5f6b8f3",
+      "visuallyInspected": true
+    },
+    {
+      "file": "captures/mobile-cases.png",
+      "viewport": [
+        390,
+        844
+      ],
+      "sha256": "c51cada0d04676c411c449940349b25e841017a2f3e2607e5732a7c0189f828e",
+      "visuallyInspected": true
+    }
+  ],
+  "assertions": {
+    "mobileViewportWidth": 390,
+    "mobileDocumentWidth": 390,
+    "renderedSections": 6,
+    "renderedTables": 11,
+    "caseNavigationFragment": "#doc-03-cases",
+    "caseNavigationPassed": true,
+    "activeFormsOrSubmissionScripts": 0
+  },
+  "console": {
+    "errors": 1,
+    "warnings": 0,
+    "details": "Only favicon.ico HTTP 404 from the temporary server; document, relative references and navigation are unaffected."
+  },
+  "limits": [
+    "No human domain review, user pilot or live app workflow was exercised.",
+    "HTML print CSS exists but printed pagination was not visually inspected.",
+    "External reference links were not clicked during this document preview.",
+    "Offline asset independence was checked statically; direct file URL access was not exercised by this automation tool."
+  ]
+}

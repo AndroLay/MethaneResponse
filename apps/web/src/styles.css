@@ -300,3 +300,13 @@
 }
 
 .data-status-indicator{display:inline-block;width:7px;height:7px;flex:0 0 7px;border-radius:50%;margin-right:6px;background:#8799a5}.data-status-indicator.synthetic{background:#d2a565}
+
+.workspace-app .anchor-operations { margin: 24px 15px 16px; padding-top: 20px; border-top: 1px solid #1c3d53; }
+.workspace-app .anchor-operations h3 { margin: 0 0 8px; font-size: 14px; font-weight: 750; }
+.workspace-app .anchor-operations label { font-size: 12px; color: #b1c6cf; }
+.workspace-app .anchor-operations [role="status"] { font-size: 12px; line-height: 1.6; }
+.workspace-app .anchor-operations dt { color: #89aabc; }
+.anchor-operations label { display: grid; gap: 8px; margin: 16px 0; }
+.anchor-operations input { width: 100%; min-width: 0; padding: 10px; border: 1px solid #2e6779; border-radius: 8px; background: #0a2333; color: inherit; }
+.anchor-operations .mono { overflow-wrap: anywhere; }
+.anchor-operations dd { margin: 0; max-width: 75%; text-align: right; }

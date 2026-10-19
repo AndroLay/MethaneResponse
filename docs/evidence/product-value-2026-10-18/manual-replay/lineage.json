@@ -1,0 +1,127 @@
+{
+  "before": {
+    "bundle": {
+      "schemaVersion": 4,
+      "auditId": "b8c00cc9-05b8-4c78-ae76-0bfad3e19abf",
+      "caseId": "DEMO-001:scope:73262a8678bdb710c2d3364d",
+      "revision": 1,
+      "generatedAt": "2026-10-18T09:22:45.960Z",
+      "assessmentSemantics": {
+        "version": 1,
+        "basis": "human_assessment",
+        "physicalVerification": "not_established_by_application",
+        "referencePolicy": "scoped-reference-coverage-v2"
+      },
+      "sourceId": "DEMO-001",
+      "claimType": "operator_notified",
+      "scope": {
+        "startDate": "2026-09-01",
+        "endDate": "2026-09-30",
+        "recipient": "DEMO intended operator"
+      },
+      "result": "insufficient_evidence",
+      "reason": "DEMO simulated determination: no eligible delivery reference was supplied.",
+      "citedEvidence": [],
+      "externalEvidence": [],
+      "humanAssessment": {
+        "kind": "human_evidence_assessment",
+        "reviewerId": "DEMO-agent-simulated-reviewer",
+        "reviewedAt": "2026-10-18T09:22:45.960Z",
+        "sourceInspected": true,
+        "claimText": "DEMO simulated evidence exercise: notice was delivered to the named recipient.",
+        "publication": "private",
+        "submittedEvidence": [],
+        "baseline": {
+          "result": "insufficient_evidence",
+          "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+          "evidenceIds": []
+        },
+        "nextEvidenceRequest": "DEMO request: obtain a dated delivery register."
+      },
+      "limitations": [
+        "A human determination based on submitted reference metadata; no model was called and document contents were not uploaded.",
+        "The rules check reference kind, dates and declared event/recipient/action relationships. Optional publisher retrieval records origin and bytes, not document truth or physical mitigation.",
+        "The authenticated reviewer states that the source material was inspected; this is not an independently certified inspection.",
+        "References and free-text assessment remain private. No third-party report or quotation is reproduced.",
+        "A public redacted summary is available only with explicit consent; reviewer attestation and conflict declarations are not independent identity or independence certification.",
+        "Missing later observations do not establish zero emissions. Feedback and receipts do not establish a repair or reduced emissions."
+      ],
+      "synthetic": true
+    },
+    "bundleHash": "0xb1e4c934137d2b6c425f077ed4eb9370237941291342e9ceef27217c4b1956a3",
+    "auditId": "b8c00cc9-05b8-4c78-ae76-0bfad3e19abf",
+    "caseId": "DEMO-001:scope:73262a8678bdb710c2d3364d",
+    "revision": 1,
+    "sourceId": "DEMO-001",
+    "claimType": "operator_notified",
+    "result": "insufficient_evidence",
+    "reason": "DEMO simulated determination: no eligible delivery reference was supplied.",
+    "evidenceIds": [],
+    "generatedAt": "2026-10-18T09:22:45.960Z",
+    "synthetic": true,
+    "anchored": false
+  },
+  "after": {
+    "bundle": {
+      "schemaVersion": 4,
+      "auditId": "8edbbee6-c305-45bb-ba05-900e98ae36da",
+      "caseId": "DEMO-001:scope:73262a8678bdb710c2d3364d",
+      "revision": 2,
+      "generatedAt": "2026-10-18T09:22:45.960Z",
+      "assessmentSemantics": {
+        "version": 1,
+        "basis": "human_assessment",
+        "physicalVerification": "not_established_by_application",
+        "referencePolicy": "scoped-reference-coverage-v2"
+      },
+      "sourceId": "DEMO-001",
+      "claimType": "operator_notified",
+      "scope": {
+        "startDate": "2026-09-01",
+        "endDate": "2026-09-30",
+        "recipient": "DEMO intended operator"
+      },
+      "result": "insufficient_evidence",
+      "reason": "DEMO correction: request recipient acknowledgement as well as the dated register.",
+      "citedEvidence": [],
+      "externalEvidence": [],
+      "humanAssessment": {
+        "kind": "human_evidence_assessment",
+        "reviewerId": "DEMO-agent-simulated-reviewer",
+        "reviewedAt": "2026-10-18T09:22:45.960Z",
+        "sourceInspected": true,
+        "claimText": "DEMO simulated evidence exercise: notice was delivered to the named recipient.",
+        "publication": "private",
+        "submittedEvidence": [],
+        "baseline": {
+          "result": "insufficient_evidence",
+          "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+          "evidenceIds": []
+        },
+        "nextEvidenceRequest": "DEMO request: register plus recipient acknowledgement.",
+        "parentBundleHash": "0xb1e4c934137d2b6c425f077ed4eb9370237941291342e9ceef27217c4b1956a3"
+      },
+      "limitations": [
+        "A human determination based on submitted reference metadata; no model was called and document contents were not uploaded.",
+        "The rules check reference kind, dates and declared event/recipient/action relationships. Optional publisher retrieval records origin and bytes, not document truth or physical mitigation.",
+        "The authenticated reviewer states that the source material was inspected; this is not an independently certified inspection.",
+        "References and free-text assessment remain private. No third-party report or quotation is reproduced.",
+        "A public redacted summary is available only with explicit consent; reviewer attestation and conflict declarations are not independent identity or independence certification.",
+        "Missing later observations do not establish zero emissions. Feedback and receipts do not establish a repair or reduced emissions."
+      ],
+      "synthetic": true
+    },
+    "bundleHash": "0x370c97977e45a2568964cc24df70b7b7d1fc24c9077d459b1fad66120165b694",
+    "auditId": "8edbbee6-c305-45bb-ba05-900e98ae36da",
+    "caseId": "DEMO-001:scope:73262a8678bdb710c2d3364d",
+    "revision": 2,
+    "sourceId": "DEMO-001",
+    "claimType": "operator_notified",
+    "result": "insufficient_evidence",
+    "reason": "DEMO correction: request recipient acknowledgement as well as the dated register.",
+    "evidenceIds": [],
+    "generatedAt": "2026-10-18T09:22:45.960Z",
+    "synthetic": true,
+    "anchored": false
+  }
+}

@@ -1,48 +1,99 @@
-# MethaneResponse architecture
+# Arsitektur sistem
 
-**Last reviewed:** 2026-10-15. This is a locally runnable hackathon prototype, not an operational methane-monitoring authority. The current scope intentionally excludes database services; see the [scope decision](decisions/2026-10-15-local-prototype-no-database.md).
+[Pusat dokumentasi](../README.md) · [Peta repo](../repository-map.md) · [Aliran data](data-flow.md) · [Referensi API](api-reference.md)
 
-## Request flow
+**Panduan aktif — 17 Oktober 2026.** MethaneResponse adalah proof of concept investigasi historis. Web dan API dapat berjalan dengan data bawaan. Pipeline dijalankan offline untuk membuat artefak; tidak ada worker ingestion yang terus berjalan di belakang API.
 
-1. `data/real/` holds versioned MARS casebooks, source archive provenance, and snapshot history. `MarsCasebook` validates records before they reach the API. The full browser snapshot is loaded from static, hash-bound files with a progressive manifest.
-2. `GET /api/sources` serves the active pinned real casebook by default. `?mode=demo` serves separate synthetic fixtures. The dashboard uses the full browser snapshot, while an imported global source does not become a curated document-evidence case automatically.
-3. `POST /api/audits` maps typed claim categories to referenced evidence, abstains on missing/conflicting evidence, includes provenance and limitations, and emits a canonical SHA-256 bundle digest.
-4. The offline Python pipeline joins the full pinned MARS browser snapshot by explicit plume source IDs, then derives deterministic per-source summaries, a conservative anomaly screen, and a hash-bound 365-day model for recurrence of another linked MARS archive record. The API verifies the compressed input digest and upstream archive identity before returning map rankings or selected-source analysis. Physical-emissions forecasting remains withheld because the snapshot lacks a complete observation-opportunity panel and independent physical outcome labels.
-5. Optional, consent-gated document assessment is server-side. It resolves full-snapshot source IDs against the validated data, records dataset/input/analysis hashes and original observation ID–timestamp pairs, and falls back to the curated casebook only when its source is not available from the current snapshot. Exact quotations are validated against submitted excerpts; human decisions create a separate v3 revision linked to the parent digest. A request for more evidence yields `insufficient_evidence`. V3 drafts are private by default; public v3 list/detail access requires approval and separate submitter and reviewer publication consent. V2 rule-baseline audits remain supported and readable through the public history endpoint.
-6. The API persists immutable audit bundle versions in an atomic local JSON file. Receipt metadata is separate from the immutable bundle. The file store supports the single-process prototype and local restart checks; it is not shared multi-instance storage and a hosted preview filesystem may be ephemeral.
-7. The local file store does not implement transactional anchor reservations, so API chain writes and recovery are disabled in this prototype. The Solidity registry, local report digest verifier, and optional receipt verification code remain separate components. Any chain receipt proves digest chronology, not physical truth.
+## 1. Gambaran komponen
 
-## Components
+```mermaid
+flowchart TB
+  UNEP[Arsip publik UNEP MARS] --> PIPE[Pipeline Python offline]
+  PIPE --> STATIC[Snapshot browser, manifest, shard dan indikator]
+  PIPE --> ANALYSIS[Casebook dan intelligence snapshot]
+  STATIC --> WEB[React / Vite / MapLibre]
+  WEB --> API[Bun / Hono API]
+  ANALYSIS --> API
+  SHARED[Shared Zod schemas dan rules] --> WEB
+  SHARED --> API
+  API --> STORE[Atomic JSON audit dan anchor intents]
+  API --> TEAM[Private shared casework / CAS history]
+  WEB --> BROWSER[LocalStorage dan sessionStorage]
+  API -. izin per request .-> FETCH[Referensi HTTPS penerbit]
+  API -. konfigurasi dan consent .-> MODEL[Provider document AI]
+  DIRECTORY[Direktori reviewer milik operator] --> API
+  STORE --> PUBLIC[Proyeksi ringkasan publik terbatas]
+  API -. opt-in anchor / verifikasi receipt .-> CHAIN[Registry Sepolia / local Anvil eksplisit]
+```
 
-- `apps/web`: React/Vite dashboard, adaptive MapLibre globe, casebook review, claim controls, exact AI citations, reviewer flow and receipt view.
-- `apps/api`: Bun/Hono API, Zod request validation, conservative rules baseline, optional server-side document model, versioned intelligence endpoint, local file audit store, and viem receipt checks.
-- `packages/shared`: shared casebook, source, evidence, audit and receipt types.
-- `services/data-pipeline`: standard-library MARS ZIP importer, reproducible full-snapshot and intelligence builders, training-readiness gate and baseline conformance evaluator.
-- `contracts`: issuer-controlled append-only versioned SHA-256 commitments.
+| Komponen | Tanggung jawab | Batas |
+|---|---|---|
+| Web | Peta, konteks sumber, scope, coverage, editor, history, laporan, verifier | Token di memori; catatan browser atau workspace tim terotorisasi |
+| API | Memvalidasi input/provenance, menerapkan akses, membuat bundle dan menyimpan revisi | Satu proses, rate limit lokal; tidak mengirim notifikasi operator |
+| Shared | Kontrak Zod, tipe dan selector kelayakan bukti untuk UI/API | Skema memvalidasi struktur; tidak mengesahkan kebenaran isinya |
+| Pipeline | Membentuk dataset/analisis reproduktif dari arsip versi tetap | Tidak menyediakan deteksi satelit baru atau feed langsung |
+| File store | Menyimpan revisi audit tanpa menimpa bundle lama | Bukan penyimpanan multi-instance atau backup jarak jauh |
+| Integrasi opsional | Document AI, retrieval referensi, pemeriksaan receipt | Memerlukan konfigurasi/izin yang sesuai; bukan prasyarat baseline |
 
-## Storage and runtime
+## 2. Tiga jalur penilaian
 
-- The API always uses `AUDIT_STORE_PATH` or the ignored default `data/state/audits.json`; no database URL or migration is used.
-- Audit bundles are immutable. Chain receipt fields live alongside the bundle/result record, not inside the hashed evidence bundle.
-- The file store serializes writes within one API process. Rate limits are also process-local. Hosted-preview local files may be lost when the provider restarts or redeploys the service.
-- `/api/health` reports file-store readiness and whether the pinned casebook validates.
+| Jalur | Input dan proses | Bundle | Akses |
+|---|---|---|---|
+| Rules baseline | Source/claim, opsional scope; cek referensi yang sesuai | Schema 2 | Umumnya publik; scope penerima privat tetap dilindungi |
+| Document AI | Excerpt yang hak pemrosesannya disetujui, validasi kutipan, lalu review manusia sebagai revisi terpisah | Schema 3 | Privat secara default; publikasi mengikuti persetujuan submitter dan reviewer serta status approval |
+| Human assessment | Scope wajib, exact claim, metadata referensi yang diperiksa, determination, alasan, dan trust controls | Schema 4 | Bundle lengkap selalu privat; hanya ringkasan allowlist dapat dibuka dengan consent per revisi |
 
-## Decision policy
+Rules baseline menggunakan selector bersama untuk periode, kejadian, penerima, serta metadata tindakan/follow-up. Reviewer membuat determination sendiri; hasil coverage tetap ditampilkan terpisah. `feedback` tidak menjadi bukti mitigasi dan `metadata_notification` tidak menjadi bukti penerimaan notifikasi.
 
-The API applies a deterministic evidence coverage baseline only. Detection records map to `source_detected`; the source-level MARS `notified` value is retained as `metadata_notification` and is excluded from `operator_notified` support because it does not identify a recipient or exact time. Feedback is not mitigation evidence. Link titles are metadata, not reviewed document contents. Real operator-notification and mitigation claims therefore remain `insufficient_evidence` in this build.
+Document AI masih pada tingkat source. Kutipan harus cocok persis dengan excerpt yang diberikan. Revisi review ditautkan ke parent digest; hasil AI tidak langsung menjadi keputusan manusia atau bukti fisik. Detail penggunaan ada di [alur pengguna](../product/user-workflow.md).
 
-Synthetic demo records test positive, negative and contradiction paths and remain visibly labelled. The 15-example rules benchmark is a small conformance check based on three real cases and synthetic fixtures. It is not a source-disjoint validation or a general estimate of model accuracy. An optional server-side excerpt-assessment path can be enabled only with provider and reviewer configuration; it validates exact citations but has no independent accuracy benchmark. Local PDF/TXT excerpt preparation is available, but OCR and automatic document upload to the provider are not.
+## 3. Identitas, versi, dan hash
 
-## Privacy and trust boundaries
+Source ID menunjukkan sumber menurut MARS. Case ID dan claim mengelompokkan revisi audit; scope persis memiliki identitas history tersendiri. Snapshot ID dan archive hash mencegah penggabungan konteks dataset yang berbeda. Work ID membedakan beberapa investigasi lokal atau bersama untuk source/snapshot yang sama; ia bukan ID audit server.
 
-- AI credentials, `AI_REVIEW_TOKEN`, `HUMAN_REVIEW_TOKEN`, reviewer identity, RPC URLs, admin token, and signer keys are server-side environment settings. Never expose them as `VITE_*` variables or commit `.env` files. Browser-entered AI/reviewer tokens are held only in component state.
-- The AI provider sees submitted excerpts only after explicit opt-in. Full excerpts are not persisted. Exact selected quotations and document hashes are private by default; author consent permits publication of citations and submitted document metadata, but a reviewer must also approve and separately publish the complete report. Published bundles include the reviewer note. Source URLs with embedded credentials are rejected.
-- Human review uses one configured shared token and server-side reviewer ID; this is not individual identity proof or a multi-tenant authorization system. Approval additionally records a reviewer attestation that the original source was inspected and requires at least one exact validated quotation. Since full excerpts are not retained, the attestation is not independently provable by the application. The private history UI holds the entered token in page memory only and provides a lock action that clears the private query cache and selected private report.
-- `GET /api/audits/history` and private v3 detail reads require only the configured reviewer capability and return `Cache-Control: no-store` with `Vary: Authorization`. AI assessment, review, anchor, and reconciliation responses use the same cache protections because they may contain private report material or privileged outcomes. The assessor token is write-only for assessments. Reviewer credentials grant service-wide reads, not per-user ownership. The public verifier exposes digest/receipt status but not private report contents. The reviewer token may anchor only a reviewed v3 report; the admin token may also anchor historical v2. Draft AI reports are refused.
-- Versioned audit JSON exports keep audit-cited rows in `observations` only when they match the saved audit's bound observation IDs and dataset snapshot. `historicalContext` separately carries periodic source observations as context, never as claim evidence, and only when the selected source matches the audit's pinned snapshot; on mismatch, both row sets are omitted. The outer canonical SHA-256 checksum covers this export context, but is unsigned, is not part of the audit bundle digest, and is not equivalent to an on-chain receipt.
-- The UI's full-snapshot importer is local to the browser. It does not upload the source archive to the API.
-- MARS data, linked reports, basemap tiles, interface imagery and original software have separate rights; see [`data/real/README.md`](../../data/real/README.md) and [`NOTICE`](../../NOTICE).
+Bundle audit memakai canonical JSON dan SHA-256. Revisi baru menghasilkan bundle baru; receipt metadata berada di luar bundle. Laporan JSON menambahkan checksum amplop ekspor, sedangkan ringkasan publik mempunyai checksum tersendiri. Ketiga digest mencakup objek berbeda. Lihat [data-flow](data-flow.md#lapisan-integritas).
 
-## Deliberate exclusions
+## 4. Penyimpanan dan akses
 
-No independent satellite detector, real-time feed, OCR, identity provider, object-storage upload, remote deployment, live AI-provider response, or Sepolia transaction has been verified in this workspace. The AI route is implemented but stays disabled until server settings are supplied. Do not report model performance until a larger human-reviewed, source-disjoint benchmark measures citation accuracy and unsafe mitigation confirmations.
+| Data | Lokasi aktif | Sifat |
+|---|---|---|
+| Data MARS publik | `data/real/`, `apps/web/public/data/` | Artefak versi tetap dengan provenance/lisensi |
+| Analisis offline | `data/processed/` | Binding snapshot dan hash input diperiksa API |
+| Revisi audit | `AUDIT_STORE_PATH`, default `data/state/audits.json` | Antrean write satu proses dan penggantian file atomik |
+| Investigasi bersama | `AUDIT_STORE_PATH` + `.case-work.json` | CAS/revision/history privat, fsync, initialization marker; satu API dengan kernel lock |
+| Catatan investigasi/preferensi lokal | LocalStorage | Mutable, satu browser; tidak masuk hash audit |
+| Draft belum disimpan | SessionStorage | Per tab; tidak menyimpan token atau consent inspeksi/publikasi/retrieval |
+| Token yang diisi di UI | Memori halaman | Tidak dipulihkan dari browser storage |
+| Direktori reviewer | Path privat server | Dibaca kembali per operasi; terpisah dari aset web dan bukti publik |
+
+Token reviewer berscope `private_read`, `review`, dan `anchor`. Direktori operator menambah kategori kewenangan, expiry dan revocation. Untuk jalur audit compatibility tanpa strict mode, approval directory unverified/expired masih dapat diterima dengan label batas assurance. `disabled: true` merevokasi approval; menghapus entry bukan pengganti revocation. Konflik tetap deklarasi mandiri. Detail kebijakan ada di [trust dan transparansi](../product/trust-and-transparency.md).
+
+P1 shared casework selalu memerlukan signed token dan current operator-attested authority per claim; flag compatibility dan legacy token tidak berlaku. Baca [runbook tim](../development/shared-casework.md) untuk matriks baca/tulis, batas kapasitas dan pemulihan.
+
+Full human assessment, termasuk export JSON-nya, adalah data privat. History privat memakai otorisasi dan respons `no-store`. Lock di UI membersihkan cache/seleksi privat dan recovery manusia. Ringkasan publik tidak memuat exact claim, penerima, identitas, URL/locator referensi atau alasan bebas. Checksum ringkasan tidak memberi akses untuk memeriksa bukti yang disembunyikan.
+
+## 5. Keputusan arsitektur
+
+| Keputusan | Alasan dan konsekuensi |
+|---|---|
+| [File lokal, tanpa database](decisions/2026-10-15-local-prototype-no-database.md) | Fokus prototype pada MARS dan alur investigasi; tidak ada migrasi/DB setup, tidak mendukung replika write bersama |
+| [Shared casework satu writer](decisions/2026-10-17-shared-casework-single-writer.md) | Memperluas ADR lokal untuk tim kecil: file privat terpisah, CAS/history, lock API dan backup offline; remote belum diuji |
+| Snapshot dipin dan diproses offline | Alur dapat diulang dan versi data terlihat; refresh perlu tindakan eksplisit |
+| Rules sebelum model | Ada baseline yang dapat dijelaskan dan dibandingkan; model tetap opsional |
+| Catatan kerja terpisah dari penilaian | Notes/status dapat berubah tanpa mengubah audit yang sudah disimpan |
+| Full schema 4 privat | Publikasi melalui proyeksi field tetap dengan consent per revisi; koreksi/withdrawal tercatat tanpa menghapus ringkasan historis. [Lifecycle P3](../development/publication-lifecycle.md) |
+| Chain write dengan opt-in | Intent dan receipt berada dalam satu envelope audit; pre-sign/hash → fsync intent → broadcast → reconcile. Anvil lokal teruji; Sepolia publik diotorisasi tetapi belum deployed/dibuktikan. [Runbook P2](../development/blockchain-recovery.md) |
+
+Kode Solidity dan receipt verifier tetap tersedia. Receipt yang valid membuktikan komitmen hash dan kronologi versi, bukan keaslian dokumen atau perbaikan peralatan.
+
+## 6. Penanganan kegagalan
+
+- `/api/health` dapat mengembalikan `503` jika store, casebook atau status rate limiter tidak siap. Health tidak menyatakan semua integrasi opsional aktif.
+- Snapshot intelligence yang hilang, rusak atau tidak cocok ditolak; fallback casebook hanya digunakan pada jalur yang mengizinkan provenance yang sesuai.
+- Kegagalan penyimpanan browser terlihat sebagai belum tersimpan. Revisi mendeteksi save stale secara berurutan, tetapi write antartab tidak transactional.
+- State tim rusak/berizin terbuka/hilang setelah inisialisasi menolak write; refresh gagal menyembunyikan queue/history lama dan mempertahankan draft. Marker tidak mendeteksi kehilangan seluruh volume.
+- Parent human assessment yang sudah bukan revisi terbaru ditolak dengan konflik. Pengguna perlu membuka revisi terbaru sebelum menyimpan ulang.
+- Tile/WebGL memiliki fallback; imagery tetap konteks geografis, bukan bukti pengukuran MARS.
+- Mismatch digest referensi mencegah save determination supported/contradicted. Retrieval gagal tidak diberi label sukses dan tidak otomatis membuktikan referensi salah.
+
+Kondisi eksternal yang belum dibuktikan tercantum di [status implementasi](../release/current-implementation-status.md). Catatan desain database/anchor recovery lama di [indeks arsitektur](README.md) adalah arsip.

@@ -1,5 +1,5 @@
 import { canonicalJson, verifyExportIntegrity } from './report-export';
-import { validateDocumentRightsMetadata } from '@methane/shared';
+import { assessmentPresentation, evidenceUtcDay, validateAssessmentSemantics, validateDocumentRightsMetadata, type EvidenceBundle } from '@methane/shared';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -10,6 +10,8 @@ export type ImportedAuditVerification = {
   sourceId?: string;
   bundleHash?: string;
   result?: string;
+  assessmentBasis?: string;
+  resultLabel?: string;
   claimType?: string;
   synthetic?: boolean;
   reviewStatus?: string;
@@ -99,21 +101,26 @@ function exportContextMatches(report: JsonRecord, audit: JsonRecord, bundle: Jso
   if (Array.isArray(intelligence?.observationTimeline)) {
     const dates = new Map(intelligence.observationTimeline.filter(isRecord)
       .filter(item => typeof item.id === 'string' && typeof item.observedAt === 'string')
-      .map(item => [item.id as string, (item.observedAt as string).slice(0, 10)]));
+      .map(item => [item.id as string, evidenceUtcDay(item.observedAt)]));
     if (report.observations.some(item => isRecord(item) && typeof item.date === 'string' && dates.has(item.id as string)
-      && dates.get(item.id as string) !== item.date.slice(0, 10))) return false;
+      && (!dates.get(item.id as string) || !evidenceUtcDay(item.date) || dates.get(item.id as string) !== evidenceUtcDay(item.date)))) return false;
   }
   return true;
 }
 
 /** Verify only the canonical audit bundle; exported envelope fields are deliberately outside its digest. */
-export async function verifyImportedAuditReport(input: unknown): Promise<ImportedAuditVerification> {
+export async function verifyImportedAuditReport(input: unknown, options: { requireExportContext?: boolean } = {}): Promise<ImportedAuditVerification> {
   const isExport = isRecord(input) && Object.hasOwn(input, 'latestAudit');
   let exportContext: ImportedAuditVerification['exportContext'] = isExport ? 'not_in_audit_hash' : 'none';
+  if (options.requireExportContext && (!isExport || !isRecord(input.exportIntegrity))) {
+    return invalid('Choose a complete JSON report with an export context checksum. For a legacy file, explicitly turn off the context requirement.', exportContext);
+  }
   const audit = isExport ? input.latestAudit : input;
   if (!isRecord(audit) || !isRecord(audit.bundle)) return invalid('No audit bundle was found in this JSON file.', exportContext);
 
   const bundle = audit.bundle;
+  const semanticsError = validateAssessmentSemantics(bundle);
+  if (semanticsError) return invalid(semanticsError, exportContext);
   const rightsMetadataError = validateDocumentRightsMetadata(bundle);
   const documentDigests = isRecord(bundle.intelligence) && Array.isArray(bundle.intelligence.documentDigests)
     ? bundle.intelligence.documentDigests
@@ -122,7 +129,7 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
     : documentDigests.some(item => isRecord(item) && item.rightsDeclared !== undefined) ? 'valid'
       : 'not_recorded';
   const citedEvidence = bundle.citedEvidence;
-  if ((bundle.schemaVersion !== 2 && bundle.schemaVersion !== 3)
+  if ((bundle.schemaVersion !== 2 && bundle.schemaVersion !== 3 && bundle.schemaVersion !== 4)
     || typeof audit.bundleHash !== 'string' || !HEX_256.test(audit.bundleHash)
     || typeof audit.auditId !== 'string' || typeof audit.caseId !== 'string'
     || !Number.isSafeInteger(audit.revision) || typeof audit.sourceId !== 'string'
@@ -146,6 +153,7 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
     && audit.synthetic === bundle.synthetic
     && canonicalJson(audit.evidenceIds) === canonicalJson(citedEvidence.map((item) => item.id));
   if (!fieldsMatch) return invalid('Audit summary fields do not match the hashed bundle.', exportContext);
+  const meaning = assessmentPresentation(bundle as EvidenceBundle);
 
   const historicalObservationCount = isExport && isRecord(input.historicalContext)
     && Array.isArray(input.historicalContext.observations) ? input.historicalContext.observations.length : undefined;
@@ -153,7 +161,11 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
   if (isExport && isRecord(input)) {
     const integrity = await verifyExportIntegrity(input);
     if (integrity === 'invalid') return invalid('The report export checksum is invalid or does not match its context.', 'manifest_invalid');
-    if (integrity === 'unavailable') exportContext = 'manifest_unavailable';
+    if (integrity === 'unavailable') {
+      exportContext = 'manifest_unavailable';
+      if (options.requireExportContext) return { localDigest: 'unavailable', receipt: 'metadata_mismatch', exportContext,
+        message: 'Web Crypto is unavailable, so the required complete export context cannot be checked in this browser.' };
+    }
     if (integrity === 'valid') {
       if (!exportContextMatches(input, audit, bundle)) return invalid('The report export source, dataset snapshot, or observations do not match the saved audit.', 'manifest_invalid');
       exportContext = 'manifest_valid';
@@ -163,7 +175,7 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
   const subtle = globalThis.crypto?.subtle;
   if (!subtle) return { localDigest: 'unavailable', auditId: audit.auditId as string, revision: audit.revision as number,
     sourceId: audit.sourceId as string, bundleHash: audit.bundleHash as string, result: audit.result as string, claimType: audit.claimType as string, synthetic: audit.synthetic as boolean,
-    reviewStatus: isRecord(bundle.intelligence) && typeof bundle.intelligence.reviewStatus === 'string' ? bundle.intelligence.reviewStatus : undefined,
+    reviewStatus: bundle.schemaVersion === 4 ? 'human_determination_private' : isRecord(bundle.intelligence) && typeof bundle.intelligence.reviewStatus === 'string' ? bundle.intelligence.reviewStatus : undefined,
     ...(historicalObservationCount === undefined ? {} : { historicalObservationCount }),
     documentRightsMetadata,
     ...(rightsMetadataError ? { documentRightsMessage: rightsMetadataError } : {}),
@@ -179,9 +191,11 @@ export async function verifyImportedAuditReport(input: unknown): Promise<Importe
       sourceId: audit.sourceId as string,
       bundleHash: audit.bundleHash as string,
       result: audit.result as string,
+      assessmentBasis: meaning.basisLabel,
+      resultLabel: meaning.resultLabel,
       claimType: audit.claimType as string,
       synthetic: audit.synthetic as boolean,
-      reviewStatus: isRecord(bundle.intelligence) && typeof bundle.intelligence.reviewStatus === 'string' ? bundle.intelligence.reviewStatus : undefined,
+      reviewStatus: bundle.schemaVersion === 4 ? 'human_determination_private' : isRecord(bundle.intelligence) && typeof bundle.intelligence.reviewStatus === 'string' ? bundle.intelligence.reviewStatus : undefined,
       ...(historicalObservationCount === undefined ? {} : { historicalObservationCount }),
       documentRightsMetadata,
       receipt: receiptStatus(audit),

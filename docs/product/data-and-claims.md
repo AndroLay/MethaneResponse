@@ -1,5 +1,9 @@
 # Data provenance, claims and legal constraints
 
+[Pusat dokumentasi](../README.md) · [Alur data](../architecture/data-flow.md) · [Glosarium](../glossary.md)
+
+Panduan teknis ini mempertahankan sumber, hash dan hasil metode yang dicatat pada tanggalnya. Pemeriksaan upstream/lisensi di bawah berasal dari retrieval 14 Oktober dan recheck 15 Oktober 2026; perapian docs 17 Oktober tidak melakukan refresh eksternal. Alur manual dan trust terbaru dijelaskan di [workflow](user-workflow.md) serta [trust dan transparansi](trust-and-transparency.md).
+
 ## Primary data references
 
 - Download: https://methanedata.unep.org/download-dataset
@@ -106,4 +110,19 @@ The same snapshot carries a separate `anomalyAnalysis` screen (`mad-threshold-sc
 
 The optional model path accepts a source in the validated full MARS snapshot or the curated compatibility casebook, plus a bounded excerpt. Before a provider call, the submitter must separately consent to external processing and declare per document that it is owned or explicitly permitted for processing. The declaration and document digest are recorded in the versioned report; this is self-attestation, not independent rights verification. The excerpt is sent only to the configured server-side provider, exact quote substrings are checked, and selected quotations/document digests are stored instead of the complete source text. This verifies quotation matching to the submitted text only; it cannot establish document authenticity, context, scientific sufficiency, rights ownership, or physical mitigation. The provider path has not been measured on an independently human-labeled dataset. No AI benchmark metrics are claimed.
 
-Human review is a distinct authenticated step with separate approve, reject, and request-more-evidence dispositions; each creates a new v3 audit revision linked to the prior bundle hash. Requesting more evidence produces `insufficient_evidence` until the evidence is reassessed. A reviewed report can be anchored, but neither reviewer approval nor a blockchain receipt proves methane repair. The v3 bundle binds MARS archive provenance, the source's plume IDs, model/prompt version, reviewer decision, and current intelligence snapshot hash when available. Existing v2 audit and receipt records remain supported.
+Human review is a distinct authenticated step with separate approve, reject, and request-more-evidence dispositions; each creates a new v3 audit revision linked to the prior bundle hash. Requesting more evidence produces `insufficient_evidence` until the evidence is reassessed. The local file store now supports durable anchor intents and reconciliation behind explicit server opt-in, as documented in the [P2 runbook](../development/blockchain-recovery.md). This was verified on disposable Anvil chain 31337; a public Sepolia receipt is still unavailable. Private schema 4 and unreviewed schema 3 cannot be anchored. Neither reviewer approval nor a blockchain receipt proves methane repair. The v3 bundle binds MARS archive provenance, the source's plume IDs, model/prompt version, reviewer decision, and current intelligence snapshot hash when available. Existing v2 audit and receipt records remain supported.
+
+## Manual assessment dan ringkasan publik
+
+Penilaian manual tanpa AI memakai scope kejadian/periode dan schema 4 privat. Referensi metadata, determination, rationale, rules coverage, parent hash, status reviewer/reference checks dan consent terikat pada revisi tersimpan. Pemeriksaan origin/digest tidak mengautentikasi dokumen atau membuktikan mitigasi. Full bundle tetap privat; hanya proyeksi field allowlist dapat dipublikasikan dengan consent per revisi. Lihat [trust dan transparansi](trust-and-transparency.md) untuk kebijakan directory, revocation dan batas publikasi.
+
+
+## Arti penilaian setelah remediasi P4
+
+- Baseline baru hanya menilai **reference metadata coverage**. UI menyebut required references present / contrary reference present / insufficient reference coverage; kode hasil API tetap kompatibel. Dokumen palsu dengan metadata yang tampak benar masih dapat lolos coverage.
+- Notification dan mitigation baru memerlukan scope; nama penerima diperlukan untuk notification. Pointer nyata harus HTTPS tanpa credentials; fixture lokal hanya untuk DEMO. Isi dan kualitas pengukuran perlu inspeksi sumber.
+- Tanggal scope adalah hari UTC inklusif. Timestamp ber-offset dikonversi UTC; timestamp MARS tanpa offset diperlakukan UTC. Tanggal publikasi publisher tidak menggantikan tanggal aksi atau follow-up.
+- Bundle baru menyimpan assessmentSemantics di dalam hash: metadata / manusia / model, dengan physical verification **not established by application**. Reviewer menyatakan inspeksi sendiri; aplikasi tidak menyertifikasi identitas, independensi atau outcome fisik. Human review atas keluaran model tetap berbasis model.
+- Bundle lama tidak ditulis ulang. Semantics yang absen ditandai historical/inferred pada tampilan; hash dan payload ringkasan publik schema 1 tetap mengikuti bytes versi asal.
+
+[Rincian perbaikan dan batas F01–F13](../research/p4-research-remediation-2026-10-18.md).

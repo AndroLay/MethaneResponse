@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <title>MethaneResponse — Hybrid Presentation Demo</title>
+  <style>
+    :root {
+      --ink: #071723;
+      --deep: #0b2935;
+      --paper: #f5f8f7;
+      --white: #ffffff;
+      --teal: #55d8c5;
+      --amber: #f1b955;
+      --coral: #e88376;
+      --muted: #a8bbc1;
+      --line: rgba(168, 187, 193, .26);
+      --font: Inter, "DejaVu Sans", Arial, sans-serif;
+      --mono: "DejaVu Sans Mono", monospace;
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 1920px; height: 1080px; margin: 0; overflow: hidden; background: var(--ink); color: var(--white); font-family: var(--font); }
+    #stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); }
+    .scene { position: absolute; inset: 0; display: grid; align-items: center; padding: 112px 128px 128px; opacity: 0; visibility: hidden; transition: opacity .42s ease, visibility .42s; overflow: hidden; }
+    .scene.active { opacity: 1; visibility: visible; }
+    .dark { color: var(--white); background: radial-gradient(ellipse at 77% 46%, rgba(22, 104, 112, .24), transparent 45%), linear-gradient(125deg, #071723 0%, #0b2935 57%, #081923 100%); }
+    .light { color: var(--ink); background: linear-gradient(135deg, #f7faf9, #eaf2f0); }
+    .scene::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .38; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 56px 56px; mask-image: linear-gradient(90deg, transparent, #000 34%, #000 80%, transparent); }
+    .light::before { opacity: .28; background-image: linear-gradient(rgba(7,23,35,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(7,23,35,.06) 1px, transparent 1px); }
+    .content { position: relative; z-index: 2; width: 100%; max-width: 1664px; margin: 0 auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 14px; text-transform: uppercase; letter-spacing: .18em; color: var(--teal); font-size: 19px; font-weight: 650; }
+    .eyebrow::before { content: ""; width: 30px; height: 2px; background: currentColor; }
+    .light .eyebrow { color: #137f78; }
+    h1, h2, p { margin: 0; }
+    h1 { font-size: 74px; line-height: 1.04; letter-spacing: -.052em; font-weight: 680; }
+    h2 { font-size: 58px; line-height: 1.08; letter-spacing: -.04em; font-weight: 650; }
+    .subhead { margin-top: 24px; max-width: 720px; color: #c6d5d8; font-size: 27px; line-height: 1.42; }
+    .light .subhead { color: #49636b; }
+    .small-source { position: absolute; z-index: 4; left: 128px; bottom: 52px; color: rgba(231,242,242,.76); font: 16px/1.3 var(--mono); }
+    .light .small-source { color: #546c72; }
+    .brand { position: absolute; z-index: 9; top: 38px; left: 52px; display: flex; align-items: center; gap: 10px; color: rgba(237,248,248,.86); font-size: 15px; font-weight: 650; letter-spacing: .05em; text-transform: uppercase; }
+    .brand-mark { width: 13px; height: 13px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 20px rgba(85,216,197,.55); }
+    #chapter { position: absolute; z-index: 9; top: 34px; right: 56px; color: #b9ced1; font: 14px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    #progress-track { position: absolute; z-index: 10; bottom: 0; left: 0; width: 100%; height: 5px; background: rgba(255,255,255,.12); }
+    #progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg,var(--teal),#b4f1e5); box-shadow: 0 0 16px rgba(85,216,197,.5); }
+    .enter { opacity: 0; transform: translateY(28px); }
+    .scene.active .enter { animation: enter-up .72s cubic-bezier(.2,.75,.25,1) forwards; }
+    .scene.active .delay-1 { animation-delay: .12s; }
+    .scene.active .delay-2 { animation-delay: .27s; }
+    .scene.active .delay-3 { animation-delay: .42s; }
+    .scene.active .delay-4 { animation-delay: .58s; }
+    @keyframes enter-up { to { opacity: 1; transform: translateY(0); } }
+    @keyframes drift-in { from { opacity: 0; transform: translateX(76px) scale(.97); } to { opacity: 1; transform: translateX(0) scale(1); } }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @keyframes bar-grow { from { transform: scaleX(.02); } to { transform: scaleX(1); } }
+    @keyframes point-in { from { opacity: 0; transform: scale(.2); } to { opacity: 1; transform: scale(1); } }
+    @keyframes soft-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(85,216,197,.2); } 50% { box-shadow: 0 0 0 15px rgba(85,216,197,0); } }
+    @keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes draw-on { to { stroke-dashoffset: 0; } }
+    @keyframes reveal-left { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+    /* Hook */
+    .hook-layout { display: grid; grid-template-columns: 790px 1fr; gap: 70px; align-items: center; }
+    .hook h1 { margin-top: 30px; max-width: 780px; font-size: 72px; }
+    .hook .question-mark { color: var(--teal); }
+    .case-id { margin-top: 34px; display: inline-flex; gap: 12px; align-items: center; color: #dce9e9; font: 21px var(--mono); }
+    .case-id b { color: var(--teal); font-weight: 600; }
+    .evidence-window { position: relative; padding: 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.08); box-shadow: 0 28px 90px rgba(0,0,0,.4); transform: perspective(1800px) rotateY(-3deg); }
+    .evidence-window img { display: block; width: 100%; height: 620px; object-fit: cover; object-position: 52% 26%; border-radius: 12px; }
+    .window-caption { position: absolute; left: 34px; bottom: 34px; padding: 16px 20px; background: rgba(7,23,35,.9); border: 1px solid rgba(85,216,197,.4); border-radius: 10px; color: white; font-size: 18px; }
+    .window-caption b { color: var(--amber); }
+    .scene.active .evidence-window { animation: drift-in .9s cubic-bezier(.18,.7,.25,1) .15s both; }
+
+    /* Climate context */
+    .climate-layout { display: grid; grid-template-columns: 710px 1fr; gap: 110px; align-items: center; }
+    .stat-number { font-size: 250px; line-height: .88; letter-spacing: -.1em; font-weight: 720; color: var(--ink); }
+    .stat-number span { color: #198c81; }
+    .stat-rule { margin: 30px 0 23px; width: 250px; height: 5px; background: var(--teal); transform-origin: left; }
+    .scene.active .stat-rule { animation: bar-grow .9s ease .28s both; }
+    .stat-explainer { max-width: 730px; font-size: 36px; line-height: 1.26; color: #16343c; }
+    .context-note { margin-top: 28px; color: #557078; font: 16px var(--mono); letter-spacing: .04em; }
+    .earth-motif { position: absolute; right: 110px; top: 190px; width: 550px; height: 550px; border: 1px solid rgba(19,127,120,.24); border-radius: 50%; }
+    .earth-motif::before,.earth-motif::after { content:""; position:absolute; inset:42px; border:1px solid rgba(19,127,120,.18); border-radius:50%; }
+    .earth-motif::after { inset:0; border-left-color:transparent; border-right-color:transparent; transform:rotate(-23deg) scaleX(.42); }
+    .earth-node { position:absolute; width:14px; height:14px; border-radius:50%; background:#169a8d; box-shadow:0 0 0 10px rgba(22,154,141,.12); top:145px; right:63px; }
+    .earth-orbit { position:absolute; inset:74px 4px; border:1px solid rgba(19,127,120,.17); border-radius:50%; transform:rotate(28deg); }
+    .earth-orbit::after { content:""; position:absolute; width:10px; height:10px; top:50%; right:10px; border-radius:50%; background:#168f86; box-shadow:0 0 0 8px rgba(22,143,134,.11); }
+    .scene.active .earth-orbit { animation:orbit 34s linear infinite; }
+    .scene.active .earth-node { animation:soft-pulse 2.6s ease-in-out infinite; }
+    .scene.active .stat-number { animation:enter-up .72s cubic-bezier(.2,.75,.25,1) forwards, reveal-left 1.05s cubic-bezier(.2,.7,.25,1) .12s both; }
+
+    /* Role diagram */
+    .system .content { padding-top: 8px; }
+    .diagram-title { display:flex; justify-content:space-between; align-items:end; margin-bottom:44px; }
+    .diagram-title h2 { max-width: 1200px; font-size:52px; }
+    .chapter-tag { color:#92aeb4; font:17px var(--mono); }
+    .lane { position:relative; display:grid; grid-template-columns: 255px 1fr; gap:32px; align-items:center; padding:25px 30px; border:1px solid var(--line); border-radius:18px; background:rgba(255,255,255,.045); margin:17px 0; }
+    .lane-name { color:var(--teal); font-size:20px; font-weight:650; letter-spacing:.06em; text-transform:uppercase; }
+    .lane-flow { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .step { min-width:190px; padding:18px 20px; border:1px solid rgba(85,216,197,.28); border-radius:12px; background:rgba(9,38,49,.78); font-size:23px; font-weight:600; text-align:center; opacity:.28; transform:translateY(14px); }
+    .step small { display:block; margin-top:6px; color:#9fb8bd; font:14px var(--mono); }
+    .arrow { flex:1; height:2px; background:linear-gradient(90deg,rgba(85,216,197,.12),rgba(85,216,197,.85)); transform:scaleX(0); transform-origin:left; }
+    .scene.active .step { animation: enter-up .55s ease forwards; }
+    .scene.active .lane:nth-of-type(2) .step:nth-child(1) { animation-delay:.18s; }
+    .scene.active .lane:nth-of-type(2) .arrow:nth-child(2) { animation:bar-grow .48s ease .53s forwards; }
+    .scene.active .lane:nth-of-type(2) .step:nth-child(3) { animation-delay:.68s; }
+    .scene.active .lane:nth-of-type(2) .arrow:nth-child(4) { animation:bar-grow .48s ease 1.03s forwards; }
+    .scene.active .lane:nth-of-type(2) .step:nth-child(5) { animation-delay:1.18s; }
+    .scene.active .lane:nth-of-type(3) .step:nth-child(1) { animation-delay:1.48s; }
+    .scene.active .lane:nth-of-type(3) .arrow:nth-child(2) { animation:bar-grow .48s ease 1.83s forwards; }
+    .scene.active .lane:nth-of-type(3) .step:nth-child(3) { animation-delay:1.98s; }
+    .scene.active .lane:nth-of-type(3) .arrow:nth-child(4) { animation:bar-grow .48s ease 2.33s forwards; }
+    .scene.active .lane:nth-of-type(3) .step:nth-child(5) { animation-delay:2.48s; }
+    .response-note { position:relative; max-width:760px; margin:20px 0 0 auto; padding:14px 20px; border-left:3px solid var(--amber); color:#e9d7b2; font-size:18px; line-height:1.3; background:rgba(7,23,35,.76); }
+    .response-note b { color:var(--amber); font:24px var(--mono); }
+
+    /* Catalog/evidence */
+    .catalog-layout { display:grid; grid-template-columns: 1fr 500px; gap:56px; align-items:center; }
+    .app-still { padding:12px; border:1px solid rgba(255,255,255,.18); border-radius:18px; background:#091f2a; box-shadow:0 28px 90px rgba(0,0,0,.38); overflow:hidden; }
+    .app-still img { display:block; width:100%; border-radius:10px; }
+    .catalog-card { padding:30px; border:1px solid rgba(85,216,197,.33); border-radius:16px; background:rgba(8,34,44,.84); }
+    .catalog-card .micro { color:var(--teal); font:15px var(--mono); text-transform:uppercase; letter-spacing:.1em; }
+    .catalog-card h3 { margin:18px 0; font-size:34px; line-height:1.15; }
+    .catalog-card p { color:#b8cbd0; font-size:19px; line-height:1.4; }
+    .boundary { margin-top:24px; padding:15px 17px; border-left:3px solid var(--amber); color:#f0d8ad; font-size:18px; line-height:1.35; }
+
+    /* Observation chart */
+    .chart-header { display:flex; justify-content:space-between; align-items:end; margin-bottom:28px; }
+    .chart-header .unit { color:var(--muted); font:16px var(--mono); }
+    .chart-panel { margin-top:25px; padding:20px 12px 5px; border:1px solid rgba(7,23,35,.12); border-radius:18px; background:rgba(255,255,255,.64); }
+    .obs-chart { width:100%; height:555px; }
+    .obs-chart text { fill:#27444b; font-family:var(--font); }
+    .obs-chart .mono { font-family:var(--mono); }
+    .obs-chart .axis { stroke:#9eb3b6; stroke-width:2; }
+    .obs-chart .gridline { stroke:rgba(39,68,75,.13); stroke-width:1; }
+    .obs-chart .error { stroke:#d59b38; stroke-width:7; stroke-linecap:round; }
+    .obs-chart .cap { stroke:#d59b38; stroke-width:4; }
+    .obs-chart .obs-point { fill:#118b80; stroke:#f5f8f7; stroke-width:5; transform-box:fill-box; transform-origin:center; }
+    .obs-chart .obs-label { font-size:23px; font-weight:650; }
+    .obs-chart .date-label { font-size:18px; font-family:var(--mono); }
+    .obs-chart .axis-label { font-size:17px; }
+    .obs-chart .axis-title { font-size:16px; font-family:var(--mono); }
+    .scene.active .point-a { animation:point-in .42s cubic-bezier(.18,.7,.25,1) .35s both; }
+    .scene.active .point-b { animation:point-in .42s cubic-bezier(.18,.7,.25,1) .9s both; }
+    .scene.active .point-c { animation:point-in .42s cubic-bezier(.18,.7,.25,1) 1.45s both; }
+    .scene.active .point-a .error,.scene.active .point-b .error,.scene.active .point-c .error { stroke-dasharray:420; stroke-dashoffset:420; animation:draw-on .62s ease-out .12s forwards; }
+    .chart-note { margin:6px 10px 0; color:#4f6a70; font:15px var(--mono); }
+
+    /* Month ambiguity */
+    .ambiguity-board { margin-top:55px; padding:40px 44px; border-radius:18px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.045); }
+    .month-axis { display:grid; grid-template-columns:repeat(31,1fr); gap:4px; margin:18px 0 18px; }
+    .day { height:12px; border-radius:4px; background:rgba(168,187,193,.28); }
+    .day.selected { background:var(--teal); box-shadow:0 0 12px rgba(85,216,197,.52); }
+    .scene.active .day.selected { animation:soft-pulse 1.8s ease-in-out infinite; }
+    .month-row { display:grid; grid-template-columns:330px 1fr; gap:30px; align-items:center; margin:28px 0; }
+    .row-label { color:#c9dadd; font-size:20px; }
+    .month-band { position:relative; height:56px; border:1px solid rgba(241,185,85,.55); border-radius:9px; background:linear-gradient(90deg,rgba(241,185,85,.12),rgba(241,185,85,.32),rgba(241,185,85,.12)); }
+    .month-band span { position:absolute; left:18px; top:16px; color:#f6dba8; font:16px var(--mono); }
+    .observation-dot { position:absolute; left:34%; top:-8px; width:22px; height:72px; border-radius:12px; background:var(--teal); box-shadow:0 0 0 9px rgba(85,216,197,.12); }
+    .unknown-callout { margin-top:31px; color:#f2d7a6; font-size:23px; }
+    .unknown-callout b { color:var(--amber); }
+
+    /* Captured app footage */
+    #app-footage { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; visibility:hidden; background:#06151d; transition:opacity .38s ease, visibility .38s; }
+    #app-footage.active { opacity:1; visibility:visible; }
+
+    /* Result cards */
+    .result-layout { display:grid; grid-template-columns:1fr 570px; gap:85px; align-items:center; }
+    .result-phrase { font-size:78px; line-height:1.02; letter-spacing:-.055em; }
+    .result-phrase em { color:var(--amber); font-style:normal; }
+    .scope-card { padding:28px 30px; border-radius:16px; border:1px solid rgba(241,185,85,.4); background:rgba(255,255,255,.055); }
+    .scope-card .micro { color:var(--amber); font:15px var(--mono); letter-spacing:.12em; text-transform:uppercase; }
+    .scope-card p { margin-top:14px; color:#d2e0e2; font-size:21px; line-height:1.38; }
+    .scope-card .status { margin-top:24px; padding:15px; background:rgba(241,185,85,.1); border-radius:8px; color:#f2d7a6; font:17px var(--mono); }
+    .next-list { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:31px; }
+    .next-item { padding:19px 20px; border:1px solid rgba(85,216,197,.28); border-radius:12px; background:rgba(255,255,255,.05); color:#e0ebeb; font-size:20px; }
+    .next-item b { display:block; margin-bottom:8px; color:var(--teal); font:14px var(--mono); text-transform:uppercase; letter-spacing:.1em; }
+
+    /* Integrity / conclusion */
+    .integrity-flow { display:flex; align-items:center; gap:24px; margin-top:46px; }
+    .integrity-node { width:390px; min-height:190px; padding:26px; border:1px solid rgba(85,216,197,.35); border-radius:15px; background:rgba(255,255,255,.05); opacity:.24; transform:translateY(18px); }
+    .scene.active .integrity-node { animation:enter-up .6s cubic-bezier(.2,.7,.25,1) forwards; }
+    .scene.active .integrity-node:nth-of-type(1) { animation-delay:.18s; }
+    .scene.active .integrity-node:nth-of-type(3) { animation-delay:.82s; }
+    .scene.active .integrity-node:nth-of-type(5) { animation-delay:1.46s; }
+    .integrity-node .micro { color:var(--teal); font:14px var(--mono); text-transform:uppercase; letter-spacing:.1em; }
+    .integrity-node h3 { margin:19px 0 11px; font-size:29px; }
+    .integrity-node p { color:#b8cbd0; font-size:18px; line-height:1.35; }
+    .integrity-arrow { height:2px; flex:1; background:linear-gradient(90deg,var(--teal),rgba(85,216,197,.35)); position:relative; transform:scaleX(0); transform-origin:left; }
+    .integrity-arrow::after { content:""; position:absolute; right:-1px; top:-6px; border-left:10px solid var(--teal); border-top:7px solid transparent; border-bottom:7px solid transparent; }
+    .scene.active .integrity-arrow:nth-of-type(2) { animation:bar-grow .6s ease .66s forwards; }
+    .scene.active .integrity-arrow:nth-of-type(4) { animation:bar-grow .6s ease 1.30s forwards; }
+    .limit-pair { display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:30px; }
+    .limit-box { padding:17px 20px; border-radius:10px; font:17px/1.35 var(--mono); }
+    .limit-box.proves { background:rgba(85,216,197,.1); border:1px solid rgba(85,216,197,.28); color:#b8eee4; }
+    .limit-box.not-proves { background:rgba(232,131,118,.08); border:1px solid rgba(232,131,118,.28); color:#f1c2ba; }
+    .closing-title { max-width:1200px; font-size:82px; line-height:1.02; letter-spacing:-.06em; }
+    .closing-title span { color:var(--teal); }
+    .closing-steps { display:flex; gap:16px; align-items:center; margin-top:42px; color:#b9ced1; font:17px var(--mono); letter-spacing:.1em; text-transform:uppercase; }
+    .closing-steps b { color:var(--white); font:600 25px var(--font); letter-spacing:0; text-transform:none; }
+    .closing-steps i { display:block; width:60px; height:1px; background:var(--teal); transform:scaleX(0); transform-origin:left; }
+    .scene.active .closing-steps i { animation:bar-grow .5s ease .65s forwards; }
+    .closing-limits { margin-top:46px; color:#9fb8bd; font:15px var(--mono); }
+    .endmark { margin-top:58px; display:flex; gap:13px; align-items:center; color:#e4f0f0; font-size:18px; letter-spacing:.1em; text-transform:uppercase; }
+
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+<main id="stage">
+  <div class="brand"><span class="brand-mark"></span> MethaneResponse</div>
+  <div id="chapter">01 / CONTEXT</div>
+  <div id="progress-track"><div id="progress-fill"></div></div>
+  <video id="app-footage" muted playsinline preload="none" data-src="../../../delivery-output/story-v4/actual-app-capture.webm"></video>
+
+  <section class="scene dark hook" id="hook">
+    <div class="content hook-layout">
+      <div>
+        <div class="eyebrow enter">Historical MARS case · Kazakhstan</div>
+        <h1 class="enter delay-1">When a record says <span style="color:var(--amber)">“mitigation confirmed”</span> — what can an outside reviewer verify<span class="question-mark">?</span></h1>
+        <div class="case-id enter delay-2"><b>KAZ_S_159</b><span>Uzen Field · Oil &amp; Gas</span></div>
+      </div>
+      <div class="evidence-window">
+        <img src="../delivery-2026-10-19-story-v4/assets/02-full-case-observations.png" alt="Actual MethaneResponse case screen with historical observation context">
+        <div class="window-caption">Publisher catalogue title · <b>not the report contents</b></div>
+      </div>
+    </div>
+    <div class="small-source">CASEBOOK SNAPSHOT · HISTORICAL RECORD · NOT A LIVE ALERT</div>
+  </section>
+
+  <section class="scene light climate" id="climate">
+    <div class="earth-motif"><span class="earth-orbit"></span><span class="earth-node"></span></div>
+    <div class="content climate-layout">
+      <div>
+        <div class="eyebrow enter">Why methane evidence matters</div>
+        <div class="stat-number enter delay-1"><span>30</span>%</div>
+        <div class="stat-rule"></div>
+      </div>
+      <div class="enter delay-2">
+        <h2 class="stat-explainer">Methane has contributed roughly 30% of warming since pre-industrial times.</h2>
+        <p class="context-note">CLIMATE CONTEXT · NOT AN IMPACT MEASURED BY THIS PROTOTYPE</p>
+      </div>
+    </div>
+    <div class="small-source">SOURCE: UNEP · METHANE AND CLIMATE CHANGE EXPLAINER</div>
+  </section>
+
+  <section class="scene dark system" id="system">
+    <div class="content">
+      <div class="diagram-title">
+        <div><div class="eyebrow enter">Different jobs · one evidence chain</div><h2 class="enter delay-1">UNEP MARS handles detection and follow-up.<br>MethaneResponse checks claims against evidence.</h2></div>
+        <div class="chapter-tag enter delay-2">MARS → EVIDENCE REVIEW</div>
+      </div>
+      <div class="lane">
+        <div class="lane-name">UNEP MARS</div>
+        <div class="lane-flow">
+          <div class="step">Detect<small>satellite alerts</small></div><div class="arrow"></div>
+          <div class="step">Notify<small>stakeholders</small></div><div class="arrow"></div>
+          <div class="step">Follow up<small>record response</small></div>
+        </div>
+      </div>
+      <div class="lane">
+        <div class="lane-name">MethaneResponse</div>
+        <div class="lane-flow">
+          <div class="step">Select a claim<small>scope &amp; date</small></div><div class="arrow"></div>
+          <div class="step">Inspect evidence<small>source-linked</small></div><div class="arrow"></div>
+          <div class="step">Review result<small>limits remain visible</small></div>
+        </div>
+      </div>
+      <div class="response-note enter delay-4"><b>~12%</b> of MARS notifications received a response in 2025. <span style="color:#d7c6a2">Response is not proof of repair.</span></div>
+    </div>
+    <div class="small-source">MARS: UNEP · IEA 2025 RESPONSE FIGURE · RESPONSE RATE ≠ REPAIR RATE</div>
+  </section>
+
+  <section class="scene dark catalog" id="catalog">
+    <div class="content catalog-layout">
+      <div class="enter"><div class="eyebrow">What this case file actually contains</div><h2 style="margin-top:22px">A traceable reference — not the linked report.</h2><p class="subhead">The catalogue helps identify the reported action. The report body is not included in the selected evidence bundle.</p></div>
+      <div class="enter delay-2">
+        <div class="app-still"><img src="../delivery-2026-10-19-story-v4/assets/03-publisher-reference-inventory.png" alt="Actual evidence inventory showing linked publisher reference"></div>
+        <div class="catalog-card" style="margin-top:18px">
+          <div class="micro">UNEP catalogue metadata</div>
+          <h3>“Confirmed Mitigation Action”</h3>
+          <p>Uzen Field · action described as occurring in July 2026</p>
+          <div class="boundary">Report contents are not in this casebook. The app does not copy or re-audit the linked report.</div>
+        </div>
+      </div>
+    </div>
+    <div class="small-source">SOURCE: UNEP IMEO CATALOGUE · LINKED METADATA ONLY</div>
+  </section>
+
+  <section class="scene light observations" id="observations">
+    <div class="content">
+      <div class="chart-header"><div><div class="eyebrow">Three dated EnMAP observations</div><h2 style="margin-top:16px">Reported flux estimates with uncertainty</h2></div><div class="unit">SOURCE FLUX · KG/H</div></div>
+      <div class="chart-panel">
+        <svg class="obs-chart" viewBox="0 0 1450 550" role="img" aria-label="Three discrete methane source-flux estimates with uncertainty ranges">
+          <line class="gridline" x1="170" y1="110" x2="1340" y2="110"/><line class="gridline" x1="170" y1="305" x2="1340" y2="305"/><line class="gridline" x1="170" y1="500" x2="1340" y2="500"/>
+          <line class="axis" x1="170" y1="75" x2="170" y2="505"/><line class="axis" x1="170" y1="505" x2="1340" y2="505"/>
+          <text class="axis-label" x="85" y="116">1,000</text><text class="axis-label" x="105" y="311">500</text><text class="axis-label" x="125" y="506">0</text><text class="axis-title" x="37" y="66">KG/H</text>
+          <g class="point-a"><line class="error" x1="430" y1="139" x2="430" y2="400"/><line class="cap" x1="411" y1="139" x2="449" y2="139"/><line class="cap" x1="411" y1="400" x2="449" y2="400"/><circle class="obs-point" cx="430" cy="270" r="13"/><text class="obs-label" x="430" y="105" text-anchor="middle">591 ± 335</text><text class="date-label" x="430" y="535" text-anchor="middle">2024-06-07</text></g>
+          <g class="point-b"><line class="error" x1="805" y1="355" x2="805" y2="406"/><line class="cap" x1="786" y1="355" x2="824" y2="355"/><line class="cap" x1="786" y1="406" x2="824" y2="406"/><circle class="obs-point" cx="805" cy="380" r="13"/><text class="obs-label" x="805" y="324" text-anchor="middle">307 ± 66</text><text class="date-label" x="805" y="535" text-anchor="middle">2026-06-05</text></g>
+          <g class="point-c"><line class="error" x1="1175" y1="218" x2="1175" y2="395"/><line class="cap" x1="1156" y1="218" x2="1194" y2="218"/><line class="cap" x1="1156" y1="395" x2="1194" y2="395"/><circle class="obs-point" cx="1175" cy="307" r="13"/><text class="obs-label" x="1175" y="181" text-anchor="middle">496 ± 226</text><text class="date-label" x="1175" y="535" text-anchor="middle">2026-07-11</text></g>
+        </svg>
+        <p class="chart-note">POINTS ARE SEPARATE SATELLITE ESTIMATES · NO CONTINUOUS LINE OR INTERPOLATION</p>
+      </div>
+    </div>
+    <div class="small-source">SOURCE: UNEP MARS SNAPSHOT · REPORTED UNCERTAINTY PRESERVED · UTC DATES AS DISPLAYED IN THE APP</div>
+  </section>
+
+  <section class="scene dark ambiguity" id="ambiguity">
+    <div class="content">
+      <div class="eyebrow enter">The date boundary matters</div>
+      <h2 class="enter delay-1" style="margin-top:18px">The catalogue gives a month. The observation gives a day.</h2>
+      <div class="ambiguity-board enter delay-2">
+        <div class="month-row"><div class="row-label">Catalogue action date</div><div class="month-band"><span>JULY 2026 · EXACT DAY NOT REPORTED</span></div></div>
+        <div class="month-row"><div class="row-label">EnMAP observation</div><div class="month-axis" id="month-axis"></div></div>
+        <div class="unknown-callout"><b>11 JUL</b> is a dated observation; it cannot be placed before or after an action known only to have occurred in July.</div>
+      </div>
+    </div>
+    <div class="small-source">TEMPORAL SCOPE: JULY 2026 · ACTION DAY UNKNOWN IN THE ATTRIBUTED CATALOGUE METADATA</div>
+  </section>
+
+  <section class="scene dark result-scene" id="audit-result">
+    <div class="content result-layout">
+      <div><div class="eyebrow enter">Deterministic rules baseline</div><h2 class="result-phrase enter delay-1" style="margin-top:25px">Insufficient evidence <em>in this bundle.</em></h2><p class="subhead enter delay-2">The selected bundle does not include a date-matched mitigation citation for this claim and scope.</p></div>
+      <div class="scope-card enter delay-3"><div class="micro">What this result means</div><p>It does not refute the UNEP catalogue record. It does not show that mitigation failed.</p><div class="status">RULES BASELINE · NOT LIVE AI</div></div>
+    </div>
+    <div class="small-source">RESULT IS LIMITED TO THE SELECTED EVIDENCE BUNDLE AND UTC SCOPE</div>
+  </section>
+
+  <section class="scene light followup" id="followup-next">
+    <div class="content">
+      <div class="eyebrow enter">Next evidence to request</div><h2 class="enter delay-1" style="margin-top:20px">Make the unresolved question actionable.</h2>
+      <div class="next-list enter delay-2"><div class="next-item"><b>1 · Timeline</b>Exact action date and time, with source attribution.</div><div class="next-item"><b>2 · Outcome</b>A date-matched measurement or inspection record.</div></div>
+      <p class="context-note enter delay-3">LOCAL ANALYST NOTE · NOT SENT TO AN OPERATOR · NO EXTERNAL TASK ASSIGNED</p>
+    </div>
+    <div class="small-source">FOLLOW-UP IS A PROPOSED EVIDENCE REQUEST, NOT A VERIFIED REPAIR</div>
+  </section>
+
+  <section class="scene dark digest" id="digest-map">
+    <div class="content">
+      <div class="eyebrow enter">A reproducible report file</div><h2 class="enter delay-1" style="margin-top:18px">The export carries its review context.</h2>
+      <div class="integrity-flow enter delay-2"><div class="integrity-node"><div class="micro">01 · Audit</div><h3>Claim + scope</h3><p>Selected source, claim, UTC window, and deterministic result.</p></div><div class="integrity-arrow"></div><div class="integrity-node"><div class="micro">02 · Export</div><h3>JSON report</h3><p>Local audit bundle and export-context metadata.</p></div><div class="integrity-arrow"></div><div class="integrity-node"><div class="micro">03 · Verify</div><h3>SHA-256 checks</h3><p>Compare the file with the digests it carries.</p></div></div>
+      <p class="context-note enter delay-3">LOCAL INTEGRITY CHECK · NO PUBLIC BLOCKCHAIN RECEIPT IN THIS PREVIEW</p>
+    </div>
+    <div class="small-source">A MATCHING DIGEST SHOWS CONSISTENCY WITH THAT DIGEST; IT DOES NOT AUTHENTICATE AN ISSUER</div>
+  </section>
+
+  <section class="scene dark tamper-result" id="tamper-result">
+    <div class="content">
+      <div class="eyebrow enter">Integrity test</div><h2 class="enter delay-1" style="margin-top:18px">Change one bound field. The unchanged digest no longer matches.</h2>
+      <div class="integrity-flow enter delay-2"><div class="integrity-node"><div class="micro">Original export</div><h3>Stored value</h3><p>Reason: no eligible date-matched citation.</p></div><div class="integrity-arrow"></div><div class="integrity-node" style="border-color:rgba(232,131,118,.45)"><div class="micro" style="color:var(--coral)">Altered copy</div><h3>Edited value</h3><p>Reason changed; embedded digest left untouched.</p></div><div class="integrity-arrow"></div><div class="integrity-node" style="border-color:rgba(232,131,118,.45)"><div class="micro" style="color:var(--coral)">Verifier</div><h3 style="color:#f1b9b0">Mismatch</h3><p>Local check rejects the altered copy.</p></div></div>
+    </div>
+    <div class="small-source">TAMPER DETECTION ONLY · NOT PROOF OF PHYSICAL MITIGATION OR TRUSTED ISSUER</div>
+  </section>
+
+  <section class="scene dark limits" id="limits">
+    <div class="content">
+      <div class="eyebrow enter">What the check establishes</div><h2 class="enter delay-1" style="margin-top:18px">A useful boundary — with an honest limit.</h2>
+      <div class="limit-pair enter delay-2"><div class="limit-box proves">PROVES<br>this local verifier detects this changed copy under the included digest.</div><div class="limit-box not-proves">DOES NOT PROVE<br>who issued the file, that equipment was repaired, or that emissions reached zero.</div></div>
+    </div>
+    <div class="small-source">NO LIVE AI PROVIDER · NO PUBLIC CHAIN RECEIPT · NO MITIGATION IMPACT MEASURED</div>
+  </section>
+
+  <section class="scene dark close" id="close">
+    <div class="content">
+      <div class="eyebrow enter">MethaneResponse · research prototype</div>
+      <h1 class="closing-title enter delay-1" style="margin-top:26px">Make methane claims easier to <span>trace, inspect, and question.</span></h1>
+      <div class="closing-steps enter delay-2"><b>Source</b><i></i><b>Claim</b><i></i><b>Review</b></div>
+      <p class="closing-limits enter delay-3">HISTORICAL DATA · RULES BASELINE · LOCAL DIGEST VERIFICATION</p>
+      <div class="endmark enter delay-4"><span class="brand-mark"></span> Evidence before conclusions</div>
+    </div>
+  </section>
+</main>
+<script id="timeline-data" type="application/json">
+[
+  {"id":"hook","start":0,"end":18,"chapter":"01 / CONTEXT","kind":"slide"},
+  {"id":"climate","start":18,"end":40,"chapter":"01 / CONTEXT","kind":"slide"},
+  {"id":"system","start":40,"end":68,"chapter":"02 / MARS + METHANERESPONSE","kind":"slide"},
+  {"id":"catalog","start":68,"end":80,"chapter":"03 / THE CASE","kind":"slide"},
+  {"id":"catalog-demo","start":80,"end":92,"chapter":"03 / THE CASE","kind":"app","label":"PUBLISHER REFERENCE · METADATA ONLY"},
+  {"id":"observations","start":92,"end":104,"chapter":"03 / THE CASE","kind":"slide"},
+  {"id":"observations-demo","start":104,"end":117,"chapter":"03 / THE CASE","kind":"app","label":"ENMAP · DATED SOURCE ESTIMATES"},
+  {"id":"ambiguity","start":117,"end":148,"chapter":"03 / THE CASE","kind":"slide"},
+  {"id":"audit-demo","start":148,"end":171,"chapter":"04 / CLAIM REVIEW","kind":"app","label":"ACTUAL APPLICATION · CLAIM + SCOPE","sourceOffsetSeconds":-3},
+  {"id":"audit-result","start":171,"end":188,"chapter":"04 / CLAIM REVIEW","kind":"slide"},
+  {"id":"followup-demo","start":188,"end":197,"chapter":"04 / CLAIM REVIEW","kind":"app","label":"LOCAL ANALYST CASEWORK"},
+  {"id":"followup-next","start":197,"end":209,"chapter":"04 / CLAIM REVIEW","kind":"slide"},
+  {"id":"report-demo","start":209,"end":220,"chapter":"05 / INTEGRITY","kind":"app","label":"ACTUAL REPORT EXPORT + VERIFIER"},
+  {"id":"digest-map","start":220,"end":228,"chapter":"05 / INTEGRITY","kind":"slide"},
+  {"id":"tamper-demo","start":228,"end":243,"chapter":"05 / INTEGRITY","kind":"app","label":"ALTERED COPY · LOCAL MISMATCH"},
+  {"id":"tamper-result","start":243,"end":251,"chapter":"05 / INTEGRITY","kind":"slide"},
+  {"id":"original-demo","start":251,"end":261,"chapter":"05 / INTEGRITY","kind":"app","label":"ORIGINAL EXPORT SELECTED AGAIN"},
+  {"id":"limits","start":261,"end":273,"chapter":"06 / LIMITS","kind":"slide"},
+  {"id":"close","start":273,"end":290,"chapter":"06 / LIMITS","kind":"slide"}
+]
+</script>
+<script>
+(() => {
+  const duration = 290;
+  const preroll = Number(new URLSearchParams(location.search).get('preroll') || '0');
+  const scenes = JSON.parse(document.getElementById('timeline-data').textContent);
+  const video = document.getElementById('app-footage');
+  const chapter = document.getElementById('chapter');
+  const progress = document.getElementById('progress-fill');
+  const nodes = new Map(scenes.map(s => [s.id, document.getElementById(s.id)]));
+  let current = null;
+  let startedAt = 0;
+  let endAt = duration;
+  let raf = 0;
+  let fatalError = '';
+  let videoReady = null;
+
+  const monthAxis = document.getElementById('month-axis');
+  for (let d = 1; d <= 31; d++) {
+    const tick = document.createElement('span');
+    tick.className = 'day' + (d === 11 ? ' selected' : '');
+    tick.setAttribute('aria-label', `July ${d}${d === 11 ? ' observation' : ''}`);
+    monthAxis.appendChild(tick);
+  }
+
+  function loadVideo() {
+    if (video.readyState >= 1) return Promise.resolve();
+    if (!videoReady) {
+      videoReady = new Promise((resolve, reject) => {
+        video.addEventListener('loadedmetadata', resolve, { once: true });
+        video.addEventListener('error', () => reject(new Error('failed to load local app footage')), { once: true });
+        video.src = video.dataset.src;
+        video.load();
+      });
+    }
+    return videoReady;
+  }
+
+  async function seekVideo(seconds, shouldPlay) {
+    await loadVideo();
+    if (Math.abs(video.currentTime - seconds) > .05) {
+      await new Promise((resolve) => {
+        video.addEventListener('seeked', resolve, { once: true });
+        video.currentTime = Math.max(0, Math.min(video.duration, seconds));
+      });
+    }
+    if (shouldPlay) {
+      video.playbackRate = 1;
+      await video.play();
+    } else video.pause();
+  }
+
+  function setScene(scene, localTime, playAppFootage = true) {
+    const nextNode = nodes.get(scene.id);
+    if (current !== scene.id) {
+      if (current) nodes.get(current)?.classList.remove('active');
+      nextNode?.classList.remove('active');
+      void nextNode?.offsetWidth;
+      nextNode?.classList.add('active');
+      current = scene.id;
+      chapter.textContent = scene.chapter;
+      video.classList.toggle('active', scene.kind === 'app');
+      if (scene.kind === 'app') {
+        if (playAppFootage) seekVideo(preroll + scene.start, true).catch(error => { fatalError = `app footage did not play: ${error.message}`; });
+      } else {
+        video.pause();
+      }
+    }
+    progress.style.width = `${Math.min(100, Math.max(0, localTime / duration * 100))}%`;
+  }
+
+  function tick(now) {
+    const t = Math.max(0, Math.min(endAt, (now - startedAt) / 1000));
+    const scene = scenes.find(s => t >= s.start && t < s.end) || scenes[scenes.length - 1];
+    setScene(scene, t);
+    if (t < endAt) raf = requestAnimationFrame(tick);
+    else window.__filmFinished = true;
+  }
+
+  window.__filmReady = true;
+  window.__filmError = () => fatalError;
+  window.__prepareFilm = async () => { await loadVideo(); return video.duration; };
+  window.__filmScenes = scenes.map(({id,start,end,chapter,kind}) => ({id,start,end,chapter,kind}));
+  window.__setFilmTime = async (seconds) => {
+    const t = Math.max(0, Math.min(duration - .01, Number(seconds) || 0));
+    const scene = scenes.find(s => t >= s.start && t < s.end) || scenes[0];
+    setScene(scene, t, false);
+    if (scene.kind === 'app') {
+      await seekVideo(preroll + t, false);
+    }
+    return {scene:scene.id, t};
+  };
+  window.__startFilm = async (seconds = duration, fromSeconds = 0) => {
+    const startAtSeconds = Math.max(0, Math.min(duration - .1, Number(fromSeconds) || 0));
+    endAt = Math.min(duration, startAtSeconds + Math.max(.1, Number(seconds) || duration));
+    await loadVideo();
+    window.__filmFinished = false;
+    startedAt = performance.now() - startAtSeconds * 1000;
+    raf = requestAnimationFrame(tick);
+  };
+  window.__stopFilm = () => { cancelAnimationFrame(raf); video.pause(); };
+  const preview = new URLSearchParams(location.search).get('preview');
+  if (preview) window.__setFilmTime(Number(preview));
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 # Validated MARS Record Recurrence Model Implementation Plan
 
+> **Arsip rencana 2026-10-13.** Pekerjaan dan instruksi di bawah merekam revisi asal. Untuk kondisi sekarang gunakan [status aktif](../../release/current-implementation-status.md) dan [arsitektur](../../architecture/overview.md); asumsi database digantikan [ADR file lokal](../../architecture/decisions/2026-10-15-local-prototype-no-database.md). [Indeks rencana](README.md).
+
 **Goal:** Add a reproducible, calibrated estimate of whether a previously known source will receive another linked MARS detection record within 365 days, with an untouched temporal test and visible limits.
 
 **Architecture:** Train a small deterministic logistic model offline from the pinned source-linked event history. Train on 2021–2023 forecast origins, calibrate only on the 2024 origin, evaluate once on the 2025 origin through 2026-09-11, and score current sources only after explicit quality gates pass. Hono serves the versioned, hash-bound model report and per-source estimates; the dashboard labels the target as future MARS-record recurrence, never as future methane emissions.

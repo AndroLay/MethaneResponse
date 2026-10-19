@@ -1,0 +1,67 @@
+[
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A02-CAN_S_002-original.json",
+    "retainedPath": "p5-artifacts/agent2/A02-CAN_S_002-original.json",
+    "sha256": "d1b4bd8a4806a18646588df828bcc6c7315b1b15ca949c8bcdd4ba2649cffe47"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A02-CAN_S_002-tampered.json",
+    "retainedPath": "p5-artifacts/agent2/A02-CAN_S_002-tampered.json",
+    "sha256": "3d8c425ad03b29d4cb0439366d95d65247000dd673877d826a48f012cbc8b5af"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A02-LBY_S_143-envelope-mutated.json",
+    "retainedPath": "p5-artifacts/agent2/A02-LBY_S_143-envelope-mutated.json",
+    "sha256": "fc4a0d899248117ec6e189253d6dccc3745da8c8ea4e39294e6f7c154e27a4cc"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A02-LBY_S_143-original.json",
+    "retainedPath": "p5-artifacts/agent2/A02-LBY_S_143-original.json",
+    "sha256": "ec405d8ba1bca3f5483945fdce9a7c05bc69c29026b6e92867b67a3e2f89f009"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A02-LBY_S_143-tampered.json",
+    "retainedPath": "p5-artifacts/agent2/A02-LBY_S_143-tampered.json",
+    "sha256": "97ac251112b8488a21e7480ffc0d39696e02ca09815892808c55e2b96fe36823"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A04-CAN_S_002-export-original.json",
+    "retainedPath": "p5-artifacts/agent2/A04-CAN_S_002-export-original.json",
+    "sha256": "f9606aa6d58e708139b06d7766aa016540028a5ec82d6a6619a6843d469e7821"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A04-CAN_S_002-export-tampered.json",
+    "retainedPath": "p5-artifacts/agent2/A04-CAN_S_002-export-tampered.json",
+    "sha256": "44371bfdf67521b9d0037d9c5908d9419a01918594cb4abe762cdd91677e6abb"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A04-LBY_S_143-original.json",
+    "retainedPath": "p5-artifacts/agent2/A04-LBY_S_143-original.json",
+    "sha256": "50f16a5a46bf1817d7335f2337b27d0048098e95d87d57c3639b6baa70337380"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A04-LBY_S_143-tampered.json",
+    "retainedPath": "p5-artifacts/agent2/A04-LBY_S_143-tampered.json",
+    "sha256": "29f1057197ef1f9419276f91b2fe0383a589ca547fcde7cb3ec12c269522ff51"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A06-CAN_S_002-manual-original.json",
+    "retainedPath": "p5-artifacts/agent2/A06-CAN_S_002-manual-original.json",
+    "sha256": "d1b4bd8a4806a18646588df828bcc6c7315b1b15ca949c8bcdd4ba2649cffe47"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A06-CAN_S_002-manual-tampered.json",
+    "retainedPath": "p5-artifacts/agent2/A06-CAN_S_002-manual-tampered.json",
+    "sha256": "3d8c425ad03b29d4cb0439366d95d65247000dd673877d826a48f012cbc8b5af"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A06-LBY_S_143-export-original.json",
+    "retainedPath": "p5-artifacts/agent2/A06-LBY_S_143-export-original.json",
+    "sha256": "b43ff4912082874602cd34758a658f815e63c09d033ecf698100e604ee7df9de"
+  },
+  {
+    "originalPath": "/tmp/methane-p56-completion/agent2/results/A06-LBY_S_143-export-tampered.json",
+    "retainedPath": "p5-artifacts/agent2/A06-LBY_S_143-export-tampered.json",
+    "sha256": "5834200e132f1508d58bcba5d860d6f9ea159ef2236a395b7c30671c75567254"
+  }
+]

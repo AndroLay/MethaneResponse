@@ -1,0 +1,17 @@
+{
+  "packetVersion": "P4-2026-10-18-v2",
+  "preparedDate": "2026-10-18",
+  "baseHead": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "workingTreeHasUncommittedChanges": true,
+  "status": "PREPARATION_ONLY_NO_EXPERT_RESULTS",
+  "confirmedExperts": 0,
+  "sessions": 0,
+  "expertResponses": 0,
+  "snapshotId": "unep-mars-675417694883",
+  "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+  "sourceBindingSha256": "b6bc32141e17fd4b2a89e608264c5e233661a874fab2e979cbf48ea72843861e",
+  "casesSha256": "e6f1fbd047ef9dec48857a8c24d5963921e3166125f5156b8f12618fc71bf41a",
+  "implementationComparisonSha256": "6035ba8b668c7aea4d07a285731f31e762768b4954a5b9f038e644cb352f8c07",
+  "sourceBindingScope": "Current API/web/shared source and tests plus selected data/docs/tools. P4 v1 artifact bytes independently preserved; P3 is historical, not an unchanged-code gate.",
+  "dataLicense": "CC BY-NC-SA 4.0; publisher reports not reproduced"
+}

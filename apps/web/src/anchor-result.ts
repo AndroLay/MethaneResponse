@@ -8,12 +8,15 @@ export type AnchorReceiptResponse = {
 };
 export type AnchorResponse = AuditResult | AnchorReceiptResponse;
 
-function validSepoliaReceipt(receipt: AuditReceipt | undefined): receipt is AuditReceipt {
-  return Boolean(receipt && receipt.chainId === 11155111
+function validTestReceipt(receipt: AuditReceipt | undefined): receipt is AuditReceipt {
+  return Boolean(receipt && (receipt.chainId === 11155111 || receipt.chainId === 31337)
     && /^0x[a-fA-F0-9]{40}$/.test(receipt.registryAddress)
     && /^0x[a-fA-F0-9]{40}$/.test(receipt.issuer)
     && /^0x[a-fA-F0-9]{64}$/.test(receipt.txHash)
-    && /^\d{1,19}$/.test(receipt.blockNumber));
+    && /^\d{1,19}$/.test(receipt.blockNumber)
+    && Number.isSafeInteger(receipt.version) && receipt.version > 0
+    && (receipt.confirmations === undefined || (Number.isInteger(receipt.confirmations) && receipt.confirmations >= 1 && receipt.confirmations <= 64))
+    && (receipt.blockHash === undefined || /^0x[a-fA-F0-9]{64}$/.test(receipt.blockHash)));
 }
 
 /** Preserve a private report when an anchor-only reviewer receives a minimal receipt. */
@@ -21,7 +24,7 @@ export function mergeAnchorResponse(current: AuditResult, response: AnchorRespon
   if ('status' in response) {
     if (response.status !== 'anchored' || response.auditId !== current.auditId
         || response.bundleHash.toLowerCase() !== current.bundleHash.toLowerCase()
-        || !validSepoliaReceipt(response.receipt)) {
+        || !validTestReceipt(response.receipt)) {
       throw new Error('Anchor receipt does not match the current audit');
     }
     return {
@@ -33,7 +36,7 @@ export function mergeAnchorResponse(current: AuditResult, response: AnchorRespon
   }
   if (response.auditId !== current.auditId
       || response.bundleHash.toLowerCase() !== current.bundleHash.toLowerCase()
-      || !response.anchored || !validSepoliaReceipt(response.receipt)
+      || !response.anchored || !validTestReceipt(response.receipt)
       || response.chainTxHash?.toLowerCase() !== response.receipt.txHash.toLowerCase()) {
     throw new Error('Anchor result does not match the current audit');
   }

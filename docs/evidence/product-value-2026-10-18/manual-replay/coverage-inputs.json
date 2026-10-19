@@ -1,0 +1,1004 @@
+[
+  {
+    "id": "KAZ_S_159:source_detected",
+    "source": {
+      "sourceId": "KAZ_S_159",
+      "name": "KAZ_S_159",
+      "region": "Kazakhstan",
+      "lat": 43.41337,
+      "lon": 52.91829,
+      "synthetic": false,
+      "evidence": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2024-06-07T08:05:04",
+          "synthetic": false
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-06-05T07:40:02",
+          "synthetic": false
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-07-11T08:12:14",
+          "synthetic": false
+        },
+        {
+          "id": "KAZ_S_159:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "caseId": "MARS-REPORT-KAZ-S-159",
+      "country": "Kazakhstan",
+      "sector": "Oil and Gas",
+      "sourceType": "O&G source (generic)",
+      "plumeCount": 3,
+      "lastObserved": "2026-07-11T08:12:14",
+      "persistency": 0.67,
+      "persistencyStd": 0.27,
+      "persistencyCategory": "frequent",
+      "maxFluxKgHr": 591,
+      "observations": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "date": "2024-06-07T08:05:04",
+          "fluxKgHr": 591,
+          "uncertaintyKgHr": 335,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": false,
+          "actionable": "No",
+          "tile": "ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "date": "2026-06-05T07:40:02",
+          "fluxKgHr": 307,
+          "uncertaintyKgHr": 66,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "date": "2026-07-11T08:12:14",
+          "fluxKgHr": 496,
+          "uncertaintyKgHr": 226,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "notified": "Yes",
+      "feedback": "Yes",
+      "feedbackOperator": "Yes",
+      "feedbackGovernment": "Yes",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-09-23",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ],
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "catalogUrl": "https://methanedata.unep.org/download-dataset",
+        "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "snapshotId": "unep-mars-675417694883",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      }
+    },
+    "request": {
+      "sourceId": "KAZ_S_159",
+      "claimType": "source_detected",
+      "scope": {
+        "startDate": "2024-06-07",
+        "endDate": "2024-06-07",
+        "observationId": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "recipient": "DEMO intended recipient — not a claim of actual delivery"
+      }
+    }
+  },
+  {
+    "id": "KAZ_S_159:operator_notified",
+    "source": {
+      "sourceId": "KAZ_S_159",
+      "name": "KAZ_S_159",
+      "region": "Kazakhstan",
+      "lat": 43.41337,
+      "lon": 52.91829,
+      "synthetic": false,
+      "evidence": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2024-06-07T08:05:04",
+          "synthetic": false
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-06-05T07:40:02",
+          "synthetic": false
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-07-11T08:12:14",
+          "synthetic": false
+        },
+        {
+          "id": "KAZ_S_159:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "caseId": "MARS-REPORT-KAZ-S-159",
+      "country": "Kazakhstan",
+      "sector": "Oil and Gas",
+      "sourceType": "O&G source (generic)",
+      "plumeCount": 3,
+      "lastObserved": "2026-07-11T08:12:14",
+      "persistency": 0.67,
+      "persistencyStd": 0.27,
+      "persistencyCategory": "frequent",
+      "maxFluxKgHr": 591,
+      "observations": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "date": "2024-06-07T08:05:04",
+          "fluxKgHr": 591,
+          "uncertaintyKgHr": 335,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": false,
+          "actionable": "No",
+          "tile": "ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "date": "2026-06-05T07:40:02",
+          "fluxKgHr": 307,
+          "uncertaintyKgHr": 66,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "date": "2026-07-11T08:12:14",
+          "fluxKgHr": 496,
+          "uncertaintyKgHr": 226,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "notified": "Yes",
+      "feedback": "Yes",
+      "feedbackOperator": "Yes",
+      "feedbackGovernment": "Yes",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-09-23",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ],
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "catalogUrl": "https://methanedata.unep.org/download-dataset",
+        "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "snapshotId": "unep-mars-675417694883",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      }
+    },
+    "request": {
+      "sourceId": "KAZ_S_159",
+      "claimType": "operator_notified",
+      "scope": {
+        "startDate": "2024-06-07",
+        "endDate": "2024-06-07",
+        "observationId": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "recipient": "DEMO intended recipient — not a claim of actual delivery"
+      }
+    }
+  },
+  {
+    "id": "KAZ_S_159:mitigation_confirmed",
+    "source": {
+      "sourceId": "KAZ_S_159",
+      "name": "KAZ_S_159",
+      "region": "Kazakhstan",
+      "lat": 43.41337,
+      "lon": 52.91829,
+      "synthetic": false,
+      "evidence": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2024-06-07T08:05:04",
+          "synthetic": false
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-06-05T07:40:02",
+          "synthetic": false
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-07-11T08:12:14",
+          "synthetic": false
+        },
+        {
+          "id": "KAZ_S_159:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "caseId": "MARS-REPORT-KAZ-S-159",
+      "country": "Kazakhstan",
+      "sector": "Oil and Gas",
+      "sourceType": "O&G source (generic)",
+      "plumeCount": 3,
+      "lastObserved": "2026-07-11T08:12:14",
+      "persistency": 0.67,
+      "persistencyStd": 0.27,
+      "persistencyCategory": "frequent",
+      "maxFluxKgHr": 591,
+      "observations": [
+        {
+          "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "date": "2024-06-07T08:05:04",
+          "fluxKgHr": 591,
+          "uncertaintyKgHr": 335,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": false,
+          "actionable": "No",
+          "tile": "ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "date": "2026-06-05T07:40:02",
+          "fluxKgHr": 307,
+          "uncertaintyKgHr": 66,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        },
+        {
+          "id": "941806b5-2afe-46ac-baac-a0230880cede",
+          "date": "2026-07-11T08:12:14",
+          "fluxKgHr": 496,
+          "uncertaintyKgHr": 226,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 43.41337,
+          "lon": 52.91829,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "notified": "Yes",
+      "feedback": "Yes",
+      "feedbackOperator": "Yes",
+      "feedbackGovernment": "Yes",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-09-23",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ],
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "catalogUrl": "https://methanedata.unep.org/download-dataset",
+        "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "snapshotId": "unep-mars-675417694883",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      }
+    },
+    "request": {
+      "sourceId": "KAZ_S_159",
+      "claimType": "mitigation_confirmed",
+      "scope": {
+        "startDate": "2024-06-07",
+        "endDate": "2024-06-07",
+        "observationId": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "recipient": "DEMO intended recipient — not a claim of actual delivery"
+      }
+    }
+  },
+  {
+    "id": "LBY_S_143:source_detected",
+    "source": {
+      "sourceId": "LBY_S_143",
+      "name": "LBY_S_143",
+      "region": "Libya",
+      "lat": 29.04183,
+      "lon": 20.78159,
+      "synthetic": false,
+      "evidence": [
+        {
+          "id": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2025-12-23T10:08:43",
+          "synthetic": false
+        },
+        {
+          "id": "LBY_S_143:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "caseId": "MARS-REPORT-LBY-S-143",
+      "country": "Libya",
+      "sector": "Oil and Gas",
+      "sourceType": "Tank batteries",
+      "plumeCount": 1,
+      "lastObserved": "2025-12-23T10:08:43",
+      "persistency": 0,
+      "persistencyStd": 0,
+      "persistencyCategory": "absent",
+      "maxFluxKgHr": 537,
+      "observations": [
+        {
+          "id": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+          "date": "2025-12-23T10:08:43",
+          "fluxKgHr": 537,
+          "uncertaintyKgHr": 240,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 29.04183,
+          "lon": 20.78159,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000169963_20251223T100843Z_002_V010505_20251224T002720Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "notified": "Yes",
+      "feedback": "Yes",
+      "feedbackOperator": "Yes",
+      "feedbackGovernment": "Yes",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action – Libya (LBY_S_143)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49430",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-04",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ],
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "catalogUrl": "https://methanedata.unep.org/download-dataset",
+        "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "snapshotId": "unep-mars-675417694883",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      }
+    },
+    "request": {
+      "sourceId": "LBY_S_143",
+      "claimType": "source_detected",
+      "scope": {
+        "startDate": "2025-12-23",
+        "endDate": "2025-12-23",
+        "observationId": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+        "recipient": "DEMO intended recipient — not a claim of actual delivery"
+      }
+    }
+  },
+  {
+    "id": "LBY_S_143:operator_notified",
+    "source": {
+      "sourceId": "LBY_S_143",
+      "name": "LBY_S_143",
+      "region": "Libya",
+      "lat": 29.04183,
+      "lon": 20.78159,
+      "synthetic": false,
+      "evidence": [
+        {
+          "id": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2025-12-23T10:08:43",
+          "synthetic": false
+        },
+        {
+          "id": "LBY_S_143:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "caseId": "MARS-REPORT-LBY-S-143",
+      "country": "Libya",
+      "sector": "Oil and Gas",
+      "sourceType": "Tank batteries",
+      "plumeCount": 1,
+      "lastObserved": "2025-12-23T10:08:43",
+      "persistency": 0,
+      "persistencyStd": 0,
+      "persistencyCategory": "absent",
+      "maxFluxKgHr": 537,
+      "observations": [
+        {
+          "id": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+          "date": "2025-12-23T10:08:43",
+          "fluxKgHr": 537,
+          "uncertaintyKgHr": 240,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 29.04183,
+          "lon": 20.78159,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000169963_20251223T100843Z_002_V010505_20251224T002720Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "notified": "Yes",
+      "feedback": "Yes",
+      "feedbackOperator": "Yes",
+      "feedbackGovernment": "Yes",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action – Libya (LBY_S_143)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49430",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-04",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ],
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "catalogUrl": "https://methanedata.unep.org/download-dataset",
+        "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "snapshotId": "unep-mars-675417694883",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      }
+    },
+    "request": {
+      "sourceId": "LBY_S_143",
+      "claimType": "operator_notified",
+      "scope": {
+        "startDate": "2025-12-23",
+        "endDate": "2025-12-23",
+        "observationId": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+        "recipient": "DEMO intended recipient — not a claim of actual delivery"
+      }
+    }
+  },
+  {
+    "id": "LBY_S_143:mitigation_confirmed",
+    "source": {
+      "sourceId": "LBY_S_143",
+      "name": "LBY_S_143",
+      "region": "Libya",
+      "lat": 29.04183,
+      "lon": 20.78159,
+      "synthetic": false,
+      "evidence": [
+        {
+          "id": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EnMAP - DLR plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2025-12-23T10:08:43",
+          "synthetic": false
+        },
+        {
+          "id": "LBY_S_143:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "caseId": "MARS-REPORT-LBY-S-143",
+      "country": "Libya",
+      "sector": "Oil and Gas",
+      "sourceType": "Tank batteries",
+      "plumeCount": 1,
+      "lastObserved": "2025-12-23T10:08:43",
+      "persistency": 0,
+      "persistencyStd": 0,
+      "persistencyCategory": "absent",
+      "maxFluxKgHr": 537,
+      "observations": [
+        {
+          "id": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+          "date": "2025-12-23T10:08:43",
+          "fluxKgHr": 537,
+          "uncertaintyKgHr": 240,
+          "fluxUnit": "kg/h",
+          "satellite": "EnMAP - DLR",
+          "lat": 29.04183,
+          "lon": 20.78159,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "ENMAP01-____L1B-DT0000169963_20251223T100843Z_002_V010505_20251224T002720Z",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "notified": "Yes",
+      "feedback": "Yes",
+      "feedbackOperator": "Yes",
+      "feedbackGovernment": "Yes",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action – Libya (LBY_S_143)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49430",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-04",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ],
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "catalogUrl": "https://methanedata.unep.org/download-dataset",
+        "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "snapshotId": "unep-mars-675417694883",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      }
+    },
+    "request": {
+      "sourceId": "LBY_S_143",
+      "claimType": "mitigation_confirmed",
+      "scope": {
+        "startDate": "2025-12-23",
+        "endDate": "2025-12-23",
+        "observationId": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+        "recipient": "DEMO intended recipient — not a claim of actual delivery"
+      }
+    }
+  },
+  {
+    "id": "CAN_S_002:source_detected",
+    "source": {
+      "sourceId": "CAN_S_002",
+      "name": "CAN_S_002",
+      "region": "Canada",
+      "lat": 51.48142,
+      "lon": -112.40669,
+      "synthetic": false,
+      "evidence": [
+        {
+          "id": "35328376-5922-43c4-9076-c97af6231527",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EMIT - NASA plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-04-10T19:07:29",
+          "synthetic": false
+        },
+        {
+          "id": "CAN_S_002:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "caseId": "MARS-REPORT-CAN-S-002",
+      "country": "Canada",
+      "sector": "Oil and Gas",
+      "sourceType": "Pipeline valve",
+      "plumeCount": 1,
+      "lastObserved": "2026-04-10T19:07:29",
+      "persistency": 0.33,
+      "persistencyStd": 0.27,
+      "persistencyCategory": "frequent",
+      "maxFluxKgHr": 1044,
+      "observations": [
+        {
+          "id": "35328376-5922-43c4-9076-c97af6231527",
+          "date": "2026-04-10T19:07:29",
+          "fluxKgHr": 1044,
+          "uncertaintyKgHr": 370,
+          "fluxUnit": "kg/h",
+          "satellite": "EMIT - NASA",
+          "lat": 51.48142,
+          "lon": -112.40669,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "EMIT_L1B_RAD_001_20260410T190729_2610012_006",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "notified": "Yes",
+      "feedback": "Yes",
+      "feedbackOperator": "Yes",
+      "feedbackGovernment": "Yes",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (MARS) Confirmed Mitigation Action – Canada (CAN_S_002)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49811",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-07",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ],
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "catalogUrl": "https://methanedata.unep.org/download-dataset",
+        "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "snapshotId": "unep-mars-675417694883",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      }
+    },
+    "request": {
+      "sourceId": "CAN_S_002",
+      "claimType": "source_detected",
+      "scope": {
+        "startDate": "2026-04-10",
+        "endDate": "2026-04-10",
+        "observationId": "35328376-5922-43c4-9076-c97af6231527",
+        "recipient": "DEMO intended recipient — not a claim of actual delivery"
+      }
+    }
+  },
+  {
+    "id": "CAN_S_002:operator_notified",
+    "source": {
+      "sourceId": "CAN_S_002",
+      "name": "CAN_S_002",
+      "region": "Canada",
+      "lat": 51.48142,
+      "lon": -112.40669,
+      "synthetic": false,
+      "evidence": [
+        {
+          "id": "35328376-5922-43c4-9076-c97af6231527",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EMIT - NASA plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-04-10T19:07:29",
+          "synthetic": false
+        },
+        {
+          "id": "CAN_S_002:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "caseId": "MARS-REPORT-CAN-S-002",
+      "country": "Canada",
+      "sector": "Oil and Gas",
+      "sourceType": "Pipeline valve",
+      "plumeCount": 1,
+      "lastObserved": "2026-04-10T19:07:29",
+      "persistency": 0.33,
+      "persistencyStd": 0.27,
+      "persistencyCategory": "frequent",
+      "maxFluxKgHr": 1044,
+      "observations": [
+        {
+          "id": "35328376-5922-43c4-9076-c97af6231527",
+          "date": "2026-04-10T19:07:29",
+          "fluxKgHr": 1044,
+          "uncertaintyKgHr": 370,
+          "fluxUnit": "kg/h",
+          "satellite": "EMIT - NASA",
+          "lat": 51.48142,
+          "lon": -112.40669,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "EMIT_L1B_RAD_001_20260410T190729_2610012_006",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "notified": "Yes",
+      "feedback": "Yes",
+      "feedbackOperator": "Yes",
+      "feedbackGovernment": "Yes",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (MARS) Confirmed Mitigation Action – Canada (CAN_S_002)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49811",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-07",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ],
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "catalogUrl": "https://methanedata.unep.org/download-dataset",
+        "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "snapshotId": "unep-mars-675417694883",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      }
+    },
+    "request": {
+      "sourceId": "CAN_S_002",
+      "claimType": "operator_notified",
+      "scope": {
+        "startDate": "2026-04-10",
+        "endDate": "2026-04-10",
+        "observationId": "35328376-5922-43c4-9076-c97af6231527",
+        "recipient": "DEMO intended recipient — not a claim of actual delivery"
+      }
+    }
+  },
+  {
+    "id": "CAN_S_002:mitigation_confirmed",
+    "source": {
+      "sourceId": "CAN_S_002",
+      "name": "CAN_S_002",
+      "region": "Canada",
+      "lat": 51.48142,
+      "lon": -112.40669,
+      "synthetic": false,
+      "evidence": [
+        {
+          "id": "35328376-5922-43c4-9076-c97af6231527",
+          "kind": "detection",
+          "claimType": "source_detected",
+          "title": "UNEP MARS EMIT - NASA plume observation",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "date": "2026-04-10T19:07:29",
+          "synthetic": false
+        },
+        {
+          "id": "CAN_S_002:notification-status",
+          "kind": "metadata_notification",
+          "title": "UNEP MARS source-level notified field is Yes; recipient and exact notification time are not identified here",
+          "reference": "https://methanedata.unep.org/download-dataset",
+          "synthetic": false
+        }
+      ],
+      "caseId": "MARS-REPORT-CAN-S-002",
+      "country": "Canada",
+      "sector": "Oil and Gas",
+      "sourceType": "Pipeline valve",
+      "plumeCount": 1,
+      "lastObserved": "2026-04-10T19:07:29",
+      "persistency": 0.33,
+      "persistencyStd": 0.27,
+      "persistencyCategory": "frequent",
+      "maxFluxKgHr": 1044,
+      "observations": [
+        {
+          "id": "35328376-5922-43c4-9076-c97af6231527",
+          "date": "2026-04-10T19:07:29",
+          "fluxKgHr": 1044,
+          "uncertaintyKgHr": 370,
+          "fluxUnit": "kg/h",
+          "satellite": "EMIT - NASA",
+          "lat": 51.48142,
+          "lon": -112.40669,
+          "notified": true,
+          "actionable": "Yes",
+          "tile": "EMIT_L1B_RAD_001_20260410T190729_2610012_006",
+          "detectionInstitution": "UNEP IMEO MARS",
+          "quantificationInstitution": "UNEP IMEO MARS",
+          "totalEmissionTonnes": null,
+          "totalEmissionStdTonnes": null
+        }
+      ],
+      "notified": "Yes",
+      "feedback": "Yes",
+      "feedbackOperator": "Yes",
+      "feedbackGovernment": "Yes",
+      "externalEvidence": [
+        {
+          "title": "Methane Alert and Response System (MARS) Confirmed Mitigation Action – Canada (CAN_S_002)",
+          "url": "https://wedocs.unep.org/handle/20.500.11822/49811",
+          "publisher": "United Nations Environment Programme",
+          "reportDate": "2026-07",
+          "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+          "contentIncluded": false
+        }
+      ],
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "catalogUrl": "https://methanedata.unep.org/download-dataset",
+        "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "snapshotId": "unep-mars-675417694883",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      }
+    },
+    "request": {
+      "sourceId": "CAN_S_002",
+      "claimType": "mitigation_confirmed",
+      "scope": {
+        "startDate": "2026-04-10",
+        "endDate": "2026-04-10",
+        "observationId": "35328376-5922-43c4-9076-c97af6231527",
+        "recipient": "DEMO intended recipient — not a claim of actual delivery"
+      }
+    }
+  }
+]

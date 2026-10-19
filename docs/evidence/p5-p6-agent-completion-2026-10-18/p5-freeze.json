@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "frozenAt": "2026-10-18T06:52:33.427884+00:00",
+  "agentCount": 2,
+  "sessionCount": 6,
+  "independentHumanParticipants": 0,
+  "appSourceArchiveSha256": "6bd8f2d8dd4341fd1546f29673470581d81857158cf473fee513b3ee09a99633",
+  "snapshotSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+  "assignments": [
+    {
+      "session": "A01",
+      "agent": 1,
+      "order": [
+        "manual:LBY_S_143",
+        "app:CAN_S_002"
+      ]
+    },
+    {
+      "session": "A02",
+      "agent": 2,
+      "order": [
+        "app:LBY_S_143",
+        "manual:CAN_S_002"
+      ]
+    },
+    {
+      "session": "A03",
+      "agent": 1,
+      "order": [
+        "manual:CAN_S_002",
+        "app:LBY_S_143"
+      ]
+    },
+    {
+      "session": "A04",
+      "agent": 2,
+      "order": [
+        "app:CAN_S_002",
+        "manual:LBY_S_143"
+      ]
+    },
+    {
+      "session": "A05",
+      "agent": 1,
+      "order": [
+        "manual:LBY_S_143",
+        "app:CAN_S_002"
+      ]
+    },
+    {
+      "session": "A06",
+      "agent": 2,
+      "order": [
+        "app:LBY_S_143",
+        "manual:CAN_S_002"
+      ]
+    }
+  ],
+  "tasksSha256": "b8d760cf8797e10aec390e36fa4361ce067967f0b39ca8e80a7bf645af43a180",
+  "manualPacketSha256": "5d1e8f064b3644104ac18493e00a953d68f8eabc5987043c890458a2f917c471",
+  "verifierSha256": "0c85df911e0c15db01ed057377d67b07477bca9f9107a00ca5c688e105a9b033",
+  "limits": [
+    "two agents, six repeated sessions; learning effects; not independent people",
+    "wall time includes model/tool latency",
+    "manual export supplied by facilitator; T4 times verification only",
+    "no human confidence fabricated"
+  ]
+}

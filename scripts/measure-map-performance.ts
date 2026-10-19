@@ -331,7 +331,7 @@ async function main(): Promise<void> {
       AUDIT_REGISTRY_ADDRESS: '',
       SEPOLIA_PRIVATE_KEY: '',
     };
-    api = launchServer('bun', ['--no-env-file', '--hot', 'apps/api/src/index.ts'], root, serviceEnvironment);
+    api = launchServer('bun', ['--no-env-file', 'scripts/start-api.ts'], root, serviceEnvironment);
     await waitForEndpoint(`${apiUrl}/api/health`, api);
 
     const webEnvironment = {

@@ -1,0 +1,63 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src/audit.test.ts:
+(pass) conservative evidence baseline > notification is not repair confirmation [0.69ms]
+(pass) conservative evidence baseline > synthetic explicit contrary record can yield contradiction [0.07ms]
+(pass) conservative evidence baseline > synthetic confirmation must be typed confirmation [0.05ms]
+(pass) conservative evidence baseline > claim-specific evidence cannot support a different claim type [1.21ms]
+(pass) conservative evidence baseline > no evidence means unknown not false [0.09ms]
+(pass) API contract > health endpoint checks both durable storage status and pinned casebook availability [19.52ms]
+(pass) API contract > serves the pinned non-synthetic MARS casebook separately from demo fixtures [0.81ms]
+(pass) API contract > keeps the active curated casebook on the same versioned MARS snapshot as intelligence [216.82ms]
+(pass) API contract > preserves UNEP persistency fields in the source record instead of recomputing them [0.94ms]
+(pass) API contract > publishes ranked-source metadata as heuristic and explicitly withholds an unvalidated forecast [19.28ms]
+(pass) API contract > source API keeps the observation timestamp, plume coordinates, units, uncertainty, and provenance fields [4.98ms]
+(pass) API contract > audits observed MARS detections with plume-level citations [4.94ms]
+(pass) API contract > lets a non-curated pinned MARS source audit its recorded detection without inferring notification or mitigation [4.05ms]
+(pass) API contract > does not infer mitigation from notification, feedback, or link-only publisher records [1.47ms]
+(pass) API contract > source-level notified metadata does not prove that the operator was notified [2.93ms]
+(pass) API contract > rejects malformed inputs [1.44ms]
+(pass) API contract > rejects an oversized streamed JSON body before parsing it [0.81ms]
+(pass) API contract > reports a casebook outage instead of disguising it as an unknown real source [2.52ms]
+(pass) API contract > creates an explicitly unanchored synthetic audit [0.55ms]
+(pass) API contract > lists immutable audit revisions for a source claim [1.05ms]
+(pass) API contract > supports stable audit cursor pages and keeps the legacy unpaged response shape [2.75ms]
+(pass) API contract > anchoring requires a secret even when no chain configured [1.45ms]
+(pass) API contract > throttles anonymous audit writes by socket client and ignores spoofed forwarding headers [3.73ms]
+(pass) API contract > keeps the prototype API healthy in production mode with process-local rate limits [1.95ms]
+
+src/ai-review.test.ts:
+(pass) AI provider URLs require HTTPS except for local development and reject embedded credentials [0.82ms]
+(pass) published source URLs cannot disclose embedded credentials [4.95ms]
+(pass) document assessment requires an explicit rights declaration for every excerpt [0.38ms]
+(pass) open-license declarations require a source, license, attribution, and explicit scope confirmation [0.80ms]
+(pass) open-license declaration metadata is bound into the immutable audit digest [1.73ms]
+(pass) v3 document digest retains original-file and selected-page provenance [1.73ms]
+(pass) nonexistent AI quotations force abstention [0.25ms]
+(pass) model narrative is not persisted because it may echo private excerpt text [0.14ms]
+(pass) v3 document bundle is canonically verifiable without external model [1.05ms]
+(pass) public human review omits exact claim text unless both submitter and reviewer consent [1.93ms]
+(pass) document rights declaration is covered by the canonical audit hash [0.71ms]
+(pass) review is a new immutable bundle version; original stays verifiable [0.89ms]
+(pass) requesting more evidence creates a distinct abstaining review revision [0.86ms]
+(pass) approval requires an inspected source and at least one exact validated quotation [0.50ms]
+(pass) v3 draft and human review revisions remain available after reopening the file store [8.56ms]
+
+src/human-assessment-api.test.ts:
+(pass) malformed primary and follow-up references are validation errors, never exceptions or HTTP 500 [18.27ms]
+(pass) human assessment works with AI disabled, stays private, and survives a file-store restart [20.03ms]
+(pass) human assessment enforces reviewer scope, evidence bounds and strong-result requirements [8.86ms]
+(pass) private human assessments cannot bypass the anchor restriction through reconciliation [7.67ms]
+
+src/benchmark.test.ts:
+(pass) reviewed baseline benchmark conformance > the API rules match every pinned real case and separately marked demo fixture [2.58ms]
+
+src/p4-assessment-semantics.test.ts:
+(pass) new baseline semantics are inside the integrity commitment [0.59ms]
+(pass) a fresh digest cannot make an unsupported physical-verification claim valid [0.28ms]
+(pass) legacy bundles without semantics keep their original digest and are accepted unchanged [0.26ms]
+
+ 47 pass
+ 0 fail
+ 302 expect() calls
+Ran 47 tests across 5 files. [626.00ms]

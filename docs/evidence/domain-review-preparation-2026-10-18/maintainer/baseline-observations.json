@@ -1,0 +1,89 @@
+{
+  "packetVersion": "P4-2026-10-18-v1",
+  "classification": "IMPLEMENTATION_OBSERVATIONS_NOT_EXPERT_LABELS",
+  "results": [
+    {
+      "id": "R01",
+      "result": "supported",
+      "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+      "evidenceIds": [
+        "82758651-76f4-4e06-b4ab-c247ce765192"
+      ]
+    },
+    {
+      "id": "R02",
+      "result": "insufficient_evidence",
+      "reason": "No evidence of the required type. Absence does not prove the claim is false.",
+      "evidenceIds": []
+    },
+    {
+      "id": "R03",
+      "result": "insufficient_evidence",
+      "reason": "No evidence of the required type. Absence does not prove the claim is false.",
+      "evidenceIds": []
+    },
+    {
+      "id": "R04",
+      "result": "insufficient_evidence",
+      "reason": "No evidence of the required type. Absence does not prove the claim is false.",
+      "evidenceIds": []
+    },
+    {
+      "id": "R05",
+      "result": "insufficient_evidence",
+      "reason": "No evidence of the required type. Absence does not prove the claim is false.",
+      "evidenceIds": []
+    },
+    {
+      "id": "R06",
+      "result": "insufficient_evidence",
+      "reason": "No evidence of the required type. Absence does not prove the claim is false.",
+      "evidenceIds": []
+    },
+    {
+      "id": "D01",
+      "result": "supported",
+      "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+      "evidenceIds": [
+        "DEMO-P4-notice"
+      ]
+    },
+    {
+      "id": "D02",
+      "result": "contradicted",
+      "reason": "An explicit contrary record exists for this specific claim (fixture baseline).",
+      "evidenceIds": [
+        "DEMO-P4-contrary"
+      ]
+    },
+    {
+      "id": "D03",
+      "result": "insufficient_evidence",
+      "reason": "Conflicting source records require human adjudication.",
+      "evidenceIds": [
+        "DEMO-P4-contrary",
+        "DEMO-P4-notice"
+      ]
+    },
+    {
+      "id": "D04",
+      "result": "insufficient_evidence",
+      "reason": "No evidence of the required type. Absence does not prove the claim is false.",
+      "evidenceIds": []
+    },
+    {
+      "id": "D05",
+      "result": "supported",
+      "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+      "evidenceIds": [
+        "DEMO-P4-action"
+      ]
+    },
+    {
+      "id": "D06",
+      "result": "insufficient_evidence",
+      "reason": "No evidence of the required type. Absence does not prove the claim is false.",
+      "evidenceIds": []
+    }
+  ]
+}

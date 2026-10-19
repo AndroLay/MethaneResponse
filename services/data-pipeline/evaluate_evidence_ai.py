@@ -9,11 +9,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import random
 import re
 from collections import Counter
 from datetime import date
 from pathlib import Path
+from statistics import median
 from typing import Any
 
 from evaluate_baseline import LABELS, summarize
@@ -114,7 +116,20 @@ def _predictions(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         claim_id = _nonempty(row.get('claimId'), 'prediction.claimId')
         if claim_id in by_id:
             raise ValueError(f'Duplicate prediction: {claim_id}')
-        if row.get('verdict') not in LABELS:
+        execution = row.get('execution')
+        if execution is not None:
+            if not isinstance(execution, dict) or execution.get('status') not in {'completed', 'provider_failure'}:
+                raise ValueError(f'Invalid execution status: {claim_id}')
+            elapsed = execution.get('elapsedMs')
+            if type(elapsed) not in (int, float) or not math.isfinite(elapsed) or elapsed < 0:
+                raise ValueError(f'Invalid execution elapsedMs: {claim_id}')
+            cost = execution.get('costUsd')
+            if cost is not None and (type(cost) not in (int, float) or not math.isfinite(cost) or cost < 0):
+                raise ValueError(f'Invalid execution costUsd: {claim_id}')
+        failure = execution is not None and execution['status'] == 'provider_failure'
+        if failure and (row.get('verdict') is not None or row.get('citations') != []):
+            raise ValueError(f'Provider failure cannot supply a model verdict or citations: {claim_id}')
+        if not failure and row.get('verdict') not in LABELS:
             raise ValueError(f'Invalid predicted verdict: {claim_id}')
         citations = row.get('citations', [])
         if not isinstance(citations, list):
@@ -143,6 +158,12 @@ def _baseline_predictions(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any
             raise ValueError(f'Duplicate baseline prediction: {claim_id}')
         if row.get('verdict') not in LABELS:
             raise ValueError(f'Invalid baseline verdict: {claim_id}')
+        for field in ('claimTextSha256', 'assessmentInputSha256', 'rightsReviewSha256'):
+            if not HASH.fullmatch(str(row.get(field, ''))):
+                raise ValueError(f'Invalid baseline {field}: {claim_id}')
+        _nonempty(row.get('baselineVersion'), 'baselineVersion')
+        if row.get('basis') not in {'document_assessment', 'metadata_coverage'}:
+            raise ValueError(f'Explicit baseline assessment basis required: {claim_id}')
         by_id[claim_id] = row
     return by_id
 
@@ -286,7 +307,7 @@ def evaluate(labels: list[dict[str, Any]], predictions: list[dict[str, Any]], *,
             fully_grounded_supported += 1
         records.append({
             'id': claim_id, 'sourceId': label['sourceId'], 'claimType': label['claimType'],
-            'expected': label['goldLabel'], 'predicted': prediction['verdict'],
+            'expected': label['goldLabel'], 'predicted': prediction['verdict'] if prediction['verdict'] is not None else 'provider_failure',
             'citedEvidenceIds': [f'{document}:{digest}' for document, digest in cited],
             'citationsSupplied': len(cited),
             'citationsVerified': len(cited & approved),
@@ -319,6 +340,13 @@ def evaluate(labels: list[dict[str, Any]], predictions: list[dict[str, Any]], *,
         baseline = _baseline_predictions(baseline_predictions)
         if set(baseline) != eligible_ids:
             raise ValueError('Baseline predictions must match the complete held-out test')
+        for claim_id in sorted(eligible_ids):
+            label = gold[claim_id]
+            for field in ('claimTextSha256', 'assessmentInputSha256'):
+                if baseline[claim_id][field] != label[field]:
+                    raise ValueError(f'Baseline assessment input digest mismatch: {claim_id}')
+            if baseline[claim_id]['rightsReviewSha256'] != label['review']['rightsReviewSha256']:
+                raise ValueError(f'Baseline rights review digest mismatch: {claim_id}')
         baseline_records = [{
             'id': claim_id, 'sourceId': gold[claim_id]['sourceId'],
             'claimType': gold[claim_id]['claimType'], 'expected': gold[claim_id]['goldLabel'],
@@ -335,6 +363,9 @@ def evaluate(labels: list[dict[str, Any]], predictions: list[dict[str, Any]], *,
             'rulesBaselineFalseMitigationConfirmations': baseline_comparison_false_mitigation,
             'aiSource': 'provider predictions included in this evaluation',
             'baselineSource': 'independently exported deterministic rules predictions',
+            'baselineVersions': sorted({row['baselineVersion'] for row in baseline.values()}),
+            'baselineAssessmentBases': sorted({row['basis'] for row in baseline.values()}),
+            'sameFrozenInputsAndRights': True,
         }
 
     uncertainty = _source_cluster_bootstrap(
@@ -344,11 +375,54 @@ def evaluate(labels: list[dict[str, Any]], predictions: list[dict[str, Any]], *,
     if comparison is not None and 'aiMinusRulesBaselineMacroF1ConfidenceInterval95' in uncertainty:
         comparison['aiMinusRulesMacroF1ConfidenceInterval95'] = uncertainty['aiMinusRulesBaselineMacroF1ConfidenceInterval95']
 
+    executions = [row.get('execution') for row in predicted.values()]
+    known = [item for item in executions if item is not None]
+    failures = sum(item['status'] == 'provider_failure' for item in known)
+    abstentions = sum(row['verdict'] == 'insufficient_evidence' for row in predicted.values())
+    latencies = [item['elapsedMs'] for item in known]
+    costs = [item.get('costUsd') for item in known]
+    operations = {
+        'attemptedClaims': len(predicted), 'providerFailureCount': failures,
+        'providerFailureRate': round(failures / len(predicted), 4),
+        'assessmentAbstentionCount': abstentions, 'assessmentAbstentionRate': round(abstentions / len(predicted), 4),
+        'telemetryMissingCount': len(predicted) - len(known),
+        'latencyMs': {'count': len(latencies), 'median': median(latencies), 'min': min(latencies), 'max': max(latencies)} if latencies else None,
+        'costUsd': sum(costs) if len(costs) == len(predicted) and all(cost is not None for cost in costs) else None,
+        'costAvailability': 'recorded' if len(costs) == len(predicted) and all(cost is not None for cost in costs) else 'unavailable_or_incomplete',
+    }
+    benefit_status = 'paired_baseline_required'
+    if comparison is not None:
+        interval = comparison.get('aiMinusRulesMacroF1ConfidenceInterval95')
+        if comparison['baselineAssessmentBases'] != ['document_assessment']:
+            benefit_status = 'incomparable_assessment_basis'
+        elif len(comparison['baselineVersions']) != 1:
+            benefit_status = 'mixed_baseline_versions'
+        elif interval is None:
+            benefit_status = 'insufficient_source_clusters'
+        elif interval['lower'] > 0 and comparison['aiFalseMitigationConfirmations'] <= comparison['rulesBaselineFalseMitigationConfirmations']:
+            benefit_status = 'positive_paired_gain'
+        elif interval['upper'] <= 0:
+            benefit_status = 'no_demonstrated_gain'
+        else:
+            benefit_status = 'inconclusive_paired_gain'
+    benefit = {'supported': benefit_status == 'positive_paired_gain', 'status': benefit_status,
+               'criterion': 'Source-cluster paired macro-F1 interval lower bound > 0, document-assessment basis, no worse false mitigation count',
+               'scope': 'Only the named frozen comparator and held-out corpus; not superiority to all rules or other submissions'}
+
     manifest = hashlib.sha256('\n'.join(json.dumps(row, sort_keys=True, ensure_ascii=False) for row in labels).encode()).hexdigest()
     model_versions = sorted({(row['modelVersion'], row['promptVersion']) for row in predicted.values()})
+    if len(model_versions) != 1:
+        blockers.append('Mixed model/prompt versions must be evaluated separately')
+    if failures:
+        blockers.append('Provider failures require investigation; all failed attempts remain in scoring denominators')
+    if operations['telemetryMissingCount']:
+        blockers.append('Execution telemetry is missing; provider success/failure is not established for all attempts')
     return {
         'status': 'release_gate_passed' if not blockers else 'evaluation_only_not_release_ready',
         'releaseEligible': not blockers, 'releaseBlockers': blockers,
+        'activationEligible': not blockers and benefit['supported'] and operations['telemetryMissingCount'] == 0,
+        'aiBenefit': benefit,
+        'operations': operations,
         'releaseThresholds': {
             'minimumTestClaims': min_test_claims,
             'minimumTestSources': min_test_sources,
@@ -379,24 +453,28 @@ def evaluate(labels: list[dict[str, Any]], predictions: list[dict[str, Any]], *,
 
 
 def main() -> None:
+    from annotator_agreement import _resolve_private_input, write_private_report
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--gold', type=Path, required=True, help='Human-adjudicated JSONL with source-disjoint train/dev/test splits')
     parser.add_argument('--predictions', type=Path, required=True, help='Predictions for every held-out test claim')
     parser.add_argument('--baseline-predictions', type=Path, help='Optional deterministic-rules predictions for the exact same held-out claims')
     parser.add_argument('--bootstrap-replicates', type=int, default=DEFAULT_BOOTSTRAP_REPLICATES)
     parser.add_argument('--bootstrap-seed', type=int, default=DEFAULT_BOOTSTRAP_SEED)
-    parser.add_argument('--out', type=Path)
+    parser.add_argument('--out', type=Path, required=True, help='New owner-only report outside the repository')
     parser.add_argument('--strict', action='store_true', help='Exit nonzero when evidence release gates are not met')
     args = parser.parse_args()
-    report = evaluate(read_jsonl(args.gold), read_jsonl(args.predictions),
-                      baseline_predictions=read_jsonl(args.baseline_predictions) if args.baseline_predictions else None,
+    gold_path = _resolve_private_input(args.gold)
+    predictions_path = _resolve_private_input(args.predictions)
+    baseline_path = _resolve_private_input(args.baseline_predictions) if args.baseline_predictions else None
+    report = evaluate(read_jsonl(gold_path), read_jsonl(predictions_path),
+                      baseline_predictions=read_jsonl(baseline_path) if baseline_path else None,
                       bootstrap_replicates=args.bootstrap_replicates, bootstrap_seed=args.bootstrap_seed)
-    encoded = json.dumps(report, ensure_ascii=False, indent=2) + '\n'
-    if args.out:
-        args.out.parent.mkdir(parents=True, exist_ok=True)
-        args.out.write_text(encoded, encoding='utf-8')
-    else:
-        print(encoded)
+    report['publicReleaseApproved'] = False
+    report['inputSha256'] = {name: hashlib.sha256(path.read_bytes()).hexdigest()
+                            for name, path in (('gold', gold_path), ('predictions', predictions_path), ('baseline', baseline_path)) if path}
+    write_private_report(args.out, report)
+    print(json.dumps({'privateReportWritten': True, 'releaseEligible': report['releaseEligible'],
+                      'activationEligible': report['activationEligible']}))
     if args.strict and not report['releaseEligible']:
         raise SystemExit(2)
 

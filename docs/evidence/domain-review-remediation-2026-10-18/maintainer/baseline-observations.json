@@ -1,0 +1,197 @@
+{
+  "packetVersion": "P4-2026-10-18-v2",
+  "classification": "IMPLEMENTATION_OBSERVATIONS_NOT_EXPERT_LABELS",
+  "results": [
+    {
+      "id": "R01",
+      "result": "supported",
+      "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+      "evidenceIds": [
+        "82758651-76f4-4e06-b4ab-c247ce765192"
+      ],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Required references present",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "R02",
+      "result": "insufficient_evidence",
+      "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+      "evidenceIds": [],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "R03",
+      "result": "insufficient_evidence",
+      "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+      "evidenceIds": [],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "R04",
+      "result": "insufficient_evidence",
+      "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+      "evidenceIds": [],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "R05",
+      "result": "insufficient_evidence",
+      "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+      "evidenceIds": [],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "R06",
+      "result": "insufficient_evidence",
+      "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+      "evidenceIds": [],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "D01",
+      "result": "supported",
+      "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+      "evidenceIds": [
+        "DEMO-P4-notice"
+      ],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Required references present",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "D02",
+      "result": "contradicted",
+      "reason": "An eligible reference is tagged as contrary to this claim and scope. Its substance and authenticity require human inspection.",
+      "evidenceIds": [
+        "DEMO-P4-contrary"
+      ],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Contrary reference present",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "D03",
+      "result": "insufficient_evidence",
+      "reason": "Conflicting source records require human adjudication.",
+      "evidenceIds": [
+        "DEMO-P4-contrary",
+        "DEMO-P4-notice"
+      ],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "D04",
+      "result": "insufficient_evidence",
+      "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+      "evidenceIds": [],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "D05",
+      "result": "supported",
+      "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+      "evidenceIds": [
+        "DEMO-P4-action"
+      ],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Required references present",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    },
+    {
+      "id": "D06",
+      "result": "insufficient_evidence",
+      "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+      "evidenceIds": [],
+      "meaning": {
+        "basis": "metadata_coverage",
+        "basisLabel": "Reference metadata coverage",
+        "resultLabel": "Insufficient reference coverage",
+        "explanation": "Checks reference metadata and declared relationships. Document substance, issuer authenticity and physical outcomes require further investigation.",
+        "physicalLabel": "Physical verification: not established by this application",
+        "legacy": false
+      },
+      "physicalVerification": "not_established_by_application"
+    }
+  ]
+}

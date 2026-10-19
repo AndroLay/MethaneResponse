@@ -18,12 +18,13 @@ export function sortAuditHistory(audits: readonly AuditResult[]): AuditResult[] 
 }
 
 export function auditReviewLabel(audit: AuditResult): string {
+  if (audit.bundle.schemaVersion === 4) return 'Human determination · private';
   const status = audit.bundle.schemaVersion === 3 ? audit.bundle.intelligence?.reviewStatus : undefined;
   switch (status) {
     case 'unreviewed': return 'AI suggestion · not reviewed';
     case 'approved': return 'Reviewer accepted';
     case 'rejected': return 'Reviewer rejected';
     case 'needs_more_evidence': return 'More evidence requested';
-    default: return 'Rules baseline';
+    default: return audit.bundle.scope?.recipient ? 'Rules baseline · named recipient private' : 'Rules baseline';
   }
 }

@@ -1,9 +1,24 @@
-# Development documentation
+# Pengembangan
 
-| Guide | Purpose |
+[Pusat dokumentasi](../README.md) · [Peta repository](../repository-map.md)
+
+## Mulai bekerja
+
+1. [Setup lokal](local-setup.md): prasyarat, install, run, contoh alur dan penanganan masalah.
+2. [Konfigurasi](configuration.md): environment API/web, reviewer, AI, storage dan receipt.
+3. [Panduan perubahan](contributing.md): lokasi perubahan, kompatibilitas, pemeriksaan dan pemeliharaan docs.
+4. [Pengujian](../testing/README.md): matriks command serta batas hasil.
+5. [Investigasi bersama](shared-casework.md): akses tim, konflik revisi, import browser, lock, backup dan restore.
+6. [Anchor dan pemulihan](blockchain-recovery.md): target, intent, pending, rekonsiliasi dan verifier independen.
+
+7. [Koreksi dan penarikan publikasi](publication-lifecycle.md): consent revisi, status/history, checksum offline, migrasi dan batas rollback.
+
+## Implementasi antarmuka
+
+| Catatan | Pemakaian |
 |---|---|
-| [UI implementation](ui-implementation.md) | Dashboard routes, shared controls, and current UI workflow notes |
-| [Landing page](landing-page.md) | Public product introduction and its local data bindings |
-| [Performance implementation](performance-optimization.md) | Lazy loading, bundle observations, and measured map-performance limits |
+| [UI/workspaces](ui-implementation.md) | Hubungan route, state, pemuatan fitur dan pemilik modul saat ini |
+| [Landing page](landing-page.md) | Catatan implementasi pengantar produk dan binding data; hasil bertanggal mengikuti revisi asal |
+| [Optimasi performa](performance-optimization.md) | Arsip perubahan/measurement 13–14 Oktober; bukan ukuran build saat ini |
 
-For a clean local run, follow the root [quick start](../../README.md#quick-start). API and E2E checks live in [testing](../testing/README.md); deployment remains a separate owner-configured action.
+Untuk service boundaries dan kontrak HTTP, baca [arsitektur](../architecture/README.md). Untuk data generation gunakan [provenance/rebuild](../../data/real/README.md), agar input, output, lisensi dan hash tetap satu acuan.

@@ -1,0 +1,10 @@
+$ bun --no-env-file scripts/run-integration-roles.ts --evidence /tmp/methane-provider-roles/provider.json
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/integration-role-runtime.test.ts:
+(pass) DEMO roles: real HTTPS provider and production API enforce protocol, privacy and recovery boundaries [46849.34ms]
+
+ 1 pass
+ 0 fail
+ 116 expect() calls
+Ran 1 test across 1 file. [46.87s]

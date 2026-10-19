@@ -1,0 +1,15 @@
+Original export
+bundle_hash: VALID
+document_rights_metadata: NOT_RECORDED
+audit_id: 3d4af894-7817-4b24-b947-ea53e63cb75c
+revision: 1
+sha256: 0x0809013314e3b361dec16bb3df6aee71cd2acff7745ccb2fd8317ff1b0b61968
+chain_receipt: ABSENT
+
+Tampered copy (sourceDataset.snapshotId changed)
+bundle_hash: VALID
+document_rights_metadata: NOT_RECORDED
+audit_id: 3d4af894-7817-4b24-b947-ea53e63cb75c
+revision: 1
+sha256: 0x0809013314e3b361dec16bb3df6aee71cd2acff7745ccb2fd8317ff1b0b61968
+chain_receipt: ABSENT

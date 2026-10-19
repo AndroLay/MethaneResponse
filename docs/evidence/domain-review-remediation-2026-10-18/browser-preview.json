@@ -1,0 +1,66 @@
+{
+  "packetVersion": "P4-2026-10-18-v2",
+  "type": "LOCAL_BROWSER_ENGINEERING_NOT_DOMAIN_REVIEW",
+  "browser": "Installed /usr/bin/chromium via Playwright; chromiumSandbox true",
+  "surface": "Disposable loopback API/web; packet HTML fulfilled from local artifact bytes; no external report or provider access",
+  "htmlSha256": "ea630e22d3699c341a9e3ebcaf325dea7aae1a034aa9c54de1f2489fa5102cf1",
+  "screenshots": [
+    {
+      "file": "captures/p4-assessment-meaning-desktop.png",
+      "sha256": "1d07d5a2a6ad2b66c511280731e6a25f75f4ec627364e2a79819355541fcc542",
+      "visuallyInspected": true
+    },
+    {
+      "file": "captures/p4-assessment-meaning-mobile.png",
+      "sha256": "914514c3fb9abe7995c6d0968374c43c92db2bd4bf933655379eb6c5343fea95",
+      "visuallyInspected": true
+    },
+    {
+      "file": "captures/p4-reviewer-desktop.png",
+      "sha256": "1647f0805f10393d826a3d440070d7868a5a925f2d820404d3520f78a42c7250",
+      "visuallyInspected": true
+    },
+    {
+      "file": "captures/p4-reviewer-mobile-cases.png",
+      "sha256": "b78061dce41f237ee895e0016278866df1c0bc00b506c81ece366cd8cf605860",
+      "visuallyInspected": true
+    },
+    {
+      "file": "captures/p4-reviewer-mobile.png",
+      "sha256": "e5be4d0577a9773bb7f956c8575c3bbb4ffe50f9357aa27d7609df69a8e771f6",
+      "visuallyInspected": true
+    }
+  ],
+  "viewports": {
+    "appDesktop": [
+      1600,
+      1000
+    ],
+    "appMobile": [
+      390,
+      844
+    ],
+    "packetDesktop": [
+      1280,
+      900
+    ],
+    "packetMobile": [
+      390,
+      844
+    ]
+  },
+  "assertions": {
+    "scope": "Focused four Playwright scenarios plus full 23 application scenarios",
+    "packetSections": 6,
+    "packetExternalRequests": 0,
+    "packetFormsInputsScriptsIframes": 0,
+    "packetMobileDocumentFits": true,
+    "packetKeyboardCaseNavigation": true,
+    "newAssessmentMeaningVisibleDesktopMobile": true
+  },
+  "limits": [
+    "Viewport emulation, not a physical phone or cross-browser guarantee.",
+    "Packet HTML was served from local bytes through request interception; direct file URL and print pagination not exercised.",
+    "Phase A response form is still empty; no domain expert or user-pilot result."
+  ]
+}

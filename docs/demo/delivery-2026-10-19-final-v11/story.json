@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 11,
+  "syntheticVoice": true,
+  "voice": {
+    "engine": "edge-tts 7.3.1",
+    "voice": "en-US-AvaMultilingualNeural",
+    "rate": "-2%",
+    "maximumTempoFit": 1.1
+  },
+  "sourceCapture": "delivery-output/story-v10/capture-master/capture.json",
+  "scenes": [
+    {
+      "id": "hook",
+      "kind": "model",
+      "chapter": "The evidence question",
+      "minimumDuration": 6,
+      "cues": [
+        {
+          "id": "question",
+          "text": "Someone reports a methane repair. How do we check what the evidence actually supports?"
+        }
+      ]
+    },
+    {
+      "id": "source",
+      "kind": "app",
+      "shot": "source",
+      "step": 0,
+      "instruction": "Open one real historical source",
+      "minimumDuration": 8,
+      "cues": [
+        {
+          "id": "real-source",
+          "text": "Let's follow one real historical source in Kazakhstan, using UNEP's methane data."
+        }
+      ]
+    },
+    {
+      "id": "climate",
+      "kind": "model",
+      "chapter": "Why this matters",
+      "minimumDuration": 9,
+      "cues": [
+        {
+          "id": "warming",
+          "text": "UNEP attributes about thirty percent of warming since pre-industrial times to methane."
+        },
+        {
+          "id": "follow-up",
+          "text": "Reliable follow-up starts with evidence people can check."
+        }
+      ]
+    },
+    {
+      "id": "system",
+      "kind": "model",
+      "chapter": "MARS + independent review",
+      "minimumDuration": 18,
+      "cues": [
+        {
+          "id": "mars-role",
+          "text": "MARS, UNEP's Methane Alert and Response System, detects major emissions, notifies stakeholders, and tracks responses."
+        },
+        {
+          "id": "response-rate",
+          "text": "The IEA reports a response to about twelve percent of notifications in twenty twenty-five."
+        },
+        {
+          "id": "response-boundary",
+          "text": "A response isn't a repair confirmation."
+        },
+        {
+          "id": "review-role",
+          "text": "MethaneResponse adds independent, claim-by-claim evidence review."
+        }
+      ]
+    },
+    {
+      "id": "catalog-model",
+      "kind": "model",
+      "chapter": "What is in the casebook",
+      "minimumDuration": 8,
+      "cues": [
+        {
+          "id": "publisher-finding",
+          "text": "At Uzen Field, UNEP's catalogue describes confirmed mitigation in July twenty twenty-six. That's the publisher's reported finding."
+        }
+      ]
+    },
+    {
+      "id": "catalog",
+      "kind": "app",
+      "shot": "catalog",
+      "step": 0,
+      "instruction": "Inspect the source-linked reference",
+      "minimumDuration": 12,
+      "cues": [
+        {
+          "id": "inventory",
+          "text": "Our casebook retains its title, metadata, and link. It doesn't include the report itself."
+        },
+        {
+          "id": "reference-boundary",
+          "text": "A catalogue link and a verifiable report passage are different things."
+        }
+      ]
+    },
+    {
+      "id": "observation-model",
+      "kind": "model",
+      "chapter": "Measurements and uncertainty",
+      "minimumDuration": 15,
+      "cues": [
+        {
+          "id": "estimate-one",
+          "text": "Three dated satellite estimates: five hundred ninety-one, plus or minus three hundred thirty-five."
+        },
+        {
+          "id": "estimate-two",
+          "text": "Then three hundred seven, plus or minus sixty-six."
+        },
+        {
+          "id": "estimate-three",
+          "text": "Finally, four hundred ninety-six, plus or minus two hundred twenty-six kilograms per hour."
+        }
+      ]
+    },
+    {
+      "id": "observations",
+      "kind": "app",
+      "shot": "observations",
+      "step": 0,
+      "instruction": "Compare three dated observations",
+      "minimumDuration": 15,
+      "cues": [
+        {
+          "id": "discrete-records",
+          "text": "These are separate observations, with uncertainty. They're not continuous monitoring."
+        },
+        {
+          "id": "missing-not-zero",
+          "text": "Missing dates don't mean zero emissions. The latest observation is July eleventh."
+        },
+        {
+          "id": "traceable-records",
+          "text": "Each estimate stays linked to its source and date."
+        }
+      ]
+    },
+    {
+      "id": "ambiguity",
+      "kind": "model",
+      "chapter": "An exact day matters",
+      "minimumDuration": 12,
+      "cues": [
+        {
+          "id": "action-month",
+          "text": "The catalogue places action somewhere in July."
+        },
+        {
+          "id": "observation-day",
+          "text": "But the observation is July eleventh."
+        },
+        {
+          "id": "ordering",
+          "text": "Without an exact action date, we can't know which came first. That uncertainty matters."
+        }
+      ]
+    },
+    {
+      "id": "audit",
+      "kind": "app",
+      "shot": "audit",
+      "step": 1,
+      "instruction": "Set the scope, then assess the claim",
+      "minimumDuration": 31,
+      "cues": [
+        {
+          "id": "set-scope",
+          "text": "Let's set the scope.",
+          "anchor": 0.4,
+          "guide": "Set a specific review scope"
+        },
+        {
+          "id": "choose-day",
+          "text": "Choose July eleventh, use that UTC day, and apply it.",
+          "anchor": 2.1,
+          "guide": "Select 11 July \u2192 Use UTC day \u2192 Apply"
+        },
+        {
+          "id": "scope-boundary",
+          "text": "The day now defines the assessment.",
+          "anchor": 8.2,
+          "guide": "Scope applied \u00b7 11 July 2026 UTC"
+        },
+        {
+          "id": "run",
+          "text": "Now run the rules baseline.",
+          "anchor": 11.55,
+          "guide": "Run the rules baseline"
+        },
+        {
+          "id": "coverage",
+          "text": "Insufficient reference coverage. This bundle has no eligible mitigation citation that matches the selected date and scope.",
+          "anchor": 14.5,
+          "guide": "Read the eligible-reference coverage result"
+        },
+        {
+          "id": "next-check",
+          "text": "That identifies the missing evidence and makes the next check explicit.",
+          "anchor": 24.4,
+          "guide": "Identify the next evidence check"
+        }
+      ]
+    },
+    {
+      "id": "result",
+      "kind": "model",
+      "chapter": "A useful, bounded answer",
+      "minimumDuration": 8,
+      "cues": [
+        {
+          "id": "bounded-result",
+          "text": "That's a finding about this submitted bundle. It doesn't contradict UNEP's catalogue, or show that mitigation failed."
+        }
+      ]
+    },
+    {
+      "id": "casework",
+      "kind": "app",
+      "shot": "casework",
+      "step": 3,
+      "instruction": "Turn the gap into a specific evidence request",
+      "minimumDuration": 14,
+      "cues": [
+        {
+          "id": "open-question",
+          "text": "Record the open question.",
+          "anchor": 0.55,
+          "guide": "Record the unresolved question"
+        },
+        {
+          "id": "next-action",
+          "text": "Then specify the next action.",
+          "anchor": 3.25,
+          "guide": "Specify the next action"
+        },
+        {
+          "id": "request-evidence",
+          "text": "Request the action date and appropriate follow-up evidence.",
+          "anchor": 6.4,
+          "guide": "Request the exact action date and follow-up"
+        },
+        {
+          "id": "local-save",
+          "text": "The request is saved in this browser.",
+          "anchor": 10.6,
+          "guide": "Saved locally \u00b7 no operator contacted"
+        }
+      ]
+    },
+    {
+      "id": "next",
+      "kind": "model",
+      "chapter": "What to request next",
+      "minimumDuration": 5,
+      "cues": [
+        {
+          "id": "actionable-request",
+          "text": "Now the evidence gap is a precise, actionable request."
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "kind": "app",
+      "shot": "report",
+      "step": 4,
+      "instruction": "Export and check the local report",
+      "minimumDuration": 11,
+      "cues": [
+        {
+          "id": "export",
+          "text": "Export the scoped audit.",
+          "anchor": 0.55,
+          "guide": "Export the scoped report"
+        },
+        {
+          "id": "load",
+          "text": "Load the original report.",
+          "anchor": 3.5,
+          "guide": "Load the original export"
+        },
+        {
+          "id": "matches",
+          "text": "Both the bundle digest and export checksum match.",
+          "anchor": 5.8,
+          "guide": "Bundle digest + export checksum match"
+        }
+      ]
+    },
+    {
+      "id": "digest",
+      "kind": "model",
+      "chapter": "What the fingerprint binds",
+      "minimumDuration": 6,
+      "cues": [
+        {
+          "id": "fingerprint",
+          "text": "The fingerprint binds the snapshot, scope, and result. No blockchain receipt is included."
+        }
+      ]
+    },
+    {
+      "id": "change",
+      "kind": "model",
+      "chapter": "A controlled integrity test",
+      "minimumDuration": 5,
+      "cues": [
+        {
+          "id": "controlled-change",
+          "text": "Now, change one hashed reason, but keep the stored digest."
+        }
+      ]
+    },
+    {
+      "id": "tamper",
+      "kind": "app",
+      "shot": "tamper",
+      "step": 4,
+      "instruction": "Load a copy with one hashed field changed",
+      "minimumDuration": 13,
+      "cues": [
+        {
+          "id": "load-altered",
+          "text": "Load the altered copy.",
+          "anchor": 0.65,
+          "guide": "Load the deliberately altered copy"
+        },
+        {
+          "id": "rejection",
+          "text": "The verifier rejects it.",
+          "anchor": 3.1,
+          "guide": "Altered bundle rejected"
+        },
+        {
+          "id": "different-digest",
+          "text": "Its recalculated fingerprint no longer matches the digest recorded in the report.",
+          "anchor": 5.2,
+          "guide": "Recalculated digest differs from stored digest"
+        },
+        {
+          "id": "one-reason",
+          "text": "One changed reason is enough.",
+          "anchor": 10.35,
+          "guide": "One hashed reason changed"
+        }
+      ]
+    },
+    {
+      "id": "mismatch",
+      "kind": "model",
+      "chapter": "The changed copy is detected",
+      "minimumDuration": 3.5,
+      "cues": [
+        {
+          "id": "mismatch-result",
+          "text": "One changed field. A different hash."
+        }
+      ]
+    },
+    {
+      "id": "original",
+      "kind": "app",
+      "shot": "original",
+      "step": 4,
+      "instruction": "Check the untouched original again",
+      "minimumDuration": 10,
+      "cues": [
+        {
+          "id": "restore",
+          "text": "Select the untouched original again.",
+          "anchor": 0.6,
+          "guide": "Reload the untouched original"
+        },
+        {
+          "id": "restored-result",
+          "text": "Both checks match. The original result is reproduced using the actual application.",
+          "anchor": 3.5,
+          "guide": "Original export: both checks match"
+        }
+      ]
+    },
+    {
+      "id": "limits",
+      "kind": "model",
+      "chapter": "Integrity and physical truth",
+      "minimumDuration": 9,
+      "cues": [
+        {
+          "id": "trust-boundary",
+          "text": "Local consistency is one layer of trust. It doesn't establish the issuer's identity, or prove that equipment was physically repaired."
+        }
+      ]
+    },
+    {
+      "id": "close",
+      "kind": "model",
+      "chapter": "Make the next investigation traceable",
+      "minimumDuration": 15,
+      "cues": [
+        {
+          "id": "audience",
+          "text": "Researchers, auditors, and public-interest analysts can follow a traceable investigation."
+        },
+        {
+          "id": "value",
+          "text": "Inspect the record. Expose the gap. Make the next request clear."
+        },
+        {
+          "id": "scope",
+          "text": "This is a rules-based preview; its climate and user impact still need measurement."
+        }
+      ]
+    }
+  ]
+}

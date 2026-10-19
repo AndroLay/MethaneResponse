@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "verifiedAt": "2026-10-15T16:38:42.816642+00:00",
+  "sourceRevision": "a82e2eee99bb79327f859f304f2f5d5939f07041",
+  "scope": "Local documentation, browser evidence and import archive; no authenticated Notion QA or full product suite rerun.",
+  "zip": {
+    "filename": "MethaneResponse-Notion-2026-10-16.zip",
+    "bytes": 2916731,
+    "sha256": "4b143957b0fdacad4002be29d2b73e827f960f0e0d52f65c1cb307c419e5693b",
+    "members": 15,
+    "markdownPages": 6,
+    "screenshots": 9,
+    "crc": "valid",
+    "contentMatchesSources": true,
+    "relativeLinksWithinArchive": "valid",
+    "jsonEvidenceExcluded": true
+  },
+  "sourceChecks": {
+    "captureManifestHashes": "valid",
+    "reportFileHash": "valid",
+    "pngHeadersAndDimensions": "valid",
+    "markdownRelativeLinks": "valid",
+    "whitespace": "valid",
+    "gitDiffCheck": "passed"
+  },
+  "spokenScriptWords": 400,
+  "externalStatus": {
+    "notionPageCreated": false,
+    "presenterRehearsalTimed": false,
+    "newVideoRecorded": false,
+    "externalDeepThinkReview": false,
+    "publishedOrSubmitted": false
+  }
+}

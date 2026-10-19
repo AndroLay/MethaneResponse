@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun --hot src/index.ts",
-    "start": "bun src/index.ts",
+    "dev": "bun ../../scripts/start-api.ts --hot",
+    "start": "bun ../../scripts/start-api.ts",
     "typecheck": "tsc --noEmit",
     "test": "bun test"
   },

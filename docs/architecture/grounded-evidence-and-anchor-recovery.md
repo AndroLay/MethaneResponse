@@ -1,5 +1,7 @@
 # Anchor recovery and grounded evidence workflow
 
+> **Arsip desain anchor recovery.** Database adapter dan anchor-intent store yang dijelaskan di bawah tidak dipakai prototype saat ini. Gunakan [arsitektur aktif](overview.md) dan [referensi API](api-reference.md); jangan menjalankan petunjuk database lama sebagai setup lokal.
+
 > **Superseded for database-backed anchoring:** this note documents the prior PostgreSQL anchor-intent implementation. That adapter and migrations were removed on 2026-10-15. The active local file store cannot reserve transactional anchor intents, so API anchoring and reconciliation are disabled. Exact citation validation, reviewer workflow, report digests, Solidity contracts, and local verification remain separate prototype capabilities. See the [current scope decision](decisions/2026-10-15-local-prototype-no-database.md).
 
 This note documents implementation in the current repository. It is not proof of a remote deployment, a live blockchain transaction, scientific validation, or document rights.

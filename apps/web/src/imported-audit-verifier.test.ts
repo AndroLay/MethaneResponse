@@ -5,12 +5,67 @@ import { createAudit } from '../../api/src/audit';
 import { createDocumentAudit, createReviewedAudit, DocumentAssessmentInput } from '../../api/src/ai-review';
 import { loadCasebook, sourceFromCase } from '../../api/src/casebook';
 import { verifyImportedAuditReport } from './imported-audit-verifier';
-import { canonicalJson } from './report-export';
+import { addExportIntegrity, buildReportExportPayload, canonicalJson } from './report-export';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import ImportedAuditVerifier from './ImportedAuditVerifier';
+
+test('browser verifier defaults to complete context checking with a visible legacy option', () => {
+  const html = renderToStaticMarkup(createElement(ImportedAuditVerifier));
+  expect(html).toContain('Require complete export context');
+  expect(html).toContain('checked=""');
+  expect(html).toContain('legacy');
+});
 
 function makeAudit() {
   const source = DEMO_SOURCES[0];
   return createAudit(source, { sourceId: source.sourceId, claimType: 'source_detected' }, { caseId: source.sourceId, revision: 1 });
 }
+
+test('strict context verification requires a complete report instead of a raw or legacy bundle', async () => {
+  const audit = makeAudit();
+  for (const report of [audit, { latestAudit: audit }]) {
+    const result = await verifyImportedAuditReport(report, { requireExportContext: true });
+    expect(result.localDigest).toBe('invalid');
+    expect(result.message).toContain('complete JSON report');
+  }
+  expect((await verifyImportedAuditReport(audit)).localDigest).toBe('valid');
+});
+
+test('strict context verification accepts the app export and rejects changed outer context', async () => {
+  const audit = makeAudit();
+  const report = await addExportIntegrity(buildReportExportPayload({ audit, claim: 'source_detected', source: DEMO_SOURCES[0], snapshot: null, realMode: false, generatedAt: '2026-10-18T00:00:00Z' }));
+  expect(await verifyImportedAuditReport(report, { requireExportContext: true })).toMatchObject({ localDigest: 'valid', exportContext: 'manifest_valid' });
+  const tampered = structuredClone(report);
+  tampered.disclaimer += ' changed';
+  expect((await verifyImportedAuditReport(tampered, { requireExportContext: true })).localDigest).toBe('invalid');
+});
+
+test('export observation timestamps must match the committed UTC day', async () => {
+  const source = structuredClone(DEMO_SOURCES[0]);
+  const input = DocumentAssessmentInput.parse({ sourceId: source.sourceId, claimType: 'source_detected', consentToExternalProcessing: true,
+    documents: [{ id: 'DEMO-doc', title: 'DEMO document', text: 'DEMO document for a timestamp regression. It contains no verified repair, measured outcome, or independent physical evidence.', rightsDeclared: 'owned' }] });
+  const audit = createDocumentAudit(input, source, { verdict: 'insufficient_evidence', reason: 'DEMO timing regression only.', citations: [] }, 1,
+    { caseId: source.sourceId, externalEvidence: [], observationTimeline: [{ id: 'DEMO-offset', observedAt: '2026-09-30T23:30:00-12:00' }] });
+  for (const [date, expected] of [['2026-09-30T10:00:00Z', 'invalid'], ['2026-10-01T11:30:00Z', 'valid'], ['2026-09-31', 'invalid']] as const) {
+    const report = await addExportIntegrity(buildReportExportPayload({ audit, claim: 'source_detected', source: { ...source, observations: [{ id: 'DEMO-offset', date, fluxKgHr: null }] }, snapshot: null, realMode: false, generatedAt: '2026-10-18T00:00:00Z' }));
+    expect((await verifyImportedAuditReport(report)).localDigest).toBe(expected);
+  }
+});
+
+test('new semantics reject a rehashed physical-verification claim while legacy bundle bytes remain valid', async () => {
+  const audit = makeAudit();
+  delete audit.bundle.assessmentSemantics;
+  audit.bundleHash = `0x${createHash('sha256').update(canonicalJson(audit.bundle)).digest('hex')}`;
+  const before = JSON.stringify(audit);
+  expect((await verifyImportedAuditReport(audit)).localDigest).toBe('valid');
+  expect(JSON.stringify(audit)).toBe(before);
+  Object.assign(audit.bundle, { assessmentSemantics: { version: 1, basis: 'metadata_coverage', physicalVerification: 'verified' } });
+  audit.bundleHash = `0x${createHash('sha256').update(canonicalJson(audit.bundle)).digest('hex')}`;
+  const result = await verifyImportedAuditReport(audit);
+  expect(result.localDigest).toBe('invalid');
+  expect(result.message).toContain('physical-verification');
+});
 
 test('verifies a valid exported audit bundle and marks wrapper context as unsigned', async () => {
   const audit = makeAudit();
@@ -18,6 +73,7 @@ test('verifies a valid exported audit bundle and marks wrapper context as unsign
 
   expect(result).toMatchObject({
     localDigest: 'valid', auditId: audit.auditId, revision: 1, sourceId: audit.sourceId,
+    assessmentBasis: 'Reference metadata coverage', resultLabel: 'Required references present',
     receipt: 'not_present', exportContext: 'not_in_audit_hash', synthetic: true,
   });
 });

@@ -1,16 +1,29 @@
-# Architecture documentation
+# Arsitektur
 
-| Guide | Purpose |
+[Pusat dokumentasi](../README.md) · [Peta repository](../repository-map.md)
+
+## Desain aktif
+
+| Panduan | Isi |
 |---|---|
-| [System overview](overview.md) | Service boundaries, data flow, persistence, and API structure |
-| [Prototype scope decision](decisions/2026-10-15-local-prototype-no-database.md) | MARS-centered prototype priorities and removal of database services |
-| [AI and blockchain implementation](ai-blockchain-implementation.md) | Evidence assessments, audit bundles, hashes, reviewer flow, and chain integration |
-| [Grounded evidence and anchor recovery](grounded-evidence-and-anchor-recovery.md) | Exact citation validation, reviewer scopes, durable intents, and transaction reconciliation |
-| [Real methane map](real-map.md) | Snapshot loading, source/plume records, interactions, and map layers |
-| [Earth rendering](earth-rendering.md) | MapLibre projection, terrain, lighting, quality profiles, and fallbacks |
-| [Publisher geometry](mars-publisher-geometry.md) | MARS geometry source, matching, provenance, and interpretation limits |
-| [MARS publisher-indicator archives](../../data/real/mars_publisher_archives/README.md) | Versioned monthly Top 50 and country response-rate releases, hashes, rebuild steps and limits |
+| [Arsitektur sistem](overview.md) | Komponen, tiga jalur penilaian, storage, akses dan keputusan utama |
+| [Aliran data dan audit](data-flow.md) | Arsip → snapshot → investigasi → audit → ekspor; lapisan hash dan privasi |
+| [Referensi API](api-reference.md) | Route, input, capability, pagination dan failure responses |
+| [Keputusan tanpa database](decisions/2026-10-15-local-prototype-no-database.md) | ADR accepted: snapshot/file lokal dan batas proses tunggal |
+| [Shared casework satu writer](decisions/2026-10-17-shared-casework-single-writer.md) | ADR P1: state tim privat, CAS/history, lock proses dan pemulihan lokal |
+| [Lifecycle publikasi](decisions/2026-10-18-publication-lifecycle.md) | ADR P3: consent immutable, koreksi/penarikan, envelope versi 2 dan batas migrasi/rollback |
+| [Peta historis MARS](real-map.md) | Progressive loading, layer, import browser dan fallback |
+| [Earth rendering](earth-rendering.md) | Catatan teknis rendering dan riwayat 12–13 Oktober; ukuran/hasil mengikuti revisi asal |
+| [Geometri penerbit](mars-publisher-geometry.md) | Matching, provenance, integritas dan batas geometri MARS |
+| [Publisher indicators](../../data/real/mars_publisher_archives/README.md) | Arsip Top 50/respons negara, manifest dan rebuild |
 
-The prior Postgres-backed anchor reservation/recovery path has been removed. The dated [anchor recovery implementation note](grounded-evidence-and-anchor-recovery.md) is retained as historical design evidence; it is not the active storage architecture.
+## Catatan desain historis
 
-For field definitions and data limitations, use the [product data guide](../product/data-and-claims.md) and [active casebook provenance](../../data/real/README.md).
+| Dokumen | Status |
+|---|---|
+| [AI dan blockchain, 12 Oktober](ai-blockchain-implementation.md) | Snapshot desain awal; jumlah data, reviewer dan beberapa asumsi telah berubah |
+| [Grounded evidence dan anchor recovery](grounded-evidence-and-anchor-recovery.md) | Desain Postgres/anchor-intent terdahulu; adapter/migrasi telah dihapus, bukan instruksi operasi aktif |
+
+Gunakan overview aktif untuk memahami sistem saat ini. Database setup dan transactional anchor recovery pada arsip tidak menjadi prasyarat menjalankan prototype. Arti field/batas ilmiah dijelaskan di [data dan claims](../product/data-and-claims.md); current capability ada di [status implementasi](../release/current-implementation-status.md).
+
+Keputusan aktif P2: [intent durabel satu writer](decisions/2026-10-17-durable-anchor-intents.md), dengan [runbook pemulihan](../development/blockchain-recovery.md). Bukti lokal dibedakan dari transaksi Sepolia publik.

@@ -1,6 +1,6 @@
 # MethaneResponse AI benchmark annotation protocol
 
-- **Status:** Protocol and a local pre-adjudication agreement checker are ready; no benchmark corpus or model result is included.
+- **Status:** Protocol, private freeze/agreement/runner/evaluation tooling are ready; no independent human gold or live-provider benchmark result is included. [18 October engineering and agent evidence](../evidence/p5-p6-agent-evaluation-2026-10-18/README.md) is explicitly separate.
 - **Purpose:** Produce a rights-aware, source-grounded, reproducible evaluation set for document-based methane claim assessment.
 - **Scope:** This protocol evaluates whether submitted documents support a precisely worded claim. It does not establish physical methane conditions or mitigation outcomes by itself.
 
@@ -26,6 +26,14 @@ Each claim must identify one source, one claim type, and a bounded time or event
 
 `insufficient_evidence` is the correct label for missing, indirect, low-quality, or inconclusive evidence. Missing observations are never labeled zero emissions. A later plume can indicate recurrence without proving that a previously reported repair never occurred; label the exact claim and period.
 
+### Source flags and claims about record contents
+
+The distinction applies to negative flags too. A source-level `notified: No` without recipient/event delivery evidence does **not** establish that a particular operator never received the notification claimed. Use `insufficient_evidence` for that event proposition unless the supplied evidence explicitly negates it for the exact recipient, source and period.
+
+A different proposition, “the supplied record lists `notified: Yes`,” can be contradicted by an explicit `notified: No` in that record. This evaluates what the record says, without authenticating the record or establishing delivery in the physical world. Likewise, a plume timestamp and a report month do not establish the repair date or the ordering of plume versus repair; action chronology needs its own evidence.
+
+The [agent diagnostic of 18 October](../evidence/p5-p6-agent-completion-2026-10-18/README.md) uses authored record probes, not independent human gold. Its frozen instructions, labels and initial outputs are retained unchanged; this clarification does not turn those probes into the research corpus or demonstrate a provider improvement.
+
 ## 3. Independent review and adjudication
 
 1. Freeze claim wording and document inputs before model inference. Assign splits before running the model.
@@ -49,6 +57,8 @@ Each gold JSONL row conforms to `services/data-pipeline/evaluate_evidence_ai.py`
   "documentIds": ["doc-stable-id"],
   "split": "test",
   "claimType": "mitigation_confirmed",
+  "claimTextSha256": "replace-with-exact-frozen-sha256",
+  "assessmentInputSha256": "replace-with-exact-frozen-sha256",
   "goldLabel": "insufficient_evidence",
   "synthetic": false,
   "review": {
@@ -87,14 +97,14 @@ Public citation release remains a separate consent decision. `metricsPublication
 
 The model must receive the same bounded claim wording that the reviewers assess. Before annotation or inference, freeze a private candidate JSONL whose `input` contains `sourceId`, `claimType`, `claimText` (20–1,000 characters), and the exact document IDs, titles, and excerpts. The web UI submits this claim explicitly; a missing claim causes the AI path to abstain before calling a provider. The rules baseline and AI prediction must be evaluated against this same claim and document set.
 
-Create a digest-only manifest before either reviewer labels the case:
+Create a private manifest of digests and partition identifiers before either reviewer labels the case:
 
 ```bash
 bun run freeze:ai-inputs --input=/restricted/candidate-inputs.jsonl \
-  --output=/restricted/frozen-input-digests.json
+  --output=/restricted/frozen-input-digests.json --require-partitions=yes
 ```
 
-The command is offline and makes no provider request. On POSIX, keep the input file and its containing directory owner-only, keep the output directory owner-only, and store all three outside the repository. It rejects oversized or malformed inputs, duplicate claim IDs, unsafe paths, and an existing output. The manifest records the input-file SHA-256, claim IDs, and per-claim `claimTextSha256` and `assessmentInputSha256`; it never copies claim wording or excerpt text. Preserve this private manifest with the annotation record.
+The command is offline and makes no provider request. On POSIX, keep the input file and its containing directory owner-only, keep the output directory owner-only, and store all three outside the repository. It rejects oversized or malformed inputs, duplicate claim IDs, unsafe paths, and an existing output. With `--require-partitions=yes`, each candidate row requires `split: train|dev|test` and `synthetic:false`; source/document IDs must be disjoint across splits. The manifest records input-file SHA-256, claim IDs, per-claim `claimTextSha256`/`assessmentInputSha256`, and source/type/split/document identifiers. These identifiers remain private; claim wording and excerpt text are not copied. The legacy non-partitioned mode remains compatible, but does not establish a complete P6 study freeze. Preserve this private manifest with the annotation record.
 
 `claimTextSha256` is SHA-256 of the parsed, trimmed exact claim statement. `assessmentInputSha256` is SHA-256 of canonical JSON for the variable provider payload: `sourceId`, `claimType`, exact `claimText`, and ordered document `{id, title, text}` values. The separately recorded model and prompt versions bind the model configuration; rights metadata is checked and hashed independently. Gold rows, both reviewers' comparison rows, and provider predictions must carry both hashes. Evaluators reject any mismatch so an output for a different claim or excerpt cannot be scored against the frozen label.
 
@@ -106,8 +116,18 @@ The current evaluator requires at least 40 held-out claims from 10 sources, all 
 
 These are internal release gates, not official competition thresholds. Report per-label precision/recall/F1, label counts, citation counts, source/document counts, false mitigation confirmations, confidence intervals, model/prompt version, snapshot/document provenance, and all abstentions. A small test set with zero false confirmations does not establish zero real-world risk.
 
+### Execution records and paired comparison (18 October)
+
+The benchmark requires each frozen input document's HTTPS `sourceUrl` to match its rights approval. The CLI records completed attempts and sanitized provider failures privately, with elapsed milliseconds and fixed configuration (temperature 0, 40-second deadline, at most two requests/claim, no automatic retry). Failed attempts carry `verdict:null` and no quotations. They count as errors in all relevant label denominators, never as a correct insufficient-evidence answer. Assessment abstention after quote validation is separate from provider failure. Cost is `null` when billing data is unavailable, not zero. The batch file is published atomically after completion; a killed process before publication does not leave a completed result.
+
+Rules predictions require the same `claimTextSha256`, `assessmentInputSha256`, and `rightsReviewSha256` as gold/provider inputs, plus `baselineVersion` and `basis: document_assessment|metadata_coverage`. Digest equality is an attested linkage, not proof that rules actually consumed or understood documents. Retain baseline source/transform code. The application's metadata-coverage rules are not a document-comprehension baseline; that basis cannot establish added AI-document benefit.
+
+`releaseEligible` covers absolute thresholds and requires complete execution telemetry, no provider failure, and one model/prompt version. Legacy prediction metrics remain calculable; missing telemetry prevents a new release-pass claim. `aiBenefit` separately tests a positive source-cluster paired macro-F1 interval against a single document-assessment baseline, without worsening false mitigation count. `activationEligible` requires both; evaluation can conclude no demonstrated benefit. These fields do not enable the app provider automatically. `--strict` exits nonzero on failure of the absolute gate; inspect `activationEligible` for the separate activation decision.
+
+The evaluator CLI requires private owner-only inputs and `--out` to a new private report outside the repository. It prints a small status record; full results are not printed or automatically published. Use the [P6 runbook](../evidence/p5-p6-agent-evaluation-2026-10-18/p6-runbook.md) for the exact sequence.
+
 ## 6. Readiness status
 
-- **Implemented:** schema validation, source- and document-disjoint split checks, exact accepted-citation digests, per-document rights-review scope checks with a digest bound across inference and gold labels, source-cluster intervals, paired rules comparison, macro-F1 release threshold, and a tested local tool for two-reviewer pre-adjudication agreement/conflict queues.
+- **Implemented:** schema/split validation and pre-annotation partition freeze, exact claim/input/citation digests, per-document rights scopes, private execution/failure/latency records, private/no-overwrite evaluation, source-cluster intervals, bound paired comparison with explicit basis/version, separate absolute/benefit/activation decisions, and pre-adjudication agreement/conflict queues.
 - **Not performed:** rights-cleared document collection, two-person adjudication, provider inference, independent model benchmark, or release-quality accuracy claim.
 - **Next gate:** obtain documented rights and reviewer availability, then prepare a private benchmark set that satisfies this protocol before any provider call.

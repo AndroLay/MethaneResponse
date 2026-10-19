@@ -1,0 +1,5 @@
+$ cd apps/api && bun run typecheck && cd ../web && bun run typecheck && cd ../.. && bun run check:e2e && bun run check:evaluation
+$ tsc --noEmit
+$ tsc --noEmit
+$ tsc --project tsconfig.e2e.json
+$ tsc --project scripts/tsconfig.evaluation.json
