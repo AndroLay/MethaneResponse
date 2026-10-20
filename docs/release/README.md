@@ -17,7 +17,4 @@
 [Judge evidence matrix](judge-evidence-matrix.md) dan [score-readiness roadmap](score-readiness-roadmap.md) menyimpan asumsi, bukti, serta target internal dari revisi terdahulu. Keduanya bukan status aktif atau hasil penjurian. Angka tes dan asumsi PostGIS di dalamnya tidak menjadi syarat database prototype saat ini.
 
 Pada 21 Oktober, [smoke provider DeepSeek nyata](../evidence/deepseek-live-2026-10-21/README.md)
-lulus pada tiga dokumen DEMO. Belum ada benchmark kualitas AI independen,
-deployment dari workspace, transaksi Sepolia, atau bukti manfaat iklim yang dapat
-disimpulkan dari keberadaan konfigurasi/kode. Catat hasil dari target yang
-benar-benar diperiksa; local run dan hosted preview mempunyai batas berbeda.
+lulus pada tiga dokumen DEMO. [Preview Render dan AI melalui browser publik](../evidence/render-preview-2026-10-21/README.md) juga terverifikasi. Benchmark kualitas AI independen, transaksi Sepolia dan manfaat iklim terukur belum tersedia. Local run dan hosted preview mempunyai batas berbeda.

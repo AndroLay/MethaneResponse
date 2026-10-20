@@ -1,0 +1,126 @@
+{
+  "base": "https://methaneresponse-preview.onrender.com",
+  "startedAt": "2026-10-20T22:32:28.775Z",
+  "limitations": [
+    "One desktop software-rendered Chromium session; not physical-phone/FPS validation.",
+    "AI evidence text is project-authored DEMO, not a real mitigation claim.",
+    "No human reviewer, publication or chain write is configured on the preview."
+  ],
+  "health": {
+    "status": "ok",
+    "mode": "mars-casebook-and-demo",
+    "storage": {
+      "backend": "file",
+      "persistent": true,
+      "ready": true
+    },
+    "caseWorkStorage": {
+      "backend": "file",
+      "persistent": true,
+      "ready": true
+    },
+    "casebookReady": true,
+    "rateLimits": {
+      "backend": "process-local",
+      "shared": false,
+      "required": false,
+      "ready": true
+    },
+    "chainConfigured": false,
+    "chainWriteConfigured": false,
+    "preview": {
+      "enabled": true,
+      "auditState": "ephemeral",
+      "publicBaselineSources": [
+        "KAZ_S_159",
+        "LBY_S_143",
+        "CAN_S_002"
+      ]
+    }
+  },
+  "capability": {
+    "documentModelConfigured": true,
+    "humanReviewConfigured": false,
+    "chainConfigured": false,
+    "chainWriteConfigured": false,
+    "modelMode": "server-side-document-assessment"
+  },
+  "unauthorizedAssessmentStatus": 401,
+  "liveAssessment": {
+    "status": 201,
+    "elapsedMs": 3248,
+    "auditId": "1b3fd019-b8ab-4d39-8e5f-e1445dd70cb5",
+    "verdict": "insufficient_evidence",
+    "model": "deepseek-v4.1-flash-1017",
+    "integrityValid": true,
+    "bundleHash": "0x86ce5feda7e3abb772ce651445a03ac04fa697f665acd3d9cb9d1a4eaff718b4",
+    "citationCount": 1
+  },
+  "anonymousPrivateAuditStatus": 404,
+  "pageErrors": [],
+  "passed": true,
+  "deployedSourceCommit": "98b25ca0af1e3e2df7ca9084c1569db1b6712a1e",
+  "workspace": "Andro's workspace",
+  "region": "singapore",
+  "plan": "free",
+  "autoDeploy": "off",
+  "serviceId": "srv-dbbumltg1s2s73e8cct0",
+  "deployId": "dep-dbbunbv4695c73eb958g",
+  "deploymentStatus": "live",
+  "finalRuntime": {
+    "base": "https://methaneresponse-preview.onrender.com",
+    "status": {
+      "documentModelConfigured": true,
+      "humanReviewConfigured": false,
+      "chainConfigured": false,
+      "chainWriteConfigured": false,
+      "modelMode": "server-side-document-assessment"
+    },
+    "authenticatedInvalidBodyStatus": 400,
+    "passed": true
+  },
+  "readyMapCapture": {
+    "base": "https://methaneresponse-preview.onrender.com",
+    "startedAt": "2026-10-20T22:33:47.481Z",
+    "basemapLoadingFinished": true,
+    "sourceCountLoaded": 4218,
+    "mapCanvasPresent": true,
+    "mapStatus": " 4,218 sources",
+    "documentOverflow": false,
+    "passed": true
+  },
+  "screenshots": {
+    "dashboard-ready-public.png": {
+      "sha256": "01133c4b536703ed85d944895c395f659b8fea508ba6212bb01ed06cb33804c9",
+      "kind": "actual public browser screenshot"
+    },
+    "deepseek-public.png": {
+      "sha256": "d5853404b4919d01bf85c7732522a37334f36f6713b5fb40b2db8292e7fcb1e4",
+      "kind": "actual public browser screenshot"
+    }
+  },
+  "ciObservation": {
+    "status": "in_progress",
+    "conclusion": "",
+    "headSha": "98b25ca0af1e3e2df7ca9084c1569db1b6712a1e",
+    "url": "https://github.com/AndroLay/MethaneResponse/actions/runs/39508503751",
+    "observedAt": "2026-10-20T22:38:10.384552+00:00",
+    "jobs": [
+      {
+        "name": "contracts",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "data-pipeline",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "javascript",
+        "status": "in_progress",
+        "conclusion": ""
+      }
+    ]
+  }
+}

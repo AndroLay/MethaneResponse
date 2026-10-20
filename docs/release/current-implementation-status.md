@@ -11,8 +11,11 @@ lulus, termasuk validasi kutipan serta hash bundle. Ini belum benchmark kualitas
 independen. [Bukti](../evidence/deepseek-live-2026-10-21/README.md) ·
 [Konfigurasi](../development/deepseek-integration.md).
 
-Deployment masih menunggu verifikasi kontrol biaya workspace sesuai batas Rp0
-yang disetujui sebelumnya. Tidak ada layanan MethaneResponse baru. Catatan
+Pengguna kemudian menyetujui pembuatan layanan Free setelah keterbatasan pembacaan
+billing dijelaskan. [Preview Render](https://methaneresponse-preview.onrender.com/dashboard)
+sudah **live**, model backend dan assessment browser nyata terverifikasi pada
+source `98b25ca`. [Bukti publik dan batas scope](../evidence/render-preview-2026-10-21/README.md).
+Free compute dikonfirmasi, total biaya workspace Rp0 tidak dijamin. Catatan
 20 Oktober di bawah tentang pengecualian Render dan Luna pending adalah
 riwayat keputusan yang telah diganti, bukan scope terkini.
 

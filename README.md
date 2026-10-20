@@ -8,6 +8,11 @@ MethaneResponse membantu tim memilih sumber metana sesuai kapasitas investigasi,
 
 [P5/P6 melalui agent selesai](docs/evidence/p5-p6-agent-completion-2026-10-18/README.md): 48 tugas manual/app oleh dua agent dalam enam sesi berulang, 72 klaim test/12 sumber dinilai dua konteks agent, perbaikan CLI serta 708 tes lokal lulus. Hasil tidak menunjukkan manfaat AI dibanding rules pada challenge ini. Pilot manusia dan benchmark provider independen belum terpenuhi; P4 menunggu review sesuai arahan pengguna.
 
+**Preview publik:** [Buka MethaneResponse](https://methaneresponse-preview.onrender.com/dashboard).
+Render Free memakai state sementara; model DeepSeek aktif di backend dan
+assessment memerlukan token terpisah. Review manusia dan write blockchain tidak
+diaktifkan pada preview. [Bukti deployment dan batas](docs/evidence/render-preview-2026-10-21/README.md).
+
 ## Mulai memahami repo
 
 **DeepSeek live — 21 Oktober:** model `deepseek-v4.1-flash-1017` melalui

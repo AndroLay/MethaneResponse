@@ -51,7 +51,10 @@ atau zero-retention. Jangan mengirim dokumen privat tanpa consent dan izin.
 
 ## Render
 
-Free preview menggunakan state sementara dan jalur baseline publik terbatas.
-Provider key hanya boleh dipasang sebagai secret backend pada layanan khusus
-MethaneResponse setelah biaya/akses disepakati. Jangan membuka assessment anonim
-atau mengisi reviewer/signing secrets hanya demi membuat tombol terlihat aktif.
+[Preview Render aktif](../evidence/render-preview-2026-10-21/README.md) menggunakan
+state sementara dan jalur baseline publik terbatas. Provider key serta token
+assessment terpisah dipasang sebagai environment backend privat pada layanan
+MethaneResponse yang disetujui. Token assessment lokal tersedia pada
+`data/state/experiential.env`; masukkan hanya token assessment ke formulir sesi,
+bukan API key provider. Assessment anonim ditolak. Reviewer dan signing secrets
+tidak dipasang; jangan mengirim dokumen rahasia ke preview.
