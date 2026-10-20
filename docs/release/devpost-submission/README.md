@@ -96,3 +96,19 @@ must be filled with actual addresses; they are not evidence of publication.
 Actual form limits for media/file upload are taken from the user's supplied
 form. Recheck them in the authenticated form if it changes. No external party
 has been contacted and no submission is claimed.
+
+## Current completion attachment — 20 October
+
+The additive packager retains the dated v12 materials and P2 evidence. Use the
+explicit completion switch to also include the current map regression, local
+Anvil receipt and desktop/mobile captures:
+
+```sh
+python3 docs/release/devpost-submission/package_current_submission.py --include-non-render-completion --output delivery-output/release-nonrender-2026-10-20/MethaneResponse-NonRender-Judging-Pack.zip
+```
+
+Existing output is never overwritten. `completion-proof/checks.json` records
+the new run; `current-proof/` remains the earlier P2 package. Blockchain acceptance
+is local Anvil chain 31337, without public-wallet funding. Luna live-model
+verification is deferred until the user provides the provider configuration.
+This creates a local ZIP, not a submitted entry or uploaded video.

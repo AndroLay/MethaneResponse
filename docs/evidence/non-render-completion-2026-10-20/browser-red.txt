@@ -1,0 +1,80 @@
+$ bash scripts/run-e2e.sh "e2e/audit-workflow.spec.ts" --grep "Active investigation plan keeps exact"
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/e2e-runner-utils.test.ts:
+(pass) browser checks build a fresh production preview and reject unsafe or invalid ports [0.20ms]
+(pass) Chromium sandbox remains enabled locally and on unknown CI, with a narrow hosted-runner exception [0.09ms]
+(pass) E2E runner environment > copies only explicitly allowlisted non-secret settings [0.04ms]
+(pass) E2E argument routing > runs only the matching phase when a workflow file is selected [0.18ms]
+(pass) E2E argument routing > keeps both workflow phases for unscoped or mixed selections [0.07ms]
+
+ 5 pass
+ 0 fail
+ 19 expect() calls
+Ran 5 tests across 1 file. [12.00ms]
+[WebServer] $ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment
+[WebServer] 
+[WebServer] "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+[WebServer]  * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+[WebServer]  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment
+[WebServer] 
+[WebServer] "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] $ vite preview --host "127.0.0.1" --port "4189" --strictPort
+
+Running 1 test using 1 worker
+
+  ✘  1 [chromium] › e2e/audit-workflow.spec.ts:100:5 › Active investigation plan keeps exact 10 to 20 source membership across queue, globe and evidence handoff (29.8s)
+
+
+  1) [chromium] › e2e/audit-workflow.spec.ts:100:5 › Active investigation plan keeps exact 10 to 20 source membership across queue, globe and evidence handoff 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.plan-map-caption')
+    Expected substring: "20 planned sources"
+    Timeout: 20000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" locator('.plan-map-caption') with timeout 20000ms
+      - waiting for locator('.plan-map-caption')
+
+
+      137 |   await queue.getByRole('button', { name: `Locate planned source ${twenty.portfolios[0].selectedIds[0]}`, exact: true }).click();
+      138 |   await expect(page).toHaveURL(/\/dashboard\/map/);
+    > 139 |   await expect(page.locator('.plan-map-caption')).toContainText('20 planned sources');
+          |                                                   ^
+      140 |   await expect(page.getByRole('application', { name: 'Interactive methane map; drag to pan, scroll to zoom and select a source', exact: true })).toBeInViewport();
+      141 |   await page.getByLabel('Map layer legend', { exact: true }).locator('summary').click();
+      142 |   await page.screenshot({ path: testInfo.outputPath('active-plan-globe-desktop.png') });
+        at /home/andro/dev/projects/Devpost/iEEE-Methane-response/e2e/audit-workflow.spec.ts:139:51
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .playwright-cli/nonrender-map-red/audit-workflow-Active-inve-81cae--globe-and-evidence-handoff-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .playwright-cli/nonrender-map-red/audit-workflow-Active-inve-81cae--globe-and-evidence-handoff-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .playwright-cli/nonrender-map-red/audit-workflow-Active-inve-81cae--globe-and-evidence-handoff-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace .playwright-cli/nonrender-map-red/audit-workflow-Active-inve-81cae--globe-and-evidence-handoff-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › e2e/audit-workflow.spec.ts:100:5 › Active investigation plan keeps exact 10 to 20 source membership across queue, globe and evidence handoff 
+error: "playwright" exited with code 1
+error: script "test:e2e" exited with code 1

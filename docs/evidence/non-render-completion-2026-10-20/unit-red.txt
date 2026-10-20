@@ -1,0 +1,28 @@
+bun test v1.4.3 (c6da4a4d3)
+
+apps/web/src/map-panel-load.test.ts:
+(pass) map panel viewport loading > waits until the map enters the expanded viewport when observation is supported [0.04ms]
+(pass) map panel viewport loading > loads immediately when IntersectionObserver is unavailable
+10 |   test('loads immediately when IntersectionObserver is unavailable', () => {
+11 |     expect(shouldActivateMapPanel(false, false)).toBe(true);
+12 |   });
+13 | 
+14 |   test('an explicit source focus loads the map even before a viewport observation arrives', () => {
+15 |     expect(shouldActivateMapPanel(false, true, true)).toBe(true);
+                                                           ^
+error: expect(received).toBe(expected)
+
+Expected: true
+Received: false
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/apps/web/src/map-panel-load.test.ts:15:55)
+(fail) map panel viewport loading > an explicit source focus loads the map even before a viewport observation arrives [0.88ms]
+(pass) map panel viewport loading > prepares expensive observation points only when point records are visible [0.05ms]
+(pass) map panel viewport loading > prepares source point geometry only for visible source-marker layers or the safe fallback [0.03ms]
+(pass) map panel viewport loading > keeps historical analysis available on observation-based map layers [0.02ms]
+(pass) map panel viewport loading > loads history only for case details and complete archive layers that are actually visible [0.04ms]
+
+ 6 pass
+ 1 fail
+ 26 expect() calls
+Ran 7 tests across 1 file. [11.00ms]

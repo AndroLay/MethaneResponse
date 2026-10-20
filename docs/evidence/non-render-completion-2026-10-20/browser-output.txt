@@ -1,0 +1,102 @@
+$ bash scripts/run-e2e.sh
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/e2e-runner-utils.test.ts:
+(pass) browser checks build a fresh production preview and reject unsafe or invalid ports [0.18ms]
+(pass) Chromium sandbox remains enabled locally and on unknown CI, with a narrow hosted-runner exception [0.09ms]
+(pass) E2E runner environment > copies only explicitly allowlisted non-secret settings [0.04ms]
+(pass) E2E argument routing > runs only the matching phase when a workflow file is selected [0.17ms]
+(pass) E2E argument routing > keeps both workflow phases for unscoped or mixed selections [0.07ms]
+
+ 5 pass
+ 0 fail
+ 19 expect() calls
+Ran 5 tests across 1 file. [12.00ms]
+[WebServer] $ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment
+[WebServer] 
+[WebServer] "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+[WebServer]  * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+[WebServer]  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment
+[WebServer] 
+[WebServer] "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] $ vite preview --host "127.0.0.1" --port "4189" --strictPort
+
+Running 28 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/audit-workflow.spec.ts:17:5 › Historical snapshot watch connects real release changes to selected investigations, exact fields and paged records (15.2s)
+  ✓   2 [chromium] › e2e/audit-workflow.spec.ts:64:5 › Historical snapshot watch discards delayed results after the selected strategy changes (5.7s)
+  ✓   3 [chromium] › e2e/audit-workflow.spec.ts:83:5 › Historical snapshot failure explains the blocker and permits an explicit retry (5.6s)
+  ✓   4 [chromium] › e2e/audit-workflow.spec.ts:100:5 › Active investigation plan keeps exact 10 to 20 source membership across queue, globe and evidence handoff (12.6s)
+  ✓   5 [chromium] › e2e/audit-workflow.spec.ts:154:5 › Delayed activation cannot publish a strategy that the analyst has already changed (4.9s)
+  ✓   6 [chromium] › e2e/audit-workflow.spec.ts:176:5 › Earlier plan import requires trusted digest and separates capacity differences from dataset changes (8.3s)
+  ✓   7 [chromium] › e2e/audit-workflow.spec.ts:200:5 › Scoped active plans never restore reports under different visible country controls (4.9s)
+  ✓   8 [chromium] › e2e/audit-workflow.spec.ts:216:5 › Investigation planner compares capacity-constrained portfolios, exports replay and opens exact cases on desktop and mobile (9.0s)
+  ✓   9 [chromium] › e2e/audit-workflow.spec.ts:264:5 › Investigation planner invalidates pending results, recovers from API failure and reports unfilled quotas (6.1s)
+  ✓  10 [chromium] › e2e/audit-workflow.spec.ts:293:5 › Investigation planner handoff clears hiding filters and confirms unsaved work exactly once (10.0s)
+  ✓  11 [chromium] › e2e/audit-workflow.spec.ts:326:5 › Observation cross-check exposes exact historical counterexamples, refuses repair inference and invalidates stale results (5.7s)
+  ✓  12 [chromium] › e2e/audit-workflow.spec.ts:398:5 › Decision Lab explains real record eligibility, exports requests and keeps authored challenges separate (4.5s)
+  ✓  13 [chromium] › e2e/audit-workflow.spec.ts:439:5 › scope presets and report verification work without a CLI on desktop and mobile (11.1s)
+  ✓  14 [chromium] › e2e/audit-workflow.spec.ts:501:5 › analyst case work resumes after refresh with a bounded scope and a work-status queue (7.0s)
+  ✓  15 [chromium] › e2e/audit-workflow.spec.ts:544:5 › claim requirements guide investigation and export a readable snapshot-bound brief (7.7s)
+  ✓  16 [chromium] › e2e/audit-workflow.spec.ts:595:5 › P4 reviewer v2 is readable without external assets and supports keyboard navigation on mobile (790ms)
+  ✓  17 [chromium] › e2e/audit-workflow.spec.ts:627:5 › saved assessments can be compared by claim without creating extra revisions (2.9s)
+  ✓  18 [chromium] › e2e/audit-workflow.spec.ts:656:5 › late audit and verification responses cannot overwrite a changed investigation (6.1s)
+  ✓  19 [chromium] › e2e/audit-workflow.spec.ts:705:5 › opening a saved revision takes precedence over an earlier pending assessment (3.5s)
+  ✓  20 [chromium] › e2e/audit-workflow.spec.ts:736:5 › map case details show the official Canada report link with its date and license metadata (3.7s)
+  ✓  21 [chromium] › e2e/audit-workflow.spec.ts:770:5 › MARS publisher indicators load lazily, preserve monthly/country history, paginate, and jump to an exact source (5.2s)
+  ✓  22 [chromium] › e2e/audit-workflow.spec.ts:842:5 › historical MARS case can be audited, exported, verified, and tampering is rejected (11.7s)
+  ✓  23 [chromium] › e2e/audit-workflow.spec.ts:935:5 › guided investigation keeps the selected source and exposes discrete audit stages (5.3s)
+  ✓  24 [chromium] › e2e/audit-workflow.spec.ts:997:5 › collapsed navigation reveals its label on keyboard focus (2.0s)
+  ✓  25 [chromium] › e2e/audit-workflow.spec.ts:1013:5 › global historical map becomes usable when remote basemap tiles are unavailable (4.2s)
+  ✓  26 [chromium] › e2e/audit-workflow.spec.ts:1031:5 › unsaved work is guarded and recovered while separate investigations keep independent scopes (10.9s)
+  ✓  27 [chromium] › e2e/audit-workflow.spec.ts:1094:5 › human drafts recover exact metadata without credentials or inspection confirmation and skip optional AI (8.4s)
+  ✓  28 [chromium] › e2e/audit-workflow.spec.ts:1139:5 › chain recovery controls protect credentials and never retry a pending write (UI fixture) (5.5s)
+
+  28 passed (3.4m)
+[WebServer] $ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment
+[WebServer] 
+[WebServer] "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+[WebServer]  * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+[WebServer]  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment
+[WebServer] 
+[WebServer] "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] $ vite preview --host "127.0.0.1" --port "4189" --strictPort
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/ai-review-workflow.spec.ts:13:5 › shared dossier schemas load consistently in the Node ESM browser runner (529ms)
+  ✓   2 [chromium] › e2e/ai-review-workflow.spec.ts:22:5 › connected investigation preserves allocation, evidence request, human review and historical changes in one verifiable dossier (47.9s)
+  ✓   3 [chromium] › e2e/ai-review-workflow.spec.ts:202:5 › Plan reviewers save authenticated immutable revisions, preserve stale drafts and export verified history (16.4s)
+  ✓   4 [chromium] › e2e/ai-review-workflow.spec.ts:264:5 › shared team investigations import explicitly, hand off across isolated sessions, and retain conflicting drafts (20.3s)
+  ✓   5 [chromium] › e2e/ai-review-workflow.spec.ts:383:5 › DEMO trust controls publish only an opted-in redacted summary with independently checked checksum (9.9s)
+  ✓   6 [chromium] › e2e/ai-review-workflow.spec.ts:455:5 › DEMO publication correction and withdrawal stay consistent after reload and failed refresh (12.1s)
+  ✓   7 [chromium] › e2e/ai-review-workflow.spec.ts:520:5 › DEMO publication history loads older pages without reviving superseded versions (9.9s)
+  ✓   8 [chromium] › e2e/ai-review-workflow.spec.ts:550:5 › DEMO human correction recovers its parent after a baseline and protects an unsaved draft (7.8s)
+  ✓   9 [chromium] › e2e/ai-review-workflow.spec.ts:590:5 › DEMO withdrawal reloads the current list after a concurrent public correction (6.2s)
+  ✓  10 [chromium] › e2e/ai-review-workflow.spec.ts:644:5 › human-only evidence decisions save private revisions and export without invoking document AI (14.6s)
+  ✓  11 [chromium] › e2e/ai-review-workflow.spec.ts:742:5 › local mock AI citations receive a separate scoped review and remain private until publication consent (11.8s)
+  ✓  12 [chromium] › e2e/ai-review-workflow.spec.ts:952:5 › late document responses stay out of a restarted claim investigation (4.3s)
+
+  12 passed (3.0m)

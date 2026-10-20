@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/andro/dev/projects/Devpost/iEEE-Methane-response/docs/release/devpost-submission/test_current_package.py", line 5, in <module>
+    from package_current_submission import assemble_current, assemble_completion, EXTRAS, COMPLETION_EXTRAS
+ImportError: cannot import name 'assemble_completion' from 'package_current_submission' (/home/andro/dev/projects/Devpost/iEEE-Methane-response/docs/release/devpost-submission/package_current_submission.py)

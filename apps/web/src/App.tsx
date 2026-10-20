@@ -269,12 +269,16 @@ export default function App() {
   }, [mobileNav]);
 
   useEffect(() => {
+    const focusRequested = activeNav === 'map' && Boolean(mapFocusRequest);
+    if (focusRequested) {
+      mapPanelViewportRef.current?.scrollIntoView({ block: 'center', behavior: 'auto' });
+    }
     if (mapPanelActivated) return;
     const element = mapPanelViewportRef.current;
     if (!element) return;
 
     const observerSupported = typeof IntersectionObserver !== 'undefined';
-    if (shouldActivateMapPanel(false, observerSupported)) {
+    if (shouldActivateMapPanel(false, observerSupported, focusRequested)) {
       setMapPanelActivated(true);
       return;
     }
@@ -291,7 +295,7 @@ export default function App() {
     } catch {
       setMapPanelActivated(true);
     }
-  }, [activeNav, mapPanelActivated]);
+  }, [activeNav, mapPanelActivated, mapFocusRequest]);
   const { data, isError } = useQuery({ queryKey: ['review-sources', demoMode], queryFn: () => fetchApi<{ synthetic: boolean; sources: ReviewSource[] }>(`/sources${demoMode ? '?mode=demo' : ''}`), retry: 0 });
   const realMode = snapshot !== null || (!demoMode && data?.synthetic === false);
   const realDatasetLabel = snapshot ? 'UNEP MARS snapshot' : 'pinned UNEP MARS casebook';

@@ -4,9 +4,14 @@
 
 Halaman rencana mencatat tujuan dan pekerjaan pada increment tertentu. Checklist selesai mengacu pada bukti yang ditautkan; bukan instruksi untuk menjalankan ulang pekerjaan atau persetujuan deployment/transaksi.
 
-## Rencana berikutnya — sebelum 21 Oktober 2026
+## Penyelesaian aktif — 20 Oktober 2026
 
-[Serah terima Luna untuk deployment, Notion, dan video 4:00](2026-10-18-luna-delivery-handoff.md) merangkum capaian, keputusan Render gratis dan format video yang sudah dipilih, temuan persiapan, serta urutan eksekusi. Packaging/deployment dan media versi baru belum diimplementasikan pada checkpoint serah terima.
+[Penyelesaian selain Render](2026-10-20-non-render-completion.md) mencatat
+perbaikan CI/peta, verifikasi prototipe dan paket delivery terbaru. Render
+dikecualikan pengguna, Notion tidak menjadi deliverable aktif, blockchain
+diterima sebagai prototipe Anvil tanpa funding, dan konfigurasi model Luna
+akan diberikan kemudian. [Serah terima 18 Oktober](2026-10-18-luna-delivery-handoff.md)
+tetap disimpan sebagai checkpoint historis; keputusan yang lebih baru berlaku.
 
 | Rencana | Cakupan | Status |
 |---|---|---|

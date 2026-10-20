@@ -1,0 +1,1045 @@
+$ bash scripts/check-local.sh
+Baseline evaluation output: /tmp/methane-response-baseline.J8o7Em
+bun install v1.4.3 (c6da4a4d3)
+
+Checked 142 installs across 215 packages (no changes) [12.00ms]
+$ cd apps/api && bun run typecheck && cd ../web && bun run typecheck && cd ../.. && bun run check:e2e && bun run check:evaluation
+$ tsc --noEmit
+$ tsc --noEmit
+$ tsc --project tsconfig.e2e.json
+$ tsc --project scripts/tsconfig.evaluation.json
+$ cd apps/api && bun test
+bun test v1.4.3 (c6da4a4d3)
+
+src/anchor-intent.test.ts:
+(pass) failed network send remains reserved and blocks a different API replica [21.70ms]
+(pass) only an independently matching transaction event can reconcile an ambiguous anchor [10.17ms]
+(pass) missing chain signer is rejected before creating a durable transaction intent [3.52ms]
+(pass) RPC chain mismatch fails during preflight before reserving an intent or broadcasting [4.14ms]
+(pass) restart recovers the exact transaction without rebroadcast and exposes only safe status metadata [9.61ms]
+(pass) a changed configured target is rejected before reserving or sending [3.31ms]
+
+src/store.test.ts:
+(pass) file-backed audit store > keeps audit bundles and assigns increasing revisions after reopening [3.12ms]
+(pass) file-backed audit store > serializes concurrent revisions and rejects bundle replacement [5.57ms]
+(pass) file-backed audit store > invalidates cached reads when another store instance atomically replaces the file [2.82ms]
+(pass) file-backed audit store > serves bounded source audit pages in stable order [3.55ms]
+(pass) file-backed audit store > uses the configured local file store in every runtime mode [0.52ms]
+(pass) a review cannot append to a parent that is no longer the latest audit revision [0.63ms]
+
+src/anchor-store.test.ts:
+(pass) signed transaction identity survives a restart before broadcast and blocks all competing revisions [3.83ms]
+(pass) completion atomically commits receipt and intent, rejects a fake receipt and preserves bundle bytes [3.52ms]
+(pass) a missing initialized audit file fails closed after restart [0.99ms]
+(pass) legacy array migration preserves audit hashes and rejects concurrent reservation [2.63ms]
+(pass) reverted attempts release the issuer only for a fresh nonce and completion cannot be forged [4.05ms]
+(pass) corrupt initialization marker and audit state fail closed [0.88ms]
+(pass) confirmed completion is idempotent and its receipt cannot be changed [3.74ms]
+
+src/plan-journal.test.ts:
+(pass) plan revisions preserve old report, authenticated actor and parent hash; same report deduplicates [13.79ms]
+(pass) simultaneous stale writers cannot overwrite plan decisions and wrong parent is rejected [8.57ms]
+(pass) trusted head detects rewritten reasoning even after recomputing an internally valid hash [3.93ms]
+(pass) replayed reports and final authorization are mandatory before committing a plan [1.78ms]
+(pass) private file journal survives reopening and fails closed after data loss or tampering [7.02ms]
+
+src/static-web.test.ts:
+(pass) same-origin static web handler > serves root and extensionless deep links from the built SPA [7.25ms]
+(pass) same-origin static web handler > serves real assets and preserves gzip bytes without Content-Encoding [1.05ms]
+(pass) same-origin static web handler > rejects traversal, dotfiles, missing assets, symlinks outside the build and write methods [0.69ms]
+(pass) same-origin static web handler > HEAD returns metadata without streaming a body [0.41ms]
+
+src/chain-recovery.test.ts:
+(pass) a configured signer requires an explicit chain write opt-in [0.35ms]
+(pass) local chain configuration is restricted to loopback and denied in production [0.16ms]
+
+src/chain.test.ts:
+(pass) registry case IDs > binds a stable case and claim category to its receipt record [0.22ms]
+(pass) historical receipt verification > accepts the exact historical transaction and matching event metadata [0.06ms]
+(pass) historical receipt verification > rejects mismatched bundle, case, issuer, version, block, transaction or status [0.12ms]
+(pass) Sepolia writer readiness requires a valid HTTPS RPC, registry and private key [18.24ms]
+(pass) RPC configuration rejects insecure public transport and embedded credentials [0.05ms]
+(pass) configured RPC must identify the expected Sepolia chain [0.13ms]
+(pass) independently verifies the configured registry event returned by RPC [11.53ms]
+(pass) receipt reads stop before contract access when the RPC reports another chain [2.36ms]
+
+src/production-write-guard.test.ts:
+(pass) production baseline audit writes require explicit public opt-in or an admin token [3.57ms]
+
+src/investigation-decision-store.test.ts:
+(pass) review freezes exact dossier, preserves revisions and survives file store restart [24.39ms]
+(pass) frozen state rejects normalization, payload edits and new unknown commitment fields on disk [9.46ms]
+
+src/investigation-links.test.ts:
+(pass) casework preserves the exact plan revision, change report and evidence acceptance criteria [1.41ms]
+(pass) casework rejects malformed and caller-extended investigation links while legacy drafts remain valid [0.39ms]
+(pass) additive investigation fields and legacy revisions survive a file store reopen [3.98ms]
+
+src/skeptical-ai.test.ts:
+(pass) provider receives the exact bounded claim in both evidence passes [2.88ms]
+(pass) missing exact claim abstains without invoking the configured provider [0.44ms]
+(pass) skeptical pass fails closed when strong claim is not supported by exact quote [0.45ms]
+(pass) skeptical pass retains supported suggestion only when both passes agree [0.37ms]
+(pass) insufficient exact evidence does not call billable second pass [0.19ms]
+(pass) provider response size is bounded before JSON parsing [0.31ms]
+
+src/public-preview.test.ts:
+(pass) public preview audit policy > allows the three curated historical cases for supported public claim workflows [0.16ms]
+(pass) public preview audit policy > rejects uncurated sources, recipient claims, and private recipient scope [0.09ms]
+
+src/investigation-decision-api.test.ts:
+(pass) frozen decisions require signed current review authority and exact saved dossier/head [69.77ms]
+(pass) public preview and revoked authority refuse frozen decision contents [1.93ms]
+(pass) historical plan authority is retained after link removal and rechecked after transition loading [10.97ms]
+(pass) terminal reverted decision reconciliation is idempotent and never broadcasts again [15.01ms]
+
+src/investigation-dossier.test.ts:
+(pass) dossier commitment detects edits and rehashing against a separately trusted head [2.88ms]
+(pass) rehashed exports still fail if plan membership, revision links or work history do not match [7.59ms]
+(pass) a later plan decision is retained without rewriting the historically accepted link [4.09ms]
+(pass) dossier cannot assert a physical outcome or chain receipt [1.18ms]
+(pass) assessment validation rejects incomplete and mismatched bundle versions even after rehash [44.21ms]
+(pass) review signals inspect both sides of corrected dates and preserve observation-ID scope [0.35ms]
+(pass) human and model assessments retain their kinds, eligible references and quotation commitments [17.18ms]
+
+src/audit-pagination.test.ts:
+(pass) audit pagination > orders newest first and returns a stable cursor for the next page [0.17ms]
+(pass) audit pagination > uses audit ID as a deterministic tie breaker for equal timestamps [0.06ms]
+(pass) audit pagination > filters private drafts before deciding whether another public page exists [0.15ms]
+(pass) audit pagination > round trips an opaque cursor and rejects malformed values [0.71ms]
+(pass) audit pagination > accepts only bounded positive integer page sizes [0.10ms]
+
+src/p4-evidence-policy.test.ts:
+(pass) new notification and mitigation evaluations require scope even with complete reference metadata [0.08ms]
+(pass) blank, absent, insecure and malformed pointers cannot support or contradict coverage [0.32ms]
+(pass) fixture pointers are usable only for explicitly synthetic evidence [0.07ms]
+(pass) recipient normalization is symmetric and invalid direct-call scope is conservative [0.05ms]
+(pass) the UTC day, strict calendar and strict timestamp determine scope and follow-up eligibility [0.22ms]
+(pass) source resolver and coverage use the same UTC observation day [88.75ms]
+
+src/audit.test.ts:
+(pass) conservative evidence baseline > notification is not repair confirmation [0.16ms]
+(pass) conservative evidence baseline > synthetic explicit contrary record can yield contradiction [0.05ms]
+(pass) conservative evidence baseline > synthetic confirmation must be typed confirmation [0.05ms]
+(pass) conservative evidence baseline > claim-specific evidence cannot support a different claim type [0.07ms]
+(pass) conservative evidence baseline > no evidence means unknown not false [0.03ms]
+(pass) API contract > health endpoint checks both durable storage status and pinned casebook availability [0.97ms]
+(pass) API contract > serves the pinned non-synthetic MARS casebook separately from demo fixtures [0.79ms]
+(pass) API contract > keeps the active curated casebook on the same versioned MARS snapshot as intelligence [0.26ms]
+(pass) API contract > preserves UNEP persistency fields in the source record instead of recomputing them [0.65ms]
+(pass) API contract > publishes ranked-source metadata as heuristic and explicitly withholds an unvalidated forecast [18.46ms]
+(pass) API contract > source API keeps the observation timestamp, plume coordinates, units, uncertainty, and provenance fields [1.03ms]
+(pass) API contract > audits observed MARS detections with plume-level citations [1.08ms]
+(pass) API contract > lets a non-curated pinned MARS source audit its recorded detection without inferring notification or mitigation [2.60ms]
+(pass) API contract > does not infer mitigation from notification, feedback, or link-only publisher records [1.08ms]
+(pass) API contract > source-level notified metadata does not prove that the operator was notified [1.37ms]
+(pass) API contract > rejects malformed inputs [0.51ms]
+(pass) API contract > rejects an oversized streamed JSON body before parsing it [0.26ms]
+(pass) API contract > reports a casebook outage instead of disguising it as an unknown real source [2.10ms]
+(pass) API contract > creates an explicitly unanchored synthetic audit [0.60ms]
+(pass) API contract > lists immutable audit revisions for a source claim [0.71ms]
+(pass) API contract > supports stable audit cursor pages and keeps the legacy unpaged response shape [1.52ms]
+(pass) API contract > anchoring requires a secret even when no chain configured [0.17ms]
+(pass) API contract > throttles anonymous audit writes by socket client and ignores spoofed forwarding headers [1.98ms]
+(pass) API contract > keeps the prototype API healthy in production mode with process-local rate limits [1.35ms]
+
+src/publication-api.test.ts:
+(pass) memory: public correction and withdrawal preserve immutable history and survive reload [13.57ms]
+(pass) file: public correction and withdrawal preserve immutable history and survive reload [17.72ms]
+(pass) private revisions do not supersede or expose themselves through public status [4.25ms]
+(pass) withdrawal rejects stale/concurrent requests, repeat withdrawal and unsafe reasons [12.29ms]
+(pass) correction publication requires the latest assessment parent and rejects racing stale forms [4.03ms]
+(pass) withdrawal denies unverified, expired and wrong-category review authority [4.80ms]
+(pass) directory revocation while withdrawal is queued prevents the commit [3.27ms]
+(pass) withdrawal requires current review authority; anonymous and read-only users cannot mutate [2.00ms]
+(pass) legacy envelopes retain public consent and reject corrupt publication metadata [4.20ms]
+(pass) legacy revisions migrate to one current publication without exposing private revisions or reviving withdrawal [9.14ms]
+(pass) a scoped baseline between human revisions cannot block a consented correction [2.92ms]
+(pass) human publication rechecks reviewer approval inside the queued write [2.46ms]
+(pass) file storage rejects two active publications for a scope [5.11ms]
+
+src/investigation-operations.test.ts:
+(pass) capacity changes expose added/removed membership without pretending the snapshot changed [3.00ms]
+(pass) a different snapshot flags changed selected summaries without inventing repair or zero emissions [2.64ms]
+(pass) plan comparison rejects edited replay and mixed catalog visibility [2.52ms]
+(pass) different archive contents cannot retain the same snapshot identity in a comparison [1.53ms]
+(pass) different publishers cannot be passed off as a change in the same dataset series [2.76ms]
+
+src/evidence-overlap-api.test.ts:
+(pass) private overlap check returns exact related revisions without notes and never changes work [4.97ms]
+(pass) overlap check requires private access, current directory authority and current saved revision [2.02ms]
+(pass) public preview refuses overlap checks [1.18ms]
+(pass) authority revoked while loading related work prevents disclosure [2.31ms]
+
+src/case-work-api.test.ts:
+(pass) shared casework authenticates signed reviewers and filters private metadata by claim authority [7.88ms]
+(pass) two reviewers hand off work and concurrent stale saves cannot overwrite the accepted revision [4.12ms]
+(pass) shared writes reject forged actors, unknown sources, mismatched snapshots, and unauthorized assignees [5.63ms]
+(pass) expired credentials, expired attestation, legacy tokens and oversized writes never grant shared access [2.32ms]
+
+src/snapshot-transition-policy.test.ts:
+(pass) record delta preserves correction, historical backfill, later dates, relinking and removals separately [5.25ms]
+(pass) delta is independent of source and observation input order [2.22ms]
+(pass) both sides of a relink are reviewable and source pagination preserves exact identities [1.27ms]
+(pass) normalizer rejects duplicate IDs, incomplete inventories, invalid units and false linkage [0.70ms]
+(pass) comparison rejects reversed chronology, repeated archive identity and different publishers [1.58ms]
+(pass) editing a record changes integrity even if counts remain the same [2.15ms]
+
+src/decision-lab.test.ts:
+(pass) decision evidence stress tests > distinguishes complete, missing, out-of-period, contrary and conflicting DEMO references [4.00ms]
+(pass) decision evidence stress tests > shows the actual reference dependency without changing the saved evidence [0.65ms]
+(pass) decision evidence stress tests > explains invalid pointers and orders follow-up after the action [0.95ms]
+(pass) decision evidence stress tests > hashes all decision content deterministically and is independent of input ordering [1.26ms]
+(pass) dependency display is bounded while aggregate removal covers the full eligible set [4.14ms]
+(pass) same-day metadata remains explicitly limited and cannot be relabeled as a physical outcome [1.37ms]
+(pass) decision API binds real KAZ observations, refuses stale snapshots and never saves an audit [3.84ms]
+(pass) decision API rejects client-supplied evidence, oversized bodies, unknown sources and private preview scopes [1.93ms]
+(pass) decision rate limit bounds repeated work independently of audit creation [8.24ms]
+
+src/scoped-audit.test.ts:
+(pass) scope validates real calendar dates and ordered bounds [0.23ms]
+(pass) scoped rules exclude undated, unrelated, wrong-recipient and out-of-period notices [0.17ms]
+(pass) a contrary record for another or unknown recipient cannot contradict the named-recipient claim [0.12ms]
+(pass) scoped coverage excludes impossible calendar dates [0.03ms]
+(pass) curated fallback keeps the same scoped persistence identity as the full snapshot [1.52ms]
+(pass) mitigation coverage requires an action and dated follow-up reference inside the scope [0.17ms]
+(pass) scope is hashed while legacy assessments keep their prior shape [0.20ms]
+(pass) baseline can select an older pinned observation and keeps distinct scope histories [11.12ms]
+(pass) a named-recipient scoped baseline does not expose user-entered scope through public history [2.22ms]
+
+src/evidence-lifecycle.test.ts:
+(pass) requests distinguish received, reviewed and accepted evidence without inventing dates [3.68ms]
+(pass) casework request history is append only and attributed by the server revision [0.96ms]
+
+src/case-work-store.test.ts:
+(pass) shared work and immutable actor history survive reopening and reject parallel stale revisions [3.81ms]
+(pass) corrupt, forged history and permissive file modes fail closed without overwriting the file [2.06ms]
+(pass) failed persistence and revoked authorization never acknowledge or commit a new revision [1.74ms]
+(pass) missing acknowledged state fails closed across restart until an explicit restore [2.74ms]
+(pass) revision capacity rejects writes while retaining every acknowledged version [29.32ms]
+
+src/public-preview-api.test.ts:
+(pass) public preview API mode > allows historical audits for curated cases but never private or uncurated writes [5.94ms]
+(pass) public preview API mode > health declares temporary preview state and unknown API paths never become the SPA [0.49ms]
+
+src/reviewer-auth-api.test.ts:
+(pass) private audit verification and reviewer actions enforce separate capabilities [4.71ms]
+(pass) production legacy reviewer compatibility never grants the anchor capability [2.60ms]
+
+src/anchor-idempotency.test.ts:
+(pass) preflight prevents duplicate Sepolia anchoring when an identical bundle is already on chain [3.18ms]
+(pass) concurrent anchor requests share one in-flight guard [4.98ms]
+
+src/ai-review.test.ts:
+(pass) AI provider URLs require HTTPS except for local development and reject embedded credentials [0.09ms]
+(pass) published source URLs cannot disclose embedded credentials [0.21ms]
+(pass) document assessment requires an explicit rights declaration for every excerpt [0.20ms]
+(pass) open-license declarations require a source, license, attribution, and explicit scope confirmation [0.37ms]
+(pass) open-license declaration metadata is bound into the immutable audit digest [0.81ms]
+(pass) v3 document digest retains original-file and selected-page provenance [0.95ms]
+(pass) nonexistent AI quotations force abstention [0.06ms]
+(pass) model narrative is not persisted because it may echo private excerpt text [0.07ms]
+(pass) v3 document bundle is canonically verifiable without external model [0.52ms]
+(pass) public human review omits exact claim text unless both submitter and reviewer consent [0.72ms]
+(pass) document rights declaration is covered by the canonical audit hash [0.51ms]
+(pass) review is a new immutable bundle version; original stays verifiable [0.81ms]
+(pass) requesting more evidence creates a distinct abstaining review revision [0.54ms]
+(pass) approval requires an inspected source and at least one exact validated quotation [0.39ms]
+(pass) v3 draft and human review revisions remain available after reopening the file store [5.44ms]
+
+src/intelligence-data.test.ts:
+(pass) serves an intelligence snapshot only when it is bound to the current input bytes [2.17ms]
+(pass) rejects an invalid observed flux summary in a version 2 snapshot [1.26ms]
+(pass) continues to accept legacy version 1 snapshots without observed trend fields [0.83ms]
+(pass) accepts a hash-bound version 3 record-recurrence estimate and rejects a broken probability [4.55ms]
+(pass) rejects a versioned intelligence snapshot whose source archive provenance disagrees with its pin [0.73ms]
+(pass) expands compact trend rows with versioned thresholds and truthful wording [0.12ms]
+(pass) serves a source-bound historical trend and forecast abstention through the Hono route [151.56ms]
+
+src/reviewer-directory.test.ts:
+(pass) directory approval is server attested and bounded by identity, category and time [0.30ms]
+(pass) malformed, duplicate, future and self-approved directory entries fail closed [0.29ms]
+(pass) configured missing or corrupt directories fail closed and edits take effect without restart [1.35ms]
+
+src/evidence-overlap.test.ts:
+(pass) overlap report replays deterministically regardless of work ordering [3.07ms]
+(pass) different source, claim, nonoverlapping scope or unknown scope is not a duplicate-action inference [1.91ms]
+(pass) same report across sources is flagged only as reused evidence and no private notes or URL is included [1.78ms]
+(pass) rejected responses remain visible as recorded reused material without becoming accepted evidence [1.21ms]
+(pass) different snapshot, archive and synthetic boundary are excluded [1.42ms]
+(pass) duplicate identities, stale target and more than 500 works are rejected [0.60ms]
+(pass) altered report, rehashed content and added fields fail against trusted digest [1.68ms]
+(pass) 500-work bounded comparison does not materialize every pair [54.77ms]
+
+src/anchor-authority.test.ts:
+(pass) revoked, expired and out-of-category reviewers cannot inspect, anchor or reconcile [10.87ms]
+(pass) revocation during broadcast prevents returning private report contents [5.69ms]
+
+src/investigation-dossier-api.test.ts:
+(pass) casework accepts an exact approved allocation and rejects forged or unselected links [2679.67ms]
+(pass) private dossier exports the connected plan, assessment and immutable work revisions [2672.68ms]
+(pass) change check binds the saved revision and exact real snapshot transition before attaching [1791.73ms]
+(pass) restricted public preview refuses dossier and change checks [1.98ms]
+(pass) export budgets count UTF-8, escaping and cumulative materials before replay [0.38ms]
+(pass) private export authority is checked again before response and failures do not disclose notes [3.04ms]
+(pass) exports bound concurrent work and release slots after completion [2.18ms]
+(pass) historical checks reject oversized/unknown inputs and share a bounded request quota [4.73ms]
+
+src/plan-journal-api.test.ts:
+(pass) plan decision API authenticates reviewers, binds displayed report, rejects stale writes and preserves history [2055.26ms]
+(pass) public preview does not expose or accept private plan history [1.02ms]
+
+src/casebook.test.ts:
+(pass) MARS casebook environment example > pins the API to the latest recorded dataset snapshot [1.54ms]
+(pass) MARS casebook environment example > exposes the UNEP Canada report as a link-only reference, not as in-app mitigation evidence [0.99ms]
+
+src/trust-api.test.ts:
+(pass) trust controls are opt-in, server derived, privately bound and publicly redacted [9.04ms]
+(pass) revoked authority, digest mismatch and forged assurance cannot produce trusted decisions [2.87ms]
+(pass) directory revocation immediately protects private reads, verification and history [2.63ms]
+(pass) tampered private bundles are excluded from public summaries [2.54ms]
+(pass) strict reviewer policy and category filtering apply to every private read [2.14ms]
+(pass) follow-up digests are checked separately and failed physical evidence can be recorded as insufficient [1.80ms]
+(pass) a reviewer revoked during reference retrieval cannot finish saving an assessment [0.80ms]
+
+src/snapshot-transition.test.ts:
+(pass) historical change watch returns a real second snapshot and binds the active input [6.33ms]
+(pass) selected source changes retain their exact field values and do not include unrelated records [12.26ms]
+(pass) page two is bounded and unknown IDs, duplicate IDs and excessive pages fail validation [3.93ms]
+(pass) stale active input and unavailable artifacts fail closed without a fabricated transition [1.34ms]
+(pass) restricted public preview cannot enumerate or export complete historical transitions [1.30ms]
+(pass) export and paged inspection share the same full-report commitment [5.22ms]
+(pass) inspection and export reject oversized bodies and share their bounded comparison rate bucket [3.49ms]
+(pass) cached artifacts cannot hide a changed retained original input [47.66ms]
+
+src/rate-limit.test.ts:
+(pass) audit write rate limit > limits one client in a fixed window and resets at the boundary [0.16ms]
+(pass) audit write rate limit > bounds client state and prunes expired windows before rejecting new keys [0.09ms]
+(pass) audit write rate limit > creates stable scoped pseudonyms without persisting client addresses or tokens [0.11ms]
+
+src/integrity.test.ts:
+(pass) audit bundle integrity > accepts an unchanged canonical audit bundle [0.08ms]
+(pass) audit bundle integrity > rejects changes to either the bundle or its duplicated result fields [0.09ms]
+
+src/evidence-check.test.ts:
+(pass) publisher retrieval binds bytes, time and expected digest without claiming content truth [0.73ms]
+(pass) unsafe, unlisted and redirect references never become retrieved evidence [0.35ms]
+(pass) local, mapped, reserved and mixed DNS addresses are blocked [0.55ms]
+
+src/p4-research-replay.test.ts:
+(pass) P4 twelve frozen prompts preserve their metadata-only baseline outcomes [0.38ms]
+(pass) P4 M01: declared reference coverage, never physical verification [0.19ms]
+(pass) P4 M02: declared reference coverage, never physical verification [0.07ms]
+(pass) P4 M03: declared reference coverage, never physical verification [0.09ms]
+(pass) P4 M04: declared reference coverage, never physical verification [0.10ms]
+(pass) P4 M05: declared reference coverage, never physical verification [0.06ms]
+(pass) P4 M06: declared reference coverage, never physical verification [0.05ms]
+(pass) P4 M07: declared reference coverage, never physical verification [0.05ms]
+(pass) P4 M08: declared reference coverage, never physical verification [0.04ms]
+(pass) P4 M09: declared reference coverage, never physical verification [0.06ms]
+(pass) P4 M10: declared reference coverage, never physical verification [0.06ms]
+(pass) P4 M11: declared reference coverage, never physical verification [0.06ms]
+(pass) P4 M12: declared reference coverage, never physical verification [0.05ms]
+(pass) P4 M13: declared reference coverage, never physical verification [0.06ms]
+(pass) P4 M14: declared reference coverage, never physical verification [0.05ms]
+(pass) P4 M15: declared reference coverage, never physical verification [0.05ms]
+(pass) P4 M16: declared reference coverage, never physical verification [0.04ms]
+(pass) P4 M17: declared reference coverage, never physical verification [0.06ms]
+(pass) P4 M18: declared reference coverage, never physical verification [0.04ms]
+
+src/human-assessment-api.test.ts:
+(pass) malformed primary and follow-up references are validation errors, never exceptions or HTTP 500 [10.10ms]
+(pass) human assessment works with AI disabled, stays private, and survives a file-store restart [13.17ms]
+(pass) human assessment enforces reviewer scope, evidence bounds and strong-result requirements [5.29ms]
+(pass) private human assessments cannot bypass the anchor restriction through reconciliation [2.72ms]
+
+src/observation-claims.test.ts:
+(pass) an exact archived witness refutes a no-linked-record claim without claiming repair failed [6.15ms]
+(pass) reported point estimates and their uncertainty are not converted to physical exceedance probabilities [4.37ms]
+(pass) no observations and missing flux stay unknown, including partial windows beyond the archive [1.08ms]
+(pass) physical mitigation cannot be determined from either present or absent satellite records [0.43ms]
+(pass) UTC day boundaries include the full period and retain excluded observations [0.39ms]
+(pass) rejects wrong source links, duplicate identifiers, unsupported units and impossible dates [0.75ms]
+(pass) the same input is deterministic and replay rejects a forged result even after rehashing [1.59ms]
+(pass) actual MARS history produces exact later-record witnesses and creates no audit revision [4.46ms]
+(pass) query API fails closed for injected observations, invalid fields, stale snapshots and unknown sources [3.48ms]
+(pass) archive cache cannot serve validated records under a changed provenance identity [159.62ms]
+(pass) query rate limit is separate from saved baseline audits and errors do not leak local paths [7.88ms]
+
+src/canonical.test.ts:
+(pass) canonical JSON encoding > sorts object keys recursively and matches the verifier representation [0.04ms]
+(pass) canonical JSON encoding > omits undefined object values and preserves array order [0.06ms]
+
+src/investigation-planner.test.ts:
+(pass) capacity planner allocates across quotas and compares genuinely different portfolios [1.09ms]
+(pass) planner does not fabricate slots or numeric flux when data or quotas are insufficient [1.44ms]
+(pass) every exclusion is explained and unknown geography cannot increase coverage [1.38ms]
+(pass) canonical replay binds constraints and candidates independently of input ordering [3.92ms]
+(pass) planner refuses malformed counts, duplicate IDs, false provenance and unbounded constraints [1.57ms]
+(pass) real portfolio API binds all 4218 original sources, compares plans and does not save an audit [389.64ms]
+(pass) portfolio API rejects stale, oversized, forged candidate and unavailable dataset requests [2.79ms]
+(pass) public preview restricts every plan and exported candidate to the three curated sources [58.67ms]
+(pass) planner maintains hard constraints at capacity and weight boundaries with shuffled source order [11.65ms]
+(pass) planner endpoint bounds abusive requests without writing audits [2.40ms]
+
+src/reviewer-auth.test.ts:
+(pass) signed reviewer token carries identity and least-privilege scope [0.12ms]
+(pass) tampering, expiry, future token and wrong secret fail closed [0.07ms]
+(pass) weak secrets and impossible scopes or reviewer IDs are refused [0.08ms]
+
+src/ai-review-api.test.ts:
+(pass) AI assessment refuses excerpts without rights declaration before calling the provider [1.65ms]
+(pass) AI assessment supports separate human decisions and immutable, verifiable report revisions [4.46ms]
+(pass) AI capability status never exposes server credentials [0.20ms]
+(pass) AI provider failure creates no audit revision [1.56ms]
+(pass) AI assessment accepts a non-curated source only from the pinned MARS snapshot and binds its history [2.48ms]
+(pass) AI assessment uses the active full snapshot for a curated source when its history matches [2.67ms]
+(pass) AI document assessments enforce a process-local rate limit before calling the provider [1.82ms]
+(pass) insight endpoint serves analysis for curated and other pinned MARS sources, but rejects unknown IDs [1.27ms]
+(pass) full-snapshot document report survives human review, store reopen, and digest verification [7.93ms]
+(pass) v3 claims and citations remain private until both submitter and reviewer explicitly permit publication [9.25ms]
+(pass) published review revision remains public after reopening the file store while its draft stays private [7.45ms]
+
+src/benchmark.test.ts:
+(pass) reviewed baseline benchmark conformance > the API rules match every pinned real case and separately marked demo fixture [1.33ms]
+
+src/p4-assessment-semantics.test.ts:
+(pass) new baseline semantics are inside the integrity commitment [0.31ms]
+(pass) a fresh digest cannot make an unsupported physical-verification claim valid [0.15ms]
+(pass) legacy bundles without semantics keep their original digest and are accepted unchanged [0.15ms]
+
+src/investigation-revisit.test.ts:
+(pass) revisit distinguishes relevant observations, context notices, backfills and already incorporated snapshots [0.41ms]
+
+ 296 pass
+ 0 fail
+ 1896 expect() calls
+Ran 296 tests across 52 files. [12.34s]
+$ cd apps/web && bun test
+bun test v1.4.3 (c6da4a4d3)
+
+src/map-panel-load.test.ts:
+(pass) map panel viewport loading > waits until the map enters the expanded viewport when observation is supported [0.06ms]
+(pass) map panel viewport loading > loads immediately when IntersectionObserver is unavailable [0.01ms]
+(pass) map panel viewport loading > an explicit source focus loads the map even before a viewport observation arrives [0.01ms]
+(pass) map panel viewport loading > prepares expensive observation points only when point records are visible [0.03ms]
+(pass) map panel viewport loading > prepares source point geometry only for visible source-marker layers or the safe fallback [0.03ms]
+(pass) map panel viewport loading > keeps historical analysis available on observation-based map layers [0.02ms]
+(pass) map panel viewport loading > loads history only for case details and complete archive layers that are actually visible [0.05ms]
+
+src/operator-metadata.test.ts:
+(pass) MARS operator response metadata > filters and counts only source-published notification and feedback fields [0.62ms]
+(pass) MARS operator response metadata > excludes not-applicable sentinels but retains an explicit No status [0.30ms]
+
+src/prepared-evidence.test.ts:
+(pass) valid prepared document remains offline and retains provenance metadata [1.52ms]
+(pass) open-license prepared evidence carries matching license and attribution declarations [0.52ms]
+(pass) cannot import evidence for a different source or modified excerpt [0.21ms]
+(pass) rejects link-only or tampered page metadata [0.33ms]
+(pass) reads only bounded prepared JSON and rejects malformed or oversized files [0.51ms]
+
+src/api-proxy-target.test.ts:
+(pass) uses the standard local API target when no development override is set [0.08ms]
+(pass) uses an explicit HTTP API origin for isolated or non-default development ports [0.02ms]
+(pass) rejects malformed, credentialed, or non-origin proxy targets [0.07ms]
+
+src/case-table.test.ts:
+(pass) source case search is bounded and matches all words across case metadata [0.64ms]
+(pass) source case search does not render the full inventory for an empty query [0.83ms]
+(pass) case pagination exposes a bounded page window for thousands of rows [0.35ms]
+(pass) empty results have a safe page window [0.04ms]
+(pass) case locations retain reported country, region and source coordinate precision [6.23ms]
+(pass) case locations do not repeat identical country and region labels [0.21ms]
+(pass) case inspector keeps the requested visible source and falls back safely after filtering [0.16ms]
+(pass) selected case opens on the page containing its row [1.19ms]
+
+src/mars-snapshot-loader.test.ts:
+(pass) uses a transferable byte copy so worker parsing preserves fallback bytes and all dataset rows [1.73ms]
+(pass) falls back to the verified main-thread parser when the worker crashes [0.39ms]
+(pass) falls back to the verified parser rather than accepting missing or out-of-order source chunks [0.26ms]
+(pass) does not mask a worker-reported integrity rejection with a successful fallback [0.13ms]
+(pass) terminates worker work when the loading effect is cancelled [0.26ms]
+
+src/evidence-overlap-ui.test.ts:
+(pass) overlap review preserves existing notes and records exact report, revisions and human interpretation [0.46ms]
+(pass) unknown candidate, blank rationale, unsupported interpretation or overflowing notes are rejected [0.11ms]
+
+src/plume-geometries.test.ts:
+(pass) flux footprint colors use exact reported kg/h intervals and neutralize missing values [0.09ms]
+(pass) map context distinguishes the selected source from other linked and source-unlinked plume shapes [0.11ms]
+(pass) geometry artifacts must match both the exact MARS snapshot ID and CSV archive hash [0.04ms]
+(pass) tracked full-archive index and the latest real geometry month verify in the browser loader [7.94ms]
+(pass) loads a real source-selected MARS footprint and checks it against the exact plume record [175.55ms]
+(pass) the pinned MARS geometry archive covers every linked observation in every global source case [482.13ms]
+(pass) reports a publisher record without geometry as missing instead of creating a footprint [1.45ms]
+(pass) publisher geometry shards stay unloaded on the adaptive low-power rendering tier [0.05ms]
+(pass) monthly footprint loader verifies the gzip bytes before parsing publisher geometry [1.31ms]
+(pass) monthly footprint loader accepts a browser-decoded representation only when its manifest digest matches [0.46ms]
+(pass) monthly footprint loader rejects a changed compressed artifact before JSON is trusted [0.50ms]
+(pass) monthly footprint loader abstains when its archive does not match the active dataset [0.15ms]
+(pass) a month with no published polygons stays empty and does not fetch a missing file [0.19ms]
+(pass) monthly loader rejects an altered index before trusting its shard hashes [0.19ms]
+(pass) visible footprint filtering follows observation IDs without changing raw geometry or flux [0.12ms]
+(pass) global zoom markers use the publisher-reported coordinate, not a derived source assignment [0.09ms]
+(pass) monthly observation locations include records without polygon geometry and preserve unknown versus zero flux [0.25ms]
+
+src/evidence-observations.test.ts:
+(pass) evidence observation view model > omits a middle date tick when it would collide with the latest date label [0.54ms]
+(pass) evidence observation view model > keeps the midpoint date tick when all three labels have enough horizontal space [0.08ms]
+(pass) evidence observation view model > keeps a zero flux record distinct from a record with no reported flux [0.20ms]
+(pass) evidence observation view model > keeps dated satellite observations as separate points even when flux is reported [0.06ms]
+(pass) evidence observation view model > does not connect observations across missing flux values [0.07ms]
+(pass) evidence observation view model > keeps a record with no flux distinct without drawing a line across the gap [0.07ms]
+(pass) evidence observation view model > builds a bounded contextual satellite image request only for valid coordinates [0.23ms]
+(pass) evidence observation view model > provides progressively wider imagery fallbacks while keeping the source centered [0.17ms]
+(pass) evidence observation view model > keeps location imagery in a loading state until the active mosaic center tile loads [0.22ms]
+(pass) evidence observation view model > preserves publisher plume geometry in a bounded, aspect-correct shape preview [0.44ms]
+(pass) evidence observation view model > handles publisher geometry across the antimeridian and rejects invalid coordinates [0.07ms]
+(pass) evidence observation view model > advances imagery fallback once per failed zoom and ignores stale tile failures [0.05ms]
+(pass) evidence observation view model > can derive one contextual image view for every source in the pinned UNEP snapshot without per-case assets [184.22ms]
+
+src/investigation-brief.test.ts:
+(pass) brief preserves the saved decision, citations, integrity boundary and visible DEMO status [3.16ms]
+(pass) source context is not described as an assessment and null flux never becomes zero [0.25ms]
+(pass) a saved older dataset keeps its binding and omits current observations in the readable export [0.30ms]
+(pass) untrusted titles and references cannot inject Markdown links or HTML into the brief [0.15ms]
+(pass) long histories are explicitly bounded without dropping the total record count [0.34ms]
+(pass) private claim wording and document quotations stay out of the shareable brief [0.76ms]
+
+src/investigation-plan.test.ts:
+(pass) observation context uses the same UTC day as the evidence evaluator [0.12ms]
+(pass) metadata flags and linked reports never satisfy notification or mitigation requirements [0.14ms]
+(pass) coverage keeps contrary records scoped to their exact claim and deduplicates IDs [0.24ms]
+(pass) an available required-type reference leads to inspection and saving the baseline [0.10ms]
+(pass) an unreviewed document assessment leads to human review without closing the evidence gap [0.12ms]
+(pass) supported baseline guidance does not authenticate references or certify a repair [0.19ms]
+(pass) terminal document reviews require new evidence and a new assessment [0.23ms]
+(pass) inventory and plan calculations do not mutate source evidence [0.14ms]
+(pass) scope coverage excludes other dates, events, recipients and incomplete follow-up [0.39ms]
+(pass) a saved human determination is described as human and its request remains actionable [0.19ms]
+
+src/observation-history.test.ts:
+(pass) historical observation timeline > computes the displayed date range in one pass and ignores malformed dates [0.19ms]
+(pass) historical observation timeline > builds a complete monthly axis and distinguishes months with no rows [0.29ms]
+(pass) historical observation timeline > shows cumulative archive records through the selected month without changing source values [0.09ms]
+(pass) historical observation timeline > selected geometry month includes only that month and retains zero and missing flux distinctly [0.09ms]
+(pass) historical observation timeline > source geometry opens on that source latest observed month, not the archive latest month [0.11ms]
+
+src/landing-observation-visual.test.ts:
+(pass) landing historical observation chart model > orders dated MARS observations discretely and carries reported uncertainty [0.41ms]
+(pass) landing historical observation chart model > does not turn absent flux into zero and keeps a point when uncertainty is absent [0.07ms]
+(pass) landing historical observation chart model > returns an explicit empty model when no flux is reported [0.02ms]
+(pass) landing historical observation chart model > formats dates in UTC without shifting the publisher day to the browser timezone [0.98ms]
+
+src/PublisherReferenceNotice.test.ts:
+(pass) linked publisher report metadata is explicitly labeled as reference-only [7.32ms]
+(pass) does not show the publisher-reference notice when a case has no linked documents [0.13ms]
+
+src/map-focus.test.ts:
+(pass) overlapping planned and historical marker layers dispatch one selection per physical click [0.12ms]
+(pass) planned rings take precedence over linked or unlinked plume hits with one confirmation per DOM event [0.38ms]
+(pass) initial map deep links request a source zoom while other workspaces do not [0.12ms]
+(pass) map focus preserves the source coordinates and starts above source-marker clustering [0.06ms]
+(pass) source refocus reaches the inspection zoom without zooming out from a closer view [0.02ms]
+(pass) map focus rejects invalid source coordinates instead of navigating to a false location [0.01ms]
+
+src/audit-comparison.test.ts:
+(pass) compares saved decision fields and added, removed, and changed citations without mutating revisions [1.09ms]
+(pass) refuses the same assessment, a different source, a different claim or mixed real/demo modes [0.20ms]
+(pass) flags different snapshot bindings even if the snapshot label is unchanged [0.29ms]
+(pass) an identity or timestamp difference does not fabricate a decision change [0.19ms]
+(pass) compares document inputs, exact claim scope, review parent and dataset byte binding [0.28ms]
+
+src/progressive-mars-loader.test.ts:
+(pass) loads a hash-verified catalog and source history bucket without exposing partial records [6.28ms]
+(pass) accepts a server-decoded catalog only when its decoded digest and byte count match [1.56ms]
+(pass) rejects progressive data whose full snapshot binding does not match [3.31ms]
+(pass) propagates cancellation to an in-flight progressive manifest request [0.99ms]
+(pass) rejects tampered bucket bytes and a correctly rehashed bucket that omits catalog rows [5.56ms]
+(pass) rejects an oversized manifest before requesting catalog bytes [1.57ms]
+(pass) rejects a catalog response larger than either declared artifact representation before reading it [0.92ms]
+
+src/investigation-decision-ui.test.ts:
+(pass) decision history validates identifiers, bounded versions, receipt metadata and configured targets [4.92ms]
+(pass) workflow labels distinguish evidence review, integrity and incorporated historical changes [0.05ms]
+
+src/case-work.test.ts:
+(pass) saved analyst work can be resumed and is isolated by source, snapshot, archive and mode [4.14ms]
+(pass) stale tab saves are rejected instead of overwriting newer work [0.46ms]
+(pass) blocked storage and invalid dates are reported without claiming a save [0.24ms]
+(pass) case work stores only its declared fields and never credentials or audit contents [0.16ms]
+(pass) multiple investigations for one source persist and revise independently [0.70ms]
+(pass) legacy v1 notes remain readable and are retained when upgraded [0.45ms]
+
+src/session-draft.test.ts:
+(pass) session draft recovers incomplete metadata and excludes credentials and confirmation [1.84ms]
+(pass) case draft retains the revision it was edited against and handles blocked storage [0.48ms]
+(pass) follow-up transfer preserves triage, existing request and audit lineage [0.65ms]
+(pass) follow-up transfer rejects another source, mode or dataset snapshot [0.11ms]
+(pass) recovery metadata refuses embedded URL credentials [0.18ms]
+
+src/map-marker-details.test.ts:
+(pass) source marker details bind historical values to the pinned MARS snapshot [0.17ms]
+(pass) source marker details label missing flux and missing snapshot as unknown [0.06ms]
+(pass) source marker details preserve notification and feedback as raw MARS metadata [0.07ms]
+(pass) synthetic source details identify the demo fixture and do not claim a MARS snapshot [0.04ms]
+(pass) observation marker details retain exact MARS record ID, timestamp, flux uncertainty, and source link state [0.09ms]
+
+src/assessment-scope.test.ts:
+(pass) scope draft schema preserves incomplete fields without retaining unknown data [0.08ms]
+(pass) observation preset sorts normalized UTC days and excludes invalid dates [0.12ms]
+(pass) unapplied scope edits are distinct from a source-level or saved scope [0.06ms]
+(pass) scope picker exposes dated DEMO detection references when no observation rows exist [1.85ms]
+(pass) scope picker shows the UTC day instead of the timestamp local day [0.72ms]
+
+src/imported-audit-verifier.test.ts:
+(pass) browser verifier defaults to complete context checking with a visible legacy option [0.85ms]
+(pass) strict context verification requires a complete report instead of a raw or legacy bundle [1.74ms]
+(pass) strict context verification accepts the app export and rejects changed outer context [1.09ms]
+(pass) export observation timestamps must match the committed UTC day [3.49ms]
+(pass) new semantics reject a rehashed physical-verification claim while legacy bundle bytes remain valid [0.56ms]
+(pass) verifies a valid exported audit bundle and marks wrapper context as unsigned [0.34ms]
+(pass) verifies the current v3 human-reviewed report revision without claiming chain proof [13.16ms]
+(pass) verifies a historical v3 report whose document digest predates the rights declaration field [0.74ms]
+(pass) validates open-license declaration shape independently of the bundle hash [1.17ms]
+(pass) rejects an edited audit bundle even when its outer report still parses [0.27ms]
+(pass) rejects changed exported observations when the report includes an export checksum [0.38ms]
+(pass) rejects report summary fields that no longer match the hashed bundle [0.21ms]
+(pass) keeps a locally valid digest separate from receipt metadata and live chain verification [0.35ms]
+(pass) flags receipt metadata mismatch without misreporting the independently valid bundle hash [0.27ms]
+(pass) rejects malformed input instead of treating a missing bundle as a valid report [0.07ms]
+
+src/decision-lab.test.ts:
+(pass) client verifies the full decision computation and rejects a different source, scope, snapshot or digest [6.87ms]
+(pass) evidence requests retain source, scope, input archive and explicit acceptance conditions [1.14ms]
+
+src/map-marker-style.test.ts:
+(pass) source markers use historical reported-flux bins and preserve unknown values [0.15ms]
+
+src/case-publisher-evidence.test.ts:
+(pass) external publisher references expose their date, license, and link-only status [0.06ms]
+(pass) external publisher references disclose missing dates instead of inventing them [0.02ms]
+(pass) case evidence defaults to the latest valid observation and keeps record choice deterministic [0.14ms]
+(pass) case evidence option ordering uses observation instants rather than date strings [0.04ms]
+
+src/human-history.test.ts:
+(pass) latest human loader traverses pages, checks scope and digest, and keeps credential out of URL [1.57ms]
+(pass) latest human loader fails closed on denied access and looping pagination, or returns no match [0.24ms]
+
+src/DataDisclosureDialog.test.ts:
+(pass) data disclosure uses native dialog semantics and includes cited research references [2.48ms]
+
+src/mars.test.ts:
+(pass) MARS GeoJSON importer > anchors relative observation windows to the pinned archive date, not the wall clock [0.24ms]
+(pass) MARS GeoJSON importer > uses the latest valid observation when archive metadata has no end date [0.03ms]
+(pass) MARS GeoJSON importer > groups real-format plume observations per source without claiming mitigation [0.66ms]
+(pass) MARS GeoJSON importer > rejects unrelated FeatureCollections [0.07ms]
+(pass) MARS GeoJSON importer > keeps complete normalized history, unresolved plumes, and original timestamp metadata [0.97ms]
+(pass) MARS GeoJSON importer > loads the deterministic compressed static snapshot format [0.43ms]
+(pass) MARS GeoJSON importer > accepts browser-auto-decoded gzip responses as well as raw gzip files [0.12ms]
+(pass) MARS GeoJSON importer > adds only curated casebook evidence to matching full-snapshot sources [0.34ms]
+(pass) MARS GeoJSON importer > does not merge curated report links when their observation IDs are absent from the active snapshot [0.10ms]
+(pass) MARS GeoJSON importer > loads every source and plume in the checked-in UNEP snapshot without inferring links [227.88ms]
+
+src/map-panel-error-boundary.test.ts:
+(pass) map chunk failure keeps the rest of the case review usable [0.03ms]
+
+src/shared-work.test.ts:
+(pass) plan requests share memory-only auth and reject late private responses after disconnect [1.65ms]
+(pass) shared access keeps token out of observable session data and clears identity on disconnect [0.62ms]
+(pass) a disconnected or replaced session cannot accept a late response [0.30ms]
+(pass) shared response provenance is checked and stale-save conflicts are preserved as conflicts [1.88ms]
+(pass) a session change during response-body decoding rejects the old private result [0.41ms]
+(pass) investigation responses reject oversized UTF-8 streams without reading the entire body [67.30ms]
+
+src/ImportedAuditVerifier.test.ts:
+(pass) imported report verification keeps the visible and accessible file labels aligned in English [0.96ms]
+
+src/observed-flux-chart.test.ts:
+(pass) lays out discrete historical flux dates in chronological order without connecting them [0.45ms]
+(pass) keeps all-zero observed flux points finite and filters malformed chart values [0.08ms]
+(pass) aggregates the exact selected-source records by UTC day and preserves missing flux as missing [0.36ms]
+
+src/chain-client.test.ts:
+(pass) maps durable pending, reverted and confirmed states without implying physical mitigation [0.06ms]
+
+src/landing-evidence.test.ts:
+(pass) curated landing evidence review > uses the official UNEP item as linked publisher evidence without rehosting it [0.03ms]
+(pass) curated landing evidence review > shows only the casebook-linked historical MARS observations with reported uncertainty [0.09ms]
+(pass) curated landing evidence review > binds the landing evidence summary to the active MARS snapshot [0.01ms]
+(pass) curated landing evidence review > does not turn the public report or an absent later record into an independent physical verification [0.01ms]
+
+src/PublisherIndicatorComparison.test.ts:
+(pass) shows snapshot-bound UNEP coverage, ranking disagreement, and non-ground-truth limitations [1.84ms]
+(pass) states when the recurrence comparison is unavailable instead of displaying zero agreement [0.62ms]
+
+src/human-report.test.ts:
+(pass) schema 4 human assessment remains digest-verifiable and explicitly human/private [1.58ms]
+(pass) readable brief identifies the human method without leaking private reference metadata or scope recipient [0.49ms]
+(pass) comparison shows human decisions, scope, reference metadata and parent linkage [0.36ms]
+(pass) a scoped baseline with a private named recipient is not exposed in a shareable brief [0.17ms]
+
+src/mars-publisher-indicators.test.ts:
+(pass) UNEP MARS publisher indicator snapshot > verifies the committed publisher snapshot against its generated byte manifest [3.65ms]
+(pass) UNEP MARS publisher indicator snapshot > accepts exact manifest-bound bytes and preserves null-capable published fields [0.50ms]
+(pass) UNEP MARS publisher indicator snapshot > rejects changed bytes, snapshot mismatch, duplicate source IDs, and inconsistent counts [0.75ms]
+(pass) UNEP MARS publisher indicator snapshot > country history sorts periods and keeps unavailable rates as null [0.12ms]
+(pass) UNEP MARS publisher indicator snapshot > compares list membership only and never invents publisher rank changes [0.04ms]
+
+src/anchor-result.test.ts:
+(pass) merges a minimal scoped-reviewer receipt without dropping private report data [0.13ms]
+(pass) rejects receipt metadata for another audit or an unverified full result [0.04ms]
+(pass) rejects non-positive or unsafe receipt versions and insufficiently described confirmations [0.07ms]
+
+src/IntelligencePanel.test.ts:
+(pass) document assessment UI exposes a per-document rights declaration and its limits [2.69ms]
+(pass) review rights summary distinguishes declarations from verified permissions and handles legacy reports [0.50ms]
+
+src/plan-session.test.ts:
+(pass) active plan survives navigation subscriptions, invalidates across snapshot contexts and clears explicitly [2.44ms]
+(pass) map allocation contains only exact selected IDs, valid coordinates and ordered slot numbers [0.15ms]
+
+src/workspace-preferences.test.ts:
+(pass) workspace preferences > loads validated defaults and persists real browser preferences [0.16ms]
+(pass) workspace preferences > deep links keep their route while the dashboard root honors the configured start page [0.09ms]
+
+src/record-recurrence-view.test.ts:
+(pass) presents the calibrated probability with its exact archive-record target and backtest evidence [0.24ms]
+(pass) hides estimates when the model, target, date, or status does not match [0.11ms]
+(pass) does not display absolute certainty for a historical archive-record estimate [0.02ms]
+
+src/map-surface-copy.test.ts:
+(pass) map surface copy > uses a non-live visual status for a historical archive and a distinct demo status [0.02ms]
+(pass) map surface copy > keeps map record-count labels short enough for the edge status chip [0.18ms]
+(pass) map surface copy > keeps the historical archive date and non-live status together [0.03ms]
+(pass) map surface copy > does not describe synthetic fixtures as a historical MARS archive
+(pass) map surface copy > describes the static overview and detailed satellite imagery accurately [0.03ms]
+(pass) map surface copy > uses interaction guidance that matches the active record mode [0.03ms]
+
+src/observation-check.test.ts:
+(pass) observation client binds source, exact question, snapshot and archive before replay [6.08ms]
+(pass) observation export keeps exact witnesses, uncertainty, scope and unsigned status [0.54ms]
+(pass) discrete plot excludes absent flux and outside dates, preserves witnesses and caps nodes [5.28ms]
+(pass) downloaded drafts cannot interpret source metadata as Markdown instructions or links [0.50ms]
+
+src/plan-operations.test.ts:
+(pass) import requires a separately supplied matching digest for both reports and reviewer histories [8.78ms]
+
+src/map-readiness.test.ts:
+(pass) map readiness waits for the first idle event rather than style setup [0.24ms]
+(pass) slow tiles get a visible delayed state and can recover when the map later idles [0.06ms]
+(pass) a pending readiness wait can be cancelled safely [0.04ms]
+
+src/reviewer-capability.test.ts:
+(pass) review submission stays disabled until reviewer configuration and required fields are ready [0.04ms]
+
+src/audit-history.test.ts:
+(pass) shows newest immutable audit revisions first without mutating the API result [0.10ms]
+(pass) uses a fresh secret-free cache key for each private history session [0.05ms]
+
+src/snapshot-change-watch.test.ts:
+(pass) page acceptance binds selected IDs, exact page and snapshot archive [2.48ms]
+(pass) a response cannot relabel unrelated or duplicate rows as selected sources [0.63ms]
+(pass) source changes keep unknown flux distinct from numeric zero and escape through React text [0.05ms]
+
+src/earth-rendering.test.ts:
+(pass) Auto keeps globe controls usable while capping small-device rendering [0.12ms]
+(pass) Earth look adds tier-aware atmospheric scattering and UTC night shading at every tier [0.17ms]
+(pass) NASA overview tint fades over a fully opaque Esri base across zoom [0.06ms]
+(pass) Night shading is opt-in and remains subtle when selected [0.02ms]
+(pass) automatic rendering degrades gradually after measured slow movement frames [0.04ms]
+(pass) Terrain waits for a close view and decodes Mapterhorn Terrarium elevation correctly [0.07ms]
+(pass) terrain and hillshade use separate DEM sources with map-anchored stable illumination [0.08ms]
+(pass) Solar shading follows UTC and produces a closed polygon within geographic bounds [1.37ms]
+(pass) NASA daily context layers use dated tiles and reject invalid calendar dates [0.14ms]
+
+src/ResearchSources.test.ts:
+(pass) the data disclosure exposes traceable research sources without presenting them as app results [0.73ms]
+
+src/map-layer-preferences.test.ts:
+(pass) global map defaults to source locations for a legible and lighter overview [0.01ms]
+
+src/connected-investigation.test.ts:
+(pass) plan attachment requires an accepted replay-valid allocation for this exact source and dataset [9.93ms]
+(pass) late change responses cannot attach to a different investigation revision or source [1.47ms]
+
+src/investigation-planner.test.ts:
+(pass) browser refuses DEMO plans even when their replay is valid [1.02ms]
+(pass) browser binds real snapshot, archive, normalized input and constraints before accepting replay [2.91ms]
+
+src/map-rendering.test.ts:
+(pass) globe projection opens on a centered Earth overview of the casebook [0.17ms]
+(pass) globe overview handles coordinates across the antimeridian and invalid points [0.04ms]
+(pass) globe overview falls back to a neutral Earth view when there are no valid points [0.04ms]
+(pass) globe overview fills wide, desktop, fullscreen, and portrait viewports without clipping [0.03ms]
+(pass) grayscale percentage changes satellite saturation without muting natural color [0.05ms]
+(pass) natural and cinematic imagery have a visible color treatment without changing data [0.04ms]
+(pass) flat and globe choices map to the matching MapLibre projection [0.02ms]
+(pass) a late tile error does not mark an already rendered basemap unavailable [0.03ms]
+(pass) map initialization failures produce a safe, useful fallback message [0.05ms]
+(pass) map errors expose an accurate recoverable notice but ignore optional font errors [0.10ms]
+(pass) remote tile failures keep source data usable while non-tile renderer failures remain fatal [0.03ms]
+(pass) publisher footprint outline width uses one MapLibre zoom interpolation [0.09ms]
+(pass) map tile failure notice stays at the map edge instead of covering its center [0.17ms]
+(pass) solar rendering waits for a MapLibre idle event when style.load fires too early [0.09ms]
+(pass) fatal WebGL failures are identified only while using the globe projection [0.04ms]
+(pass) known software WebGL renderers use a low-cost tier without disabling globe projection [0.07ms]
+(pass) map attribution collapses only when the map container is too narrow for the full control [0.03ms]
+(pass) WebGL availability gates globe projection while renderer name does not [0.01ms]
+(pass) plume map records keep unresolved IDs and unknown flux distinct from zero [0.10ms]
+(pass) flux overlay normalizes reported values monotonically without turning missing or zero into emissions [0.04ms]
+(pass) flux overlay retains reported flux and uncertainty while excluding coordinate-invalid rows [0.09ms]
+(pass) official plume footprint colors follow the reported kg/h bins and keep missing values neutral [0.03ms]
+(pass) low-power flux cells summarize positive observations with medians and keep unknown or zero rows out [0.21ms]
+(pass) priority overlay includes only matched real source rows and keeps the score explicitly heuristic [0.11ms]
+
+src/transparency.test.ts:
+(pass) public projection is closed, consent-gated and contains no private free text [3.90ms]
+(pass) offline checksum stays valid for historical bytes while current publication needs a live check [0.90ms]
+(pass) live summary checks reject unavailable, mismatched, tampered or status-less records [0.91ms]
+
+src/p4-assessment-presentation.test.ts:
+(pass) a supported rules result describes reference coverage and always exposes the physical verification boundary [0.59ms]
+(pass) model review never changes the meaning into an independent human or physical determination [0.08ms]
+(pass) human labels describe a reviewer determination and explain that inspection is self-attested [0.05ms]
+
+src/report-export.test.ts:
+(pass) omits current observations when the source or snapshot differs from a saved audit [1.21ms]
+(pass) keeps historical source observations in a separate context section, not as cited evidence [0.68ms]
+(pass) detects changes to contextual historical observations in an exported report [0.62ms]
+(pass) omits observations when the dataset input bytes differ despite matching snapshot ID and archive provenance [0.23ms]
+(pass) export checksum detects changes to attached observation values [0.54ms]
+(pass) preserves snapshot-level unresolved count when progressive history rows are not materialized [0.32ms]
+
+src/mars-snapshot-integrity.test.ts:
+(pass) verifies browser-decoded snapshot bytes and binds the server input-file hash [0.28ms]
+(pass) verifies compressed bytes when the browser does not transparently decode the asset [0.41ms]
+(pass) rejects changed content and dataset provenance before exposing a snapshot [0.24ms]
+
+ 278 pass
+ 0 fail
+ 165116 expect() calls
+Ran 278 tests across 60 files. [1.56s]
+$ bun test scripts/verify-audit.test.ts scripts/run-ai-benchmark.test.ts scripts/freeze-ai-assessment-inputs.test.ts scripts/verify-agent-diagnostic.test.ts scripts/deployment-config.test.ts scripts/map-performance-utils.test.ts scripts/check-local.test.ts scripts/product-value-evaluation.test.ts scripts/verify-plan.test.ts scripts/verify-snapshot-transition.test.ts scripts/verify-investigation.test.ts scripts/verify-investigation-decision.test.ts scripts/stage-snapshot-update.test.ts scripts/verify-evidence-overlap.test.ts
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/run-ai-benchmark.test.ts:
+(pass) billable runner admits only bounded held-out real and reviewed evidence [1.36ms]
+(pass) billable runner requires per-document rights scope for every processing use [1.15ms]
+(pass) billable runner rejects a frozen assessment digest that does not match the exact claim and excerpt input [0.12ms]
+(pass) benchmark output is published only after every provider assessment succeeds [2.65ms]
+(pass) atomic publish preserves an output created by another process during assessment [1.38ms]
+(pass) exclusive run lock prevents a concurrent invocation from calling the provider [1.29ms]
+(pass) completed benchmark output is private, complete, and refuses overwrite before provider use [1.39ms]
+(pass) benchmark prediction output cannot be placed in public asset directories [0.33ms]
+(pass) benchmark prediction output cannot be written anywhere inside the repository [0.40ms]
+(pass) benchmark prediction output cannot reach the repository through a symlink [0.62ms]
+(pass) benchmark CLI does not create an output directory through a symlink into the repository [52.55ms]
+(pass) complete-attempt mode retains sanitized failures, latency and no invented verdict [1.73ms]
+(pass) benchmark rights require the document URL in frozen input, not a separate unrelated approval [0.38ms]
+(pass) shared output directory is rejected before any provider request [0.44ms]
+
+scripts/verify-evidence-overlap.test.ts:
+(pass) standalone overlap verifier accepts an exact report and rejects changed or untrusted input [205.23ms]
+
+scripts/check-local.test.ts:
+(pass) complete local verification gate > runs without a database and scrubs obsolete database settings [21.98ms]
+
+scripts/verify-investigation-decision.test.ts:
+(pass) independent decision CLI accepts original, rejects edits/recomputed hash, requires separate digest and chain configuration [989.49ms]
+
+scripts/freeze-ai-assessment-inputs.test.ts:
+(pass) frozen manifest commits to the exact claim and provider excerpt without copying either [1.38ms]
+(pass) frozen manifest rejects duplicate claims and rows without a bounded statement [0.25ms]
+(pass) private digest writer uses restrictive files, refuses overwrite, and performs no provider call [2.52ms]
+(pass) private digest writer refuses a group-readable candidate file [0.45ms]
+(pass) partition freeze binds source/document/claim type before annotation and forbids leakage [0.94ms]
+
+scripts/verify-snapshot-transition.test.ts:
+(pass) snapshot CLI requires separate trusted input and report commitments without bypass flags [0.12ms]
+
+scripts/stage-snapshot-update.test.ts:
+(pass) snapshot staging requires explicit approval and separate input hashes before writing [975.75ms]
+(pass) real historical snapshots stage complete copies and replay without altering active input [3912.31ms]
+(pass) staging refuses active, frozen evidence, real provenance and state trees [8.37ms]
+(pass) staging resolves symlinked output parents before enforcing protected trees [8.25ms]
+
+scripts/verify-audit.test.ts:
+(pass) audit receipt CLI > checks the export context checksum and rejects wrapper tampering [452.85ms]
+(pass) audit receipt CLI > legacy wrappers remain verifiable with an explicit context limitation [302.75ms]
+(pass) audit receipt CLI > rejects rechecksummed export claims that disagree with the saved audit [146.91ms]
+(pass) audit receipt CLI > rejects rechecksummed dataset fields that disagree with audit provenance [463.33ms]
+(pass) audit receipt CLI > rejects unknown or repeated CLI options instead of silently weakening requirements [846.55ms]
+(pass) audit receipt CLI > legacy commitments remain valid and rehashed false physical semantics are rejected [460.77ms]
+(pass) audit receipt CLI > redacted summary verification checks historical bytes and never declares current publication active [784.43ms]
+(pass) audit receipt CLI > accepts an intact local hash and rejects a changed evidence bundle [364.11ms]
+(pass) audit receipt CLI > verifies an exported v3 human-review revision and rejects a changed decision [549.52ms]
+(pass) audit receipt CLI > rejects malformed open-license metadata even when its bundle hash is recomputed [381.07ms]
+(pass) require-chain mode refuses an offline-only success [179.68ms]
+
+scripts/verify-investigation.test.ts:
+(pass) independent dossier CLI requires a trusted digest and rejects edits, rehashes and unknown flags [258.83ms]
+
+scripts/deployment-config.test.ts:
+(pass) Render deploys the locked Bun workspace reproducibly [0.16ms]
+(pass) Render preview explicitly uses temporary file state and narrowly enables public baseline mode [0.06ms]
+
+scripts/map-performance-utils.test.ts:
+(pass) median ignores unavailable values and averages even-sized samples [0.13ms]
+(pass) map summary keeps unavailable metrics separate and reports worst observed stalls [0.37ms]
+(pass) map summary rejects an empty sample set [0.04ms]
+(pass) benchmark browser options keep Chromium sandbox enabled [0.07ms]
+(pass) benchmark renderer mode defaults to software and rejects unknown values [0.05ms]
+(pass) benchmark browser mode defaults to headless and rejects unknown values [0.04ms]
+(pass) system renderer mode requests Chromium GPU without forcing software or disabling its sandbox [0.04ms]
+(pass) system renderer gets only the minimal display environment while software mode remains isolated [0.08ms]
+(pass) software renderer classification distinguishes SwiftShader from AMD WebGL [0.07ms]
+(pass) renderer observations are grouped deterministically without hiding software fallback [0.16ms]
+(pass) benchmark defaults to production preview and rejects unknown server modes [0.05ms]
+(pass) benchmark option parsing accepts equals and separate value forms [0.07ms]
+(pass) snapshot validation binds benchmark outputs to a valid dynamic dataset manifest [0.16ms]
+
+scripts/product-value-evaluation.test.ts:
+(pass) comparison retains missing and incorrect cells in the frozen denominator [0.34ms]
+(pass) comparison refuses duplicate or unscheduled responses and scores objects independent of key order [0.11ms]
+
+scripts/verify-plan.test.ts:
+(pass) plan verifier requires one file and a separately recorded expected head; refuses unknown options [0.17ms]
+
+scripts/verify-agent-diagnostic.test.ts:
+(pass) offline agent diagnostic grounding > uses actual application quote verifier and exact input hashes [0.42ms]
+(pass) offline agent diagnostic grounding > invented quotation forces abstention [0.13ms]
+(pass) offline agent diagnostic grounding > no quotations cannot support a claim [0.10ms]
+(pass) offline agent diagnostic grounding > rejects missing, extra, duplicate and malformed claims [0.24ms]
+(pass) offline agent diagnostic grounding > rejects duplicate input IDs [0.06ms]
+(pass) offline agent diagnostic grounding > rejects non-string verdict instead of coercing it [0.06ms]
+
+ 63 pass
+ 0 fail
+ 264 expect() calls
+Ran 63 tests across 14 files. [11.47s]
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 0.010s
+
+OK
+$ cd apps/web && bun run build
+$ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+vite v7.3.7 building client environment for production...
+transforming...
+../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment
+
+"/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+ * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+ * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+
+in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 299 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                       0.74 kB │ gzip:   0.44 kB
+dist/assets/mars-snapshot.worker-urhP9Eyx.js         11.58 kB
+dist/assets/DecisionLabPanel-BNrNmM_m.css             4.88 kB │ gzip:   1.45 kB
+dist/assets/investigation-planner-CzScMTtA.css        9.33 kB │ gzip:   2.37 kB
+dist/assets/MarsPublisherInsights-CoyjUJ3i.css       10.46 kB │ gzip:   2.87 kB
+dist/assets/LandingPage-Bj7jmfdR.css                 37.31 kB │ gzip:   8.96 kB
+dist/assets/MapPanel-DNVN2dqC.css                    69.92 kB │ gzip:  10.17 kB
+dist/assets/index-DmgNVzxD.css                      221.21 kB │ gzip:  43.40 kB
+dist/assets/anchor-result-CCc6H6sH.js                 1.00 kB │ gzip:   0.44 kB
+dist/assets/investigation-planner-xiw3F0EM.js         1.24 kB │ gzip:   0.67 kB
+dist/assets/plan-journal-ClyVM90G.js                  1.58 kB │ gzip:   0.84 kB
+dist/assets/mars-snapshot-integrity-BTFdavH7.js       1.67 kB │ gzip:   0.69 kB
+dist/assets/investigation-decision-CsxfqH3R.js        2.28 kB │ gzip:   1.04 kB
+dist/assets/map-imagery-BTMWFv2H.js                   2.33 kB │ gzip:   1.09 kB
+dist/assets/PlanQueue-Cc6SdfLw.js                     2.81 kB │ gzip:   1.16 kB
+dist/assets/snapshot-transition-DgYctQGc.js           2.92 kB │ gzip:   1.18 kB
+dist/assets/SettingsWorkspace-BrVYlHT8.js             3.38 kB │ gzip:   1.17 kB
+dist/assets/evidence-overlap-C9yQb8I_.js              3.49 kB │ gzip:   1.61 kB
+dist/assets/shared-work-api-CJict1u_.js               4.16 kB │ gzip:   1.89 kB
+dist/assets/AnchorControls-DaYJUWwm.js                4.49 kB │ gzip:   1.87 kB
+dist/assets/AssessmentTrustPanel-DtvSCUGm.js          5.48 kB │ gzip:   2.38 kB
+dist/assets/investigation-brief-Soo9rogi.js           6.58 kB │ gzip:   2.88 kB
+dist/assets/OperatorsWorkspace-zTHNe2cc.js            6.70 kB │ gzip:   2.09 kB
+dist/assets/PublisherFootprintCard-DZbcbqII.js        6.96 kB │ gzip:   2.63 kB
+dist/assets/ImportedAuditVerifier-DrSPvkpx.js         6.97 kB │ gzip:   2.24 kB
+dist/assets/investigation-plan-Dt-7W2LP.js            6.97 kB │ gzip:   2.56 kB
+dist/assets/plume-geometries-DFMG05Hs.js              8.04 kB │ gzip:   2.82 kB
+dist/assets/imported-audit-verifier-BY-nfknO.js       8.74 kB │ gzip:   2.92 kB
+dist/assets/investigation-dossier-DsmkUF_m.js         9.42 kB │ gzip:   3.52 kB
+dist/assets/TransparencyPanel-CF23sxT6.js             9.86 kB │ gzip:   3.43 kB
+dist/assets/CaseDetailsDialog-C7tkjoay.js            10.06 kB │ gzip:   3.26 kB
+dist/assets/investigation-planner-CYVbAAJq.js        11.62 kB │ gzip:   4.38 kB
+dist/assets/AuditHistoryPanel-CSTAWC2z.js            12.93 kB │ gzip:   4.13 kB
+dist/assets/EvidenceObservationPanel-D8oCG4sU.js     14.13 kB │ gzip:   4.82 kB
+dist/assets/HumanAssessmentPanel-C9faSAys.js         14.29 kB │ gzip:   5.14 kB
+dist/assets/CasesWorkspace-CRpYrIDG.js               16.90 kB │ gzip:   5.47 kB
+dist/assets/DecisionLabPanel-u4FfYKqp.js             20.61 kB │ gzip:   7.28 kB
+dist/assets/EvidenceAuditorWorkflow-BQC9zEjv.js      23.57 kB │ gzip:   7.30 kB
+dist/assets/ObservationClaimPanel-BYz2VXWo.js        24.02 kB │ gzip:   8.08 kB
+dist/assets/MarsPublisherInsights-C-oe6tS_.js        26.09 kB │ gzip:   7.46 kB
+dist/assets/InvestigationPlanner-mJmjgnwj.js         36.95 kB │ gzip:  11.08 kB
+dist/assets/SharedCaseWorkPanel-CPW4XtW1.js          43.72 kB │ gzip:  12.85 kB
+dist/assets/IntelligencePanel-ZDiBGJ0I.js            46.07 kB │ gzip:  13.65 kB
+dist/assets/LandingPage-BqIsnkEG.js                  47.13 kB │ gzip:  12.40 kB
+dist/assets/index-DwOWWcDB.js                       250.52 kB │ gzip:  78.76 kB
+dist/assets/App-JzwtGU0f.js                         253.16 kB │ gzip:  74.70 kB
+dist/assets/MapPanel-BumXAl2y.js                  1,124.04 kB │ gzip: 307.41 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 5.89s
+$ bun scripts/check-web-bundle.ts
+Web bundle budget passed: App 74702 gzip bytes; 8 route chunks; MapPanel 1124042 raw bytes.
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/andro/dev/projects/Devpost/iEEE-Methane-response/services/data-pipeline
+configfile: pyproject.toml
+testpaths: tests, test_import_mars_map.py
+collected 221 items
+
+tests/test_active_snapshot_release.py ..                                 [  0%]
+tests/test_agent_diagnostic_bindings.py .........                        [  4%]
+tests/test_agent_metadata_diagnostic.py .............                    [ 10%]
+tests/test_annotator_agreement.py .................                      [ 18%]
+tests/test_build_intelligence.py ............                            [ 23%]
+tests/test_build_plume_geometries.py .....                               [ 26%]
+tests/test_build_publisher_indicators.py ......                          [ 28%]
+tests/test_build_web_snapshot.py ..                                      [ 29%]
+tests/test_casebook.py ....                                              [ 31%]
+tests/test_check_mars_upstream.py ..........                             [ 36%]
+tests/test_evaluate_baseline.py .....                                    [ 38%]
+tests/test_evaluate_evidence_ai.py ..........................            [ 50%]
+tests/test_ingest.py ....                                                [ 52%]
+tests/test_investigation_plan_oracle.py ..                               [ 52%]
+tests/test_mars_archive.py ....                                          [ 54%]
+tests/test_observation_check_oracle.py ...                               [ 56%]
+tests/test_pilot_study.py ...................                            [ 64%]
+tests/test_prepare_evidence.py ........                                  [ 68%]
+tests/test_progressive_snapshot.py ....                                  [ 70%]
+tests/test_prospective_recurrence.py ................................... [ 85%]
+...............                                                          [ 92%]
+tests/test_publisher_indicator_comparison.py ..                          [ 93%]
+tests/test_record_recurrence.py .......                                  [ 96%]
+tests/test_snapshot_transition_oracle.py ....                            [ 98%]
+tests/test_train_redetection.py .                                        [ 99%]
+test_import_mars_map.py ..                                               [100%]
+
+============================= 221 passed in 28.49s =============================
+wrote /tmp/methane-response-baseline.J8o7Em
+No files changed, compilation skipped
+
+Ran 4 tests for test/EvidenceRegistry.t.sol:EvidenceRegistryTest
+[PASS] testAuthorizedSecondIssuerCannotOverwriteOtherIssuersCase() (gas: 432033)
+[PASS] testCannotAnchorEmptyHash() (gas: 33049)
+[PASS] testIssuerCanAnchorAndRevise() (gas: 162504)
+[PASS] testUntrustedAccountCannotAnchor() (gas: 189676)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 6.87ms (5.68ms CPU time)
+
+Ran 1 test suite in 15.96ms (6.87ms CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)

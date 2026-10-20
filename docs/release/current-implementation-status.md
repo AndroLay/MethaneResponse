@@ -2,9 +2,35 @@
 
 [Pusat dokumentasi](../README.md) · [Arsitektur](../architecture/overview.md) · [Indeks bukti](../evidence/README.md)
 
-**Diperbarui: 20 Oktober 2026.** Baseline commit lokal yang diperiksa untuk increment ini: `8e19c034e666a6b00d93b4cb3f5747f563c75aab`. Decision Lab, Observation Claim Cross-Check, Investigation Capacity Planner, Investigation Operations, Snapshot Change Watch, Connected Investigations dan perbaikan runner berikutnya berada di working tree; belum dinyatakan commit/push/deploy. Status publik harus diperiksa langsung di GitHub; hasil lokal tidak mengesahkan deployment. Bukti lama tetap terikat ke revisi serta kondisi run asal.
+**Diperbarui: 20 Oktober 2026.** Increment P2 telah dipublikasikan pada commit
+`173bbb8b763a0014289031d3d14dec5a64399c9f`. Increment penyelesaian berikutnya
+memakai commit itu sebagai baseline dan merekam byte sumber aktual pada
+[paket penyelesaian selain Render](../evidence/non-render-completion-2026-10-20/README.md).
+Status push/CI revisi berikutnya harus diperiksa langsung di GitHub; hasil lokal
+tidak mengesahkan deployment. Bukti lama tetap terikat ke revisi serta kondisi run asal.
 
 **Scope:** proof of concept lokal berfokus MARS, memakai snapshot versi tetap dan file audit JSON satu proses. Database, shared hosting persistence, serta operasi mitigasi lapangan tidak termasuk scope aktif. [ADR 15 Oktober](../architecture/decisions/2026-10-15-local-prototype-no-database.md) menggantikan asumsi database pada rencana lama; [ADR P1](../architecture/decisions/2026-10-17-shared-casework-single-writer.md) menambahkan kolaborasi tim kecil lokal tanpa database/deployment baru.
+
+## Penyelesaian selain Render — keputusan aktif
+
+Pengguna mengecualikan Render, akan menyediakan konfigurasi model Luna kemudian,
+dan memilih blockchain sebagai prototipe **tanpa pendanaan wallet publik**.
+Penerimaan blockchain memakai kontrak EvidenceRegistry aktual pada Anvil chain
+31337: transaksi, receipt/latest/historical, penolakan laporan berubah, serta
+crash recovery. Sepolia opsional dan belum terverifikasi; local receipt tidak
+memiliki public explorer URL. Rules dan review manual tetap tersedia tanpa AI.
+
+Kegagalan CI P2 (`39419272105`) direproduksi sebagai ketergantungan Locate pada
+viewport notification sebelum lazy MapPanel di-mount. Fokus eksplisit kini
+mengaktifkan serta membuka peta; lazy loading biasa tetap berlaku. Regresi
+memblokir notifikasi observer khusus peta dan memeriksa keanggotaan 10→20,
+caption peta, viewport dan handoff case. Hasil baru tidak menimpa evidence P2.
+
+Lihat [rencana/keputusan](../plans/2026-10-20-non-render-completion.md),
+[kontrak Luna](../development/luna-integration.md), dan
+[runbook Anvil](../development/blockchain-recovery.md#menjalankan-pemeriksaan-lokal).
+Notion bukan deliverable aktif. Video v12 dan supplement 20 Oktober tetap
+artefak lokal yang terpisah; tidak ada klaim upload atau submission baru.
 
 ## Related evidence dan staging rilis berikutnya — 20 Oktober
 

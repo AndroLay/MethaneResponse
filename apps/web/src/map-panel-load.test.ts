@@ -11,6 +11,11 @@ describe('map panel viewport loading', () => {
     expect(shouldActivateMapPanel(false, false)).toBe(true);
   });
 
+  test('an explicit source focus loads the map even before a viewport observation arrives', () => {
+    expect(shouldActivateMapPanel(false, true, true)).toBe(true);
+    expect(shouldActivateMapPanel(false, true, false)).toBe(false);
+  });
+
   test('prepares expensive observation points only when point records are visible', () => {
     expect(shouldBuildObservationPoints('sources', false)).toBe(false);
     expect(shouldBuildObservationPoints('plumes', false)).toBe(true);

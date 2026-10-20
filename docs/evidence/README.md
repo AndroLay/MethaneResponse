@@ -4,6 +4,7 @@ These records describe checks that were actually run, including their data snaps
 
 | Evidence | What it covers | Important boundary |
 |---|---|---|
+| [Non-Render completion — 20 October 2026](non-render-completion-2026-10-20/README.md) | CI/map regression red→green, 877 primary tests, 40 browser/schema checks, real local Anvil and additive delivery packaging | Render excluded; Luna deferred; blockchain accepted as local unfunded prototype, not public Sepolia |
 | [P2 evidence overlap dan delivery — 20 Oktober](p2-delivery-2026-10-20/README.md) | Kandidat reuse, reviewer interpretation, verifier, actual rilis UNEP selanjutnya, full-record replay dan source/judging packaging | Snapshot aktif tidak berubah; reuse bukan double counting; publikasi/deployment/model/chain publik diverifikasi terpisah |
 | [Connected Investigations — 20 Oktober](connected-investigations-2026-10-20/README.md) | Accepted plan → scoped work → append-only requests/responses → reviewed frozen decision → explained revisit; actual Anvil receipt/recovery, independent CLI and desktop/mobile browser | Prototipe lokal, software reviewers DEMO; bukan model benchmark baru, pilot manusia, public receipt atau bukti repair |
 | [Snapshot Change Watch — 20 Oktober](snapshot-change-watch-2026-10-20/README.md) | Diff seluruh exact source/plume IDs dua snapshot nyata, perubahan sumber terpilih, nilai asli, pagination, verifier full replay dan oracle Python terpisah | Dua arsip historis, bukan feed live, akuisisi otomatis, validasi prospektif, bukti repair atau transaksi blockchain |

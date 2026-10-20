@@ -15,6 +15,12 @@ EXTRAS = [
     'screenshots/evidence-overlap-desktop.png', 'screenshots/evidence-overlap-mobile.png',
     'screenshots/decision-desktop.png',
 ]
+COMPLETION_EVIDENCE = REPO / 'docs/evidence/non-render-completion-2026-10-20'
+COMPLETION_EXTRAS = [
+    'README.md', 'checks.json', 'source-bindings.json', 'artifact-manifest.json',
+    'proof/anvil.json', 'proof/sepolia-readiness.json',
+    'screenshots/active-plan-globe-desktop.png', 'screenshots/active-plan-queue-mobile.png',
+]
 
 
 def assemble_current(files, additions):
@@ -39,9 +45,35 @@ def assemble_current(files, additions):
     return files
 
 
+def assemble_completion(files, additions):
+    """Append exact completion proof without replacing any dated P2 payload."""
+    if set(additions) != set(COMPLETION_EXTRAS):
+        raise ValueError('Completion proof allowlist is incomplete')
+    if any(not isinstance(data, bytes) or len(data) > 8_000_000 for data in additions.values()):
+        raise ValueError('Invalid or oversized completion proof')
+    files = dict(files)
+    manifest = json.loads(files.pop('manifest.json'))
+    files.pop('checksums.sha256', None)
+    for name, data in additions.items():
+        target = 'completion-proof/' + name
+        if target in files:
+            raise ValueError('Refusing to replace existing completion proof')
+        files[target] = data
+    manifest.update({'currentProof': 'completion-proof/checks.json',
+                     'earlierCurrentProof': 'current-proof/checks.json',
+                     'publicDeploymentVerified': False, 'videoUploaded': False,
+                     'blockchainAcceptanceTarget': 'local_anvil_31337',
+                     'liveLunaVerified': False})
+    manifest['files'] = {name: {'sha256': digest(data), 'bytes': len(data)} for name, data in sorted(files.items())}
+    files['manifest.json'] = json_bytes(manifest)
+    files['checksums.sha256'] = ''.join(f'{digest(data)}  {name}\n' for name, data in sorted(files.items())).encode()
+    return files
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--include-non-render-completion', action='store_true')
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError('Refusing to overwrite a judging attachment')
@@ -51,6 +83,8 @@ def main():
     if digest(additions['video/technical-walkthrough.mp4'])!=json.loads(additions['proof/technical-video-verification.json'])['sha256']:
         raise ValueError('Technical supplement differs from its verified bytes')
     files = assemble_current(base, additions)
+    if args.include_non_render_completion:
+        files = assemble_completion(files, {name: (COMPLETION_EVIDENCE / name).read_bytes() for name in COMPLETION_EXTRAS})
     args.output.parent.mkdir(parents=True, exist_ok=True)
     write_zip(args.output, files)
     print(json.dumps({'attachment': str(args.output), **validate_archive(args.output),

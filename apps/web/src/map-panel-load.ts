@@ -1,5 +1,5 @@
-export function shouldActivateMapPanel(isIntersecting: boolean, observerSupported: boolean): boolean {
-  return !observerSupported || isIntersecting;
+export function shouldActivateMapPanel(isIntersecting: boolean, observerSupported: boolean, focusRequested = false): boolean {
+  return focusRequested || !observerSupported || isIntersecting;
 }
 
 export function shouldBuildObservationPoints(recordMode: 'sources' | 'plumes', publisherFootprintsSelected: boolean): boolean {

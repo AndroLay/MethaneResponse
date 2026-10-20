@@ -47,6 +47,10 @@ Secara default compatibility mode dapat menerima subject unverified/expired deng
 
 Provider menerima excerpt hanya setelah declaration hak pemrosesan dan consent. Secret provider tetap di server. Token assessment yang dimasukkan pengguna di UI tidak membuka history privat. API tidak menyimpan full excerpt, tetapi kutipan dan metadata terpilih pada audit privat tetap dapat sensitif. Lihat [alur dokumen](../product/user-workflow.md#optional-document-ai).
 
+Model yang akan disediakan pengguna adalah Luna; endpoint dan kompatibilitasnya
+belum diverifikasi. Ikuti [catatan integrasi Luna](luna-integration.md) ketika
+konfigurasi tersedia. Jalur rules/manual tidak memerlukan model tersebut.
+
 ## Web dan proxy
 
 | Variabel | Peran |

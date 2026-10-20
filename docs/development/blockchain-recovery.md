@@ -6,6 +6,13 @@
 
 P2 menyediakan implementasi write/recovery lokal. Bukti transaksi disposable Anvil **bukan** receipt Sepolia publik. Aktivasi signing memerlukan opt-in server; transaksi/deployment publik memerlukan persetujuan target dan operasi. Receipt membuktikan digest, issuer dan kronologi, bukan autentisitas dokumen atau perbaikan fisik metana.
 
+**Keputusan 20 Oktober 2026:** pengguna memilih menyelesaikan blockchain sebagai
+prototipe tanpa pendanaan. Jalur penerimaan aktif adalah Anvil lokal di bawah;
+Sepolia menjadi demonstrasi publik opsional kemudian. Jangan membeli ETH,
+memulai faucet, atau mengklaim receipt publik untuk menutup pekerjaan prototipe.
+Anvil menyediakan saldo simulasi hanya pada chain lokal; tidak memerlukan
+pendanaan wallet publik.
+
 ## Alur operator
 
 1. Jalankan API melalui launcher resmi agar `flock` melindungi satu path state. Gunakan volume lokal yang mendukung `fsync` file/direktori. Satu issuer khusus dipakai hanya oleh instance ini; jangan berbagi key dengan script, wallet atau instance lain.

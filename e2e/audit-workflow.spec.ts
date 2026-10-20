@@ -99,6 +99,16 @@ test('Historical snapshot failure explains the blocker and permits an explicit r
 
 test('Active investigation plan keeps exact 10 to 20 source membership across queue, globe and evidence handoff', async ({ page }, testInfo) => {
   const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
+  // Simulate a delayed viewport notification. Explicit Locate must not depend
+  // on the map intersecting a viewport whose layout/fonts differ on CI.
+  await page.addInitScript(() => {
+    const Observer = window.IntersectionObserver;
+    window.IntersectionObserver = class extends Observer {
+      observe(target: Element) {
+        if (!target.classList.contains('real-world-map')) super.observe(target);
+      }
+    };
+  });
   await page.route(/^https?:\/\//, route => ['127.0.0.1','localhost'].includes(new URL(route.request().url()).hostname) ? route.continue() : route.abort());
   await page.setViewportSize({ width: 1600, height: 1000 });
   await page.goto('/dashboard/cases?sourceId=KAZ_S_159');
@@ -127,6 +137,7 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
   await queue.getByRole('button', { name: `Locate planned source ${twenty.portfolios[0].selectedIds[0]}`, exact: true }).click();
   await expect(page).toHaveURL(/\/dashboard\/map/);
   await expect(page.locator('.plan-map-caption')).toContainText('20 planned sources');
+  await expect(page.getByRole('application', { name: 'Interactive methane map; drag to pan, scroll to zoom and select a source', exact: true })).toBeInViewport();
   await page.getByLabel('Map layer legend', { exact: true }).locator('summary').click();
   await page.screenshot({ path: testInfo.outputPath('active-plan-globe-desktop.png') });
   await page.getByRole('region', { name: 'Active investigation plan' }).getByRole('button', { name: 'Edit capacity & strategy', exact: true }).click();

@@ -1,0 +1,10 @@
+$ bun --no-env-file scripts/run-chain-integration.ts --evidence /tmp/methane-nonrender-anvil.json
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/chain-integration.test.ts:
+(pass) local chain: lost RPC acknowledgement, independent verifier, historical receipt and process crash recovery [14127.40ms]
+
+ 1 pass
+ 0 fail
+ 62 expect() calls
+Ran 1 test across 1 file. [14.65s]

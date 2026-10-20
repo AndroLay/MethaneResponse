@@ -10,7 +10,7 @@
 | [Runtime/deployment](deployment.md) | File store, proses tunggal dan konsekuensi preview filesystem sementara |
 | [Catatan IEEE ClimateChain](event-requirements.md) | Persyaratan dari sumber resmi pada tanggal pemeriksaan; konflik eligibility/jadwal yang perlu diselesaikan |
 | [Isi submission Devpost](devpost-submission/README.md) | Nama, pitch, cerita Inggris, tag, panduan juri dan lampiran lokal sesuai form |
-| [Materi demo dan Notion](../demo/README.md) | Artefak lokal, tanggal script/caption dan status publikasi |
+| [Materi demo](../demo/README.md) | Artefak lokal, tanggal script/caption dan status publikasi |
 
 ## Arsip perencanaan penilaian
 

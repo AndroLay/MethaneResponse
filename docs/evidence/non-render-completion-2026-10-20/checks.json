@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-20T12:43:21.654303+00:00",
+  "baselineCommit": "173bbb8b763a0014289031d3d14dec5a64399c9f",
+  "state": "Local increment verified; next public CI must be checked on exact pushed revision.",
+  "primaryTests": {
+    "api": 296,
+    "web": 278,
+    "typescriptTooling": 63,
+    "pythonPipeline": 221,
+    "pythonDeliveryTools": 15,
+    "foundry": 4,
+    "total": 877
+  },
+  "gate": {
+    "command": "bun run check:all",
+    "exitCode": 0,
+    "log": "gate-output.txt",
+    "frozenInstall": true,
+    "typecheck": true,
+    "build": true,
+    "bundleBudget": true,
+    "appEntryGzipBytes": 74702,
+    "appEntryBudget": 75000,
+    "mapLazyRawAdvisoryBytes": 1124042,
+    "localBun": "1.4.3",
+    "ciBun": "1.4.2"
+  },
+  "browser": {
+    "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium METHANE_E2E_API_PORT=43209 METHANE_E2E_WEB_PORT=4189 PLAYWRIGHT_OUTPUT_DIR=.playwright-cli/nonrender-full bun run test:e2e",
+    "exitCode": 0,
+    "main": 28,
+    "private": 12,
+    "uniqueChecks": 40,
+    "actualBrowserJourneys": 39,
+    "nodeSchemaChecks": 1,
+    "runnerHelpersExcluded": 5,
+    "retries": 0,
+    "skips": 0,
+    "sandboxEnabled": true,
+    "screenshotSource": "Focused green invocation; runtime source identical to full pass; extra repeat excluded from unique count",
+    "screenshotsInspected": true,
+    "externalImageryBlockedInMapRegression": true,
+    "physicalPhone": false
+  },
+  "regression": {
+    "unitBeforeFixExit": 1,
+    "unitAfterFixExit": 0,
+    "browserBeforeFixExit": 1,
+    "browserAfterFixExit": 0,
+    "sameForcedNotificationDelay": true,
+    "assertionsNotRelaxed": true
+  },
+  "additional": {
+    "anvil": {
+      "command": "bun run test:chain-integration --evidence /tmp/methane-nonrender-anvil.json",
+      "exitCode": 0,
+      "passed": 1,
+      "chainId": 31337,
+      "publicFundsSpent": false,
+      "publicChainTransaction": false
+    },
+    "submissionPackager": {
+      "command": "python3 -m unittest discover -s docs/release/devpost-submission -p 'test_*.py'",
+      "exitCode": 0,
+      "passed": 11,
+      "newRegressionBeforeImplementationExit": 1
+    }
+  },
+  "preservation": {
+    "frozenPackages": 7,
+    "frozenArtifactsMatched": 170,
+    "activeSnapshotChanged": false,
+    "candidateActivated": false
+  },
+  "review": {
+    "independentReadOnlyReview": true,
+    "supportedBrowserBlockersFound": 0,
+    "candidateActivation": "deferred; needs complete derivative rebuild and versioned transition replay",
+    "domShimScrollMethod": "not covered; real supported browser has scrollIntoView"
+  },
+  "external": {
+    "priorCiRun": "https://github.com/AndroLay/MethaneResponse/actions/runs/39419272105",
+    "priorCiConclusion": "failure: lazy-map journey; Python/contracts passed",
+    "newCi": "check exact revision after push",
+    "render": "excluded by user",
+    "notion": "not required",
+    "liveLuna": "deferred by user; endpoint/model/credentials to be supplied",
+    "sepolia": "optional after user selected unfunded local prototype; no broadcast",
+    "devpost": "read connector internal error -32603; no submission",
+    "videoUploaded": false,
+    "humanPilot": "deferred",
+    "physicalPhone": "not tested"
+  },
+  "claims": "Tests prove software behavior under recorded conditions; no mitigation, human benefit, AI quality, public deployment or competitive rank is inferred."
+}

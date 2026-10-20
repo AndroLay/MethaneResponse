@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-20T12:27:54.963Z",
+  "issuer": "0x211334Ab7398e2A7268014c31809bd712F033afa",
+  "registry": "0x0F78a787142abF509b6A7178bA1bfDfb9c8b202d",
+  "results": [
+    {
+      "check": "chainId",
+      "value": "11155111"
+    },
+    {
+      "check": "balanceWei",
+      "value": "0"
+    },
+    {
+      "check": "pendingNonce",
+      "value": "0"
+    },
+    {
+      "check": "registryBytecodeKeccak",
+      "value": null
+    },
+    {
+      "check": "blockNumber",
+      "value": "11955292"
+    }
+  ],
+  "broadcast": false
+}

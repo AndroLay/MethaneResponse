@@ -1,0 +1,40 @@
+{
+  "packages": [
+    {
+      "package": "docs/evidence/connected-investigations-2026-10-20",
+      "verifiedFiles": 33,
+      "manifestSha256": "9390a121e0ace3234deb3a5e0aa2ccfa0249dd78bac5111456cc85b9cf103e3d"
+    },
+    {
+      "package": "docs/evidence/decision-lab-2026-10-19",
+      "verifiedFiles": 25,
+      "manifestSha256": "dc3d4d07fb727998f21e2a5c7f3f451d272790d7227a3ca7d3f17cc51de9e970"
+    },
+    {
+      "package": "docs/evidence/investigation-operations-2026-10-20",
+      "verifiedFiles": 15,
+      "manifestSha256": "23c052df2a545c9714ef88fe2358c60abd2b5f54ffb6219f8aeb03461bfc02d6"
+    },
+    {
+      "package": "docs/evidence/investigation-planner-2026-10-19",
+      "verifiedFiles": 17,
+      "manifestSha256": "afd63a2b690346faec2a9ed96e1e9341105ef7d091fc866cc5c55ff8cbc16f94"
+    },
+    {
+      "package": "docs/evidence/observation-crosscheck-2026-10-19",
+      "verifiedFiles": 30,
+      "manifestSha256": "294911e7b79d8e50d45caf5de4e23492db873a7b8495dd65cf5059c4c63b368c"
+    },
+    {
+      "package": "docs/evidence/p2-delivery-2026-10-20",
+      "verifiedFiles": 39,
+      "manifestSha256": "d074fede58591322b3e437a0b22c18d8799b5caf4316346b42749deb2e70143f"
+    },
+    {
+      "package": "docs/evidence/snapshot-change-watch-2026-10-20",
+      "verifiedFiles": 11,
+      "manifestSha256": "67d1bf609edc24fdf0a4b869562691b379eaa47aa6f7eb48fe737126f1af838f"
+    }
+  ],
+  "total": 170
+}

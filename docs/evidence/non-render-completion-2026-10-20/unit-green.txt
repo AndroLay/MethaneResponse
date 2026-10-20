@@ -1,0 +1,15 @@
+bun test v1.4.3 (c6da4a4d3)
+
+apps/web/src/map-panel-load.test.ts:
+(pass) map panel viewport loading > waits until the map enters the expanded viewport when observation is supported [0.05ms]
+(pass) map panel viewport loading > loads immediately when IntersectionObserver is unavailable
+(pass) map panel viewport loading > an explicit source focus loads the map even before a viewport observation arrives
+(pass) map panel viewport loading > prepares expensive observation points only when point records are visible [0.02ms]
+(pass) map panel viewport loading > prepares source point geometry only for visible source-marker layers or the safe fallback [0.02ms]
+(pass) map panel viewport loading > keeps historical analysis available on observation-based map layers [0.02ms]
+(pass) map panel viewport loading > loads history only for case details and complete archive layers that are actually visible [0.04ms]
+
+ 7 pass
+ 0 fail
+ 27 expect() calls
+Ran 7 tests across 1 file. [9.00ms]

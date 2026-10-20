@@ -1,6 +1,6 @@
 # Panduan repository MethaneResponse
 
-Dokumentasi ini menjelaskan produk, susunan kode, arsitektur, dan cara bekerja di repo. **Panduan aktif diselaraskan dengan working tree pada 18 Oktober 2026.** Bukti tes, riset, dan materi demo mempertahankan tanggal serta revisi asalnya.
+Dokumentasi ini menjelaskan produk, susunan kode, arsitektur, dan cara bekerja di repo. **Panduan aktif diselaraskan dengan working tree pada 20 Oktober 2026.** Bukti tes, riset, dan materi demo mempertahankan tanggal serta revisi asalnya.
 
 ## Urutan membaca
 
@@ -37,7 +37,7 @@ P5/P6 sudah [selesai dalam cakupan agent](evidence/p5-p6-agent-completion-2026-1
 | Testing | Perintah pemeriksaan, browser terisolasi, dan protokol benchmark | [testing](testing/README.md) |
 | Release | Status lokal, opsi hosting, serta persyaratan kompetisi | [release](release/README.md) |
 | Research | Sumber ilmiah, inventaris hak, riset kandidat, dan landscape bertanggal | [research](research/README.md) |
-| Demo | Skrip, caption, dan paket presentasi Notion lokal | [demo](demo/README.md) |
+| Demo | Skrip, caption, presentasi dan rekaman aplikasi lokal | [demo](demo/README.md) |
 | Evidence | Rekaman tes, screenshot, manifest dan checksum dari run tertentu | [evidence](evidence/README.md) |
 | Plans | Rencana implementasi beserta status dan referensi hasil | [plans](plans/README.md) |
 | History | Keputusan/pekerjaan lama, checkpoint, serta asumsi yang digantikan | [history](history/README.md) |
