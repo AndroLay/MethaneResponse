@@ -374,3 +374,14 @@ test('priority overlay includes only matched real source rows and keeps the scor
   expect(data.features).toHaveLength(1);
   expect(data.features[0]).toMatchObject({ id: 'KAZ_S_159', properties: { priorityScore: 45, priorityBand: 'medium', priorityType: 'heuristic_not_probability' } });
 });
+
+
+test('a single-context bootstrap starts at native-or-lower resolution without capping final quality', () => {
+  const bootstrap = (mapPanel as unknown as { getMapBootstrapOptions?: (tier: 'low' | 'medium' | 'high', ratio: number) => { pixelRatio: number; maxCanvasSize: number[]; maxTileCacheZoomLevels: number; fadeDuration: number } }).getMapBootstrapOptions;
+  expect(typeof bootstrap).toBe('function');
+  if (!bootstrap) return;
+  expect(bootstrap('high', 3)).toEqual({ pixelRatio: 1, maxCanvasSize: [4096, 4096], maxTileCacheZoomLevels: 5, fadeDuration: 180 });
+  expect(bootstrap('medium', 2)).toEqual({ pixelRatio: 1, maxCanvasSize: [3072, 3072], maxTileCacheZoomLevels: 3, fadeDuration: 180 });
+  expect(bootstrap('low', 2)).toEqual({ pixelRatio: 1, maxCanvasSize: [2048, 2048], maxTileCacheZoomLevels: 1, fadeDuration: 0 });
+  expect(bootstrap('high', 0.75).pixelRatio).toBe(0.75);
+});

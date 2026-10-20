@@ -114,3 +114,29 @@ The case dialog's shared on-demand imagery path was checked in Chromium with bro
 The three and eighteen browser console errors in these runs correspond to the deliberately failed image requests at each zoom, not to API or application exceptions. These tests prove fallback and recovery behavior for the sampled source. The 4,211-coordinate regression proves tile URL derivation, not external Esri coverage or quality at every coordinate. No case-specific image files are downloaded or stored. Esri imagery remains a date-variable geographic backdrop, separate from hash-verified UNEP publisher geometry and observation metadata.
 
 At that earlier route-chunk gate, `bash scripts/check-local.sh` passed frozen install, typechecks, API/web/verifier suites, production build, bundle budget, Python tests and baseline evaluation, and Foundry tests. The API run then had 85 passed, 9 PostGIS cases skipped because `TEST_DATABASE_URL` was not set, 0 failed (508 expectations); the web suite had 138 passed, 0 failed (164,210 expectations). This gate did not include cloud services or the later separate temporary-PostGIS integration run. The later aggregate and follow-up counts are recorded below.
+
+## Single-context globe startup — 20 October 2026
+
+A public CI timing experiment recorded the plan caption in the DOM ~0.44 s after
+Locate and a 20.715 s main-thread task immediately afterward; the MapPanel module
+completed in ~90 ms. This was a graphics-initialization stall, not a missing plan
+or a slow module download. A separate regression counted two allocated WebGL
+contexts: a detached capability probe followed by the real MapLibre canvas.
+The increment removes the probe, reuses the actual renderer and retains the
+MapLibre-construction error fallback. The same browser regression changes from
+2 contexts to 1; no timeout, assertion or sandbox policy was weakened.
+
+Bootstrap pixel ratio is capped at 1 until the existing quality effect applies
+the selected tier. The configured canvas ceiling, tile-cache zoom limit and fade
+remain those of the preferred tier, so starting small does not permanently cap
+Quality rendering. Low-tier devices still start with 2048 / cache 1 / fade 0.
+An auto-high device later identified as a software renderer lowers pixel ratio
+and effects, but retains the preferred constructor-only cache/fade/canvas limits
+(4096 / cache 5 / fade 180). This differs from the former throwaway-probe path;
+MapLibre 5.24 has no public setter for those limits. It is a known resource tradeoff
+on large software-rendered viewports, not a measured physical-phone FPS gain.
+
+Only the public regression fixture counts context allocations and records bounded
+readiness timing. It does not replace native WebGL methods or contact an AI
+provider. Check the exact pushed revision's CI separately from local results;
+prior diagnostic runs and frozen evidence remain historical records.

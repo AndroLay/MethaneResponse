@@ -103,24 +103,22 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
   page.on('console', message => { if (message.type() === 'error' && consoleErrors.length < 8) consoleErrors.push(message.text().slice(0, 500)); });
   await page.addInitScript(() => {
     const timings: { method: string; start: number; duration: number }[] = [];
-    Object.assign(window, { publicMapGpuTiming: timings });
-    // Diagnose cold software-renderer initialization without logging assets,
-    // shader contents, documents or credentials. Native return values unchanged.
-    for (const [prototype, methods] of [
-      [HTMLCanvasElement.prototype, ['getContext']],
-      [WebGLRenderingContext.prototype, ['getParameter', 'getExtension', 'getShaderParameter', 'getProgramParameter', 'readPixels', 'finish']],
-      [WebGL2RenderingContext.prototype, ['getParameter', 'getExtension', 'getShaderParameter', 'getProgramParameter', 'readPixels', 'finish']],
-    ] as const) {
-      for (const method of methods) {
-        const holder = prototype as unknown as Record<string, (...args: unknown[]) => unknown>;
-        const original = holder[method];
-        holder[method] = function (...args: unknown[]) {
-          const start = performance.now();
-          try { return original.apply(this, args); }
-          finally { const duration = performance.now() - start; if (duration > 5 && timings.length < 25) timings.push({ method, start, duration }); }
-        };
+    const contexts = new WeakSet<object>();
+    Object.assign(window, { publicMapGpuTiming: timings, publicMapContextCount: 0 });
+    // Count actual allocated WebGL contexts, without replacing any GL methods.
+    const holder = HTMLCanvasElement.prototype as unknown as Record<string, (...args: unknown[]) => unknown>;
+    const original = holder.getContext;
+    holder.getContext = function (...args: unknown[]) {
+      const start = performance.now();
+      const result = original.apply(this, args);
+      if (typeof args[0] === 'string' && /^webgl/.test(args[0]) && result && typeof result === 'object' && !contexts.has(result)) {
+        contexts.add(result);
+        (window as unknown as { publicMapContextCount: number }).publicMapContextCount++;
       }
-    }
+      const duration = performance.now() - start;
+      if (duration > 5 && timings.length < 25) timings.push({ method: 'getContext', start, duration });
+      return result;
+    };
   });
   // Simulate a delayed viewport notification. Explicit Locate must not depend
   // on the map intersecting a viewport whose layout/fonts differ on CI.
@@ -172,6 +170,7 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
       for (const task of list.getEntries()) if (events.length < 30 && task.duration > 100) events.push({ kind: 'longtask', at: task.startTime, duration: task.duration });
     }).observe({ type: 'longtask' });
   });
+  const contextsBeforeLocate = await page.evaluate(() => (window as unknown as { publicMapContextCount: number }).publicMapContextCount);
   await queue.getByRole('button', { name: `Locate planned source ${twenty.portfolios[0].selectedIds[0]}`, exact: true }).click();
   await expect(page).toHaveURL(/\/dashboard\/map/);
   try {
@@ -193,6 +192,12 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
     }));
     throw error;
   }
+  console.log('Public map readiness:', JSON.stringify(await page.evaluate(() => ({
+    events: (window as unknown as { publicMapTiming?: unknown }).publicMapTiming,
+    gpu: (window as unknown as { publicMapGpuTiming?: unknown }).publicMapGpuTiming,
+    contexts: (window as unknown as { publicMapContextCount: number }).publicMapContextCount,
+  }))));
+  expect(await page.evaluate(() => (window as unknown as { publicMapContextCount: number }).publicMapContextCount) - contextsBeforeLocate).toBe(1);
   await expect(page.getByRole('application', { name: 'Interactive methane map; drag to pan, scroll to zoom and select a source', exact: true })).toBeInViewport();
   await page.getByLabel('Map layer legend', { exact: true }).locator('summary').click();
   await page.screenshot({ path: testInfo.outputPath('active-plan-globe-desktop.png') });

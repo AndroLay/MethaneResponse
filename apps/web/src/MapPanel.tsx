@@ -234,18 +234,15 @@ export function getInitialRenderTierForRenderer(renderer: string | null, preferr
   return isSoftwareWebGLRenderer(renderer) ? 'low' : preferredTier;
 }
 
-function probeWebGLRenderer(): { contextAvailable: boolean; renderer: string | null } {
-  const canvas = document.createElement('canvas');
-  try {
-    const context = canvas.getContext('webgl2') ?? canvas.getContext('webgl');
-    if (!context) return { contextAvailable: false, renderer: null };
-    const debugInfo = context.getExtension('WEBGL_debug_renderer_info') as { UNMASKED_RENDERER_WEBGL: number } | null;
-    const renderer = debugInfo ? String(context.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)) : null;
-    context.getExtension('WEBGL_lose_context')?.loseContext();
-    return { contextAvailable: true, renderer };
-  } catch {
-    return { contextAvailable: false, renderer: null };
-  }
+export function getMapBootstrapOptions(preferredTier: RenderTier, nativeRatio: number) {
+  return {
+    pixelRatio: getRenderPixelRatio('low', nativeRatio),
+    // Keep the ceiling/cache for the selected quality. The quality effect can
+    // raise pixel ratio immediately without an irreversible low-resolution cap.
+    maxCanvasSize: (preferredTier === 'low' ? [2048, 2048] : preferredTier === 'medium' ? [3072, 3072] : [4096, 4096]) as [number, number],
+    maxTileCacheZoomLevels: preferredTier === 'low' ? 1 : preferredTier === 'medium' ? 3 : 5,
+    fadeDuration: preferredTier === 'low' ? 0 : 180,
+  };
 }
 
 function getWebGLRendererName(canvas: HTMLCanvasElement): string | null {
@@ -641,19 +638,15 @@ export default function MapPanel({ sources, plannedSources = [], sourcesReady = 
     if (!node.current) return;
     let disposed = false;
     let fallbackTriggered = false;
-    const webgl = probeWebGLRenderer();
-    if (!isGlobeProjectionSupported(webgl.contextAvailable, webgl.renderer)) {
-      setMapError(getMapInitializationFallbackMessage(new Error('Could not initialize WebGL')));
-      setStatus('error');
-      globeSupportChangeRef.current(false);
-      return;
-    }
     let instance: MapLibreMap;
     let initialFocusRequest: MapFocusRequest | null = null;
     let initialFocusView: ReturnType<typeof getSourceMapFocusView> = null;
     try {
       const compactAttribution = shouldUseCompactAttribution(node.current.clientWidth);
-      const initialTier = getInitialRenderTierForRenderer(webgl.renderer, renderTier);
+      // Allocate only the map's real WebGL context. A throwaway probe followed
+      // by loseContext() can stall cold software renderers before this map can
+      // initialize. Bootstrap at a small footprint; the existing quality effect
+      // applies the selected tier after inspecting this actual renderer.
       const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
       const requestedFocus = focusRequestRef.current;
       initialFocusRequest = requestedFocus;
@@ -670,10 +663,7 @@ export default function MapPanel({ sources, plannedSources = [], sourcesReady = 
         minZoom: 0,
         maxZoom: 17,
         renderWorldCopies: true,
-        pixelRatio: getRenderPixelRatio(initialTier, window.devicePixelRatio || 1),
-        maxCanvasSize: initialTier === 'low' ? [2048, 2048] : initialTier === 'medium' ? [3072, 3072] : [4096, 4096],
-        maxTileCacheZoomLevels: initialTier === 'low' ? 1 : initialTier === 'medium' ? 3 : 5,
-        fadeDuration: initialTier === 'low' ? 0 : 180,
+        ...getMapBootstrapOptions(renderTier, window.devicePixelRatio || 1),
         reduceMotion: reducedMotion,
       });
     } catch (error) {

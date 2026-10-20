@@ -13,6 +13,15 @@ tidak mengesahkan deployment. Bukti lama tetap terikat ke revisi serta kondisi r
 
 ## Penyelesaian selain Render — keputusan aktif
 
+**Verifikasi CI dibedakan dari lokal.** Run `39424647485`, `39427086280` dan
+`39428246566` gagal pada caption peta 20 sumber. Pengukuran run terakhir menemukan
+caption terpasang ~0,44 detik setelah Locate, diikuti long task mount 20,715 detik;
+modul selesai ~90 ms. Regresi memperlihatkan dua konteks WebGL dialokasikan.
+Increment berikutnya menghapus probe sementara, memakai satu canvas MapLibre,
+dan memulai pixel ratio ≤1 sambil menjaga ceiling/cache kualitas akhir. Fallback
+konstruksi dan adaptasi renderer dipertahankan. Hasil lokal dan status CI pada
+commit persis diperiksa terpisah; diagnostic-only run bukan bukti efek fix.
+
 Pengguna mengecualikan Render, akan menyediakan konfigurasi model Luna kemudian,
 dan memilih blockchain sebagai prototipe **tanpa pendanaan wallet publik**.
 Penerimaan blockchain memakai kontrak EvidenceRegistry aktual pada Anvil chain

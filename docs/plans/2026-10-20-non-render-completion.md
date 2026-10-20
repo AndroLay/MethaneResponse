@@ -6,7 +6,7 @@ snapshot aktif, kompatibilitas audit dan batas prototipe tanpa database.
 
 ## Urutan dan bukti penerimaan
 
-1. [x] **Perbaikan CI dan handoff peta lokal.** Reproduksi deterministik kegagalan antrean
+1. [ ] **Perbaikan CI dan handoff peta lokal.** Reproduksi deterministik kegagalan antrean
    kapasitas 10→20 ke peta, perbaiki penyebab tanpa melonggarkan assertion,
    tambah regresi viewport/loading dan jalankan gate. Gate 877 tes dan 40 browser
    checks lulus; CI publik revisi baru diperiksa sesudah push terotorisasi.
@@ -27,7 +27,7 @@ snapshot aktif, kompatibilitas audit dan batas prototipe tanpa database.
    manifest ke revisi yang diuji. Pertahankan v12 serta supplement historis.
    Siapkan publikasi konkret sebelum meminta approval yang memang belum ada;
    jangan otomatis submit Devpost atau menghubungi orang lain.
-6. [x] **Verifikasi lokal dan paket penutupan.** Gate lokal, browser desktop/mobile viewport,
+6. [ ] **Verifikasi lokal dan paket penutupan.** Gate lokal, browser desktop/mobile viewport,
    artefak reproducible, source bindings, push yang telah disetujui dan CI baru.
    Catat bagian yang belum diverifikasi tanpa model/rights review,
    akses upload, manusia atau perangkat fisik; test ETH hanya diperlukan bila
@@ -72,3 +72,29 @@ dan paket lebih lama tetap dipertahankan byte-for-byte.
 11 tes packager submission lulus. 170 artefak beku terdahulu tetap cocok. Source
 push dan CI publik mempunyai timestamp/commit terpisah; status lokal ini tidak
 menyatakan publikasi aplikasi atau keberhasilan model nyata. [Bukti baru](../evidence/non-render-completion-2026-10-20/README.md).
+
+## Pemeriksaan publik setelah push — tindak lanjut
+
+Gate lokal dan proof Anvil di atas tetap berlaku pada byte sumber yang direkam.
+Namun CI publik `39424647485` dan `39427086280` masih gagal pada caption handoff
+peta. Fix explicit focus mengatasi reproduksi observer lokal, tetapi belum cukup
+untuk menyatakan akar kegagalan CI terselesaikan. Pada run kedua, caption 20
+sumber hadir ketika failure handler membaca DOM setelah deadline; queue tetap
+20, tidak ada page error atau React boundary fallback.
+
+Browser yang dipin CI (Chrome Headless Shell 156.0.8078.4) lulus focused test,
+pengulangan dengan CPU throttle 8×, serta urutan empat workflow pertama.
+Eksperimen satu CPU pada Chromium host juga lulus. Run `39428246566` kemudian
+membuktikan caption sudah masuk DOM 0,44 detik setelah Locate dan modul selesai
+~90 ms, tetapi mount peta diikuti long task 20,715 detik. Hipotesis late import
+bukan penyebab run tersebut. Kegagalan tes tetap dicatat, tanpa menaikkan timeout.
+
+Pemeriksaan source menemukan probe WebGL pada canvas sementara, loseContext,
+kemudian konteks MapLibre aktual. Regresi browser membuktikan dua konteks sebelum
+perbaikan dan satu sesudahnya. Implementasi kini memakai canvas aktual untuk
+mendeteksi renderer dan catch konstruksi MapLibre untuk fallback. Bootstrap pixel
+ratio ≤1 mempertahankan ceiling/cache kualitas yang dipilih; effect kualitas
+menaikkan resolusi setelah init. Tidak ada batas kualitas permanen baru. Native
+method timers hanya eksperimen fixture CI, bukan kode produk; gate akhir tidak
+mengganti metode WebGL. Gate/browser dan CI revisi akhir harus dicatat terpisah;
+satu perbaikan lokal belum otomatis menutup CI. Bukti beku tetap dipertahankan.
