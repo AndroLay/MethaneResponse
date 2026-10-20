@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test';
 import { randomBytes } from 'node:crypto';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { buildE2ERunnerEnvironment, chooseE2ETemporaryRoot } from './scripts/e2e-runner-utils';
+import { buildE2ERunnerEnvironment, chooseE2ETemporaryRoot, chromiumSandboxEnabled, buildE2EWebServerCommand } from './scripts/e2e-runner-utils';
 
 const temporaryRoot = chooseE2ETemporaryRoot(process.env);
 const stateDirectory = mkdtempSync(join(temporaryRoot, 'methane-response-e2e-'));
@@ -82,7 +82,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     launchOptions: {
-      chromiumSandbox: true,
+      chromiumSandbox: chromiumSandboxEnabled(workerEnvironment),
       ...(chromiumExecutable ? { executablePath: chromiumExecutable } : {}),
       args: ['--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader'],
     },
@@ -121,10 +121,10 @@ export default defineConfig({
       },
     },
     {
-      command: `cd apps/web && bun --no-env-file run dev -- --host 127.0.0.1 --port ${webPort} --strictPort`,
+      command: buildE2EWebServerCommand(webPort),
       url: webUrl,
       reuseExistingServer: false,
-      timeout: 90_000,
+      timeout: 180_000,
       env: {
         ...isolatedEnvironment,
         METHANE_API_PROXY_TARGET: apiUrl,

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import type { ReactNode } from 'react';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { assessmentPresentation, DEMO_SOURCES, InvestigationSelection, isAuditPublic } from '@methane/shared';
@@ -26,6 +26,8 @@ import CaseWorkPanel from './CaseWorkPanel';
 import { readCaseWork } from './case-work';
 import { clearHumanDrafts, readSessionDraft, writeSessionDraft } from './session-draft';
 import { confirmDraftNavigation } from './use-session-draft';
+import { getActivePlan, matchingActivePlan, subscribeActivePlan } from './plan-session';
+const PlanQueue = lazy(() => import('./PlanQueue'));
 
 const MapPanel = lazy(() => import('./MapPanel'));
 const AuditHistoryPanel = lazy(() => import('./AuditHistoryPanel'));
@@ -200,6 +202,7 @@ function ObservationChart({ source, historyLoading = false, historyError, onRetr
 function AppLogo() { return <div className="brand"><div className="brand-symbol"><svg viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="14" stroke="#E9FFFA" strokeWidth="2.3" strokeDasharray="70 24" transform="rotate(-35 19 19)"/><path d="M8 26c6-12 16-17 25-19C28 17 20 29 8 26z" fill="#19E5C4"/><path d="M8 26c9-5 13-9 20-15" stroke="#062b34" strokeWidth="1.8" strokeLinecap="round"/></svg></div><span>Methane<span>Response</span></span></div>; }
 
 export default function App() {
+  const activePlanSelection = useSyncExternalStore(subscribeActivePlan, getActivePlan);
   const [workspacePreferences, setWorkspacePreferences] = useState<WorkspacePreferences>(() => readWorkspacePreferences());
   const [activeNav, setActiveNav] = useState(() => getInitialWorkspace(window.location.pathname, readWorkspacePreferences()));
   const [documentQuery, setDocumentQuery] = useState('');
@@ -407,6 +410,12 @@ export default function App() {
   const sourceRetrievedAt = snapshot?.importedAt || source.provenance?.retrievedAt;
   const sourceLicense = snapshot?.license || source.provenance?.license;
   const sourceSnapshotId = snapshot?.snapshotId || source.provenance?.snapshotId;
+  const sourceInputHash = typeof snapshot?.provenance?.webSnapshotInputSha256 === 'string' ? snapshot.provenance.webSnapshotInputSha256 : undefined;
+  const activePlan = matchingActivePlan(activePlanSelection, sourceSnapshotId, sourceArchiveHash, sourceInputHash);
+  const plannedSources = useMemo(() => {
+    const byId = new Map(sources.map(s => [s.sourceId, s]));
+    return activePlan?.report.portfolios.find(p => p.strategy === activePlan.strategy)?.selectedIds.flatMap(id => byId.get(id) ? [byId.get(id)!] : []) || [];
+  }, [activePlan, sources]);
   const caseWorkContext = { sourceId: source.sourceId, datasetSnapshotId: source.synthetic ? 'DEMO' : sourceSnapshotId, archiveSha256: sourceArchiveHash, synthetic: source.synthetic };
   const caseWorkKey = JSON.stringify(caseWorkContext);
   const activeWorkId = workSelection?.context === caseWorkKey ? workSelection.workId : readCaseWork(caseWorkContext)?.workId || 'default';
@@ -752,7 +761,7 @@ export default function App() {
     </div>}/>
     {projectionNotice && <div className="map-render-notice" role="status">{projectionNotice}<button onClick={()=>setProjectionNotice(null)}>Dismiss</button></div>}{selectedUnlinked && <div className="map-render-notice" role="status"><strong>{selectedUnlinked.id}</strong> · {selectedUnlinked.date} · {selectedUnlinked.fluxKgHr == null ? 'flux not provided' : `${selectedUnlinked.fluxKgHr.toLocaleString()} kg/h`} · source ID is missing in the MARS row; no source assignment was inferred.<button onClick={()=>setSelectedUnlinked(null)}>Dismiss</button></div>}
     <div ref={mapPanelViewportRef} className="real-world-map">{mapPanelActivated ? <MapPanelErrorBoundary><Suspense fallback={<div className="map-loading" role="status">Loading interactive globe…</div>}>
-    <MapPanel key={mapRecoveryVersion} sources={filteredSources} sourcesReady={Boolean(snapshot || demoMode || (!snapshotLoading && (data || isError)))} observations={filteredMapObservations} recordMode={mapRecordMode} dataLayer={mapDataLayer} latestObservationDate={latestObservationDate} datasetSnapshotId={realMode && !demoMode ? sourceSnapshotId : null} sourceArchiveSha256={realMode && !demoMode ? sourceArchiveHash : null} selectedId={selectedId} focusRequest={mapFocusRequest} onFocusRequestHandled={requestId=>setMapFocusRequest(current=>current?.requestId===requestId?null:current)} onSelect={pickSource} onSelectUnlinked={plumeId=>setSelectedUnlinked(mapObservations.find(item=>item.id===plumeId)||null)} onProjectionFallback={()=>{setGlobeRuntimeFailed(true);setMapProjection('flat');setGlobeSupported(false);setProjectionNotice('Globe unavailable on this device; switched to 2D map.');setMapRecoveryVersion(v=>v+1);}} onGlobeSupportChange={supported=>{if(globeRuntimeFailed)return;setGlobeSupported(supported);}} theme={mapTheme} grayPercent={mapGrayPercent} projection={mapProjection} focusOnly={onlySelected} expanded={expandedMap} initialRenderPreference={workspacePreferences.earthQuality} onRenderPreferenceChange={earthQuality=>updateWorkspacePreferences({ ...workspacePreferences, earthQuality })}/>
+    <MapPanel key={mapRecoveryVersion} sources={filteredSources} plannedSources={plannedSources} sourcesReady={Boolean(snapshot || demoMode || (!snapshotLoading && (data || isError)))} observations={filteredMapObservations} recordMode={mapRecordMode} dataLayer={mapDataLayer} latestObservationDate={latestObservationDate} datasetSnapshotId={realMode && !demoMode ? sourceSnapshotId : null} sourceArchiveSha256={realMode && !demoMode ? sourceArchiveHash : null} selectedId={selectedId} focusRequest={mapFocusRequest} onFocusRequestHandled={requestId=>setMapFocusRequest(current=>current?.requestId===requestId?null:current)} onSelect={pickSource} onSelectUnlinked={plumeId=>setSelectedUnlinked(mapObservations.find(item=>item.id===plumeId)||null)} onProjectionFallback={()=>{setGlobeRuntimeFailed(true);setMapProjection('flat');setGlobeSupported(false);setProjectionNotice('Globe unavailable on this device; switched to 2D map.');setMapRecoveryVersion(v=>v+1);}} onGlobeSupportChange={supported=>{if(globeRuntimeFailed)return;setGlobeSupported(supported);}} theme={mapTheme} grayPercent={mapGrayPercent} projection={mapProjection} focusOnly={onlySelected} expanded={expandedMap} initialRenderPreference={workspacePreferences.earthQuality} onRenderPreferenceChange={earthQuality=>updateWorkspacePreferences({ ...workspacePreferences, earthQuality })}/>
     </Suspense></MapPanelErrorBoundary> : <div className="map-loading" role="status">Interactive globe loads when this map is in view…</div>}
     {progressiveManifest && needsCompleteMapHistory && completeHistoryQuery.isFetching && <div className="map-history-state" role="status" aria-live="polite"><Icon name="database" size={18}/><span><strong>Verifying complete historical layer</strong><small>Loading {progressiveManifest.plumeCount.toLocaleString()} dated records from {progressiveManifest.bucketCount} snapshot shards. No partial overlay is shown.</small></span></div>}
     {progressiveManifest && needsCompleteMapHistory && completeHistoryQuery.isError && !completeHistoryQuery.data && <div className="map-history-state map-history-error" role="alert"><Icon name="warning" size={18}/><span><strong>Historical map layer could not be verified</strong><small>{completeHistoryQuery.error instanceof Error ? completeHistoryQuery.error.message : 'A snapshot shard was unavailable or failed integrity checks.'}</small></span><button type="button" className="outline-btn" onClick={()=>void completeHistoryQuery.refetch()}>Retry complete history</button></div>}
@@ -795,6 +804,11 @@ export default function App() {
         </>}
         {activeNav==='map' && <><div className="explorer-quickbar"><div><Icon name="layers" size={19}/><span><strong>Global Methane Activity</strong><small>{realMode?'UNEP satellite observation snapshot':'Synthetic example'}</small></span></div><label>Period <select value={range} onChange={e=>setRange(e.target.value as ObservationArchiveWindow)}><option>All observations</option><option>1 year</option><option>30 days</option></select></label><label>Region <select value={countryFilter} onChange={e=>setCountryFilter(e.target.value)}><option>All regions</option>{regions.map(x=><option key={x}>{x}</option>)}</select></label><small>Recent windows end at the latest archive date ({latestObservationDate || 'unavailable'} UTC), not today.</small><button className="outline-btn" onClick={()=>void exportReport()}><Icon name="download" size={14}/> Export source</button></div><div className="explorer-layout">{renderMap()}<aside className="panel selected-source-card"><CardHeader title="Selected Source" icon="target"/><div className="selected-source-imagery-note"><span>REAL SOURCE LOCATION</span><strong>Satellite imagery is shown on the adjacent globe</strong><small>The map uses the selected source coordinates and current imagery tiles; this is location context, not a methane plume image.</small><button type="button" onClick={()=>openSourceInMap(source)}>Zoom to source on globe ↗</button></div><h2>{source.sourceId}</h2><p><Icon name="pin" size={13}/> {sourceLocation.area} · {sourceLocation.coordinates}</p><div className="fact-list"><div><span>Sector</span><strong>{source.sector||'Not reported'}</strong></div><div><span>Linked observations</span><strong>{source.plumeCount??source.observations?.length??0}</strong></div><div><span>Last observed</span><strong>{source.lastObserved?.slice(0,10)||'Not reported'}</strong></div><div><span>Maximum observed flux</span><strong>{source.maxFluxKgHr == null?'Not available':`${source.maxFluxKgHr.toLocaleString()} kg/h`}</strong></div><div><span>Mitigation</span><strong>Unverified by us</strong></div></div><button className="primary-btn" onClick={()=>openCaseDialog(source)}><Icon name="briefcase" size={15}/> View full case <Icon name="arrowRight" size={15}/></button><button className="outline-btn" onClick={()=>switchPage('audit')}><Icon name="shield" size={14}/> Examine evidence</button><p className="note-small">A satellite source location is not independent evidence of a repair.</p></aside></div></>}
         {activeNav==='indicators' && <Suspense fallback={<WorkspaceLoading label="verified MARS publisher releases"/>}><MarsPublisherInsights availableMapSourceIds={sources.map(item=>item.sourceId)} onOpenSource={sourceId=>{const match=sources.find(item=>item.sourceId===sourceId);if(match)openSourceInMap(match);}}/></Suspense>}
+        {activePlan && (activeNav === 'map' || activeNav === 'cases') && <Suspense fallback={<WorkspaceLoading label="active investigation plan"/>}><PlanQueue plan={activePlan} onEdit={() => { if (!confirmDraftNavigation()) return; setCountryFilter(activePlan.report.input.parameters.countries[0] || 'All regions'); setSectorFilter(activePlan.report.input.parameters.sectors[0] || 'All sectors'); switchPage('cases', true); }} onOpen={(id, target) => {
+          const chosen = sources.find(s => s.sourceId === id); if (!chosen) return;
+          if (target === 'map') { openSourceInMap(chosen); return; }
+          if (!pickSource(id)) return; switchPage(target === 'audit' ? 'audit' : 'cases', true);
+        }}/></Suspense>}
         {activeNav==='cases' && <>
           <div className="workspace-mini-stats">
             <div><Icon name="briefcase"/><strong>{filteredSources.length.toLocaleString()}</strong><span>Source records</span></div>
@@ -804,6 +818,7 @@ export default function App() {
           </div>
           <Suspense fallback={<WorkspaceLoading label="case table"/>}><CasesWorkspace
             sources={filteredSources}
+            plannerSources={sources}
             selectedSourceId={selectedId}
             countryFilter={countryFilter}
             sectorFilter={sectorFilter}
@@ -812,6 +827,7 @@ export default function App() {
             datasetLabel={realMode ? 'UNEP MARS historical snapshot' : 'Synthetic demonstration'}
             datasetSnapshotId={realMode && !demoMode ? sourceSnapshotId : undefined}
             archiveSha256={realMode && !demoMode ? sourceArchiveHash : undefined}
+            inputFileSha256={realMode && !demoMode ? sourceInputHash : undefined}
             observationChart={caseSource => <ObservationChart source={caseSource} historyLoading={sourceHistoryLoading} historyError={sourceHistoryError} onRetry={retrySourceHistory}/>}
             historyLoading={sourceHistoryLoading}
             historyError={sourceHistoryError}
@@ -821,6 +837,14 @@ export default function App() {
             onSelectSource={id => pickSource(id, true)}
             onOpenMap={openSourceInMap}
             onReviewEvidence={() => switchPage('audit')}
+            onPlannerOpenSource={(sourceId, target) => {
+              const chosen = sources.find(item => item.sourceId === sourceId); if (!chosen) return false;
+              // One confirmed handoff: selection clears filters so directory and URL agree.
+              if (target === 'map') { openSourceInMap(chosen); return; }
+              if (!pickSource(sourceId)) return false;
+              if (target === 'audit') switchPage('audit', true);
+              return true;
+            }}
             onResumeWork={resumeCaseWork}
           activeWork={{ sourceId: source.sourceId, workId: activeWorkId, claimType: claim, scope: assessmentScope }}
             workReady={investigationReady}
@@ -843,6 +867,7 @@ export default function App() {
           retrySourceHistory={retrySourceHistory}
           datasetUrl={snapshot?.sourceUrl || 'https://methanedata.unep.org/download-dataset'}
           datasetSnapshotId={sourceSnapshotId}
+          datasetInputSha256={typeof snapshot?.provenance?.webSnapshotInputSha256 === 'string' ? snapshot.provenance.webSnapshotInputSha256 : undefined}
           datasetRetrievedAt={sourceRetrievedAt}
           datasetLicense={sourceLicense}
           sourceArchiveHash={sourceArchiveHash}

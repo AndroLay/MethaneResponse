@@ -1,0 +1,45 @@
+MAIN / production build, local Chromium sandbox enabled
+$ bash scripts/run-e2e.sh "e2e/audit-workflow.spec.ts"
+Running 25 tests using 1 worker
+  ✓   1 [chromium] › e2e/audit-workflow.spec.ts:17:5 › Active investigation plan keeps exact 10 to 20 source membership across queue, globe and evidence handoff (16.2s)
+  ✓   2 [chromium] › e2e/audit-workflow.spec.ts:60:5 › Delayed activation cannot publish a strategy that the analyst has already changed (4.7s)
+  ✓   3 [chromium] › e2e/audit-workflow.spec.ts:82:5 › Earlier plan import requires trusted digest and separates capacity differences from dataset changes (7.0s)
+  ✓   4 [chromium] › e2e/audit-workflow.spec.ts:106:5 › Scoped active plans never restore reports under different visible country controls (4.8s)
+  ✓   5 [chromium] › e2e/audit-workflow.spec.ts:122:5 › Investigation planner compares capacity-constrained portfolios, exports replay and opens exact cases on desktop and mobile (10.6s)
+  ✓   6 [chromium] › e2e/audit-workflow.spec.ts:170:5 › Investigation planner invalidates pending results, recovers from API failure and reports unfilled quotas (5.3s)
+  ✓   7 [chromium] › e2e/audit-workflow.spec.ts:199:5 › Investigation planner handoff clears hiding filters and confirms unsaved work exactly once (9.3s)
+  ✓   8 [chromium] › e2e/audit-workflow.spec.ts:232:5 › Observation cross-check exposes exact historical counterexamples, refuses repair inference and invalidates stale results (7.6s)
+  ✓   9 [chromium] › e2e/audit-workflow.spec.ts:304:5 › Decision Lab explains real record eligibility, exports requests and keeps authored challenges separate (5.9s)
+  ✓  10 [chromium] › e2e/audit-workflow.spec.ts:345:5 › scope presets and report verification work without a CLI on desktop and mobile (12.8s)
+  ✓  11 [chromium] › e2e/audit-workflow.spec.ts:407:5 › analyst case work resumes after refresh with a bounded scope and a work-status queue (10.3s)
+  ✓  12 [chromium] › e2e/audit-workflow.spec.ts:450:5 › claim requirements guide investigation and export a readable snapshot-bound brief (7.9s)
+  ✓  13 [chromium] › e2e/audit-workflow.spec.ts:501:5 › P4 reviewer v2 is readable without external assets and supports keyboard navigation on mobile (899ms)
+  ✓  14 [chromium] › e2e/audit-workflow.spec.ts:533:5 › saved assessments can be compared by claim without creating extra revisions (3.5s)
+  ✓  15 [chromium] › e2e/audit-workflow.spec.ts:562:5 › late audit and verification responses cannot overwrite a changed investigation (6.5s)
+  ✓  16 [chromium] › e2e/audit-workflow.spec.ts:611:5 › opening a saved revision takes precedence over an earlier pending assessment (5.6s)
+  ✓  17 [chromium] › e2e/audit-workflow.spec.ts:642:5 › map case details show the official Canada report link with its date and license metadata (4.6s)
+  ✓  18 [chromium] › e2e/audit-workflow.spec.ts:676:5 › MARS publisher indicators load lazily, preserve monthly/country history, paginate, and jump to an exact source (5.2s)
+  ✓  19 [chromium] › e2e/audit-workflow.spec.ts:748:5 › historical MARS case can be audited, exported, verified, and tampering is rejected (11.4s)
+  ✓  20 [chromium] › e2e/audit-workflow.spec.ts:841:5 › guided investigation keeps the selected source and exposes discrete audit stages (5.8s)
+  ✓  21 [chromium] › e2e/audit-workflow.spec.ts:903:5 › collapsed navigation reveals its label on keyboard focus (2.6s)
+  ✓  22 [chromium] › e2e/audit-workflow.spec.ts:919:5 › global historical map becomes usable when remote basemap tiles are unavailable (3.7s)
+  ✓  23 [chromium] › e2e/audit-workflow.spec.ts:937:5 › unsaved work is guarded and recovered while separate investigations keep independent scopes (11.2s)
+  ✓  24 [chromium] › e2e/audit-workflow.spec.ts:1000:5 › human drafts recover exact metadata without credentials or inspection confirmation and skip optional AI (7.3s)
+  ✓  25 [chromium] › e2e/audit-workflow.spec.ts:1045:5 › chain recovery controls protect credentials and never retry a pending write (UI fixture) (6.7s)
+  25 passed (3.3m)
+
+PRIVATE / production build, local Chromium sandbox enabled, ephemeral DEMO reviewer/mock provider
+$ bash scripts/run-e2e.sh "e2e/ai-review-workflow.spec.ts"
+Running 10 tests using 1 worker
+  ✓   1 [chromium] › e2e/ai-review-workflow.spec.ts:13:5 › Plan reviewers save authenticated immutable revisions, preserve stale drafts and export verified history (20.3s)
+  ✓   2 [chromium] › e2e/ai-review-workflow.spec.ts:75:5 › shared team investigations import explicitly, hand off across isolated sessions, and retain conflicting drafts (16.7s)
+  ✓   3 [chromium] › e2e/ai-review-workflow.spec.ts:189:5 › DEMO trust controls publish only an opted-in redacted summary with independently checked checksum (10.3s)
+  ✓   4 [chromium] › e2e/ai-review-workflow.spec.ts:261:5 › DEMO publication correction and withdrawal stay consistent after reload and failed refresh (11.3s)
+  ✓   5 [chromium] › e2e/ai-review-workflow.spec.ts:326:5 › DEMO publication history loads older pages without reviving superseded versions (5.0s)
+  ✓   6 [chromium] › e2e/ai-review-workflow.spec.ts:356:5 › DEMO human correction recovers its parent after a baseline and protects an unsaved draft (6.5s)
+  ✓   7 [chromium] › e2e/ai-review-workflow.spec.ts:396:5 › DEMO withdrawal reloads the current list after a concurrent public correction (5.3s)
+  ✓   8 [chromium] › e2e/ai-review-workflow.spec.ts:450:5 › human-only evidence decisions save private revisions and export without invoking document AI (13.4s)
+  ✓   9 [chromium] › e2e/ai-review-workflow.spec.ts:548:5 › local mock AI citations receive a separate scoped review and remain private until publication consent (10.3s)
+  ✓  10 [chromium] › e2e/ai-review-workflow.spec.ts:758:5 › late document responses stay out of a restarted claim investigation (5.0s)
+  10 passed (2.1m)
+

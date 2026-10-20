@@ -1,0 +1,16 @@
+Final working-tree checks, 19 October 2026
+bun install --frozen-lockfile: no dependency/lockfile changes
+TypeScript API/web/E2E/evaluation: PASS
+221 pass
+259 pass
+54 pass
+Web bundle budget passed: App 71984 gzip bytes; 8 route chunks; MapPanel 1122953 raw bytes.
+============================= 215 passed in 35.04s =============================
+Ran 1 test suite in 12.47ms (894.39µs CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)
+18 passed (2.7m)
+9 passed (2.1m)
+Anvil integration: 1 pass, 42 assertions
+Python normalized-input conformance: 4218 sources, 23861 linked records, 8436 queries, 11 example replays: PASS
+CLI: valid original PASS; changed output REJECTED; changed+rehashed REJECTED; wrong expected digest REJECTED
+Source bindings: 20/20 match; prior frozen artifacts: 25/25 match
+No remote CI, deployment, live provider, public chain, physical mobile or human validation.

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "gitObject": "99662e6:apps/web/public/data/mars-snapshot.json.gz",
+  "inputFileSha256": "a29a892e6c8aed4d6389313ffbc311df0bfe4e59aa78cce2b1b2cdbfb65ee72d",
+  "decodedContentSha256": "ca319db4e2bd2e07d65a23e39f91e6116a93562dbe53aa3e59336c0a5f845b8d",
+  "byteLength": 2824828,
+  "snapshotId": "unep-mars-e0721015e925",
+  "provenance": {
+    "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+    "dataset": "Eye on Methane / MARS detected sources and plumes",
+    "localFileName": "unep_mars_sources_plumes_2026-10-12.zip",
+    "catalogUrl": "https://methanedata.unep.org/download-dataset",
+    "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+    "retrievedAt": "2026-10-12T10:20:45+00:00",
+    "archiveSha256": "e0721015e925c4d70012ca13e697f5638421bc7c2a42f7e3dce8edec6cee8481",
+    "snapshotId": "unep-mars-e0721015e925",
+    "license": "CC BY-NC-SA 4.0",
+    "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred."
+  },
+  "limitation": "Original normalized browser projection restored byte-for-byte from Git history. Original publisher CSV archive is identified by its recorded digest; not re-downloaded or authenticated in this run."
+}

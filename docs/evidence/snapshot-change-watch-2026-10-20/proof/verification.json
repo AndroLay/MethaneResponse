@@ -1,0 +1,240 @@
+{
+  "recordedAt": "2026-10-20T08:09:28.413Z",
+  "inputPins": {
+    "before": {
+      "datasetSnapshotId": "unep-mars-e0721015e925",
+      "inputFileSha256": "a29a892e6c8aed4d6389313ffbc311df0bfe4e59aa78cce2b1b2cdbfb65ee72d"
+    },
+    "after": {
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7"
+    }
+  },
+  "reportDigest": "0x4363ad48a49f67dc5838482920b6fa607be06f0ab200eb5d10061a351ddb8077",
+  "summary": {
+    "addedSources": 7,
+    "removedSources": 0,
+    "changedSources": 170,
+    "addedObservations": 95,
+    "removedObservations": 0,
+    "changedObservations": 3,
+    "laterDatedAdditions": 82,
+    "historicalBackfillAdditions": 13,
+    "reassignedObservations": 0
+  },
+  "affectedSourceCount": 178,
+  "allocations": [
+    {
+      "capacity": 10,
+      "reportDigest": "0x52e42d2d5429012c29ed21a35ad3a3d6cb539cc99d93139563d0150e839ae8b5",
+      "strategy": "weighted",
+      "selectedIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "affectedSelectedIds": [
+        "DZA_S_011",
+        "IRN_S_065",
+        "TKM_S_021"
+      ],
+      "unchangedSelectedIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "VEN_S_008",
+        "BHR_S_003"
+      ],
+      "reasons": [
+        {
+          "sourceId": "DZA_S_011",
+          "sourceMetadataFields": [
+            "persistency",
+            "persistencyStd"
+          ],
+          "observationIds": []
+        },
+        {
+          "sourceId": "IRN_S_065",
+          "sourceMetadataFields": [
+            "detectedPlumeCount",
+            "latestPlumeDate",
+            "latestPlumeId",
+            "persistency",
+            "persistencyCategory",
+            "persistencyStd"
+          ],
+          "observationIds": [
+            "9df0c781-bb77-422b-88e6-89186f957ceb"
+          ]
+        },
+        {
+          "sourceId": "TKM_S_021",
+          "sourceMetadataFields": [
+            "persistency"
+          ],
+          "observationIds": []
+        }
+      ]
+    },
+    {
+      "capacity": 20,
+      "reportDigest": "0xe4eb8148a14768172d6bb7927a59bf78bf619b86e43090bbd46dc0530597c596",
+      "strategy": "weighted",
+      "selectedIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011",
+        "IND_S_042",
+        "USA_S_015",
+        "THA_S_008",
+        "USA_S_073",
+        "DZA_S_248",
+        "PAK_S_001",
+        "CHL_S_001",
+        "SYR_S_001",
+        "VEN_S_001",
+        "ARG_S_026"
+      ],
+      "affectedSelectedIds": [
+        "DZA_S_011",
+        "IRN_S_065",
+        "TKM_S_021"
+      ],
+      "unchangedSelectedIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "VEN_S_008",
+        "BHR_S_003",
+        "IND_S_042",
+        "USA_S_015",
+        "THA_S_008",
+        "USA_S_073",
+        "DZA_S_248",
+        "PAK_S_001",
+        "CHL_S_001",
+        "SYR_S_001",
+        "VEN_S_001",
+        "ARG_S_026"
+      ],
+      "reasons": [
+        {
+          "sourceId": "DZA_S_011",
+          "sourceMetadataFields": [
+            "persistency",
+            "persistencyStd"
+          ],
+          "observationIds": []
+        },
+        {
+          "sourceId": "IRN_S_065",
+          "sourceMetadataFields": [
+            "detectedPlumeCount",
+            "latestPlumeDate",
+            "latestPlumeId",
+            "persistency",
+            "persistencyCategory",
+            "persistencyStd"
+          ],
+          "observationIds": [
+            "9df0c781-bb77-422b-88e6-89186f957ceb"
+          ]
+        },
+        {
+          "sourceId": "TKM_S_021",
+          "sourceMetadataFields": [
+            "persistency"
+          ],
+          "observationIds": []
+        }
+      ]
+    }
+  ],
+  "cli": [
+    {
+      "scenario": "original",
+      "expectedExit": 0,
+      "actualExit": 0,
+      "output": "{\"valid\":true,\"before\":\"unep-mars-e0721015e925\",\"after\":\"unep-mars-675417694883\",\"digest\":\"0x4363ad48a49f67dc5838482920b6fa607be06f0ab200eb5d10061a351ddb8077\",\"sourceRecordsCompared\":8429,\"observationsCompared\":60733,\"limitation\":\"Replayed normalized records bound to separately supplied input and report digests; not publisher authentication, live monitoring or physical mitigation proof.\"}"
+    },
+    {
+      "scenario": "edited",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Change report differs from separately trusted digest"
+    },
+    {
+      "scenario": "edited-and-rehashed-trusted-head",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Change report differs from separately trusted digest"
+    },
+    {
+      "scenario": "edited-and-rehashed-own-head-full-record-replay",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Change report does not match complete original record replay"
+    },
+    {
+      "scenario": "wrong-original-input",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Historical snapshot input hash mismatch"
+    },
+    {
+      "scenario": "wrong-report-commitment",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Change report differs from separately trusted digest"
+    },
+    {
+      "scenario": "missing-trusted-inputs",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Usage: REPORT.json --before OLD.json.gz --after NEW.json.gz --expected-before TRUSTED_SHA256 --expected-after TRUSTED_SHA256 --expected-report TRUSTED_0x_SHA256"
+    },
+    {
+      "scenario": "unknown-option",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Usage: REPORT.json --before OLD.json.gz --after NEW.json.gz --expected-before TRUSTED_SHA256 --expected-after TRUSTED_SHA256 --expected-report TRUSTED_0x_SHA256"
+    }
+  ],
+  "independentOracle": {
+    "independentRecordReplay": true,
+    "sourceRecordsCompared": 8429,
+    "observationsCompared": 60733,
+    "summary": {
+      "addedSources": 7,
+      "removedSources": 0,
+      "changedSources": 170,
+      "addedObservations": 95,
+      "removedObservations": 0,
+      "changedObservations": 3,
+      "laterDatedAdditions": 82,
+      "historicalBackfillAdditions": 13,
+      "reassignedObservations": 0
+    },
+    "limitation": "Independent semantic comparison. Canonical SHA-256 replay is checked separately by the TypeScript verifier; neither establishes physical mitigation."
+  },
+  "limitation": "Two real historical normalized snapshots. Software scenario replay, not a human study, live monitoring, prospective accuracy, physical methane reduction or a blockchain transaction."
+}

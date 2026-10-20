@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-20T11:59:33.101153+00:00",
+  "baselineCommit": "8e19c034e666a6b00d93b4cb3f5747f563c75aab",
+  "state": "Local source verification before authorized publication; public CI/deployment must be checked separately.",
+  "primaryTests": {
+    "api": 296,
+    "web": 277,
+    "typescriptTooling": 63,
+    "pythonPipeline": 221,
+    "pythonDeliveryTools": 15,
+    "foundry": 4,
+    "total": 876
+  },
+  "gate": {
+    "command": "bun run check:all",
+    "exitCode": 0,
+    "log": "gate-output.txt",
+    "frozenInstall": true,
+    "typecheck": true,
+    "build": true,
+    "bundleBudget": true,
+    "appEntryGzipBytes": 74673,
+    "appEntryBudget": 75000,
+    "mapLazyRawAdvisoryBytes": 1124042,
+    "runtimeBun": "1.4.3",
+    "pinnedCIBun": "1.4.2",
+    "cleanArchiveReproduction": {
+      "sourceArchiveSha256": "0e6b619c09ed04896af764fa35628b7fe446fdf474297c772f973e0307fbe2e3",
+      "archiveBytes": 67837606,
+      "archiveMembers": 1377,
+      "install": "bun install --offline --frozen-lockfile --cache-dir /home/andro/.bun/install/cache",
+      "installExitCode": 0,
+      "gateExitCode": 0,
+      "runtimeInputsCompared": 602,
+      "allRuntimeInputsMatchCurrentWorkingTree": true,
+      "limitation": "Cached reinstall, not proof of an uncached network dependency installation. Final ZIP additionally contains this dated evidence."
+    }
+  },
+  "browser": {
+    "baseline": {
+      "command": "bun run test:e2e e2e/audit-workflow.spec.ts",
+      "exitCode": 0,
+      "passed": 28,
+      "log": "browser-main-output.txt"
+    },
+    "private": {
+      "command": "bun run test:e2e e2e/ai-review-workflow.spec.ts",
+      "exitCode": 0,
+      "passed": 12,
+      "log": "browser-private-output.txt"
+    },
+    "uniqueChecks": 40,
+    "actualBrowserJourneys": 39,
+    "nodeSchemaCheck": 1,
+    "retries": 0,
+    "skips": 0,
+    "sandboxEnabled": true,
+    "gpu": "SwiftShader; no physical-phone performance claim",
+    "runnerHelperTests": 5,
+    "runnerHelpersExcludedFromUniqueCount": true
+  },
+  "additional": {
+    "actualAnvil": 1,
+    "caseworkOperations": 2,
+    "publicationOperations": 1,
+    "judgingPackagerTests": 9,
+    "videoEditorTests": 3,
+    "captureJourney": {
+      "passed": 1,
+      "alreadyCountedInBrowserJourneys": true,
+      "log": "capture-output.txt"
+    },
+    "overlapCliScenarios": 4
+  },
+  "snapshot": {
+    "activeChanged": false,
+    "active": "unep-mars-675417694883",
+    "candidate": "unep-mars-b65f695b5168",
+    "downloadedOfficialArchive": true,
+    "archiveSha256": "b65f695b516851c1eb0cae4a730615e64b909333dc0203dc15d90367d543a6fd",
+    "independentPythonAndTypeScriptReplay": true,
+    "sourceRecordsCompared": 8415,
+    "plumeRecordsCompared": 60943,
+    "affectedSources": 400
+  },
+  "preservation": {
+    "earlierFrozenArtifactsVerified": 131,
+    "packages": 6
+  },
+  "review": {
+    "readOnlyIndependentImplementationReview": true,
+    "findingsClosed": [
+      "Protect download output trees and resolve symlinks",
+      "Reject publisher redirects and record final URL",
+      "Exclude runtime temp/state from source ZIP",
+      "Reject additional recognizable credentials",
+      "Retain runtime pin in archive"
+    ],
+    "earlierFailedRuns": [
+      "Browser sandbox socket permission, corrected by isolated approved invocation with Chromium sandbox active",
+      "Two selectors and delayed CDP response-body reads in test harness, corrected without weakening product assertions",
+      "Concurrent capture build replaced shared dist chunks; trace showed 404 dynamic imports. Final browser/build runs serialized",
+      "Capture config loader and missing Playwright FFmpeg prerequisite, corrected; failed outputs retained",
+      "Redundant official download with hardened final-URL checks was reset by publisher/network before completion. Earlier complete official acquisition and independent replay remain retained; no active data changed."
+    ],
+    "limitations": [
+      "Static review is not penetration certification",
+      "Single-writer file store and process-local quotas",
+      "Declared document hashes and bounded authorized comparison",
+      "No live-provider quality, public Sepolia, human pilot or physical mobile validation"
+    ]
+  },
+  "delivery": {
+    "technicalVideoDurationSeconds": 65.4,
+    "videoTechnicalAudit": "pass",
+    "videoCreativeReview": "not_reviewed",
+    "mainPresentation": "Historical narrated v12, 267.92 seconds",
+    "render": "No new service: workspace zero-cost controls unavailable through connector",
+    "publishAuthorized": true,
+    "renderOnlyIfZeroCostVerified": true,
+    "devpostSubmitted": false
+  }
+}

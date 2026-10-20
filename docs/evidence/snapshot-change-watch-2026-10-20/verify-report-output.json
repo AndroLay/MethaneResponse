@@ -1,0 +1,9 @@
+{
+  "valid": true,
+  "before": "unep-mars-e0721015e925",
+  "after": "unep-mars-675417694883",
+  "digest": "0x4363ad48a49f67dc5838482920b6fa607be06f0ab200eb5d10061a351ddb8077",
+  "sourceRecordsCompared": 8429,
+  "observationsCompared": 60733,
+  "limitation": "Replayed normalized records bound to separately supplied input and report digests; not publisher authentication, live monitoring or physical mitigation proof."
+}

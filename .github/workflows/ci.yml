@@ -38,6 +38,8 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+      - name: Verify bounded download and source packaging tools
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - uses: astral-sh/setup-uv@v7
       - run: uv sync --locked --extra research
         working-directory: services/data-pipeline

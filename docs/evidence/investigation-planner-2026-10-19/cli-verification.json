@@ -1,0 +1,44 @@
+{
+  "recordedAt": "2026-10-19T22:29:22.656459+00:00",
+  "scope": "Local CLI, not issuer authentication",
+  "reportFileSha256": "d2ac8858740cb6c2690c8dd4de67114396e0ed673249b61ec1bc89c814c0f372",
+  "expectedDigest": "0x52e42d2d5429012c29ed21a35ad3a3d6cb539cc99d93139563d0150e839ae8b5",
+  "results": [
+    {
+      "name": "original with trusted digest",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "pass": true
+    },
+    {
+      "name": "edited report",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "pass": true
+    },
+    {
+      "name": "edited and rehashed report",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "pass": true
+    },
+    {
+      "name": "wrong expected digest",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "pass": true
+    },
+    {
+      "name": "unknown argument rejected",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "pass": true
+    },
+    {
+      "name": "missing expected digest rejected",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "pass": true
+    }
+  ]
+}

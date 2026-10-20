@@ -1,0 +1,50 @@
+Final production-preview Chromium runs; each phase rebuilt current source.
+Chromium sandbox enabled on local host; dedicated local ports; external imagery blocked.
+Main:
+✓   1 [chromium] › e2e/audit-workflow.spec.ts:17:5 › Historical snapshot watch connects real release changes to selected investigations, exact fields and paged records (11.9s)
+✓   2 [chromium] › e2e/audit-workflow.spec.ts:64:5 › Historical snapshot watch discards delayed results after the selected strategy changes (5.3s)
+✓   3 [chromium] › e2e/audit-workflow.spec.ts:83:5 › Historical snapshot failure explains the blocker and permits an explicit retry (4.8s)
+✓   4 [chromium] › e2e/audit-workflow.spec.ts:100:5 › Active investigation plan keeps exact 10 to 20 source membership across queue, globe and evidence handoff (12.1s)
+✓   5 [chromium] › e2e/audit-workflow.spec.ts:143:5 › Delayed activation cannot publish a strategy that the analyst has already changed (4.6s)
+✓   6 [chromium] › e2e/audit-workflow.spec.ts:165:5 › Earlier plan import requires trusted digest and separates capacity differences from dataset changes (8.1s)
+✓   7 [chromium] › e2e/audit-workflow.spec.ts:189:5 › Scoped active plans never restore reports under different visible country controls (4.6s)
+✓   8 [chromium] › e2e/audit-workflow.spec.ts:205:5 › Investigation planner compares capacity-constrained portfolios, exports replay and opens exact cases on desktop and mobile (7.4s)
+✓   9 [chromium] › e2e/audit-workflow.spec.ts:253:5 › Investigation planner invalidates pending results, recovers from API failure and reports unfilled quotas (5.7s)
+✓  10 [chromium] › e2e/audit-workflow.spec.ts:282:5 › Investigation planner handoff clears hiding filters and confirms unsaved work exactly once (10.0s)
+✓  11 [chromium] › e2e/audit-workflow.spec.ts:315:5 › Observation cross-check exposes exact historical counterexamples, refuses repair inference and invalidates stale results (6.2s)
+✓  12 [chromium] › e2e/audit-workflow.spec.ts:387:5 › Decision Lab explains real record eligibility, exports requests and keeps authored challenges separate (4.6s)
+✓  13 [chromium] › e2e/audit-workflow.spec.ts:428:5 › scope presets and report verification work without a CLI on desktop and mobile (11.6s)
+✓  14 [chromium] › e2e/audit-workflow.spec.ts:490:5 › analyst case work resumes after refresh with a bounded scope and a work-status queue (7.9s)
+✓  15 [chromium] › e2e/audit-workflow.spec.ts:533:5 › claim requirements guide investigation and export a readable snapshot-bound brief (7.6s)
+✓  16 [chromium] › e2e/audit-workflow.spec.ts:584:5 › P4 reviewer v2 is readable without external assets and supports keyboard navigation on mobile (883ms)
+✓  17 [chromium] › e2e/audit-workflow.spec.ts:616:5 › saved assessments can be compared by claim without creating extra revisions (3.2s)
+✓  18 [chromium] › e2e/audit-workflow.spec.ts:645:5 › late audit and verification responses cannot overwrite a changed investigation (5.3s)
+✓  19 [chromium] › e2e/audit-workflow.spec.ts:694:5 › opening a saved revision takes precedence over an earlier pending assessment (3.3s)
+✓  20 [chromium] › e2e/audit-workflow.spec.ts:725:5 › map case details show the official Canada report link with its date and license metadata (3.5s)
+✓  21 [chromium] › e2e/audit-workflow.spec.ts:759:5 › MARS publisher indicators load lazily, preserve monthly/country history, paginate, and jump to an exact source (4.5s)
+✓  22 [chromium] › e2e/audit-workflow.spec.ts:831:5 › historical MARS case can be audited, exported, verified, and tampering is rejected (10.1s)
+✓  23 [chromium] › e2e/audit-workflow.spec.ts:924:5 › guided investigation keeps the selected source and exposes discrete audit stages (5.7s)
+✓  24 [chromium] › e2e/audit-workflow.spec.ts:986:5 › collapsed navigation reveals its label on keyboard focus (1.8s)
+✓  25 [chromium] › e2e/audit-workflow.spec.ts:1002:5 › global historical map becomes usable when remote basemap tiles are unavailable (3.2s)
+✓  26 [chromium] › e2e/audit-workflow.spec.ts:1020:5 › unsaved work is guarded and recovered while separate investigations keep independent scopes (9.3s)
+✓  27 [chromium] › e2e/audit-workflow.spec.ts:1083:5 › human drafts recover exact metadata without credentials or inspection confirmation and skip optional AI (8.1s)
+✓  28 [chromium] › e2e/audit-workflow.spec.ts:1128:5 › chain recovery controls protect credentials and never retry a pending write (UI fixture) (6.3s)
+28 passed (3.3m)
+Private/team/publication/mock-AI:
+✓   1 [chromium] › e2e/ai-review-workflow.spec.ts:13:5 › Plan reviewers save authenticated immutable revisions, preserve stale drafts and export verified history (17.9s)
+✓   2 [chromium] › e2e/ai-review-workflow.spec.ts:75:5 › shared team investigations import explicitly, hand off across isolated sessions, and retain conflicting drafts (15.0s)
+✓   3 [chromium] › e2e/ai-review-workflow.spec.ts:189:5 › DEMO trust controls publish only an opted-in redacted summary with independently checked checksum (8.5s)
+✓   4 [chromium] › e2e/ai-review-workflow.spec.ts:261:5 › DEMO publication correction and withdrawal stay consistent after reload and failed refresh (8.6s)
+✓   5 [chromium] › e2e/ai-review-workflow.spec.ts:326:5 › DEMO publication history loads older pages without reviving superseded versions (3.6s)
+✓   6 [chromium] › e2e/ai-review-workflow.spec.ts:356:5 › DEMO human correction recovers its parent after a baseline and protects an unsaved draft (4.8s)
+✓   7 [chromium] › e2e/ai-review-workflow.spec.ts:396:5 › DEMO withdrawal reloads the current list after a concurrent public correction (4.5s)
+✓   8 [chromium] › e2e/ai-review-workflow.spec.ts:450:5 › human-only evidence decisions save private revisions and export without invoking document AI (12.2s)
+✓   9 [chromium] › e2e/ai-review-workflow.spec.ts:548:5 › local mock AI citations receive a separate scoped review and remain private until publication consent (9.7s)
+✓  10 [chromium] › e2e/ai-review-workflow.spec.ts:758:5 › late document responses stay out of a restarted claim investigation (3.4s)
+10 passed (1.7m)
+38 unique scenarios, 0 failures, 0 retries, 0 skips in final phases.
+Five runner helper tests also pass; focused/repeated runs are not added to unique coverage.
+Desktop and 390x844 viewport captures inspected; mobile emulation is not physical-phone evidence.
+Earlier restricted launch failed at socket() before app assertions; sandbox was not disabled.
+Earlier transient-width captures were replaced by settled-width viewport screenshots.
+Full traces/network archives remain temporary because fixture sessions can contain ephemeral credentials.

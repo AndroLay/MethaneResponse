@@ -1,0 +1,5 @@
+$ bash scripts/check-local.sh
+Baseline evaluation output: /home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/connected-delivery/baseline-clean.json
+bun install v1.4.3 (c6da4a4d3)
+Terminated                 bun install --frozen-lockfile
+error: script "check:all" exited with code 143

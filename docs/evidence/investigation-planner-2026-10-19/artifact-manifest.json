@@ -1,0 +1,85 @@
+{
+  "recordedAt": "2026-10-19T22:39:29.644533+00:00",
+  "algorithm": "SHA-256",
+  "scope": "Local prototype evidence, unsigned manifest; source bindings remain revision-specific and are not publisher authentication or physical outcome validation.",
+  "files": {
+    "README.md": {
+      "sha256": "df05524da5b2d32963ab5d8e09de0760d241290dd8dc66c31fb0a6abc610e711",
+      "bytes": 9320
+    },
+    "browser-output.txt": {
+      "sha256": "ee2d72ed1159b83f29448526f25c4853e5728eb4ca23478e13dcc75efa34182b",
+      "bytes": 9929
+    },
+    "checks-output.txt": {
+      "sha256": "08f1187cd2ce722b459cc9db6d51a0f31d74cfdc434ac237ae683af5f46ed335",
+      "bytes": 937
+    },
+    "checks.json": {
+      "sha256": "e478d76db18a48ed8503fc970db21ea81122867d4d0baee494adcf0e8bd01471",
+      "bytes": 4497
+    },
+    "cli-verification.json": {
+      "sha256": "8b0ad7f5ea5bb4438373f89f7fba27ac40631401ce78f510a5724520269c8d16",
+      "bytes": 1050
+    },
+    "local-anvil-output.txt": {
+      "sha256": "bfe623f78ee27e7519c1c7f0260ea2ee067b1755526d9b81c89773d8e5b2806d",
+      "bytes": 356
+    },
+    "local-anvil.json": {
+      "sha256": "66787edc4193ee0c2b33071f0a8d84f2bf9a5ad12cf5108479587818a64f25a3",
+      "bytes": 2562
+    },
+    "planner-bundle.json": {
+      "sha256": "925cbc6e1e87d07a11ecb3fc924926ccd5d27e432cf64c6480f93193397a638f",
+      "bytes": 155
+    },
+    "planner-comparisons-mobile.png": {
+      "sha256": "712491fd4abb550f6b5791fd69fe1caadc276ef410dbd53eb7316d9fcefffb99",
+      "bytes": 102736
+    },
+    "planner-desktop.png": {
+      "sha256": "8f25f027dc54139e4821a77740018c3e562dd6fdfc27997f16021309ebf431ec",
+      "bytes": 375886
+    },
+    "planner-mobile.png": {
+      "sha256": "da757506673f7bfa49b4c18a7e20b3856206a6ba7d942135280f61954043b970",
+      "bytes": 124832
+    },
+    "proof/empty-scope.json": {
+      "sha256": "bbcbbac23313adf17959a5c183b0d91c96d9d4dae3f9d896fa7f60a31326aea8",
+      "bytes": 1374088
+    },
+    "proof/global-fifty.json": {
+      "sha256": "416ae79999c9ba805bb2719e404f6992160c5c0c035a911f476da36f8f520b64",
+      "bytes": 1379033
+    },
+    "proof/global-ten.json": {
+      "sha256": "d2ac8858740cb6c2690c8dd4de67114396e0ed673249b61ec1bc89c814c0f372",
+      "bytes": 1374964
+    },
+    "proof/kazakhstan-quota.json": {
+      "sha256": "5e2ee12098228ef5de2b306213a26cb47dc40c9e2ba710ffeb2d7f7cde23ed2f",
+      "bytes": 1374158
+    },
+    "proof/verification.json": {
+      "sha256": "a97292554dda6df38592d7597cc52359d1981e865e4e02d78f72e32daa7bb70b",
+      "bytes": 21218
+    },
+    "proof/waste-ten.json": {
+      "sha256": "82b6a5111182fcc066ceb80cc4c85ad7e4b77682827adb4c00053950fc40eb78",
+      "bytes": 1375161
+    }
+  },
+  "documentationSha256": {
+    "README.md": "307daaeb04593784b04b3d4bb5d61872081c9d819b99318731d0b9d9fc0b60fb",
+    "docs/plans/2026-10-19-investigation-planner.md": "7ba9362a371507237561a012fead7664083bc21eb2489acb56abec4e55df5b2d",
+    "docs/product/user-workflow.md": "9892fe71d080010fe0b0bba4da55db05dbc2233f1cac24aa126ea3eb4f92334b",
+    "docs/architecture/api-reference.md": "8e5e5f20e49420474478d90ebbdad6c0769ad53d098352082ada79e690849ba4",
+    "docs/evidence/README.md": "266bd45ba6e56b802e05786073275b44cd0c42d708340d9b8018e8e799125f9b",
+    "docs/release/current-implementation-status.md": "19313336df3a7199f454f52c31f9f3d86071d95ed1261c86348dac262dd5a229",
+    "docs/testing/README.md": "dfa24fac18d2e6cd25a1e0f898404bffa9166732e9c8a70766564c999a9d8980",
+    "docs/testing/end-to-end.md": "d45996d9f456b9996c2da1562936a920b79abe009ef110127d961e6550938a86"
+  }
+}

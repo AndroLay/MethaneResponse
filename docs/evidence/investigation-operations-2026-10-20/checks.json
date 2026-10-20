@@ -1,0 +1,171 @@
+{
+  "recordedAt": "2026-10-20T03:48:41.818692+00:00",
+  "baselineCommit": "8e19c034e666a6b00d93b4cb3f5747f563c75aab",
+  "state": "Uncommitted current working tree; selected source bindings below. No push, deployment or public-chain operation.",
+  "commands": [
+    {
+      "command": "bun run check:all",
+      "exitCode": 0,
+      "localLogSha256": "6ecb4a3a102ec0b67dcb848886aefc222de20bc28281c8173587b5e1a250789f"
+    },
+    {
+      "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium bun run test:e2e e2e/audit-workflow.spec.ts",
+      "exitCode": 0,
+      "localLogSha256": "7ece79b282a1cb0d6bc644e10ac8c5880688c5aa4a7a99769242678a6105a6c7"
+    },
+    {
+      "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium bun run test:e2e e2e/ai-review-workflow.spec.ts",
+      "exitCode": 0,
+      "localLogSha256": "37038f596bce06c3843df240471ce75b7801b6a1a911b681628d38225991e34a"
+    },
+    {
+      "command": "bun --no-env-file scripts/investigation-operations-proof.ts --output NEW_DIRECTORY",
+      "exitCode": 0,
+      "localLogSha256": "3795a982b37a9466ea45b949a5b4c7720a0c3b0aac442664e43bd950288d3ad4"
+    },
+    {
+      "command": "bun run verify:plan REPOSITORY_JOURNAL --expected-head RECORDED_HEAD",
+      "exitCode": 0,
+      "localLogSha256": "5418117df7526252c1d6c6590b1db5f64909896eef1391a2e0ec4a450a537656"
+    }
+  ],
+  "mainSuites": {
+    "api": 243,
+    "web": 267,
+    "tooling": 55,
+    "python": 217,
+    "foundry": 4,
+    "total": 786,
+    "failures": 0,
+    "skips": 0
+  },
+  "browser": {
+    "main": 25,
+    "privateTeamPublicationMockAI": 10,
+    "uniqueScenarios": 35,
+    "failures": 0,
+    "skips": 0,
+    "retries": 0,
+    "workers": 1,
+    "runnerHelpers": 5,
+    "repeatsNotAddedToUniqueCoverage": true,
+    "frontend": "Fresh NODE_ENV=production build before each isolated phase",
+    "chromium": "153.0.8010.52, sandbox enabled",
+    "mobile": "390x844 viewport emulation, not a physical phone",
+    "externalImagery": "Blocked; ring rendering/layout/handoff checked, no live imagery quality claim",
+    "dedicatedPorts": {
+      "main": [
+        43639,
+        4193
+      ],
+      "private": [
+        43739,
+        4194,
+        43740
+      ]
+    }
+  },
+  "bundle": {
+    "appGzipBytes": 72831,
+    "budgetBytes": 75000,
+    "requiredLazyRoutes": 8,
+    "mapRawBytes": 1124042,
+    "advisory": "MapLibre chunk still exceeds the Vite advisory threshold; no FPS guarantee."
+  },
+  "proof": {
+    "sourceCount": 4218,
+    "linkedPlumeRecords": 23861,
+    "datasetSnapshotId": "unep-mars-675417694883",
+    "sameSnapshotCapacities": [
+      10,
+      20
+    ],
+    "added": 10,
+    "removed": 0,
+    "changedSelectedSummaries": 0,
+    "cliScenarios": 6,
+    "fileStoreReopenVerified": true,
+    "reviewer": "Explicit DEMO software fixture; not human research",
+    "differentSnapshotRegression": "Synthetic DEMO only, no real second-snapshot validation",
+    "planBlockchainAnchored": false
+  },
+  "preservedPriorManifests": {
+    "decision-lab-2026-10-19": 25,
+    "observation-crosscheck-2026-10-19": 30,
+    "investigation-planner-2026-10-19": 17
+  },
+  "runtime": {
+    "bunActual": "1.4.3",
+    "python": "3.12.13",
+    "database": "None",
+    "newDependencies": false
+  },
+  "selectedSourceBindings": {
+    "package.json": "300cf54800220e81741f85a1d5494707cdd76507a58458ebdfa38ceea900ef35",
+    "bun.lock": "0b1c52b35c173b29c5b5ac251176e752db6f7a2b960ee60573b2b005b604bd1a",
+    "packages/shared/package.json": "540247ed48b7e9cd6a5b75e86b475cc646f2e51545a7afb4055a7c61640b1e66",
+    "packages/shared/src/investigation-planner.ts": "d87b060262903e9ac0cf962a198f91a2ae39a0eeedc902580a9cf9d4f042855f",
+    "packages/shared/src/plan-journal.ts": "465b7254ab5671eaddc2aeed3695b5b19030edd93ac123eca987c555e5b886f8",
+    "apps/api/src/app.ts": "5feebcfb97fb28c3c83d78f6816049dea3a552250909b9cf6434718a8fd7a208",
+    "apps/api/src/index.ts": "7af4c7a2624fc1d83af34e407e512d3d7904b5658f9b105dcf294b939e4252e4",
+    "apps/api/src/case-work-file.ts": "a997335653413d8b6518dbb636f66d3b8426e35ab10f614c0ec26fa54cc46c7a",
+    "apps/api/src/plan-store.ts": "18fd6f18b53ba45475daba7c030f93f55b2f8c13c4284557505b25fca8d21e34",
+    "apps/api/src/investigation-planner-data.ts": "5581e085a7789b4ae6f07ca344e6dab5434cc4ac0fb550445bfb53aaeb8b5245",
+    "apps/api/src/observation-archive.ts": "4e2db7f08d03f19f0aa38b793b820da6ca9edc728908fb05bca186062c6c60e5",
+    "apps/api/src/intelligence-data.ts": "ad436781f5a4423ed3b1b8a36117ca4b87ff4dff78352ac488cd5989edb73ed1",
+    "apps/api/src/reviewer-auth.ts": "7b7874748592ff41dce022034a01fedf1194fd6c82ef94c26ff4ec7852c7bced",
+    "apps/api/src/plan-journal.test.ts": "91bab0fb6ebed64fd16fc91613f36d515ef22a6fe42e173c3a3fc225e4728ad3",
+    "apps/api/src/plan-journal-api.test.ts": "3a46fce47d95d2d4573b18060576fa49db7ed0f3011c4317ff9572887049ab9e",
+    "apps/api/src/investigation-operations.test.ts": "412f4ea53fa8af7292b3379bb008d85eb536a681420d0e541d49185addfd4d27",
+    "apps/web/src/App.tsx": "1f0fe17be7bacf9d97d689bf3eedda2723fa2d871a9f8e13e92fdf82826c061a",
+    "apps/web/src/CasesWorkspace.tsx": "57aaa4d313f9cc0ed3587ced9f6f6728d832a72cc12dca85fa8d6abf6a7d1118",
+    "apps/web/src/MapPanel.tsx": "e16f801013a5d2b21398f2b1c82aaa15c954180d3c93b8e91d877810f597f62e",
+    "apps/web/src/map-focus.ts": "f2ade1fdd733a5a05f6055aef45649e568cfa1ddc5c033eb5b822c3c36be5281",
+    "apps/web/src/map-focus.test.ts": "966245bd1409512b7b97625aab390f249f9bd86f90c0e2647b0e2d4cef8e9ad7",
+    "apps/web/src/InvestigationPlanner.tsx": "c27ec42f8662656061cf90ac35023383904a38fd0db206ec23b919baaa7ce408",
+    "apps/web/src/PlanQueue.tsx": "03647e9ea1b525203fee5be8b26b4014924356cc552f52f8264ba69ef48559a0",
+    "apps/web/src/PlanComparisonPanel.tsx": "434d0c7dfd2a9d404a034937ff612453ec27095778ddb3e34786161a8453481b",
+    "apps/web/src/PlanReviewPanel.tsx": "73cef6ae6a157d6e0e38a9e7328ed33df70abbd63eecf5d0dd91ccc8d9e0667b",
+    "apps/web/src/plan-session.ts": "06946edfd5c8c52afd9e0c9b26f98d18cda6489d1d9a3eaa615e5941a58a0f6c",
+    "apps/web/src/plan-session.test.ts": "2d0e08ab85355a0b668066a9fa294dcd55be580480add9c2d60085e8c70b57cb",
+    "apps/web/src/plan-operations.ts": "18980f00850e606c78a76f2bfedd1f50ad5f5cd948275c65124b711a76f0ed65",
+    "apps/web/src/plan-operations.test.ts": "0b84171fc1417d255c7c5ffbf7ddff564d9ff9b0c1c170969c8cdddef3c5874f",
+    "apps/web/src/shared-work-api.ts": "f1651486aefdf098e64a0f6f9916e7b856af8ed7616af32569a840c7edc3d98f",
+    "apps/web/src/shared-work.test.ts": "216a7f69f211b84e90a816fce629dbc8e6eeecd8f197f277954b7370cf316093",
+    "apps/web/src/use-session-draft.ts": "212eab9ec1dc10e4f7938cb42617b02476179c7711da2fd05b719c246004a51e",
+    "apps/web/src/session-draft.ts": "a48ca2532f7b5dcf3cd8830f7f18597e133a42f30435a19ebf0b2d0eb7ba03cb",
+    "apps/web/src/investigation-planner.css": "bf778167d58322c7aacd034529cff653a101f10103d7fb9ff09122cae7e21f04",
+    "scripts/verify-plan.ts": "eab5e39aeba3ff73c2e800938e0db283531018919ca4ac0a2d969d6cd4ecdcc4",
+    "scripts/verify-plan.test.ts": "002489219eeb82265c396601b8b6ec94dc86a7f79816f5bd2ccfaa5066243c4c",
+    "scripts/investigation-operations-proof.ts": "3d373728325295d55a86b8ac8001fe57907803e4649b7438a11573e7a7a1d88e",
+    "scripts/tsconfig.evaluation.json": "5e2bc209c41656bc8e4835087151863c4f37fe0a2a0cd0ef5e78c4ca317877a4",
+    "scripts/check-local.sh": "0e1dbd3ac7f0e1ece212fa29ea2c5f730b3d91c8c29a8fab421259767f23691f",
+    "scripts/check-web-bundle.ts": "325997158b7152fa4bf95a08b0538a91ada017caf1d42d5eab19b0ba432568f2",
+    "scripts/run-e2e.ts": "b2eb6f73f3a390a375b80441fe3c2d5f2f2f80f02cb2b00d166389bd49f5b61f",
+    "scripts/e2e-runner-utils.ts": "1f0d794270463685628f6ec2a2755b5d0ed377ade8f6837a2336e074ae282722",
+    "scripts/e2e-runner-utils.test.ts": "7cd22f99e36ec142c4405800d454128a85f947ad3e3489502a2bc052703f40d2",
+    "playwright.config.ts": "2f3303f5f26a2fd2fe6787e957a1bb1d79d8845b9a9c7e5189ae1605ecbd3578",
+    "e2e/audit-workflow.spec.ts": "349f0722f1af2a505fb869a97eece201b536e044d3dbaba4f4d19a3fd9b70fc8",
+    "e2e/ai-review-workflow.spec.ts": "72acc83c2e57087323325556bad663cfe701f1d2ad8b091c592a9b786ff48ea7",
+    "README.md": "8ed58a08f9b14afefb06eae7212b03ddafe784f9c3729ef6d0d7cad6ffaaa267",
+    "docs/product/user-workflow.md": "ff02588e0221c8fa8f61c85eaa384d4db2cd89175c2b9c10cb53ab357cfbf28c",
+    "docs/architecture/api-reference.md": "392f37ed134e37425695ff90b96e1b7a50bd47e133503584b2296219c4335ef6",
+    "docs/release/current-implementation-status.md": "d96a04378c7379d6154992767951a15c86c4f31484cabadea780f5bcc0531db9",
+    "docs/plans/2026-10-20-investigation-operations.md": "df89bdf097b664e218a36047e3736c9890f5d7c345ff098c47003bd3525dfa7b",
+    "docs/testing/README.md": "a24a48b6b4788f152db249358350353039576524423fb3ccc0d54a1cbed160a4",
+    "docs/testing/end-to-end.md": "6acd7ed7ea9c882e499604f4fe4683e9616f8a2f3d0ddf15245a4629c8212b23"
+  },
+  "inputFileBindings": {
+    "data/processed/intelligence-snapshot.json": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+    "apps/web/public/data/mars-snapshot.json.gz": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+    "apps/web/public/data/mars-snapshot-manifest.json": "2c46bfc456a02bd85203a380980007b6c5f069f36852df52077428a731089591",
+    "apps/web/public/data/mars-progressive-manifest.json": "4ed8032d315b9db4ff3aed34d805dd8269808e00866ddfd2f0fcc05f8de264a6"
+  },
+  "limits": [
+    "No live AI quality or human pilot",
+    "No public deployment or Sepolia verification",
+    "No automatic next-snapshot ingestion or full observation/notification/feedback diff",
+    "Private single-writer local files require backup; no durable-hosting claim",
+    "Unsigned head-relative integrity is not publisher authentication, physical truth or competitive victory"
+  ]
+}

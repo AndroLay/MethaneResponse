@@ -1,0 +1,99 @@
+{
+  "recordedAt": "2026-10-19T13:02:09.813684+00:00",
+  "baselineCommit": "8e19c034e666a6b00d93b4cb3f5747f563c75aab",
+  "state": "uncommitted working tree; source bindings in proof/verification.json",
+  "commands": [
+    {
+      "command": "bun run check:all",
+      "exitCode": 0,
+      "localLogSha256": "6834506ba155e3802055779a8e425f742440fdd3b7020a4a73334a02017bc285"
+    },
+    {
+      "command": "bun run test:e2e (Chromium host override, sandbox enabled)",
+      "exitCode": 0,
+      "localLogSha256": "5b9bb01e845e4052988dc2ea522fb034d4e337908ff0cffa4d8aee1a65317eae"
+    },
+    {
+      "command": "bun run test:chain-integration",
+      "exitCode": 0,
+      "localLogSha256": "abee2657db4e534f39cf1465acffd8728fbaec729e3e99e6cd78ef6793276029"
+    },
+    {
+      "command": "focused screenshot repeat, excluded from scenario counts",
+      "exitCode": 0,
+      "localLogSha256": "285d71e6f52449624f0e2dc2df5cc0098ded9a83fb9220b6c76fa3c6645f976e"
+    }
+  ],
+  "mainSuites": {
+    "api": 221,
+    "web": 259,
+    "tooling": 54,
+    "python": 215,
+    "foundry": 4,
+    "total": 753,
+    "failures": 0,
+    "skips": 0
+  },
+  "browser": {
+    "baseline": 18,
+    "privateTeamPublicationMockAI": 9,
+    "totalUniqueScenarios": 27,
+    "failures": 0,
+    "skips": 0,
+    "retries": 0,
+    "runnerHelperTests": 4,
+    "focusedCaptureRepeat": 1,
+    "chromiumSandbox": true,
+    "mobile": "390x844 viewport, not physical device"
+  },
+  "localChain": {
+    "tests": 1,
+    "assertions": 42,
+    "chainId": 31337,
+    "network": "disposable Anvil only",
+    "publicReceipt": "not verified"
+  },
+  "runtime": {
+    "bunActual": "1.4.3",
+    "bunPin": "1.4.2",
+    "python": "Python 3.12.13",
+    "chromium": "Chromium 153.0.8010.52 Arch Linux"
+  },
+  "bundle": {
+    "appGzipBytes": 71984,
+    "budgetGzipBytes": 75000,
+    "requiredRouteChunks": 8,
+    "mapPanelRawBytes": 1122953,
+    "newPanel": "lazy, separate chunk",
+    "warnings": [
+      "Existing MapLibre chunk exceeds Vite advisory; Zod comment annotations removed by Rollup. Build and configured budget pass."
+    ]
+  },
+  "proof": {
+    "historicalScenarios": 11,
+    "sourceQueries": 8436,
+    "sources": 4218,
+    "linkedRecords": 23861,
+    "pythonConformance": "PASS on same normalized input, not independent scientific validation",
+    "cliScenarios": 4,
+    "currentSourceBindingsVerified": 20,
+    "priorFrozenArtifactsVerified": 25
+  },
+  "review": {
+    "readOnlyAgentFindings": 2,
+    "fixed": [
+      "Normalized input hash bound between browser and API, regression red/green.",
+      "Dataset values escaped in Markdown, regression red/green."
+    ],
+    "additionalRegression": "Changed snapshot cache identity rejected, regression red/green."
+  },
+  "notPerformed": [
+    "remote CI run",
+    "deployment",
+    "public blockchain transaction",
+    "live model provider",
+    "physical mobile device",
+    "human pilot",
+    "physical repair validation"
+  ]
+}

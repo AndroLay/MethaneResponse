@@ -1,0 +1,29 @@
+{
+  "typescript": {
+    "valid": true,
+    "before": "unep-mars-675417694883",
+    "after": "unep-mars-b65f695b5168",
+    "digest": "0x7382b7a110ee6f90d7ea7fd16d26f009bcf4d70f591c0b8126f9f03ba11dd20c",
+    "sourceRecordsCompared": 8415,
+    "observationsCompared": 60943,
+    "limitation": "Replayed normalized records bound to separately supplied input and report digests; not publisher authentication, live monitoring or physical mitigation proof."
+  },
+  "independentPython": {
+    "independentRecordReplay": true,
+    "sourceRecordsCompared": 8415,
+    "observationsCompared": 60943,
+    "summary": {
+      "addedSources": 23,
+      "removedSources": 44,
+      "changedSources": 332,
+      "addedObservations": 221,
+      "removedObservations": 106,
+      "changedObservations": 16,
+      "laterDatedAdditions": 194,
+      "historicalBackfillAdditions": 27,
+      "reassignedObservations": 4
+    },
+    "limitation": "Independent semantic comparison. Canonical SHA-256 replay is checked separately by the TypeScript verifier; neither establishes physical mitigation."
+  },
+  "activeSnapshotChanged": false
+}

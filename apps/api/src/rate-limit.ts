@@ -7,7 +7,7 @@ export type FixedWindowRateLimitOptions = {
   now?: () => number;
 };
 
-export type RateLimitScope = 'audit_write' | 'ai_assessment';
+export type RateLimitScope = 'audit_write' | 'ai_assessment' | 'decision_plan' | 'observation_check' | 'investigation_allocation' | 'snapshot_transition' | 'investigation_dossier';
 
 export type RateLimitDecision = {
   allowed: boolean;

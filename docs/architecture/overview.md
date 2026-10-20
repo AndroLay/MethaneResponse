@@ -2,7 +2,7 @@
 
 [Pusat dokumentasi](../README.md) · [Peta repo](../repository-map.md) · [Aliran data](data-flow.md) · [Referensi API](api-reference.md)
 
-**Panduan aktif — 17 Oktober 2026.** MethaneResponse adalah proof of concept investigasi historis. Web dan API dapat berjalan dengan data bawaan. Pipeline dijalankan offline untuk membuat artefak; tidak ada worker ingestion yang terus berjalan di belakang API.
+**Panduan aktif — 20 Oktober 2026.** MethaneResponse adalah proof of concept investigasi historis. Web dan API dapat berjalan dengan data bawaan. Pipeline dijalankan offline untuk membuat artefak; tidak ada worker ingestion yang terus berjalan di belakang API.
 
 ## 1. Gambaran komponen
 
@@ -97,3 +97,32 @@ Kode Solidity dan receipt verifier tetap tersedia. Receipt yang valid membuktika
 - Mismatch digest referensi mencegah save determination supported/contradicted. Retrieval gagal tidak diberi label sukses dan tidak otomatis membuktikan referensi salah.
 
 Kondisi eksternal yang belum dibuktikan tercantum di [status implementasi](../release/current-implementation-status.md). Catatan desain database/anchor recovery lama di [indeks arsitektur](README.md) adalah arsip.
+
+## Investigasi terhubung dan batas kepercayaan
+
+[Workflow dan operasi](../development/connected-investigations.md) menghubungkan komponen yang ada tanpa database atau kontrak tambahan:
+
+```mermaid
+flowchart LR
+  P[Accepted plan revision] --> W[Scoped casework history]
+  O[Historical source and snapshot] --> W
+  E[Issued request and authorized response] --> W
+  A[Immutable assessment bundle] --> W
+  W --> D[Verified investigation dossier]
+  D --> H[Current authorized reviewer]
+  H --> F[Frozen decision and previous digest]
+  F --> V[Independent digest verifier]
+  F --> I[Durable anchor intent]
+  I --> C[EvidenceRegistry event]
+  C --> V
+  N[Changed dependency or next snapshot] --> R[Revisit reasons]
+  F --> R
+```
+
+- **Join, bukan penyalinan audit:** casework menyimpan ID/digest assessment, revisi persetujuan rencana dan report perubahan. Dossier memuat material lengkap untuk memeriksa hubungan lintas artefak. Freezing menyalin dossier tepat agar perubahan journal kemudian tidak mengubah keputusan terdahulu.
+- **Privat, bukan proyeksi publik:** signed token, current directory authority dan scope diperiksa sebelum baca/tulis serta setelah operasi asynchronous yang menghasilkan respons privat. Data dari ekspor privat tidak otomatis menjadi public summary. Tidak ada token atau identitas reviewer dalam calldata; registry key mengandung hash context/work identity.
+- **Draft, bukan event eksternal:** penerimaan respons, hash berkas dan hak pemrosesan merupakan deklarasi reviewer. Tidak ada unduhan, pengiriman pesan, pemanggilan model, atau anchor yang dipicu hanya dengan menambah event.
+- **Satu writer:** audit, keputusan dan durable intents memakai satu atomic state envelope; legacy audit dan keputusan berbagi pemeriksaan pending/nonce. Casework dan plan journal mempertahankan CAS/history masing-masing. Tidak ada transaksi multi-file atau dukungan multi-instance; baca ulang material/revisi sebelum persetujuan.
+- **Integrity, bukan physical outcome:** verifier membutuhkan digest tepercaya terpisah, lalu memeriksa canonical payload, hubungan dan replay. Chain verification juga memeriksa receipt/event/head. Revisit merekomendasikan pemeriksaan baru; tidak menulis ulang determination historis.
+
+Dossier/decision validators dan panel investigasi dimuat pada jalur workspace terkait. App entry tetap mengikuti budget gzip yang sama. Kontrak lama dan namespace audit v2 dipertahankan; envelope 3 dan namespace keputusan baru dijelaskan pada panduan operasi beserta batas dan rollback.

@@ -1,5 +1,23 @@
 import { describe, expect, test } from 'bun:test';
-import { buildE2ERunnerEnvironment, routeE2EArguments } from './e2e-runner-utils';
+import { buildE2ERunnerEnvironment, routeE2EArguments, chromiumSandboxEnabled, buildE2EWebServerCommand } from './e2e-runner-utils';
+
+test('browser checks build a fresh production preview and reject unsafe or invalid ports', () => {
+  const command = buildE2EWebServerCommand('4179');
+  expect(command).toBe('cd apps/web && NODE_ENV=production bun --no-env-file run build && NODE_ENV=production bun --no-env-file run preview -- --host 127.0.0.1 --port 4179 --strictPort');
+  for (const port of ['0', '65536', '-1', '4.5', '4179; echo injected', '']) {
+    expect(() => buildE2EWebServerCommand(port)).toThrow('Invalid E2E web port');
+  }
+});
+
+test('Chromium sandbox remains enabled locally and on unknown CI, with a narrow hosted-runner exception', () => {
+  expect(chromiumSandboxEnabled({})).toBe(true);
+  expect(chromiumSandboxEnabled({ CI: 'true' })).toBe(true);
+  expect(chromiumSandboxEnabled({ CI: 'true', GITHUB_ACTIONS: 'true', RUNNER_ENVIRONMENT: 'self-hosted' })).toBe(true);
+  expect(chromiumSandboxEnabled({ CI: 'true', GITHUB_ACTIONS: 'true', RUNNER_ENVIRONMENT: 'github-hosted' })).toBe(false);
+  const env = buildE2ERunnerEnvironment({ CI: 'true', GITHUB_ACTIONS: 'true', RUNNER_ENVIRONMENT: 'github-hosted', AI_API_KEY: 'excluded' }, '/tmp/e2e');
+  expect(chromiumSandboxEnabled(env)).toBe(false);
+  expect(env).not.toHaveProperty('AI_API_KEY');
+});
 
 describe('E2E runner environment', () => {
   test('copies only explicitly allowlisted non-secret settings', () => {

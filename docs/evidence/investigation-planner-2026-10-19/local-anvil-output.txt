@@ -1,0 +1,10 @@
+$ bun --no-env-file scripts/run-chain-integration.ts --evidence /tmp/methane-planner-chain.json
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/chain-integration.test.ts:
+(pass) local chain: lost RPC acknowledgement, independent verifier, historical receipt and process crash recovery [8918.46ms]
+
+ 1 pass
+ 0 fail
+ 42 expect() calls
+Ran 1 test across 1 file. [9.71s]

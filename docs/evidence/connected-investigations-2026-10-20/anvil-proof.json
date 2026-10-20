@@ -1,0 +1,243 @@
+{
+  "label": "DEMO — disposable local Anvil, not public Sepolia evidence",
+  "recordedAt": "2026-10-20T10:35:31.659Z",
+  "chainId": 31337,
+  "auditId": "98e6c023-9b96-4a97-b7f1-a9dc694648d9",
+  "bundleHash": "0xebbcee6801738bfbe9a9d9d7be9ad8ddaee3cf0f509c4eec2ad27bbfc6121b09",
+  "receipt": {
+    "chainId": 31337,
+    "registryAddress": "0xef897de0b11aa3598d31e8218f47ea0736f7ad4e",
+    "txHash": "0x07df2e4e56b0484f8eda74c81e05d2af3119b6332e9b1ca0fa04100ec677368d",
+    "issuer": "0x41A5F552ed38b645D6f1C1A1327b08061b409a60",
+    "version": 1,
+    "blockNumber": "2",
+    "blockHash": "0xba4f24b4a094eddab88a7a1debce13e2dc72d83e5b2f208804f34211cc9bcff2",
+    "confirmations": 1
+  },
+  "connectedInvestigation": {
+    "sourceId": "KAZ_S_159",
+    "synthetic": false,
+    "decisionDigest": "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4",
+    "receipt": {
+      "chainId": 31337,
+      "registryAddress": "0xef897de0b11aa3598d31e8218f47ea0736f7ad4e",
+      "txHash": "0xc4a18b78f1fe9618ead40c67f71c0f316a40ded7a0427b58b7268fdf0240d471",
+      "issuer": "0x41A5F552ed38b645D6f1C1A1327b08061b409a60",
+      "version": 1,
+      "blockNumber": "7",
+      "blockHash": "0xbb679af1084601415667a5685a7f572f24f71e8556896824e45f432a32d74245",
+      "confirmations": 1
+    },
+    "registryKey": "0xa4f33cf2fa15565b5118aba995acc6edc2c44c8fab5b271c73c1a500c880dc5e",
+    "record": {
+      "decision": {
+        "schemaVersion": 1,
+        "policyVersion": "investigation-decision/1",
+        "revision": 1,
+        "previousDigest": null,
+        "reviewerId": "DEMO-chain-reviewer",
+        "reviewedAt": "2026-10-20T10:35:29.337Z",
+        "disposition": "accept_assessment",
+        "rationale": "DEMO human review of source detection coverage; no physical mitigation claim.",
+        "sourceInspected": true,
+        "dossier": {
+          "plans": [],
+          "transitions": [],
+          "assessments": [
+            {
+              "bundleHash": "0x44a8280321fc671a0e60a0a2d9272a0c0c1731d14b3ef0d8bacff135a98e7e17",
+              "bundle": {
+                "schemaVersion": 2,
+                "assessmentSemantics": {
+                  "version": 1,
+                  "basis": "metadata_coverage",
+                  "physicalVerification": "not_established_by_application",
+                  "referencePolicy": "scoped-reference-coverage-v2"
+                },
+                "scope": {
+                  "startDate": "2024-06-07",
+                  "endDate": "2024-06-07"
+                },
+                "auditId": "6b5a72ef-7a0c-4c2c-b4f8-cad2565b26f2",
+                "caseId": "mars:unep-mars-675417694883:KAZ_S_159:scope:dcfde27a701c8bcfa98e079c",
+                "revision": 1,
+                "generatedAt": "2026-10-20T10:35:23.485Z",
+                "sourceId": "KAZ_S_159",
+                "claimType": "source_detected",
+                "result": "supported",
+                "reason": "An evidence reference of the required type is present. This does not authenticate its contents.",
+                "citedEvidence": [
+                  {
+                    "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+                    "kind": "detection",
+                    "claimType": "source_detected",
+                    "title": "UNEP MARS plume observation · 2024-06-07T08:05:04",
+                    "reference": "https://methanedata.unep.org/download-dataset",
+                    "date": "2024-06-07T08:05:04",
+                    "synthetic": false
+                  }
+                ],
+                "externalEvidence": [
+                  {
+                    "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+                    "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+                    "publisher": "United Nations Environment Programme",
+                    "reportDate": "2026-09-23",
+                    "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+                    "contentIncluded": false
+                  }
+                ],
+                "provenance": {
+                  "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+                  "dataset": "Eye on Methane / MARS detected sources and plumes",
+                  "catalogUrl": "https://methanedata.unep.org/download-dataset",
+                  "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+                  "retrievedAt": "2026-10-14T06:10:12+00:00",
+                  "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+                  "snapshotId": "unep-mars-675417694883",
+                  "license": "CC BY-NC-SA 4.0",
+                  "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+                  "localFileName": "sources_plumes_csv.zip"
+                },
+                "limitations": [
+                  "This is a deterministic evidence-coverage baseline, not a scientific or legal certification.",
+                  "A source-level notification or feedback record does not establish physical mitigation.",
+                  "Priority is an uncalibrated investigation aid, not a physical leak likelihood or future-flux forecast.",
+                  "The calibrated recurrence estimate predicts another linked MARS archive record within 365 days for a source already observed; it does not predict methane presence, emissions, repair, or mitigation.",
+                  "The observed flux trend summarizes discrete detection dates only; it is not extrapolated and is not a future forecast.",
+                  "A descriptive trend is emitted only with four or more numeric dates spanning at least 90 days; the method summarizes dated flux with a median pairwise Theil–Sen slope.",
+                  "Observation coverage varies by sensor, revisit schedule, geography, and cloud conditions; missing observations do not mean zero emissions.",
+                  "Source notification and feedback metadata do not verify recipient, repair, or emissions reduction.",
+                  "This small curated casebook has not been independently validated as a predictive model."
+                ],
+                "synthetic": false
+              }
+            }
+          ],
+          "schemaVersion": 1,
+          "policyVersion": "connected-investigation/1",
+          "context": {
+            "sourceId": "KAZ_S_159",
+            "synthetic": false,
+            "datasetSnapshotId": "unep-mars-675417694883",
+            "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43"
+          },
+          "workId": "DEMO-chain-work",
+          "history": [
+            {
+              "status": "review_recorded",
+              "question": "DEMO investigate the historical source.",
+              "notes": "DEMO software reviewer; not a human pilot.",
+              "evidenceRequest": "",
+              "nextAction": "Obtain attributable follow-up.",
+              "claimType": "source_detected",
+              "scope": {
+                "startDate": "2024-06-07",
+                "endDate": "2024-06-07"
+              },
+              "assessmentLink": {
+                "auditId": "6b5a72ef-7a0c-4c2c-b4f8-cad2565b26f2",
+                "bundleHash": "0x44a8280321fc671a0e60a0a2d9272a0c0c1731d14b3ef0d8bacff135a98e7e17"
+              },
+              "context": {
+                "sourceId": "KAZ_S_159",
+                "synthetic": false,
+                "datasetSnapshotId": "unep-mars-675417694883",
+                "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43"
+              },
+              "workId": "DEMO-chain-work",
+              "revision": 1,
+              "ownerId": "DEMO-chain-reviewer",
+              "updatedBy": "DEMO-chain-reviewer",
+              "createdAt": "2026-10-20T10:35:29.308Z",
+              "updatedAt": "2026-10-20T10:35:29.308Z"
+            }
+          ],
+          "physicalOutcomeEstablished": false,
+          "chainAnchored": false,
+          "limitations": [
+            "Private team export: contains notes, reviewer identities and linked assessment content. Share only with authorization.",
+            "Plan links record historical allocation approval, not current assignment authority or a verified repair.",
+            "Snapshot changes recommend record review. Missing records are not zero emissions; metadata changes are not physical outcomes.",
+            "Verification checks commitments and relationships. Replaying snapshot differences against both original normalized inputs requires verify:snapshot-transition.",
+            "The expected digest must come from a separately trusted channel. This unsigned dossier is not a blockchain receipt or independent identity certification."
+          ],
+          "digest": "0xdade56b6c765e5fae2bd8c89271b792b09b7e717dbff2deb3ad9e0881b2d23e5"
+        },
+        "physicalOutcomeEstablished": false,
+        "digest": "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4"
+      },
+      "receipt": {
+        "chainId": 31337,
+        "registryAddress": "0xef897de0b11aa3598d31e8218f47ea0736f7ad4e",
+        "txHash": "0xc4a18b78f1fe9618ead40c67f71c0f316a40ded7a0427b58b7268fdf0240d471",
+        "issuer": "0x41A5F552ed38b645D6f1C1A1327b08061b409a60",
+        "version": 1,
+        "blockNumber": "7",
+        "blockHash": "0xbb679af1084601415667a5685a7f572f24f71e8556896824e45f432a32d74245",
+        "confirmations": 1
+      },
+      "registryKey": "0xa4f33cf2fa15565b5118aba995acc6edc2c44c8fab5b271c73c1a500c880dc5e",
+      "chainStatus": "verified_historical",
+      "revisit": {
+        "state": "no_new_dependency_changes",
+        "frozenWorkRevision": 1,
+        "latestWorkRevision": 1,
+        "snapshotComparison": "already_in_decision_snapshot",
+        "reasons": [],
+        "historicalDecisionUnchanged": true,
+        "physicalOutcomeEstablished": false
+      },
+      "physicalOutcomeEstablished": false
+    },
+    "original": "VERIFIED_LATEST",
+    "alteredAndRehashed": "REJECTED even against its recomputed local digest",
+    "originalAgain": "VERIFIED_LATEST",
+    "afterNextDecision": "VERIFIED_HISTORICAL",
+    "lostAcknowledgement": "502; pending durable intent; restart and reconcile; exactly one nonce consumed",
+    "auditAndDecisionNonceCoordinator": "both directions block while another intent is pending",
+    "physicalOutcomeEstablished": false
+  },
+  "independentVerifier": "VALID_LATEST then VALID_HISTORICAL",
+  "modifiedBundle": "REJECTED",
+  "forgedIssuer": "REJECTED",
+  "realHistoricalSource": {
+    "sourceId": "KAZ_S_159",
+    "synthetic": false,
+    "claimType": "source_detected",
+    "resultSemantics": "metadata reference coverage; not physical repair",
+    "bundleHash": "0x44a8280321fc671a0e60a0a2d9272a0c0c1731d14b3ef0d8bacff135a98e7e17",
+    "receipt": {
+      "chainId": 31337,
+      "registryAddress": "0xef897de0b11aa3598d31e8218f47ea0736f7ad4e",
+      "txHash": "0xd819bbe3a95dc0fa71602226e496e3abbd8a8c7a026b60c9d34b21715378f366",
+      "issuer": "0x41A5F552ed38b645D6f1C1A1327b08061b409a60",
+      "version": 1,
+      "blockNumber": "4",
+      "blockHash": "0x59646c3d01c482f8e9d1dd5b286dae5a02c3dd45d099e782aaaf66a08bb441c2",
+      "confirmations": 1
+    },
+    "original": "VALID_LATEST",
+    "alteredAndRehashed": "REJECTED by chain commitment comparison"
+  },
+  "crashBeforeBroadcast": "SIGKILL; pending; no nonce consumed",
+  "crashAfterBroadcast": "SIGKILL; confirmed by reconciliation",
+  "revertedTransaction": "REVERTED; audit unanchored",
+  "lostRpcAcknowledgement": {
+    "transport": "real loopback RPC proxy replaces acknowledgement with HTTP 502 after Anvil acceptance",
+    "acceptedTransactions": 1,
+    "apiStatus": 502,
+    "retryStatus": 409,
+    "recovery": "reopened store; exact stored hash reconciled; one nonce consumed; independent CLI exit 0",
+    "receipt": {
+      "chainId": 31337,
+      "registryAddress": "0xef897de0b11aa3598d31e8218f47ea0736f7ad4e",
+      "txHash": "0x0344efd3bcbb4c40fa4afc63384b23ab9e7c685d70b24ba2a84ca9e1d4a963c9",
+      "issuer": "0x41A5F552ed38b645D6f1C1A1327b08061b409a60",
+      "version": 3,
+      "blockNumber": "5",
+      "blockHash": "0x25f6ae33c9872514cb13cf83e6d316783e15998cbf6790bff8ba7c8433237715",
+      "confirmations": 1
+    }
+  }
+}

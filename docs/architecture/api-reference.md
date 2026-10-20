@@ -1,8 +1,34 @@
 # Referensi API
 
+## Investigation capacity portfolios
+
+`POST /api/investigations/portfolios` takes `{ datasetSnapshotId, inputFileSha256, parameters: { capacity, maxPerCountry, countries, sectors, recurrenceWeight } }`. Capacity/country limits are integers 1–50; recurrence weight is an integer 0–100; empty country/sector lists mean all. Request is strict, bounded to 8 KiB and limited to 20 requests/client/minute per process. Responses are `no-store`. Caller-supplied candidates, scores and document/team notes are not accepted.
+
+The server validates pinned intelligence plus compressed input, joins exact source IDs to archive geography, and recomputes median flux/SD and distinct dates from linked records before comparing summaries. It returns a versioned unsigned allocation report: full candidate projection, four strategies, quota/scope/capacity dispositions (derived by the shared policy), allocation sensitivity, attribution, archive/input/intelligence hashes and deterministic SHA-256. Public-preview mode projects only its three allowlisted sources and labels the restricted scope; no audit is saved and no AI/chain write is performed. `409`: stale snapshot/hash; `400`: invalid constraints; `413`: body too large; `429`: limit; `503`: invalid/unavailable local inputs. Browser verifies both context bindings and policy replay before rendering. Existing audit schemas/endpoints remain compatible.
+
+## Historical snapshot record transitions
+
+`POST /api/investigations/snapshot-transition` accepts strict `{ datasetSnapshotId, inputFileSha256, sourceIds?, offset?, limit? }`. IDs bind the active normalized snapshot. Omitted or empty `sourceIds` means all changed linked sources; nonempty lists contain 1–50 unique original IDs. Offset defaults to 0 (0–100,000), limit to 20 (1–50). Unknown IDs are rejected; a removed source is allowed when present in the pinned transition. The browser does not submit an empty selected portfolio as unrestricted scope.
+
+The response is `transitionPage`: policy/schema/digest, both original-input descriptors, aggregate record counts, unresolved-record counts, affected-source count, requested/unchanged source IDs and bounded source rows. Each source row retains original metadata values and observation changes; the source-page limit does not truncate its record history. UI observation pagination is separate. The complete pinned report is returned by `POST /api/investigations/snapshot-transition/export` with the same strict request contract. Responses are `no-store`. No AI call, reviewer write, upstream fetch or chain transaction occurs.
+
+Inputs and generated report are fixed server paths with compressed-size/decompression bounds, original-file SHA-256 checks, manifest/report integrity and active snapshot/archive/input bindings. A stat-keyed cache shares concurrent loads; it invalidates on input/report/manifest file changes. Diff generation is offline; per-request source pagination does not recompute the full archive. HTTP cannot select files or URLs.
+
+Both routes have a 16 KiB JSON body limit and a separate 20-request/client/minute process-local limiter. `400`: malformed/unknown/duplicate IDs; `403`: restricted public preview; `409`: stale active context; `413`: oversized body; `429`: rate limit; `503`: invalid/unavailable pinned inputs (redacted error). The full transition is not projected into the three-source preview. Policy `mars-normalized-record-delta/1` compares the explicitly enumerated publisher fields, exact original IDs, nulls, dates, units and uncertainties. Added/removed records are archive changes, not physical onset/cessation. [Replay and limitations](../evidence/snapshot-change-watch-2026-10-20/README.md).
+
+## Versioned investigation-plan decisions
+
+`GET /api/investigation-plans/:id` returns a full private `PlanJournal`; `PUT` creates (`201`) or appends (`200`) a decision. Both require signed `private_read` plus current operator-attested `source_detected` authority. PUT also requires `review`; legacy shared/admin tokens do not substitute. Public-preview mode rejects both (`403`). All responses use `no-store` and `Vary: Authorization`.
+
+PUT accepts strict `{ request: { datasetSnapshotId, inputFileSha256, parameters }, reportDigest, strategy, decision, rationale, expectedRevision, expectedHead }`. The server rebuilds the report from pinned inputs and rejects a digest differing from the displayed report. `decision`: `accept|defer|reject`; trimmed rationale: 20–4,000 characters; ID: alphanumeric/underscore/hyphen, 1–80 characters. Actor and time are server-owned. Create uses revision `0`, head `null`; updates require both current revision and head. Authority/expiry are checked again before commit.
+
+Bounds: request 8 KiB; 20 decisions/reviewer/client/minute per process; at most 20 journals, 20 unique reports/journal, 100 revisions/journal and 32 MiB file. Reports are deduplicated by digest; old revisions are retained. `400`: invalid ID/body; `401`: no signed access; `403`: unauthorized; `404`: absent GET; `409`: stale report/dataset or CAS conflict; `413`: body/history capacity; `429`: limit; `503`: unavailable or inconsistent state. Existing audit schemas/receipts are unchanged.
+
+Runtime stores a companion `${AUDIT_STORE_PATH}.plans.json` and `.initialized` marker with private permissions, atomic writes/fsync and the existing API single-writer lock. Back up both offline; test factory defaults to memory. Lost state is rejected after an initialization marker has been observed; loss of the entire volume and marker is not detectable. No database or multi-instance guarantees are introduced. Exported journals require an independently trusted expected head for meaningful offline verification; they are not independently signed reviewer identities or blockchain receipts. [User workflow](../product/user-workflow.md#operasikan-dan-tinjau-rencana) and [schema](../../packages/shared/src/plan-journal.ts).
+
 [Arsitektur](overview.md) · [Konfigurasi](../development/configuration.md) · [Alur data](data-flow.md)
 
-**Kontrak aktif: 17 Oktober 2026.** Implementasi route ada di [app.ts](../../apps/api/src/app.ts); input baseline/manual ada di [packages/shared](../../packages/shared/src/index.ts), sedangkan input document assessment/review ada di [ai-review.ts](../../apps/api/src/ai-review.ts). Base URL lokal: `http://localhost:3001`. Web development mengakses `/api` melalui proxy Vite.
+**Kontrak aktif: 20 Oktober 2026.** Implementasi route ada di [app.ts](../../apps/api/src/app.ts); input baseline/manual ada di [packages/shared](../../packages/shared/src/index.ts), sedangkan input document assessment/review ada di [ai-review.ts](../../apps/api/src/ai-review.ts). Base URL lokal: `http://localhost:3001`. Web development mengakses `/api` melalui proxy Vite.
 
 ## Akses dan istilah
 
@@ -27,6 +53,36 @@
 | `GET /api/intelligence/rankings` | — | Ranking heuristic dan batas forecast/recurrence | Publik |
 
 Data peta penuh, progressive shards, geometri dan publisher indicators berasal dari aset statis web. Dataset tersebut tidak diambil melalui `/api/sources`. Input intelligence hilang/rusak/tidak cocok menghasilkan `503`.
+
+## Decision Lab: analisis tanpa menulis audit
+
+| Method/path | Input | Hasil | Akses |
+|---|---|---|---|
+| `POST /api/investigations/plan` | Source ID, claim type, optional scope/snapshot | Eligibility trace, reference-removal sensitivity, next checks dan digest DecisionPlan | Publik, preview dibatasi |
+| `GET /api/investigations/challenges` | — | Lima authored reference challenges berlabel SYNTHETIC DEMO | Publik; tidak mewakili operator nyata |
+| `POST /api/investigations/observation-check` | Source ID, snapshot ID, optional normalized input SHA-256, query | Exact-linked records, counterexamples, original values/SD, excluded dates, status dan digest ObservationCheck | Publik, preview dibatasi; limiter terpisah 20/menit |
+
+Kedua POST dibatasi JSON 16 KiB, strict schema dan no-store. Data observasi/referensi diambil dari snapshot server; request tidak boleh menyuntikkan evidence/observations. Analisis tidak menyimpan, meninjau, mengirim atau meng-anchor audit. Public preview tetap memakai source allowlist yang sama.
+
+Contoh query observasi:
+
+```json
+{
+  "sourceId": "CAN_S_002",
+  "datasetSnapshotId": "unep-mars-675417694883",
+  "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+  "query": {
+    "kind": "reported_flux_at_most",
+    "startDate": "2026-04-10",
+    "endDate": "2026-04-10",
+    "thresholdKgHr": 1000
+  }
+}
+```
+
+`query.kind` juga menerima `no_linked_detections` dan `physical_mitigation`; threshold hanya boleh/harus hadir pada `reported_flux_at_most`. Dates memakai hari UTC inklusif. ID snapshot/hash input berbeda → `409`; source tidak dikenal → `404`; body terlalu besar → `413`; batas request → `429`/Retry-After; provenance/input tidak valid → `503` generik tanpa file path server.
+
+Hasil `counterexample_found` hanya menyangkal pernyataan arsip buatan analis. `no_counterexample_in_archive`, `no_observations`, `incomplete_flux`, `incomplete_window` bukan konfirmasi repair; `physical_mitigation` selalu `requires_document_review`. Browser baru memerlukan kecocokan normalized input SHA-256, replay policy dan checksum sebelum menampilkan hasil. [Skema](../../packages/shared/src/observation-claims.ts) dan [bukti reproduksi](../evidence/observation-crosscheck-2026-10-19/README.md) memuat format lengkap. Digest unsigned bukan autentikasi penerbit atau blockchain receipt.
 
 ## Investigasi bersama (P1)
 
@@ -115,3 +171,30 @@ Ketiganya memerlukan admin atau scope `anchor`. Reviewer juga harus memiliki att
 | `502` / `503` | Provider/transport, data, storage atau konfigurasi tidak tersedia |
 
 Tidak semua route mengeluarkan seluruh status di tabel. Pesan error bukan schema domain yang stabil untuk menentukan kebenaran klaim; UI harus mempertahankan draft dan menampilkan kegagalan save secara jelas.
+
+
+## Connected investigations dan frozen decisions
+
+Pemeriksaan terkait: `GET /api/case-work/:id/evidence-overlap` memakai context
+dan `expectedRevision`, signed `private_read` serta current claim authority.
+Public preview menolak akses; hasil `no-store`, maksimal 500 current work items
+pada snapshot yang sama, tanpa private notes atau raw URL. Ini kandidat reuse
+untuk review, bukan temuan duplicate mitigation. [Workflow dan batas](../development/evidence-overlap-and-snapshot-intake.md).
+
+[Workflow, konfigurasi dan rollback](../development/connected-investigations.md). Semua endpoint berikut privat, `no-store`, signed `private_read` dan current directory authority. Public preview menolak akses. Query context wajib: `sourceId`, `synthetic`, `datasetSnapshotId`, `archiveSha256` untuk data real. Tidak menerima path/URL material dossier dari caller.
+
+| Method / route setelah `/api/case-work/:id` | Fungsi dan tambahan permission |
+|---|---|
+| `GET /dossier` | Dossier riwayat dan material exact; header CORS-exposed `X-Investigation-Digest` |
+| `POST /change-check` | Body `{ expectedRevision }`; perbandingan arsip historis yang dipin; tidak mengubah verdict |
+| `GET /decisions` | Ringkasan keputusan beku dan configured chain target; tanpa dokumen penuh |
+| `POST /decisions` | Freeze; tambahan `review`. Body strict: `expectedRevision`, `expectedDossierDigest`, `expectedDecisionDigest` (null untuk pertama), `disposition`, `rationale`, `sourceInspected: true` |
+| `POST /decisions/:digest/verify` | Keputusan beku dan wrapper receipt/revisit; chain receipt harus diperiksa sebelum status verified |
+| `POST /decisions/:digest/anchor` | Tambahan `review`+`anchor`, signer backend opt-in. Body strict `{ chainId, registryAddress, issuer }` untuk menyetujui target yang diperiksa |
+| `POST /decisions/:digest/reconcile` | Tambahan `review`+`anchor`; inspeksi intent durabel tanpa broadcast baru |
+
+`disposition` adalah `accept_assessment`, `request_more_evidence`, atau `reject_assessment`; bukan verdict fisik. Scope dan assessment tersimpan wajib sebelum freeze. Model yang belum direview ditolak. Receipt berada di luar hashed payload. Plan yang pernah dilampirkan memerlukan authority `source_detected` sepanjang akses riwayat/materialnya. Authority diperiksa lagi setelah pekerjaan async dan sebelum respons/commit.
+
+Body freeze maksimal 4 KiB, target 1 KiB. Ekspor maksimal 16 MiB; dua pembuatan dossier/keputusan serentak dan quota bersama 20 operasi/menit/actor+client. Konflik revisi/head/dossier `409`, akses `401/403`, input `400`, kapasitas `413`, pembatasan `429`, layanan/storage belum tersedia `503`. Anchor dengan outcome tidak pasti `502` harus direkonsiliasi; pending `202`; revert definitif `422`. Terminal reconcile idempotent. Tidak melepas nonce pending hanya karena receipt belum ditemukan.
+
+Field casework baru bersifat opsional: `planLink`, `changeReportDigest`, `acceptanceCriteria`, `requestEvents`. Event request/response/review tidak dapat dihapus atau diganti pada revisi berikutnya. Body casework tetap 16 KiB. Audit store memakai envelope 3 sesudah keputusan pertama; reader tetap menerima array legacy serta envelope 1/2.

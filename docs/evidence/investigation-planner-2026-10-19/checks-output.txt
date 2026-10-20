@@ -1,0 +1,22 @@
+Command: bun run check:all
+Exit: 0
+Selected unmodified summary lines; full local log SHA-256 in checks.json.
+
+Checked 142 installs across 215 packages (no changes) [44.00ms]
+ 231 pass
+ 0 fail
+Ran 231 tests across 38 files. [2.42s]
+ 261 pass
+ 0 fail
+Ran 261 tests across 54 files. [1.61s]
+ 54 pass
+ 0 fail
+Ran 54 tests across 8 files. [5.76s]
+Web bundle budget passed: App 72057 gzip bytes; 8 route chunks; MapPanel 1122953 raw bytes.
+============================= 217 passed in 29.53s =============================
+[PASS] testAuthorizedSecondIssuerCannotOverwriteOtherIssuersCase() (gas: 432033)
+[PASS] testCannotAnchorEmptyHash() (gas: 33049)
+[PASS] testIssuerCanAnchorAndRevise() (gas: 162504)
+[PASS] testUntrustedAccountCannotAnchor() (gas: 189676)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 5.39ms (2.82ms CPU time)
+Ran 1 test suite in 15.71ms (5.39ms CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)

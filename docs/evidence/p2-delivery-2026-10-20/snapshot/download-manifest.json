@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "mars-candidate-download/1",
+  "sourceUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+  "catalogUrl": "https://methanedata.unep.org/download-dataset",
+  "license": "CC BY-NC-SA 4.0",
+  "attribution": "UNEP IMEO Eye on Methane / MARS",
+  "retrievedAt": "2026-10-20T11:28:06.725762+00:00",
+  "publisherHeaders": {
+    "ETag": "0x8DF2E5909C68520",
+    "Content-Length": "10835939",
+    "Content-MD5": "o9t21daAW/cpB7xQYj/aFw==",
+    "Last-Modified": "Tue, 20 Oct 2026 03:20:06 GMT"
+  },
+  "sha256": "b65f695b516851c1eb0cae4a730615e64b909333dc0203dc15d90367d543a6fd",
+  "bytes": 10835939,
+  "activeSnapshotChanged": false,
+  "limitation": "Original dataset bytes, not supporting evidence of a repair. HTTPS/headers are not a publisher signature. Normalize and stage separately before any activation."
+}

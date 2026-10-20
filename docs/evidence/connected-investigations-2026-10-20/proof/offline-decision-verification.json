@@ -1,0 +1,114 @@
+{
+  "recordedAt": "2026-10-20T10:40:18.837Z",
+  "label": "DEMO software review of real historical MARS source; local chain stopped after test",
+  "trustedOriginalDigest": "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4",
+  "results": [
+    {
+      "name": "original offline",
+      "file": "local-chain-decision.json",
+      "digest": "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4",
+      "expected": 0,
+      "arguments": [
+        "scripts/verify-investigation-decision.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/local-chain-decision.json",
+        "--expected-digest",
+        "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4"
+      ],
+      "actualExit": 0,
+      "stdout": "{\"valid\":true,\"digest\":\"0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4\",\"revision\":1,\"workId\":\"DEMO-chain-work\",\"sourceId\":\"KAZ_S_159\",\"chainStatus\":\"NOT_VERIFIED\",\"physicalOutcomeEstablished\":false,\"limitation\":\"Canonical JSON integrity relative to the supplied trusted digest; formatting alone may normalize. Blockchain verifies chronology and integrity, not physical repair or independent reviewer identity.\"}",
+      "stderr": ""
+    },
+    {
+      "name": "altered against trusted original",
+      "file": "altered-local-chain-decision.json",
+      "digest": "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4",
+      "expected": 1,
+      "arguments": [
+        "scripts/verify-investigation-decision.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/altered-local-chain-decision.json",
+        "--expected-digest",
+        "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4"
+      ],
+      "actualExit": 1,
+      "stdout": "",
+      "stderr": "Frozen decision failed trusted digest, dossier replay or assessment checks."
+    },
+    {
+      "name": "altered and rehashed against trusted original",
+      "file": "altered-rehashed-local-chain-decision.json",
+      "digest": "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4",
+      "expected": 1,
+      "arguments": [
+        "scripts/verify-investigation-decision.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/altered-rehashed-local-chain-decision.json",
+        "--expected-digest",
+        "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4"
+      ],
+      "actualExit": 1,
+      "stdout": "",
+      "stderr": "Frozen decision failed trusted digest, dossier replay or assessment checks."
+    },
+    {
+      "name": "original again offline",
+      "file": "local-chain-decision.json",
+      "digest": "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4",
+      "expected": 0,
+      "arguments": [
+        "scripts/verify-investigation-decision.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/local-chain-decision.json",
+        "--expected-digest",
+        "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4"
+      ],
+      "actualExit": 0,
+      "stdout": "{\"valid\":true,\"digest\":\"0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4\",\"revision\":1,\"workId\":\"DEMO-chain-work\",\"sourceId\":\"KAZ_S_159\",\"chainStatus\":\"NOT_VERIFIED\",\"physicalOutcomeEstablished\":false,\"limitation\":\"Canonical JSON integrity relative to the supplied trusted digest; formatting alone may normalize. Blockchain verifies chronology and integrity, not physical repair or independent reviewer identity.\"}",
+      "stderr": ""
+    },
+    {
+      "name": "missing separately trusted digest",
+      "file": "local-chain-decision.json",
+      "expected": 1,
+      "arguments": [
+        "scripts/verify-investigation-decision.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/local-chain-decision.json"
+      ],
+      "actualExit": 1,
+      "stdout": "",
+      "stderr": "Usage: bun --no-env-file scripts/verify-investigation-decision.ts <decision.json> --expected-digest <trusted 0x SHA-256> [--require-chain]"
+    },
+    {
+      "name": "require-chain without a running configured RPC",
+      "file": "local-chain-decision.json",
+      "digest": "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4",
+      "extra": [
+        "--require-chain"
+      ],
+      "expected": 1,
+      "arguments": [
+        "scripts/verify-investigation-decision.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/local-chain-decision.json",
+        "--expected-digest",
+        "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4",
+        "--require-chain"
+      ],
+      "actualExit": 1,
+      "stdout": "",
+      "stderr": "A receipt and configured read-only chain target are required."
+    },
+    {
+      "name": "negative trust control: attacker also replaces supplied digest",
+      "file": "altered-rehashed-local-chain-decision.json",
+      "digest": "0xb42f28f89d22ad43595f41bc2cd81cfb7d012be7a56510935db9ba3adc72fcc9",
+      "expected": 0,
+      "limitation": "Expected local acceptance when the verifier is given the attacker checksum as trusted input. Not authentication. Actual chain comparison rejected this attack while Anvil was running.",
+      "arguments": [
+        "scripts/verify-investigation-decision.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/altered-rehashed-local-chain-decision.json",
+        "--expected-digest",
+        "0xb42f28f89d22ad43595f41bc2cd81cfb7d012be7a56510935db9ba3adc72fcc9"
+      ],
+      "actualExit": 0,
+      "stdout": "{\"valid\":true,\"digest\":\"0xb42f28f89d22ad43595f41bc2cd81cfb7d012be7a56510935db9ba3adc72fcc9\",\"revision\":1,\"workId\":\"DEMO-chain-work\",\"sourceId\":\"KAZ_S_159\",\"chainStatus\":\"NOT_VERIFIED\",\"physicalOutcomeEstablished\":false,\"limitation\":\"Canonical JSON integrity relative to the supplied trusted digest; formatting alone may normalize. Blockchain verifies chronology and integrity, not physical repair or independent reviewer identity.\"}",
+      "stderr": ""
+    }
+  ]
+}

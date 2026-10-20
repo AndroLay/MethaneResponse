@@ -23,6 +23,10 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 !data/processed/intelligence-snapshot.json
+!data/processed/snapshot-transition/
+data/processed/snapshot-transition/*
+!data/processed/snapshot-transition/report.json
+!data/processed/snapshot-transition/manifest.json
 !data/processed/prospective/
 data/processed/prospective/*
 !data/processed/prospective/record-recurrence-ledger-2026-10-14.json

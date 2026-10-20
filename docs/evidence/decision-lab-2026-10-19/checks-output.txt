@@ -1,0 +1,22 @@
+Local check output excerpts. Commands and scope: checks.json.
+
+$ bun run check:all
+ 210 pass
+ 0 fail
+ 255 pass
+ 0 fail
+ 54 pass
+ 0 fail
+Checked 142 installs across 215 packages (no changes) [75.00ms]
+Web bundle budget passed: App 71951 gzip bytes; 8 route chunks; MapPanel 1122953 raw bytes.
+============================= 212 passed in 43.36s =============================
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 19.29ms (11.87ms CPU time)
+
+$ bun run test:e2e (local Chromium override)
+17 passed (2.9m)
+9 passed (2.5m)
+
+$ bun run test:chain-integration
+ 1 pass
+ 0 fail
+ 42 expect() calls

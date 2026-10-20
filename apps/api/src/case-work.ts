@@ -1,5 +1,6 @@
 import { CaseWorkDraft, SharedCaseWork, SharedWorkContext, type ClaimType } from '@methane/shared';
 import { z } from 'zod';
+import { evidenceEventsAppendOnly } from '@methane/shared/evidence-lifecycle';
 import { canonicalJson } from './canonical';
 
 export class CaseWorkError extends Error {
@@ -13,6 +14,7 @@ export const CaseWorkState = z.object({ schemaVersion: z.literal(1), histories: 
     if (keys.has(key)) context.addIssue({ code: 'custom', message: 'Duplicate work identity' });
     keys.add(key);
     for (const [index, item] of history.entries()) {
+      if (!evidenceEventsAppendOnly(history[index - 1]?.requestEvents, item.requestEvents)) context.addIssue({ code: 'custom', message: 'Invalid evidence lifecycle' });
       if (item.revision !== index + 1 || workKey(item.context, item.workId) !== key || item.ownerId !== first.ownerId || item.createdAt !== first.createdAt
         || item.claimType !== first.claimType || canonicalJson(item.scope || null) !== canonicalJson(first.scope || null)) {
         context.addIssue({ code: 'custom', message: 'Invalid work history' });
@@ -56,6 +58,7 @@ export class MemoryCaseWorkStore implements CaseWorkStore {
       let history = state.histories.find(items => workKey(items[0].context, items[0].workId) === workKey(context, workId));
       const previous = history?.[history.length - 1];
       if ((previous?.revision || 0) !== expectedRevision || (previous && (previous.claimType !== draft.claimType || canonicalJson(previous.scope || null) !== canonicalJson(draft.scope || null)))) throw new CaseWorkError('conflict');
+      if (!evidenceEventsAppendOnly(previous?.requestEvents, draft.requestEvents)) throw new CaseWorkError('conflict');
       if ((!history && state.histories.length >= 500) || (history && history.length >= 100)) throw new CaseWorkError('capacity');
       const now = new Date().toISOString();
       const work = SharedCaseWork.parse({ ...draft, context, workId, revision: expectedRevision + 1, ownerId: previous?.ownerId || actor, updatedBy: actor, createdAt: previous?.createdAt || now, updatedAt: now });

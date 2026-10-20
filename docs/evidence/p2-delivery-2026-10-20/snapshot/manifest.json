@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "snapshot-staging/1",
+  "operatorApprovedStaging": true,
+  "activeSnapshotChanged": false,
+  "before": {
+    "datasetSnapshotId": "unep-mars-675417694883",
+    "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+    "provenance": {
+      "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+      "dataset": "Eye on Methane / MARS detected sources and plumes",
+      "catalogUrl": "https://methanedata.unep.org/download-dataset",
+      "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+      "retrievedAt": "2026-10-14T06:10:12+00:00",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "snapshotId": "unep-mars-675417694883",
+      "license": "CC BY-NC-SA 4.0",
+      "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+      "localFileName": "sources_plumes_csv.zip"
+    },
+    "sourceCount": 4218,
+    "observationCount": 30414,
+    "linkedObservationCount": 23861,
+    "unresolvedObservationCount": 6553,
+    "archiveStartDate": "2020-10-29",
+    "archiveEndDate": "2026-09-13"
+  },
+  "after": {
+    "datasetSnapshotId": "unep-mars-b65f695b5168",
+    "inputFileSha256": "dfd7bd61e032964ff09abfc61f0335b228be08e69baed8ee86cd19ba5382abc0",
+    "provenance": {
+      "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+      "dataset": "Eye on Methane / MARS detected sources and plumes",
+      "catalogUrl": "https://methanedata.unep.org/download-dataset",
+      "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+      "retrievedAt": "2026-10-20T11:28:06.725762+00:00",
+      "archiveSha256": "b65f695b516851c1eb0cae4a730615e64b909333dc0203dc15d90367d543a6fd",
+      "snapshotId": "unep-mars-b65f695b5168",
+      "license": "CC BY-NC-SA 4.0",
+      "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+      "localFileName": "unep-mars-csv.zip"
+    },
+    "sourceCount": 4197,
+    "observationCount": 30529,
+    "linkedObservationCount": 23954,
+    "unresolvedObservationCount": 6575,
+    "archiveStartDate": "2020-10-29",
+    "archiveEndDate": "2026-09-19"
+  },
+  "reportDigest": "0x7382b7a110ee6f90d7ea7fd16d26f009bcf4d70f591c0b8126f9f03ba11dd20c",
+  "files": {
+    "before.json.gz": {
+      "sha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "bytes": 2939194
+    },
+    "candidate.json.gz": {
+      "sha256": "dfd7bd61e032964ff09abfc61f0335b228be08e69baed8ee86cd19ba5382abc0",
+      "bytes": 2950099
+    },
+    "report.json": {
+      "sha256": "ace0aff820dfc49b67bc72cb31d5aa1ba351a22fb310184a9773094af8f36dca",
+      "bytes": 1125014
+    }
+  },
+  "limitations": [
+    "Staged local normalized records only; this is not acquisition of the latest publisher release or publisher authentication.",
+    "Review provenance, attribution and license before activation. No active input, stored decision or frozen evidence package was replaced.",
+    "Rebuild derived projections and run all gates in an isolated candidate checkout before separately approving activation. Historical decisions remain attached to their original snapshots."
+  ]
+}

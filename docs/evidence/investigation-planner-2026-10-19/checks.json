@@ -1,0 +1,123 @@
+{
+  "recordedAt": "2026-10-19T22:39:29.349118+00:00",
+  "baselineCommit": "8e19c034e666a6b00d93b4cb3f5747f563c75aab",
+  "state": "Uncommitted local prototype working tree; source bindings in proof/verification.json.",
+  "commands": [
+    {
+      "command": "bun run check:all",
+      "exitCode": 0,
+      "localLogSha256": "f04833811b612d16ec0b664909091a047f27116973b928b3661f8c469540c90a"
+    },
+    {
+      "command": "bun run test:e2e e2e/audit-workflow.spec.ts",
+      "exitCode": 0,
+      "localLogSha256": "002ba4e991f1f280e8d652489ad2021f06cd7ff05c746aa375540d3d33f1633c"
+    },
+    {
+      "command": "bun run test:e2e e2e/ai-review-workflow.spec.ts",
+      "exitCode": 0,
+      "localLogSha256": "1ec6e5131a23b67e52dad619944425f0196454ee8fbcad77806fc10771dde014"
+    },
+    {
+      "command": "bun run prove:planner --output NEW_DIRECTORY",
+      "exitCode": 0
+    },
+    {
+      "command": "bun run test:chain-integration --evidence FILE",
+      "exitCode": 0,
+      "localLogSha256": "bfe623f78ee27e7519c1c7f0260ea2ee067b1755526d9b81c89773d8e5b2806d"
+    }
+  ],
+  "mainSuites": {
+    "api": 231,
+    "web": 261,
+    "tooling": 54,
+    "python": 217,
+    "foundry": 4,
+    "total": 767,
+    "failures": 0,
+    "skips": 0
+  },
+  "browser": {
+    "baseline": 21,
+    "privateTeamPublicationMockAI": 9,
+    "totalUniqueScenarios": 30,
+    "failures": 0,
+    "skips": 0,
+    "retries": 0,
+    "workers": 1,
+    "runnerHelperTests": 5,
+    "runnerRepeatsNotAddedToUniqueCoverage": true,
+    "frontendBuildMode": "NODE_ENV=production, fresh build per phase",
+    "chromiumSandbox": true,
+    "mobile": "390x844 viewport emulation; not physical mobile hardware",
+    "externalImagery": "blocked or deterministic fixtures; not live imagery verification"
+  },
+  "localChain": {
+    "tests": 1,
+    "assertions": 42,
+    "chainId": 31337,
+    "network": "disposable local Anvil",
+    "plannerAnchored": false,
+    "publicReceipt": "not verified"
+  },
+  "runtime": {
+    "bunActual": "1.4.3",
+    "bunPin": "1.4.2",
+    "systemNodeInInvocationPath": "26.10.0",
+    "python": "3.12.13",
+    "chromium": "153.0.8010.52 Arch Linux",
+    "pathOverrideScope": "test invocation only"
+  },
+  "bundle": {
+    "appGzipBytes": 72057,
+    "budgetGzipBytes": 75000,
+    "requiredRouteChunks": 8,
+    "mapPanelRawBytes": 1122953,
+    "planner": {
+      "name": "InvestigationPlanner-CbKgH2u9.js",
+      "rawBytes": 23819,
+      "gzipBytes": 8072,
+      "gzipImplementation": "Bun 1.4.3 node:zlib.gzipSync default"
+    },
+    "advisories": [
+      "Existing large MapLibre lazy chunk; Rollup removes misplaced Zod annotations."
+    ]
+  },
+  "proof": {
+    "scenarios": 5,
+    "portfolios": 20,
+    "sensitivityAllocations": 24,
+    "uniqueSources": 4218,
+    "linkedRecords": 23861,
+    "savedAuditsCreated": 0,
+    "cliOutcomes": 6,
+    "currentSourceBindings": 30,
+    "pythonConformance": "independent-language implementation on the same normalized input; not independent scientific labels or outcome validation",
+    "priorFrozenArtifactsVerified": {
+      "decision-lab-2026-10-19": 25,
+      "observation-crosscheck-2026-10-19": 30
+    }
+  },
+  "regressions": [
+    "Hidden Cases text/work-queue filters cleared only after accepted planner handoff.",
+    "Source identity retained in dialog, detail, URL, map and auditor; cancellation and single confirmation.",
+    "AI test API requests follow configured base URL, exercised on non-default port.",
+    "Fresh production preview command rejects invalid/shell-injection ports and forces frontend production NODE_ENV."
+  ],
+  "previousAttempts": [
+    "Earlier browser run: 21 baseline + 8 AI passed, one old AI test used hardcoded port 4179 and failed ECONNREFUSED; fixed and rerun.",
+    "Filter regression first failed with No source selected after closing the correct-source dialog; fixed and passed in final baseline.",
+    "Several dev-server/compiler runs received SIGTERM. Host earlyoom journal confirmed low available memory/full swap. Heap/CSS experiments were reverted.",
+    "Initial preview inherited development NODE_ENV; runner regression now explicitly forces production frontend build/preview. Earlier runs are excluded from final scenario totals."
+  ],
+  "notPerformed": [
+    "remote CI run",
+    "push or deployment",
+    "public blockchain transaction",
+    "live model provider or AI-quality evaluation",
+    "physical mobile device",
+    "human pilot or expert domain review",
+    "physical repair or climate-benefit validation"
+  ]
+}

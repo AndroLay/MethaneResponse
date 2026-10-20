@@ -47,7 +47,7 @@ export async function writeCaseWorkState(path: string, state: CaseWorkState) {
   if (!initialized) await atomicPrivateWrite(caseWorkMarkerPath(path), markerContents);
 }
 
-async function atomicPrivateWrite(path: string, contents: string) {
+export async function atomicPrivateWrite(path: string, contents: string) {
   await mkdir(dirname(path), { recursive: true, mode: 0o700 });
   const temporary = `${path}.${randomUUID()}.tmp`;
   try {

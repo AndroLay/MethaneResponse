@@ -2,6 +2,8 @@ import { z } from 'zod';
 import { ConflictDeclaration, type HumanAssessmentTrust } from './trust';
 import { evidenceUtcDay, hasEvidencePointer, isSecureEvidenceReference } from './evidence-policy';
 import type { AssessmentSemantics } from './assessment-semantics';
+import { EvidenceRequestEvent } from './evidence-lifecycle';
+import { InvestigationDigest, InvestigationPlanLink } from './investigation-links';
 export * from './assessment-semantics';
 export * from './evidence-policy';
 export * from './trust';
@@ -25,6 +27,9 @@ export const CaseWorkDraft = z.object({
   claimType: ClaimType, scope: AuditScope.optional(),
   assessmentLink: z.object({ auditId: z.string().min(1).max(128), bundleHash: z.string().regex(/^0x[0-9a-f]{64}$/) }).optional(),
   assignee: z.string().regex(/^[a-zA-Z0-9._:@-]{3,96}$/).optional(), dueDate: z.iso.date().optional(),
+  planLink: InvestigationPlanLink.optional(), changeReportDigest: InvestigationDigest.optional(),
+  acceptanceCriteria: z.string().trim().max(1000).optional(),
+  requestEvents: z.array(EvidenceRequestEvent).max(40).optional(),
 });
 export type CaseWorkDraft = z.infer<typeof CaseWorkDraft>;
 export const CaseWorkRecord = CaseWorkDraft.extend({

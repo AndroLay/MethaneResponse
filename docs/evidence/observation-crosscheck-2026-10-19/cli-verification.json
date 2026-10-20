@@ -1,0 +1,22 @@
+[
+  {
+    "scenario": "original matches independently supplied expected digest",
+    "exitCode": 0,
+    "output": "VALID_POLICY_REPLAY \u2014 unsigned; archive authenticity and physical repair are not established"
+  },
+  {
+    "scenario": "changed result without rehash",
+    "exitCode": 1,
+    "output": "INVALID observation checksum, policy replay or expected digest"
+  },
+  {
+    "scenario": "changed result and recalculated checksum",
+    "exitCode": 1,
+    "output": "INVALID observation checksum, policy replay or expected digest"
+  },
+  {
+    "scenario": "wrong expected digest",
+    "exitCode": 1,
+    "output": "INVALID observation checksum, policy replay or expected digest"
+  }
+]

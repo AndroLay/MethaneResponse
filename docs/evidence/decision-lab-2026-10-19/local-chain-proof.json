@@ -1,0 +1,59 @@
+{
+  "label": "DEMO — disposable local Anvil, not public Sepolia evidence",
+  "recordedAt": "2026-10-19T11:29:29.891Z",
+  "chainId": 31337,
+  "auditId": "883f16be-3853-498e-8d10-6e902133c14b",
+  "bundleHash": "0x7ff03b5054977492a1500f194b26420528bbc504e14a3408a904e5af0c3c2384",
+  "receipt": {
+    "chainId": 31337,
+    "registryAddress": "0x4cc9895ae121ae57c3c6bf7ab0004c319ef4f848",
+    "txHash": "0x30fbaeac65be6f92744f0674844b8f938543e525a97670f8d15dea9d16816081",
+    "issuer": "0xb958024729f5e5b13A3313e22Fb1097e8e11eA9C",
+    "version": 1,
+    "blockNumber": "2",
+    "blockHash": "0x0c6d97ed06a759e4f76bf83987ec5a0c97bfa8ba9ddb5f53872f385ac74c2f9b",
+    "confirmations": 1
+  },
+  "independentVerifier": "VALID_LATEST then VALID_HISTORICAL",
+  "modifiedBundle": "REJECTED",
+  "forgedIssuer": "REJECTED",
+  "realHistoricalSource": {
+    "sourceId": "KAZ_S_159",
+    "synthetic": false,
+    "claimType": "source_detected",
+    "resultSemantics": "metadata reference coverage; not physical repair",
+    "bundleHash": "0xbc8fe8b7291d8c2655ae6919017b6b156a43127fdfe304eb3542bddfe6a3dbe7",
+    "receipt": {
+      "chainId": 31337,
+      "registryAddress": "0x4cc9895ae121ae57c3c6bf7ab0004c319ef4f848",
+      "txHash": "0x59fa6e16e6ca7fd6e2e7c3f935e2a1b8723f51f2399e9113b84871bb51c34046",
+      "issuer": "0xb958024729f5e5b13A3313e22Fb1097e8e11eA9C",
+      "version": 1,
+      "blockNumber": "4",
+      "blockHash": "0x7e593bf220b51adf7ac65f4f14153e0bc2a64e1d95c9f5629e7fddc796be9afd",
+      "confirmations": 1
+    },
+    "original": "VALID_LATEST",
+    "alteredAndRehashed": "REJECTED by chain commitment comparison"
+  },
+  "crashBeforeBroadcast": "SIGKILL; pending; no nonce consumed",
+  "crashAfterBroadcast": "SIGKILL; confirmed by reconciliation",
+  "revertedTransaction": "REVERTED; audit unanchored",
+  "lostRpcAcknowledgement": {
+    "transport": "real loopback RPC proxy replaces acknowledgement with HTTP 502 after Anvil acceptance",
+    "acceptedTransactions": 1,
+    "apiStatus": 502,
+    "retryStatus": 409,
+    "recovery": "reopened store; exact stored hash reconciled; one nonce consumed; independent CLI exit 0",
+    "receipt": {
+      "chainId": 31337,
+      "registryAddress": "0x4cc9895ae121ae57c3c6bf7ab0004c319ef4f848",
+      "txHash": "0x3af8ad0ca2a2cfef75ec5b82bab981f8d4c28a0009e02ec8a9d4b9ff77ddd0f7",
+      "issuer": "0xb958024729f5e5b13A3313e22Fb1097e8e11eA9C",
+      "version": 3,
+      "blockNumber": "5",
+      "blockHash": "0x0e6f250eb8e29093d7677f6105a2c9fa48ce7305db4b3127f81a38a801d34f64",
+      "confirmations": 1
+    }
+  }
+}

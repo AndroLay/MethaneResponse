@@ -15,7 +15,7 @@ P1 menyediakan satu workspace untuk tim kecil melalui satu proses API dan file p
 
 | Berkas turunan dari path audit `A` | Isi |
 |---|---|
-| `A` | Audit JSON lama; tidak diubah oleh maintenance casework |
+| `A` | Audit JSON, frozen investigation decisions dan anchor intents; tidak dicakup maintenance casework |
 | `A.case-work.json` | Semua investigasi bersama beserta riwayat immutable |
 | `A.case-work.json.initialized` | Penanda durabel bahwa state pernah disimpan; jangan dihapus untuk melewati error |
 | `A.writer.lock` | Lock stabil untuk API dan maintenance; jangan dihapus/rename saat dipakai |
@@ -77,3 +77,7 @@ bun run check:web-bundle
 ```
 
 Operations runner membersihkan dotenv/credential/proxy induk dan memakai fixture privat disposable. Ia menguji backup/restore, writer kedua, crash API, restart dan pembacaan ulang melalui HTTP lokal. Chromium harus tersedia dan host harus mengizinkan proses/port lokal. [Bukti P1](../evidence/shared-casework-2026-10-17/README.md) mencatat hasil aktual dan batasnya.
+
+## Investigasi yang terhubung
+
+Lihat [dossier, evidence requests dan frozen decisions](connected-investigations.md) untuk alur baru. Keputusan disimpan pada file audit (envelope 3), sehingga backup casework saja tidak cukup. Tetap gunakan satu writer dan simpan backup audit lengkap sebelum rollback kode.

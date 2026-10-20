@@ -12,14 +12,27 @@ export function disconnectSharedWork() {
   requests.clear(); setTeamSession(null);
 }
 type Transport = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
-async function request(path: string, init: RequestInit, transport: Transport = fetch, token = credential, expectedGeneration = generation) {
+async function request(path: string, init: RequestInit, transport: Transport = fetch, token = credential, expectedGeneration = generation, resource = 'case-work') {
   if (!token) throw new SharedWorkRequestError('Connect with a signed reviewer token first.', 401);
   const controller = new AbortController(); requests.add(controller);
   const timeout = setTimeout(() => controller.abort(), 10_000);
   try {
-    const response = await transport(`${api}/api/case-work${path}`, { ...init, cache: 'no-store', headers: { ...init.headers, authorization: `Bearer ${token}` }, signal: controller.signal });
+    const response = await transport(`${api}/api/${resource}${path}`, { ...init, cache: 'no-store', headers: { ...init.headers, authorization: `Bearer ${token}` }, signal: controller.signal });
     if (expectedGeneration !== generation) throw new Error('Shared session changed. Reconnect before continuing.');
-    const value: unknown = await response.json();
+    const limit = 16 * 1024 * 1024;
+    if (Number(response.headers.get('content-length')) > limit) { await response.body?.cancel(); throw new Error('Investigation response exceeds the browser limit.'); }
+    const reader = response.body?.getReader(), decoder = new TextDecoder(), parts: string[] = []; let bytes = 0;
+    if (reader) try {
+      for (;;) {
+        const item = await reader.read(); if (item.done) break;
+        bytes += item.value.byteLength;
+        if (bytes > limit || expectedGeneration !== generation) { await reader.cancel(); throw new Error(bytes > limit ? 'Investigation response exceeds the browser limit.' : 'Shared session changed. Reconnect before continuing.'); }
+        parts.push(decoder.decode(item.value, { stream: true }));
+      }
+      parts.push(decoder.decode());
+    } finally { reader.releaseLock(); }
+    const text = parts.join('');
+    const value: unknown = JSON.parse(text);
     if (expectedGeneration !== generation) throw new Error('Shared session changed. Reconnect before continuing.');
     if (!response.ok) {
       const error = value && typeof value === 'object' && 'error' in value && typeof value.error === 'string' ? value.error.slice(0, 500) : 'Shared casework request failed.';
@@ -28,6 +41,30 @@ async function request(path: string, init: RequestInit, transport: Transport = f
     return value;
   } finally { clearTimeout(timeout); requests.delete(controller); }
 }
+/** Same memory-only credential, timeout, disconnect cancellation and generation guard. */
+export function requestPlanResource(id: string, init: RequestInit = {}, transport: Transport = fetch) {
+  if (!/^[a-zA-Z0-9_-]{1,80}$/.test(id)) throw new Error('Invalid plan ID.');
+  return request(`/${id}`, init, transport, credential, generation, 'investigation-plans');
+}
+export async function requestEvidenceOverlap(context: SharedWorkContext, id: string, expectedRevision: number, transport: Transport = fetch) {
+  if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 1 || expectedRevision > 100) throw new Error('A saved revision is required.');
+  return request(`/${SharedWorkId.parse(id)}/evidence-overlap?${query(context)}&expectedRevision=${expectedRevision}`, {}, transport);
+}
+export async function requestInvestigationResource(context: SharedWorkContext, id: string, action: 'dossier' | 'change-check', init: RequestInit = {}, transport: Transport = fetch) {
+  if (action !== 'dossier' && action !== 'change-check') throw new Error('Invalid investigation action.');
+  let digest: string | null = null;
+  const value = await request(`/${SharedWorkId.parse(id)}/${action}?${query(context)}`, init, async (input, options) => {
+    const response = await transport(input, options); digest = response.headers.get('x-investigation-digest'); return response;
+  });
+  return { value, digest };
+}
+export function requestDecisionResource(context: SharedWorkContext, id: string, action: 'list' | 'freeze' | 'anchor' | 'reconcile' | 'verify', digest?: string, init: RequestInit = {}, transport: Transport = fetch) {
+  if (!['list','freeze','anchor','reconcile','verify'].includes(action)) throw new Error('Invalid decision action.');
+  const suffix = action === 'list' || action === 'freeze' ? '' : /^0x[a-f0-9]{64}$/.test(digest || '') ? `/${digest}/${action}` : null;
+  if (suffix === null) throw new Error('A valid frozen decision digest is required.');
+  return request(`/${SharedWorkId.parse(id)}/decisions${suffix}?${query(context)}`, { ...init, method: action === 'list' ? 'GET' : 'POST' }, transport);
+}
+
 export async function connectSharedWork(token: string, transport: Transport = fetch) {
   disconnectSharedWork();
   const current = generation;

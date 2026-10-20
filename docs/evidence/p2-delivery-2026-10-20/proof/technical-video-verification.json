@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "file": "delivery-output/connected-walkthrough-2026-10-20-v2/MethaneResponse-Connected-Workflow-2026-10-20.mp4",
+  "sha256": "3729cb1ec8a9c4cd8f159223e12056e1477042d763e607ec32174232fd351341",
+  "rawCaptureSha256": "884a0e405970c2885f649484905285ff764c5e95ed61c8bb78dbc1244e59a397",
+  "durationSeconds": 65.4,
+  "width": 1920,
+  "height": 1080,
+  "actualCapture": true,
+  "applicationPixelsUpscaled": false,
+  "publiclyUploaded": false,
+  "segments": [
+    [
+      0.0,
+      "Actual application workflow",
+      "Historical MARS records. Software DEMO reviewer. Local API. No physical repair claim."
+    ],
+    [
+      6.028999999999997,
+      "Allocate investigation capacity using historical MARS records",
+      "Real interface interaction; demonstration decisions and evidence requests."
+    ],
+    [
+      14.935999999999996,
+      "Save an authorized software DEMO allocation decision",
+      "Real interface interaction; demonstration decisions and evidence requests."
+    ],
+    [
+      16.684999999999995,
+      "Scope the source question and issue a specific evidence request",
+      "Real interface interaction; demonstration decisions and evidence requests."
+    ],
+    [
+      24.090999999999998,
+      "Record a separate assessment; DEMO reviewer, not a human study",
+      "Real interface interaction; demonstration decisions and evidence requests."
+    ],
+    [
+      32.551,
+      "Compare saved investigations for potentially reused evidence",
+      "Real interface interaction; demonstration decisions and evidence requests."
+    ],
+    [
+      41.382,
+      "Review the response and freeze the exact investigation dossier",
+      "Real interface interaction; demonstration decisions and evidence requests."
+    ],
+    [
+      52.382999999999996,
+      "New evidence recommends reconsideration without rewriting the frozen decision",
+      "Real interface interaction; demonstration decisions and evidence requests."
+    ],
+    [
+      62.4,
+      "Preserve the decision. Revisit the evidence.",
+      "A matching hash verifies integrity; it does not establish physical mitigation."
+    ]
+  ],
+  "audio": "Original project instrumental, no new voiceover. Historical v12 contains English synthetic narration.",
+  "limitations": [
+    "Technical supplement, not a replacement submission presentation.",
+    "Application actions are not sped up. Includes mobile viewport checks and software fixture setup.",
+    "Editorial chapter timing uses recorded markers with an estimated browser-start offset.",
+    "Human audiovisual quality review remains separate."
+  ]
+}

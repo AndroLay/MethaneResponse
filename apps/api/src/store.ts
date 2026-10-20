@@ -5,13 +5,16 @@ import { dirname, resolve } from 'node:path';
 import type { AuditResult, WithdrawalReason } from '@methane/shared';
 import { publicationEventsForCreate, withdrawalEvent, validatePublicationEvents, migrateLegacyPublications, PublicationError, type PublicationEvent, type PublicationSnapshot } from './publication';
 import { AnchorDraft, AnchorIntent, receiptMatchesIntent } from './anchor-intent';
+import { verifyInvestigationDecision, type InvestigationDecision } from '@methane/shared/investigation-decision';
+import type { SharedWorkContext } from '@methane/shared';
+import { DecisionRecord, DecisionAnchorIntent, decisionStateValid, sameInvestigation, validateDecisionAppend, matchesDecisionReceipt, type DecisionRepository } from './investigation-decision-state';
 import { canonicalJson } from './canonical';
 import { pageAuditRecords, type AuditPage, type AuditPageOptions } from './audit-pagination';
 
 export type AuditStoreStatus = { backend: 'memory' | 'file'; persistent: boolean; ready: boolean };
 export type AuditPageQuery = AuditPageOptions & { sourceId?: string; claimType?: AuditResult['claimType'] };
 
-export interface AuditStore {
+export interface AuditStore extends Partial<DecisionRepository> {
   create(caseId: string, sourceId: string, claimType: AuditResult['claimType'], build: (revision: number) => AuditResult, expectedParentAuditId?: string, authorize?: () => Promise<boolean>): Promise<AuditResult>;
   get(auditId: string): Promise<AuditResult | undefined>;
   list(sourceId?: string, claimType?: AuditResult['claimType']): Promise<AuditResult[]>;
@@ -97,9 +100,11 @@ export class MemoryAuditStore implements AuditStore {
 
 export class FileAuditStore implements AuditStore {
   private queue: Promise<unknown> = Promise.resolve();
-  private cache: { stamp: string; records: AuditResult[]; intents: AnchorIntent[]; publicationEvents: PublicationEvent[] } | null = null;
+  private cache: { stamp: string; records: AuditResult[]; intents: AnchorIntent[]; publicationEvents: PublicationEvent[]; decisions: DecisionRecord[]; decisionIntents: DecisionAnchorIntent[] } | null = null;
   private intents: AnchorIntent[] = [];
   private publicationEvents: PublicationEvent[] = [];
+  private decisions: DecisionRecord[] = [];
+  private decisionIntents: DecisionAnchorIntent[] = [];
   private observed = false;
 
   constructor(readonly path: string) {}
@@ -114,7 +119,7 @@ export class FileAuditStore implements AuditStore {
     return `${info.dev}:${info.ino}:${info.size}:${info.mtimeNs}:${info.ctimeNs}`;
   }
 
-  private async readState(): Promise<{ stamp: string; records: AuditResult[]; intents: AnchorIntent[]; publicationEvents: PublicationEvent[] }> {
+  private async readState(): Promise<{ stamp: string; records: AuditResult[]; intents: AnchorIntent[]; publicationEvents: PublicationEvent[]; decisions: DecisionRecord[]; decisionIntents: DecisionAnchorIntent[] }> {
     let initialized = false;
     try {
       const marker = await open(`${this.path}.initialized`, constants.O_RDONLY | constants.O_NOFOLLOW);
@@ -134,12 +139,13 @@ export class FileAuditStore implements AuditStore {
         if (this.observed || initialized) throw new Error('Initialized audit store is missing');
         this.intents = [];
         this.publicationEvents = [];
-        this.cache = { stamp: 'missing', records: [], intents: [], publicationEvents: [] };
+        this.decisions = []; this.decisionIntents = [];
+        this.cache = { stamp: 'missing', records: [], intents: [], publicationEvents: [], decisions: [], decisionIntents: [] };
         return this.cache;
       }
       const beforeStamp = this.stamp(before);
       if (!before.isFile() || (before.mode & 0o077n) !== 0n || before.size > 64n * 1024n * 1024n) throw new Error('Unsafe audit store file');
-      if (this.cache?.stamp === beforeStamp) { this.intents = this.cache.intents; this.publicationEvents = this.cache.publicationEvents; return this.cache; }
+      if (this.cache?.stamp === beforeStamp) { this.intents = this.cache.intents; this.publicationEvents = this.cache.publicationEvents; this.decisions = this.cache.decisions; this.decisionIntents = this.cache.decisionIntents; return this.cache; }
 
       const file = await open(this.path, constants.O_RDONLY | constants.O_NOFOLLOW);
       let contents: string;
@@ -148,15 +154,20 @@ export class FileAuditStore implements AuditStore {
       const afterStamp = this.stamp(after);
       if (beforeStamp !== afterStamp) continue;
       const parsed = JSON.parse(contents) as unknown;
-      const envelope = parsed as { schemaVersion?: number; audits?: AuditResult[]; anchorIntents?: unknown[]; publicationEvents?: unknown[] };
-      const records = Array.isArray(parsed) ? parsed : [1, 2].includes(envelope?.schemaVersion!) && Array.isArray(envelope.audits) ? envelope.audits : null;
+      const envelope = parsed as { schemaVersion?: number; audits?: AuditResult[]; anchorIntents?: unknown[]; publicationEvents?: unknown[]; decisions?: unknown[]; decisionIntents?: unknown[] };
+      const records = Array.isArray(parsed) ? parsed : [1, 2, 3].includes(envelope?.schemaVersion!) && Array.isArray(envelope.audits) ? envelope.audits : null;
       if (!records) throw new Error('Invalid audit store envelope');
       this.intents = Array.isArray(parsed) ? [] : AnchorIntent.array().parse(envelope.anchorIntents);
+      this.decisions = envelope.schemaVersion === 3 ? DecisionRecord.array().max(100).parse(envelope.decisions) : [];
+      if (envelope.schemaVersion === 3 && canonicalJson(envelope.decisions) !== canonicalJson(this.decisions)) throw new Error('Frozen decision normalization would alter committed bytes');
+      for (const record of this.decisions) if (!await verifyInvestigationDecision(record.decision, record.decision.digest)) throw new Error('Frozen decision commitment failed');
+      this.decisionIntents = envelope.schemaVersion === 3 ? DecisionAnchorIntent.array().max(200).parse(envelope.decisionIntents) : [];
+      decisionStateValid(this.decisions, this.decisionIntents);
       this.observed = true;
       const legacy = Array.isArray(parsed) || (envelope.schemaVersion === 1 && envelope.publicationEvents === undefined);
       this.publicationEvents = legacy ? migrateLegacyPublications(records as AuditResult[])
         : validatePublicationEvents(envelope.publicationEvents, records as AuditResult[]);
-      this.cache = { stamp: afterStamp, records: records as AuditResult[], intents: this.intents, publicationEvents: this.publicationEvents };
+      this.cache = { stamp: afterStamp, records: records as AuditResult[], intents: this.intents, publicationEvents: this.publicationEvents, decisions: this.decisions, decisionIntents: this.decisionIntents };
       return this.cache;
     }
     throw new Error('Audit store changed repeatedly while it was being read');
@@ -164,9 +175,10 @@ export class FileAuditStore implements AuditStore {
 
   private async readAll(): Promise<AuditResult[]> { return (await this.readState()).records; }
 
-  private async writeAll(records: AuditResult[], intents = this.intents, publicationEvents = this.publicationEvents) {
+  private async writeAll(records: AuditResult[], intents = this.intents, publicationEvents = this.publicationEvents, decisions = this.decisions, decisionIntents = this.decisionIntents) {
     validatePublicationEvents(publicationEvents, records);
-    const contents = JSON.stringify({ schemaVersion: 2, audits: records, anchorIntents: intents, publicationEvents });
+    decisionStateValid(decisions, decisionIntents);
+    const contents = JSON.stringify({ schemaVersion: decisions.length || decisionIntents.length ? 3 : 2, audits: records, anchorIntents: intents, publicationEvents, ...(decisions.length || decisionIntents.length ? { decisions, decisionIntents } : {}) });
     if (Buffer.byteLength(contents) > 64 * 1024 * 1024) throw new Error('Audit store capacity exceeded');
     const persist = async (path: string, text: string) => {
       const temporary = `${path}.${randomUUID()}.tmp`;
@@ -185,6 +197,7 @@ export class FileAuditStore implements AuditStore {
     this.observed = true;
     this.intents = intents;
     this.publicationEvents = publicationEvents;
+    this.decisions = decisions; this.decisionIntents = decisionIntents;
   }
 
   async publicationSnapshot(): Promise<PublicationSnapshot> {
@@ -201,6 +214,46 @@ export class FileAuditStore implements AuditStore {
     });
   }
 
+  async listInvestigationDecisions(context: SharedWorkContext, workId: string) {
+    await this.readAll(); return structuredClone(this.decisions.filter(r => sameInvestigation(r.decision, context, workId)));
+  }
+  async saveInvestigationDecision(decision: InvestigationDecision, expected: string | null, authorize: () => Promise<boolean>) {
+    await this.serialize(async () => {
+      const records = await this.readAll();
+      await validateDecisionAppend(this.decisions, decision, expected, authorize);
+      await this.writeAll(records, this.intents, this.publicationEvents, [...this.decisions, { decision: structuredClone(decision) }]);
+    });
+  }
+  async getDecisionAnchorIntent(digest: string) {
+    await this.readAll(); return structuredClone([...this.decisionIntents].reverse().find(i => i.bundleHash === digest));
+  }
+  async reserveDecisionAnchor(digest: string, registryKey: string, raw: AnchorDraft, authorize: () => Promise<boolean>) {
+    return this.serialize(async () => {
+      const records = await this.readAll(), draft = AnchorDraft.parse(raw);
+      const stored = this.decisions.find(r => r.decision.digest === digest);
+      if (!stored || stored.receipt || draft.auditId !== `investigation:${digest}` || this.decisionIntents.length >= 200) return false;
+      const all = [...this.intents, ...this.decisionIntents];
+      if (all.some(i => i.state === 'pending' || i.chainId === draft.chainId && i.issuer.toLowerCase() === draft.issuer.toLowerCase() && i.nonce >= draft.nonce)) return false;
+      if (this.decisionIntents.some(i => i.chainId === draft.chainId && i.registryAddress.toLowerCase() === draft.registryAddress.toLowerCase() && i.registryKey === registryKey && i.state === 'confirmed' && i.expectedVersion >= draft.expectedVersion)) return false;
+      if (!await authorize()) throw new Error('Current anchor authority required');
+      const intent = DecisionAnchorIntent.parse({ ...draft, registryKey, bundleHash: digest, state: 'pending', createdAt: new Date().toISOString() });
+      await this.writeAll(records, this.intents, this.publicationEvents, this.decisions, [...this.decisionIntents, intent]); return true;
+    });
+  }
+  async finishDecisionAnchor(digest: string, outcome: { status: 'reverted' } | { status: 'confirmed'; receipt: NonNullable<DecisionRecord['receipt']> }) {
+    await this.serialize(async () => {
+      const records = await this.readAll(), intent = [...this.decisionIntents].reverse().find(i => i.bundleHash === digest);
+      if (!intent || intent.state === 'reverted' || outcome.status === 'confirmed' && !matchesDecisionReceipt(intent, outcome.receipt)) throw new Error('Decision receipt does not match durable intent');
+      const stored = this.decisions.find(r => r.decision.digest === digest)!;
+      if (intent.state === 'confirmed') {
+        if (outcome.status !== 'confirmed' || canonicalJson(stored.receipt) !== canonicalJson(outcome.receipt)) throw new Error('Confirmed receipt is immutable');
+        return;
+      }
+      const decisions = this.decisions.map(r => r.decision.digest === digest && outcome.status === 'confirmed' ? { ...r, receipt: outcome.receipt } : r);
+      await this.writeAll(records, this.intents, this.publicationEvents, decisions, this.decisionIntents.map(i => i.operationId === intent.operationId ? { ...i, state: outcome.status } : i));
+    });
+  }
+
   async getAnchorIntent(auditId: string) {
     await this.readAll();
     return structuredClone([...this.intents].reverse().find(i => i.auditId === auditId));
@@ -211,11 +264,11 @@ export class FileAuditStore implements AuditStore {
       const stored = records.find(r => r.auditId === audit.auditId);
       if (!stored) throw new Error('Audit not found');
       assertImmutableBundle(stored, audit);
-      if (stored.anchored || this.intents.some(i => i.state === 'pending')) return false;
+      if (stored.anchored || [...this.intents, ...this.decisionIntents].some(i => i.state === 'pending')) return false;
       const draft = AnchorDraft.parse(input);
       if (draft.auditId !== audit.auditId || audit.bundle.schemaVersion === 4 || audit.bundle.intelligence?.reviewStatus === 'unreviewed') throw new Error('Invalid anchor intent');
       // One dedicated issuer. Previously consumed nonces and case versions cannot be reused.
-      if (this.intents.some(i => i.chainId === draft.chainId && i.issuer.toLowerCase() === draft.issuer.toLowerCase() && i.nonce >= draft.nonce)) return false;
+      if ([...this.intents, ...this.decisionIntents].some(i => i.chainId === draft.chainId && i.issuer.toLowerCase() === draft.issuer.toLowerCase() && i.nonce >= draft.nonce)) return false;
       if (this.intents.some(i => i.chainId === draft.chainId && i.registryAddress.toLowerCase() === draft.registryAddress.toLowerCase()
         && i.caseId === audit.caseId && i.claimType === audit.claimType && i.state === 'confirmed' && i.expectedVersion >= draft.expectedVersion)) return false;
       const intent = AnchorIntent.parse({ ...draft, caseId: audit.caseId, claimType: audit.claimType, bundleHash: audit.bundleHash,

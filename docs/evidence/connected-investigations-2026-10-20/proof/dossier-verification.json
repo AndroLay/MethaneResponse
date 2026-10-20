@@ -1,0 +1,58 @@
+{
+  "recordedAt": "2026-10-20T10:47:55.918Z",
+  "trustedOriginalDigest": "0xa24d99a223bd5df59d4fcf76dd13ffe2bfa98f5e754878343becb42c7a5c9afd",
+  "results": [
+    {
+      "name": "original",
+      "arguments": [
+        "scripts/verify-investigation.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/connected-investigation.json",
+        "--expected-digest",
+        "0xa24d99a223bd5df59d4fcf76dd13ffe2bfa98f5e754878343becb42c7a5c9afd"
+      ],
+      "expectedExit": 0,
+      "actualExit": 0,
+      "stdout": "{\"valid\":true,\"workId\":\"default\",\"sourceId\":\"TKM_S_021\",\"revisions\":3,\"linkedPlans\":1,\"linkedAssessments\":1,\"linkedTransitions\":1,\"expectedDigest\":\"0xa24d99a223bd5df59d4fcf76dd13ffe2bfa98f5e754878343becb42c7a5c9afd\",\"physicalOutcomeEstablished\":false,\"chainAnchored\":false,\"limitation\":\"Integrity relative to a separately trusted digest; no independent reviewer identity, physical outcome or blockchain receipt. Replay snapshot differences separately against both pinned input files.\"}",
+      "stderr": ""
+    },
+    {
+      "name": "altered",
+      "arguments": [
+        "scripts/verify-investigation.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/altered-dossier.json",
+        "--expected-digest",
+        "0xa24d99a223bd5df59d4fcf76dd13ffe2bfa98f5e754878343becb42c7a5c9afd"
+      ],
+      "expectedExit": 1,
+      "actualExit": 1,
+      "stdout": "",
+      "stderr": "Investigation failed trusted-digest, allocation replay or evidence relationship checks."
+    },
+    {
+      "name": "altered and rehashed",
+      "arguments": [
+        "scripts/verify-investigation.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/altered-rehashed-dossier.json",
+        "--expected-digest",
+        "0xa24d99a223bd5df59d4fcf76dd13ffe2bfa98f5e754878343becb42c7a5c9afd"
+      ],
+      "expectedExit": 1,
+      "actualExit": 1,
+      "stdout": "",
+      "stderr": "Investigation failed trusted-digest, allocation replay or evidence relationship checks."
+    },
+    {
+      "name": "original again",
+      "arguments": [
+        "scripts/verify-investigation.ts",
+        "docs/evidence/connected-investigations-2026-10-20/proof/connected-investigation.json",
+        "--expected-digest",
+        "0xa24d99a223bd5df59d4fcf76dd13ffe2bfa98f5e754878343becb42c7a5c9afd"
+      ],
+      "expectedExit": 0,
+      "actualExit": 0,
+      "stdout": "{\"valid\":true,\"workId\":\"default\",\"sourceId\":\"TKM_S_021\",\"revisions\":3,\"linkedPlans\":1,\"linkedAssessments\":1,\"linkedTransitions\":1,\"expectedDigest\":\"0xa24d99a223bd5df59d4fcf76dd13ffe2bfa98f5e754878343becb42c7a5c9afd\",\"physicalOutcomeEstablished\":false,\"chainAnchored\":false,\"limitation\":\"Integrity relative to a separately trusted digest; no independent reviewer identity, physical outcome or blockchain receipt. Replay snapshot differences separately against both pinned input files.\"}",
+      "stderr": ""
+    }
+  ]
+}

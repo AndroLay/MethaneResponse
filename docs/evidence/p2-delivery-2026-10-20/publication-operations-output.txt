@@ -1,0 +1,10 @@
+$ bun --no-env-file scripts/run-publication-operations.ts
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/publication-runtime.test.ts:
+(pass) publication correction and withdrawal survive real API SIGKILL with private event actors retained [1059.71ms]
+
+ 1 pass
+ 0 fail
+ 15 expect() calls
+Ran 1 test across 1 file. [1088.00ms]

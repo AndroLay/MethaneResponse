@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "mars-observation-claim/1",
+  "input": {
+    "sourceId": "KAZ_S_159",
+    "datasetSnapshotId": "unep-mars-675417694883",
+    "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+    "query": {
+      "kind": "physical_mitigation",
+      "startDate": "2020-10-29",
+      "endDate": "2026-09-13"
+    },
+    "synthetic": false,
+    "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "archiveStartDate": "2020-10-29",
+    "archiveEndDate": "2026-09-13",
+    "provenance": {
+      "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+      "dataset": "Eye on Methane / MARS detected sources and plumes",
+      "catalogUrl": "https://methanedata.unep.org/download-dataset",
+      "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+      "retrievedAt": "2026-10-14T06:10:12+00:00",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "snapshotId": "unep-mars-675417694883",
+      "license": "CC BY-NC-SA 4.0",
+      "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+      "localFileName": "sources_plumes_csv.zip"
+    },
+    "sourceLimitations": [
+      "Priority is an uncalibrated investigation aid, not a physical leak likelihood or future-flux forecast.",
+      "The calibrated recurrence estimate predicts another linked MARS archive record within 365 days for a source already observed; it does not predict methane presence, emissions, repair, or mitigation.",
+      "The observed flux trend summarizes discrete detection dates only; it is not extrapolated and is not a future forecast.",
+      "A descriptive trend is emitted only with four or more numeric dates spanning at least 90 days; the method summarizes dated flux with a median pairwise Theil–Sen slope.",
+      "Observation coverage varies by sensor, revisit schedule, geography, and cloud conditions; missing observations do not mean zero emissions.",
+      "Source notification and feedback metadata do not verify recipient, repair, or emissions reduction.",
+      "This small curated casebook has not been independently validated as a predictive model."
+    ],
+    "observations": [
+      {
+        "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "sourceId": "KAZ_S_159",
+        "linkStatus": "linked",
+        "date": "2024-06-07T08:05:04",
+        "fluxKgHr": 591,
+        "uncertaintyKgHr": 335,
+        "fluxUnit": "kg/h",
+        "satellite": "EnMAP - DLR",
+        "lat": 43.41337,
+        "lon": 52.91829
+      },
+      {
+        "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "sourceId": "KAZ_S_159",
+        "linkStatus": "linked",
+        "date": "2026-06-05T07:40:02",
+        "fluxKgHr": 307,
+        "uncertaintyKgHr": 66,
+        "fluxUnit": "kg/h",
+        "satellite": "EnMAP - DLR",
+        "lat": 43.41337,
+        "lon": 52.91829
+      },
+      {
+        "id": "941806b5-2afe-46ac-baac-a0230880cede",
+        "sourceId": "KAZ_S_159",
+        "linkStatus": "linked",
+        "date": "2026-07-11T08:12:14",
+        "fluxKgHr": 496,
+        "uncertaintyKgHr": 226,
+        "fluxUnit": "kg/h",
+        "satellite": "EnMAP - DLR",
+        "lat": 43.41337,
+        "lon": 52.91829
+      }
+    ]
+  },
+  "statement": "Physical methane mitigation at KAZ_S_159 succeeded during 2020-10-29 to 2026-09-13 UTC (inclusive).",
+  "status": "requires_document_review",
+  "explanation": "Satellite records, including their absence, cannot determine a physical repair outcome. Inspect attributable action records, facility identity, follow-up methods and observation opportunities.",
+  "physicalMitigationEstablished": false,
+  "counterexampleIds": [],
+  "summary": {
+    "total": 3,
+    "inWindow": 3,
+    "outsideWindow": 0,
+    "numericFlux": 3,
+    "missingFlux": 0,
+    "counterexamples": 0
+  },
+  "trace": [
+    {
+      "record": {
+        "id": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "sourceId": "KAZ_S_159",
+        "linkStatus": "linked",
+        "date": "2024-06-07T08:05:04",
+        "fluxKgHr": 591,
+        "uncertaintyKgHr": 335,
+        "fluxUnit": "kg/h",
+        "satellite": "EnMAP - DLR",
+        "lat": 43.41337,
+        "lon": 52.91829
+      },
+      "utcDay": "2024-06-07",
+      "disposition": "document_review",
+      "uncertaintyRelation": "not_applicable"
+    },
+    {
+      "record": {
+        "id": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "sourceId": "KAZ_S_159",
+        "linkStatus": "linked",
+        "date": "2026-06-05T07:40:02",
+        "fluxKgHr": 307,
+        "uncertaintyKgHr": 66,
+        "fluxUnit": "kg/h",
+        "satellite": "EnMAP - DLR",
+        "lat": 43.41337,
+        "lon": 52.91829
+      },
+      "utcDay": "2026-06-05",
+      "disposition": "document_review",
+      "uncertaintyRelation": "not_applicable"
+    },
+    {
+      "record": {
+        "id": "941806b5-2afe-46ac-baac-a0230880cede",
+        "sourceId": "KAZ_S_159",
+        "linkStatus": "linked",
+        "date": "2026-07-11T08:12:14",
+        "fluxKgHr": 496,
+        "uncertaintyKgHr": 226,
+        "fluxUnit": "kg/h",
+        "satellite": "EnMAP - DLR",
+        "lat": 43.41337,
+        "lon": 52.91829
+      },
+      "utcDay": "2026-07-11",
+      "disposition": "document_review",
+      "uncertaintyRelation": "not_applicable"
+    }
+  ],
+  "nextChecks": [
+    "Inspect the exact source ID, plume ID, UTC date, satellite and reported uncertainty against the publisher archive.",
+    "Obtain dated action records and attributable follow-up measurements, including observation opportunities, detection limits, units and uncertainty.",
+    "Record an authorized human determination separately; this exploratory check does not create or anchor an audit revision."
+  ],
+  "limitations": [
+    "Analyst-defined scenario; not a statement attributed to an operator or publisher.",
+    "Linked MARS records concern a source location, not necessarily the same equipment or responsible operator.",
+    "The threshold checks reported point estimates. Estimate ± reported standard deviation is descriptive, not a calibrated confidence interval or an exceedance probability.",
+    "Missing records are not zero emissions. Satellite detections are discrete and not continuous monitoring.",
+    "Archive observation dates do not establish when a record became publicly available.",
+    "An unsigned digest and policy replay do not establish authenticity or physical truth."
+  ],
+  "digest": "0x58cabbeda62181577716487ac0b21e1678279b56f6fcc48bec4695ac44b5cf47"
+}

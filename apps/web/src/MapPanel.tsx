@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import maplibregl, { type Map as MapLibreMap, type MapLayerMouseEvent, type ProjectionSpecification, type StyleSpecification } from 'maplibre-gl';
+import maplibregl, { type Map as MapLibreMap, type MapGeoJSONFeature, type MapLayerMouseEvent, type ProjectionSpecification, type StyleSpecification } from 'maplibre-gl';
 import type { FeatureCollection, Point } from 'geojson';
 import type { MarsObservation, MarsSource } from './mars';
+import { plannedMapPoints } from './plan-session';
 import { filterObservationsForMonth, filterObservationsThroughMonth, getLatestObservationMonthForSource, getObservationDateRange, getObservationHistoryBuckets } from './observation-history';
 import { decoratePlumeFootprintsForMap, filterPlumeFootprints, getFluxFootprintColorExpression, loadMonthlyPlumeGeometry, shouldLoadPlumeFootprints, toPlumeObservationLocations, type PlumeFootprintCollection, type PlumeGeometryManifest } from './plume-geometries';
 import { shouldAnalyzeObservationHistory, shouldBuildObservationPoints, shouldBuildSourcePoints } from './map-panel-load';
 import { getReportedFluxColor, REPORTED_FLUX_PALETTE } from './map-marker-style';
 import { getObservationMarkerDetails, getSourceMarkerDetails, type MapMarkerDetail } from './map-marker-details';
-import { getSourceMapFocusView, SOURCE_MARKER_CLUSTER_MAX_ZOOM, type MapFocusRequest } from './map-focus';
+import { createLayerClickDispatcher, getSourceMapFocusView, SOURCE_MARKER_CLUSTER_MAX_ZOOM, type MapFocusRequest } from './map-focus';
 import { getMapToplineLabel } from './map-surface-copy';
 import { watchMapReadiness } from './map-readiness';
 import { ESRI_WORLD_IMAGERY_TILE_TEMPLATE } from './map-imagery';
@@ -309,7 +310,7 @@ function styleForTheme(theme: MapTheme, grayPercent: number, look: EarthLook): s
   return satelliteStyle(getRasterSaturation(theme, grayPercent, look), look);
 }
 
-type Props = { sources: MarsSource[]; sourcesReady?: boolean; observations?: MarsObservation[]; recordMode?: 'sources' | 'plumes'; dataLayer?: MapDataLayer; latestObservationDate?: string | null; datasetSnapshotId?: string | null; sourceArchiveSha256?: string | null; selectedId: string | null; focusRequest?: MapFocusRequest | null; onFocusRequestHandled?: (requestId: number) => void; onSelect: (id: string) => void; onSelectUnlinked?: (plumeId: string) => void; onProjectionFallback: () => void; onGlobeSupportChange: (supported: boolean) => void; theme: MapTheme; grayPercent: number; projection: MapProjection; focusOnly: boolean; expanded?: boolean; initialRenderPreference?: RenderPreference; onRenderPreferenceChange?: (preference: RenderPreference) => void };
+type Props = { sources: MarsSource[]; plannedSources?: MarsSource[]; sourcesReady?: boolean; observations?: MarsObservation[]; recordMode?: 'sources' | 'plumes'; dataLayer?: MapDataLayer; latestObservationDate?: string | null; datasetSnapshotId?: string | null; sourceArchiveSha256?: string | null; selectedId: string | null; focusRequest?: MapFocusRequest | null; onFocusRequestHandled?: (requestId: number) => void; onSelect: (id: string) => void; onSelectUnlinked?: (plumeId: string) => void; onProjectionFallback: () => void; onGlobeSupportChange: (supported: boolean) => void; theme: MapTheme; grayPercent: number; projection: MapProjection; focusOnly: boolean; expanded?: boolean; initialRenderPreference?: RenderPreference; onRenderPreferenceChange?: (preference: RenderPreference) => void };
 const validSources = (sources: MarsSource[]) => sources.filter(s => Number.isFinite(s.lat) && Number.isFinite(s.lon) && Math.abs(s.lat) <= 90 && Math.abs(s.lon) <= 180);
 function getUtcDateDaysAgo(daysAgo: number): string {
   const date = new Date();
@@ -392,11 +393,14 @@ function createMarkerPopupContent(title: string, details: MapMarkerDetail[], not
   return content;
 }
 
-export default function MapPanel({ sources, sourcesReady = true, observations = [], recordMode = 'sources', dataLayer = 'source-density', latestObservationDate = null, datasetSnapshotId = null, sourceArchiveSha256 = null, selectedId, focusRequest = null, onFocusRequestHandled, onSelect, onSelectUnlinked, onProjectionFallback, onGlobeSupportChange, theme, grayPercent, projection, focusOnly, expanded = false, initialRenderPreference = 'auto', onRenderPreferenceChange }: Props) {
+export default function MapPanel({ sources, plannedSources = [], sourcesReady = true, observations = [], recordMode = 'sources', dataLayer = 'source-density', latestObservationDate = null, datasetSnapshotId = null, sourceArchiveSha256 = null, selectedId, focusRequest = null, onFocusRequestHandled, onSelect, onSelectUnlinked, onProjectionFallback, onGlobeSupportChange, theme, grayPercent, projection, focusOnly, expanded = false, initialRenderPreference = 'auto', onRenderPreferenceChange }: Props) {
   const node = useRef<HTMLDivElement | null>(null);
   const map = useRef<MapLibreMap | null>(null);
   const popupRef = useRef<maplibregl.Popup | null>(null);
   const sourcesRef = useRef(sources);
+  const plannedGeoJSON = useMemo(() => plannedMapPoints(plannedSources, plannedSources.map(s => s.sourceId)), [plannedSources]);
+  const plannedRef = useRef(plannedGeoJSON); plannedRef.current = plannedGeoJSON;
+  const plannedSourcesRef = useRef(plannedSources); plannedSourcesRef.current = plannedSources;
   const focusRequestRef = useRef(focusRequest);
   const focusRequestHandledRef = useRef<number | null>(null);
   const skipGlobeOverviewAfterFocusRef = useRef(false);
@@ -890,6 +894,7 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
         (instance.getSource('mars-flux-observations') as maplibregl.GeoJSONSource | undefined)?.setData(fluxOverlayRef.current);
         (instance.getSource('mars-flux-cells') as maplibregl.GeoJSONSource | undefined)?.setData(lowPowerFluxGridRef.current);
         (instance.getSource('methane-priority-source') as maplibregl.GeoJSONSource | undefined)?.setData(priorityOverlayRef.current);
+        (instance.getSource('investigation-plan-points') as maplibregl.GeoJSONSource | undefined)?.setData(plannedRef.current);
         (instance.getSource('mars-plume-footprints') as maplibregl.GeoJSONSource | undefined)?.setData(footprintDataRef.current);
         (instance.getSource('mars-plume-record-locations') as maplibregl.GeoJSONSource | undefined)?.setData(footprintLocationsRef.current);
         syncRecordMode();
@@ -991,6 +996,8 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
         'circle-stroke-width': 2,
       } });
       instance.addSource('mars-observations', { type: 'geojson', data: observationGeoJSONRef.current, cluster: true, clusterMaxZoom: 9, clusterRadius: 46 });
+      instance.addSource('investigation-plan-points', { type: 'geojson', data: plannedRef.current });
+      instance.addLayer({ id: 'investigation-plan-rings', type: 'circle', source: 'investigation-plan-points', paint: { 'circle-radius': 12, 'circle-color': '#0c2530', 'circle-opacity': 0.25, 'circle-stroke-color': '#68f0ed', 'circle-stroke-width': 3, 'circle-stroke-opacity': 1 } });
       instance.addLayer({ id: 'mars-observation-cluster-halo', type: 'circle', source: 'mars-observations', filter: ['has', 'point_count'], layout: { visibility: 'none' }, paint: { 'circle-radius': ['step', ['get', 'point_count'], 19, 50, 27, 300, 35], 'circle-color': '#648cdb', 'circle-opacity': .15, 'circle-stroke-color': '#91b4ff', 'circle-stroke-opacity': .32, 'circle-stroke-width': 2 } });
       instance.addLayer({ id: 'mars-observation-clusters', type: 'circle', source: 'mars-observations', filter: ['has', 'point_count'], layout: { visibility: 'none' }, paint: { 'circle-color': '#304f86', 'circle-radius': ['step', ['get', 'point_count'], 14, 50, 19, 300, 25], 'circle-stroke-width': 2, 'circle-stroke-color': '#91b4ff' } });
       instance.addLayer({ id: 'mars-observation-cluster-count', type: 'symbol', source: 'mars-observations', filter: ['has', 'point_count'], layout: { visibility: 'none', 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 12 }, paint: { 'text-color': '#ffffff' } });
@@ -1025,7 +1032,7 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
       const id = properties?.id;
       if (typeof id !== 'string') return;
       onSelectRef.current(id);
-      const source = sourcesRef.current.find(candidate => candidate.sourceId === id);
+      const source = sourcesRef.current.find(candidate => candidate.sourceId === id) || plannedSourcesRef.current.find(candidate => candidate.sourceId === id);
       if (!source) return;
       const details = getSourceMarkerDetails(source, markerProvenanceRef.current);
       const isPriority = properties?.priorityType === 'heuristic_not_probability';
@@ -1124,15 +1131,20 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
       firstStyleLoaded = true;
       syncSource();
     });
-    instance.on('click', 'methane-unclustered', clickPoint);
-    instance.on('click', 'methane-priority-points', clickPoint);
-    instance.on('click', 'methane-clusters', clickCluster);
-    instance.on('click', 'mars-observation-unclustered', clickObservationPoint);
-    instance.on('click', 'mars-observation-clusters', clickObservationCluster);
-    instance.on('click', 'mars-plume-footprints', clickFootprintRecord);
-    instance.on('click', 'mars-plume-record-locations', clickFootprintRecord);
-    instance.on('click', 'mars-plume-records-without-visible-geometry', clickFootprintRecord);
-    instance.on('click', 'mars-plume-record-clusters', clickFootprintCluster);
+    const selections = [
+      { layers: ['investigation-plan-rings'], handle: clickPoint },
+      { layers: ['methane-unclustered', 'methane-priority-points'], handle: clickPoint },
+      { layers: ['mars-observation-unclustered'], handle: clickObservationPoint },
+      { layers: ['mars-plume-footprints', 'mars-plume-record-locations', 'mars-plume-records-without-visible-geometry'], handle: clickFootprintRecord },
+      { layers: ['methane-clusters'], handle: clickCluster },
+      { layers: ['mars-observation-clusters'], handle: clickObservationCluster },
+      { layers: ['mars-plume-record-clusters'], handle: clickFootprintCluster },
+    ];
+    const dispatchSelection = createLayerClickDispatcher<MapLayerMouseEvent, MapGeoJSONFeature>(selections);
+    instance.on('click', event => {
+      const layers = selections.flatMap(item => item.layers).filter(id => instance.getLayer(id));
+      if (layers.length) dispatchSelection(event, instance.queryRenderedFeatures(event.point, { layers }));
+    });
     instance.on('mousemove', e => { setCoords([e.lngLat.lat, e.lngLat.lng, instance.getZoom()]); });
     instance.on('error', (event) => {
       const message = event.error?.message || '';
@@ -1299,6 +1311,7 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
     fluxGeo?.setData(fluxOverlay);
     const fluxCells = instance.getSource('mars-flux-cells') as maplibregl.GeoJSONSource | undefined;
     fluxCells?.setData(lowPowerFluxGrid);
+    (instance.getSource('investigation-plan-points') as maplibregl.GeoJSONSource | undefined)?.setData(plannedGeoJSON);
     const priorityGeo = instance.getSource('methane-priority-source') as maplibregl.GeoJSONSource | undefined;
     priorityGeo?.setData(priorityOverlay);
     const footprintGeo = instance.getSource('mars-plume-footprints') as maplibregl.GeoJSONSource | undefined;
@@ -1306,7 +1319,7 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
     const footprintLocationGeo = instance.getSource('mars-plume-record-locations') as maplibregl.GeoJSONSource | undefined;
     footprintLocationGeo?.setData(footprintLocations);
     syncEarthRef.current();
-  }, [sourceGeoJSON, observationGeoJSON, dataLayer, renderTier, priorityOverlay, visibleFootprints, footprintLocations, fluxOverlay, lowPowerFluxGrid]);
+  }, [plannedGeoJSON, sourceGeoJSON, observationGeoJSON, dataLayer, renderTier, priorityOverlay, visibleFootprints, footprintLocations, fluxOverlay, lowPowerFluxGrid]);
   useEffect(() => {
     syncEarthRef.current();
   }, [recordMode, dataLayer, renderTier, priorityRows, footprintState]);
@@ -1465,8 +1478,9 @@ export default function MapPanel({ sources, sourcesReady = true, observations = 
       </div>
     </details>}
     <details className="geo-map-legend" aria-label="Map layer legend">
-      <summary>Legend</summary>
+      <summary>Legend{plannedGeoJSON.features.length > 0 ? ` · ${plannedGeoJSON.features.length} planned` : ''}</summary>
       <div className="geo-map-legend-content">
+      {plannedGeoJSON.features.length > 0 && <p className="plan-map-caption" role="status">Cyan rings · {plannedGeoJSON.features.length} planned sources · allocation, not measured methane intensity</p>}
       {(theme === 'satellite' || theme === 'grayscale') && <small>Basemap: static NASA GIBS Blue Marble (August 2004) blended over Esri imagery at global scale; Esri remains underneath and supplies full detail by zoom 4. Not a live feed or methane evidence.</small>}
       {dataLayer === 'source-density' && <><strong>HISTORICAL MARS SOURCE RECORDS</strong><div className="geo-flux-bins">{REPORTED_FLUX_PALETTE.map(item => <span key={item.band}><i style={{ background: item.color }}/>{item.label}</span>)}</div><span><i className="geo-dot geo-source-marker-symbol"/>Ringed point · one source record</span><span><i className="geo-dot geo-ring"/>Cluster count · source records</span><span><i className="geo-dot" style={{ background: '#91a9b2', boxShadow: 'none' }}/>Gray · no valid flux reported</span><small>Fill color is the highest reported source flux in this dataset snapshot (kg/h), not current flux. Heat color counts source locations; it is not methane concentration. {recordMode === 'plumes' ? 'Individual observation markers are shown separately.' : ''}</small></>}
       {dataLayer === 'observed-flux' && <><strong>HISTORICAL REPORTED-FLUX OVERLAY</strong>{renderTier === 'low' ? <div className="geo-flux-bins"><span><i style={{ background: '#3978eb' }}/>&lt;100</span><span><i style={{ background: '#20d2d2' }}/>100–499</span><span><i style={{ background: '#f3d14b' }}/>500–1,999</span><span><i style={{ background: '#f58b38' }}/>2,000–4,999</span><span><i style={{ background: '#ed4b43' }}> </i>≥5,000 kg/h</span></div> : <div className="geo-flux-gradient"><span>lower weighted density</span><i/><span>higher</span></div>}<span><i className="geo-dot" style={{ background: '#3978eb' }}/>Input values are reported per-observation flux in kg/h</span><small>{renderTier === 'low' ? `${lowPowerCellCount.toLocaleString()} low-power grid cells summarize ${positiveFluxLocationCount.toLocaleString()} positive observations` : `${positiveFluxLocationCount.toLocaleString()} positive, located records`} · {observationPeriod}.</small>{renderTier === 'low' ? <small>Color is the median reported flux within an approximately 1° grid cell. These are historical summaries, not continuous concentration or measured plume boundaries; circle size is cartographic only.</small> : <small>Heat colors blend overlapping historical detections; they do not show a continuous surface concentration or a measured plume boundary. Zero and missing values add no heat.</small>}{recordMode === 'plumes' && <small>Point markers remain available for inspecting individual MARS observation records.</small>}</>}

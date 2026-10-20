@@ -1,0 +1,183 @@
+{
+  "recordedAt": "2026-10-19T12:53:57.040Z",
+  "scope": "Local archive-query conformance; not an operator allegation, AI evaluation or physical mitigation benchmark",
+  "baselineCommit": "8e19c034e666a6b00d93b4cb3f5747f563c75aab",
+  "workingTreeSourceSha256": {
+    "package.json": "a75da70271a9b65f22ae191448d2c5e61fb94fa796495a92a46029d9f0ddc7f8",
+    "packages/shared/package.json": "4fff62d0ff2cd563999a1bca25818648770a8c8f7dbbe79f702a190e183372fa",
+    "packages/shared/src/observation-claims.ts": "844cbd9f25cc468dc37a540800c2323acda7048d50bcaf62c0c9748a7ad36418",
+    "apps/api/src/observation-archive.ts": "209b18a79cd543af164d3a6968b70658a59a077c1179bd0743f9c7ae5a200af1",
+    "apps/api/src/observation-claims.test.ts": "77b3dfd18aa005c0abd0e3dfa2203dbc21d83dc5c8206eb76e3125d8e3c32903",
+    "apps/api/src/app.ts": "d562d8b745a27de251b065f1d8d826322c1085dd598f8c041529a1f8cae3c0a0",
+    "apps/api/src/rate-limit.ts": "70cbe9815957fe23f45c5a1e8a2f89d4b43fa36865df333676ec6fe8d98135cc",
+    "apps/web/src/observation-check.ts": "6ff896887eff30983c95075dfea291f12c4cea6e48c3dc65295d35e93b5a3ed9",
+    "apps/web/src/observation-check.test.ts": "de0bd33feb260285f6be91c6d0758a17a1e072daba9a2df1dbe9227f0abfafed",
+    "apps/web/src/ObservationClaimPanel.tsx": "83bae27118ffdd8ef7f43eefeb9d4c457befd394f9a66633d2d751c510457644",
+    "apps/web/src/DecisionLabPanel.tsx": "547095e2fef818b22fb5495e270d6dcad30da347e4a8e1f16730ffc3398d5448",
+    "apps/web/src/decision-lab.css": "33b268d6a8b0c12ac4877bf245ced06f6baf24005d9139e49d0b6c7ff1e4e731",
+    "apps/web/src/EvidenceAuditorWorkflow.tsx": "ad54d273866775912e16d803cf79d964442e34d908aa5ae7623b3d9451b52765",
+    "apps/web/src/App.tsx": "8c83eac53275b75a3e790cb4b41d1666e48a1b06c8d0f79caa73611f38a60506",
+    "apps/web/src/decision-lab.ts": "04c35a5c341a5b3d96dd2d18e9c020809cef4fe2284380435d6709e3d42708ea",
+    "e2e/audit-workflow.spec.ts": "ec2e1fb612ff3599670292e0b5fe480d0fa471b78d09e98d6eaeebbb475f0bc0",
+    "scripts/observation-claim-proof.ts": "3d0a969e6a4a2c5bc0cfd6b35d2cd3842e9812f26173bb758243f7d2a0f44468",
+    "scripts/tsconfig.evaluation.json": "79c6e83581ab3cbec28669583165b64ed0d9326ff21fd1cf0087d1aff9b85fa8",
+    "services/data-pipeline/observation_check_oracle.py": "6c4bc40d97009647c345a752d8da2221fe03b15896d49b79dab7397ece9454c7",
+    "services/data-pipeline/tests/test_observation_check_oracle.py": "07fcf9c53563b798826e5ffec972247d3dcbf529f2b642a9bd3f16c6bb466062"
+  },
+  "datasetSnapshotId": "unep-mars-675417694883",
+  "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+  "upstreamArchiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+  "examples": [
+    {
+      "file": "KAZ_S_159-no-records.json",
+      "sourceId": "KAZ_S_159",
+      "query": {
+        "startDate": "2020-10-29",
+        "endDate": "2026-09-13",
+        "kind": "no_linked_detections"
+      },
+      "status": "counterexample_found",
+      "counterexamples": 3,
+      "digest": "0x7f753cffffb93edc57febadc487194cc922932332ea77c73fc075af292eec71e"
+    },
+    {
+      "file": "KAZ_S_159-threshold-1000.json",
+      "sourceId": "KAZ_S_159",
+      "query": {
+        "startDate": "2020-10-29",
+        "endDate": "2026-09-13",
+        "kind": "reported_flux_at_most",
+        "thresholdKgHr": 1000
+      },
+      "status": "no_counterexample_in_archive",
+      "counterexamples": 0,
+      "digest": "0xb1ad2fdd6ad9a23f3111e5caed4c8fa7e72cc5682f06246a9833eb4e820efc9c"
+    },
+    {
+      "file": "KAZ_S_159-physical-outcome.json",
+      "sourceId": "KAZ_S_159",
+      "query": {
+        "startDate": "2020-10-29",
+        "endDate": "2026-09-13",
+        "kind": "physical_mitigation"
+      },
+      "status": "requires_document_review",
+      "counterexamples": 0,
+      "digest": "0x58cabbeda62181577716487ac0b21e1678279b56f6fcc48bec4695ac44b5cf47"
+    },
+    {
+      "file": "CAN_S_002-no-records.json",
+      "sourceId": "CAN_S_002",
+      "query": {
+        "startDate": "2020-10-29",
+        "endDate": "2026-09-13",
+        "kind": "no_linked_detections"
+      },
+      "status": "counterexample_found",
+      "counterexamples": 1,
+      "digest": "0xe9fb49067d21da52199459574068c8dfa211775ef4c53faee91638030308d098"
+    },
+    {
+      "file": "CAN_S_002-threshold-1000.json",
+      "sourceId": "CAN_S_002",
+      "query": {
+        "startDate": "2020-10-29",
+        "endDate": "2026-09-13",
+        "kind": "reported_flux_at_most",
+        "thresholdKgHr": 1000
+      },
+      "status": "counterexample_found",
+      "counterexamples": 1,
+      "digest": "0x7ea625f320a26d665b8bd1767fc90d3d553d96235d470fe934f2797ea9e7728a"
+    },
+    {
+      "file": "CAN_S_002-physical-outcome.json",
+      "sourceId": "CAN_S_002",
+      "query": {
+        "startDate": "2020-10-29",
+        "endDate": "2026-09-13",
+        "kind": "physical_mitigation"
+      },
+      "status": "requires_document_review",
+      "counterexamples": 0,
+      "digest": "0xf86f2113de5ccc02ada7034a50c1847a2981638d2c6ff2ef08c90b5b3f501662"
+    },
+    {
+      "file": "LBY_S_143-no-records.json",
+      "sourceId": "LBY_S_143",
+      "query": {
+        "startDate": "2020-10-29",
+        "endDate": "2026-09-13",
+        "kind": "no_linked_detections"
+      },
+      "status": "counterexample_found",
+      "counterexamples": 1,
+      "digest": "0x16213f612aa7ce39d2e72647fa5ea37ce1ac8f6dd8fee615809ddcb7af2ff85a"
+    },
+    {
+      "file": "LBY_S_143-threshold-1000.json",
+      "sourceId": "LBY_S_143",
+      "query": {
+        "startDate": "2020-10-29",
+        "endDate": "2026-09-13",
+        "kind": "reported_flux_at_most",
+        "thresholdKgHr": 1000
+      },
+      "status": "no_counterexample_in_archive",
+      "counterexamples": 0,
+      "digest": "0xa54233563ccecce67d8512a174818d7c3d5240764b28995ef279ef600bb86efe"
+    },
+    {
+      "file": "LBY_S_143-physical-outcome.json",
+      "sourceId": "LBY_S_143",
+      "query": {
+        "startDate": "2020-10-29",
+        "endDate": "2026-09-13",
+        "kind": "physical_mitigation"
+      },
+      "status": "requires_document_review",
+      "counterexamples": 0,
+      "digest": "0x646bd12c528e2c05f2299878949413dd2dc05da86fa2c97d2a6a351bd85bc2f1"
+    },
+    {
+      "file": "KAZ_S_159-empty-window.json",
+      "sourceId": "KAZ_S_159",
+      "query": {
+        "kind": "no_linked_detections",
+        "startDate": "2026-08-01",
+        "endDate": "2026-08-31"
+      },
+      "status": "no_observations",
+      "counterexamples": 0,
+      "digest": "0x561aa3685c1163b4b954183e71bd7e5da43abd3469a165638fa169d320bcebc0"
+    },
+    {
+      "file": "KAZ_S_159-outside-archive.json",
+      "sourceId": "KAZ_S_159",
+      "query": {
+        "kind": "reported_flux_at_most",
+        "thresholdKgHr": 1000000,
+        "startDate": "2026-08-01",
+        "endDate": "2026-12-31"
+      },
+      "status": "incomplete_window",
+      "counterexamples": 0,
+      "digest": "0xbc53687be18ef3a5aee51eb7c5df0f06bb1e55bb4b3ed79552ceca28470b9644"
+    }
+  ],
+  "corpus": {
+    "sources": 4218,
+    "linkedRecords": 23861,
+    "checks": 8436,
+    "thresholdKgHr": 1000,
+    "canonicalSha256": "5d30bf19898d208ca33fbdb0222fdfadb0e659d0894cf3e6938ded24331ddd77"
+  },
+  "savedAudits": 0,
+  "changedOutput": "REJECTED",
+  "changedAndRehashedOutput": "REJECTED",
+  "limitations": [
+    "Both implementations read the same normalized snapshot; this is implementation consistency, not independent measurement validation.",
+    "Unsigned files can be rewritten with changed input and a new digest. A trusted external commitment is required for authenticity.",
+    "No AI provider, public chain transaction, deployment or human-impact measurement is performed."
+  ]
+}

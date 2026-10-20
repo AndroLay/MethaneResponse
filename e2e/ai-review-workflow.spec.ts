@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { issueReviewerToken } from '../apps/api/src/reviewer-auth';
 import { unexpectedCredentialEnvironmentNames } from './environment-assertions';
 
@@ -9,6 +9,257 @@ const fixtureExcerpt = fixtureQuote;
 const fixtureSourceUrl = 'https://amt.copernicus.org/articles/17/1599/2024/amt-17-1599-2024.html';
 const fixtureAttribution = 'Dowd et al. (2024), Atmospheric Measurement Techniques, 17, 1599–1615, DOI 10.5194/amt-17-1599-2024, CC BY 4.0.';
 const claimText = 'For KAZ_S_159, this article reports that the leak was fixed by mid-June 2023.';
+
+test('shared dossier schemas load consistently in the Node ESM browser runner', async () => {
+  // Keep shared runtime imports ESM: mixing a top-level transformed require with import()
+  // creates a different namespace under Playwright's dual CJS/ESM TypeScript loaders.
+  const [dossier, shared] = await Promise.all([import('../packages/shared/src/investigation-dossier'), import('../packages/shared/src/index')]);
+  expect(dossier.DOSSIER_POLICY).toBe('connected-investigation/1');
+  expect(shared.MarsProvenance.safeParse({}).success).toBe(false);
+  expect(typeof shared.CaseWorkDraft.parse).toBe('function');
+});
+
+test('connected investigation preserves allocation, evidence request, human review and historical changes in one verifiable dossier', async ({ page, request }, testInfo) => {
+  const capture=testInfo.project.name==='connected-capture'?await (await import('../docs/demo/connected-2026-10-20/capture-runtime')).beginConnectedCapture(page,testInfo):null;
+  page.setDefaultTimeout(20_000);
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await page.route(/^https?:\/\//, route => ['127.0.0.1','localhost'].includes(new URL(route.request().url()).hostname) ? route.continue() : route.abort());
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/dashboard/cases?sourceId=TKM_S_021');
+  capture?.mark('Allocate investigation capacity using historical MARS records');
+  await page.getByRole('button', { name: 'Plan investigation capacity', exact: true }).click();
+  const planner = page.getByRole('region', { name: 'Investigation capacity planner', exact: true });
+  await planner.getByRole('button', { name: 'Compare investigation plans', exact: true }).click();
+  await expect(planner.getByTestId('planner-summary')).toContainText('4,218');
+  const review = page.getByLabel('Plan reviewer decisions', { exact: true });
+  const token = issueReviewerToken(process.env.METHANE_E2E_REVIEWER_SECRET!, 'trust-demo-reviewer', ['review','private_read'], 600);
+  await review.getByLabel('Plan reviewer token (memory only)').fill(token);
+  await review.getByRole('button', { name: 'Connect plan reviewer', exact: true }).click();
+  await expect(review).toContainText('Connected as trust-demo-reviewer');
+  await review.getByLabel('Plan ID', { exact: true }).fill('DEMO-connected-browser-plan');
+  await review.getByLabel('Decision rationale', { exact: true }).fill('DEMO software reviewer accepts this historical allocation for evidence investigation. This is not a human pilot.');
+  await review.getByRole('button', { name: 'Save reviewer decision', exact: true }).click();
+  await expect(review).toContainText('1 preserved decision revisions');
+  capture?.mark('Save an authorized software DEMO allocation decision');
+  await planner.getByRole('button', { name: 'Evidence TKM_S_021', exact: true }).click();
+  await page.locator('#claim-audit').selectOption('source_detected');
+  const scope = page.getByRole('region', { name: 'Assessment scope', exact: true });
+  await scope.getByLabel('Period start').fill('2020-10-29');
+  await scope.getByLabel('Period end').fill('2026-09-13');
+  await scope.getByRole('button', { name: 'Apply assessment scope', exact: true }).click();
+  // Plan authentication already established the memory-only shared reviewer session.
+  const shared = page.getByRole('region', { name: 'Shared case work', exact: true });
+  capture?.mark('Scope the source question and issue a specific evidence request');
+  const connected = shared.getByRole('region', { name: 'Connected investigation', exact: true });
+  await expect(connected).toBeVisible();
+  await shared.getByLabel('Open question', { exact: true }).fill('DEMO investigate the source-specific historical observations and follow-up evidence.');
+  await shared.getByLabel('Next action', { exact: true }).fill('DEMO inspect the dated operator report and the follow-up measurement.');
+  await connected.getByLabel('Evidence acceptance criteria', { exact: true }).fill('Require source identity, action date, follow-up date, method, units and uncertainty.');
+  await connected.getByLabel('Accepted plan ID', { exact: true }).fill('DEMO-connected-browser-plan');
+  await connected.getByRole('button', { name: 'Attach accepted plan revision', exact: true }).click();
+  await expect(connected).toContainText('accepted revision 1');
+  await expect(connected.getByRole('button', { name: 'Download verified investigation dossier', exact: true })).toBeDisabled();
+  await shared.getByRole('textbox', { name:'Evidence to request',exact:true }).fill('DEMO obtain source-specific follow-up measurements with method and uncertainty.');
+  const lifecycle = connected.locator('details.investigation-lifecycle').filter({has:page.locator('summary', {hasText:'Structured evidence requests'})});
+  await lifecycle.locator('summary').click();
+  await lifecycle.getByLabel('Request due date',{exact:true}).fill('2026-10-25');
+  await lifecycle.getByRole('button',{name:'Add evidence event to draft',exact:true}).click();
+  await expect(lifecycle).toContainText('1 issued');
+  await shared.getByRole('button', { name: 'Save shared work', exact: true }).click();
+  await expect(shared).toContainText('Saved shared revision 1');
+  await connected.getByRole('button', { name: 'Check historical changes for this investigation', exact: true }).click();
+  await expect(connected).toContainText('Record review recommended');
+  await expect(connected).toContainText('persistency');
+  await shared.getByRole('button', { name: 'Save shared work', exact: true }).click();
+  await expect(shared).toContainText('Saved shared revision 2');
+  await page.getByRole('navigation', { name: 'Evidence audit steps' }).getByRole('button', { name: /^Human assessment/ }).click();
+  const human = page.getByRole('region', { name: 'Human evidence assessment', exact: true });
+  capture?.mark('Record a separate assessment; DEMO reviewer, not a human study');
+  await human.getByLabel('Exact claim for human assessment').fill('DEMO analyst question: do the available source records establish the requested source-specific follow-up?');
+  await human.getByLabel('Reason for your determination').fill('DEMO software workflow: historical detection metadata does not supply an attributable follow-up report. This is not a domain expert assessment.');
+  await human.getByLabel('Next evidence request').fill('DEMO obtain the source-linked follow-up measurement and its observation opportunities.');
+  await human.getByLabel('Human assessment reviewer token (session only)').fill(token);
+  await human.getByLabel('I inspected the source material').check();
+  await expect(human.getByRole('button', { name: 'Save human determination', exact: true })).toBeEnabled();
+  await human.getByRole('button', { name: 'Save human determination', exact: true }).click();
+  await expect(human.locator('.human-saved-result')).toContainText('Human determination saved');
+  await human.getByRole('button', { name: 'Add saved request to follow-up', exact: true }).click();
+  await expect(shared.getByRole('textbox', { name: 'Evidence to request', exact: true })).toHaveValue(/source-linked follow-up measurement/);
+  await shared.getByRole('button', { name: 'Save shared work', exact: true }).click();
+  await expect(shared).toContainText('Saved shared revision 3');
+  const pending = page.waitForEvent('download');
+  await connected.getByRole('button', { name: 'Download verified investigation dossier', exact: true }).click();
+  const download = await pending, bytes = await readFile((await download.path())!, 'utf8'), dossier = JSON.parse(bytes);
+  const trusted = await connected.getByLabel('Independent verification digest', { exact: true }).inputValue();
+  const { verifyInvestigationDossier, investigationDigest } = await import('../packages/shared/src/investigation-dossier');
+  const { CaseWorkDraft } = await import('../packages/shared/src/index');
+  expect(await verifyInvestigationDossier(dossier, trusted)).toBe(true);
+  expect(dossier.history).toHaveLength(3); expect(dossier.plans).toHaveLength(1); expect(dossier.transitions).toHaveLength(1); expect(dossier.assessments).toHaveLength(1);
+  expect(dossier.context.sourceId).toBe('TKM_S_021'); expect(bytes).not.toContain(token);
+  const crossOrigin = await page.evaluate(async ({ port, token, context, workId }) => {
+    const query = new URLSearchParams({ ...context, synthetic: String(context.synthetic) });
+    const response = await fetch(`http://127.0.0.1:${port}/api/case-work/${workId}/dossier?${query}`, { headers: { authorization: `Bearer ${token}` } });
+    return { status: response.status, digest: response.headers.get('x-investigation-digest') };
+  }, { port: process.env.METHANE_E2E_API_PORT || '43139', token, context: dossier.context, workId: dossier.workId });
+  expect(crossOrigin).toEqual({ status: 200, digest: trusted });
+  expect(dossier.assessments[0].bundle.humanAssessment.nextEvidenceRequest).toContain('source-linked follow-up measurement');
+  await writeFile(testInfo.outputPath('connected-investigation.json'), bytes);
+  const peer=await request.put(`http://127.0.0.1:${process.env.METHANE_E2E_API_PORT || '43139'}/api/case-work/DEMO-overlap-peer`,{headers:{authorization:`Bearer ${token}`},data:{context:dossier.context,expectedRevision:0,draft:CaseWorkDraft.parse(dossier.history.at(-1))}});
+  expect(peer.status()).toBe(201);
+  await connected.locator('summary').filter({hasText:'Check related claims & reused evidence'}).click();
+  capture?.mark('Compare saved investigations for potentially reused evidence');
+  const overlap=connected.getByRole('region',{name:'Evidence overlap review',exact:true});
+  const overlapResponse=page.waitForResponse(response=>response.request().method()==='GET'&&response.url().includes('/evidence-overlap?')&&response.status()===200);
+  await overlap.getByRole('button',{name:'Check related evidence',exact:true}).click();
+  const overlapReport=await (await overlapResponse).json();
+  await writeFile(testInfo.outputPath('evidence-overlap.json'),JSON.stringify(overlapReport));
+  await expect(overlap).toContainText('No duplicate mitigation finding');
+  await overlap.getByRole('button',{name:'Review DEMO-overlap-peer',exact:true}).click();
+  await overlap.getByRole('combobox',{name:'Overlap interpretation',exact:true}).selectOption('legitimate_reuse');
+  await overlap.getByRole('textbox',{name:'Overlap review rationale',exact:true}).fill('DEMO software reviewer: the same historical source assessment is reused for a separate investigation question; no duplicate physical mitigation is established.');
+  await overlap.getByRole('button',{name:'Add interpretation to draft',exact:true}).click();
+  await expect(shared.getByRole('textbox',{name:'Working notes',exact:true})).toHaveValue(/Evidence overlap review: legitimate_reuse/);
+  await overlap.scrollIntoViewIfNeeded();await page.screenshot({path:testInfo.outputPath('evidence-overlap-desktop.png')});
+  await page.setViewportSize({width:390,height:844});await overlap.scrollIntoViewIfNeeded();
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+  await page.screenshot({path:testInfo.outputPath('evidence-overlap-mobile.png')});await page.setViewportSize({width:1440,height:1000});
+  const edited = structuredClone(dossier); edited.history[0].notes = 'DEMO tampered notes';
+  const { digest: _, ...payload } = edited; edited.digest = await investigationDigest(payload);
+  expect(await verifyInvestigationDossier(edited, trusted)).toBe(false);
+  await lifecycle.getByRole('combobox',{name:'Evidence event',exact:true}).selectOption('response_received');
+  await lifecycle.getByRole('combobox',{name:'Request to respond to',exact:true}).selectOption({index:1});
+  await lifecycle.getByLabel('Response HTTPS reference',{exact:true}).fill('https://example.org/DEMO-authorized-follow-up');
+  await lifecycle.getByLabel('Response locator',{exact:true}).fill('DEMO page 2; software fixture only');
+  await lifecycle.getByLabel('Original response file SHA-256',{exact:true}).fill('a'.repeat(64));
+  await lifecycle.getByRole('combobox',{name:'Processing rights declaration',exact:true}).selectOption('explicit_permission');
+  await lifecycle.getByRole('combobox',{name:'Document date precision',exact:true}).selectOption('month');
+  await lifecycle.getByLabel('Reported document date',{exact:true}).fill('2026-09');
+  await lifecycle.getByRole('button',{name:'Add evidence event to draft',exact:true}).click();
+  await shared.getByRole('button',{name:'Save shared work',exact:true}).click(); await expect(shared).toContainText('Saved shared revision 4');
+  await lifecycle.getByRole('combobox',{name:'Evidence event',exact:true}).selectOption('response_reviewed');
+  await lifecycle.getByRole('combobox',{name:'Response to review',exact:true}).selectOption({index:1});
+  await lifecycle.getByLabel('Response review rationale',{exact:true}).fill('DEMO response lacks attributable measurement opportunities; request further evidence.');
+  await lifecycle.getByRole('button',{name:'Add evidence event to draft',exact:true}).click();
+  await shared.getByRole('button',{name:'Save shared work',exact:true}).click(); await expect(shared).toContainText('Saved shared revision 5');
+  const decisionPanel = connected.locator('details.investigation-lifecycle').filter({has:page.locator('summary',{hasText:'Review → freeze decision'})});
+  capture?.mark('Review the response and freeze the exact investigation dossier');
+  await decisionPanel.locator('summary').click();
+  await decisionPanel.getByRole('button',{name:'Inspect decision dossier and history',exact:true}).click();
+  await expect(decisionPanel).toContainText('3 evidence events');
+  await decisionPanel.getByLabel('Decision rationale',{exact:true}).fill('DEMO software reviewer requests source-specific follow-up; the response alone is insufficient.');
+  await decisionPanel.getByLabel('I inspected the scoped source, linked assessment, evidence and exact dossier digest.',{exact:true}).check();
+  await decisionPanel.getByRole('button',{name:'Freeze reviewed investigation decision',exact:true}).click();
+  await expect(decisionPanel).toContainText('Decision 1 frozen');
+  const decisionDownload = page.waitForEvent('download');
+  await decisionPanel.getByRole('button',{name:'Verify and download decision 1',exact:true}).click();
+  const decisionBytes = await readFile((await (await decisionDownload).path())!,'utf8'), decisionRecord = JSON.parse(decisionBytes);
+  const { verifyInvestigationDecision } = await import('../packages/shared/src/investigation-decision');
+  expect(await verifyInvestigationDecision(decisionRecord.decision,decisionRecord.decision.digest)).toBe(true);
+  expect(decisionRecord.decision.dossier.history).toHaveLength(5);
+  expect(decisionRecord.decision.dossier.history[4].requestEvents[1].reportedDate).toEqual({precision:'month',value:'2026-09'});
+  expect(decisionRecord.chainStatus).toBe('not_anchored'); expect(decisionBytes).not.toContain(token);
+  await writeFile(testInfo.outputPath('frozen-investigation-decision.json'),decisionBytes);
+  await decisionPanel.scrollIntoViewIfNeeded(); await page.screenshot({path:testInfo.outputPath('decision-desktop.png')});
+  // A later response recommends review without rewriting the frozen determination.
+  capture?.mark('New evidence recommends reconsideration without rewriting the frozen decision');
+  await lifecycle.getByRole('combobox',{name:'Evidence event',exact:true}).selectOption('response_received');
+  await lifecycle.getByRole('combobox',{name:'Request to respond to',exact:true}).selectOption({index:1});
+  await lifecycle.getByLabel('Original response file SHA-256',{exact:true}).fill('b'.repeat(64));
+  await lifecycle.getByRole('button',{name:'Add evidence event to draft',exact:true}).click();
+  await shared.getByRole('button',{name:'Save shared work',exact:true}).click(); await expect(shared).toContainText('Saved shared revision 6');
+  await decisionPanel.getByRole('button',{name:'Inspect decision dossier and history',exact:true}).click();
+  const revisitDownload = page.waitForEvent('download');
+  await decisionPanel.getByRole('button',{name:'Verify and download decision 1',exact:true}).click();
+  const revisited = JSON.parse(await readFile((await (await revisitDownload).path())!,'utf8'));
+  expect(revisited.decision).toEqual(decisionRecord.decision); expect(revisited.revisit.state).toBe('review_recommended');
+  expect(revisited.revisit.reasons[0].code).toBe('new_authorized_response');
+  await connected.scrollIntoViewIfNeeded(); await page.screenshot({ path: testInfo.outputPath('connected-investigation-desktop.png') });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect.poll(async () => (await connected.boundingBox())?.width || 0).toBeGreaterThan(280);
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  await connected.scrollIntoViewIfNeeded(); await page.screenshot({ path: testInfo.outputPath('connected-investigation-mobile.png') });
+  let release!: () => void, started!: () => void;
+  const held = new Promise<void>(done => { release = done; }), received = new Promise<void>(done => { started = done; });
+  await page.route(`**/api/case-work/${dossier.workId}/change-check?*`, async route => {
+    const response = await route.fetch(); started(); await held; await route.fulfill({ response });
+  });
+  await connected.getByRole('button', { name: 'Check historical changes for this investigation', exact: true }).click();
+  await received;
+  try {
+    const latest = await request.put(`http://127.0.0.1:${process.env.METHANE_E2E_API_PORT || '43139'}/api/case-work/${dossier.workId}`, { headers: { authorization: `Bearer ${token}` }, data: {
+      context: dossier.context, expectedRevision: 6, draft: { ...CaseWorkDraft.parse((await (await request.get(`http://127.0.0.1:${process.env.METHANE_E2E_API_PORT || '43139'}/api/case-work/${dossier.workId}?${new URLSearchParams({ ...dossier.context, synthetic:'false' })}`,{headers:{authorization:`Bearer ${token}`}})).json()).work), nextAction: 'DEMO concurrent saved update: inspect new evidence before proceeding.' },
+    } });
+    expect(latest.status()).toBe(200);
+    await shared.getByRole('button', { name: 'Refresh shared queue', exact: true }).click();
+    await expect(shared).toContainText('A newer shared revision is available');
+  } finally { release(); }
+  await expect(connected.getByRole('alert')).toContainText('Investigation changed while checking');
+  await expect(connected).not.toContainText('Historical change check attached to the draft');
+  expect(errors).toEqual([]);
+  await capture?.finish();
+});
+
+test('Plan reviewers save authenticated immutable revisions, preserve stale drafts and export verified history', async ({ page, request }, testInfo) => {
+  const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
+  await page.route(/^https?:\/\//, route => ['127.0.0.1','localhost'].includes(new URL(route.request().url()).hostname) ? route.continue() : route.abort());
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/dashboard/cases?sourceId=KAZ_S_159');
+  await page.getByRole('button', { name: 'Plan investigation capacity', exact: true }).click();
+  const planner = page.getByRole('region', { name: 'Investigation capacity planner', exact: true });
+  await planner.getByRole('button', { name: 'Compare investigation plans', exact: true }).click();
+  await expect(planner.getByTestId('planner-summary')).toContainText('4,218');
+  const review = page.getByLabel('Plan reviewer decisions', { exact: true });
+  await expect(review.getByRole('button', { name: 'Save reviewer decision', exact: true })).toBeDisabled();
+  const token = issueReviewerToken(process.env.METHANE_E2E_REVIEWER_SECRET!, 'trust-demo-reviewer', ['review','private_read'], 600);
+  await review.getByLabel('Plan reviewer token (memory only)').fill(token);
+  await review.getByRole('button', { name: 'Connect plan reviewer', exact: true }).click();
+  await expect(review).toContainText('Connected as trust-demo-reviewer');
+  await review.getByLabel('Plan ID', { exact: true }).fill('DEMO-browser-capacity-plan');
+  await review.getByLabel('Decision rationale', { exact: true }).fill('DEMO software workflow review: accept these historical sources for document investigation, not physical repair confirmation.');
+  await review.getByRole('button', { name: 'Save reviewer decision', exact: true }).click();
+  await expect(review).toContainText('1 preserved decision revisions');
+  await review.getByRole('combobox', { name: 'Allocation decision', exact: true }).selectOption('defer');
+  await review.getByLabel('Decision rationale', { exact: true }).fill('DEMO second review: defer allocation until the original evidence is inspected. This is not a human pilot.');
+  const saveSecond = page.waitForResponse(response => response.url().includes('/api/investigation-plans/') && response.request().method() === 'PUT').then(async response => ({url:response.url(),requestData:response.request().postDataJSON(),saved:await response.json()}));
+  await review.getByRole('button', { name: 'Save reviewer decision', exact: true }).click();
+  const secondResponse = await saveSecond, saved = secondResponse.saved;
+  await expect(review).toContainText('2 preserved decision revisions');
+  await expect(review).toContainText('accept these historical sources');
+  const concurrent = await request.put(secondResponse.url, { headers: { Authorization: `Bearer ${token}` }, data: {
+    ...secondResponse.requestData, expectedRevision: 2, expectedHead: saved.revisions.at(-1).hash,
+    rationale: 'DEMO concurrent software review: additional documents are required. This is not a real human study.',
+  } });
+  expect(concurrent.status()).toBe(200);
+  const retained = 'DEMO retained analyst draft must survive a conflicting save and explicit history reload.';
+  await review.getByLabel('Decision rationale', { exact: true }).fill(retained);
+  await review.getByRole('button', { name: 'Save reviewer decision', exact: true }).click();
+  await expect(review.getByRole('alert')).toContainText('changed');
+  await expect(review.getByLabel('Decision rationale', { exact: true })).toHaveValue(retained);
+  await review.getByRole('button', { name: 'Load saved plan history', exact: true }).click();
+  await expect(review).toContainText('3 preserved decision revisions');
+  await expect(review.getByLabel('Decision rationale', { exact: true })).toHaveValue(retained);
+  await review.getByRole('button', { name: 'Save reviewer decision', exact: true }).click();
+  await expect(review).toContainText('4 preserved decision revisions');
+  const dl = page.waitForEvent('download'); await review.getByRole('button', { name: 'Download reviewed plan history', exact: true }).click();
+  const journal = JSON.parse(await readFile((await (await dl).path())!, 'utf8'));
+  const { verifyPlanJournal } = await import('../packages/shared/src/plan-journal');
+  expect(await verifyPlanJournal(journal, journal.revisions.at(-1).hash)).toBe(true);
+  expect(JSON.stringify(journal)).not.toContain(token);
+  await review.scrollIntoViewIfNeeded(); await page.screenshot({ path: testInfo.outputPath('plan-review-history-desktop.png') });
+  await page.setViewportSize({ width: 390, height: 844 }); await review.scrollIntoViewIfNeeded();
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  await page.screenshot({ path: testInfo.outputPath('plan-review-mobile.png') });
+  await review.getByLabel('Decision rationale', { exact: true }).fill('DEMO private unsaved rationale belonging only to the first reviewer.');
+  page.once('dialog', dialog => dialog.accept());
+  await review.getByRole('button', { name: 'Disconnect plan reviewer', exact: true }).click();
+  await expect(review.getByLabel('Decision rationale', { exact: true })).toHaveValue('');
+  const bob = issueReviewerToken(process.env.METHANE_E2E_REVIEWER_SECRET!, 'team-demo-bob', ['review','private_read'], 600);
+  await review.getByLabel('Plan reviewer token (memory only)').fill(bob);
+  await review.getByRole('button', { name: 'Connect plan reviewer', exact: true }).click();
+  await expect(review).toContainText('Connected as team-demo-bob');
+  await expect(review.getByLabel('Decision rationale', { exact: true })).toHaveValue('');
+  expect(errors).toEqual([]);
+});
 
 test('shared team investigations import explicitly, hand off across isolated sessions, and retain conflicting drafts', async ({ page, browser, request }, testInfo) => {
   const alice = issueReviewerToken(process.env.METHANE_E2E_REVIEWER_SECRET!, 'trust-demo-reviewer', ['review', 'private_read'], 600);
@@ -64,7 +315,7 @@ test('shared team investigations import explicitly, hand off across isolated ses
     await teammate.getByLabel('Working notes').fill('DEMO Bob retained draft');
     await shared.getByLabel('Working notes').fill('DEMO Alice accepted revision');
     await shared.getByLabel('Assignee reviewer ID').fill('team-demo-bob');
-    await shared.getByLabel('Due date').fill('2026-10-20');
+    await shared.getByLabel('Due date', { exact: true }).fill('2026-10-20');
     await shared.getByRole('button', { name: 'Save shared work', exact: true }).click();
     await expect(shared).toContainText('Saved shared revision 2');
     await teammate.getByRole('button', { name: 'Save shared work', exact: true }).click();
@@ -80,7 +331,7 @@ test('shared team investigations import explicitly, hand off across isolated ses
     await expect(teammate.getByRole('region', { name: 'Shared revision history' })).toContainText('Revision 2');
     await teammate.getByLabel('I reviewed the differences before applying my draft').check();
     await teammate.getByLabel('Assignee reviewer ID').fill('team-demo-bob');
-    await teammate.getByLabel('Due date').fill('2026-10-20');
+    await teammate.getByLabel('Due date', { exact: true }).fill('2026-10-20');
     await teammate.getByRole('button', { name: 'Keep my draft on this revision', exact: true }).click();
     await teammate.getByRole('button', { name: 'Save shared work', exact: true }).click();
     await expect(teammate).toContainText('Saved shared revision 3');
@@ -91,8 +342,13 @@ test('shared team investigations import explicitly, hand off across isolated ses
     await second.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Cases', exact: true }).click();
     await expect(second.getByText('Shared team queue for team-demo-bob.', { exact: false })).toBeVisible();
     await second.getByLabel('Filter by work status').selectOption('investigate');
-    await expect(second.getByTestId('cases-table').locator('tbody tr')).toHaveCount(1);
-    await expect(second.getByTestId('cases-table')).toContainText('KAZ_S_159');
+    // Directory status filters include all authorized team investigations. The
+    // connected journey earlier in this phase deliberately saved another one.
+    // The assignment checkbox below only filters the shared-work selector.
+    const directory = second.getByTestId('cases-table');
+    await expect(directory.getByRole('button', { name: 'Select KAZ_S_159 for investigation', exact: true })).toBeVisible();
+    await expect(directory.locator('tbody tr').filter({ hasText: 'No saved work' })).toHaveCount(0);
+    await expect(directory.locator('tbody tr').filter({ hasText: 'Investigate' })).toHaveCount(await directory.locator('tbody tr').count());
     await second.getByRole('region', { name: 'Shared case work', exact: true }).getByLabel('Assigned to me').check();
     expect(await page.evaluate(() => Object.values(localStorage).some(value => value.includes('DEMO original browser note')))).toBe(true);
     for (const target of [page, second]) {
@@ -503,7 +759,7 @@ test('local mock AI citations receive a separate scoped review and remain privat
     return route.abort();
   });
 
-  const statusResponse = await page.request.get(new URL('/api/intelligence/status', 'http://127.0.0.1:4179').toString());
+  const statusResponse = await page.request.get('/api/intelligence/status');
   const capability = await statusResponse.json();
   expect(capability).toMatchObject({
     documentModelConfigured: true,
@@ -517,7 +773,7 @@ test('local mock AI citations receive a separate scoped review and remain privat
 
   // A malformed body is rejected only after the API accepts the ephemeral test token.
   // This checks the runner-to-server environment boundary without invoking the provider.
-  const tokenProbe = await page.request.post('http://127.0.0.1:4179/api/intelligence/assessments', {
+  const tokenProbe = await page.request.post('/api/intelligence/assessments', {
     headers: { authorization: `Bearer ${aiAccessToken}` },
     data: {},
   });

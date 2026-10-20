@@ -1,0 +1,96 @@
+{
+  "recordedAt": "2026-10-19T11:41:12.115220+00:00",
+  "baselineCommit": "8e19c034e666a6b00d93b4cb3f5747f563c75aab",
+  "workingTreeSourceBinding": "proof/verification.json",
+  "scope": "Local prototype; no production, model-quality or physical-mitigation certification",
+  "runtime": {
+    "bun": "1.4.3",
+    "repositoryBunPin": "1.4.2",
+    "python": "3.12.13",
+    "browserExecutable": "/usr/bin/chromium",
+    "browserRenderer": "SwiftShader",
+    "chromiumSandbox": true,
+    "mobile": "390 x 844 viewport emulation; no physical phone"
+  },
+  "mainGate": {
+    "command": "bun run check:all",
+    "exitCode": 0,
+    "api": 210,
+    "web": 255,
+    "tooling": 54,
+    "python": 212,
+    "foundry": 4,
+    "totalTests": 735,
+    "frozenInstall": "no changes",
+    "typecheck": "pass; API/web/E2E/evaluation",
+    "productionBuild": "pass",
+    "bundleBudget": "pass; App 71951 gzip bytes; eight required route chunks",
+    "baselineConformance": "pass"
+  },
+  "finalTypecheck": {
+    "command": "bun run check",
+    "exitCode": 0
+  },
+  "browser": {
+    "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium PLAYWRIGHT_OUTPUT_DIR=.playwright-cli/decision-lab-final bun run test:e2e",
+    "exitCode": 0,
+    "baselineScenarios": 17,
+    "privateTeamPublicationMockProviderScenarios": 9,
+    "totalScenarios": 26,
+    "runnerHelperTests": 4,
+    "automaticRetries": 0,
+    "skippedScenarios": 0,
+    "providerMode": "deterministic local mock, not external model evaluation"
+  },
+  "chain": {
+    "command": "bun run test:chain-integration --evidence /tmp/methane-decision-chain-proof.json",
+    "exitCode": 0,
+    "tests": 1,
+    "assertions": 42,
+    "chainId": 31337,
+    "publicSepolia": false,
+    "evidence": "local-chain-proof.json"
+  },
+  "decisionReplay": {
+    "historicalPlans": 6,
+    "realSources": 3,
+    "authoredDemoChallenges": 5,
+    "savedBaselineParity": "6/6; same policy, not an independent gold benchmark",
+    "cliOperations": 4,
+    "cliEvidence": "cli-verification.json"
+  },
+  "earlierFailures": [
+    {
+      "run": "initial main gate",
+      "result": "209 API pass / 1 fail",
+      "cause": "New DEMO plan passed extra source fields to strict input",
+      "resolution": "Explicit source-field projection; regression and final full gate pass"
+    },
+    {
+      "run": "first host browser suite",
+      "result": "16 pass / 1 fail; AI phase not reached",
+      "cause": "ERR_NETWORK_CHANGED during local module fetch; blank app before Canada assertion",
+      "resolution": "No skipped assertion or automatic retry; complete rerun passed 17 + 9"
+    },
+    {
+      "run": "restricted execution browser",
+      "cause": "Host socket/process restriction",
+      "resolution": "Authorized host execution with Chromium sandbox retained"
+    }
+  ],
+  "remote": {
+    "newSourcePushed": false,
+    "deployedByThisIncrement": false,
+    "githubActions": "New source not run remotely; baseline run 39237532964 failed at Chromium sandbox launch",
+    "sandboxPolicy": "Exception only for explicit GitHub-hosted CI; local and other CI sandbox stays on",
+    "externalAiProvider": "not executed",
+    "humanPilot": "not performed"
+  },
+  "captureRepeat": {
+    "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium PLAYWRIGHT_OUTPUT_DIR=.playwright-cli/decision-lab-captures bun run test:e2e e2e/audit-workflow.spec.ts --grep 'Decision Lab'",
+    "exitCode": 0,
+    "passedScenarios": 1,
+    "includedInFullSuiteCount": false,
+    "reason": "Preserve actual screenshots separately; the standard runner clears the output directory when starting its second phase. An initial anchored grep matched no tests and was corrected without code changes."
+  }
+}

@@ -6,6 +6,8 @@ const FORWARDED_ENVIRONMENT_KEYS = [
   'HOME',
   'TMPDIR',
   'CI',
+  'GITHUB_ACTIONS',
+  'RUNNER_ENVIRONMENT',
   'LANG',
   'LC_ALL',
   'TZ',
@@ -21,6 +23,17 @@ const FORWARDED_ENVIRONMENT_KEYS = [
 ] as const;
 
 export type E2EEnvironmentSource = Record<string, string | undefined>;
+
+/** Exercise shipped assets, without a dev transform server competing with Chromium for memory. */
+export function buildE2EWebServerCommand(port: string): string {
+  if (!/^\d{1,5}$/.test(port) || Number(port) < 1 || Number(port) > 65535) throw new Error('Invalid E2E web port');
+  return `cd apps/web && NODE_ENV=production bun --no-env-file run build && NODE_ENV=production bun --no-env-file run preview -- --host 127.0.0.1 --port ${port} --strictPort`;
+}
+
+/** Hosted Ubuntu blocks Chromium user namespaces. This exception applies only to disposable GitHub-hosted test runners. */
+export function chromiumSandboxEnabled(source: E2EEnvironmentSource): boolean {
+  return !(source.CI === 'true' && source.GITHUB_ACTIONS === 'true' && source.RUNNER_ENVIRONMENT === 'github-hosted');
+}
 
 export function chooseE2ETemporaryRoot(source: E2EEnvironmentSource): string {
   if (source.METHANE_E2E_TEMP_ROOT) return source.METHANE_E2E_TEMP_ROOT;

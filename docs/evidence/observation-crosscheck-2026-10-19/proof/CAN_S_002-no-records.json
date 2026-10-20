@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "mars-observation-claim/1",
+  "input": {
+    "sourceId": "CAN_S_002",
+    "datasetSnapshotId": "unep-mars-675417694883",
+    "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+    "query": {
+      "kind": "no_linked_detections",
+      "startDate": "2020-10-29",
+      "endDate": "2026-09-13"
+    },
+    "synthetic": false,
+    "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "archiveStartDate": "2020-10-29",
+    "archiveEndDate": "2026-09-13",
+    "provenance": {
+      "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+      "dataset": "Eye on Methane / MARS detected sources and plumes",
+      "catalogUrl": "https://methanedata.unep.org/download-dataset",
+      "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+      "retrievedAt": "2026-10-14T06:10:12+00:00",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "snapshotId": "unep-mars-675417694883",
+      "license": "CC BY-NC-SA 4.0",
+      "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+      "localFileName": "sources_plumes_csv.zip"
+    },
+    "sourceLimitations": [
+      "Priority is an uncalibrated investigation aid, not a physical leak likelihood or future-flux forecast.",
+      "The calibrated recurrence estimate predicts another linked MARS archive record within 365 days for a source already observed; it does not predict methane presence, emissions, repair, or mitigation.",
+      "The observed flux trend summarizes discrete detection dates only; it is not extrapolated and is not a future forecast.",
+      "A descriptive trend is emitted only with four or more numeric dates spanning at least 90 days; the method summarizes dated flux with a median pairwise Theil–Sen slope.",
+      "Observation coverage varies by sensor, revisit schedule, geography, and cloud conditions; missing observations do not mean zero emissions.",
+      "Source notification and feedback metadata do not verify recipient, repair, or emissions reduction.",
+      "This small curated casebook has not been independently validated as a predictive model."
+    ],
+    "observations": [
+      {
+        "id": "35328376-5922-43c4-9076-c97af6231527",
+        "sourceId": "CAN_S_002",
+        "linkStatus": "linked",
+        "date": "2026-04-10T19:07:29",
+        "fluxKgHr": 1044,
+        "uncertaintyKgHr": 370,
+        "fluxUnit": "kg/h",
+        "satellite": "EMIT - NASA",
+        "lat": 51.48142,
+        "lon": -112.40669
+      }
+    ]
+  },
+  "statement": "The pinned archive contains no linked detection records for CAN_S_002 during 2020-10-29 to 2026-09-13 UTC (inclusive).",
+  "status": "counterexample_found",
+  "explanation": "1 exact archived record(s) contradict the defined archive-level statement. This does not establish whether equipment was repaired or identify the responsible operator.",
+  "physicalMitigationEstablished": false,
+  "counterexampleIds": [
+    "35328376-5922-43c4-9076-c97af6231527"
+  ],
+  "summary": {
+    "total": 1,
+    "inWindow": 1,
+    "outsideWindow": 0,
+    "numericFlux": 1,
+    "missingFlux": 0,
+    "counterexamples": 1
+  },
+  "trace": [
+    {
+      "record": {
+        "id": "35328376-5922-43c4-9076-c97af6231527",
+        "sourceId": "CAN_S_002",
+        "linkStatus": "linked",
+        "date": "2026-04-10T19:07:29",
+        "fluxKgHr": 1044,
+        "uncertaintyKgHr": 370,
+        "fluxUnit": "kg/h",
+        "satellite": "EMIT - NASA",
+        "lat": 51.48142,
+        "lon": -112.40669
+      },
+      "utcDay": "2026-04-10",
+      "disposition": "counterexample",
+      "uncertaintyRelation": "not_applicable"
+    }
+  ],
+  "nextChecks": [
+    "Inspect the exact source ID, plume ID, UTC date, satellite and reported uncertainty against the publisher archive.",
+    "Ask whether the original statement concerns the same source location, time window, equipment and measurement definition as the witness records. Do not attribute dishonesty or failed repair automatically.",
+    "Obtain dated action records and attributable follow-up measurements, including observation opportunities, detection limits, units and uncertainty.",
+    "Record an authorized human determination separately; this exploratory check does not create or anchor an audit revision."
+  ],
+  "limitations": [
+    "Analyst-defined scenario; not a statement attributed to an operator or publisher.",
+    "Linked MARS records concern a source location, not necessarily the same equipment or responsible operator.",
+    "The threshold checks reported point estimates. Estimate ± reported standard deviation is descriptive, not a calibrated confidence interval or an exceedance probability.",
+    "Missing records are not zero emissions. Satellite detections are discrete and not continuous monitoring.",
+    "Archive observation dates do not establish when a record became publicly available.",
+    "An unsigned digest and policy replay do not establish authenticity or physical truth."
+  ],
+  "digest": "0xe9fb49067d21da52199459574068c8dfa211775ef4c53faee91638030308d098"
+}

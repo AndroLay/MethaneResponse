@@ -31,6 +31,37 @@ One audit reason changes in both the bundle and its display projection. Its
 export-context checksum is recalculated while the stored bundle hash is retained;
 the bundle-digest check rejects the changed content.
 
+## Current connected-investigation workflow (local private workspace)
+
+The historical v12 film above remains a dated presentation of the core audit.
+The current repository also supports this journey; it is deliberately unavailable
+in anonymous public-preview mode because it includes private working records:
+
+1. In **Cases → Plan investigation capacity**, compare capacity 10 and 20 with
+   identical region/quota assumptions. Explicitly activate a plan; map rings and
+   the paginated queue use the same source IDs.
+2. A configured software DEMO reviewer accepts a plan revision, opens a selected
+   source, scopes the claim, and saves an attributable evidence request.
+3. Attach document metadata only with permission. Record response date precision,
+   original-file hash and acceptance criteria; acceptance is separate from a
+   physical mitigation finding. Human assessment needs no model credential.
+4. **Check related claims & reused evidence** identifies candidates from saved
+   investigations visible to that reviewer. Explain legitimate reuse or a need
+   for investigation, then save the interpretation into revision history.
+5. Review and freeze the exact dossier. Export the decision and use a separately
+   trusted digest for CLI replay. Later responses recommend reconsideration while
+   the original decision remains immutable. Real contract integration is tested
+   on disposable local Anvil; no public Sepolia receipt is claimed.
+6. Opt-in snapshot intake stages a later official release and a full record diff.
+   It does not silently activate it or rewrite old investigation snapshots.
+
+See `docs/development/connected-investigations.md` and
+`docs/development/evidence-overlap-and-snapshot-intake.md` for configuration,
+permissions, standalone verification and precise limitations. The latest local
+check package is `docs/evidence/p2-delivery-2026-10-20/`; screenshots are actual
+browser captures of software DEMO review on real historical source metadata.
+A DEMO reviewer is not a recruited human participant or domain expert.
+
 ## Run locally
 
 Clone the repository, use the repository-pinned Bun release, then run:
@@ -59,7 +90,7 @@ contract tests; Python/uv is required for the offline pipeline.
 | Application | UI/API workflow, case studies, immutable audit and scoped review implementations | An implementation is not proof of a physical repair |
 | Verification | Real original/changed/original file checks; Anvil deployment/anchor/recovery evidence in repo | No public Sepolia receipt in this package; hashes do not authenticate the issuer |
 | AI | Optional provider integration, exact quote checks, abstention and human review controls | No independently established live-provider quality; agent experiments are simulations |
-| Tests | October 18 frozen package: 716 tests; four focused browser scenarios, build/bundle checks | Bound to that source revision, not a fresh test of a future public deployment |
+| Tests | October 18 package: 716 historical tests; see the separate October 20 evidence package for current results | Each run is bound to its recorded source bytes; none establishes a remote deployment |
 | Video | v12: 267.92 s; actual retained UI capture, English synthetic narration and original score | Local export; full human audiovisual review and upload/access remain separate |
 | Storage | Browser-local notes and single-writer JSON API storage | Temporary hosting state is not durable; no multi-instance guarantee |
 | Impact | Concrete traceability and missing-evidence workflow | User time savings and climate outcomes remain unmeasured |

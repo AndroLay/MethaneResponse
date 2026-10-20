@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "reference-coverage-stress-test/1",
+  "sourceId": "DEMO_DECISION_LAB",
+  "synthetic": true,
+  "datasetSnapshotId": "DEMO-authored-reference-challenge-v1",
+  "input": {
+    "sourceId": "DEMO_DECISION_LAB",
+    "synthetic": true,
+    "datasetSnapshotId": "DEMO-authored-reference-challenge-v1",
+    "claimType": "mitigation_confirmed",
+    "scope": {
+      "startDate": "2026-06-01",
+      "endDate": "2026-06-30"
+    },
+    "evidence": [
+      {
+        "id": "DEMO-action",
+        "kind": "mitigation_confirmation",
+        "claimType": "mitigation_confirmed",
+        "title": "DEMO action and follow-up metadata",
+        "reference": "fixture://decision-lab/action",
+        "date": "2026-06-10",
+        "synthetic": true,
+        "action": "DEMO valve replacement",
+        "followUpDate": "2026-06-12",
+        "followUpReference": "fixture://decision-lab/follow-up"
+      }
+    ],
+    "sourceLimitations": []
+  },
+  "result": "supported",
+  "summary": {
+    "total": 1,
+    "supporting": 1,
+    "contrary": 0,
+    "excluded": 0
+  },
+  "trace": [
+    {
+      "evidenceId": "DEMO-action",
+      "kind": "mitigation_confirmation",
+      "date": "2026-06-10",
+      "disposition": "supporting",
+      "reasons": []
+    }
+  ],
+  "sensitivity": [
+    {
+      "removedEvidenceIds": [
+        "DEMO-action"
+      ],
+      "result": "insufficient_evidence"
+    }
+  ],
+  "sensitivityOmitted": 0,
+  "nextChecks": [
+    {
+      "title": "Obtain the dated action record",
+      "acceptance": "Identify the facility/source, action, responsible party, action date and inspectable attributable reference within the selected period."
+    },
+    {
+      "title": "Obtain the follow-up measurement and method",
+      "acceptance": "Provide an attributable follow-up dated on or after the action and within the scope, measurement method, observation opportunities, units and uncertainty. Same-day records require finer timing before inferring an order. Missing detections are not zero emissions."
+    },
+    {
+      "title": "Inspect contents and record the human decision",
+      "acceptance": "Check authenticity, attribution, exact citations and document rights. Save an authorized human assessment separately from this metadata-coverage analysis."
+    }
+  ],
+  "limitations": [
+    "Reference eligibility and sensitivity are decision support, not document authentication or physical mitigation verification.",
+    "Removing a reference tests decision dependence; it is not a probability, uncertainty estimate, or forecast.",
+    "The digest is an unsigned checksum. Independently check the publisher snapshot and a trusted commitment before inferring authenticity.",
+    "Same-day action and follow-up dates meet the metadata rule but do not establish the order of physical events."
+  ],
+  "digest": "0xeed454804bf9e388456848303410307bc7330cbd852999c942a2f5921e9605f9"
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "reference-coverage-stress-test/1",
+  "sourceId": "LBY_S_143",
+  "synthetic": false,
+  "datasetSnapshotId": "unep-mars-675417694883",
+  "input": {
+    "sourceId": "LBY_S_143",
+    "synthetic": false,
+    "datasetSnapshotId": "unep-mars-675417694883",
+    "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "claimType": "mitigation_confirmed",
+    "scope": {
+      "startDate": "2025-12-23",
+      "endDate": "2025-12-23"
+    },
+    "evidence": [
+      {
+        "id": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+        "kind": "detection",
+        "claimType": "source_detected",
+        "title": "UNEP MARS plume observation · 2025-12-23T10:08:43",
+        "reference": "https://methanedata.unep.org/download-dataset",
+        "date": "2025-12-23T10:08:43",
+        "synthetic": false
+      }
+    ],
+    "provenance": {
+      "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+      "dataset": "Eye on Methane / MARS detected sources and plumes",
+      "catalogUrl": "https://methanedata.unep.org/download-dataset",
+      "downloadUrl": "https://unepazeconomyadlsstorage.blob.core.windows.net/public/unep_methanedata_detected_plumes_csv.zip",
+      "retrievedAt": "2026-10-14T06:10:12+00:00",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "snapshotId": "unep-mars-675417694883",
+      "license": "CC BY-NC-SA 4.0",
+      "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+      "localFileName": "sources_plumes_csv.zip"
+    },
+    "sourceLimitations": [
+      "Priority is an uncalibrated investigation aid, not a physical leak likelihood or future-flux forecast.",
+      "The calibrated recurrence estimate predicts another linked MARS archive record within 365 days for a source already observed; it does not predict methane presence, emissions, repair, or mitigation.",
+      "The observed flux trend summarizes discrete detection dates only; it is not extrapolated and is not a future forecast.",
+      "A descriptive trend is emitted only with four or more numeric dates spanning at least 90 days; the method summarizes dated flux with a median pairwise Theil–Sen slope.",
+      "Observation coverage varies by sensor, revisit schedule, geography, and cloud conditions; missing observations do not mean zero emissions.",
+      "Source notification and feedback metadata do not verify recipient, repair, or emissions reduction.",
+      "This small curated casebook has not been independently validated as a predictive model."
+    ]
+  },
+  "result": "insufficient_evidence",
+  "summary": {
+    "total": 1,
+    "supporting": 0,
+    "contrary": 0,
+    "excluded": 1
+  },
+  "trace": [
+    {
+      "evidenceId": "a8e4a775-4654-46b2-af16-bb9b4742e79d",
+      "kind": "detection",
+      "date": "2025-12-23T10:08:43",
+      "disposition": "excluded",
+      "reasons": [
+        "wrong_reference_type",
+        "different_claim"
+      ]
+    }
+  ],
+  "sensitivity": [],
+  "sensitivityOmitted": 0,
+  "nextChecks": [
+    {
+      "title": "Obtain the dated action record",
+      "acceptance": "Identify the facility/source, action, responsible party, action date and inspectable attributable reference within the selected period."
+    },
+    {
+      "title": "Obtain the follow-up measurement and method",
+      "acceptance": "Provide an attributable follow-up dated on or after the action and within the scope, measurement method, observation opportunities, units and uncertainty. Same-day records require finer timing before inferring an order. Missing detections are not zero emissions."
+    },
+    {
+      "title": "Inspect contents and record the human decision",
+      "acceptance": "Check authenticity, attribution, exact citations and document rights. Save an authorized human assessment separately from this metadata-coverage analysis."
+    }
+  ],
+  "limitations": [
+    "Reference eligibility and sensitivity are decision support, not document authentication or physical mitigation verification.",
+    "Removing a reference tests decision dependence; it is not a probability, uncertainty estimate, or forecast.",
+    "The digest is an unsigned checksum. Independently check the publisher snapshot and a trusted commitment before inferring authenticity.",
+    "Same-day action and follow-up dates meet the metadata rule but do not establish the order of physical events."
+  ],
+  "digest": "0x98789dfb12cd16cbb5e0aeea0a80ca0875003ec8e26fed5642037ab83ea8f7a4"
+}

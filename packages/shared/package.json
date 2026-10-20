@@ -3,6 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "exports": {".": "./src/index.ts"},
-  "dependencies": {"zod": "^4.0.0"}
+  "exports": {
+    ".": "./src/index.ts",
+    "./decision-lab": "./src/decision-lab.ts",
+    "./observation-claims": "./src/observation-claims.ts",
+    "./investigation-planner": "./src/investigation-planner.ts",
+    "./plan-journal": "./src/plan-journal.ts",
+    "./snapshot-transition": "./src/snapshot-transition.ts",
+    "./investigation-revisit": "./src/investigation-revisit.ts",
+    "./investigation-decision": "./src/investigation-decision.ts",
+    "./evidence-lifecycle": "./src/evidence-lifecycle.ts",
+    "./investigation-links": "./src/investigation-links.ts",
+    "./investigation-change": "./src/investigation-change.ts",
+    "./investigation-dossier": "./src/investigation-dossier.ts",
+    "./investigation-decision-metadata": "./src/investigation-decision-metadata.ts",
+    "./evidence-overlap": "./src/evidence-overlap.ts"
+  },
+  "dependencies": {
+    "zod": "^4.0.0"
+  }
 }

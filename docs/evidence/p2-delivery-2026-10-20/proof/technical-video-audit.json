@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "input_file": "MethaneResponse-Connected-Workflow-2026-10-20.mp4",
+  "input_sha256": "3729cb1ec8a9c4cd8f159223e12056e1477042d763e607ec32174232fd351341",
+  "technical_status": "pass",
+  "creative_status": "not_reviewed",
+  "delivery_ready": false,
+  "spec": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "25",
+    "duration_seconds": 65.4,
+    "duration_tolerance_seconds": 0.12,
+    "codec": "h264",
+    "pixel_format": "yuv420p",
+    "audio": "required",
+    "audio_channels": 2,
+    "audio_sample_rate": 48000,
+    "loudness_target_lufs": -23,
+    "loudness_tolerance_lu": 1.5,
+    "max_true_peak_dbfs": -1.5
+  },
+  "checks": [
+    {
+      "name": "readable_media",
+      "status": "pass",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "name": "video_streams",
+      "status": "pass",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "name": "audio_streams",
+      "status": "pass",
+      "expected": "at most one",
+      "actual": 1
+    },
+    {
+      "name": "dimensions",
+      "status": "pass",
+      "expected": [
+        1920,
+        1080
+      ],
+      "actual": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "average_fps",
+      "status": "pass",
+      "expected": 25.0,
+      "actual": 25.0
+    },
+    {
+      "name": "video_duration",
+      "status": "pass",
+      "expected": 65.4,
+      "actual": 65.4
+    },
+    {
+      "name": "container_duration",
+      "status": "pass",
+      "expected": 65.4,
+      "actual": 65.4
+    },
+    {
+      "name": "codec",
+      "status": "pass",
+      "expected": "h264",
+      "actual": "h264"
+    },
+    {
+      "name": "pixel_format",
+      "status": "pass",
+      "expected": "yuv420p",
+      "actual": "yuv420p"
+    },
+    {
+      "name": "audio_presence",
+      "status": "pass",
+      "expected": "required",
+      "actual": 1
+    },
+    {
+      "name": "full_decode",
+      "status": "pass",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "name": "audio_channels",
+      "status": "pass",
+      "expected": 2,
+      "actual": 2
+    },
+    {
+      "name": "audio_sample_rate",
+      "status": "pass",
+      "expected": 48000,
+      "actual": 48000
+    },
+    {
+      "name": "audio_duration",
+      "status": "pass",
+      "expected": 65.4,
+      "actual": 65.4
+    },
+    {
+      "name": "audio_signal",
+      "status": "pass",
+      "expected": "measurable non-silent signal",
+      "actual": -10.55
+    },
+    {
+      "name": "loudness",
+      "status": "pass",
+      "expected": -23,
+      "actual": -22.78
+    },
+    {
+      "name": "true_peak",
+      "status": "pass",
+      "expected": -1.5,
+      "actual": -10.55
+    },
+    {
+      "name": "source_unchanged",
+      "status": "pass",
+      "expected": "unchanged during audit",
+      "actual": true
+    }
+  ],
+  "samples": [
+    {
+      "file": "frame-000.png",
+      "frame": 0,
+      "seconds": 0.0
+    },
+    {
+      "file": "frame-001.png",
+      "frame": 150,
+      "seconds": 6.0
+    },
+    {
+      "file": "frame-002.png",
+      "frame": 151,
+      "seconds": 6.04
+    },
+    {
+      "file": "frame-003.png",
+      "frame": 152,
+      "seconds": 6.08
+    },
+    {
+      "file": "frame-004.png",
+      "frame": 327,
+      "seconds": 13.08
+    },
+    {
+      "file": "frame-005.png",
+      "frame": 654,
+      "seconds": 26.16
+    },
+    {
+      "file": "frame-006.png",
+      "frame": 813,
+      "seconds": 32.52
+    },
+    {
+      "file": "frame-007.png",
+      "frame": 814,
+      "seconds": 32.56
+    },
+    {
+      "file": "frame-008.png",
+      "frame": 815,
+      "seconds": 32.6
+    },
+    {
+      "file": "frame-009.png",
+      "frame": 980,
+      "seconds": 39.2
+    },
+    {
+      "file": "frame-010.png",
+      "frame": 1307,
+      "seconds": 52.28
+    },
+    {
+      "file": "frame-011.png",
+      "frame": 1559,
+      "seconds": 62.36
+    },
+    {
+      "file": "frame-012.png",
+      "frame": 1560,
+      "seconds": 62.4
+    },
+    {
+      "file": "frame-013.png",
+      "frame": 1561,
+      "seconds": 62.44
+    },
+    {
+      "file": "frame-014.png",
+      "frame": 1634,
+      "seconds": 65.36
+    }
+  ],
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "average_fps": 25.0,
+    "duration_seconds": 65.4,
+    "duration_source": "video_stream",
+    "codec": "h264",
+    "pixel_format": "yuv420p"
+  },
+  "audio": {
+    "channels": 2,
+    "sample_rate": 48000,
+    "duration_seconds": 65.4,
+    "integrated_lufs": -22.78,
+    "true_peak_dbfs": -10.55
+  },
+  "contact_sheet": "contact-sheet.png"
+}

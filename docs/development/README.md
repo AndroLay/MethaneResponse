@@ -22,3 +22,5 @@
 | [Optimasi performa](performance-optimization.md) | Arsip perubahan/measurement 13–14 Oktober; bukan ukuran build saat ini |
 
 Untuk service boundaries dan kontrak HTTP, baca [arsitektur](../architecture/README.md). Untuk data generation gunakan [provenance/rebuild](../../data/real/README.md), agar input, output, lisensi dan hash tetap satu acuan.
+
+- [Connected investigations](connected-investigations.md): evidence requests, dossier beku, decision receipts, verifier dan recovery.

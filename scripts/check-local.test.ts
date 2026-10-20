@@ -14,7 +14,7 @@ function invokeCheckLocal(envOverrides: Record<string, string>) {
   const baselineOutput = join(temporaryDirectory, 'baseline.json');
   mkdirSync(stubBin);
 
-  for (const tool of ['bun', 'uv', 'forge']) {
+  for (const tool of ['bun', 'uv', 'forge', 'python3']) {
     writeFileSync(
       join(stubBin, tool),
       '#!/bin/sh\nprintf "%s DATABASE_URL=%s TEST_DATABASE_URL=%s\\n" "$0 $*" "${DATABASE_URL:-}" "${TEST_DATABASE_URL:-}" >> "$MR_CHECK_LOCAL_STUB_LOG"\nexit 0\n',
@@ -58,6 +58,7 @@ describe('complete local verification gate', () => {
     expect(calls).toContain('bun run check');
     expect(calls).toContain('bun run test:api');
     expect(calls).toContain('bun run test:web');
+    expect(calls).toContain("python3 -m unittest discover -s scripts -p test_*.py");
     expect(calls).toContain('forge test');
     expect(calls).not.toContain('must-not-be-used.invalid');
   });

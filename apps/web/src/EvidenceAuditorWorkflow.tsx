@@ -12,10 +12,12 @@ import AssessmentMeaning from './AssessmentMeaning';
 const EvidenceObservationPanel = lazy(() => import('./EvidenceObservationPanel'));
 const IntelligencePanel = lazy(() => import('./IntelligencePanel'));
 const HumanAssessmentPanel = lazy(() => import('./HumanAssessmentPanel'));
+const DecisionLabPanel = lazy(() => import('./DecisionLabPanel'));
 
 const stages = [
   { id: 'overview', label: 'Overview', description: 'Choose a claim and run the rules baseline.' },
   { id: 'observations', label: 'Observations', description: 'Inspect dated satellite records and provenance.' },
+  { id: 'decision-lab', label: 'Decision Lab', description: 'Explain reference eligibility and test decision dependencies.' },
   { id: 'human-review', label: 'Human assessment', description: 'Record inspected references and a human determination.' },
   { id: 'review', label: 'Review', description: 'Check the result before opening its report.' },
   { id: 'document-ai', label: 'Document AI', description: 'Optional: assess authorized excerpts and review citations.' },
@@ -39,6 +41,7 @@ type Props = {
   datasetRetrievedAt?: string;
   datasetLicense?: string;
   sourceArchiveHash?: string;
+  datasetInputSha256?: string;
   onOpenGlobe: () => void;
   claim: ClaimType;
   scope?: AuditScope;
@@ -78,6 +81,7 @@ export default function EvidenceAuditorWorkflow({
   datasetRetrievedAt,
   datasetLicense,
   sourceArchiveHash,
+  datasetInputSha256,
   onOpenGlobe,
   claim,
   scope,
@@ -142,6 +146,7 @@ export default function EvidenceAuditorWorkflow({
       if (capabilityLoading) return 'Checking service';
       return intelligenceCapability?.documentModelConfigured ? 'Provider available' : 'Optional · not configured';
     }
+    if (stage === 'decision-lab') return 'Explain · stress-test · act';
     if (stage === 'human-review') return intelligenceCapability?.humanReviewConfigured ? 'Reviewer access configured' : 'Reviewer access required';
     return audit ? auditReviewStatus : 'Assessment pending';
   }
@@ -205,6 +210,16 @@ export default function EvidenceAuditorWorkflow({
       </section>
       <EvidenceCoveragePanel source={source} claim={claim} scope={scope} audit={audit} historyLoading={sourceHistoryLoading} historyError={sourceHistoryError} onSelectClaim={next => { if (next !== claim) onClaimChange(next); }} onAction={openInvestigationStep}/>
     </>)}
+
+    {panel('decision-lab', 'Decision Lab', activeStage === 'decision-lab' ? <Suspense fallback={<div role="status">Loading decision tools…</div>}><DecisionLabPanel
+      key={JSON.stringify([source.sourceId, source.synthetic, datasetSnapshotId, sourceArchiveHash, datasetInputSha256, claim, scope])}
+      context={{ sourceId: source.sourceId, synthetic: source.synthetic, datasetSnapshotId: source.synthetic ? 'DEMO' : datasetSnapshotId, archiveSha256: sourceArchiveHash, inputFileSha256: datasetInputSha256, claimType: claim, scope }}
+      disabled={!sourceCanBeAudited || scopeDraftPending}
+      observations={observations}
+      onObservations={() => setActiveStage('observations')}
+      onHumanReview={() => setActiveStage('human-review')}
+      onFollowUp={() => openInvestigationStep('follow-up')}
+    /></Suspense> : null)}
 
     {panel('observations', 'Observations', <>
       <div className="audit-stage-heading"><div><h2 ref={activeStage === 'observations' ? stageHeadingRef : null} tabIndex={-1}>Dated observations</h2><p>Inspect each reported overpass, its uncertainty and the source record.</p></div><span className="audit-stage-source">{observations.length.toLocaleString()} records</span></div>

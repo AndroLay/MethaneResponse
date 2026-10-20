@@ -1,0 +1,20 @@
+import { expect, test } from 'bun:test';
+import { investigationDecisionRevisit } from '@methane/shared/investigation-revisit';
+test('revisit distinguishes relevant observations, context notices, backfills and already incorporated snapshots', () => {
+  const work = { context:{sourceId:'DEMO',synthetic:false,datasetSnapshotId:'before',archiveSha256:'a'.repeat(64)},workId:'DEMO',revision:1,scope:{startDate:'2026-01-01',endDate:'2026-01-31'},requestEvents:[] } as any;
+  const decision = { dossier:{history:[work]} } as any;
+  const transition = {before:{datasetSnapshotId:'before',provenance:{archiveSha256:'a'.repeat(64)}},after:{datasetSnapshotId:'after',provenance:{archiveSha256:'b'.repeat(64)}},sourceChanges:[{id:'DEMO',changedFields:['persistency']}],observationChanges:[] } as any;
+  expect(investigationDecisionRevisit(decision,work,transition).state).toBe('context_notice');
+  transition.observationChanges = [{id:'DEMO-backfill',before:null,after:{sourceId:'DEMO',date:'2026-01-15'}}];
+  expect(investigationDecisionRevisit(decision,work,transition).state).toBe('review_recommended');
+  transition.observationChanges[0].after.date = '2026-02-15';
+  expect(investigationDecisionRevisit(decision,work,transition).state).toBe('context_notice');
+  const incorporated = {...work,context:{...work.context,datasetSnapshotId:'after',archiveSha256:'b'.repeat(64)}};
+  expect(investigationDecisionRevisit({dossier:{history:[incorporated]}} as any,incorporated,transition).snapshotComparison).toBe('already_in_decision_snapshot');
+  const latest = {...work,revision:2,requestEvents:[{type:'response_received',responseId:'DEMO-new'}]};
+  expect(investigationDecisionRevisit(decision,latest).reasons[0].code).toBe('new_authorized_response');
+  const reviewed = {...work,revision:2,requestEvents:[{type:'response_reviewed',responseId:'DEMO-old'}]};
+  expect(investigationDecisionRevisit(decision,reviewed).reasons[0].code).toBe('response_review_changed');
+  expect(investigationDecisionRevisit(decision,latest).physicalOutcomeEstablished).toBe(false);
+  expect(investigationDecisionRevisit(decision,{...work,notes:'Unrelated note',revision:2}).state).toBe('no_new_dependency_changes');
+});

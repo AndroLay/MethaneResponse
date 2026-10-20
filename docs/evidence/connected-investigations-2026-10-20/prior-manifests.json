@@ -1,0 +1,26 @@
+{
+  "packages": [
+    {
+      "package": "decision-lab-2026-10-19",
+      "verifiedArtifacts": 25
+    },
+    {
+      "package": "observation-crosscheck-2026-10-19",
+      "verifiedArtifacts": 30
+    },
+    {
+      "package": "investigation-planner-2026-10-19",
+      "verifiedArtifacts": 17
+    },
+    {
+      "package": "investigation-operations-2026-10-20",
+      "verifiedArtifacts": 15
+    },
+    {
+      "package": "snapshot-change-watch-2026-10-20",
+      "verifiedArtifacts": 11
+    }
+  ],
+  "totalVerifiedArtifacts": 98,
+  "changed": 0
+}

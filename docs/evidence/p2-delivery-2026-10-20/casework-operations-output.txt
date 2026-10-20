@@ -1,0 +1,13 @@
+$ bun --no-env-file scripts/run-case-work-operations.ts
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/case-work-runtime.test.ts:
+(pass) real API sessions retain team state after process crash and the kernel releases the writer lock [427.80ms]
+
+scripts/case-work-operations.test.ts:
+(pass) offline backup and restore preserve history, refuse overwrites, and respect an active writer lock [560.63ms]
+
+ 2 pass
+ 0 fail
+ 17 expect() calls
+Ran 2 tests across 2 files. [1032.00ms]

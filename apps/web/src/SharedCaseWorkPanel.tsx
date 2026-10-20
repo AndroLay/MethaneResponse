@@ -7,6 +7,7 @@ import { appendAssessmentRequest, caseDraftSchema } from './session-draft';
 import { confirmDraftNavigation, useSessionDraft } from './use-session-draft';
 import { getTeamSession, subscribeTeamSession, TEAM_WORK_CHANGED } from './team-session';
 import { connectSharedWork, disconnectSharedWork, getSharedWork, listSharedWork, saveSharedWork } from './shared-work-api';
+import InvestigationContextPanel from './InvestigationContextPanel';
 
 const errorText = (error: unknown) => error instanceof Error ? error.message : 'Shared casework is unavailable. Your draft is retained.';
 const draftOf = (work: CaseWorkDraft) => CaseWorkDraft.parse(work);
@@ -88,6 +89,9 @@ function WorkSnapshot({ work }: { work: CaseWorkDraft }) {
     ['Next action', work.nextAction], ['Evidence to request', work.evidenceRequest], ['Working notes', work.notes], ['Claim', work.claimType],
     ['Scope', work.scope ? `${work.scope.startDate} → ${work.scope.endDate}${work.scope.observationId ? ` · ${work.scope.observationId}` : ''}${work.scope.recipient ? ` · ${work.scope.recipient}` : ''}` : 'Whole source'],
     ['Assessment link', work.assessmentLink ? `${work.assessmentLink.auditId} · ${work.assessmentLink.bundleHash}` : 'None'],
+    ['Evidence acceptance criteria', work.acceptanceCriteria || 'Not recorded'],
+    ['Accepted allocation', work.planLink ? `${work.planLink.planId} · revision ${work.planLink.revision} · ${work.planLink.revisionHash}` : 'Not linked'],
+    ['Historical change report', work.changeReportDigest || 'Not linked'],
   ].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value || '—'}</dd></div>)}</dl>;
 }
 
@@ -182,6 +186,7 @@ function SharedEditor({ context, claimType, scope, workId, saved, available, onR
       <div className="case-tool-grid"><label>Work status<select value={draft.status} onChange={event => setDraft(previous => ({ ...previous, status: event.target.value as CaseWorkDraft['status'] }))}>{Object.entries(workStatusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label><label>Assignee reviewer ID<input value={draft.assignee || ''} maxLength={96} onChange={event => setDraft(previous => ({ ...previous, assignee: event.target.value.trim() || undefined }))}/></label><label>Due date<input type="date" value={draft.dueDate || ''} onChange={event => setDraft(previous => ({ ...previous, dueDate: event.target.value || undefined }))}/></label></div>
       <div className="case-tool-grid">{field('question', 'Open question', 1000)}{field('nextAction', 'Next action', 1000)}{field('evidenceRequest', 'Evidence to request', 1000)}{field('notes', 'Working notes', 4000)}</div>
     </fieldset>
+    <InvestigationContextPanel context={context} workId={workId} draft={draft} saved={saved} dirty={session.dirty} busy={busy} canWrite={canWrite} onBusy={setBusy} onChange={setDraft}/>
     {session.dirty && <p role="status">{session.recovered ? 'Recovered unsaved team draft. ' : 'Unsaved team draft. '}{session.storageReady ? 'Recovery copy is kept in this tab without the token.' : 'Tab recovery is unavailable. Copy important work before leaving.'}</p>}
     <div className="case-tool-actions"><button type="button" className="primary-btn" disabled={busy || !canWrite} onClick={() => void save()}>Save shared work</button><button type="button" className="outline-btn" disabled={busy || !available || (!saved && !baseRevision)} onClick={() => void reviewLatest()}>Review latest revision</button>{available && saved && <button type="button" className="outline-btn" onClick={() => onResume(saved.claimType, saved.scope, context.sourceId, workId)}>Resume saved shared investigation</button>}<button type="button" className="outline-btn" disabled={busy || !available} onClick={previewImport}>Preview browser import</button></div>
     {message && <p role={failed ? 'alert' : 'status'}>{message}</p>}

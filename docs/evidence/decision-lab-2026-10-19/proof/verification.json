@@ -1,0 +1,104 @@
+{
+  "recordedAt": "2026-10-19T11:35:44.595Z",
+  "scope": "Local prototype decision explanation and policy replay; not independent scientific validation",
+  "baselineCommit": "8e19c034e666a6b00d93b4cb3f5747f563c75aab",
+  "workingTreeSourceSha256": {
+    "package.json": "0857cf8cc2a8532af85b7edcb4bbb4b63604e65770bee88c4604bc94fef55f7e",
+    "scripts/tsconfig.evaluation.json": "052da9c256e8e0c53fa326a4cfd4c310a245014b50566f1c15b0aec4b0a061f1",
+    "packages/shared/src/decision-lab.ts": "aed0c8580ecd511c1dd2a028820e9fd888cc4366dc22662f7ad839ec0700dd7e",
+    "packages/shared/package.json": "d1c19de6cb7ac8fbaa07bf3ffe31644a8a76ecf428dfaac44b1a4f261777d1d0",
+    "apps/api/src/app.ts": "a72a099823fc7455b261948f433b6a9eb11b10bc68dec89435579f214d6c86de",
+    "apps/api/src/rate-limit.ts": "88127104fa816f91617c97f215b952947e666722afe29bcca92d784061c8e761",
+    "apps/api/src/decision-lab.test.ts": "9f1bc42ce221f4ed084906a0d4a3c3a750ac460a4023ef5e2032c508a150617d",
+    "apps/web/src/decision-lab.ts": "ee33d824f9fc502b0d4eb724d2b771c5242628f64d3aecdf7805d66540852bb8",
+    "apps/web/src/decision-lab.test.ts": "8e048b33476cdefd369c0c90e13bd92b7214c55ed0e86db7110e5b014b2fda5a",
+    "apps/web/src/DecisionLabPanel.tsx": "52af2b3bf67888ac27d462c599b88a443715d2888f6627e305a9332acc17584e",
+    "apps/web/src/decision-lab.css": "536cef9d0339bd5f1028803c1ba02ed3758eb2fdac422d352e0c9a5ca2c78467",
+    "apps/web/src/EvidenceAuditorWorkflow.tsx": "81d8930c44c96792d92af7a5ef82db83b854b9774cfd5267925563fb5350fd24",
+    "apps/web/src/investigation-tools.css": "b3a0d522f0dddc59fa7d4aef49d4d805f0640849311304636ab9a477df502ff0",
+    "playwright.config.ts": "b30c1b1fbf8aca31a4271dec90107e937f2bee6b8b3fe1c7b529d63dd1d39e58",
+    "scripts/e2e-runner-utils.ts": "b43e65b7add4472be5e49aea3270ab4120abfa959c030a93ce4cc2bbd23f403a",
+    "scripts/e2e-runner-utils.test.ts": "0fe34e6aa5658382efa13364d99c8b8d493096b58df56a5ac77af9c3b81b8bf5",
+    "scripts/chain-integration.test.ts": "70e79440fac291c619364ef9b29b3dd13ef9468cc1e315dc872e3a779d72f504",
+    "scripts/decision-lab-proof.ts": "e99ce97911f8cbab1f9df077b5cd4855aee1411345c0e15a18e8af3e2e3fef74",
+    "e2e/audit-workflow.spec.ts": "3f9d99b09a78bc08791b8f6d8a979e4aed81123fe4f07100caa55bce4960fc0d"
+  },
+  "datasetSnapshotId": "unep-mars-675417694883",
+  "upstreamArchiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+  "historical": [
+    {
+      "sourceId": "KAZ_S_159",
+      "claimType": "source_detected",
+      "result": "supported",
+      "excluded": 0,
+      "digest": "0x5fecff5b4cd1fb66dd593a2bae21a15b655522a8f4da1249927709321144b909"
+    },
+    {
+      "sourceId": "KAZ_S_159",
+      "claimType": "mitigation_confirmed",
+      "result": "insufficient_evidence",
+      "excluded": 3,
+      "digest": "0xaf12262ac717f8fd12b6b4e3f7a27b08cfb2345610370f2c3353db83bf9031f3"
+    },
+    {
+      "sourceId": "LBY_S_143",
+      "claimType": "source_detected",
+      "result": "supported",
+      "excluded": 0,
+      "digest": "0x606413ef2d97232d1595efa0fc9bc53d1123259493aff314183816aa8e64e773"
+    },
+    {
+      "sourceId": "LBY_S_143",
+      "claimType": "mitigation_confirmed",
+      "result": "insufficient_evidence",
+      "excluded": 1,
+      "digest": "0x98789dfb12cd16cbb5e0aeea0a80ca0875003ec8e26fed5642037ab83ea8f7a4"
+    },
+    {
+      "sourceId": "CAN_S_002",
+      "claimType": "source_detected",
+      "result": "supported",
+      "excluded": 0,
+      "digest": "0xa8e10e8612d1fe879a205881609ec76ec3fa3384c731b0c450c5a84f79726b42"
+    },
+    {
+      "sourceId": "CAN_S_002",
+      "claimType": "mitigation_confirmed",
+      "result": "insufficient_evidence",
+      "excluded": 1,
+      "digest": "0x6c0f6975850fe476eb21eff5c9c1b9329d4be305ce1212ebc81d5e5a956f3d37"
+    }
+  ],
+  "authoredChallenges": [
+    {
+      "id": "complete",
+      "result": "supported",
+      "digest": "0xeed454804bf9e388456848303410307bc7330cbd852999c942a2f5921e9605f9"
+    },
+    {
+      "id": "missing-follow-up",
+      "result": "insufficient_evidence",
+      "digest": "0x05c68c3c5949d34930a41fd79cf9895783eab73c8b022412e9abf9b60aff92c6"
+    },
+    {
+      "id": "outside-period",
+      "result": "insufficient_evidence",
+      "digest": "0xf519de6912f25e708f308f3de6ea53c79eb8b53fb7f81da12fe20ecbaa48d288"
+    },
+    {
+      "id": "contrary",
+      "result": "contradicted",
+      "digest": "0xdb65b973b52143e0778baa3a458aa08642c7cc05e5c11f3acf7bd135c5fb6d6a"
+    },
+    {
+      "id": "conflict",
+      "result": "insufficient_evidence",
+      "digest": "0xc80db36dd2a342b95c27490a3e74f8df6612b1d8984f26f548c9230fc50bd1cd"
+    }
+  ],
+  "modifiedPlan": "REJECTED",
+  "savedBaselineParity": "6 of 6",
+  "providerExecution": "none",
+  "publicChain": "not verified",
+  "humanImpact": "not measured"
+}

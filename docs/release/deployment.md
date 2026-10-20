@@ -1,6 +1,6 @@
 # Runtime and deployment status
 
-**Updated:** 2026-10-18 · **Target:** local hackathon prototype
+**Updated:** 2026-10-20 · **Target:** local hackathon prototype and optional free preview
 
 MethaneResponse is designed to run locally from the bundled MARS snapshot and the Bun/Hono API. This workspace has not deployed a live service. The current product scope deliberately excludes PostgreSQL, PostGIS, Supabase, database migrations, and cloud database setup. See the [accepted prototype scope decision](../architecture/decisions/2026-10-15-local-prototype-no-database.md).
 
@@ -22,7 +22,16 @@ P1 adds private shared casework for a small team through that one writer, separa
 
 ## Optional hosted preview
 
-The root `render.yaml` is a convenience preview configuration, not a durability or production guarantee. It writes audits to `/tmp/methane-response-audits.json`; hosted temporary files may disappear on restart, redeploy, or instance replacement. Use the local workflow for repeatable audit-history demonstrations. Do not describe the hosted preview as having durable audit storage.
+The root `render.yaml` is a convenience preview configuration, not a durability or production guarantee. It writes audits to `/tmp/methane-response-preview/audits.json`; hosted temporary files may disappear on restart, redeploy, or instance replacement. Use the local workflow for repeatable audit-history demonstrations. Do not describe the hosted preview as having durable audit storage.
+
+The proposed target is a **new** `methaneresponse-preview` web service in
+**Andro's workspace**, Singapore, `free` plan, `main` branch and automatic deploys
+off. Public preview mode is required: no private reviewer workspace, model
+credentials, signer, RPC secret, database or paid disk. Check the workspace's
+existing shared free allowance and billing/spend limits before creation. The
+free plan alone does not establish that all workspace usage has zero cost.
+Rollback: disable/suspend this dedicated service and return to the preceding
+reviewed Git revision; preserve local audit backups. Never change Evidrilo.
 
 The static frontend and API may be hosted separately if needed for a judge-accessible visual preview. The API still uses its file store; hosting does not add a durable volume, shared rate limits, or a database. P1 local two-session tests do not verify remote persistence. Before any authorized remote setup, verify HTTPS, actual origin, signed reviewer authority, filesystem lock support, private permissions, volume lifetime and backup recovery on that target.
 

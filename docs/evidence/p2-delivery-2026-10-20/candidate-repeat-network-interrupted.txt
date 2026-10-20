@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/fetch_mars_candidate.py", line 86, in <module>
+    parser.add_argument('--output',type=Path,required=True)
+                     ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/fetch_mars_candidate.py", line 61, in fetch_candidate
+    raise ValueError('Archive redirected away from the fixed publisher URL')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/http/client.py", line 494, in read
+    s = self.fp.read(amt)
+  File "/usr/lib/python3.14/socket.py", line 729, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "/usr/lib/python3.14/ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+ConnectionResetError: [Errno 104] Connection reset by peer

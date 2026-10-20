@@ -1,0 +1,258 @@
+{
+  "recordedAt": "2026-10-20T10:59:54.438151+00:00",
+  "baselineCommit": "8e19c034e666a6b00d93b4cb3f5747f563c75aab",
+  "state": "Local current working tree; no new commit, push, public deployment, external provider call or public-chain transaction in this increment.",
+  "commands": [
+    {
+      "command": "bun run check:all",
+      "exitCode": 0,
+      "log": "checks-output.txt",
+      "sha256": "fc2c21518666434419f2885697c3a06a1af0528b63cf1b7bdf0feaf7a10d4f55",
+      "bytes": 76062
+    },
+    {
+      "command": "bun run check",
+      "exitCode": 0,
+      "log": "typechecks-output.txt",
+      "sha256": "697c13905be408fd156021a1b419d0b6022481080130cf14730fe6aa4315e65b",
+      "bytes": 243
+    },
+    {
+      "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium bun run test:e2e e2e/ai-review-workflow.spec.ts",
+      "exitCode": 0,
+      "log": "browser-private-output.txt",
+      "sha256": "e86185af4c0b0a1bb28d754ef391018f4368f3dbd43e3d67910e4722895ded10",
+      "bytes": 4507
+    },
+    {
+      "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium bun run test:e2e e2e/audit-workflow.spec.ts",
+      "exitCode": 0,
+      "log": "browser-main-output.txt",
+      "sha256": "5455c3494b80d4173b87f5e4a64299a51cdd3922885b06e9c6e31ac0ad4a9833",
+      "bytes": 6997
+    },
+    {
+      "command": "bun run test:chain-integration --evidence NEW_PATH",
+      "exitCode": 0,
+      "log": "anvil-output.txt",
+      "sha256": "860d89a7510980542d0921ddfe82857bf5d5acecbd6eb2cfba934e011d6a6d91",
+      "bytes": 384
+    },
+    {
+      "command": "bun run test:case-work-operations",
+      "exitCode": 0,
+      "log": "casework-operations-output.txt",
+      "sha256": "2b2d258305a1a0c1f0b1389f35a7704ab4c38a1df99ea297e5c979a7a64a5dc5",
+      "bytes": 461
+    },
+    {
+      "command": "bun run test:publication-operations",
+      "exitCode": 0,
+      "log": "publication-operations-output.txt",
+      "sha256": "0977c67f8dd8dabc1b3d409df8c3ca695d11892e243cd974523eb6a5ba00602c",
+      "bytes": 315
+    },
+    {
+      "command": "bun run check:web-bundle",
+      "exitCode": 0,
+      "log": "bundle-output.txt",
+      "sha256": "c8c1e40ef9f0b4dc786a404a26851958eeae5ee24ca0afb7f1d15a0a1d45edb6",
+      "bytes": 126
+    },
+    {
+      "command": "bun install --offline --frozen-lockfile --cache-dir EXISTING_LOCAL_CACHE (clean source copy)",
+      "exitCode": 0,
+      "log": "clean-install-output.txt",
+      "sha256": "9f2ee49a57f4ccde49d1bdc02c75307bc5b2956257009d9a15c805aec5195351",
+      "bytes": 115
+    },
+    {
+      "command": "bun run check:all (clean source copy, cached dependencies)",
+      "exitCode": 0,
+      "log": "clean-checks-output.txt",
+      "sha256": "a4c329f8329cb1022b22aad958c6ee4d78b4e04de5125f897354453edadc612f",
+      "bytes": 76431
+    }
+  ],
+  "mainSuites": {
+    "api": 284,
+    "web": 275,
+    "tooling": 58,
+    "python": 221,
+    "foundry": 4,
+    "total": 842,
+    "failures": 0,
+    "skips": 0,
+    "cleanCopyRerunAlsoPassed": true,
+    "repeatsNotCountedAsAdditionalCoverage": true
+  },
+  "browser": {
+    "main": 28,
+    "privateTeamAndSchema": 12,
+    "uniqueChecks": 40,
+    "browserJourneys": 39,
+    "nodeEsmSchemaCheck": 1,
+    "runnerHelpersUnique": 5,
+    "failures": 0,
+    "skips": 0,
+    "retries": 0,
+    "workers": 1,
+    "chromium": "153.0.8010.52; sandbox enabled",
+    "productionBuildBeforeEachPhase": true,
+    "mobile": "390x844 viewport emulation, not a physical phone",
+    "externalImagery": "Blocked in browser tests; no live tile quality or FPS measurement",
+    "screenshotsInspected": [
+      "decision-desktop.png",
+      "connected-investigation-mobile.png"
+    ]
+  },
+  "additionalOperations": {
+    "actualAnvilIntegration": {
+      "tests": 1,
+      "assertions": 61,
+      "chainId": 31337,
+      "chainStoppedAfterTests": true,
+      "sourceId": "KAZ_S_159",
+      "reviewer": "DEMO software reviewer; not a human study",
+      "record": "anvil-proof.json"
+    },
+    "caseworkOperations": 2,
+    "publicationOperations": 1,
+    "retainedCliScenarios": 11,
+    "unexpectedCliExits": 0
+  },
+  "cleanReproduction": {
+    "sourceCopyFileCount": 1294,
+    "runtimeFilesByteMatched": 414,
+    "existingNodeModulesCopied": false,
+    "environmentSecretsCopied": false,
+    "separateDependencyInstall": {
+      "command": "bun install --offline --frozen-lockfile --cache-dir EXISTING_LOCAL_CACHE",
+      "installedPackages": 137,
+      "exitCode": 0,
+      "log": "clean-install-output.txt"
+    },
+    "fullGateExitCode": 0,
+    "initialNetworkAttempt": {
+      "exitCode": 143,
+      "log": "clean-network-interrupted.txt",
+      "explanation": "Disposable fresh-cache network download deliberately interrupted after slow progress. Partial install directories moved aside; frozen install succeeded without network from existing cache. This does not verify a full fresh network download."
+    },
+    "documentation": "Active guide/README/status finalized after the code copy. Runtime and data byte matches are explicitly verified."
+  },
+  "inputFileBindings": {
+    "data/real/snapshot-projections/unep-mars-e0721015e925.json.gz": {
+      "sha256": "a29a892e6c8aed4d6389313ffbc311df0bfe4e59aa78cce2b1b2cdbfb65ee72d",
+      "bytes": 2824828
+    },
+    "data/real/snapshot-projections/unep-mars-e0721015e925.provenance.json": {
+      "sha256": "39e4f24ed186c2cb5835dd97b670be3e7ff12c7a847e5b7cbad8097f77a59360",
+      "bytes": 1474
+    },
+    "apps/web/public/data/mars-snapshot.json.gz": {
+      "sha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "bytes": 2939194
+    },
+    "data/processed/intelligence-snapshot.json": {
+      "sha256": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+      "bytes": 16433532
+    },
+    "data/processed/snapshot-transition/report.json": {
+      "sha256": "a271618790bda2e91be2b997777bab7ae9a7c53c7ee2e8a609ae5e1cd914679b",
+      "bytes": 291293
+    },
+    "data/processed/snapshot-transition/manifest.json": {
+      "sha256": "387f0c0805bfd5d7a1a0401338500a9ef2a8b72ab0a5bf8cc06bbcf3bc6ad96f",
+      "bytes": 575
+    },
+    "data/real/mars_casebook_2026-10-15.json": {
+      "sha256": "02601434e3ef431f6fa2432ae3e6a0069f52649df3f43a366cb203d41be56aa0",
+      "bytes": 24529
+    },
+    "data/real/mars_snapshot_history.json": {
+      "sha256": "4f0e9dca26d2f357c6a59871f111c34213713375de3533626442d913b76e5d48",
+      "bytes": 5603
+    }
+  },
+  "sourceManifest": "source-manifest.json",
+  "priorArtifacts": {
+    "packages": [
+      {
+        "package": "decision-lab-2026-10-19",
+        "verifiedArtifacts": 25
+      },
+      {
+        "package": "observation-crosscheck-2026-10-19",
+        "verifiedArtifacts": 30
+      },
+      {
+        "package": "investigation-planner-2026-10-19",
+        "verifiedArtifacts": 17
+      },
+      {
+        "package": "investigation-operations-2026-10-20",
+        "verifiedArtifacts": 15
+      },
+      {
+        "package": "snapshot-change-watch-2026-10-20",
+        "verifiedArtifacts": 11
+      }
+    ],
+    "totalVerifiedArtifacts": 98,
+    "changed": 0
+  },
+  "bundle": {
+    "appGzipBytes": 74667,
+    "unchangedBudgetBytes": 75000,
+    "requiredLazyRouteChunks": 8,
+    "mapPanelRawBytes": 1124042,
+    "mapPanelLazy": true,
+    "advisories": [
+      "Large MapLibre chunk remains; Rollup strips unsupported dependency annotation comments."
+    ]
+  },
+  "runtime": {
+    "bun": "1.4.3",
+    "repositoryBunPin": "1.4.2",
+    "python": "3.12.13",
+    "forge": "1.8.5",
+    "solc": "0.8.24",
+    "uv": "0.13.0",
+    "os": "Linux"
+  },
+  "baseline": {
+    "conformanceExamples": 15,
+    "realMetadataExamples": 9,
+    "syntheticExamples": 6,
+    "independentBenchmark": false,
+    "physicalMitigationValidated": false
+  },
+  "initialBrowserFailures": [
+    "Initial full private phase: ambiguous Due date label also matched new Request due date. Exact label added.",
+    "Next phase: directory count expected one source but the earlier connected workflow intentionally retained another authorized investigation.",
+    "A subsequent attempt filtered the shared selector but not the directory; code inspection confirmed independent filter scopes. Final assertions verify exact target and qualifying work status without assuming global fixture count. All prior conflict/history/privacy assertions retained."
+  ],
+  "review": {
+    "record": "review-notes.md",
+    "scope": "Permission boundary, frozen raw payload integrity, terminal reconciliation, new response review revisit, compatibility and browser regressions",
+    "domainExpertReview": false
+  },
+  "compatibility": {
+    "contract": "Existing EvidenceRegistry unchanged",
+    "legacyAuditNamespace": "registryCaseId unchanged",
+    "auditBundles": "2/3/4 preserved",
+    "state": "Reads legacy arrays and envelopes 1/2; writes envelope 3 after first frozen decision",
+    "rollback": "Requires a compatible writer or complete pre-envelope-3 backup; do not use older writer against envelope 3",
+    "database": "None",
+    "dependenciesAdded": false,
+    "lockfileChangedByInstall": false
+  },
+  "limits": [
+    "Prototype single-writer private file state; not multi-instance/encrypted/cloud persistence.",
+    "Real historical snapshot data; software DEMO reviewers, response documents and rights/hash declarations are not authenticated humans or physical evidence.",
+    "No new live external AI evaluation, independent model benchmark, expert review, human pilot, prospective physical prediction or measured emissions reduction.",
+    "No new public Sepolia receipt, GitHub Actions run, deployment, video update or submission publication verified.",
+    "Trusted digest and chain commitments prove integrity/chronology, not physical truth, document authenticity or reviewer identity.",
+    "Retained offline verification with the attacker-supplied replacement digest is an expected local acceptance control; actual chain comparison rejects it."
+  ]
+}

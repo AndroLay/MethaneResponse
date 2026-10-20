@@ -1,14 +1,28 @@
 # MethaneResponse
 
-**Menelusuri bukti di balik klaim tentang sumber metana, respons, dan mitigasi.**
+**Memilih investigasi metana, menelusuri bukti, dan mempertanggungjawabkan keputusan.**
 
-MethaneResponse membantu peneliti, auditor, dan analis memeriksa data historis UNEP MARS, membatasi klaim pada kejadian atau periode tertentu, mencatat penilaian, lalu membagikan hasil dengan batas bukti yang jelas.
+MethaneResponse membantu tim memilih sumber metana sesuai kapasitas investigasi, memeriksa klaim terhadap data historis UNEP MARS dan dokumen, serta mencatat permintaan bukti dan keputusan reviewer. Ketika bukti berubah, sistem menjelaskan keputusan mana yang perlu ditinjau ulang; laporan berversi dapat diperiksa integritasnya secara independen.
 
 **Status:** proof of concept lokal untuk IEEE ClimateChain 2026. Web dan API memakai snapshot historis serta file JSON lokal. AI bersifat opsional. Write blockchain melalui API tersedia dengan opt-in server dan intent durabel. Pemulihan sudah diuji pada Anvil lokal; receipt Sepolia publik belum tersedia. Rincian kemampuan dan bukti terakhir ada di [status implementasi](docs/release/current-implementation-status.md).
 
 [P5/P6 melalui agent selesai](docs/evidence/p5-p6-agent-completion-2026-10-18/README.md): 48 tugas manual/app oleh dua agent dalam enam sesi berulang, 72 klaim test/12 sumber dinilai dua konteks agent, perbaikan CLI serta 708 tes lokal lulus. Hasil tidak menunjukkan manfaat AI dibanding rules pada challenge ini. Pilot manusia dan benchmark provider independen belum terpenuhi; P4 menunggu review sesuai arahan pengguna.
 
 ## Mulai memahami repo
+
+**P2 delivery — 20 Oktober:** pemeriksaan kandidat klaim/evidence terkait pada investigasi privat, interpretasi reviewer yang disimpan ke riwayat, verifier CLI, serta downloader dan intake snapshot opt-in. Rilis UNEP 20 Oktober sudah diunduh dan dibandingkan di staging; snapshot aktif tidak diganti. [Panduan dan batas](docs/development/evidence-overlap-and-snapshot-intake.md) · [Bukti terbaru](docs/evidence/p2-delivery-2026-10-20/README.md).
+
+**Connected Investigations — 20 Oktober:** hubungkan persetujuan alokasi, permintaan/respons bukti append-only, assessment berscope dan keputusan reviewer yang membekukan dossier tepat. Verifier memeriksa digest terpisah serta receipt kontrak ketika dikonfigurasi; bukti baru dapat merekomendasikan review tanpa menulis ulang keputusan lama. Tetap tanpa database. [Workflow dan recovery](docs/development/connected-investigations.md) · [Bukti lokal](docs/evidence/connected-investigations-2026-10-20/README.md).
+
+**Snapshot Change Watch — 20 Oktober:** bandingkan dua rilis historis lengkap berdasarkan source/plume ID asli. Temukan perubahan yang memengaruhi rencana terpilih, buka nilai sebelum/sesudah, lalu lanjutkan ke evidence atau peta. Pada input yang dibundel: **7 source baru, 95 plume record tambahan (13 backfill), dan 3 record berubah**; tiga sumber dalam alokasi default memerlukan tinjauan record. Verifier menjalankan ulang diff dari kedua input asli, termasuk ketika laporan diubah dan hash-nya dihitung ulang. Ini perbandingan arsip historis, bukan feed live atau bukti kebocoran baru. [Panduan](docs/product/user-workflow.md#tinjau-perubahan-dua-snapshot-historis) · [Bukti dan replay](docs/evidence/snapshot-change-watch-2026-10-20/README.md).
+
+**Investigation Operations — 20 Oktober:** aktifkan salah satu rencana untuk menampilkan **antrean dan ring peta dengan ID yang sama**; bandingkan kapasitas 10→20 tanpa diam-diam mengganti pilihan aktif. Impor rencana terdahulu dengan digest tepercaya, lalu tinjau perubahan parameter atau ringkasan snapshot. Reviewer berwenang dapat menyimpan keputusan accept/defer/reject berversi dan mengekspor riwayat untuk verifier CLI. Tetap tanpa database; keputusan rencana bukan konfirmasi mitigasi atau receipt blockchain. [Panduan](docs/product/user-workflow.md#operasikan-dan-tinjau-rencana) · [Bukti](docs/evidence/investigation-operations-2026-10-20/README.md).
+
+**Investigation Capacity Planner — 19 Oktober:** dari **Cases → Plan investigation capacity**, tetapkan slot tim dan batas per negara, lalu bandingkan empat portofolio pada snapshot yang sama. Periksa alasan terpilih/terlewat, sensitivity terhadap asumsi, dan buka kasus, peta atau Evidence Auditor dengan source ID yang sama. Ekspor berkas replay berversi; ini alokasi investigasi, bukan estimasi repair atau emisi yang dapat dihindari. [Metode dan cakupan](docs/plans/2026-10-19-investigation-planner.md).
+
+**Increment 19 Oktober — [Evidence Decision Lab](docs/evidence/decision-lab-2026-10-19/README.md):** jelaskan kelayakan setiap referensi, lihat perubahan keputusan ketika referensi dihapus, lalu ekspor permintaan bukti dengan acceptance checks. Lima challenge DEMO terpisah menunjukkan hasil lengkap, kurang bukti, contrary dan konflik. Pengujian chain lokal juga menolak laporan yang telah diubah **dan dihitung ulang checksum-nya** karena berbeda dari commitment kontrak. Ini tetap prototipe metadata, bukan sertifikasi repair.
+
+**Tambahan — [Observation Claim Cross-Check](docs/evidence/observation-crosscheck-2026-10-19/README.md):** periksa pernyataan tentang ada/tidaknya rekaman deteksi atau ambang estimasi flux pada periode tertentu. Hasil menunjuk plume ID penyangkal, tanggal asli, nilai dan SD, dilengkapi grafik titik serta follow-up draft. Pemindaian 4.218 sumber/23.861 rekaman terkait cocok dengan implementasi Python terpisah pada input yang sama. Pernyataan adalah skenario analis, bukan tuduhan kepada operator; hasil ini bukan konfirmasi repair atau benchmark ilmiah independen.
 
 | Kebutuhan | Baca |
 |---|---|
@@ -38,6 +52,8 @@ Pengguna dapat:
 - Menjelajahi sumber dan plume di **Map Explorer**, **Cases**, serta **MARS Indicators**.
 - Memilih prioritas investigasi dari ringkasan historis dan aturan yang dapat dijelaskan.
 - Menjalankan rules baseline untuk klaim deteksi, notifikasi, atau mitigasi.
+- Memeriksa dependency keputusan di **Decision Lab**, meninjau alasan eksklusi referensi dan menyiapkan permintaan bukti yang dapat direplay.
+- Menemukan rekaman penyangkal yang persis melalui **Decision Lab → Observation cross-check**, tanpa menyamakan nihil rekaman dengan emisi nol.
 - Menyimpan penilaian manusia privat tanpa AI, dengan referensi, alasan, scope, dan permintaan bukti lanjutan.
 - Melanjutkan beberapa investigasi melalui catatan browser atau [workspace tim](docs/development/shared-casework.md): assignee, due date, konflik revisi, riwayat serta pemulihan draft per tab.
 - Memeriksa asal/digest referensi penerbit secara opsional, status otorisasi reviewer, serta konflik yang dideklarasikan.

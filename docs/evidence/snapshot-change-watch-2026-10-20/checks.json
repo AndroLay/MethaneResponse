@@ -1,0 +1,384 @@
+{
+  "recordedAt": "2026-10-20T08:31:25.828983+00:00",
+  "baselineCommit": "8e19c034e666a6b00d93b4cb3f5747f563c75aab",
+  "state": "Local uncommitted working tree. Selected source/input hashes below bind this increment; not a new GitHub release, public CI run or deployment.",
+  "commands": [
+    {
+      "command": "bun run check:all",
+      "exitCode": 0,
+      "localLogSha256": "27f86abcc34e730b619e222fb71cb568eafaca4c5ca39ad717cddc598d58e79e"
+    },
+    {
+      "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium PLAYWRIGHT_OUTPUT_DIR=/tmp/methane-snapshot-browser-main-final METHANE_E2E_API_PORT=43169 METHANE_E2E_WEB_PORT=4189 bun run test:e2e e2e/audit-workflow.spec.ts",
+      "exitCode": 0,
+      "localLogSha256": "6cc3934f37e32934a2358709dcf6aabd0aa87759fa59b1905b24751e5c32f087"
+    },
+    {
+      "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium PLAYWRIGHT_OUTPUT_DIR=/tmp/methane-snapshot-browser-private-final METHANE_E2E_API_PORT=43169 METHANE_E2E_WEB_PORT=4189 bun run test:e2e e2e/ai-review-workflow.spec.ts",
+      "exitCode": 0,
+      "localLogSha256": "e91e516eb13b9341facc3acfb88d1f13f1b6b2a5209ad481c88a0d9a619ca27d"
+    },
+    {
+      "command": "bun run prove:snapshot-transition --output /tmp/methane-snapshot-proof-verified",
+      "exitCode": 0,
+      "localLogSha256": "f13465e7dc740b4c1b86528f22cffb359d78c61cd54d3aeb5569458e6c39d024"
+    },
+    {
+      "command": "bun run verify:snapshot-transition RETAINED_REPORT --before RETAINED_OLD_GZIP --after ACTIVE_GZIP --expected-before RECORDED_SHA256 --expected-after RECORDED_SHA256 --expected-report RECORDED_0xSHA256",
+      "exitCode": 0,
+      "localLogSha256": "b551a2d2a18e259e18f6846eec0af8cafca450f8afa57f767631bfc5567ea6b0"
+    },
+    {
+      "command": "bun run check:web-bundle",
+      "exitCode": 0,
+      "localLogSha256": "b0e19549390ef47a0a2835e4d4cdad1c1a5bbbaf4fabb8d8fddd40221c767ffd"
+    },
+    {
+      "command": "bun test apps/api/src/snapshot-transition.test.ts",
+      "exitCode": 0,
+      "localLogSha256": "64023358469343928932cef6ffa29bbebc0605067a077e9d8a8cfe881fdc5ddf"
+    }
+  ],
+  "mainSuites": {
+    "api": 257,
+    "web": 270,
+    "tooling": 56,
+    "python": 221,
+    "foundry": 4,
+    "total": 808,
+    "failed": 0,
+    "skipped": 0
+  },
+  "browser": {
+    "main": 28,
+    "privateTeamPublicationMockAI": 10,
+    "uniqueTotal": 38,
+    "failed": 0,
+    "retries": 0,
+    "skipped": 0,
+    "runnerHelperTests": 5,
+    "localSandboxEnabled": true,
+    "externalImageryBlocked": true,
+    "mobile": "390x844 desktop Chromium viewport emulation",
+    "screenshotsInspected": true,
+    "liveProviderQuality": false
+  },
+  "bundle": {
+    "appGzipBytes": 74104,
+    "appBudgetBytes": 75000,
+    "requiredLazyRouteChunks": 8,
+    "mapPanelRawBytes": 1124042,
+    "mapPanelLazy": true,
+    "largeChunkAdvisoryRemains": true
+  },
+  "proof": {
+    "reportDigest": "0x4363ad48a49f67dc5838482920b6fa607be06f0ab200eb5d10061a351ddb8077",
+    "summary": {
+      "addedSources": 7,
+      "removedSources": 0,
+      "changedSources": 170,
+      "addedObservations": 95,
+      "removedObservations": 0,
+      "changedObservations": 3,
+      "laterDatedAdditions": 82,
+      "historicalBackfillAdditions": 13,
+      "reassignedObservations": 0
+    },
+    "affectedSourceCount": 178,
+    "selectedAffectedIds": [
+      "DZA_S_011",
+      "IRN_S_065",
+      "TKM_S_021"
+    ],
+    "capacities": [
+      10,
+      20
+    ],
+    "cliScenarios": 8,
+    "expectedExitsMatched": true,
+    "independentSemanticOracle": {
+      "independentRecordReplay": true,
+      "sourceRecordsCompared": 8429,
+      "observationsCompared": 60733,
+      "summary": {
+        "addedSources": 7,
+        "removedSources": 0,
+        "changedSources": 170,
+        "addedObservations": 95,
+        "removedObservations": 0,
+        "changedObservations": 3,
+        "laterDatedAdditions": 82,
+        "historicalBackfillAdditions": 13,
+        "reassignedObservations": 0
+      },
+      "limitation": "Independent semantic comparison. Canonical SHA-256 replay is checked separately by the TypeScript verifier; neither establishes physical mitigation."
+    },
+    "canonicalReplay": "TypeScript CLI, both original files and separately supplied pins required"
+  },
+  "preservedPriorManifests": [
+    {
+      "package": "decision-lab-2026-10-19",
+      "verifiedArtifacts": 25,
+      "manifestSha256": "dc3d4d07fb727998f21e2a5c7f3f451d272790d7227a3ca7d3f17cc51de9e970"
+    },
+    {
+      "package": "observation-crosscheck-2026-10-19",
+      "verifiedArtifacts": 30,
+      "manifestSha256": "294911e7b79d8e50d45caf5de4e23492db873a7b8495dd65cf5059c4c63b368c"
+    },
+    {
+      "package": "investigation-planner-2026-10-19",
+      "verifiedArtifacts": 17,
+      "manifestSha256": "afd63a2b690346faec2a9ed96e1e9341105ef7d091fc866cc5c55ff8cbc16f94"
+    },
+    {
+      "package": "investigation-operations-2026-10-20",
+      "verifiedArtifacts": 15,
+      "manifestSha256": "23c052df2a545c9714ef88fe2358c60abd2b5f54ffb6219f8aeb03461bfc02d6"
+    }
+  ],
+  "runtime": {
+    "bunActual": "1.4.3",
+    "bunRepoPin": "1.4.2",
+    "pytestPython": "3.12.13",
+    "proofOraclePython": "3.14.7",
+    "chromium": "153.0.8010.52",
+    "foundry": "1.8.5",
+    "database": "None",
+    "newDependencies": false,
+    "newMigrations": false
+  },
+  "selectedSourceBindings": {
+    "AGENTS.md": {
+      "sha256": "9db123d51aeed4834ac63795c6fca728df332529a6d97b59b4ca69316458e6be",
+      "bytes": 1048
+    },
+    ".gitignore": {
+      "sha256": "56a6898791edd611a06957119949518c6c334eae5e64d63ffaf94cc7e87a6183",
+      "bytes": 1854
+    },
+    "package.json": {
+      "sha256": "fa89fc25da61f35ce32f229f29954ec2fdf339c26356c69602bc8ae2484a0d15",
+      "bytes": 3026
+    },
+    "bun.lock": {
+      "sha256": "0b1c52b35c173b29c5b5ac251176e752db6f7a2b960ee60573b2b005b604bd1a",
+      "bytes": 51542
+    },
+    "packages/shared/package.json": {
+      "sha256": "cb3c2f40509235448a929c50d8aa8a8794d93c636cd95a85ba9f6887cd09a01f",
+      "bytes": 427
+    },
+    "packages/shared/src/index.ts": {
+      "sha256": "cc50510d5ad9d93f2127eab60f9f74e9383877a318dab1e53cdde1bfc146403f",
+      "bytes": 21410
+    },
+    "packages/shared/src/investigation-planner.ts": {
+      "sha256": "d87b060262903e9ac0cf962a198f91a2ae39a0eeedc902580a9cf9d4f042855f",
+      "bytes": 18225
+    },
+    "packages/shared/src/snapshot-transition.ts": {
+      "sha256": "945579e25e37c2dc6b667a080e9ecf0c6274d5c16fbc7c4e5b261cc0de5d0dda",
+      "bytes": 13274
+    },
+    "apps/api/src/app.ts": {
+      "sha256": "2064d035d039f6caf9aafc51e3ff5ee2d5ed3219d284e620e92fd644ec77b3f8",
+      "bytes": 80421
+    },
+    "apps/api/src/rate-limit.ts": {
+      "sha256": "4b45e8cc50aa0c186f6cfe04fdfd3950d50b5e3ba9413a10fdc00e18b5fa6113",
+      "bytes": 2602
+    },
+    "apps/api/src/intelligence-data.ts": {
+      "sha256": "ad436781f5a4423ed3b1b8a36117ca4b87ff4dff78352ac488cd5989edb73ed1",
+      "bytes": 26294
+    },
+    "apps/api/src/observation-archive.ts": {
+      "sha256": "4e2db7f08d03f19f0aa38b793b820da6ca9edc728908fb05bca186062c6c60e5",
+      "bytes": 5427
+    },
+    "apps/api/src/investigation-planner-data.ts": {
+      "sha256": "5581e085a7789b4ae6f07ca344e6dab5434cc4ac0fb550445bfb53aaeb8b5245",
+      "bytes": 2309
+    },
+    "apps/api/src/snapshot-transition-data.ts": {
+      "sha256": "d0e51859978bc7b5af4652f14a13ba4c349401deb29c21439ae7b045a9358876",
+      "bytes": 4804
+    },
+    "apps/api/src/snapshot-transition.test.ts": {
+      "sha256": "ebce77300fc2b9bfeddb1fe3bc5a87044c15d2577fae5220179826e1d81fa634",
+      "bytes": 6138
+    },
+    "apps/api/src/snapshot-transition-policy.test.ts": {
+      "sha256": "77ba86538c8ce802f5eb7dfe4ba09aea73b86db30a8819175703906e06902d63",
+      "bytes": 5490
+    },
+    "apps/web/src/InvestigationPlanner.tsx": {
+      "sha256": "79b032883052c1df51b127d469ba46ed5bbc034d57bfb75e7fca74aa90b64891",
+      "bytes": 18486
+    },
+    "apps/web/src/SnapshotChangePanel.tsx": {
+      "sha256": "2d382121f4f56923849c470d4f152c6ae9c72735059e9bf226c8ffa6e862cc7f",
+      "bytes": 12155
+    },
+    "apps/web/src/snapshot-change-watch.ts": {
+      "sha256": "7a16ccbad2aa83306a7a2721e43ded98fe867b2c634011e03e4dd45c5e0cfd47",
+      "bytes": 1599
+    },
+    "apps/web/src/snapshot-change-watch.test.ts": {
+      "sha256": "d1c644f431e9b281ac29077ac15727744a03acef1a7238b1591759d5904e6d0d",
+      "bytes": 2023
+    },
+    "apps/web/src/investigation-planner.css": {
+      "sha256": "5d38d0f0c4369efd188770af49c3460279725f5d5dda1f82c912b77678d5c482",
+      "bytes": 10162
+    },
+    "scripts/build-snapshot-transition.ts": {
+      "sha256": "5d3fca53bb715e591902b75e973fe6a5db90ea8eda6ea33faac616181a1f696e",
+      "bytes": 1866
+    },
+    "scripts/verify-snapshot-transition.ts": {
+      "sha256": "1878044ba852d39c41d57047de4d1576cffcb193e7dcfa15d0d3dd705836340c",
+      "bytes": 2435
+    },
+    "scripts/verify-snapshot-transition.test.ts": {
+      "sha256": "8c44359591c450e6b4d6d945da96871063ebd4a55fb29ebb0faeb62fda9e353a",
+      "bytes": 737
+    },
+    "scripts/snapshot-transition-proof.ts": {
+      "sha256": "ce3a2563d8d02f8fa1e9c65bce9c3389d0a86ab28aad38bc3fae3600807a923a",
+      "bytes": 6241
+    },
+    "scripts/tsconfig.evaluation.json": {
+      "sha256": "5d0e1a7d6b7ae98df48d781ea8b56fca885de77adaa6e2bf7bd5a076b1edfdc3",
+      "bytes": 1216
+    },
+    "scripts/check-local.sh": {
+      "sha256": "0e1dbd3ac7f0e1ece212fa29ea2c5f730b3d91c8c29a8fab421259767f23691f",
+      "bytes": 1036
+    },
+    "scripts/run-e2e.ts": {
+      "sha256": "b2eb6f73f3a390a375b80441fe3c2d5f2f2f80f02cb2b00d166389bd49f5b61f",
+      "bytes": 1629
+    },
+    "scripts/e2e-runner-utils.ts": {
+      "sha256": "1f0d794270463685628f6ec2a2755b5d0ed377ade8f6837a2336e074ae282722",
+      "bytes": 3138
+    },
+    "playwright.config.ts": {
+      "sha256": "2f3303f5f26a2fd2fe6787e957a1bb1d79d8845b9a9c7e5189ae1605ecbd3578",
+      "bytes": 5527
+    },
+    "e2e/audit-workflow.spec.ts": {
+      "sha256": "b6574fceb2ead1587e3769b5f8e4bfad19dd00f778859b2f3107e52c2f5280c7",
+      "bytes": 89617
+    },
+    "e2e/ai-review-workflow.spec.ts": {
+      "sha256": "72acc83c2e57087323325556bad663cfe701f1d2ad8b091c592a9b786ff48ea7",
+      "bytes": 60140
+    },
+    "services/data-pipeline/snapshot_transition_oracle.py": {
+      "sha256": "393c4ea1c599688da7c205bebc14ff3037a655b35f0e5b86119c3e60f069121a",
+      "bytes": 8241
+    },
+    "services/data-pipeline/tests/test_snapshot_transition_oracle.py": {
+      "sha256": "e816a4d2aa7d8b5712ccfd19a2e314d6d1b2ae3f340cb389813715469b97c2d5",
+      "bytes": 3023
+    },
+    "services/data-pipeline/uv.lock": {
+      "sha256": "87d64750cae0a75c1ad1057e5c47ed83ea2efa77b11873cfa19a3de8c8cd54bf",
+      "bytes": 128739
+    },
+    "README.md": {
+      "sha256": "fe217fb96626b037cd097dbbef3de33f145733275e4c3ab887c58fea098b5ed1",
+      "bytes": 12172
+    },
+    "docs/plans/2026-10-20-snapshot-change-watch.md": {
+      "sha256": "2db60b88e06d63fab3add69c8f00f88511f0226445775f11c8bfaf774a1fd3ba",
+      "bytes": 2488
+    },
+    "docs/product/user-workflow.md": {
+      "sha256": "4bbcaf984a4b7f87d5d288f75fb369ede097cacd14cba3b08d82fc8ffb5dfe92",
+      "bytes": 26845
+    },
+    "docs/architecture/api-reference.md": {
+      "sha256": "8777f9e4332a86e2b943a2d06d369104c67ef13336cfd88fb05226ceacb16e88",
+      "bytes": 20759
+    },
+    "docs/release/current-implementation-status.md": {
+      "sha256": "6dc28156c814bdeda906717cd6ba03860c717ec3f9c4e23a600735599811eeb3",
+      "bytes": 29581
+    },
+    "docs/testing/README.md": {
+      "sha256": "3203a344576abc1aa91f6d2a0c3c1c4cab3e37bc238051303b132e75af92eb21",
+      "bytes": 8688
+    },
+    "docs/testing/end-to-end.md": {
+      "sha256": "4292fc54e5ba5e29d2fa9eab9e248fc8ccde14288127cbbf659834f3f7429a54",
+      "bytes": 5585
+    },
+    "docs/evidence/README.md": {
+      "sha256": "73b4f8bc391cd4058646b25d1809f9b80b6443d4ec20acf49a46c435cfad9618",
+      "bytes": 11109
+    },
+    "data/real/README.md": {
+      "sha256": "6c6f0d43eceabd873b1c6f14ccc1d426e356d807e3a507f3d5dba1e32bf0e30e",
+      "bytes": 13405
+    }
+  },
+  "inputFileBindings": {
+    "data/real/snapshot-projections/unep-mars-e0721015e925.json.gz": {
+      "sha256": "a29a892e6c8aed4d6389313ffbc311df0bfe4e59aa78cce2b1b2cdbfb65ee72d",
+      "bytes": 2824828
+    },
+    "data/real/snapshot-projections/unep-mars-e0721015e925.provenance.json": {
+      "sha256": "39e4f24ed186c2cb5835dd97b670be3e7ff12c7a847e5b7cbad8097f77a59360",
+      "bytes": 1474
+    },
+    "apps/web/public/data/mars-snapshot.json.gz": {
+      "sha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "bytes": 2939194
+    },
+    "data/processed/intelligence-snapshot.json": {
+      "sha256": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+      "bytes": 16433532
+    },
+    "data/processed/snapshot-transition/report.json": {
+      "sha256": "a271618790bda2e91be2b997777bab7ae9a7c53c7ee2e8a609ae5e1cd914679b",
+      "bytes": 291293
+    },
+    "data/processed/snapshot-transition/manifest.json": {
+      "sha256": "387f0c0805bfd5d7a1a0401338500a9ef2a8b72ab0a5bf8cc06bbcf3bc6ad96f",
+      "bytes": 575
+    }
+  },
+  "review": {
+    "mode": "Independent read-only source review",
+    "scope": "new normalized diff, API/cache/input binding, request/export limits, stale response and full replay",
+    "importantCriticalFindings": 0,
+    "testsExecutedByReviewer": false,
+    "physicalClaimsValidated": false
+  },
+  "initialFailures": [
+    "Two full-gate attempts stopped on TS2322: nullable datasetSnapshotId in proof request. Explicit real-input precondition added; final gate passes.",
+    "Restricted Chromium launch failed before application assertions: process_singleton_posix.cc socket() Operation not permitted. Authorized host execution retained Chromium sandbox.",
+    "Initial mobile element capture caught transient narrow layout. Settled-width assertion plus viewport capture replaced it; final desktop/mobile inspected."
+  ],
+  "compatibility": {
+    "auditSchemas": "Unchanged",
+    "contract": "Unchanged",
+    "existingPlanPolicy": "Unchanged",
+    "activeDataset": "Unchanged",
+    "publicPreview": "Full transition explicitly rejected (403)",
+    "runtimeRead": "Fixed local files; no HTTP-selected paths or upstream fetch",
+    "rateLimit": "Shared inspection/export bucket, separate from allocation, 20/client/minute process-local"
+  },
+  "limits": [
+    "Real retained normalized historical projections; original CSV archive hashes recorded, not reauthenticated this run.",
+    "Not a live feed, future acquisition, prospective validation, physical repair or zero-emission conclusion.",
+    "Record policy replay is not publisher identity authentication or independently labeled scientific accuracy.",
+    "No new live AI quality benchmark, human pilot, public Sepolia receipt, plan anchor or public deployment.",
+    "Private reviewer history and active queue are not modified by this read-only comparison.",
+    "Tests prove bounded local behavior; not a competition ranking, industrial certification or guaranteed FPS."
+  ]
+}

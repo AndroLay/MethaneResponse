@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import type { ReactNode } from 'react';
 import type { MarsSource } from './mars';
 import type { AuditScope, ClaimType } from '@methane/shared';
@@ -9,9 +9,12 @@ import { CASE_WORK_CHANGED, listCaseWork, workStatusLabels, type CaseWork } from
 import { getTeamSession, subscribeTeamSession, TEAM_WORK_CHANGED } from './team-session';
 import { formatCaseLocation, pageForSelectedCase, paginateCases, resolveSelectedCase, type CasePageSize } from './case-table';
 import CaseDetailsDialog, { type CaseDetailsTab } from './CaseDetailsDialog';
+const InvestigationPlanner = lazy(() => import('./InvestigationPlanner'));
+import { getActivePlan } from './plan-session';
 
 type Props = {
   sources: MarsSource[];
+  plannerSources?: MarsSource[];
   selectedSourceId: string;
   countryFilter: string;
   sectorFilter: string;
@@ -20,12 +23,14 @@ type Props = {
   datasetLabel: string;
   datasetSnapshotId?: string;
   archiveSha256?: string;
+  inputFileSha256?: string;
   observationChart: (source: MarsSource) => ReactNode;
   onCountryFilterChange: (value: string) => void;
   onSectorFilterChange: (value: string) => void;
   onSelectSource: (sourceId: string) => void | boolean;
   onOpenMap: (source: MarsSource) => void;
   onReviewEvidence: () => void;
+  onPlannerOpenSource: (sourceId: string, target: 'case' | 'map' | 'audit') => void | boolean;
   activeWork?: { sourceId: string; workId: string; claimType: ClaimType; scope?: AuditScope };
   onResumeWork: (claim: ClaimType, scope?: AuditScope, sourceId?: string, workId?: string) => void;
   workReady?: boolean;
@@ -67,7 +72,8 @@ function ObservationList({ source, historyLoading = false, historyError }: { sou
   </div>;
 }
 
-export default function CasesWorkspace({ sources, selectedSourceId, countryFilter, sectorFilter, regions, sectors, datasetLabel, datasetSnapshotId, archiveSha256, observationChart, onCountryFilterChange, onSectorFilterChange, onSelectSource, onOpenMap, onReviewEvidence, onResumeWork, activeWork, workReady = true, historyLoading = false, historyError, onRetryHistory }: Props) {
+export default function CasesWorkspace({ sources, plannerSources = sources, selectedSourceId, countryFilter, sectorFilter, regions, sectors, datasetLabel, datasetSnapshotId, archiveSha256, inputFileSha256, observationChart, onCountryFilterChange, onSectorFilterChange, onSelectSource, onOpenMap, onReviewEvidence, onPlannerOpenSource, onResumeWork, activeWork, workReady = true, historyLoading = false, historyError, onRetryHistory }: Props) {
+  const [plannerOpen, setPlannerOpen] = useState(() => Boolean(getActivePlan()));
   const [query, setQuery] = useState('');
   const [pageSize, setPageSize] = useState<CasePageSize>(25);
   const [requestedPage, setRequestedPage] = useState(1);
@@ -126,7 +132,7 @@ export default function CasesWorkspace({ sources, selectedSourceId, countryFilte
   }, [query, sources, workBySource, workRecords, workStatus, sort, priorities.data]);
   const page = useMemo(() => paginateCases(matchingSources, requestedPage, pageSize), [matchingSources, requestedPage, pageSize]);
   const selected = resolveSelectedCase(matchingSources, selectedSourceId);
-  const dialogSource = sources.find(source => source.sourceId === dialogSourceId) || null;
+  const dialogSource = plannerSources.find(source => source.sourceId === dialogSourceId) || null;
   const selectedLocation = selected ? formatCaseLocation(selected) : null;
   const pageAnchor = useRef('');
 
@@ -153,6 +159,24 @@ export default function CasesWorkspace({ sources, selectedSourceId, countryFilte
   }
 
   return <>
+    {!synthetic && datasetSnapshotId && archiveSha256 && inputFileSha256 && <>
+      <div className="panel planner-launch" style={{ padding: 18, marginBottom: 20, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 14 }}><div><strong>Plan your team’s investigation capacity</strong><p>Compare source selections, country coverage and sensitivity under the same constraints.</p></div><button type="button" className="outline-btn" aria-expanded={plannerOpen} onClick={() => setPlannerOpen(value => !value)}>{plannerOpen ? 'Close investigation planner' : 'Plan investigation capacity'}</button></div>
+      {plannerOpen && <Suspense fallback={<p role="status">Loading the investigation planner…</p>}><InvestigationPlanner
+        datasetSnapshotId={datasetSnapshotId} archiveSha256={archiveSha256} inputFileSha256={inputFileSha256}
+        country={countryFilter} sector={sectorFilter} countries={regions} sectors={sectors}
+        onCountry={value => { if (confirmDraftNavigation()) onCountryFilterChange(value); }} onSector={value => { if (confirmDraftNavigation()) onSectorFilterChange(value); }}
+        onOpenSource={(sourceId, target) => {
+          if (onPlannerOpenSource(sourceId, target) === false) return;
+          if (target === 'case') {
+            setQuery('');
+            setWorkStatus('all');
+            setRequestedPage(1);
+            setDialogInitialTab('Summary');
+            setDialogSourceId(sourceId);
+          }
+        }}
+      /></Suspense>}
+    </>}
     <div className="cases-split-layout">
       <section className="panel cases-directory" aria-label="Searchable methane source records">
         <div className="panel-head"><div><div className="panel-title">Source investigations <span className="case-count-pill">{matchingSources.length.toLocaleString()}</span></div><div className="panel-subtitle">{datasetLabel} · historical records, not live alerts</div></div></div>

@@ -11,14 +11,16 @@ The opportunity is environmental transparency: make observations, reported actio
 **Track: Climate Data & Environmental Monitoring.** MethaneResponse turns historical methane records into traceable investigations through one workflow:
 
 1. **Explore:** inspect source locations, dated observations, estimated emission rates, uncertainties, and original references.
-2. **Focus:** use historical analysis and explainable investigation-priority indicators to identify questions worth checking.
+2. **Allocate:** set investigation capacity (for example, 10 or 20 sources), compare explainable portfolios, and accept a versioned allocation.
 3. **Check:** choose a claim and apply a specific date or event scope before running the rules baseline.
-4. **Follow up:** record the open question, next action, and evidence to request. Authorized reviewers can separately record assessments with reasons and references.
-5. **Share and verify:** export versioned reports, compare revisions, and check report integrity in the browser.
+4. **Follow up:** connect the accepted plan to a scoped investigation; record evidence requirements, responses and reviewer interpretations without overwriting earlier events.
+5. **Review and verify:** freeze the exact dossier and decision, then verify its digest or optional chain commitment independently. New evidence or relevant historical snapshot changes explain why another review may be needed.
+
+The connected workflow also checks related investigations for overlapping source/period questions and reused evidence. These are candidates for human review: using one report for multiple questions can be legitimate. It does not automatically assert duplicate mitigation or merge facility identities.
 
 The pinned UNEP snapshot contains **4,218 source rows and 30,414 plume rows**, covering observations from October 2020 to September 2026. These are historical records; each map source still needs appropriate supporting documents before it becomes a complete evidence case.
 
-The demo follows **KAZ_S_159 in Kazakhstan**. UNEP's [catalogue records mitigation action in July 2026](https://wedocs.unep.org/handle/20.500.11822/49949), while the selected snapshot includes an observation on July 11. The retained catalogue metadata does not establish the exact action day. The review therefore produces a useful next request: obtain the action date and attributable follow-up evidence.
+The historical v12 demo follows **KAZ_S_159 in Kazakhstan**. UNEP's [catalogue records mitigation action in July 2026](https://wedocs.unep.org/handle/20.500.11822/49949), while the selected snapshot includes an observation on July 11. The retained catalogue metadata does not establish the exact action day. The review therefore produces a useful next request: obtain the action date and attributable follow-up evidence.
 
 The local result, **Insufficient Reference Coverage**, describes the submitted material. It does not contradict UNEP's catalogue or establish that mitigation failed.
 
@@ -60,6 +62,6 @@ AI also needs to earn its role. The bounded agent-based experiments did not demo
 
 The next milestones are to expand permitted documentary evidence, obtain domain review, evaluate the optional model path against independently labeled claims, and test the workflow with researchers and auditors. Public testnet verification and physical-device performance checks remain separate validation steps.
 
-User studies should measure decision quality, missing-evidence detection, and investigation effort. Any claim of emissions reduction would require evidence of subsequent real-world action.
+User studies should measure decision quality, missing-evidence detection, and investigation effort. Any claim of emissions reduction would require evidence of subsequent real-world action. Opt-in snapshot staging prepares complete record comparisons without replacing active inputs or historical decisions; future acquisition and activation require explicit provenance and review.
 
 **Our goal: make methane-related claims easier to trace, review, and responsibly act on.**

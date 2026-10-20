@@ -2,7 +2,7 @@
 
 [Pusat dokumentasi](../README.md) · [Setup lokal](../development/local-setup.md) · [Alur resmi MARS dan pemetaan produk](mars-response-workflow.md)
 
-**Panduan aktif — 18 Oktober 2026.** Tujuan alur ini adalah mencatat apa yang dapat disimpulkan dari bukti tersedia dan apa yang masih perlu diperiksa. Aplikasi tidak mendeteksi metana baru, mengirim notifikasi operator, atau mengesahkan perbaikan lapangan.
+**Panduan aktif — 20 Oktober 2026.** Tujuan alur ini adalah mencatat apa yang dapat disimpulkan dari bukti tersedia dan apa yang masih perlu diperiksa. Aplikasi tidak mendeteksi metana baru, mengirim notifikasi operator, atau mengesahkan perbaikan lapangan.
 
 ## 1. Pilih dataset dan sumber
 
@@ -26,15 +26,46 @@ Snapshot bawaan `unep-mars-675417694883` mencakup 4.218 source rows dan 30.414 p
 
 ## 2. Tinjau observasi dan konteks
 
+### Rencanakan kapasitas investigasi
+
+Di **Cases → Plan investigation capacity**, isi 1–50 slot, batas per negara, negara/sektor dan bobot recurrence historis. **Compare investigation plans** membandingkan empat pilihan: percentile berbobot, median reported flux, distinct observed dates, serta greedy geographic/sector breadth. Semua memakai pool dan hard quota yang sama. Sumber tanpa linked observations dijelaskan sebagai excluded; tidak diperlakukan sebagai nol emisi. Periode planner mencakup seluruh snapshot, terpisah dari filter periode peta.
+
+Kartu membandingkan jumlah sumber, negara/sektor yang diketahui, median dari median flux sumber, median tanggal observasi, overlap dan slot yang belum dapat diisi. Ini tradeoff deskriptif, bukan peringkat manfaat iklim. **Inspect rows** menampilkan selected/excluded/all, 20 baris per halaman; alasan eksklusi membedakan scope, riwayat kosong, kuota dan kapasitas. **Case**, **Map**, dan **Evidence** mempertahankan ID sumber; membuka sumber menghapus filter direktori/peta agar pilihan dan detail tetap konsisten.
+
+**How stable is this allocation?** memperlihatkan perubahan saat satu asumsi diubah. **Download reproducible plan** menyimpan seluruh candidate projection, parameter, hasil, provenance dan hash. Tidak ada assignment/permintaan yang dikirim, audit yang disimpan atau transaksi blockchain. Verifikasi lokal: `bun run prove:planner --verify PATH --expected-digest TRUSTED_DIGEST`. Replay yang sah tidak membuktikan autentisitas input atau manfaat lapangan. Demo sintetis tidak menampilkan planner data nyata; public preview hanya memakai tiga sumber kurasi.
+
 Periksa tanggal, plume ID, flux dalam unit penerbit, uncertainty, nilai kosong dan provenance. Observasi adalah titik pengukuran diskret. Source density tidak mewakili konsentrasi metana; imagery lokasi bukan citra plume pada overpass tertentu. Legend/history peta dapat dibuka tanpa mengubah dataset.
 
 MARS `notified` dan `feedback` tetap metadata administratif. Response rate negara menghitung feedback atas sumber yang dinotifikasi; tidak menghitung perbaikan. Top 50 tidak memiliki kolom rank eksplisit, sehingga urutan CSV tidak menjadi peringkat yang direka. Lihat [data dan claims](data-and-claims.md).
 
 Insight recurrence/anomaly dan priority heuristic membantu memilih investigasi. Estimasi recurrence membahas record MARS tertaut berikutnya, bukan probabilitas kebocoran fisik. Prioritas hanya digunakan bila binding snapshot/archive cocok.
 
+### Operasikan dan tinjau rencana
+
+1. Klik **Use this plan on map & queue** setelah memilih strategi. Antrean **Active investigation plan** menampilkan ID yang dipilih, 10 per halaman, dan ring cyan pada koordinat sumber. Ring menandai alokasi, bukan intensitas metana. **Map** memusatkan sumber; **Evidence →** membuka sumber yang sama di auditor. Penetapan assignee dan pengiriman permintaan tetap langkah terpisah.
+2. **Edit capacity & strategy**, ubah 10 menjadi 20, lalu bandingkan lagi. Antrean lama tetap aktif sampai penggantian disetujui melalui tombol aktivasi. Parameter, scope dan strategi diperiksa ulang setelah replay; respons yang terlambat tidak boleh mengaktifkan pilihan lama.
+3. Pada **Compare an earlier plan or snapshot**, pilih ekspor plan atau reviewed history (maksimal 16 MB) dan isi digest SHA-256 dari catatan tepercaya terpisah. File dibaca lokal browser; history lebih besar dapat diperiksa dengan CLI hingga 32 MiB. Sistem memverifikasi replay sebelum membandingkan. Perubahan strategi/kuota pada snapshot yang sama dilabeli perubahan asumsi, bukan kedatangan observasi baru. Snapshot lain memerlukan file lengkap yang kompatibel; aplikasi tidak otomatis mengunduh snapshot baru atau menganggap ID lain berarti tanggal yang lebih baru.
+4. Perbandingan menyoroti sumber masuk/keluar dan perubahan ringkasan negara, sektor, median flux/SD, jumlah record/tanggal, missing flux, serta tanggal terakhir. Ini **bukan diff seluruh plume, notifikasi atau feedback**. Buka sumber yang perlu ditinjau dan periksa rekaman asli; koreksi metadata juga dapat mengubah ringkasan.
+5. Pada **Human review & version history**, sambungkan signed reviewer token melalui koneksi tim yang sama. Token hanya di memori; backend mensyaratkan `private_read`, tambahan `review` untuk menulis, serta current directory authority `source_detected`. Isi Plan ID, keputusan dan alasan. Backend menghitung ulang plan dari arsipnya, menetapkan actor/waktu dan menyimpan revisi dengan compare-and-swap. Konflik tidak menimpa catatan; muat history terbaru, bandingkan lalu simpan lagi. Keputusan menerima alokasi tidak mengesahkan mitigasi.
+6. **Download reviewed plan history**, simpan head digest secara terpisah, lalu verifikasi: `bun --no-env-file scripts/verify-plan.ts history.json --expected-head 0xTRUSTED_SHA256`. CLI memeriksa semua revisi dan replay terhadap digest itu. Riwayat yang diubah lalu dihash ulang juga ditolak jika head tepercaya berbeda. Hash ini bukan tanda tangan reviewer atau anchor blockchain.
+
+Rencana aktif hanya bertahan selama tab/aplikasi masih hidup, termasuk navigasi antarworkspace; refresh menghapusnya. Draft rationale memakai recovery tab bernama reviewer, tetapi SessionStorage bukan penyimpanan terenkripsi atau isolasi pengguna yang kuat. Riwayat server berada di `${AUDIT_STORE_PATH}.plans.json` beserta marker `.initialized`, maksimal 20 plan, 20 report berbeda/plan dan 100 revisi/plan, total 32 MiB. Cadangkan keduanya saat API berhenti; jangan mengubah file, menjalankan beberapa writer, atau mengandalkan filesystem preview sementara sebagai durabilitas hosting. Public preview tidak membuka private plan history.
+
+### Tinjau perubahan dua snapshot historis
+
+1. Di **Cases → Plan investigation capacity**, bandingkan rencana. Buka **Which investigations need another look?** dan pilih **Sources in this allocation**. **Check historical snapshot changes** membandingkan rilis yang diambil 12 dan 14 Oktober, terikat input aktif; pilihan strategi menentukan ID yang diperiksa. Ini tidak mengganti antrean aktif atau keputusan reviewer.
+2. Periksa jumlah source/record yang ditambah, dihapus atau diubah. **82 added records** bertanggal setelah akhir cakupan arsip sebelumnya; **13 historical backfill** berada dalam cakupan lama. Record baru dalam arsip tidak otomatis berarti emisi yang baru terjadi. Sebanyak 6.534→6.553 record tanpa source tetap unresolved.
+3. Alokasi default weighted, kapasitas 10 atau 20, maksimum dua per negara dan bobot 50 menghasilkan tiga ID terdampak: `DZA_S_011`, `IRN_S_065`, `TKM_S_021`. Buka **Original record changes** untuk nilai penerbit sebelum/sesudah; nilai kosong tidak menjadi nol. Perubahan persistency, tanggal, flux atau reported SD perlu dibaca sesuai field aslinya. Feedback/notifikasi tetap metadata, bukan repair.
+4. **Inspect evidence →** dan **Map ↗** membuka sumber dengan ID yang sama. Pilih **All changed sources** untuk seluruh 178 ID terdampak, 20 sumber per halaman; perubahan observasi di dalam tiap sumber juga dipaginasi. Perubahan record unresolved tetap ada dalam ekspor lengkap dan tidak dikaitkan ke sumber berdasarkan kedekatan lokasi.
+5. **Download complete change report** menyimpan seluruh diff dengan kedua descriptor input, field policy dan digest. Jalankan [verifier replay](../evidence/snapshot-change-watch-2026-10-20/README.md#reproduce) menggunakan dua file gzip asli serta expected hashes yang diperoleh terpisah. Browser memvalidasi konteks dan digest ekspor; full replay dilakukan CLI. Ini tidak mengautentikasi penerbit atau membuktikan kebenaran pengukuran.
+
+Pergantian strategi/kapasitas membatalkan hasil lama. Error mempunyai retry; scope kosong tidak membuka seluruh katalog secara diam-diam. Public preview menolak diff penuh agar batas tiga sumbernya tetap berlaku. Dataset rusak/tidak cocok ditolak backend. Tidak ada pembaruan upstream otomatis, prediksi prospektif, assignment atau anchor chain pada langkah ini.
+
 <a id="document-assessment-and-human-review"></a>
 
 ## 3. Tentukan claim dan scope
+
+Untuk alur lengkap **alokasi → investigasi → permintaan/respons → review → keputusan beku → verify/revisit**, ikuti [investigasi terhubung](../development/connected-investigations.md). Panel tersebut memakai konteks sumber, snapshot dan scope yang sama di workspace bersama; status pekerjaan tidak menjadi verdict mitigasi.
 
 Di **Overview**, pilih `source_detected`, `operator_notified`, atau `mitigation_confirmed`. Isi **Period start**, **Period end**, optional **Observation event**, lalu **Apply assessment scope**. Event harus milik source dan berada dalam periode. Untuk notifikasi, sebutkan penerima. Periode perlu mencakup tindakan/follow-up yang ingin dinilai.
 
@@ -45,6 +76,33 @@ Coverage panel memperlihatkan syarat tipe bukti, referensi yang memenuhi, refere
 Scoped rules mengeluarkan referensi tanpa tanggal, di luar periode, atau event yang tidak cocok. Notifikasi harus cocok penerima; mitigation-reference support memerlukan action, tanggal tindakan dan follow-up bertanggal sama/setelah tindakan dalam periode. Ini pemeriksaan hubungan metadata, bukan autentikasi referensi.
 
 **Use source-level baseline** menghapus scope untuk jalur legacy. Setiap scope persis mempunyai history sendiri. Editor menunggu dataset selesai dimuat; fallback sementara DEMO tidak dapat diedit sebagai sumber nyata.
+
+## Decision Lab: jelaskan keputusan dan permintaan bukti
+
+Setelah menerapkan claim/scope, pilih langkah **Decision Lab → Explain current evidence**. API memuat referensi dari snapshot server; pengguna tidak dapat menyuntikkan referensi melalui endpoint ini. Analisis tidak menyimpan revisi audit atau memanggil AI.
+
+- **Inspect reference eligibility** menunjukkan referensi pendukung, contrary, serta alasan eksklusi seperti tanggal di luar scope atau follow-up yang tidak tersedia.
+- **What changes if a reference is removed?** menjalankan kembali aturan yang sama setelah menghapus satu ID referensi. Maksimal delapan dependency individual ditampilkan, ditambah penghapusan seluruh referensi eligible. Ini mengukur ketergantungan keputusan pada metadata, bukan probabilitas repair atau ramalan emisi.
+- **Download evidence request** membuat draft Markdown berisi source/scope, snapshot/hash, attribution/license dan acceptance checks. Permintaan tidak dikirim; tinjau lalu salin secara eksplisit ke pekerjaan follow-up.
+- **Download reproducible analysis** menyimpan input, trace, sensitivity, kebijakan dan SHA-256. Browser memeriksa checksum serta menjalankan ulang policy sebelum menampilkan hasil. Checksum unsigned tidak mengautentikasi penerbit.
+- **Continue to human assessment** dan **Open follow-up work** mempertahankan investigasi terpilih. Simpan keputusan reviewer melalui jalur terotorisasi yang sudah ada.
+
+**Open synthetic evidence challenges** memisahkan lima skenario authored DEMO: lengkap, follow-up hilang, di luar periode, contrary, dan konflik. Skenario ini menguji aturan menggunakan metadata buatan; tidak mewakili operator atau repair nyata dan tidak masuk ke audit kasus MARS. Kembali memakai **Return to selected MARS source**.
+
+Perubahan source/claim/scope/snapshot membuang hasil lama dan membatalkan request yang belum selesai. Scope draft, source yang tidak tersedia pada API, perubahan snapshot, error, dan rate limit memiliki status tersendiri. Bukti dan perintah replay ada di [paket Decision Lab](../evidence/decision-lab-2026-10-19/README.md).
+
+### Observation cross-check: cari rekaman penyangkal
+
+1. Pilih sumber historis di Evidence Auditor, buka **Decision Lab → Observation cross-check**.
+2. Pilih pernyataan: tidak ada linked detection; setiap point estimate paling tinggi ambang kg/h; atau keberhasilan mitigasi fisik. Ini skenario buatan analis, bukan klaim yang diatribusikan kepada operator.
+3. Tentukan hari awal/akhir UTC yang inklusif. **Use loaded observation period** mengisi rentang riwayat yang dimuat tanpa mengubah scope audit utama.
+4. Jalankan **Check observation claim**. API membaca snapshot terpin, bukan observasi kiriman pengguna. Browser mencocokkan source ID, pertanyaan, snapshot, hash arsip hulu dan hash input terverifikasi, lalu menghitung ulang kebijakan dan SHA-256.
+5. Periksa exact plume IDs, timestamp asli, flux kg/h, reported SD, satelit dan koordinat. Titik/batang pada grafik adalah observasi diskret dan ±SD, bukan emisi kontinu atau peluang melampaui ambang fisik. Tabel menampilkan 20 record per batch; seluruh record, termasuk yang di luar periode, tersedia dalam replay JSON.
+6. Unduh follow-up draft dan replay file. Draf belum dikirim; penilaian manusia dan publikasi audit tetap perlu dilakukan secara terpisah. Navigasi ke Observations/Human assessment/follow-up tidak otomatis menyimpan kesimpulan exploratory ini.
+
+Contoh Kanada `CAN_S_002`: estimasi 1.044 kg/h menyangkal skenario bahwa semua estimasi paling tinggi 1.000 kg/h, tetapi SD 370 kg/h melintasi ambang. Tidak ada inferensi bahwa emisi fisik pasti melampaui ambang. Pilihan **Physical methane mitigation succeeded** selalu meminta review dokumen, termasuk ketika tidak ada rekaman dalam periode.
+
+Hasil lama langsung dibuang dan request dibatalkan ketika pertanyaan/periode/ambang berubah. Source/snapshot/hash/context baru mereset panel. Batas archive-window, missing flux, error, public preview dan rate limit ditampilkan. Hanya rekaman dengan source ID yang terhubung digunakan; record tanpa linkage tidak dialokasikan berdasarkan kedekatan lokasi. [Bukti dan walkthrough](../evidence/observation-crosscheck-2026-10-19/README.md).
 
 ## 4. Simpan investigasi kerja
 

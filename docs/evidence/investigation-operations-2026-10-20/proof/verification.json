@@ -1,0 +1,115 @@
+{
+  "recordedAt": "2026-10-19T23:08:10.179Z",
+  "datasetSnapshotId": "unep-mars-675417694883",
+  "sourceCount": 4218,
+  "selectedTen": [
+    "MEX_S_003",
+    "MEX_S_007",
+    "TKM_S_021",
+    "IRN_S_075",
+    "TKM_S_047",
+    "MYS_S_001",
+    "IRN_S_065",
+    "VEN_S_008",
+    "BHR_S_003",
+    "DZA_S_011"
+  ],
+  "selectedTwenty": [
+    "MEX_S_003",
+    "MEX_S_007",
+    "TKM_S_021",
+    "IRN_S_075",
+    "TKM_S_047",
+    "MYS_S_001",
+    "IRN_S_065",
+    "VEN_S_008",
+    "BHR_S_003",
+    "DZA_S_011",
+    "IND_S_042",
+    "USA_S_015",
+    "THA_S_008",
+    "USA_S_073",
+    "DZA_S_248",
+    "PAK_S_001",
+    "CHL_S_001",
+    "SYR_S_001",
+    "VEN_S_001",
+    "ARG_S_026"
+  ],
+  "comparison": {
+    "datasetChanged": false,
+    "assumptionsChanged": true,
+    "beforeDigest": "0x52e42d2d5429012c29ed21a35ad3a3d6cb539cc99d93139563d0150e839ae8b5",
+    "afterDigest": "0xe4eb8148a14768172d6bb7927a59bf78bf619b86e43090bbd46dc0530597c596",
+    "addedIds": [
+      "IND_S_042",
+      "USA_S_015",
+      "THA_S_008",
+      "USA_S_073",
+      "DZA_S_248",
+      "PAK_S_001",
+      "CHL_S_001",
+      "SYR_S_001",
+      "VEN_S_001",
+      "ARG_S_026"
+    ],
+    "removedIds": [],
+    "retainedIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "changedSourceCount": 0,
+    "reviewSources": [],
+    "physicalOutcomeEstablished": false,
+    "limitation": "Summary changes may reflect added observations, corrections or changed metadata. Inspect the original records. Missing records do not establish zero emissions; feedback does not prove repair. No future-snapshot chronology is inferred."
+  },
+  "trustedHead": "0xdfe59dfef8bc7fae3339a8a525774fc409f06a0701370afc4b9a13e90e0a5c16",
+  "reopenedFileHistoryVerified": true,
+  "cli": [
+    {
+      "scenario": "original",
+      "expectedExit": 0,
+      "actualExit": 0,
+      "output": "{\"valid\":true,\"planId\":\"DEMO-software-review\",\"revisions\":2,\"expectedHead\":\"0xdfe59dfef8bc7fae3339a8a525774fc409f06a0701370afc4b9a13e90e0a5c16\",\"limitation\":\"Integrity relative to supplied trusted digest; no independent reviewer authentication, current-status check, physical mitigation proof or blockchain anchor.\"}"
+    },
+    {
+      "scenario": "edited",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Plan history failed expected-head, hash-chain or policy replay verification."
+    },
+    {
+      "scenario": "edited-and-rehashed",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Plan history failed expected-head, hash-chain or policy replay verification."
+    },
+    {
+      "scenario": "wrong-expected-head",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Plan history failed expected-head, hash-chain or policy replay verification."
+    },
+    {
+      "scenario": "missing-expected-head",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Usage: bun --no-env-file scripts/verify-plan.ts <history.json> --expected-head <trusted 0x SHA-256>"
+    },
+    {
+      "scenario": "unknown-option",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Usage: bun --no-env-file scripts/verify-plan.ts <history.json> --expected-head <trusted 0x SHA-256>"
+    }
+  ],
+  "limitation": "Real historical source inputs; reviewer actions are explicit software fixtures, not human research. One snapshot, no actual later-snapshot validation, AI provider or blockchain transaction."
+}

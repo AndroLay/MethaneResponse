@@ -1,0 +1,26 @@
+[
+  {
+    "scenario": "original_policy_replay",
+    "exitCode": 0,
+    "stdout": "VALID_POLICY_REPLAY \u2014 unsigned; publisher authenticity and physical repair are not established",
+    "stderr": ""
+  },
+  {
+    "scenario": "matching_expected_commitment",
+    "exitCode": 0,
+    "stdout": "VALID_POLICY_REPLAY \u2014 unsigned; publisher authenticity and physical repair are not established",
+    "stderr": ""
+  },
+  {
+    "scenario": "changed_plan",
+    "exitCode": 1,
+    "stdout": "",
+    "stderr": "INVALID decision checksum, policy replay or expected commitment"
+  },
+  {
+    "scenario": "wrong_expected_commitment",
+    "exitCode": 1,
+    "stdout": "",
+    "stderr": "INVALID decision checksum, policy replay or expected commitment"
+  }
+]

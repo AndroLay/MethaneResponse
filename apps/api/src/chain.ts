@@ -3,6 +3,8 @@ import { privateKeyToAccount } from 'viem/accounts';
 import { foundry, sepolia } from 'viem/chains';
 import { randomUUID } from 'node:crypto';
 import type { AnchorDraft, AnchorIntent } from './anchor-intent';
+import type { SharedWorkContext } from '@methane/shared';
+import { canonicalJson } from './canonical';
 import type { AuditReceipt, ClaimType } from '@methane/shared';
 
 const abi = [
@@ -86,6 +88,11 @@ export function registryCaseId(caseId: string, claimType: ClaimType): Hex {
   return keccak256(toBytes(`methane-response:v2:${caseId}:${claimType}`));
 }
 
+/** Separate namespace; the v2 audit key and existing receipts remain byte-compatible. */
+export function registryInvestigationId(context: SharedWorkContext, workId: string): Hex {
+  return keccak256(toBytes(`methane-response:investigation-decision:v1:${canonicalJson({ context, workId })}`));
+}
+
 export type AnchorEventMetadata = { caseId: Hex; issuer: string; bundleHash: Hex; version: bigint };
 export type AnchorTransactionMetadata = { txHash: Hex; status: 'success' | 'reverted'; blockNumber: bigint };
 
@@ -164,7 +171,10 @@ export async function broadcastAnchor(prepared: PreparedAnchor) {
 }
 export type AnchorOutcome = { status: 'pending' } | { status: 'reverted' } | { status: 'confirmed'; receipt: AuditReceipt };
 /** Read only, including after timeouts/restarts. Missing/replaced transactions never release the reservation. */
-export async function inspectAnchorIntent(intent: AnchorIntent, wait = false): Promise<AnchorOutcome> {
+export function inspectAnchorIntent(intent: AnchorIntent, wait = false): Promise<AnchorOutcome> {
+  return inspectRegistryIntent({ ...intent, registryKey: registryCaseId(intent.caseId, intent.claimType as ClaimType) }, wait);
+}
+export async function inspectRegistryIntent(intent: AnchorDraft & { registryKey: string; bundleHash: string }, wait = false): Promise<AnchorOutcome> {
   const config = settings();
   if (!config || config.chain.id !== intent.chainId || config.registry.toLowerCase() !== intent.registryAddress.toLowerCase()) throw new Error('Intent configuration mismatch');
   const client = createPublicClient({ chain: config.chain, transport: http(config.rpc, { retryCount: 0, timeout: 10_000 }) });
@@ -179,7 +189,7 @@ export async function inspectAnchorIntent(intent: AnchorIntent, wait = false): P
     throw error;
   }
   const original = await client.getTransaction({ hash });
-  const expectedData = encodeFunctionData({ abi, functionName: 'anchor', args: [registryCaseId(intent.caseId, intent.claimType as ClaimType), intent.bundleHash as Hex] });
+  const expectedData = encodeFunctionData({ abi, functionName: 'anchor', args: [intent.registryKey as Hex, intent.bundleHash as Hex] });
   if (original.from.toLowerCase() !== intent.issuer.toLowerCase() || original.to?.toLowerCase() !== intent.registryAddress.toLowerCase()
     || original.input.toLowerCase() !== expectedData.toLowerCase() || original.nonce !== intent.nonce || transaction.transactionHash.toLowerCase() !== intent.txHash.toLowerCase()) throw new Error('Transaction does not match intent');
   const canonical = await client.getBlock({ blockNumber: transaction.blockNumber });
@@ -189,7 +199,7 @@ export async function inspectAnchorIntent(intent: AnchorIntent, wait = false): P
   const receipt: AuditReceipt = { chainId: intent.chainId, registryAddress: intent.registryAddress as Hex,
     txHash: hash, issuer: intent.issuer as Hex, version: intent.expectedVersion, blockNumber: transaction.blockNumber.toString(),
     blockHash: transaction.blockHash, confirmations: intent.confirmations };
-  const check = await verifyAnchorTransaction(registryCaseId(intent.caseId, intent.claimType as ClaimType), intent.bundleHash as Hex, receipt);
+  const check = await verifyAnchorTransaction(intent.registryKey as Hex, intent.bundleHash as Hex, receipt);
   if (!check.valid) throw new Error('Receipt does not match intent');
   return { status: 'confirmed', receipt };
 }

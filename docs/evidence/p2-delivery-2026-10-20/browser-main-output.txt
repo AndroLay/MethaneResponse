@@ -1,0 +1,66 @@
+$ bash scripts/run-e2e.sh "e2e/audit-workflow.spec.ts"
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/e2e-runner-utils.test.ts:
+(pass) browser checks build a fresh production preview and reject unsafe or invalid ports [0.17ms]
+(pass) Chromium sandbox remains enabled locally and on unknown CI, with a narrow hosted-runner exception [0.08ms]
+(pass) E2E runner environment > copies only explicitly allowlisted non-secret settings [0.04ms]
+(pass) E2E argument routing > runs only the matching phase when a workflow file is selected [0.15ms]
+(pass) E2E argument routing > keeps both workflow phases for unscoped or mixed selections [0.06ms]
+
+ 5 pass
+ 0 fail
+ 19 expect() calls
+Ran 5 tests across 1 file. [11.00ms]
+[WebServer] $ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment
+[WebServer] 
+[WebServer] "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+[WebServer]  * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+[WebServer]  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment
+[WebServer] 
+[WebServer] "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] $ vite preview --host "127.0.0.1" --port "4179" --strictPort
+
+Running 28 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/audit-workflow.spec.ts:17:5 › Historical snapshot watch connects real release changes to selected investigations, exact fields and paged records (17.9s)
+  ✓   2 [chromium] › e2e/audit-workflow.spec.ts:64:5 › Historical snapshot watch discards delayed results after the selected strategy changes (6.6s)
+  ✓   3 [chromium] › e2e/audit-workflow.spec.ts:83:5 › Historical snapshot failure explains the blocker and permits an explicit retry (6.6s)
+  ✓   4 [chromium] › e2e/audit-workflow.spec.ts:100:5 › Active investigation plan keeps exact 10 to 20 source membership across queue, globe and evidence handoff (18.2s)
+  ✓   5 [chromium] › e2e/audit-workflow.spec.ts:143:5 › Delayed activation cannot publish a strategy that the analyst has already changed (6.7s)
+  ✓   6 [chromium] › e2e/audit-workflow.spec.ts:165:5 › Earlier plan import requires trusted digest and separates capacity differences from dataset changes (10.9s)
+  ✓   7 [chromium] › e2e/audit-workflow.spec.ts:189:5 › Scoped active plans never restore reports under different visible country controls (7.0s)
+  ✓   8 [chromium] › e2e/audit-workflow.spec.ts:205:5 › Investigation planner compares capacity-constrained portfolios, exports replay and opens exact cases on desktop and mobile (8.6s)
+  ✓   9 [chromium] › e2e/audit-workflow.spec.ts:253:5 › Investigation planner invalidates pending results, recovers from API failure and reports unfilled quotas (6.8s)
+  ✓  10 [chromium] › e2e/audit-workflow.spec.ts:282:5 › Investigation planner handoff clears hiding filters and confirms unsaved work exactly once (10.8s)
+  ✓  11 [chromium] › e2e/audit-workflow.spec.ts:315:5 › Observation cross-check exposes exact historical counterexamples, refuses repair inference and invalidates stale results (6.8s)
+  ✓  12 [chromium] › e2e/audit-workflow.spec.ts:387:5 › Decision Lab explains real record eligibility, exports requests and keeps authored challenges separate (4.8s)
+  ✓  13 [chromium] › e2e/audit-workflow.spec.ts:428:5 › scope presets and report verification work without a CLI on desktop and mobile (11.8s)
+  ✓  14 [chromium] › e2e/audit-workflow.spec.ts:490:5 › analyst case work resumes after refresh with a bounded scope and a work-status queue (7.3s)
+  ✓  15 [chromium] › e2e/audit-workflow.spec.ts:533:5 › claim requirements guide investigation and export a readable snapshot-bound brief (7.4s)
+  ✓  16 [chromium] › e2e/audit-workflow.spec.ts:584:5 › P4 reviewer v2 is readable without external assets and supports keyboard navigation on mobile (908ms)
+  ✓  17 [chromium] › e2e/audit-workflow.spec.ts:616:5 › saved assessments can be compared by claim without creating extra revisions (3.1s)
+  ✓  18 [chromium] › e2e/audit-workflow.spec.ts:645:5 › late audit and verification responses cannot overwrite a changed investigation (5.0s)
+  ✓  19 [chromium] › e2e/audit-workflow.spec.ts:694:5 › opening a saved revision takes precedence over an earlier pending assessment (4.0s)
+  ✓  20 [chromium] › e2e/audit-workflow.spec.ts:725:5 › map case details show the official Canada report link with its date and license metadata (4.4s)
+  ✓  21 [chromium] › e2e/audit-workflow.spec.ts:759:5 › MARS publisher indicators load lazily, preserve monthly/country history, paginate, and jump to an exact source (4.8s)
+  ✓  22 [chromium] › e2e/audit-workflow.spec.ts:831:5 › historical MARS case can be audited, exported, verified, and tampering is rejected (8.6s)
+  ✓  23 [chromium] › e2e/audit-workflow.spec.ts:924:5 › guided investigation keeps the selected source and exposes discrete audit stages (6.0s)
+  ✓  24 [chromium] › e2e/audit-workflow.spec.ts:986:5 › collapsed navigation reveals its label on keyboard focus (2.5s)
+  ✓  25 [chromium] › e2e/audit-workflow.spec.ts:1002:5 › global historical map becomes usable when remote basemap tiles are unavailable (3.7s)
+  ✓  26 [chromium] › e2e/audit-workflow.spec.ts:1020:5 › unsaved work is guarded and recovered while separate investigations keep independent scopes (12.5s)
+  ✓  27 [chromium] › e2e/audit-workflow.spec.ts:1083:5 › human drafts recover exact metadata without credentials or inspection confirmation and skip optional AI (7.9s)
+  ✓  28 [chromium] › e2e/audit-workflow.spec.ts:1128:5 › chain recovery controls protect credentials and never retry a pending write (UI fixture) (5.9s)
+
+  28 passed (3.8m)

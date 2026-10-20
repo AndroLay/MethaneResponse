@@ -1,0 +1,16 @@
+Local verification on 20 October 2026; final command exits were 0.
+bun run check:all: frozen install unchanged; API/web/E2E/evaluation typechecks passed.
+Ran 257 tests across 43 files. [3.28s]
+Ran 270 tests across 57 files. [2.09s]
+Ran 56 tests across 10 files. [4.99s]
+Web bundle budget passed: App 74104 gzip bytes; 8 route chunks; MapPanel 1124042 raw bytes.
+============================= 221 passed in 30.73s =============================
+Ran 1 test suite in 8.76ms (563.50µs CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)
+Main suite sum: 257 API + 270 web + 56 tooling + 221 Python + 4 Foundry = 808.
+Rules conformance ran on 15 authored/real-metadata examples; not independent scientific accuracy.
+Eight CLI scenarios matched expected exits; original accepted and seven invalid variants rejected.
+Independent Python oracle: 8,429 source records and 60,733 plume records match.
+Retained report independently passed the explicit full CLI command.
+Four earlier frozen manifests: 87 artifact byte lengths and SHA-256 digests unchanged.
+Build advisories retained: lazy MapPanel exceeds 500 kB; Zod annotation comments stripped by Rollup.
+No public service, physical phone, live AI quality, new chain receipt or deployment verified.

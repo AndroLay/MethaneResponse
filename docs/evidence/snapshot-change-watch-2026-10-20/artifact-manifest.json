@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-20T08:31:25.828983+00:00",
+  "kind": "snapshot-change-watch-local-evidence",
+  "files": {
+    "README.md": {
+      "sha256": "9159c3d382b2884a10f9f0a41c5927c0b2b7b5283accbe99566bd97ef7f43fb2",
+      "bytes": 12358
+    },
+    "browser-output.txt": {
+      "sha256": "92109f096e30c855f43e9494058bba5a2fcb69d9974646623c98d85ae7c412b3",
+      "bytes": 6844
+    },
+    "checks-output.txt": {
+      "sha256": "a1de3253fb6356d47f4a56fb6ee30b3b28ca79eaa8c51a317a5e8b584a7f9b43",
+      "bytes": 1250
+    },
+    "checks.json": {
+      "sha256": "bc611efa745033cf2c3fc8c20b105666bdc62c15d7ccf2a67bbf978eedfe9594",
+      "bytes": 15072
+    },
+    "proof/edited-rehashed-report.json": {
+      "sha256": "b793d987e3aab0fc8879c78b4677ebf1bf469ff445674e7ba4995a93438ce527",
+      "bytes": 291294
+    },
+    "proof/edited-report.json": {
+      "sha256": "aa621f8b1209faafd32e442f8ebfdc03e9b52edcd219fb144bdc556d5a2e5618",
+      "bytes": 291294
+    },
+    "proof/historical-change-report.json": {
+      "sha256": "6df2986840e94f871a66127a0d2f7ba8a2dd6829fa068259c3680439a3caced1",
+      "bytes": 291292
+    },
+    "proof/verification.json": {
+      "sha256": "da11085c29a7b43faadfd4ed91a7c3855cea0967b624496e16938eb3730cfb22",
+      "bytes": 6956
+    },
+    "snapshot-watch-selected-desktop.png": {
+      "sha256": "d9d9ef2aa44686d33b44e151b1152669462d6dd5c38ac19305322abb36eef01b",
+      "bytes": 210197
+    },
+    "snapshot-watch-selected-mobile.png": {
+      "sha256": "342bafba81c63bf2e14e4a55d94781f7fa63f9de18039ebc4a5b3933168a82ad",
+      "bytes": 102365
+    },
+    "verify-report-output.json": {
+      "sha256": "a6a00d416c130f6ce72610308b222a1c7e7e0856e34750d799f02f6dba238807",
+      "bytes": 421
+    }
+  }
+}

@@ -47,6 +47,14 @@
 .workspace-app .comparison-citations li small { display: block; margin-top: 5px; color: var(--wk-muted); font-size: 12px; }
 .workspace-app .evidence-coverage button:focus-visible, .workspace-app .audit-comparison select:focus-visible { outline: 2px solid var(--wk-teal); outline-offset: 3px; }
 .workspace-app .report-export-actions { flex-wrap: wrap; }
+.workspace-app .evidence-overlap { margin: 24px 0; padding: 16px; border: 1px solid var(--wk-border); border-radius: 8px; }
+.workspace-app .evidence-overlap summary { cursor: pointer; min-height: 28px; color: var(--wk-ink); font-size: 14px; }
+.workspace-app .overlap-candidates { list-style: none; padding: 0; }
+.workspace-app .overlap-candidates li { display: grid; gap: 8px; margin: 12px 0; padding: 14px; border: 1px solid var(--wk-border); overflow-wrap: anywhere; }
+.workspace-app .overlap-candidates li span { font-size: 13px; color: var(--wk-muted); line-height: 1.6; }
+.workspace-app .evidence-overlap nav { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.workspace-app .evidence-overlap fieldset { min-width: 0; border: 1px solid var(--wk-border); padding: 12px; }
+.workspace-app .evidence-overlap code { overflow-wrap: anywhere; }
 .workspace-app .scope-draft-notice { padding: 12px; border-left: 2px solid #f4c77c; color: #f4d8a7; }
 .workspace-app .verifier-context-option { display: flex; align-items: flex-start; gap: 12px; margin-block: 18px; color: var(--wk-ink); font-size: 13px; line-height: 1.6; }
 .workspace-app .verifier-context-option input { flex: 0 0 18px; width: 18px; height: 18px; margin-top: 3px; accent-color: var(--wk-teal); }
@@ -71,7 +79,7 @@
 .workspace-app .human-rationale { margin: 20px 0; }
 .workspace-app .human-saved-result { padding: 18px; margin: 20px 0; border-left: 3px solid var(--wk-teal); background: var(--wk-panel); }
 .workspace-app .human-saved-result strong { color: var(--wk-ink); font-size: 14px; }
-.workspace-app .audit-stage-nav ol { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.workspace-app .audit-stage-nav ol { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 @media (max-width: 1000px) {
   .workspace-app .audit-stage-nav ol { grid-template-columns: repeat(2, minmax(0, 1fr)); min-width: 0; }
   .workspace-app .coverage-claims { grid-template-columns: 1fr; }
@@ -116,3 +124,22 @@
 .assessment-meaning dt { font-size: 0.8rem; color: var(--wk-muted); }
 .assessment-meaning dd { margin: 0.25rem 0 0; font-weight: 600; overflow-wrap: anywhere; }
 .assessment-meaning p, .assessment-meaning small { font-size: 0.85rem; line-height: 1.5; }
+.investigation-context { margin: 20px 0; padding: 20px; border: 1px solid #2d5264; border-radius: 14px; background: linear-gradient(135deg, #102230, #0b1926); min-width: 0; }
+.investigation-context header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.investigation-context h4 { margin: 6px 0 12px; font-size: 17px; color: #e6f4fb; }
+.investigation-context p, .investigation-context small { color: #c1d0de; line-height: 1.6; }
+.investigation-context label { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; color: #dceaf4; }
+.investigation-context input, .investigation-context textarea { box-sizing: border-box; width: 100%; min-width: 0; }
+.investigation-context code, .investigation-link span { overflow-wrap: anywhere; word-break: break-word; }
+.investigation-link, .investigation-change { display: grid; gap: 8px; padding: 14px; margin: 14px 0; border: 1px solid #325468; border-radius: 10px; background: #0a1722; }
+.investigation-link button { justify-self: start; }
+.investigation-context button { min-height: 44px; }
+@media (max-width: 600px) { .investigation-context { padding: 14px; } .investigation-context .case-tool-actions { align-items: stretch; } .investigation-context button { white-space: normal; max-width: 100%; } }
+
+.investigation-lifecycle { border:1px solid var(--border, #334155); border-radius:12px; padding:16px; margin:16px 0; min-width:0; }
+.investigation-lifecycle summary { cursor:pointer; min-height:44px; display:list-item; font-weight:600; }
+.investigation-lifecycle fieldset { min-width:0; border:0; padding:0; }
+.investigation-lifecycle li { padding:10px 0; overflow-wrap:anywhere; }
+.investigation-lifecycle small { display:block; margin:6px 0; }
+.investigation-lifecycle code { display:block; overflow-wrap:anywhere; white-space:normal; font-size:12px; }
+.investigation-decision-preview { padding:12px; border-left:3px solid #22d3ee; margin:12px 0; }

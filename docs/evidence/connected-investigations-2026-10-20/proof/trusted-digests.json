@@ -1,0 +1,8 @@
+{
+  "label": "DEMO software reviews on real historical sources; pin these separately from the files being verified. This file is not independent authentication.",
+  "dossier": "0xa24d99a223bd5df59d4fcf76dd13ffe2bfa98f5e754878343becb42c7a5c9afd",
+  "browserDecision": "0xfcc68d824556de08f937ab4cc452b2393ea22bf06af8a77fc16f42e06996fde2",
+  "localChainDecision": "0x60a0967a167b99f8ac270601a15cb99ddb24a15d47f056fc350b681f2bb8e4b4",
+  "datasetSnapshotId": "unep-mars-675417694883",
+  "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43"
+}

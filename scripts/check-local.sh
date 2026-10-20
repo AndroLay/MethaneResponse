@@ -18,6 +18,7 @@ bun run check
 CI=true bun run test:api
 bun run test:web
 bun run test:verifier
+python3 -m unittest discover -s scripts -p 'test_*.py'
 bun run build:web
 bun run check:web-bundle
 export UV_CACHE_DIR="${UV_CACHE_DIR:-/tmp/methane-response-uv-cache}"

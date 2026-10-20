@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-20T12:00:22.195060+00:00",
+  "kind": "p2-related-evidence-snapshot-intake-local-verification",
+  "files": {
+    "README.md": {
+      "sha256": "76e8f335d57dd6d99f0019e42f8a8419933c7200d690e800eb83c74d0340d212",
+      "bytes": 8567
+    },
+    "anvil-output.txt": {
+      "sha256": "aa88efb0681f0377ee4bf7b7463b0a1e2ef211b2cabdc6710b7de73a90195a22",
+      "bytes": 355
+    },
+    "browser-main-output.txt": {
+      "sha256": "23623007f05ef4bc2d8b61772d3bc3e7e65ba2aca7b45501797748603e3e3ef2",
+      "bytes": 7001
+    },
+    "browser-private-output.txt": {
+      "sha256": "d4f2a002b667c2c60156acb6adae07e1577d752a802d66f367c7e7440a237089",
+      "bytes": 4508
+    },
+    "candidate-repeat-network-interrupted.txt": {
+      "sha256": "edc05882fd808129b866075168d1a5696dec7d879526fb08bba907553b6de03e",
+      "bytes": 1090
+    },
+    "capture-output.txt": {
+      "sha256": "35c922761660e696815106332c7078eb0bb894973911e63ffe6cdc29c77abd1a",
+      "bytes": 2658
+    },
+    "capture-typecheck-output.txt": {
+      "sha256": "b787cb9f7b5807a6a447a0ef1d162e5100f2ec2211f19509c0eb615d6e06d14e",
+      "bytes": 34
+    },
+    "casework-operations-output.txt": {
+      "sha256": "439b9f1df45263da695cb5d6c27cfd1054e323682aa45082e8a7a27c468748e8",
+      "bytes": 465
+    },
+    "checks.json": {
+      "sha256": "d76e6091be632934e8c633effc5f325d180db157c36c670822474940a82d39b0",
+      "bytes": 4658
+    },
+    "clean-install-output.txt": {
+      "sha256": "aded03598072c7d3cbcfde78d98d649e308c857b0ec6db2fe263fa8acedfdc82",
+      "bytes": 115
+    },
+    "gate-output.txt": {
+      "sha256": "27f36f960c19dab9c313b42d04907b73ea957ddb11cd8d83cd3c7fb03329f0e7",
+      "bytes": 78397
+    },
+    "judging-output.txt": {
+      "sha256": "354048193931f672cadb19b47fd7076e913f273c1eaf8903cefa6a0586b0d936",
+      "bytes": 107
+    },
+    "judging-tests-output.txt": {
+      "sha256": "47e12b259fbf56a9e34f1ad54869898c535cc63385ed9364dc07e8f67de297e5",
+      "bytes": 107
+    },
+    "prior-manifests.json": {
+      "sha256": "e40c0059915016992c758aaab310239422c13b950cc300c67285ed842828d772",
+      "bytes": 646
+    },
+    "proof/anvil.json": {
+      "sha256": "e90d585c14dbe15b8b2931611ceddfb706ebda22eac981d285baa1088c209d6f",
+      "bytes": 12608
+    },
+    "proof/evidence-overlap.json": {
+      "sha256": "6599ea796d94ca818376e61a5cba928c1619501ff7d0d1d44158b278517252ce",
+      "bytes": 2632
+    },
+    "proof/frozen-investigation-decision.json": {
+      "sha256": "130bb8a4bcd94a56c649c0f8a1905337db76008850204b7126cd85101923404b",
+      "bytes": 1243394
+    },
+    "proof/overlap-cli-verification.json": {
+      "sha256": "72c1d564cf15424c5bb59bc870580628cf5faa0713bda6df865c7c9d73ac2f46",
+      "bytes": 1264
+    },
+    "proof/technical-video-audit.json": {
+      "sha256": "25c5f9f3fd1dcbf3cb78100e4bd7ae06ced630dc00757eef8d4a4c30a0f466ca",
+      "bytes": 4522
+    },
+    "proof/technical-video-verification.json": {
+      "sha256": "7598b3063d38ca8740ced377a040937562a8af0a69c55475eee79a586de9c0a9",
+      "bytes": 2608
+    },
+    "publication-operations-output.txt": {
+      "sha256": "8070cb9f872c5be0b05e6b879ad8e8f3d41c1a0d27ed575746374379859dfca0",
+      "bytes": 315
+    },
+    "python-tools-output.txt": {
+      "sha256": "416bf32537d4ffc17e47fc9001e09449b734d88682763b59741e1f5b52a25f02",
+      "bytes": 113
+    },
+    "python-utilities-output.txt": {
+      "sha256": "474dae795f951822d9efb3cb10d4f6cb5ba05f2e84b3534f42c92c4745add0d8",
+      "bytes": 114
+    },
+    "screenshots/connected-investigation-desktop.png": {
+      "sha256": "251193bc4951d9ffdd90f515c2e108553b0b84ff4b3664b98590f36c0904dda0",
+      "bytes": 351061
+    },
+    "screenshots/connected-investigation-mobile.png": {
+      "sha256": "fe52f04ed8bbf8adf309f1f722af1d2e3697ff63e9447293c1e9795462b99841",
+      "bytes": 137479
+    },
+    "screenshots/decision-desktop.png": {
+      "sha256": "a725befd3a522c46f0daa5aa4d124dc88de884121e55be40d28fc9109c2867e9",
+      "bytes": 350776
+    },
+    "screenshots/evidence-overlap-desktop.png": {
+      "sha256": "eb7d28615722f724ff18f4ee6f976b01267bb39de6712def65c172d2553568df",
+      "bytes": 295438
+    },
+    "screenshots/evidence-overlap-mobile.png": {
+      "sha256": "79056fd8f8f3bbf1f1a1c951d3b2b3bf857be51acf0cc2c404f10c911617a888",
+      "bytes": 119525
+    },
+    "screenshots/technical-video-frame-1.png": {
+      "sha256": "6b39d492f18293e9e5dff353882bd7c0bd0aca68e8ddecabb55ab3bc6e57ce34",
+      "bytes": 630943
+    },
+    "screenshots/technical-video-frame-2.png": {
+      "sha256": "afa205ff8f5cce7fb4a19e638b93de1aba91ef552a19dcb2d23dfa19fe79a255",
+      "bytes": 605545
+    },
+    "snapshot/browser-manifest.json": {
+      "sha256": "ecf550b30df28d7a4905a2bd170f24c43f2a22344688d20e72fca2895437014c",
+      "bytes": 367
+    },
+    "snapshot/candidate.json.gz": {
+      "sha256": "dfd7bd61e032964ff09abfc61f0335b228be08e69baed8ee86cd19ba5382abc0",
+      "bytes": 2950099
+    },
+    "snapshot/download-manifest.json": {
+      "sha256": "2194ec26928e7f4525b3cf367ac4fc809d7028897eec36b891f4648624e0d6dd",
+      "bytes": 906
+    },
+    "snapshot/ingest-manifest.json": {
+      "sha256": "dd5fddedf69a42c950abdd9f4de4567e35b8417af6c4b4a4bafa7addc049b403",
+      "bytes": 1324
+    },
+    "snapshot/manifest.json": {
+      "sha256": "a2eea4852c84afe69091c113fc1ff95f2386955f466bacdaa6519d80d3e04097",
+      "bytes": 3720
+    },
+    "snapshot/replay-verification.json": {
+      "sha256": "280026cf88d57ed7840d2d0a179598673eecf92a6443d1f4679d8dd533cc98f4",
+      "bytes": 1112
+    },
+    "snapshot/report.json": {
+      "sha256": "ace0aff820dfc49b67bc72cb31d5aa1ba351a22fb310184a9773094af8f36dca",
+      "bytes": 1125014
+    },
+    "source-bindings.json": {
+      "sha256": "06425b3b0543a658dc72dfca73a2cc9693bc1e7d53dbc31bfc4a71de5e6e4a08",
+      "bytes": 98777
+    },
+    "video-editor-tests-output.txt": {
+      "sha256": "718df86a6b42f9b782050c228f6a3be19c734d63a7152952ba24ca512fed611f",
+      "bytes": 101
+    }
+  }
+}

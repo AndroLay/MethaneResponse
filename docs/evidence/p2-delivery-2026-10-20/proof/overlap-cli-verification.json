@@ -1,0 +1,30 @@
+{
+  "recordedExpectedDigest": "0xd8e052a41e4f5c7d44aa31b34682ec257858ac6b6622baf0ea1a011521dbcdd9",
+  "scenarios": [
+    {
+      "scenario": "original",
+      "expectedExit": 0,
+      "actualExit": 0,
+      "output": "{\"valid\":true,\"digest\":\"0xd8e052a41e4f5c7d44aa31b34682ec257858ac6b6622baf0ea1a011521dbcdd9\",\"candidates\":1,\"duplicateMitigationEstablished\":false,\"limitation\":\"Replays recorded authorized input summaries. No publisher authentication, complete cross-organization search or physical repair proof.\"}"
+    },
+    {
+      "scenario": "wrong-trusted-digest",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Overlap report replay or independently supplied digest mismatch."
+    },
+    {
+      "scenario": "edited-and-rehashed-original-trust",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Overlap report replay or independently supplied digest mismatch."
+    },
+    {
+      "scenario": "edited-and-rehashed-own-digest",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "output": "Overlap report replay or independently supplied digest mismatch."
+    }
+  ],
+  "limitation": "Software replay of the retained authenticated browser response, not external publisher authentication or physical truth."
+}
