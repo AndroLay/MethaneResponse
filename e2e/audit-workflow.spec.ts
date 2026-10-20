@@ -101,6 +101,27 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
   const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
   const consoleErrors: string[] = [];
   page.on('console', message => { if (message.type() === 'error' && consoleErrors.length < 8) consoleErrors.push(message.text().slice(0, 500)); });
+  await page.addInitScript(() => {
+    const timings: { method: string; start: number; duration: number }[] = [];
+    Object.assign(window, { publicMapGpuTiming: timings });
+    // Diagnose cold software-renderer initialization without logging assets,
+    // shader contents, documents or credentials. Native return values unchanged.
+    for (const [prototype, methods] of [
+      [HTMLCanvasElement.prototype, ['getContext']],
+      [WebGLRenderingContext.prototype, ['getParameter', 'getExtension', 'getShaderParameter', 'getProgramParameter', 'readPixels', 'finish']],
+      [WebGL2RenderingContext.prototype, ['getParameter', 'getExtension', 'getShaderParameter', 'getProgramParameter', 'readPixels', 'finish']],
+    ] as const) {
+      for (const method of methods) {
+        const holder = prototype as unknown as Record<string, (...args: unknown[]) => unknown>;
+        const original = holder[method];
+        holder[method] = function (...args: unknown[]) {
+          const start = performance.now();
+          try { return original.apply(this, args); }
+          finally { const duration = performance.now() - start; if (duration > 5 && timings.length < 25) timings.push({ method, start, duration }); }
+        };
+      }
+    }
+  });
   // Simulate a delayed viewport notification. Explicit Locate must not depend
   // on the map intersecting a viewport whose layout/fonts differ on CI.
   await page.addInitScript(() => {
@@ -164,6 +185,7 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
       timing: await page.evaluate(() => ({
         now: performance.now(), events: (window as unknown as { publicMapTiming?: unknown }).publicMapTiming,
         captionCount: document.querySelectorAll('.plan-map-caption').length,
+        gpu: (window as unknown as { publicMapGpuTiming?: unknown }).publicMapGpuTiming,
         modules: performance.getEntriesByType('resource').filter(entry => /MapPanel-/.test(entry.name)).map(entry => ({ start: entry.startTime, duration: entry.duration })),
       })),
       shells: await page.locator('.geo-map-shell').count(),
