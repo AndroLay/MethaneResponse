@@ -2,6 +2,14 @@
 
 **Updated:** 2026-10-20 · **Target:** local hackathon prototype and optional free preview
 
+**21 October update:** the user reauthorized a Render deployment and selected
+DeepSeek V4.1 Flash 1017 through ExperientialLabs. Local live-provider smoke has
+passed three project-authored DEMO scenarios; this is not an independent benchmark.
+No Render service has been created: the earlier Rp0 condition still requires
+workspace build/bandwidth cost controls to be verified. The connector cannot read
+these controls. See the [current delivery record](../plans/2026-10-21-deepseek-render.md)
+and [DeepSeek configuration](../development/deepseek-integration.md).
+
 MethaneResponse is designed to run locally from the bundled MARS snapshot and the Bun/Hono API. This workspace has not deployed a live service. The current product scope deliberately excludes PostgreSQL, PostGIS, Supabase, database migrations, and cloud database setup. See the [accepted prototype scope decision](../architecture/decisions/2026-10-15-local-prototype-no-database.md).
 
 ## Local run

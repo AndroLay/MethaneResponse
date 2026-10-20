@@ -1,0 +1,49 @@
+{
+  "kind": "live-provider-smoke",
+  "generatedAt": "2026-10-20T22:20:19.886Z",
+  "sourceCommit": "b3f96a045c3514b388690cb01d9a552b60055c73",
+  "workingTreeModified": true,
+  "requestedModel": "deepseek-v4.1-flash-1017",
+  "limitations": [
+    "Project-authored DEMO documents, not real field evidence.",
+    "Transport, exact citations and API bundle smoke only; not an independent accuracy benchmark.",
+    "Provider response model is recorded as reported; weights and physical outcomes were not verified.",
+    "In-memory throwaway audit store; these DEMO assessments never enter the real audit history."
+  ],
+  "providerCalls": 5,
+  "reportedCostUsd": 0.001001436,
+  "reportedTotalTokens": 2407,
+  "responseModels": [
+    "deepseek-v4.1-flash-1017"
+  ],
+  "results": [
+    {
+      "name": "DEMO-supported-detection",
+      "httpStatus": 201,
+      "expected": "supported",
+      "actual": "supported",
+      "integrityValid": true,
+      "elapsedMs": 7420,
+      "passed": true
+    },
+    {
+      "name": "DEMO-insufficient-mitigation",
+      "httpStatus": 201,
+      "expected": "insufficient_evidence",
+      "actual": "insufficient_evidence",
+      "integrityValid": true,
+      "elapsedMs": 3538,
+      "passed": true
+    },
+    {
+      "name": "DEMO-contradicted-notification",
+      "httpStatus": 201,
+      "expected": "contradicted",
+      "actual": "contradicted",
+      "integrityValid": true,
+      "elapsedMs": 4268,
+      "passed": true
+    }
+  ],
+  "fullPrivateReportSha256": "50a88a01c200f620dea699e386d14972f1ea8e36dddc94f21bd0274477b7c9bd"
+}

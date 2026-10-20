@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test';
 import { DocumentAssessmentInput, requestModelAssessment, PROMPT_VERSION } from './ai-review';
-const env = ['AI_BASE_URL','AI_API_KEY','AI_MODEL','AI_REVIEW_TOKEN'] as const;
+const env = ['AI_BASE_URL','AI_API_KEY','AI_MODEL','AI_REVIEW_TOKEN','AI_MAX_OUTPUT_TOKENS','AI_REASONING_EFFORT'] as const;
 const sample = DocumentAssessmentInput.parse({
   sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
   claimText: 'The operator completed a repair at source KAZ_S_159 on 2026-09-10 and verified a sustained reduction in methane emissions.',
@@ -53,6 +53,34 @@ test('provider receives the exact bounded claim in both evidence passes', async 
   }
 });
 
+test('configured DeepSeek snapshot and generation budget reach both provider passes', async () => {
+  const saved = Object.fromEntries(env.map(key => [key, process.env[key]]));
+  const originalFetch = globalThis.fetch;
+  const requests: Array<Record<string, unknown>> = [];
+  try {
+    process.env.AI_BASE_URL = 'https://api.experientiallabs.ai/v1';
+    process.env.AI_API_KEY = 'test-only-provider-credential';
+    process.env.AI_MODEL = 'deepseek-v4.1-flash-1017';
+    process.env.AI_REVIEW_TOKEN = 't'.repeat(48);
+    process.env.AI_MAX_OUTPUT_TOKENS = '2048';
+    process.env.AI_REASONING_EFFORT = 'none';
+    globalThis.fetch = (async (url: RequestInfo | URL, init?: RequestInit) => {
+      expect(String(url)).toBe('https://api.experientiallabs.ai/v1/chat/completions');
+      requests.push(JSON.parse(String(init?.body)));
+      return reply(requests.length === 1 ? first : { verdict: 'supported', reason: 'Explicit quote support for the requested proposition.' });
+    }) as unknown as typeof fetch;
+    await requestModelAssessment(sample);
+    expect(requests).toHaveLength(2);
+    for (const request of requests) expect(request).toMatchObject({
+      model: 'deepseek-v4.1-flash-1017', max_tokens: 2048, reasoning_effort: 'none',
+      response_format: { type: 'json_object' },
+    });
+  } finally {
+    globalThis.fetch = originalFetch;
+    for (const key of env) { const value = saved[key]; if (value === undefined) delete process.env[key]; else process.env[key] = value; }
+  }
+});
+
 test('missing exact claim abstains without invoking the configured provider', async () => {
   const noClaim = DocumentAssessmentInput.parse({
     sourceId: 'KAZ_S_159', claimType: 'mitigation_confirmed', consentToExternalProcessing: true,
@@ -86,6 +114,27 @@ test('insufficient exact evidence does not call billable second pass', async () 
     const result = await requestModelAssessment(sample);
     expect(result.verdict).toBe('insufficient_evidence');
   });
+});
+
+test('a truncated provider response is rejected even if its partial content parses as JSON', async () => {
+  const saved = Object.fromEntries(env.map(key => [key, process.env[key]]));
+  const originalFetch = globalThis.fetch;
+  let calls = 0;
+  try {
+    process.env.AI_BASE_URL = 'https://trusted-provider.example/v1';
+    process.env.AI_API_KEY = 'test-only-provider-credential';
+    process.env.AI_MODEL = 'mock-evidence-reviewer';
+    process.env.AI_REVIEW_TOKEN = 't'.repeat(48);
+    globalThis.fetch = (async () => {
+      calls++;
+      return new Response(JSON.stringify({ choices: [{ finish_reason: 'length', message: { content: JSON.stringify(first) } }] }));
+    }) as unknown as typeof fetch;
+    await expect(requestModelAssessment(sample)).rejects.toThrow('ai_incomplete_response');
+    expect(calls).toBe(1);
+  } finally {
+    globalThis.fetch = originalFetch;
+    for (const key of env) { const value = saved[key]; if (value === undefined) delete process.env[key]; else process.env[key] = value; }
+  }
 });
 
 test('provider response size is bounded before JSON parsing', async () => {

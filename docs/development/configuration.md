@@ -47,9 +47,13 @@ Secara default compatibility mode dapat menerima subject unverified/expired deng
 
 Provider menerima excerpt hanya setelah declaration hak pemrosesan dan consent. Secret provider tetap di server. Token assessment yang dimasukkan pengguna di UI tidak membuka history privat. API tidak menyimpan full excerpt, tetapi kutipan dan metadata terpilih pada audit privat tetap dapat sensitif. Lihat [alur dokumen](../product/user-workflow.md#optional-document-ai).
 
-Model yang akan disediakan pengguna adalah Luna; endpoint dan kompatibilitasnya
-belum diverifikasi. Ikuti [catatan integrasi Luna](luna-integration.md) ketika
-konfigurasi tersedia. Jalur rules/manual tidak memerlukan model tersebut.
+Pada 21 Oktober 2026 pengguna mengganti Luna dengan
+`deepseek-v4.1-flash-1017` melalui ExperientialLabs. Ikuti
+[integrasi DeepSeek](deepseek-integration.md). Jalur rules/manual tetap tersedia.
+`AI_MAX_OUTPUT_TOKENS` membatasi output tiap panggilan: default 2048, rentang
+128–4096. `AI_REASONING_EFFORT` opsional dan hanya boleh diisi dengan kemampuan
+yang didukung provider; profil DeepSeek memakai `none` untuk assessment singkat.
+Satu assessment dapat memakai dua panggilan; batas token bukan batas biaya akun.
 
 ## Web dan proxy
 

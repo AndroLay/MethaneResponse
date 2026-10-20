@@ -2,6 +2,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { assessmentSemantics, type AuditResult, type ClaimType, type Evidence, type ReviewSource, type MarsProvenance, type ExternalEvidenceReference, type ResultLabel, type EvidenceBundle } from '@methane/shared';
 import { canonicalJson } from './canonical';
+import { providerGenerationOptions } from './ai-provider-options';
 
 export const DocumentAssessmentInput = z.object({
   sourceId: z.string().min(1).max(128),
@@ -154,20 +155,23 @@ export async function requestModelAssessment(input: Input): Promise<ModelOutput>
   if (!aiConfigured()) throw new Error('ai_not_configured');
   if (!isAllowedAiBaseUrl(String(process.env.AI_BASE_URL))) throw new Error('ai_provider_url_must_use_https');
   const endpoint = String(process.env.AI_BASE_URL).replace(/\/$/, '') + '/chat/completions';
+  const generationOptions = providerGenerationOptions();
   const abort = new AbortController();
   const deadline = setTimeout(() => abort.abort(), 40_000);
   async function complete(system: string, user: unknown) {
     const response = await fetch(endpoint, {
       method: 'POST', signal: abort.signal, redirect: 'error',
       headers: { authorization: `Bearer ${process.env.AI_API_KEY}`, 'content-type': 'application/json' },
-      body: JSON.stringify({ model: process.env.AI_MODEL, temperature: 0,
+      body: JSON.stringify({ model: process.env.AI_MODEL, temperature: 0, ...generationOptions,
         response_format: { type: 'json_object' },
         messages: [{ role: 'system', content: system }, { role: 'user', content: JSON.stringify(user) }],
       }),
     });
     if (!response.ok) throw new Error(`ai_provider_http_${response.status}`);
     const raw = await readBoundedProviderBody(response, 40_000);
-    const result = JSON.parse(raw) as { choices?: Array<{ message?: { content?: string | null } }> };
+    const result = JSON.parse(raw) as { choices?: Array<{ finish_reason?: string | null; message?: { content?: string | null } }> };
+    const finishReason = result.choices?.[0]?.finish_reason;
+    if (finishReason !== undefined && finishReason !== 'stop') throw new Error('ai_incomplete_response');
     const content = result.choices?.[0]?.message?.content;
     if (!content || content.length > 8_000) throw new Error('ai_empty_or_oversized_response');
     return JSON.parse(content) as unknown;

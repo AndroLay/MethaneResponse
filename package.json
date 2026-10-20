@@ -20,7 +20,7 @@
     "measure:map-performance": "bun scripts/measure-map-performance.ts",
     "check:web-bundle": "bun scripts/check-web-bundle.ts",
     "freeze:ai-inputs": "bun scripts/freeze-ai-assessment-inputs.ts",
-    "test:verifier": "bun test scripts/verify-audit.test.ts scripts/run-ai-benchmark.test.ts scripts/freeze-ai-assessment-inputs.test.ts scripts/verify-agent-diagnostic.test.ts scripts/deployment-config.test.ts scripts/map-performance-utils.test.ts scripts/check-local.test.ts scripts/product-value-evaluation.test.ts scripts/verify-plan.test.ts scripts/verify-snapshot-transition.test.ts scripts/verify-investigation.test.ts scripts/verify-investigation-decision.test.ts scripts/stage-snapshot-update.test.ts scripts/verify-evidence-overlap.test.ts",
+    "test:verifier": "bun test scripts/verify-audit.test.ts scripts/run-ai-benchmark.test.ts scripts/freeze-ai-assessment-inputs.test.ts scripts/verify-agent-diagnostic.test.ts scripts/deployment-config.test.ts scripts/map-performance-utils.test.ts scripts/check-local.test.ts scripts/product-value-evaluation.test.ts scripts/verify-plan.test.ts scripts/verify-snapshot-transition.test.ts scripts/verify-investigation.test.ts scripts/verify-investigation-decision.test.ts scripts/stage-snapshot-update.test.ts scripts/verify-evidence-overlap.test.ts scripts/probe-document-ai.test.ts",
     "test:local-gates": "bun test scripts/check-local.test.ts",
     "test:case-work-operations": "bun --no-env-file scripts/run-case-work-operations.ts",
     "test:publication-operations": "bun --no-env-file scripts/run-publication-operations.ts",

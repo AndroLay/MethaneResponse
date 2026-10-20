@@ -12,6 +12,7 @@
 6. [Anchor dan pemulihan](blockchain-recovery.md): target, intent, pending, rekonsiliasi dan verifier independen.
 
 7. [Koreksi dan penarikan publikasi](publication-lifecycle.md): consent revisi, status/history, checksum offline, migrasi dan batas rollback.
+8. [DeepSeek V4.1 Flash 1017](deepseek-integration.md): konfigurasi backend privat, smoke provider nyata dan batas benchmark.
 
 ## Implementasi antarmuka
 

@@ -1,4 +1,8 @@
-# Integrasi Luna — menunggu konfigurasi provider
+# Integrasi Luna — keputusan historis yang sudah diganti
+
+**21 Oktober 2026:** pengguna mengganti model dengan DeepSeek V4.1 Flash 1017.
+Gunakan [panduan DeepSeek](deepseek-integration.md) untuk konfigurasi aktif.
+Isi berikut dipertahankan sebagai catatan keputusan sebelumnya, bukan status aktif.
 
 [Konfigurasi backend](configuration.md#document-ai-opsional) · [Protokol evaluasi](../testing/ai-benchmark-annotation.md)
 

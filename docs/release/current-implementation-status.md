@@ -2,6 +2,22 @@
 
 [Pusat dokumentasi](../README.md) · [Arsitektur](../architecture/overview.md) · [Indeks bukti](../evidence/README.md)
 
+## Pembaruan aktif — 21 Oktober 2026
+
+Pengguna mengganti Luna dengan **DeepSeek V4.1 Flash 1017** melalui
+ExperientialLabs dan kembali meminta deployment Render. Katalog provider,
+konfigurasi privat dan smoke API nyata sudah diperiksa: tiga contoh dokumen DEMO
+lulus, termasuk validasi kutipan serta hash bundle. Ini belum benchmark kualitas
+independen. [Bukti](../evidence/deepseek-live-2026-10-21/README.md) ·
+[Konfigurasi](../development/deepseek-integration.md).
+
+Deployment masih menunggu verifikasi kontrol biaya workspace sesuai batas Rp0
+yang disetujui sebelumnya. Tidak ada layanan MethaneResponse baru. Catatan
+20 Oktober di bawah tentang pengecualian Render dan Luna pending adalah
+riwayat keputusan yang telah diganti, bukan scope terkini.
+
+## Riwayat baseline — 20 Oktober 2026
+
 **Diperbarui: 20 Oktober 2026.** Increment P2 telah dipublikasikan pada commit
 `173bbb8b763a0014289031d3d14dec5a64399c9f`. Increment penyelesaian berikutnya
 memakai commit itu sebagai baseline dan merekam byte sumber aktual pada

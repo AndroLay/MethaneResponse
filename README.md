@@ -10,6 +10,12 @@ MethaneResponse membantu tim memilih sumber metana sesuai kapasitas investigasi,
 
 ## Mulai memahami repo
 
+**DeepSeek live — 21 Oktober:** model `deepseek-v4.1-flash-1017` melalui
+ExperientialLabs menggantikan rencana Luna. Tiga skenario dokumen DEMO lulus
+melalui provider nyata, exact citations dan bundle hash; ini smoke integrasi,
+bukan benchmark akurasi independen. [Konfigurasi privat](docs/development/deepseek-integration.md)
+· [Bukti dan batas](docs/evidence/deepseek-live-2026-10-21/README.md).
+
 **P2 delivery — 20 Oktober:** pemeriksaan kandidat klaim/evidence terkait pada investigasi privat, interpretasi reviewer yang disimpan ke riwayat, verifier CLI, serta downloader dan intake snapshot opt-in. Rilis UNEP 20 Oktober sudah diunduh dan dibandingkan di staging; snapshot aktif tidak diganti. [Panduan dan batas](docs/development/evidence-overlap-and-snapshot-intake.md) · [Bukti terbaru](docs/evidence/p2-delivery-2026-10-20/README.md).
 
 **Connected Investigations — 20 Oktober:** hubungkan persetujuan alokasi, permintaan/respons bukti append-only, assessment berscope dan keputusan reviewer yang membekukan dossier tepat. Verifier memeriksa digest terpisah serta receipt kontrak ketika dikonfigurasi; bukti baru dapat merekomendasikan review tanpa menulis ulang keputusan lama. Tetap tanpa database. [Workflow dan recovery](docs/development/connected-investigations.md) · [Bukti lokal](docs/evidence/connected-investigations-2026-10-20/README.md).

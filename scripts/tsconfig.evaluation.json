@@ -37,6 +37,8 @@
     "snapshot-transition-proof.ts",
     "product-value-evaluation.test.ts",
     "../docs/evidence/product-value-2026-10-18/export-case-reports.ts",
-    "../docs/evidence/product-value-2026-10-18/analyze-format-sensitivity.ts"
+    "../docs/evidence/product-value-2026-10-18/analyze-format-sensitivity.ts",
+    "probe-document-ai.ts",
+    "probe-document-ai.test.ts"
   ]
 }
