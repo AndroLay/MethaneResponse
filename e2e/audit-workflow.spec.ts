@@ -136,6 +136,21 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
   await queue.getByRole('button', { name: 'Next planned sources', exact: true }).click();
   expect(await queue.locator('li strong').allTextContents()).toEqual(twenty.portfolios[0].selectedIds.slice(10));
   await queue.getByRole('button', { name: 'Previous planned sources', exact: true }).click();
+  // Public fixture only: capture whether CI is waiting for a module, a main-
+  // thread task or a state transition. No document contents or credentials.
+  await page.evaluate(() => {
+    const events: { kind: string; at: number; duration?: number }[] = [];
+    Object.assign(window, { publicMapTiming: events });
+    events.push({ kind: 'before-locate', at: performance.now() });
+    let shellSeen = false, captionSeen = false;
+    new MutationObserver(() => {
+      if (!shellSeen && document.querySelector('.geo-map-shell')) { shellSeen = true; events.push({ kind: 'shell', at: performance.now() }); }
+      if (!captionSeen && document.querySelector('.plan-map-caption')) { captionSeen = true; events.push({ kind: 'caption', at: performance.now() }); }
+    }).observe(document.body, { childList: true, subtree: true });
+    new PerformanceObserver(list => {
+      for (const task of list.getEntries()) if (events.length < 30 && task.duration > 100) events.push({ kind: 'longtask', at: task.startTime, duration: task.duration });
+    }).observe({ type: 'longtask' });
+  });
   await queue.getByRole('button', { name: `Locate planned source ${twenty.portfolios[0].selectedIds[0]}`, exact: true }).click();
   await expect(page).toHaveURL(/\/dashboard\/map/);
   try {
@@ -146,6 +161,11 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
     console.log('Public plan/map failure:', JSON.stringify({ errors, consoleErrors,
       map: (await page.locator('.real-world-map').textContent())?.slice(0, 2500),
       queue: (await queue.textContent())?.slice(0, 300),
+      timing: await page.evaluate(() => ({
+        now: performance.now(), events: (window as unknown as { publicMapTiming?: unknown }).publicMapTiming,
+        captionCount: document.querySelectorAll('.plan-map-caption').length,
+        modules: performance.getEntriesByType('resource').filter(entry => /MapPanel-/.test(entry.name)).map(entry => ({ start: entry.startTime, duration: entry.duration })),
+      })),
       shells: await page.locator('.geo-map-shell').count(),
       loadFailures: await page.locator('.map-component-fallback').count(),
     }));
