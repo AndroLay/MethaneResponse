@@ -99,6 +99,8 @@ test('Historical snapshot failure explains the blocker and permits an explicit r
 
 test('Active investigation plan keeps exact 10 to 20 source membership across queue, globe and evidence handoff', async ({ page }, testInfo) => {
   const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
+  const consoleErrors: string[] = [];
+  page.on('console', message => { if (message.type() === 'error' && consoleErrors.length < 8) consoleErrors.push(message.text().slice(0, 500)); });
   // Simulate a delayed viewport notification. Explicit Locate must not depend
   // on the map intersecting a viewport whose layout/fonts differ on CI.
   await page.addInitScript(() => {
@@ -136,7 +138,19 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
   await queue.getByRole('button', { name: 'Previous planned sources', exact: true }).click();
   await queue.getByRole('button', { name: `Locate planned source ${twenty.portfolios[0].selectedIds[0]}`, exact: true }).click();
   await expect(page).toHaveURL(/\/dashboard\/map/);
-  await expect(page.locator('.plan-map-caption')).toContainText('20 planned sources');
+  try {
+    await expect(page.locator('.plan-map-caption')).toContainText('20 planned sources');
+  } catch (error) {
+    // This is the public, credential-free fixture. Retain a bounded diagnostic
+    // rather than discarding the CI failure behind a longer assertion timeout.
+    console.log('Public plan/map failure:', JSON.stringify({ errors, consoleErrors,
+      map: (await page.locator('.real-world-map').textContent())?.slice(0, 2500),
+      queue: (await queue.textContent())?.slice(0, 300),
+      shells: await page.locator('.geo-map-shell').count(),
+      loadFailures: await page.locator('.map-component-fallback').count(),
+    }));
+    throw error;
+  }
   await expect(page.getByRole('application', { name: 'Interactive methane map; drag to pan, scroll to zoom and select a source', exact: true })).toBeInViewport();
   await page.getByLabel('Map layer legend', { exact: true }).locator('summary').click();
   await page.screenshot({ path: testInfo.outputPath('active-plan-globe-desktop.png') });

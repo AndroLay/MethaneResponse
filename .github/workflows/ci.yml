@@ -23,7 +23,7 @@ jobs:
       - run: bun run build:web
       - run: bun run check:web-bundle
       - run: bun run playwright install --with-deps chromium
-      - run: bun run test:e2e
+      - run: bun run test:e2e --max-failures=1
 
   data-pipeline:
     runs-on: ubuntu-24.04
