@@ -98,3 +98,20 @@ menaikkan resolusi setelah init. Tidak ada batas kualitas permanen baru. Native
 method timers hanya eksperimen fixture CI, bukan kode produk; gate akhir tidak
 mengganti metode WebGL. Gate/browser dan CI revisi akhir harus dicatat terpisah;
 satu perbaikan lokal belum otomatis menutup CI. Bukti beku tetap dipertahankan.
+
+## Tindak lanjut screenshot setelah perbaikan konteks
+
+Revisi `e7b1845` menutup stall handoff peta pada dua percobaan CI: seluruh
+28 workflow utama lulus. Kedua percobaan kemudian gagal pada capture overlap
+di suite reviewer privat, setelah assertion fungsional sebelumnya lulus.
+Kegagalan capture 20 detik berhasil direproduksi dengan Chromium yang dipin dan
+satu CPU. Percobaan animasi, caret, dan diagnostik frame tidak menutupnya dan
+seluruh perubahan eksperimen pada spec dikembalikan.
+
+Review arsitektur menemukan suite privat tanpa interaksi WebGL memakai paksaan
+SwiftShader yang sama dengan suite globe. Konfigurasi grafis kini dibatasi ke
+suite geospasial; suite privat menggunakan pilihan default Chromium. Sandbox,
+timeout, network isolation dan assertion tidak berubah. Reproduksi satu CPU yang
+sama kemudian lulus 44,6 detik termasuk screenshot desktop/mobile. Regresi unit
+pemilihan grafis terbukti RED→GREEN. Gate lengkap dan CI revisi baru tetap harus
+dibaca dari hasil aktual, bukan diasumsikan lulus dari focused test ini.

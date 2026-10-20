@@ -140,3 +140,26 @@ Only the public regression fixture counts context allocations and records bounde
 readiness timing. It does not replace native WebGL methods or contact an AI
 provider. Check the exact pushed revision's CI separately from local results;
 prior diagnostic runs and frozen evidence remain historical records.
+# Browser capture graphics follow-up — 20 October 2026
+
+The `e7b1845` public CI run passed all 28 geospatial/main journeys twice, but
+both attempts failed during the overlap panel screenshot in the separate private
+reviewer suite. A pinned Chromium 156 run restricted to one CPU reproduced the
+same 20 s capture timeout. Fonts were loaded, the panel was inside the viewport
+and a double animation-frame probe responded. Freezing CSS animations or retaining
+the original caret did not resolve it; those experiments were reverted.
+
+The shared browser configuration forced SwiftShader even for the private suite,
+which has no map/WebGL interaction. Graphics arguments now apply only to the
+geospatial suite. The private suite uses Chromium's default graphics selection;
+this does not promise hardware acceleration. Sandbox policy, assertions, network
+restrictions, timeout and credentials are unchanged. The same single-CPU connected
+journey then passed in 44.6 s with its actual desktop/mobile screenshots. The
+graphics-routing unit regression was verified failing before the change and
+passing afterward. Exact final full-gate and public-CI outcomes will be recorded
+after completion in the dated delivery verification; they cannot be inferred
+from this focused result.
+
+This isolates the forced graphics configuration as a contributor under the
+recorded conditions; it does not identify a Chromium native compositor defect.
+Map coverage still requires software WebGL and retains its original flags.

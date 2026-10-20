@@ -1,5 +1,10 @@
 import { describe, expect, test } from 'bun:test';
-import { buildE2ERunnerEnvironment, routeE2EArguments, chromiumSandboxEnabled, buildE2EWebServerCommand } from './e2e-runner-utils';
+import { buildE2ERunnerEnvironment, routeE2EArguments, chromiumSandboxEnabled, buildE2EWebServerCommand, chromiumGraphicsArguments } from './e2e-runner-utils';
+
+test('only the geospatial browser suite forces software WebGL; document workflows retain default graphics', () => {
+  expect(chromiumGraphicsArguments(true)).toEqual(['--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader']);
+  expect(chromiumGraphicsArguments(false)).toEqual([]);
+});
 
 test('browser checks build a fresh production preview and reject unsafe or invalid ports', () => {
   const command = buildE2EWebServerCommand('4179');

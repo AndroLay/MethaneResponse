@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test';
 import { randomBytes } from 'node:crypto';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { buildE2ERunnerEnvironment, chooseE2ETemporaryRoot, chromiumSandboxEnabled, buildE2EWebServerCommand } from './scripts/e2e-runner-utils';
+import { buildE2ERunnerEnvironment, chooseE2ETemporaryRoot, chromiumSandboxEnabled, buildE2EWebServerCommand, chromiumGraphicsArguments } from './scripts/e2e-runner-utils';
 
 const temporaryRoot = chooseE2ETemporaryRoot(process.env);
 const stateDirectory = mkdtempSync(join(temporaryRoot, 'methane-response-e2e-'));
@@ -84,7 +84,7 @@ export default defineConfig({
     launchOptions: {
       chromiumSandbox: chromiumSandboxEnabled(workerEnvironment),
       ...(chromiumExecutable ? { executablePath: chromiumExecutable } : {}),
-      args: ['--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader'],
+      args: chromiumGraphicsArguments(!mockAiEnabled),
     },
   },
   projects: [{ name: 'chromium', use: { browserName: 'chromium' } }],

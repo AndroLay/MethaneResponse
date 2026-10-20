@@ -24,6 +24,11 @@ const FORWARDED_ENVIRONMENT_KEYS = [
 
 export type E2EEnvironmentSource = Record<string, string | undefined>;
 
+/** Software WebGL is required for map coverage, not for reviewer/form captures. */
+export function chromiumGraphicsArguments(geospatialSuite: boolean): string[] {
+  return geospatialSuite ? ['--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader'] : [];
+}
+
 /** Exercise shipped assets, without a dev transform server competing with Chromium for memory. */
 export function buildE2EWebServerCommand(port: string): string {
   if (!/^\d{1,5}$/.test(port) || Number(port) < 1 || Number(port) > 65535) throw new Error('Invalid E2E web port');
