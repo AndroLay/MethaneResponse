@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P5-T2-C1_APPLICATION_BROWSER",
+  "pairId": "P5-T2",
+  "personaId": "P5",
+  "taskId": "T2",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T06:05:22.266Z",
+    "endedAt": "2026-10-21T06:09:31.582Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "sourceId": "KAZ_S_159",
+    "claimType": "mitigation_confirmed",
+    "claimText": "The KAZ_S_159 operator completed mitigation of the 2026-06-05 detected methane plume, and a post-action measurement confirms the outcome by 2026-07-31.",
+    "scope": {
+      "startDate": "2026-06-01",
+      "endDate": "2026-07-31",
+      "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd"
+    },
+    "verdict": "insufficient_evidence",
+    "limitations": [
+      "The supplied record does not include an attributable action record, action/completion date, post-action measurement, measurement method, result, uncertainty, or dated follow-up reference for the claimed outcome.",
+      "The source-level publisher metadata flags notified: Yes and feedback: Yes are administrative metadata. They do not identify a recipient or exact notification time and do not establish a physical action or outcome.",
+      "The linked publisher report's metadata is withheld and its body is not included or assessed; it was not cleared for provider processing.",
+      "The historical MARS record for observation 7529d451-018f-4da3-9114-59b76c3a3bcd reports 307 ± 66 kg/h at 2026-06-05T07:40:02 UTC. A separate 2026-07-11T08:12:14 UTC overpass reports 496 ± 226 kg/h; it is not identified as a post-action measurement. Discrete observations and gaps do not establish zero emissions or mitigation."
+    ],
+    "requestedEvidence": "Provide an attributable, dated action record for source KAZ_S_159 explicitly linked to the plume observation 7529d451-018f-4da3-9114-59b76c3a3bcd (2026-06-05T07:40:02 UTC). Identify the responsible operator or asset custodian and record issuer/signer, site and affected asset/equipment or plume scope, action performed, and completion timestamp in UTC. The record should establish completion after the cited detection and by 2026-07-31 UTC. Provide the corresponding dated post-action methane measurement report or a permitted, accessible exact excerpt, with a stable document/reference identifier and issuer, explicitly linking the measurement to that action and source. Include measurement timestamp(s) in UTC after action completion and no later than 2026-07-31 UTC, site/boundary and measurement method/instrument, reported result and units, uncertainty and its basis, and the stated outcome being evaluated.",
+    "whyNeeded": "The available evidence identifies dated satellite detections and source-level response metadata, but it does not show what action was completed or provide a dated post-action measurement. The requested records are needed to connect the claimed action to the same source and event, establish chronology within the stated UTC window, and let a reviewer evaluate the measured outcome and uncertainty. The 2026-07-11 MARS detection is a separate overpass and is not identified as a post-action verification.",
+    "acceptanceCriteria": [
+      "The action record identifies KAZ_S_159 and explicitly links the action to observationId 7529d451-018f-4da3-9114-59b76c3a3bcd and the 2026-06-05 detected plume.",
+      "The action record is attributable to an identified issuer/operator or asset custodian, describes the affected site/asset and action, and gives a completion timestamp in UTC after the cited detection and on or before 2026-07-31.",
+      "A stable, dated follow-up reference is supplied; it identifies an issuer and accessible document/report or permitted excerpt and explicitly links its measurement to the same source, action, and affected scope.",
+      "The follow-up measurement is timestamped in UTC after action completion and on or before 2026-07-31, and states the method/instrument, measurement boundary, result and units, uncertainty and its basis, and the outcome the measurement is intended to assess.",
+      "The evidence is sufficient for a reviewer to assess the claimed outcome; a feedback/notified flag, an unassessed link, a hash, or a missing later observation alone does not satisfy these criteria."
+    ],
+    "ownerRole": "KAZ_S_159 operator or asset custodian evidence owner for the action record; the follow-up measurement report issuer/provider for measurement details.",
+    "dueDateOrReasonUnset": "Not set: the supplied records specify no evidence owner commitment or collection deadline. The requested action and follow-up dates are retrospectively bounded by 2026-07-31 UTC.",
+    "references": [
+      {
+        "type": "UNEP MARS dataset snapshot",
+        "sourceId": "KAZ_S_159",
+        "datasetSnapshotId": "unep-mars-675417694883",
+        "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "license": "UNEP IMEO MARS metadata, CC BY-NC-SA 4.0 (dataset terms)"
+      },
+      {
+        "type": "UNEP MARS observation",
+        "sourceId": "KAZ_S_159",
+        "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "timestamp": "2026-06-05T07:40:02",
+        "timeZone": "UTC",
+        "reportedFlux": "307 kg/h",
+        "reportedStandardDeviation": "± 66 kg/h",
+        "instrument": "EnMAP - DLR"
+      },
+      {
+        "type": "UNEP MARS observation",
+        "sourceId": "KAZ_S_159",
+        "observationId": "941806b5-2afe-46ac-baac-a0230880cede",
+        "timestamp": "2026-07-11T08:12:14",
+        "timeZone": "UTC",
+        "reportedFlux": "496 kg/h",
+        "reportedStandardDeviation": "± 226 kg/h",
+        "instrument": "EnMAP - DLR",
+        "relevance": "Separate later overpass; not identified in the supplied evidence as post-action verification."
+      },
+      {
+        "type": "DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM",
+        "sourceId": "KAZ_S_159",
+        "content": "The source record reports feedback: Yes and notified: Yes. Those fields are publisher metadata. This packet supplies no action date, no post-action measurement, no measurement method, no uncertainty, and no follow-up reference for the claimed 2026-06-05 plume."
+      },
+      {
+        "type": "Linked publisher reference",
+        "sourceId": "KAZ_S_159",
+        "status": "External report metadata withheld; report body not included or assessed; not cleared for provider processing."
+      }
+    ]
+  },
+  "timing": {
+    "wallClockSeconds": 249.3,
+    "modelCalls": 1,
+    "inputTokens": 579069,
+    "outputTokens": 13114,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Steps: opened the local MethaneResponse Evidence Auditor, reviewed the KAZ_S_159 case and its dated observations, then opened the Evidence Library source references. Evidence IDs are recorded in output.references. Browser error: the Observation event selector could not be targeted with the supplied select tool (two label timeouts and one invalid-value failure); no scope was applied or baseline run. No help was requested. Final output is the abstention and evidence request in output.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+    "steps": 17,
+    "toolNames": [
+      "navigate",
+      "read_page",
+      "click",
+      "read_page",
+      "fill",
+      "fill",
+      "select",
+      "select",
+      "read_page",
+      "select",
+      "click",
+      "read_page",
+      "click",
+      "select",
+      "select",
+      "click",
+      "read_page"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 542592,
+    "reasoningOutputTokens": 10202,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P4-T1-C1_APPLICATION_BROWSER",
+  "pairId": "P4-T1",
+  "personaId": "P4",
+  "taskId": "T1",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T05:29:04.142Z",
+    "endedAt": "2026-10-21T05:36:47.017Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "completed",
+  "assistance": "none",
+  "output": {
+    "taskId": "P4-T1-C1_APPLICATION_BROWSER",
+    "selectedStrategy": {
+      "name": "Weighted historical indicators",
+      "parameters": {
+        "capacityAtSelection": 10,
+        "maxPerCountry": 2,
+        "countryScope": "All regions",
+        "sectorScope": "All sectors",
+        "recurrenceWeight": "50%",
+        "magnitudeWeight": "50%"
+      },
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "selectionTimestamp": "Not displayed by the application or browser tool."
+    },
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": "BHR_S_003 (Bahrain · Oil and Gas) was selected as item 9 of 10 in the weighted historical-indicator plan: weighted 96.1 ranking points (magnitude 93.7; recurrence 98.4). The planner reports 37 observed dates across 40 records, median flux 8,156 kg/h, median reported SD 3,129 kg/h, and 0 records without flux. Its latest source timestamp shown in the planner is 2026-06-07T07:06:19 UTC. Bahrain remained within the maximum-two-per-country quota. These are historical triage indicators, not a forecast or emissions-reduction finding.",
+    "excludedRationale": "IRN_S_001 (Iran (Islamic Republic of) · Oil and Gas) was outside this 10-slot allocation because the maximum-two-per-country quota for Iran was already filled by selected sources IRN_S_075 (weighted 97.5) and IRN_S_065 (weighted 96.9). The IRN_S_001 source page shows 129 linked historical plume records, maximum reported flux 26,852 kg/h, and last observed date 2026-07-09; its source page did not show a clock time or uncertainty for those displayed observations. Its source-level observations do not override the plan's country quota. No repair or emissions reduction is inferred.",
+    "activationStateBeforeCapacityChange": {
+      "status": "Active plan",
+      "activeStrategy": "Weighted historical indicators",
+      "activeCapacity": 10,
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "activeSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "activationResultShown": "10 planned sources activated · 10 added · 0 removed",
+      "timestamp": "Not displayed by the application or browser tool."
+    },
+    "activationStateAfterCapacityChange": {
+      "editableCapacity": 20,
+      "status": "Existing active plan unchanged; no replacement activated",
+      "activeStrategy": "Weighted historical indicators",
+      "activeCapacity": 10,
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "activeSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "verification": "After changing the editable capacity to 20, the page still showed 10 sources in the active plan with capacity 10. The comparison panel was cleared and displayed 'Your plan will appear here'; no new plan was activated.",
+      "timestamp": "Not displayed by the application or browser tool."
+    },
+    "sourceAId": "BHR_S_003",
+    "sourceBId": "IRN_S_001",
+    "claimType": "Historical source observations and investigation-capacity allocation; no mitigation claim.",
+    "scope": {
+      "sourceArchive": "full_snapshot",
+      "sourceCount": 4218,
+      "archiveStartDate": "2020-10-29",
+      "archiveEndDate": "2026-09-13",
+      "countries": "All regions",
+      "sectors": "All sectors",
+      "maxPerCountry": 2
+    },
+    "timestamps": {
+      "sourceA_latestObserved": "2026-06-07T07:06:19 UTC",
+      "sourceB_lastObserved": "2026-07-09 (date only as displayed; clock time not shown)",
+      "archiveRetrievedAt": "2026-10-14T06:10:12+00:00",
+      "planActivationAt": "Not displayed",
+      "capacityChangeAt": "Not displayed"
+    },
+    "measurementsAndUncertainty": {
+      "sourceA": {
+        "medianFlux": "8,156 kg/h",
+        "medianReportedSD": "3,129 kg/h",
+        "recordsWithoutFlux": 0
+      },
+      "sourceB": {
+        "maximumReportedFlux": "26,852 kg/h",
+        "uncertainty": "Not displayed for the opened source observations",
+        "continuity": "Historical plume records; not a continuous emission rate"
+      }
+    },
+    "dataset": {
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "intelligenceSha256": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+      "synthetic": false,
+      "demoFixtures": "None used.",
+      "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+      "datasetName": "Eye on Methane / MARS detected sources and plumes",
+      "license": "CC BY-NC-SA 4.0"
+    },
+    "evidenceIds": [
+      "BHR_S_003",
+      "IRN_S_001",
+      "IRN_S_075",
+      "IRN_S_065",
+      "b05968c5-10a0-416f-935c-ff3672a791bd",
+      "ef4e6c6d-a358-4764-ad5d-60ebda9eebac",
+      "744cacd0-5e8b-454e-a15a-ccc5c411085f",
+      "1ca5e26e-68d2-4803-bad3-28e653bd4ae2",
+      "0ad641e7-409e-4a25-9441-99219edff7d0"
+    ],
+    "steps": [
+      {
+        "action": "Opened the localhost MethaneResponse dashboard and Cases workspace, then opened the investigation planner.",
+        "evidence": "Planner showed full pinned historical MARS snapshot, capacity 10, country cap 2, all regions/sectors, and recurrence/magnitude weights 50% each."
+      },
+      {
+        "action": "Compared four plans and chose Weighted historical indicators; activated it explicitly.",
+        "evidence": "Planner showed BHR_S_003 at rank 9 / 10 with weighted 96.1, and selected IRN_S_075 plus IRN_S_065. Activation response: 10 planned sources activated · 10 added · 0 removed."
+      },
+      {
+        "action": "Changed editable capacity to 20 and read the active-plan summary.",
+        "evidence": "Active plan remained Weighted historical indicators · capacity 10, with the same 10 source IDs; no replacement was activated."
+      },
+      {
+        "action": "Opened IRN_S_001 through the application's source search to inspect its source-level dates and measurements.",
+        "evidence": "Source page showed Iran (Islamic Republic of), Oil and Gas; 129 linked plume records; maximum reported flux 26,852 kg/h; last observed 2026-07-09."
+      },
+      {
+        "action": "Recomputed the 10-slot comparison to verify the selected source list, then returned editable capacity to 20 without activating another plan.",
+        "evidence": "The active-plan summary continued to show the original 10-slot plan and the same selected IDs."
+      }
+    ],
+    "errors": [
+      "Attempts to activate the 'Excluded sources' or 'Inspect rows' text controls timed out because no matching accessible tab, button, radio, or select was exposed by the browser tool.",
+      "Search cases field attempts timed out while the planner/active queue occupied the page; global source search succeeded.",
+      "A partial-name click and a link-role click for IRN_S_001 timed out; clicking its full accessible button name succeeded."
+    ],
+    "requestsForHelp": [],
+    "limitations": [
+      "The app did not display plan activation or capacity-edit wall-clock timestamps.",
+      "IRN_S_001 was not shown in an accessible excluded-row detail view, so no source-specific planner ranking score is asserted for it."
+    ]
+  },
+  "timing": {
+    "wallClockSeconds": 462.9,
+    "modelCalls": 1,
+    "inputTokens": 2078022,
+    "outputTokens": 19646,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Historical triage allocation only. The application did not show wall-clock timestamps for activation or capacity edits; displayed source dates and timestamps are retained at the precision shown.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+    "steps": 40,
+    "toolNames": [
+      "navigate",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "read_page",
+      "click",
+      "read_page",
+      "fill",
+      "read_page",
+      "fill",
+      "click",
+      "read_page",
+      "read_page",
+      "read_page",
+      "fill",
+      "fill",
+      "read_page",
+      "click",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "fill",
+      "click",
+      "read_page",
+      "read_page",
+      "select",
+      "click",
+      "click",
+      "fill",
+      "read_page"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 2008832,
+    "reasoningOutputTokens": 14746,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

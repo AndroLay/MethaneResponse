@@ -1,0 +1,448 @@
+{
+  "version": "v18",
+  "durationSeconds": 297,
+  "width": 1920,
+  "height": 1080,
+  "fps": 25,
+  "decodedFrames": 7425,
+  "videoSha256": "b14bc61f893176631c8ce15445217ea1ab4977e52a1c252b81d2e661b4006fad",
+  "bytes": 56450949,
+  "technicalChecksPassed": 18,
+  "newRevisionRegressions": 12,
+  "retainedMotionRegressions": 22,
+  "sampledVisualFrames": 39,
+  "uiPaneComparisons": [
+    {
+      "seconds": 83.2,
+      "uiPaneRgbRmse": 0.9880679249763489
+    },
+    {
+      "seconds": 113,
+      "uiPaneRgbRmse": 1.3501873016357422
+    },
+    {
+      "seconds": 164.64,
+      "uiPaneRgbRmse": 0.9075489044189453
+    },
+    {
+      "seconds": 198,
+      "uiPaneRgbRmse": 1.1584243774414062
+    },
+    {
+      "seconds": 224,
+      "uiPaneRgbRmse": 0.6497424244880676
+    },
+    {
+      "seconds": 234,
+      "uiPaneRgbRmse": 0.6517990827560425
+    }
+  ],
+  "maxNarrationQuietIntervalSeconds": 0.8,
+  "narrationQuietMethod": "10ms RMS below -42dBFS; intervals >=400ms",
+  "silenceIntervals": [
+    {
+      "start": 3.36,
+      "end": 3.83,
+      "seconds": 0.47
+    },
+    {
+      "start": 7.0,
+      "end": 7.47,
+      "seconds": 0.47
+    },
+    {
+      "start": 9.02,
+      "end": 9.54,
+      "seconds": 0.52
+    },
+    {
+      "start": 10.99,
+      "end": 11.48,
+      "seconds": 0.49
+    },
+    {
+      "start": 13.94,
+      "end": 14.42,
+      "seconds": 0.48
+    },
+    {
+      "start": 16.73,
+      "end": 17.26,
+      "seconds": 0.53
+    },
+    {
+      "start": 19.18,
+      "end": 19.66,
+      "seconds": 0.48
+    },
+    {
+      "start": 21.57,
+      "end": 22.37,
+      "seconds": 0.8
+    },
+    {
+      "start": 29.91,
+      "end": 30.36,
+      "seconds": 0.45
+    },
+    {
+      "start": 36.12,
+      "end": 36.56,
+      "seconds": 0.44
+    },
+    {
+      "start": 37.98,
+      "end": 38.38,
+      "seconds": 0.4
+    },
+    {
+      "start": 39.79,
+      "end": 40.28,
+      "seconds": 0.49
+    },
+    {
+      "start": 42.62,
+      "end": 43.37,
+      "seconds": 0.75
+    },
+    {
+      "start": 51.33,
+      "end": 51.77,
+      "seconds": 0.44
+    },
+    {
+      "start": 53.58,
+      "end": 53.99,
+      "seconds": 0.41
+    },
+    {
+      "start": 57.95,
+      "end": 58.44,
+      "seconds": 0.49
+    },
+    {
+      "start": 60.11,
+      "end": 60.52,
+      "seconds": 0.41
+    },
+    {
+      "start": 62.64,
+      "end": 63.36,
+      "seconds": 0.72
+    },
+    {
+      "start": 67.1,
+      "end": 67.58,
+      "seconds": 0.48
+    },
+    {
+      "start": 70.5,
+      "end": 70.93,
+      "seconds": 0.43
+    },
+    {
+      "start": 75.17,
+      "end": 75.59,
+      "seconds": 0.42
+    },
+    {
+      "start": 80.51,
+      "end": 80.96,
+      "seconds": 0.45
+    },
+    {
+      "start": 85.02,
+      "end": 85.44,
+      "seconds": 0.42
+    },
+    {
+      "start": 89.2,
+      "end": 89.67,
+      "seconds": 0.47
+    },
+    {
+      "start": 94.62,
+      "end": 95.12,
+      "seconds": 0.5
+    },
+    {
+      "start": 98.63,
+      "end": 99.37,
+      "seconds": 0.74
+    },
+    {
+      "start": 101.34,
+      "end": 101.76,
+      "seconds": 0.42
+    },
+    {
+      "start": 103.33,
+      "end": 103.77,
+      "seconds": 0.44
+    },
+    {
+      "start": 105.77,
+      "end": 106.2,
+      "seconds": 0.43
+    },
+    {
+      "start": 113.68,
+      "end": 114.13,
+      "seconds": 0.45
+    },
+    {
+      "start": 117.48,
+      "end": 117.91,
+      "seconds": 0.43
+    },
+    {
+      "start": 122.14,
+      "end": 122.57,
+      "seconds": 0.43
+    },
+    {
+      "start": 124.62,
+      "end": 125.37,
+      "seconds": 0.75
+    },
+    {
+      "start": 126.92,
+      "end": 127.48,
+      "seconds": 0.56
+    },
+    {
+      "start": 131.42,
+      "end": 131.84,
+      "seconds": 0.42
+    },
+    {
+      "start": 136.14,
+      "end": 136.72,
+      "seconds": 0.58
+    },
+    {
+      "start": 139.85,
+      "end": 140.3,
+      "seconds": 0.45
+    },
+    {
+      "start": 143.83,
+      "end": 144.29,
+      "seconds": 0.46
+    },
+    {
+      "start": 147.49,
+      "end": 147.9,
+      "seconds": 0.41
+    },
+    {
+      "start": 149.46,
+      "end": 149.92,
+      "seconds": 0.46
+    },
+    {
+      "start": 152.6,
+      "end": 153.38,
+      "seconds": 0.78
+    },
+    {
+      "start": 154.57,
+      "end": 154.99,
+      "seconds": 0.42
+    },
+    {
+      "start": 156.75,
+      "end": 157.24,
+      "seconds": 0.49
+    },
+    {
+      "start": 159.61,
+      "end": 160.06,
+      "seconds": 0.45
+    },
+    {
+      "start": 163.65,
+      "end": 164.12,
+      "seconds": 0.47
+    },
+    {
+      "start": 166.19,
+      "end": 166.6,
+      "seconds": 0.41
+    },
+    {
+      "start": 168.51,
+      "end": 168.95,
+      "seconds": 0.44
+    },
+    {
+      "start": 175.09,
+      "end": 175.56,
+      "seconds": 0.47
+    },
+    {
+      "start": 177.87,
+      "end": 178.36,
+      "seconds": 0.49
+    },
+    {
+      "start": 183.58,
+      "end": 184.37,
+      "seconds": 0.79
+    },
+    {
+      "start": 186.19,
+      "end": 186.62,
+      "seconds": 0.43
+    },
+    {
+      "start": 190.69,
+      "end": 191.16,
+      "seconds": 0.47
+    },
+    {
+      "start": 192.66,
+      "end": 193.1,
+      "seconds": 0.44
+    },
+    {
+      "start": 195.74,
+      "end": 196.21,
+      "seconds": 0.47
+    },
+    {
+      "start": 200.24,
+      "end": 200.66,
+      "seconds": 0.42
+    },
+    {
+      "start": 203.14,
+      "end": 203.59,
+      "seconds": 0.45
+    },
+    {
+      "start": 206.62,
+      "end": 207.37,
+      "seconds": 0.75
+    },
+    {
+      "start": 211.78,
+      "end": 212.25,
+      "seconds": 0.47
+    },
+    {
+      "start": 216.73,
+      "end": 217.14,
+      "seconds": 0.41
+    },
+    {
+      "start": 221.22,
+      "end": 221.66,
+      "seconds": 0.44
+    },
+    {
+      "start": 231.32,
+      "end": 231.83,
+      "seconds": 0.51
+    },
+    {
+      "start": 235.64,
+      "end": 236.08,
+      "seconds": 0.44
+    },
+    {
+      "start": 237.99,
+      "end": 238.41,
+      "seconds": 0.42
+    },
+    {
+      "start": 241.47,
+      "end": 241.95,
+      "seconds": 0.48
+    },
+    {
+      "start": 245.61,
+      "end": 246.37,
+      "seconds": 0.76
+    },
+    {
+      "start": 249.17,
+      "end": 249.65,
+      "seconds": 0.48
+    },
+    {
+      "start": 254.06,
+      "end": 254.51,
+      "seconds": 0.45
+    },
+    {
+      "start": 262.64,
+      "end": 263.37,
+      "seconds": 0.73
+    },
+    {
+      "start": 265.11,
+      "end": 265.52,
+      "seconds": 0.41
+    },
+    {
+      "start": 267.23,
+      "end": 267.68,
+      "seconds": 0.45
+    },
+    {
+      "start": 274.52,
+      "end": 274.96,
+      "seconds": 0.44
+    },
+    {
+      "start": 278.81,
+      "end": 279.27,
+      "seconds": 0.46
+    },
+    {
+      "start": 282.46,
+      "end": 282.89,
+      "seconds": 0.43
+    },
+    {
+      "start": 286.24,
+      "end": 286.72,
+      "seconds": 0.48
+    },
+    {
+      "start": 288.01,
+      "end": 288.42,
+      "seconds": 0.41
+    },
+    {
+      "start": 289.57,
+      "end": 290.0,
+      "seconds": 0.43
+    },
+    {
+      "start": 291.35,
+      "end": 291.86,
+      "seconds": 0.51
+    }
+  ],
+  "embeddedSubtitleStreams": 0,
+  "chapters": 11,
+  "v17Sha256": "e0764396ca1ec16e458396f037c09e3de36b3cd39b91d4bde4f2a3059171f57c",
+  "newSpeech": "Two selected stock synthetic Andrew cues; three short candidates generated; no voice cloning",
+  "sourceHashesUnchanged": 340,
+  "artifactHashesUnchanged": 57,
+  "sourceVideo": "Same v17 TKM take8; separate archived KAZ AI and same-take Anvil local proof retained",
+  "claimBoundary": "Field actions and measured emissions reductions are potential, not demonstrated outcomes",
+  "fullNormalSpeedPlaybackAndListening": "not_reviewed; technical measurements and sampled frame review only",
+  "publicTransactions": 0,
+  "assessmentModelProviderCalls": 0,
+  "uploaded": false,
+  "deployed": false,
+  "r12TaskCompletion": "0/48 frozen scorer; unchanged",
+  "productionSourceSha256": {
+    "docs/demo/delivery-2026-10-22-final-v18/pipeline.py": "65da45808e1d5f1754b823eb9a7246a1a396a8f0a09acb70a33661791da8d9fe",
+    "docs/demo/delivery-2026-10-22-final-v18/test_revision.py": "bb746b5bcf278a733977ce8cb4224f7fabaebb0282a2b6efec58c713d6614d0a",
+    "docs/demo/delivery-2026-10-22-final-v18/verify.py": "d859ecb34b24cb95db7498947a2bccf86680cd40c58506d93b3e62e6292f8f9a"
+  }
+}

@@ -28,7 +28,10 @@ test('real historical snapshots stage complete copies and replay without alterin
     await expect(stageSnapshotUpdate({...opts,output})).rejects.toThrow();
     expect(await readFile(candidate)).toEqual(beforeInput);
   } finally {await rm(dir,{recursive:true,force:true});}
-});
+  // Full real-snapshot parsing, replay and a second refusal check exceed Bun's
+  // 5s unit-test default on loaded runners. Keep all assertions; bound integration
+  // runtime separately from any product performance claim.
+},20_000);
 test('staging refuses active, frozen evidence, real provenance and state trees',async()=>{
   const opts=await options();
   for(const output of ['apps/web/public/data/DEMO-stage','data/real/DEMO-stage','docs/evidence/DEMO-stage','data/state/DEMO-stage'])await expect(stageSnapshotUpdate({...opts,output})).rejects.toThrow('protected');

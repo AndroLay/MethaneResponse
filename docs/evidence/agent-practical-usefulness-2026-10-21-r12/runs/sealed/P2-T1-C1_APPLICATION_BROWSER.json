@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P2-T1-C1_APPLICATION_BROWSER",
+  "pairId": "P2-T1",
+  "personaId": "P2",
+  "taskId": "T1",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T04:33:03.837Z",
+    "endedAt": "2026-10-21T04:40:25.381Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "completed",
+  "assistance": "none",
+  "output": {
+    "selectedStrategy": {
+      "name": "Weighted historical indicators",
+      "weights": {
+        "recurrence": "50%",
+        "magnitude": "50%"
+      },
+      "capacityAtSelection": 10,
+      "maxPerCountry": 2,
+      "countryScope": "All regions",
+      "sectorScope": "All sectors",
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "datasetPeriod": "2020-10-29 – 2026-09-13 UTC",
+      "applicationContext": "UNEP SNAPSHOT · NOT LIVE; Research Prototype"
+    },
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": {
+      "sourceId": "BHR_S_003",
+      "claimType": "historical plan inclusion based on application-defined weighted indicators",
+      "scope": "full pinned source snapshot; all regions and sectors; capacity 10; maximum 2 sources per country",
+      "allocation": "Selected at rank 9 of 10, within capacity and Bahrain quota.",
+      "indicatorPoints": {
+        "magnitudePercentile": 93.7,
+        "recurrencePercentile": 98.4,
+        "weightedRankingPoints": 96.1
+      },
+      "observationMetadata": {
+        "linkedPlumeRecords": 40,
+        "quantifiedPlumeRecords": 40,
+        "observedDates": 37,
+        "latestObservationTimestamp": "2026-06-07T07:06:19 UTC",
+        "medianFlux": "8,156 kg/h",
+        "medianReportedStandardDeviation": "3,129 kg/h",
+        "sourceRecordMaximumReportedFlux": "36,474 kg/h"
+      },
+      "limitations": "Reported flux is from intermittent historical satellite plume observations, not a continuous emission rate. Instrument-specific coverage limits were not displayed in the planner. These relative ranking points do not predict repair or climate outcome."
+    },
+    "excludedRationale": {
+      "sourceId": "IRN_S_001",
+      "sourceLocationSector": "Iran (Islamic Republic of) · Oil and Gas",
+      "reason": "The selected weighted plan already uses both Iran slots: IRN_S_075 and IRN_S_065. With maxPerCountry=2, IRN_S_001 cannot also be selected.",
+      "evidence": "The active 10-source queue contains exactly IRN_S_075 and IRN_S_065 from Iran; the allocation comparison states that the country cap applies to every plan.",
+      "limits": "IRN_S_001's own ranking points, flux, uncertainty, plume IDs, and observation timestamp were not accessible during this session; no score-based explanation is asserted."
+    },
+    "activationStateBeforeCapacityChange": {
+      "active": true,
+      "strategy": "Weighted historical indicators",
+      "capacity": 10,
+      "selectedSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "activationMessage": "10 planned sources activated · 10 added · 0 removed",
+      "stateMeaning": "Proposed allocation queue only; nothing was assigned or sent."
+    },
+    "activationStateAfterCapacityChange": {
+      "plannerCapacityInput": 20,
+      "activePlanRemains": true,
+      "activePlanCapacity": 10,
+      "activePlanSourceCount": 10,
+      "activePlanStrategy": "Weighted historical indicators",
+      "activePlanSourceIdsUnchanged": true,
+      "verification": "After changing the input to 20, the planner preview read 'Your plan will appear here.' Map Explorer still showed '10 sources in your active plan' and 'Weighted historical indicators · capacity 10' for snapshot unep-mars-675417694883.",
+      "replacementActivated": false
+    },
+    "timestamps": {
+      "sourceA_latestObservation": "2026-06-07T07:06:19 UTC",
+      "sourceA_visiblePlumeObservations": [
+        {
+          "plumeId": "8c7b5908-1f3b-4e8a-a00c-357a86752bb1",
+          "timestamp": "2026-06-07",
+          "reportedFlux": "4,933 kg/h"
+        },
+        {
+          "plumeId": "b3122d4a-1933-410f-a5a7-37684c745faa",
+          "timestamp": "2026-02-01",
+          "reportedFlux": "8,012 kg/h"
+        },
+        {
+          "plumeId": "06b0b1ff-fabe-4c74-b527-6f7206c9dda1",
+          "timestamp": "2025-11-04",
+          "reportedFlux": "9,657 kg/h"
+        },
+        {
+          "plumeId": "36ef9b28-c4a1-4740-a80f-997f502c3189",
+          "timestamp": "2025-10-04",
+          "reportedFlux": "9,262 kg/h"
+        },
+        {
+          "plumeId": "4b28a55a-27d7-47fd-b274-e0ee146d1978",
+          "timestamp": "2025-09-10",
+          "reportedFlux": "7,132 kg/h"
+        }
+      ],
+      "sourceB_latestObservation": null,
+      "browserActionTimestamps": "The supplied browser tool responses did not provide wall-clock timestamps for plan activation or the capacity edit."
+    },
+    "steps": [
+      "Opened the investigation planner and compared four plans using capacity 10, maxPerCountry 2, all regions/sectors, and recurrence/magnitude weights of 50% each.",
+      "Selected and explicitly activated Weighted historical indicators; the UI confirmed 10 sources activated, 10 added, 0 removed.",
+      "Recorded BHR_S_003 as selected at rank 9 with 40 quantified plume records across 37 observed dates and the displayed median flux, standard deviation, and latest timestamp.",
+      "Changed Investigation slots to 20 without activating a replacement.",
+      "Verified in Map Explorer that the existing active queue still contained 10 sources and retained capacity 10."
+    ],
+    "evidenceIds": {
+      "sourceA": "BHR_S_003",
+      "excludedSourceB": "IRN_S_001",
+      "quotaOccupantsInActiveQueue": [
+        "IRN_S_075",
+        "IRN_S_065"
+      ],
+      "visibleSourceAPlumeIds": [
+        "8c7b5908-1f3b-4e8a-a00c-357a86752bb1",
+        "b3122d4a-1933-410f-a5a7-37684c745faa",
+        "06b0b1ff-fabe-4c74-b527-6f7206c9dda1",
+        "36ef9b28-c4a1-4740-a80f-997f502c3189",
+        "4b28a55a-27d7-47fd-b274-e0ee146d1978"
+      ],
+      "datasetSnapshotId": "unep-mars-675417694883"
+    },
+    "errors": [
+      "The planner's Excluded sources and Inspect rows labels could not be opened through the supplied accessible-control actions; attempts timed out.",
+      "The global-search result for IRN_S_001 and the Search cases field could not be opened/filled through the supplied browser actions. Its source-specific observation statistics were therefore not recorded."
+    ],
+    "requestsForHelp": []
+  },
+  "timing": {
+    "wallClockSeconds": 441.5,
+    "modelCalls": 1,
+    "inputTokens": 2469634,
+    "outputTokens": 18518,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Diselesaikan melalui UI MethaneResponse lokal. Tidak ada bantuan manusia. Pemilihan adalah alokasi investigasi historis yang diusulkan, bukan penugasan atau klaim mitigasi.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+    "steps": 42,
+    "toolNames": [
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "read_page",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "read_page",
+      "click",
+      "click",
+      "click",
+      "click",
+      "read_page",
+      "fill",
+      "fill",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "fill",
+      "read_page",
+      "read_page",
+      "click",
+      "click",
+      "fill",
+      "read_page",
+      "click",
+      "fill",
+      "read_page",
+      "read_page",
+      "read_page",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "read_page",
+      "fill",
+      "read_page"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 2400128,
+    "reasoningOutputTokens": 14126,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

@@ -1,0 +1,395 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P7-T1-C0_MANUAL_PACKET",
+  "pairId": "P7-T1",
+  "personaId": "P7",
+  "taskId": "T1",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T07:28:20.280Z",
+    "endedAt": "2026-10-21T07:30:20.044Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "completed",
+  "assistance": "none",
+  "output": {
+    "taskId": "P7-T1-C0_MANUAL_PACKET",
+    "selectedStrategy": "Scan the supplied eligible rows in descending weightedScore order and select until capacity 10, accepting at most 2 sources per country; use the packet parameters recurrenceWeight=50 with countries=[] and sectors=[].",
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": {
+      "sourceId": "BHR_S_003",
+      "reason": "Rank 18, weightedScore 96.083932. Bahrain had not reached the maxPerCountry=2 quota, so this row is accepted as the ninth selected source. The next accepted row at rank 20 fills capacity 10.",
+      "sourceRecord": {
+        "country": "Bahrain",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 8156,
+        "medianUncertaintyKgHr": 3129,
+        "distinctDates": 37,
+        "observationCount": 40,
+        "missingFluxCount": 0,
+        "lastObserved": "2026-06-07T07:06:19",
+        "rank": 18,
+        "weightedScore": 96.083932,
+        "magnitudePoints": 93.7211,
+        "recurrencePoints": 98.446763
+      }
+    },
+    "excludedRationale": {
+      "sourceId": "IRN_S_001",
+      "reason": "Rank 19, weightedScore 96.013748, but Iran's maxPerCountry=2 quota was already filled by the higher-ranked IRN_S_075 (rank 5) and IRN_S_065 (rank 10).",
+      "sourceRecord": {
+        "country": "Iran (Islamic Republic of)",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 6895,
+        "medianUncertaintyKgHr": 2381,
+        "distinctDates": 116,
+        "observationCount": 129,
+        "missingFluxCount": 0,
+        "lastObserved": "2026-07-09T07:14:53",
+        "rank": 19,
+        "weightedScore": 96.013748,
+        "magnitudePoints": 92.406912,
+        "recurrencePoints": 99.620583
+      },
+      "quotaFillingSources": [
+        {
+          "sourceId": "IRN_S_075",
+          "rank": 5
+        },
+        {
+          "sourceId": "IRN_S_065",
+          "rank": 10
+        }
+      ]
+    },
+    "activationStateBeforeCapacityChange": {
+      "capacity": 10,
+      "recordedPlanSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "activationStatus": "The plan is selected in this manual task record; activation in an external application is not observable through the assigned read-only packet tool.",
+      "recordedOn": "2026-10-21",
+      "exactEventTime": null
+    },
+    "activationStateAfterCapacityChange": {
+      "capacity": 20,
+      "recordedPlanSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "planSelectionChanged": false,
+      "automaticReplacement": "none",
+      "activationStatus": "The unchanged plan is recorded for the requested 10-to-20 capacity transition; no external capacity or activation mutation is exposed or verified by the assigned packet tool.",
+      "recordedOn": "2026-10-21",
+      "exactEventTime": null
+    },
+    "capacityChange": {
+      "from": 10,
+      "to": 20,
+      "effectOnRecordedPlan": "Keep the same 10 selected source IDs; do not automatically replace the active/recorded selection.",
+      "eventOrder": [
+        "selection recorded at capacity 10",
+        "capacity recorded as 20 with selection unchanged"
+      ],
+      "timestampBasis": "The task environment supplies the date 2026-10-21 but no event time; the packet provides source lastObserved timestamps."
+    },
+    "parameters": {
+      "startingCapacity": 10,
+      "changedCapacity": 20,
+      "maxPerCountry": 2,
+      "recurrenceWeight": 50,
+      "countries": [],
+      "sectors": []
+    },
+    "selectedSourceEvidence": [
+      {
+        "sourceId": "MEX_S_003",
+        "country": "Mexico",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 42515,
+        "medianUncertaintyKgHr": 16404,
+        "distinctDates": 119,
+        "observationCount": 126,
+        "missingFluxCount": 19,
+        "lastObserved": "2026-08-25T16:52:53",
+        "rank": 1,
+        "weightedScore": 99.140094,
+        "magnitudePoints": 98.588464,
+        "recurrencePoints": 99.691724
+      },
+      {
+        "sourceId": "MEX_S_007",
+        "country": "Mexico",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 41870,
+        "medianUncertaintyKgHr": 17519,
+        "distinctDates": 35,
+        "observationCount": 37,
+        "missingFluxCount": 6,
+        "lastObserved": "2026-08-25T16:52:53",
+        "rank": 2,
+        "weightedScore": 98.428065,
+        "magnitudePoints": 98.539791,
+        "recurrencePoints": 98.316339
+      },
+      {
+        "sourceId": "TKM_S_021",
+        "country": "Turkmenistan",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 10398,
+        "medianUncertaintyKgHr": 3678.5,
+        "distinctDates": 119,
+        "observationCount": 130,
+        "missingFluxCount": 0,
+        "lastObserved": "2026-09-05T07:06:19",
+        "rank": 4,
+        "weightedScore": 97.594706,
+        "magnitudePoints": 95.497688,
+        "recurrencePoints": 99.691724
+      },
+      {
+        "sourceId": "IRN_S_075",
+        "country": "Iran (Islamic Republic of)",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 11857,
+        "medianUncertaintyKgHr": 4401,
+        "distinctDates": 45,
+        "observationCount": 48,
+        "missingFluxCount": 0,
+        "lastObserved": "2026-04-26T07:20:56",
+        "rank": 5,
+        "weightedScore": 97.472696,
+        "magnitudePoints": 96.154782,
+        "recurrencePoints": 98.790609
+      },
+      {
+        "sourceId": "TKM_S_047",
+        "country": "Turkmenistan",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 9651,
+        "medianUncertaintyKgHr": 3243,
+        "distinctDates": 224,
+        "observationCount": 245,
+        "missingFluxCount": 4,
+        "lastObserved": "2026-02-17T07:08:49",
+        "rank": 6,
+        "weightedScore": 97.42092,
+        "magnitudePoints": 94.889267,
+        "recurrencePoints": 99.952573
+      },
+      {
+        "sourceId": "MYS_S_001",
+        "country": "Malaysia",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 10679,
+        "medianUncertaintyKgHr": 4022,
+        "distinctDates": 50,
+        "observationCount": 51,
+        "missingFluxCount": 4,
+        "lastObserved": "2026-07-18T03:32:01",
+        "rank": 7,
+        "weightedScore": 97.312013,
+        "magnitudePoints": 95.643709,
+        "recurrencePoints": 98.980318
+      },
+      {
+        "sourceId": "IRN_S_065",
+        "country": "Iran (Islamic Republic of)",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 9396,
+        "medianUncertaintyKgHr": 2974,
+        "distinctDates": 52,
+        "observationCount": 56,
+        "missingFluxCount": 1,
+        "lastObserved": "2026-09-13T07:16:21",
+        "rank": 10,
+        "weightedScore": 96.855231,
+        "magnitudePoints": 94.694573,
+        "recurrencePoints": 99.015888
+      },
+      {
+        "sourceId": "VEN_S_008",
+        "country": "Venezuela",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 11917,
+        "medianUncertaintyKgHr": 3608,
+        "distinctDates": 20,
+        "observationCount": 20,
+        "missingFluxCount": 5,
+        "lastObserved": "2026-08-04T15:14:35",
+        "rank": 15,
+        "weightedScore": 96.228359,
+        "magnitudePoints": 96.203456,
+        "recurrencePoints": 96.253261
+      },
+      {
+        "sourceId": "BHR_S_003",
+        "country": "Bahrain",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 8156,
+        "medianUncertaintyKgHr": 3129,
+        "distinctDates": 37,
+        "observationCount": 40,
+        "missingFluxCount": 0,
+        "lastObserved": "2026-06-07T07:06:19",
+        "rank": 18,
+        "weightedScore": 96.083932,
+        "magnitudePoints": 93.7211,
+        "recurrencePoints": 98.446763
+      },
+      {
+        "sourceId": "DZA_S_011",
+        "country": "Algeria",
+        "sector": "Oil and Gas",
+        "medianFluxKgHr": 7515,
+        "medianUncertaintyKgHr": 2826.5,
+        "distinctDates": 30,
+        "observationCount": 30,
+        "missingFluxCount": 0,
+        "lastObserved": "2026-08-22T10:00:21",
+        "rank": 20,
+        "weightedScore": 95.591259,
+        "magnitudePoints": 93.210027,
+        "recurrencePoints": 97.972492
+      }
+    ],
+    "dataset": {
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "archiveSha256": "675c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "intelligenceSha256": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+      "synthetic": false,
+      "scope": "full_snapshot",
+      "totalSourceCount": 4218,
+      "archiveStartDate": "2020-10-29",
+      "archiveEndDate": "2026-09-13",
+      "provenance": {
+        "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+        "dataset": "Eye on Methane / MARS detected sources and plumes",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "license": "CC BY-NC-SA 4.0",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+        "localFileName": "sources_plumes_csv.zip"
+      }
+    },
+    "steps": [
+      {
+        "step": 1,
+        "action": "Read weighted ranking page",
+        "evidenceIds": [
+          "ranked_page:offset=0:limit=50"
+        ],
+        "result": "Received 50 rows from totalEligible=4218; used ranks 1-20 to apply the country quota."
+      },
+      {
+        "step": 2,
+        "action": "Look up named source rows",
+        "evidenceIds": [
+          "BHR_S_003",
+          "IRN_S_001"
+        ],
+        "result": "Both source rows found; row values match their ranked-page entries."
+      },
+      {
+        "step": 3,
+        "action": "Apply maxPerCountry=2 and capacity=10 manually",
+        "evidenceIds": [
+          "ranked_page:offset=0:limit=50",
+          "BHR_S_003",
+          "IRN_S_001"
+        ],
+        "result": "Selected ranks 1,2,4,5,6,7,10,15,18,20; skipped over-quota country rows."
+      },
+      {
+        "step": 4,
+        "action": "Record requested capacity transition",
+        "evidenceIds": [
+          "task parameters"
+        ],
+        "result": "Recorded capacity 10 then 20 while retaining the same recorded plan; the packet tool exposes no external mutation or activation verification."
+      }
+    ],
+    "evidenceIds": [
+      "unep-mars-675417694883",
+      "ranked_page:offset=0:limit=50",
+      "BHR_S_003",
+      "IRN_S_001",
+      "IRN_S_075",
+      "IRN_S_065",
+      "DZA_S_011"
+    ],
+    "errors": [],
+    "requestsForHelp": [],
+    "limitations": [
+      "The packet contains source-level ranking and observation metadata, not evidence of physical mitigation, repair, methane reduction, reviewer identity, or human approval.",
+      "The assigned packet tool is read-only; the capacity transition and activation state are recorded in this response and are not externally verified."
+    ]
+  },
+  "timing": {
+    "wallClockSeconds": 119.8,
+    "modelCalls": 1,
+    "inputTokens": 98844,
+    "outputTokens": 12898,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Manual ranking and quota applied. The requested capacity transition is recorded with an explicit limitation that no external state mutation/activation evidence is available through the assigned packet tool.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "dec594cfa670ec7fd97f62d124e87b2e087fe6ac7f2bc767ea752e01597888e4",
+    "steps": 2,
+    "toolNames": [
+      "read_manual_packet",
+      "read_manual_packet"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 74112,
+    "reasoningOutputTokens": 9776,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

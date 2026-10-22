@@ -7,6 +7,12 @@ from release_package import select_source_paths, source_payload, write_archive, 
 
 
 class ReleasePackageTests(unittest.TestCase):
+    def test_agent_tooling_root_configs_required_by_typecheck_are_included(self):
+        names = ['tsconfig.agent-lab.json', 'playwright.agent-lab.config.ts',
+                 'playwright.agent-lab-r12.config.ts', 'playwright.agent-lab-run-r12.config.ts',
+                 'playwright.agent-lab-run.config.ts', 'playwright.agent-lab-smoke.config.ts']
+        self.assertEqual(select_source_paths(names), sorted(names))
+
     def test_browser_scenarios_required_by_the_repository_gate_are_included(self):
         self.assertEqual(select_source_paths(['e2e/audit-workflow.spec.ts','e2e/environment-assertions.ts']),['e2e/audit-workflow.spec.ts','e2e/environment-assertions.ts'])
 

@@ -1,0 +1,3808 @@
+{
+  "schemaVersion": 1,
+  "evaluatorVersion": "agent-usefulness-recovery/4",
+  "kind": "retrospective_audit_not_new_agent_trials",
+  "generatedAt": "2026-10-21T09:13:31.922Z",
+  "frozenFilesUnchanged": 73,
+  "baseline": {
+    "status": "SEALED_RUNS_COMPLETE",
+    "sealed": 48,
+    "metrics": {
+      "taskCompletionRate": 0,
+      "decisionAccuracy": 0.08333333333333333,
+      "falseSupportedCount": 0,
+      "falseSupportedDenominator": 15,
+      "criticalOverclaimCount": 0,
+      "criticalOverclaimDenominator": 45,
+      "missingEvidenceRecall": 0,
+      "actionability": 0.7430555555555558,
+      "revisitPrecision": 0,
+      "revisitRecall": 0,
+      "sourceScopePreservation": 0.1875,
+      "tamperAndAuthz": 0,
+      "costUsdObserved": null,
+      "wallClockSecondsObserved": 12363.399999999998
+    }
+  },
+  "alternative": {
+    "episodes": 48,
+    "completion": 4,
+    "semanticT2VerdictAgreement": 15,
+    "t2AvailableOutputs": 15,
+    "categoriesNonExclusive": {
+      "SCORER_FALSE_NEGATIVE": 22,
+      "AGENT_OR_TOOL_FAILURE": 3,
+      "APPLICATION_DEFECT": 0,
+      "GENUINE_TASK_FAILURE": 1,
+      "PROTOCOL_LIMITATION": 38
+    }
+  },
+  "limits": [
+    "No new agent episodes or paid calls executed.",
+    "Alternative normalization is conservative, not a replacement research score or productivity evidence.",
+    "P8 cause cannot be reconstructed from missing diagnostic payloads.",
+    "No application defect can be inferred from unseeded T3 or agent output alone."
+  ],
+  "episodes": [
+    {
+      "episodeId": "P1-T1-C0_MANUAL_PACKET",
+      "taskId": "T1",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "Read-only packet tools cannot activate a plan or execute a capacity change. A hypothetical state is not an observed runtime state."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy (missing) does not match weighted.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P1-T1-C0_MANUAL_PACKET",
+        "pairId": "P1-T1",
+        "personaId": "P1",
+        "taskId": "T1",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 82,
+          "modelCalls": 1,
+          "inputTokens": 108809,
+          "outputTokens": 8629,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Selected strategy (missing) does not match weighted.",
+          "Changing capacity to 20 must not replace the active capacity-10 plan.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P1-T1-C1_APPLICATION_BROWSER",
+      "taskId": "T1",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "categories": [
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "Structured output satisfies the bounded recovery evaluator; original frozen result remains failed."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy Weighted historical indicators — recurrence 50%, magnitude 50%, all regions, all sectors, maximum 2 investigations per country. does not match weighted.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "strategy_display_label",
+        "observed_structured_active_plan_state"
+      ],
+      "score": {
+        "episodeId": "P1-T1-C1_APPLICATION_BROWSER",
+        "pairId": "P1-T1",
+        "personaId": "P1",
+        "taskId": "T1",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": true,
+        "decisionAccuracy": true,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 339,
+          "modelCalls": 1,
+          "inputTokens": 1625951,
+          "outputTokens": 13686,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": []
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P1-T2-C0_MANUAL_PACKET",
+      "taskId": "T2",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict Abstain — the supplied evidence does not substantiate mitigation_confirmed for this claim and scope. does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P1-T2-C0_MANUAL_PACKET",
+        "pairId": "P1-T2",
+        "personaId": "P1",
+        "taskId": "T2",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 82.2,
+          "modelCalls": 1,
+          "inputTokens": 114573,
+          "outputTokens": 8799,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P1-T2-C1_APPLICATION_BROWSER",
+      "taskId": "T2",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P1-T2-C1_APPLICATION_BROWSER",
+        "pairId": "P1-T2",
+        "personaId": "P1",
+        "taskId": "T2",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 382.1,
+          "modelCalls": 1,
+          "inputTokens": 1411876,
+          "outputTokens": 23620,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P1-T3-C0_MANUAL_PACKET",
+      "taskId": "T3",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 provides JSON in prompt and submit_result only: no mutation/export/verifier tools. Trusted digest exists, executable verification is unavailable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state not_recorded does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P1-T3-C0_MANUAL_PACKET",
+        "pairId": "P1-T3",
+        "personaId": "P1",
+        "taskId": "T3",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 61.5,
+          "modelCalls": 1,
+          "inputTokens": 208496,
+          "outputTokens": 5190,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "navigation",
+        "reasons": [
+          "Revisit state not_recorded does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P1-T3-C1_APPLICATION_BROWSER",
+      "taskId": "T3",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 opens /dashboard/reports without seeding DEMO-work/decision or authorized reviewer; servers explicitly disable reviewer configuration. Never bypass authorization."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state pending; alasan revisit dicatat dalam browser-local case work DEMO-002 revision 1; authorized review belum tersedia does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P1-T3-C1_APPLICATION_BROWSER",
+        "pairId": "P1-T3",
+        "personaId": "P1",
+        "taskId": "T3",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 662.1,
+          "modelCalls": 1,
+          "inputTokens": 5494216,
+          "outputTokens": 26050,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Revisit state pending; alasan revisit dicatat dalam browser-local case work DEMO-002 revision 1; authorized review belum tersedia does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P2-T1-C0_MANUAL_PACKET",
+      "taskId": "T1",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "completed",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "Read-only packet tools cannot activate a plan or execute a capacity change. A hypothetical state is not an observed runtime state."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy Sort eligible sources by weightedScore descending and take the next source while respecting maxPerCountry=2, until capacity=10 is filled. Applied the packet parameters (recurrenceWeight=50; no country or sector filters). does not match weighted.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P2-T1-C0_MANUAL_PACKET",
+        "pairId": "P2-T1",
+        "personaId": "P2",
+        "taskId": "T1",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 77.2,
+          "modelCalls": 1,
+          "inputTokens": 114804,
+          "outputTokens": 6779,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Selected strategy Sort eligible sources by weightedScore descending and take the next source while respecting maxPerCountry=2, until capacity=10 is filled. Applied the packet parameters (recurrenceWeight=50; no country or sector filters). does not match weighted.",
+          "Changing capacity to 20 must not replace the active capacity-10 plan."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P2-T1-C1_APPLICATION_BROWSER",
+      "taskId": "T1",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "categories": [
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "Structured output satisfies the bounded recovery evaluator; original frozen result remains failed."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy (missing) does not match weighted.",
+        "Rationale does not name the included source and the quota/capacity reason for the excluded source.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "strategy_display_label",
+        "includedRationale_structured_text",
+        "excludedRationale_structured_text",
+        "observed_structured_active_plan_state"
+      ],
+      "score": {
+        "episodeId": "P2-T1-C1_APPLICATION_BROWSER",
+        "pairId": "P2-T1",
+        "personaId": "P2",
+        "taskId": "T1",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": true,
+        "decisionAccuracy": true,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 441.5,
+          "modelCalls": 1,
+          "inputTokens": 2469634,
+          "outputTokens": 18518,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": []
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P2-T2-C0_MANUAL_PACKET",
+      "taskId": "T2",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict Abstain: the supplied evidence does not establish completed mitigation or a confirming post-action measurement within the stated scope. does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P2-T2-C0_MANUAL_PACKET",
+        "pairId": "P2-T2",
+        "personaId": "P2",
+        "taskId": "T2",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 74.6,
+          "modelCalls": 1,
+          "inputTokens": 65492,
+          "outputTokens": 8299,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P2-T2-C1_APPLICATION_BROWSER",
+      "taskId": "T2",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict ABSTAIN — insufficient evidence to verify the stated mitigation and post-action outcome. The claim is not established by the inspected evidence; this does not establish that no action occurred or that the claim is false. does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P2-T2-C1_APPLICATION_BROWSER",
+        "pairId": "P2-T2",
+        "personaId": "P2",
+        "taskId": "T2",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 448,
+          "modelCalls": 1,
+          "inputTokens": 2796225,
+          "outputTokens": 24095,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P2-T3-C0_MANUAL_PACKET",
+      "taskId": "T3",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 provides JSON in prompt and submit_result only: no mutation/export/verifier tools. Trusted digest exists, executable verification is unavailable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state not_recorded_tool_unavailable does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P2-T3-C0_MANUAL_PACKET",
+        "pairId": "P2-T3",
+        "personaId": "P2",
+        "taskId": "T3",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 57.1,
+          "modelCalls": 1,
+          "inputTokens": 182659,
+          "outputTokens": 4285,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "unknown",
+        "reasons": [
+          "Revisit state not_recorded_tool_unavailable does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P2-T3-C1_APPLICATION_BROWSER",
+      "taskId": "T3",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 opens /dashboard/reports without seeding DEMO-work/decision or authorized reviewer; servers explicitly disable reviewer configuration. Never bypass authorization."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state open_awaiting_evidence_and_authorized_review does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P2-T3-C1_APPLICATION_BROWSER",
+        "pairId": "P2-T3",
+        "personaId": "P2",
+        "taskId": "T3",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 891.3,
+          "modelCalls": 1,
+          "inputTokens": 5092822,
+          "outputTokens": 30378,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Revisit state open_awaiting_evidence_and_authorized_review does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P3-T1-C0_MANUAL_PACKET",
+      "taskId": "T1",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "completed",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "Read-only packet tools cannot activate a plan or execute a capacity change. A hypothetical state is not an observed runtime state."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy (missing) does not match weighted.",
+        "Rationale does not name the included source and the quota/capacity reason for the excluded source.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "includedRationale_structured_text",
+        "excludedRationale_structured_text"
+      ],
+      "score": {
+        "episodeId": "P3-T1-C0_MANUAL_PACKET",
+        "pairId": "P3-T1",
+        "personaId": "P3",
+        "taskId": "T1",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 87.6,
+          "modelCalls": 1,
+          "inputTokens": 166664,
+          "outputTokens": 8636,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Selected strategy (missing) does not match weighted.",
+          "Changing capacity to 20 must not replace the active capacity-10 plan."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P3-T1-C1_APPLICATION_BROWSER",
+      "taskId": "T1",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "categories": [
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "Some labels/structures are equivalent, but full activation evidence is not normalized; remaining failures retained."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy Weighted historical indicators does not match weighted.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "strategy_display_label"
+      ],
+      "score": {
+        "episodeId": "P3-T1-C1_APPLICATION_BROWSER",
+        "pairId": "P3-T1",
+        "personaId": "P3",
+        "taskId": "T1",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 316.9,
+          "modelCalls": 1,
+          "inputTokens": 1243788,
+          "outputTokens": 16430,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Changing capacity to 20 must not replace the active capacity-10 plan."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P3-T2-C0_MANUAL_PACKET",
+      "taskId": "T2",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict abstain — the supplied evidence does not establish completed mitigation or a post-action measurement confirming the outcome. does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P3-T2-C0_MANUAL_PACKET",
+        "pairId": "P3-T2",
+        "personaId": "P3",
+        "taskId": "T2",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 60.8,
+          "modelCalls": 1,
+          "inputTokens": 83463,
+          "outputTokens": 6231,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P3-T2-C1_APPLICATION_BROWSER",
+      "taskId": "T2",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P3-T2-C1_APPLICATION_BROWSER",
+        "pairId": "P3-T2",
+        "personaId": "P3",
+        "taskId": "T2",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 224.5,
+          "modelCalls": 1,
+          "inputTokens": 578165,
+          "outputTokens": 11059,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P3-T3-C0_MANUAL_PACKET",
+      "taskId": "T3",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 provides JSON in prompt and submit_result only: no mutation/export/verifier tools. Trusted digest exists, executable verification is unavailable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state not_recorded does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P3-T3-C0_MANUAL_PACKET",
+        "pairId": "P3-T3",
+        "personaId": "P3",
+        "taskId": "T3",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 72.3,
+          "modelCalls": 1,
+          "inputTokens": 137782,
+          "outputTokens": 5591,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Revisit state not_recorded does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P3-T3-C1_APPLICATION_BROWSER",
+      "taskId": "T3",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 opens /dashboard/reports without seeding DEMO-work/decision or authorized reviewer; servers explicitly disable reviewer configuration. Never bypass authorization."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state Open investigation; browser-local case work revision 1, status Investigate, saved 2026-10-21T05:24:14.255Z. does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P3-T3-C1_APPLICATION_BROWSER",
+        "pairId": "P3-T3",
+        "personaId": "P3",
+        "taskId": "T3",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 584.9,
+          "modelCalls": 1,
+          "inputTokens": 4298106,
+          "outputTokens": 22259,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "substantive",
+        "reasons": [
+          "Revisit state Open investigation; browser-local case work revision 1, status Investigate, saved 2026-10-21T05:24:14.255Z. does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P4-T1-C0_MANUAL_PACKET",
+      "taskId": "T1",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "GENUINE_TASK_FAILURE",
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "Wrong exact allocation IDs; strategy normalization cannot repair this.",
+        "Read-only packet tools cannot activate a plan or execute a capacity change. A hypothetical state is not an observed runtime state."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy WeightedScore descending (recurrenceWeight=50), greedily accept rows until capacity=10 while enforcing maxPerCountry=2; countries=[] and sectors=[]; applied to the frozen ranking. does not match weighted.",
+        "Selected source IDs do not match the frozen planner replay.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P4-T1-C0_MANUAL_PACKET",
+        "pairId": "P4-T1",
+        "personaId": "P4",
+        "taskId": "T1",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 100.3,
+          "modelCalls": 1,
+          "inputTokens": 148126,
+          "outputTokens": 11165,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Selected strategy WeightedScore descending (recurrenceWeight=50), greedily accept rows until capacity=10 while enforcing maxPerCountry=2; countries=[] and sectors=[]; applied to the frozen ranking. does not match weighted.",
+          "Selected source IDs do not match the frozen planner replay.",
+          "Changing capacity to 20 must not replace the active capacity-10 plan.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P4-T1-C1_APPLICATION_BROWSER",
+      "taskId": "T1",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "categories": [
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "Structured output satisfies the bounded recovery evaluator; original frozen result remains failed."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy (missing) does not match weighted.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "strategy_display_label",
+        "observed_structured_active_plan_state"
+      ],
+      "score": {
+        "episodeId": "P4-T1-C1_APPLICATION_BROWSER",
+        "pairId": "P4-T1",
+        "personaId": "P4",
+        "taskId": "T1",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": true,
+        "decisionAccuracy": true,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 462.9,
+          "modelCalls": 1,
+          "inputTokens": 2078022,
+          "outputTokens": 19646,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": []
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P4-T2-C0_MANUAL_PACKET",
+      "taskId": "T2",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict abstain does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P4-T2-C0_MANUAL_PACKET",
+        "pairId": "P4-T2",
+        "personaId": "P4",
+        "taskId": "T2",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.8888888888888888,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 86,
+          "modelCalls": 1,
+          "inputTokens": 119598,
+          "outputTokens": 8230,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P4-T2-C1_APPLICATION_BROWSER",
+      "taskId": "T2",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Verdict Abstain — insufficient evidence to establish mitigation_confirmed for this claim and scope. This neither confirms nor disproves physical mitigation. does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P4-T2-C1_APPLICATION_BROWSER",
+        "pairId": "P4-T2",
+        "personaId": "P4",
+        "taskId": "T2",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.8888888888888888,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 298.2,
+          "modelCalls": 1,
+          "inputTokens": 646473,
+          "outputTokens": 18505,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Evidence request is missing fields: references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P4-T3-C0_MANUAL_PACKET",
+      "taskId": "T3",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 provides JSON in prompt and submit_result only: no mutation/export/verifier tools. Trusted digest exists, executable verification is unavailable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state not_recorded does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Historical decision was reported as changed.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P4-T3-C0_MANUAL_PACKET",
+        "pairId": "P4-T3",
+        "personaId": "P4",
+        "taskId": "T3",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 54.7,
+          "modelCalls": 1,
+          "inputTokens": 170705,
+          "outputTokens": 4062,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Revisit state not_recorded does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Historical decision was reported as changed.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P4-T3-C1_APPLICATION_BROWSER",
+      "taskId": "T3",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 opens /dashboard/reports without seeding DEMO-work/decision or authorized reviewer; servers explicitly disable reviewer configuration. Never bypass authorization."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state pending_evidence_and_authorized_review does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P4-T3-C1_APPLICATION_BROWSER",
+        "pairId": "P4-T3",
+        "personaId": "P4",
+        "taskId": "T3",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 643,
+          "modelCalls": 1,
+          "inputTokens": 3945030,
+          "outputTokens": 31060,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "substantive",
+        "reasons": [
+          "Revisit state pending_evidence_and_authorized_review does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P5-T1-C0_MANUAL_PACKET",
+      "taskId": "T1",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "completed",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "Read-only packet tools cannot activate a plan or execute a capacity change. A hypothetical state is not an observed runtime state."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy (missing) does not match weighted.",
+        "Rationale does not name the included source and the quota/capacity reason for the excluded source.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "includedRationale_structured_text",
+        "excludedRationale_structured_text"
+      ],
+      "score": {
+        "episodeId": "P5-T1-C0_MANUAL_PACKET",
+        "pairId": "P5-T1",
+        "personaId": "P5",
+        "taskId": "T1",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 77.7,
+          "modelCalls": 1,
+          "inputTokens": 163196,
+          "outputTokens": 6411,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Selected strategy (missing) does not match weighted.",
+          "Changing capacity to 20 must not replace the active capacity-10 plan."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P5-T1-C1_APPLICATION_BROWSER",
+      "taskId": "T1",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "categories": [
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "Structured output satisfies the bounded recovery evaluator; original frozen result remains failed."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy Weighted historical indicators does not match weighted.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "strategy_display_label",
+        "observed_structured_active_plan_state"
+      ],
+      "score": {
+        "episodeId": "P5-T1-C1_APPLICATION_BROWSER",
+        "pairId": "P5-T1",
+        "personaId": "P5",
+        "taskId": "T1",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": true,
+        "decisionAccuracy": true,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 475.1,
+          "modelCalls": 1,
+          "inputTokens": 1789712,
+          "outputTokens": 16510,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": []
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P5-T2-C0_MANUAL_PACKET",
+      "taskId": "T2",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict Abstain — the supplied evidence does not substantiate completed mitigation or a linked post-action measurement by the stated cutoff. does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P5-T2-C0_MANUAL_PACKET",
+        "pairId": "P5-T2",
+        "personaId": "P5",
+        "taskId": "T2",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 80.3,
+          "modelCalls": 1,
+          "inputTokens": 110751,
+          "outputTokens": 8650,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P5-T2-C1_APPLICATION_BROWSER",
+      "taskId": "T2",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P5-T2-C1_APPLICATION_BROWSER",
+        "pairId": "P5-T2",
+        "personaId": "P5",
+        "taskId": "T2",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 249.3,
+          "modelCalls": 1,
+          "inputTokens": 579069,
+          "outputTokens": 13114,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P5-T3-C0_MANUAL_PACKET",
+      "taskId": "T3",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 provides JSON in prompt and submit_result only: no mutation/export/verifier tools. Trusted digest exists, executable verification is unavailable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state recommended_pending_review does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P5-T3-C0_MANUAL_PACKET",
+        "pairId": "P5-T3",
+        "personaId": "P5",
+        "taskId": "T3",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 78.2,
+          "modelCalls": 1,
+          "inputTokens": 191692,
+          "outputTokens": 6205,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Revisit state recommended_pending_review does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P5-T3-C1_APPLICATION_BROWSER",
+      "taskId": "T3",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 opens /dashboard/reports without seeding DEMO-work/decision or authorized reviewer; servers explicitly disable reviewer configuration. Never bypass authorization."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state pending_in_local_casework_only does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P5-T3-C1_APPLICATION_BROWSER",
+        "pairId": "P5-T3",
+        "personaId": "P5",
+        "taskId": "T3",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 555.9,
+          "modelCalls": 1,
+          "inputTokens": 3802997,
+          "outputTokens": 22271,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "substantive",
+        "reasons": [
+          "Revisit state pending_in_local_casework_only does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P6-T1-C0_MANUAL_PACKET",
+      "taskId": "T1",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "Read-only packet tools cannot activate a plan or execute a capacity change. A hypothetical state is not an observed runtime state."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy (missing) does not match weighted.",
+        "Rationale does not name the included source and the quota/capacity reason for the excluded source.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "includedRationale_structured_text",
+        "excludedRationale_structured_text"
+      ],
+      "score": {
+        "episodeId": "P6-T1-C0_MANUAL_PACKET",
+        "pairId": "P6-T1",
+        "personaId": "P6",
+        "taskId": "T1",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 72.7,
+          "modelCalls": 1,
+          "inputTokens": 86674,
+          "outputTokens": 6266,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Selected strategy (missing) does not match weighted.",
+          "Changing capacity to 20 must not replace the active capacity-10 plan.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P6-T1-C1_APPLICATION_BROWSER",
+      "taskId": "T1",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "categories": [
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "Some labels/structures are equivalent, but full activation evidence is not normalized; remaining failures retained."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy Weighted historical indicators does not match weighted.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "strategy_display_label"
+      ],
+      "score": {
+        "episodeId": "P6-T1-C1_APPLICATION_BROWSER",
+        "pairId": "P6-T1",
+        "personaId": "P6",
+        "taskId": "T1",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 592.8,
+          "modelCalls": 1,
+          "inputTokens": 2946271,
+          "outputTokens": 17832,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Changing capacity to 20 must not replace the active capacity-10 plan."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P6-T2-C0_MANUAL_PACKET",
+      "taskId": "T2",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict Abstain — insufficient evidence to establish that mitigation was completed or that a post-action measurement confirmed an outcome. does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P6-T2-C0_MANUAL_PACKET",
+        "pairId": "P6-T2",
+        "personaId": "P6",
+        "taskId": "T2",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 98,
+          "modelCalls": 1,
+          "inputTokens": 107287,
+          "outputTokens": 9444,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P6-T2-C1_APPLICATION_BROWSER",
+      "taskId": "T2",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P6-T2-C1_APPLICATION_BROWSER",
+        "pairId": "P6-T2",
+        "personaId": "P6",
+        "taskId": "T2",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 365.4,
+          "modelCalls": 1,
+          "inputTokens": 665523,
+          "outputTokens": 17523,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "navigation",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P6-T3-C0_MANUAL_PACKET",
+      "taskId": "T3",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 provides JSON in prompt and submit_result only: no mutation/export/verifier tools. Trusted digest exists, executable verification is unavailable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state not_recorded_tool_unavailable does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P6-T3-C0_MANUAL_PACKET",
+        "pairId": "P6-T3",
+        "personaId": "P6",
+        "taskId": "T3",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 75.3,
+          "modelCalls": 1,
+          "inputTokens": 188450,
+          "outputTokens": 5110,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Revisit state not_recorded_tool_unavailable does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P6-T3-C1_APPLICATION_BROWSER",
+      "taskId": "T3",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 opens /dashboard/reports without seeding DEMO-work/decision or authorized reviewer; servers explicitly disable reviewer configuration. Never bypass authorization."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state candidate reason recorded in browser-local casework; no formal revisit event recorded does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P6-T3-C1_APPLICATION_BROWSER",
+        "pairId": "P6-T3",
+        "personaId": "P6",
+        "taskId": "T3",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 827.2,
+          "modelCalls": 1,
+          "inputTokens": 3970314,
+          "outputTokens": 26281,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Revisit state candidate reason recorded in browser-local casework; no formal revisit event recorded does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P7-T1-C0_MANUAL_PACKET",
+      "taskId": "T1",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "completed",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "Read-only packet tools cannot activate a plan or execute a capacity change. A hypothetical state is not an observed runtime state."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy Scan the supplied eligible rows in descending weightedScore order and select until capacity 10, accepting at most 2 sources per country; use the packet parameters recurrenceWeight=50 with countries=[] and sectors=[]. does not match weighted.",
+        "Rationale does not name the included source and the quota/capacity reason for the excluded source.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "includedRationale_structured_text",
+        "excludedRationale_structured_text"
+      ],
+      "score": {
+        "episodeId": "P7-T1-C0_MANUAL_PACKET",
+        "pairId": "P7-T1",
+        "personaId": "P7",
+        "taskId": "T1",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 119.8,
+          "modelCalls": 1,
+          "inputTokens": 98844,
+          "outputTokens": 12898,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Selected strategy Scan the supplied eligible rows in descending weightedScore order and select until capacity 10, accepting at most 2 sources per country; use the packet parameters recurrenceWeight=50 with countries=[] and sectors=[]. does not match weighted.",
+          "Changing capacity to 20 must not replace the active capacity-10 plan."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P7-T1-C1_APPLICATION_BROWSER",
+      "taskId": "T1",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "categories": [
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "Some labels/structures are equivalent, but full activation evidence is not normalized; remaining failures retained."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy (missing) does not match weighted.",
+        "Rationale does not name the included source and the quota/capacity reason for the excluded source.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "strategy_display_label",
+        "includedRationale_structured_text",
+        "excludedRationale_structured_text"
+      ],
+      "score": {
+        "episodeId": "P7-T1-C1_APPLICATION_BROWSER",
+        "pairId": "P7-T1",
+        "personaId": "P7",
+        "taskId": "T1",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "completed",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 652.1,
+          "modelCalls": 1,
+          "inputTokens": 2299124,
+          "outputTokens": 21742,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Changing capacity to 20 must not replace the active capacity-10 plan."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P7-T2-C0_MANUAL_PACKET",
+      "taskId": "T2",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict ABSTAIN — the supplied evidence does not substantiate mitigation_confirmed. It does not establish that mitigation occurred or that a post-action measurement confirmed the outcome. does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P7-T2-C0_MANUAL_PACKET",
+        "pairId": "P7-T2",
+        "personaId": "P7",
+        "taskId": "T2",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 79.1,
+          "modelCalls": 1,
+          "inputTokens": 106262,
+          "outputTokens": 7641,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P7-T2-C1_APPLICATION_BROWSER",
+      "taskId": "T2",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict abstain_insufficient_evidence does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P7-T2-C1_APPLICATION_BROWSER",
+        "pairId": "P7-T2",
+        "personaId": "P7",
+        "taskId": "T2",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 171.5,
+          "modelCalls": 1,
+          "inputTokens": 348733,
+          "outputTokens": 11299,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "navigation",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P7-T3-C0_MANUAL_PACKET",
+      "taskId": "T3",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 provides JSON in prompt and submit_result only: no mutation/export/verifier tools. Trusted digest exists, executable verification is unavailable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state not_applied does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P7-T3-C0_MANUAL_PACKET",
+        "pairId": "P7-T3",
+        "personaId": "P7",
+        "taskId": "T3",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": 0,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 75,
+          "modelCalls": 1,
+          "inputTokens": 155002,
+          "outputTokens": 3854,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Revisit state not_applied does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P7-T3-C1_APPLICATION_BROWSER",
+      "taskId": "T3",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 opens /dashboard/reports without seeding DEMO-work/decision or authorized reviewer; servers explicitly disable reviewer configuration. Never bypass authorization."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state not_created_no_historical_decision does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P7-T3-C1_APPLICATION_BROWSER",
+        "pairId": "P7-T3",
+        "personaId": "P7",
+        "taskId": "T3",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 641.4,
+          "modelCalls": 1,
+          "inputTokens": 3669767,
+          "outputTokens": 19371,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Revisit state not_created_no_historical_decision does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P8-T1-C0_MANUAL_PACKET",
+      "taskId": "T1",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "Read-only packet tools cannot activate a plan or execute a capacity change. A hypothetical state is not an observed runtime state."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy Manual: urutkan kandidat menurut weightedScore yang disediakan (recurrenceWeight=50), telusuri berurutan, dan terima paling banyak 2 source per country sampai capacity=10. Filters countries=[] dan sectors=[]. Rencana hasil hitungan belum diaktifkan. does not match weighted.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P8-T1-C0_MANUAL_PACKET",
+        "pairId": "P8-T1",
+        "personaId": "P8",
+        "taskId": "T1",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 1,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 107.4,
+          "modelCalls": 1,
+          "inputTokens": 132735,
+          "outputTokens": 8020,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Selected strategy Manual: urutkan kandidat menurut weightedScore yang disediakan (recurrenceWeight=50), telusuri berurutan, dan terima paling banyak 2 source per country sampai capacity=10. Filters countries=[] dan sectors=[]. Rencana hasil hitungan belum diaktifkan. does not match weighted.",
+          "Changing capacity to 20 must not replace the active capacity-10 plan.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P8-T1-C1_APPLICATION_BROWSER",
+      "taskId": "T1",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "failed",
+      "categories": [
+        "AGENT_OR_TOOL_FAILURE"
+      ],
+      "obligations": [
+        "No sealed task output. Zero recorded tools is not proof of zero calls: old bridge persisted counters only at submission and deleted temporary diagnostics. Exact P8 root cause is not recoverable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Selected strategy (missing) does not match weighted.",
+        "Selected source IDs do not match the frozen planner replay.",
+        "Rationale does not name the included source and the quota/capacity reason for the excluded source.",
+        "Changing capacity to 20 must not replace the active capacity-10 plan.",
+        "Run status was failed, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P8-T1-C1_APPLICATION_BROWSER",
+        "pairId": "P8-T1",
+        "personaId": "P8",
+        "taskId": "T1",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "failed",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": null,
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 69.7,
+          "modelCalls": 1,
+          "inputTokens": 72378,
+          "outputTokens": 1709,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": [
+            "codex_result_missing"
+          ]
+        },
+        "assistance": "unknown",
+        "reasons": [
+          "Selected strategy (missing) does not match weighted.",
+          "Selected source IDs do not match the frozen planner replay.",
+          "Rationale does not name the included source and the quota/capacity reason for the excluded source.",
+          "Changing capacity to 20 must not replace the active capacity-10 plan.",
+          "Run status was failed, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P8-T2-C0_MANUAL_PACKET",
+      "taskId": "T2",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION",
+        "SCORER_FALSE_NEGATIVE"
+      ],
+      "obligations": [
+        "claimTextSha256 and requestedEvidenceRequirementIds are scored but absent from advertised output fields. No absent field is synthesized.",
+        "Scientific abstention is not task completion. Request fields and exact source/claim/scope remain required."
+      ],
+      "t2Binding": {
+        "sourceId": true,
+        "claimType": true,
+        "exactClaimText": true,
+        "exactUtcScope": true
+      },
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "whyNeeded",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": true,
+          "shape": "array"
+        },
+        {
+          "field": "ownerRole",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "sourceId",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "claimText",
+          "present": true,
+          "shape": "string"
+        },
+        {
+          "field": "scope",
+          "present": true,
+          "shape": "object"
+        },
+        {
+          "field": "references",
+          "present": true,
+          "shape": "array"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict Abstain — the supplied evidence is insufficient to determine whether mitigation was completed and confirmed within this UTC scope. This does not establish that no action occurred. does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: requestedEvidence, references.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [
+        "bounded_abstention_alias"
+      ],
+      "score": {
+        "episodeId": "P8-T2-C0_MANUAL_PACKET",
+        "pairId": "P8-T2",
+        "personaId": "P8",
+        "taskId": "T2",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": true,
+        "falseSupported": false,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": 0,
+        "actionability": 0.7777777777777778,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 103.3,
+          "modelCalls": 1,
+          "inputTokens": 88340,
+          "outputTokens": 7479,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "none",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Evidence request is missing fields: requestedEvidence, references.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P8-T2-C1_APPLICATION_BROWSER",
+      "taskId": "T2",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "failed",
+      "categories": [
+        "AGENT_OR_TOOL_FAILURE"
+      ],
+      "obligations": [
+        "No sealed task output. Zero recorded tools is not proof of zero calls: old bridge persisted counters only at submission and deleted temporary diagnostics. Exact P8 root cause is not recoverable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": [
+        {
+          "field": "requestedEvidence",
+          "present": false,
+          "shape": "undefined"
+        },
+        {
+          "field": "whyNeeded",
+          "present": false,
+          "shape": "undefined"
+        },
+        {
+          "field": "acceptanceCriteria",
+          "present": false,
+          "shape": "undefined"
+        },
+        {
+          "field": "ownerRole",
+          "present": false,
+          "shape": "undefined"
+        },
+        {
+          "field": "dueDateOrReasonUnset",
+          "present": false,
+          "shape": "undefined"
+        },
+        {
+          "field": "sourceId",
+          "present": false,
+          "shape": "undefined"
+        },
+        {
+          "field": "claimText",
+          "present": false,
+          "shape": "undefined"
+        },
+        {
+          "field": "scope",
+          "present": false,
+          "shape": "undefined"
+        },
+        {
+          "field": "references",
+          "present": false,
+          "shape": "undefined"
+        }
+      ],
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+        "Verdict (missing) does not match the frozen rule outcome insufficient_evidence.",
+        "Evidence request is missing fields: requestedEvidence, whyNeeded, acceptanceCriteria, ownerRole, dueDateOrReasonUnset, sourceId, claimText, scope, references.",
+        "Run status was failed, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P8-T2-C1_APPLICATION_BROWSER",
+        "pairId": "P8-T2",
+        "personaId": "P8",
+        "taskId": "T2",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "failed",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": null,
+        "missingEvidenceRecall": 0,
+        "actionability": 0,
+        "revisitPrecision": null,
+        "revisitRecall": null,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": null,
+        "timing": {
+          "wallClockSeconds": 89.4,
+          "modelCalls": 1,
+          "inputTokens": 179829,
+          "outputTokens": 10074,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": [
+            "codex_result_missing"
+          ]
+        },
+        "assistance": "unknown",
+        "reasons": [
+          "Source, exact claim text/hash or UTC scope was not preserved exactly.",
+          "Verdict (missing) does not match the frozen rule outcome insufficient_evidence.",
+          "Evidence request is missing fields: requestedEvidence, whyNeeded, acceptanceCriteria, ownerRole, dueDateOrReasonUnset, sourceId, claimText, scope, references.",
+          "Run status was failed, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": [
+        "claimTextSha256",
+        "requestedEvidenceRequirementIds"
+      ]
+    },
+    {
+      "episodeId": "P8-T3-C0_MANUAL_PACKET",
+      "taskId": "T3",
+      "condition": "C0_MANUAL_PACKET",
+      "status": "abstained",
+      "categories": [
+        "PROTOCOL_LIMITATION"
+      ],
+      "obligations": [
+        "T3 provides JSON in prompt and submit_result only: no mutation/export/verifier tools. Trusted digest exists, executable verification is unavailable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state (missing) does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Historical decision was reported as changed.",
+        "Trusted-digest verification did not pass.",
+        "Run status was abstained, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P8-T3-C0_MANUAL_PACKET",
+        "pairId": "P8-T3",
+        "personaId": "P8",
+        "taskId": "T3",
+        "condition": "C0_MANUAL_PACKET",
+        "status": "abstained",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": [],
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 54.4,
+          "modelCalls": 1,
+          "inputTokens": 131686,
+          "outputTokens": 2617,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": []
+        },
+        "assistance": "unknown",
+        "reasons": [
+          "Revisit state (missing) does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Historical decision was reported as changed.",
+          "Trusted-digest verification did not pass.",
+          "Run status was abstained, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    },
+    {
+      "episodeId": "P8-T3-C1_APPLICATION_BROWSER",
+      "taskId": "T3",
+      "condition": "C1_APPLICATION_BROWSER",
+      "status": "failed",
+      "categories": [
+        "AGENT_OR_TOOL_FAILURE"
+      ],
+      "obligations": [
+        "No sealed task output. Zero recorded tools is not proof of zero calls: old bridge persisted counters only at submission and deleted temporary diagnostics. Exact P8 root cause is not recoverable."
+      ],
+      "t2Binding": null,
+      "requestFieldAudit": null,
+      "frozenCompletion": false,
+      "frozenReasons": [
+        "Revisit state (missing) does not match review_recommended.",
+        "Revisit reason codes do not match the frozen transition.",
+        "Historical decision was reported as changed.",
+        "Trusted-digest verification did not pass.",
+        "Run status was failed, not completed."
+      ],
+      "evaluatorVersion": "agent-usefulness-recovery/4",
+      "changes": [],
+      "score": {
+        "episodeId": "P8-T3-C1_APPLICATION_BROWSER",
+        "pairId": "P8-T3",
+        "personaId": "P8",
+        "taskId": "T3",
+        "condition": "C1_APPLICATION_BROWSER",
+        "status": "failed",
+        "scored": true,
+        "taskCompletion": false,
+        "decisionAccuracy": false,
+        "falseSupported": null,
+        "criticalOverclaims": null,
+        "missingEvidenceRecall": null,
+        "actionability": null,
+        "revisitPrecision": null,
+        "revisitRecall": 0,
+        "sourceScopePreservation": 0,
+        "tamperAndAuthz": false,
+        "timing": {
+          "wallClockSeconds": 61.7,
+          "modelCalls": 1,
+          "inputTokens": 184651,
+          "outputTokens": 1966,
+          "costUsd": null,
+          "retries": 0,
+          "hints": 0,
+          "failures": [
+            "codex_result_missing"
+          ]
+        },
+        "assistance": "unknown",
+        "reasons": [
+          "Revisit state (missing) does not match review_recommended.",
+          "Revisit reason codes do not match the frozen transition.",
+          "Historical decision was reported as changed.",
+          "Trusted-digest verification did not pass.",
+          "Run status was failed, not completed."
+        ]
+      },
+      "missingUnadvertisedFields": []
+    }
+  ]
+}

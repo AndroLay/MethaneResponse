@@ -1,0 +1,11 @@
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/agent-usefulness/pre-video-smoke.test.ts:
+(pass) limited smoke checks exact membership, not labels or number of rows alone [2.00ms]
+(pass) historical count needs an independently loaded oracle and cannot imply repair [0.71ms]
+(pass) trusted digest is not human or blockchain or physical verification [0.39ms]
+
+ 3 pass
+ 0 fail
+ 12 expect() calls
+Ran 3 tests across 1 file. [49.00ms]

@@ -1,0 +1,411 @@
+$ cd apps/web && bun test
+bun test v1.4.3 (c6da4a4d3)
+
+src/map-panel-load.test.ts:
+(pass) map panel viewport loading > waits until the map enters the expanded viewport when observation is supported [0.05ms]
+(pass) map panel viewport loading > loads immediately when IntersectionObserver is unavailable
+(pass) map panel viewport loading > an explicit source focus loads the map even before a viewport observation arrives
+(pass) map panel viewport loading > prepares expensive observation points only when point records are visible [0.02ms]
+(pass) map panel viewport loading > prepares source point geometry only for visible source-marker layers or the safe fallback [0.02ms]
+(pass) map panel viewport loading > keeps historical analysis available on observation-based map layers [0.02ms]
+(pass) map panel viewport loading > loads history only for case details and complete archive layers that are actually visible [0.04ms]
+
+src/operator-metadata.test.ts:
+(pass) MARS operator response metadata > filters and counts only source-published notification and feedback fields [0.46ms]
+(pass) MARS operator response metadata > excludes not-applicable sentinels but retains an explicit No status [0.21ms]
+
+src/prepared-evidence.test.ts:
+(pass) valid prepared document remains offline and retains provenance metadata [1.33ms]
+(pass) open-license prepared evidence carries matching license and attribution declarations [0.60ms]
+(pass) cannot import evidence for a different source or modified excerpt [0.21ms]
+(pass) rejects link-only or tampered page metadata [0.38ms]
+(pass) reads only bounded prepared JSON and rejects malformed or oversized files [0.45ms]
+
+src/api-proxy-target.test.ts:
+(pass) uses the standard local API target when no development override is set [0.06ms]
+(pass) uses an explicit HTTP API origin for isolated or non-default development ports [0.02ms]
+(pass) rejects malformed, credentialed, or non-origin proxy targets [0.05ms]
+
+src/case-table.test.ts:
+(pass) source case search is bounded and matches all words across case metadata [0.43ms]
+(pass) source case search does not render the full inventory for an empty query [0.43ms]
+(pass) case pagination exposes a bounded page window for thousands of rows [0.18ms]
+(pass) empty results have a safe page window [0.02ms]
+(pass) case locations retain reported country, region and source coordinate precision [8.91ms]
+(pass) case locations do not repeat identical country and region labels [0.16ms]
+(pass) case inspector keeps the requested visible source and falls back safely after filtering [0.12ms]
+(pass) selected case opens on the page containing its row [0.88ms]
+
+src/mars-snapshot-loader.test.ts:
+(pass) uses a transferable byte copy so worker parsing preserves fallback bytes and all dataset rows [1.42ms]
+(pass) falls back to the verified main-thread parser when the worker crashes [0.33ms]
+(pass) falls back to the verified parser rather than accepting missing or out-of-order source chunks [0.20ms]
+(pass) does not mask a worker-reported integrity rejection with a successful fallback [0.10ms]
+(pass) terminates worker work when the loading effect is cancelled [0.20ms]
+
+src/evidence-overlap-ui.test.ts:
+(pass) overlap review preserves existing notes and records exact report, revisions and human interpretation [0.54ms]
+(pass) unknown candidate, blank rationale, unsupported interpretation or overflowing notes are rejected [0.08ms]
+
+src/plume-geometries.test.ts:
+(pass) flux footprint colors use exact reported kg/h intervals and neutralize missing values [0.06ms]
+(pass) map context distinguishes the selected source from other linked and source-unlinked plume shapes [0.09ms]
+(pass) geometry artifacts must match both the exact MARS snapshot ID and CSV archive hash [0.03ms]
+(pass) tracked full-archive index and the latest real geometry month verify in the browser loader [6.40ms]
+(pass) loads a real source-selected MARS footprint and checks it against the exact plume record [143.67ms]
+(pass) the pinned MARS geometry archive covers every linked observation in every global source case [399.65ms]
+(pass) reports a publisher record without geometry as missing instead of creating a footprint [0.49ms]
+(pass) publisher geometry shards stay unloaded on the adaptive low-power rendering tier [0.03ms]
+(pass) monthly footprint loader verifies the gzip bytes before parsing publisher geometry [0.38ms]
+(pass) monthly footprint loader accepts a browser-decoded representation only when its manifest digest matches [0.29ms]
+(pass) monthly footprint loader rejects a changed compressed artifact before JSON is trusted [0.45ms]
+(pass) monthly footprint loader abstains when its archive does not match the active dataset [0.11ms]
+(pass) a month with no published polygons stays empty and does not fetch a missing file [0.14ms]
+(pass) monthly loader rejects an altered index before trusting its shard hashes [0.15ms]
+(pass) visible footprint filtering follows observation IDs without changing raw geometry or flux [0.09ms]
+(pass) global zoom markers use the publisher-reported coordinate, not a derived source assignment [0.08ms]
+(pass) monthly observation locations include records without polygon geometry and preserve unknown versus zero flux [0.20ms]
+
+src/evidence-observations.test.ts:
+(pass) evidence observation view model > omits a middle date tick when it would collide with the latest date label [0.42ms]
+(pass) evidence observation view model > keeps the midpoint date tick when all three labels have enough horizontal space [0.06ms]
+(pass) evidence observation view model > keeps a zero flux record distinct from a record with no reported flux [0.13ms]
+(pass) evidence observation view model > keeps dated satellite observations as separate points even when flux is reported [0.04ms]
+(pass) evidence observation view model > does not connect observations across missing flux values [0.05ms]
+(pass) evidence observation view model > keeps a record with no flux distinct without drawing a line across the gap [0.04ms]
+(pass) evidence observation view model > builds a bounded contextual satellite image request only for valid coordinates [0.26ms]
+(pass) evidence observation view model > provides progressively wider imagery fallbacks while keeping the source centered [0.13ms]
+(pass) evidence observation view model > keeps location imagery in a loading state until the active mosaic center tile loads [1.68ms]
+(pass) evidence observation view model > preserves publisher plume geometry in a bounded, aspect-correct shape preview [0.35ms]
+(pass) evidence observation view model > handles publisher geometry across the antimeridian and rejects invalid coordinates [0.05ms]
+(pass) evidence observation view model > advances imagery fallback once per failed zoom and ignores stale tile failures [0.03ms]
+(pass) evidence observation view model > can derive one contextual image view for every source in the pinned UNEP snapshot without per-case assets [156.43ms]
+
+src/investigation-brief.test.ts:
+(pass) brief preserves the saved decision, citations, integrity boundary and visible DEMO status [1.81ms]
+(pass) source context is not described as an assessment and null flux never becomes zero [0.16ms]
+(pass) a saved older dataset keeps its binding and omits current observations in the readable export [0.20ms]
+(pass) untrusted titles and references cannot inject Markdown links or HTML into the brief [0.10ms]
+(pass) long histories are explicitly bounded without dropping the total record count [0.22ms]
+(pass) private claim wording and document quotations stay out of the shareable brief [0.55ms]
+
+src/investigation-plan.test.ts:
+(pass) observation context uses the same UTC day as the evidence evaluator [0.09ms]
+(pass) metadata flags and linked reports never satisfy notification or mitigation requirements [0.09ms]
+(pass) coverage keeps contrary records scoped to their exact claim and deduplicates IDs [0.16ms]
+(pass) an available required-type reference leads to inspection and saving the baseline [0.08ms]
+(pass) an unreviewed document assessment leads to human review without closing the evidence gap [0.09ms]
+(pass) supported baseline guidance does not authenticate references or certify a repair [0.12ms]
+(pass) terminal document reviews require new evidence and a new assessment [0.20ms]
+(pass) inventory and plan calculations do not mutate source evidence [0.09ms]
+(pass) scope coverage excludes other dates, events, recipients and incomplete follow-up [0.26ms]
+(pass) a saved human determination is described as human and its request remains actionable [0.12ms]
+
+src/observation-history.test.ts:
+(pass) historical observation timeline > computes the displayed date range in one pass and ignores malformed dates [0.07ms]
+(pass) historical observation timeline > builds a complete monthly axis and distinguishes months with no rows [0.20ms]
+(pass) historical observation timeline > shows cumulative archive records through the selected month without changing source values [0.06ms]
+(pass) historical observation timeline > selected geometry month includes only that month and retains zero and missing flux distinctly [0.06ms]
+(pass) historical observation timeline > source geometry opens on that source latest observed month, not the archive latest month [0.06ms]
+
+src/landing-observation-visual.test.ts:
+(pass) landing historical observation chart model > orders dated MARS observations discretely and carries reported uncertainty [0.29ms]
+(pass) landing historical observation chart model > does not turn absent flux into zero and keeps a point when uncertainty is absent [0.05ms]
+(pass) landing historical observation chart model > returns an explicit empty model when no flux is reported [0.02ms]
+(pass) landing historical observation chart model > formats dates in UTC without shifting the publisher day to the browser timezone [0.77ms]
+
+src/PublisherReferenceNotice.test.ts:
+(pass) linked publisher report metadata is explicitly labeled as reference-only [4.70ms]
+(pass) does not show the publisher-reference notice when a case has no linked documents [0.09ms]
+
+src/map-focus.test.ts:
+(pass) overlapping planned and historical marker layers dispatch one selection per physical click [0.05ms]
+(pass) planned rings take precedence over linked or unlinked plume hits with one confirmation per DOM event [0.19ms]
+(pass) initial map deep links request a source zoom while other workspaces do not [0.19ms]
+(pass) map focus preserves the source coordinates and starts above source-marker clustering [0.05ms]
+(pass) source refocus reaches the inspection zoom without zooming out from a closer view [0.02ms]
+(pass) map focus rejects invalid source coordinates instead of navigating to a false location [0.01ms]
+
+src/audit-comparison.test.ts:
+(pass) compares saved decision fields and added, removed, and changed citations without mutating revisions [0.91ms]
+(pass) refuses the same assessment, a different source, a different claim or mixed real/demo modes [0.22ms]
+(pass) flags different snapshot bindings even if the snapshot label is unchanged [0.22ms]
+(pass) an identity or timestamp difference does not fabricate a decision change [0.18ms]
+(pass) compares document inputs, exact claim scope, review parent and dataset byte binding [0.22ms]
+
+src/progressive-mars-loader.test.ts:
+(pass) loads a hash-verified catalog and source history bucket without exposing partial records [3.61ms]
+(pass) accepts a server-decoded catalog only when its decoded digest and byte count match [0.96ms]
+(pass) rejects progressive data whose full snapshot binding does not match [0.61ms]
+(pass) propagates cancellation to an in-flight progressive manifest request [0.66ms]
+(pass) rejects tampered bucket bytes and a correctly rehashed bucket that omits catalog rows [1.37ms]
+(pass) rejects an oversized manifest before requesting catalog bytes [1.07ms]
+(pass) rejects a catalog response larger than either declared artifact representation before reading it [0.59ms]
+
+src/investigation-decision-ui.test.ts:
+(pass) decision history validates identifiers, bounded versions, receipt metadata and configured targets [3.67ms]
+(pass) workflow labels distinguish evidence review, integrity and incorporated historical changes [0.04ms]
+
+src/case-work.test.ts:
+(pass) saved analyst work can be resumed and is isolated by source, snapshot, archive and mode [2.74ms]
+(pass) stale tab saves are rejected instead of overwriting newer work [0.39ms]
+(pass) blocked storage and invalid dates are reported without claiming a save [0.21ms]
+(pass) case work stores only its declared fields and never credentials or audit contents [0.15ms]
+(pass) multiple investigations for one source persist and revise independently [0.57ms]
+(pass) legacy v1 notes remain readable and are retained when upgraded [0.36ms]
+
+src/session-draft.test.ts:
+(pass) session draft recovers incomplete metadata and excludes credentials and confirmation [1.30ms]
+(pass) case draft retains the revision it was edited against and handles blocked storage [0.38ms]
+(pass) follow-up transfer preserves triage, existing request and audit lineage [0.44ms]
+(pass) follow-up transfer rejects another source, mode or dataset snapshot [0.08ms]
+(pass) recovery metadata refuses embedded URL credentials [0.13ms]
+
+src/map-marker-details.test.ts:
+(pass) source marker details bind historical values to the pinned MARS snapshot [0.20ms]
+(pass) source marker details label missing flux and missing snapshot as unknown [0.05ms]
+(pass) source marker details preserve notification and feedback as raw MARS metadata [0.04ms]
+(pass) synthetic source details identify the demo fixture and do not claim a MARS snapshot [0.03ms]
+(pass) observation marker details retain exact MARS record ID, timestamp, flux uncertainty, and source link state [0.07ms]
+
+src/assessment-scope.test.ts:
+(pass) scope draft schema preserves incomplete fields without retaining unknown data [0.10ms]
+(pass) observation preset sorts normalized UTC days and excludes invalid dates [0.15ms]
+(pass) unapplied scope edits are distinct from a source-level or saved scope [0.06ms]
+(pass) scope picker exposes dated DEMO detection references when no observation rows exist [1.56ms]
+(pass) scope picker shows the UTC day instead of the timestamp local day [0.81ms]
+
+src/imported-audit-verifier.test.ts:
+(pass) browser verifier defaults to complete context checking with a visible legacy option [0.53ms]
+(pass) strict context verification requires a complete report instead of a raw or legacy bundle [1.30ms]
+(pass) strict context verification accepts the app export and rejects changed outer context [0.84ms]
+(pass) export observation timestamps must match the committed UTC day [2.46ms]
+(pass) new semantics reject a rehashed physical-verification claim while legacy bundle bytes remain valid [0.31ms]
+(pass) verifies a valid exported audit bundle and marks wrapper context as unsigned [0.21ms]
+(pass) verifies the current v3 human-reviewed report revision without claiming chain proof [6.99ms]
+(pass) verifies a historical v3 report whose document digest predates the rights declaration field [0.50ms]
+(pass) validates open-license declaration shape independently of the bundle hash [0.79ms]
+(pass) rejects an edited audit bundle even when its outer report still parses [0.14ms]
+(pass) rejects changed exported observations when the report includes an export checksum [0.20ms]
+(pass) rejects report summary fields that no longer match the hashed bundle [0.11ms]
+(pass) keeps a locally valid digest separate from receipt metadata and live chain verification [0.19ms]
+(pass) flags receipt metadata mismatch without misreporting the independently valid bundle hash [0.19ms]
+(pass) rejects malformed input instead of treating a missing bundle as a valid report [0.05ms]
+
+src/decision-lab.test.ts:
+(pass) client verifies the full decision computation and rejects a different source, scope, snapshot or digest [4.34ms]
+(pass) evidence requests retain source, scope, input archive and explicit acceptance conditions [0.64ms]
+
+src/map-marker-style.test.ts:
+(pass) source markers use historical reported-flux bins and preserve unknown values [0.09ms]
+
+src/EvidenceRequestPanel.test.ts:
+(pass) evidence history pages ten concise events while retaining original requirements and identifiers in closed details [2.76ms]
+(pass) response disclosure retains exact reference, file digest, rights and reported date precision [1.50ms]
+
+src/case-publisher-evidence.test.ts:
+(pass) external publisher references expose their date, license, and link-only status [0.05ms]
+(pass) external publisher references disclose missing dates instead of inventing them [0.01ms]
+(pass) case evidence defaults to the latest valid observation and keeps record choice deterministic [0.11ms]
+(pass) case evidence option ordering uses observation instants rather than date strings [0.03ms]
+
+src/human-history.test.ts:
+(pass) latest human loader traverses pages, checks scope and digest, and keeps credential out of URL [1.11ms]
+(pass) latest human loader fails closed on denied access and looping pagination, or returns no match [0.15ms]
+
+src/DataDisclosureDialog.test.ts:
+(pass) data disclosure uses native dialog semantics and includes cited research references [1.36ms]
+
+src/mars.test.ts:
+(pass) MARS GeoJSON importer > anchors relative observation windows to the pinned archive date, not the wall clock [0.16ms]
+(pass) MARS GeoJSON importer > uses the latest valid observation when archive metadata has no end date [0.02ms]
+(pass) MARS GeoJSON importer > groups real-format plume observations per source without claiming mitigation [0.42ms]
+(pass) MARS GeoJSON importer > rejects unrelated FeatureCollections [0.05ms]
+(pass) MARS GeoJSON importer > keeps complete normalized history, unresolved plumes, and original timestamp metadata [0.73ms]
+(pass) MARS GeoJSON importer > loads the deterministic compressed static snapshot format [0.59ms]
+(pass) MARS GeoJSON importer > accepts browser-auto-decoded gzip responses as well as raw gzip files [0.09ms]
+(pass) MARS GeoJSON importer > adds only curated casebook evidence to matching full-snapshot sources [0.23ms]
+(pass) MARS GeoJSON importer > does not merge curated report links when their observation IDs are absent from the active snapshot [0.07ms]
+(pass) MARS GeoJSON importer > loads every source and plume in the checked-in UNEP snapshot without inferring links [209.97ms]
+
+src/map-panel-error-boundary.test.ts:
+(pass) map chunk failure keeps the rest of the case review usable [0.04ms]
+
+src/shared-work.test.ts:
+(pass) plan requests share memory-only auth and reject late private responses after disconnect [2.01ms]
+(pass) shared access keeps token out of observable session data and clears identity on disconnect [0.63ms]
+(pass) a disconnected or replaced session cannot accept a late response [0.25ms]
+(pass) shared response provenance is checked and stale-save conflicts are preserved as conflicts [1.93ms]
+(pass) a session change during response-body decoding rejects the old private result [0.39ms]
+(pass) investigation responses reject oversized UTF-8 streams without reading the entire body [68.31ms]
+
+src/ImportedAuditVerifier.test.ts:
+(pass) imported report verification keeps the visible and accessible file labels aligned in English [0.70ms]
+
+src/observed-flux-chart.test.ts:
+(pass) lays out discrete historical flux dates in chronological order without connecting them [0.39ms]
+(pass) keeps all-zero observed flux points finite and filters malformed chart values [0.06ms]
+(pass) aggregates the exact selected-source records by UTC day and preserves missing flux as missing [0.25ms]
+
+src/chain-client.test.ts:
+(pass) maps durable pending, reverted and confirmed states without implying physical mitigation [0.03ms]
+
+src/landing-evidence.test.ts:
+(pass) curated landing evidence review > uses the official UNEP item as linked publisher evidence without rehosting it [0.03ms]
+(pass) curated landing evidence review > shows only the casebook-linked historical MARS observations with reported uncertainty [0.04ms]
+(pass) curated landing evidence review > binds the landing evidence summary to the active MARS snapshot
+(pass) curated landing evidence review > does not turn the public report or an absent later record into an independent physical verification
+
+src/PublisherIndicatorComparison.test.ts:
+(pass) shows snapshot-bound UNEP coverage, ranking disagreement, and non-ground-truth limitations [1.45ms]
+(pass) states when the recurrence comparison is unavailable instead of displaying zero agreement [0.64ms]
+
+src/human-report.test.ts:
+(pass) schema 4 human assessment remains digest-verifiable and explicitly human/private [2.39ms]
+(pass) readable brief identifies the human method without leaking private reference metadata or scope recipient [0.29ms]
+(pass) comparison shows human decisions, scope, reference metadata and parent linkage [0.31ms]
+(pass) a scoped baseline with a private named recipient is not exposed in a shareable brief [0.16ms]
+
+src/mars-publisher-indicators.test.ts:
+(pass) UNEP MARS publisher indicator snapshot > verifies the committed publisher snapshot against its generated byte manifest [2.71ms]
+(pass) UNEP MARS publisher indicator snapshot > accepts exact manifest-bound bytes and preserves null-capable published fields [0.35ms]
+(pass) UNEP MARS publisher indicator snapshot > rejects changed bytes, snapshot mismatch, duplicate source IDs, and inconsistent counts [0.50ms]
+(pass) UNEP MARS publisher indicator snapshot > country history sorts periods and keeps unavailable rates as null [0.11ms]
+(pass) UNEP MARS publisher indicator snapshot > compares list membership only and never invents publisher rank changes [0.03ms]
+
+src/anchor-result.test.ts:
+(pass) merges a minimal scoped-reviewer receipt without dropping private report data [0.11ms]
+(pass) rejects receipt metadata for another audit or an unverified full result [0.04ms]
+(pass) rejects non-positive or unsafe receipt versions and insufficiently described confirmations [0.08ms]
+
+src/IntelligencePanel.test.ts:
+(pass) document assessment UI exposes a per-document rights declaration and its limits [1.83ms]
+(pass) document workflow puts claim and evidence before collapsed historical context and keeps permission gates visible [0.82ms]
+(pass) review rights summary distinguishes declarations from verified permissions and handles legacy reports [0.64ms]
+
+src/plan-session.test.ts:
+(pass) active plan survives navigation subscriptions, invalidates across snapshot contexts and clears explicitly [2.43ms]
+(pass) map allocation contains only exact selected IDs, valid coordinates and ordered slot numbers [0.30ms]
+
+src/workspace-preferences.test.ts:
+(pass) workspace preferences > loads validated defaults and persists real browser preferences [0.23ms]
+(pass) workspace preferences > deep links keep their route while the dashboard root honors the configured start page [0.07ms]
+
+src/record-recurrence-view.test.ts:
+(pass) presents the calibrated probability with its exact archive-record target and backtest evidence [0.27ms]
+(pass) hides estimates when the model, target, date, or status does not match [0.12ms]
+(pass) does not display absolute certainty for a historical archive-record estimate [0.03ms]
+
+src/map-surface-copy.test.ts:
+(pass) map surface copy > uses a non-live visual status for a historical archive and a distinct demo status [0.06ms]
+(pass) map surface copy > keeps map record-count labels short enough for the edge status chip [0.31ms]
+(pass) map surface copy > keeps the historical archive date and non-live status together [0.03ms]
+(pass) map surface copy > does not describe synthetic fixtures as a historical MARS archive
+(pass) map surface copy > describes the static overview and detailed satellite imagery accurately [0.03ms]
+(pass) map surface copy > uses interaction guidance that matches the active record mode [0.02ms]
+
+src/observation-check.test.ts:
+(pass) observation client binds source, exact question, snapshot and archive before replay [4.32ms]
+(pass) observation export keeps exact witnesses, uncertainty, scope and unsigned status [0.56ms]
+(pass) discrete plot excludes absent flux and outside dates, preserves witnesses and caps nodes [5.62ms]
+(pass) downloaded drafts cannot interpret source metadata as Markdown instructions or links [0.91ms]
+
+src/plan-operations.test.ts:
+(pass) import requires a separately supplied matching digest for both reports and reviewer histories [6.96ms]
+
+src/map-readiness.test.ts:
+(pass) map readiness waits for the first idle event rather than style setup [0.15ms]
+(pass) slow tiles get a visible delayed state and can recover when the map later idles [0.06ms]
+(pass) a pending readiness wait can be cancelled safely [0.04ms]
+
+src/reviewer-capability.test.ts:
+(pass) review submission stays disabled until reviewer configuration and required fields are ready [0.03ms]
+
+src/audit-history.test.ts:
+(pass) shows newest immutable audit revisions first without mutating the API result [0.09ms]
+(pass) uses a fresh secret-free cache key for each private history session [0.05ms]
+
+src/snapshot-change-watch.test.ts:
+(pass) page acceptance binds selected IDs, exact page and snapshot archive [6.59ms]
+(pass) a response cannot relabel unrelated or duplicate rows as selected sources [0.63ms]
+(pass) source changes keep unknown flux distinct from numeric zero and escape through React text [0.05ms]
+
+src/earth-rendering.test.ts:
+(pass) Auto keeps globe controls usable while capping small-device rendering [0.16ms]
+(pass) Earth look adds tier-aware atmospheric scattering and UTC night shading at every tier [0.13ms]
+(pass) NASA overview tint fades over a fully opaque Esri base across zoom [0.06ms]
+(pass) Night shading is opt-in and remains subtle when selected [0.02ms]
+(pass) automatic rendering degrades gradually after measured slow movement frames [0.04ms]
+(pass) Terrain waits for a close view and decodes Mapterhorn Terrarium elevation correctly [0.06ms]
+(pass) terrain and hillshade use separate DEM sources with map-anchored stable illumination [0.04ms]
+(pass) Solar shading follows UTC and produces a closed polygon within geographic bounds [1.07ms]
+(pass) NASA daily context layers use dated tiles and reject invalid calendar dates [0.11ms]
+
+src/ResearchSources.test.ts:
+(pass) the data disclosure exposes traceable research sources without presenting them as app results [1.71ms]
+
+src/map-layer-preferences.test.ts:
+(pass) global map defaults to source locations for a legible and lighter overview [0.01ms]
+
+src/connected-investigation.test.ts:
+(pass) plan attachment requires an accepted replay-valid allocation for this exact source and dataset [8.04ms]
+(pass) late change responses cannot attach to a different investigation revision or source [2.29ms]
+
+src/investigation-planner.test.ts:
+(pass) browser refuses DEMO plans even when their replay is valid [0.77ms]
+(pass) browser binds real snapshot, archive, normalized input and constraints before accepting replay [2.10ms]
+
+src/map-rendering.test.ts:
+(pass) globe projection opens on a centered Earth overview of the casebook [0.16ms]
+(pass) globe overview handles coordinates across the antimeridian and invalid points [0.04ms]
+(pass) globe overview falls back to a neutral Earth view when there are no valid points [0.04ms]
+(pass) globe overview fills wide, desktop, fullscreen, and portrait viewports without clipping [0.03ms]
+(pass) grayscale percentage changes satellite saturation without muting natural color [0.04ms]
+(pass) natural and cinematic imagery have a visible color treatment without changing data [0.04ms]
+(pass) flat and globe choices map to the matching MapLibre projection [0.02ms]
+(pass) a late tile error does not mark an already rendered basemap unavailable [0.02ms]
+(pass) map initialization failures produce a safe, useful fallback message [0.05ms]
+(pass) map errors expose an accurate recoverable notice but ignore optional font errors [0.13ms]
+(pass) remote tile failures keep source data usable while non-tile renderer failures remain fatal [0.03ms]
+(pass) publisher footprint outline width uses one MapLibre zoom interpolation [0.08ms]
+(pass) map tile failure notice stays at the map edge instead of covering its center [0.17ms]
+(pass) solar rendering waits for a MapLibre idle event when style.load fires too early [0.09ms]
+(pass) fatal WebGL failures are identified only while using the globe projection [0.04ms]
+(pass) known software WebGL renderers use a low-cost tier without disabling globe projection [0.07ms]
+(pass) map attribution collapses only when the map container is too narrow for the full control [0.02ms]
+(pass) WebGL availability gates globe projection while renderer name does not [0.03ms]
+(pass) plume map records keep unresolved IDs and unknown flux distinct from zero [0.10ms]
+(pass) flux overlay normalizes reported values monotonically without turning missing or zero into emissions [0.04ms]
+(pass) flux overlay retains reported flux and uncertainty while excluding coordinate-invalid rows [0.10ms]
+(pass) official plume footprint colors follow the reported kg/h bins and keep missing values neutral [0.03ms]
+(pass) low-power flux cells summarize positive observations with medians and keep unknown or zero rows out [0.20ms]
+(pass) priority overlay includes only matched real source rows and keeps the score explicitly heuristic [0.10ms]
+(pass) a single-context bootstrap starts at native-or-lower resolution without capping final quality [0.05ms]
+
+src/transparency.test.ts:
+(pass) public projection is closed, consent-gated and contains no private free text [3.56ms]
+(pass) offline checksum stays valid for historical bytes while current publication needs a live check [1.24ms]
+(pass) live summary checks reject unavailable, mismatched, tampered or status-less records [1.25ms]
+
+src/p4-assessment-presentation.test.ts:
+(pass) a supported rules result describes reference coverage and always exposes the physical verification boundary [0.63ms]
+(pass) model review never changes the meaning into an independent human or physical determination [0.10ms]
+(pass) human labels describe a reviewer determination and explain that inspection is self-attested [0.07ms]
+
+src/report-export.test.ts:
+(pass) omits current observations when the source or snapshot differs from a saved audit [1.55ms]
+(pass) keeps historical source observations in a separate context section, not as cited evidence [0.72ms]
+(pass) detects changes to contextual historical observations in an exported report [0.53ms]
+(pass) omits observations when the dataset input bytes differ despite matching snapshot ID and archive provenance [0.25ms]
+(pass) export checksum detects changes to attached observation values [0.46ms]
+(pass) preserves snapshot-level unresolved count when progressive history rows are not materialized [0.26ms]
+
+src/mars-snapshot-integrity.test.ts:
+(pass) verifies browser-decoded snapshot bytes and binds the server input-file hash [0.27ms]
+(pass) verifies compressed bytes when the browser does not transparently decode the asset [0.43ms]
+(pass) rejects changed content and dataset provenance before exposing a snapshot [0.28ms]
+
+ 282 pass
+ 0 fail
+ 165142 expect() calls
+Ran 282 tests across 61 files. [1343.00ms]

@@ -13,6 +13,25 @@ Render Free memakai state sementara; model DeepSeek aktif di backend dan
 assessment memerlukan token terpisah. Review manusia dan write blockchain tidak
 diaktifkan pada preview. [Bukti deployment dan batas](docs/evidence/render-preview-2026-10-21/README.md).
 
+**Video dan proof — v18, 23 Oktober:** [paket video v18](docs/demo/delivery-2026-10-22-final-v18/README.md)
+memuat MP4 lokal **4:57, 1080p/25fps**. Cerita: **Plan → Investigate → Verify**,
+ditutup hubungan investigasi dengan potensi tindakan lapangan dan pengukuran hasil.
+[Proof take8 TKM_S_021](docs/evidence/video-v17-2026-10-22/README.md) memasangkan
+ekspor, pin reviewer DEMO dan receipt **Anvil lokal 31337** yang dipakai v18.
+Contoh DeepSeek **KAZ_S_159 tetap terpisah**. Tidak ada bukti repair, pengurangan
+emisi, atau produktivitas manusia yang terukur. [Paket submission aktif](docs/release/devpost-submission/README.md)
+menautkan fields, panduan juri, status akses publik dan ZIP v18. File lokal tidak
+membuktikan push GitHub, deployment terbaru, unggahan video atau submission.
+
+**Evaluasi agent terbaru:** [r12 yang dibekukan](docs/evidence/agent-practical-usefulness-2026-10-21-r12/findings.md)
+mencatat **0/48 task completion menurut frozen scorer**, meskipun 12 deterministic
+gates lulus. Ini belum membuktikan Practical Usefulness atau produktivitas manusia;
+hasil lebih lama di atas tidak menggantikan hasil r12.
+
+**Penyelarasan rilis — 23 Oktober:** [hasil pemeriksaan terbaru dan operasi preview](docs/evidence/release-sync-2026-10-23/README.md)
+memisahkan gate lokal, CI pada commit persis, deployment Render, dan video lokal.
+Source produksi v18 serta proof take8 dipertahankan; status publik dicek terpisah.
+
 ## Mulai memahami repo
 
 **DeepSeek live — 21 Oktober:** model `deepseek-v4.1-flash-1017` melalui
@@ -150,6 +169,6 @@ Perintah, cakupan, dan prasyarat lengkap tersedia di [panduan pengujian](docs/te
 
 ## Kompetisi, demo, dan lisensi
 
-[Catatan IEEE ClimateChain](docs/release/event-requirements.md) menyimpan persyaratan dan hal yang perlu dikonfirmasi ke penyelenggara. [Materi demo/Notion](docs/demo/README.md) adalah persiapan lokal; halaman Notion atau submission tidak dibuat otomatis oleh aplikasi.
+[Catatan IEEE ClimateChain](docs/release/event-requirements.md) menyimpan persyaratan dan hal yang perlu dikonfirmasi ke penyelenggara. [Materi demo](docs/demo/README.md) mencatat produksi dan bukti lokal; upload video atau submission tidak dilakukan otomatis oleh aplikasi.
 
 Software asli dan dokumentasi buatan proyek berlisensi MIT. Data UNEP MARS memakai **CC BY-NC-SA 4.0**; laporan tertaut, imagery, tiles, dan aset pihak ketiga mengikuti ketentuannya masing-masing. Baca [LICENSE](LICENSE), [NOTICE](NOTICE), serta [atribusi data](data/real/README.md) sebelum mendistribusikan atau memprosesnya di layanan eksternal.

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "typecheck",
+    "command": [
+      "bun",
+      "run",
+      "check"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 23.37
+  },
+  {
+    "name": "api",
+    "command": [
+      "bun",
+      "run",
+      "test:api"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 10.35
+  },
+  {
+    "name": "web",
+    "command": [
+      "bun",
+      "run",
+      "test:web"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 1.31
+  },
+  {
+    "name": "verifier",
+    "command": [
+      "bun",
+      "run",
+      "test:verifier"
+    ],
+    "exitCode": 1,
+    "wallSeconds": 9.04
+  },
+  {
+    "name": "python",
+    "command": [
+      "bun",
+      "run",
+      "test:data"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 23.14
+  },
+  {
+    "name": "contracts",
+    "command": [
+      "bun",
+      "run",
+      "test:contracts"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 0.06
+  }
+]

@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P6-T1-C0_MANUAL_PACKET",
+  "pairId": "P6-T1",
+  "personaId": "P6",
+  "taskId": "T1",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T06:20:05.795Z",
+    "endedAt": "2026-10-21T06:21:18.459Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "selectedStrategy": {
+      "method": "Greedy traversal of the frozen weighted ranking in descending rank order; select until capacity is reached, skipping candidates once their country already has maxPerCountry selected.",
+      "parameters": {
+        "startingCapacity": 10,
+        "maxPerCountry": 2,
+        "recurrenceWeight": 50,
+        "countries": [],
+        "sectors": [],
+        "datasetSnapshotId": "unep-mars-675417694883",
+        "scope": "full_snapshot"
+      },
+      "result": "Manually derived selection from ranked_page offset 0 limit 20. Weighted score is based on the supplied ranking and 50% recurrence weight."
+    },
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": {
+      "sourceId": "BHR_S_003",
+      "claimType": "weighted source ranking from the supplied dataset; not a finding of current emissions or mitigation outcome",
+      "country": "Bahrain",
+      "sector": "Oil and Gas",
+      "rank": 18,
+      "weightedScore": 96.083932,
+      "magnitudePoints": 93.7211,
+      "recurrencePoints": 98.446763,
+      "medianFluxKgHr": 8156,
+      "medianUncertaintyKgHr": 3129,
+      "distinctDates": 37,
+      "observationCount": 40,
+      "missingFluxCount": 0,
+      "lastObserved": "2026-06-07T07:06:19",
+      "rationale": "At rank 18, this source is reached before capacity 10 is filled after applying the country quota to higher-ranked rows. Bahrain has no earlier selection, so it is selected as the ninth source. Its weighted score is above IRN_S_001 at rank 19.",
+      "evidenceIds": [
+        "BHR_S_003",
+        "ranked_page:offset=0:limit=20",
+        "unep-mars-675417694883"
+      ]
+    },
+    "excludedRationale": {
+      "sourceId": "IRN_S_001",
+      "claimType": "weighted source ranking from the supplied dataset; not a finding of current emissions or mitigation outcome",
+      "country": "Iran (Islamic Republic of)",
+      "sector": "Oil and Gas",
+      "rank": 19,
+      "weightedScore": 96.013748,
+      "magnitudePoints": 92.406912,
+      "recurrencePoints": 99.620583,
+      "medianFluxKgHr": 6895,
+      "medianUncertaintyKgHr": 2381,
+      "distinctDates": 116,
+      "observationCount": 129,
+      "missingFluxCount": 0,
+      "lastObserved": "2026-07-09T07:14:53",
+      "rationale": "Excluded because the maxPerCountry quota of 2 for Iran had already been filled by IRN_S_075 (rank 5) and IRN_S_065 (rank 10). The exclusion is due to the stated quota; it is not evidence of wrongdoing or of lower physical emissions.",
+      "evidenceIds": [
+        "IRN_S_001",
+        "IRN_S_075",
+        "IRN_S_065",
+        "ranked_page:offset=0:limit=20",
+        "unep-mars-675417694883"
+      ]
+    },
+    "activationStateBeforeCapacityChange": {
+      "state": "unknown",
+      "note": "The manual packet reports no active-plan identifier or activation state. The selection above is manually derived and was not activated through an available lab operation.",
+      "timestamp": null
+    },
+    "activationStateAfterCapacityChange": {
+      "state": "not changed or verified",
+      "requestedCapacity": 20,
+      "note": "No capacity-change or active-plan operation is supplied by the manual-packet environment. I did not claim that capacity changed or that an active plan remained unchanged.",
+      "timestamp": null
+    },
+    "audit": {
+      "steps": [
+        {
+          "action": "Read named source rows",
+          "tool": "read_manual_packet",
+          "parameters": {
+            "operation": "find_sources",
+            "sourceIds": [
+              "BHR_S_003",
+              "IRN_S_001"
+            ]
+          },
+          "result": "Both rows returned; no missing rows.",
+          "evidenceIds": [
+            "BHR_S_003",
+            "IRN_S_001"
+          ]
+        },
+        {
+          "action": "Read bounded weighted-ranking page",
+          "tool": "read_manual_packet",
+          "parameters": {
+            "operation": "ranked_page",
+            "offset": 0,
+            "limit": 20
+          },
+          "result": "Rows ranked 1 through 20 returned; sufficient to derive ten selections under the country quota.",
+          "evidenceIds": [
+            "ranked_page:offset=0:limit=20",
+            "unep-mars-675417694883"
+          ]
+        },
+        {
+          "action": "Apply the written country quota and capacity manually",
+          "result": "Derived selectedSourceIds above; country counts are Mexico 2, Turkmenistan 2, Iran 2, Malaysia 1, Venezuela 1, Bahrain 1, Algeria 1.",
+          "evidenceIds": [
+            "ranked_page:offset=0:limit=20"
+          ]
+        },
+        {
+          "action": "Change capacity to 20 while keeping the active plan",
+          "result": "Not performed: no mutation operation is available in the assigned manual-packet environment.",
+          "evidenceIds": []
+        }
+      ],
+      "dataset": {
+        "datasetSnapshotId": "unep-mars-675417694883",
+        "scope": "full_snapshot",
+        "candidateCount": 4218,
+        "archiveStartDate": "2020-10-29",
+        "archiveEndDate": "2026-09-13",
+        "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "intelligenceSha256": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+        "retrievedAt": "2026-10-14T06:10:12+00:00",
+        "synthetic": false,
+        "demoLabel": "Packet does not label this dataset as DEMO."
+      },
+      "timestamps": {
+        "sourceObservationTimestamps": {
+          "BHR_S_003": "2026-06-07T07:06:19",
+          "IRN_S_001": "2026-07-09T07:14:53"
+        },
+        "decisionTimestamp": null,
+        "capacityChangeTimestamp": null,
+        "limitation": "The supplied tools return source observation timestamps and packet retrieval time, but no timestamp for a manual decision or a capacity/activation state mutation."
+      },
+      "errors": [],
+      "requestsForHelp": [
+        "Provide an assigned lab operation that changes capacity to 20 with automatic plan replacement disabled and returns the active plan identifier and before/after state timestamps. That evidence is needed to record the requested capacity change."
+      ]
+    }
+  },
+  "timing": {
+    "wallClockSeconds": 72.7,
+    "modelCalls": 1,
+    "inputTokens": 86674,
+    "outputTokens": 6266,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "The weighted selection and source rationales were derived from the supplied packet. The required capacity change and active-plan state verification cannot be completed because the assigned environment provides only read_manual_packet and submit_result.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+    "steps": 2,
+    "toolNames": [
+      "read_manual_packet",
+      "read_manual_packet"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 58496,
+    "reasoningOutputTokens": 4225,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

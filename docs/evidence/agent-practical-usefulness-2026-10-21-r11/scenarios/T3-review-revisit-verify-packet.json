@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r11",
+  "taskId": "T3",
+  "label": "DEMO DECISION AND DEMO EVIDENCE EVENT — NOT A HUMAN REVIEW OR PHYSICAL OUTCOME",
+  "dataMode": "demo_authored_fixture",
+  "synthetic": true,
+  "trustedDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec",
+  "historicalDecision": {
+    "schemaVersion": 1,
+    "policyVersion": "investigation-decision/1",
+    "revision": 1,
+    "previousDigest": null,
+    "reviewerId": "DEMO-reviewer",
+    "reviewedAt": "2026-10-21T04:03:48.721Z",
+    "disposition": "request_more_evidence",
+    "rationale": "DEMO source-specific follow-up is missing; request attributable measurements.",
+    "sourceInspected": true,
+    "dossier": {
+      "plans": [],
+      "transitions": [],
+      "assessments": [
+        {
+          "bundleHash": "0x7bfab4d089b976542163f29073ffa6b01485d7c3780accf5afa27357b2b423c6",
+          "bundle": {
+            "schemaVersion": 2,
+            "auditId": "DEMO-audit",
+            "caseId": "DEMO-case",
+            "revision": 1,
+            "generatedAt": "2026-01-03T00:00:00.000Z",
+            "sourceId": "DEMO_SOURCE",
+            "synthetic": true,
+            "claimType": "mitigation_confirmed",
+            "result": "insufficient_evidence",
+            "reason": "DEMO no eligible reference.",
+            "citedEvidence": [],
+            "externalEvidence": [],
+            "limitations": [
+              "DEMO software fixture"
+            ],
+            "scope": {
+              "startDate": "2026-01-01",
+              "endDate": "2026-01-02"
+            }
+          }
+        }
+      ],
+      "schemaVersion": 1,
+      "policyVersion": "connected-investigation/1",
+      "context": {
+        "sourceId": "DEMO_SOURCE",
+        "synthetic": true,
+        "datasetSnapshotId": "DEMO"
+      },
+      "workId": "DEMO-work",
+      "history": [
+        {
+          "status": "review_recorded",
+          "question": "DEMO investigation",
+          "notes": "",
+          "evidenceRequest": "",
+          "nextAction": "",
+          "claimType": "mitigation_confirmed",
+          "scope": {
+            "startDate": "2026-01-01",
+            "endDate": "2026-01-02"
+          },
+          "assessmentLink": {
+            "auditId": "DEMO-audit",
+            "bundleHash": "0x7bfab4d089b976542163f29073ffa6b01485d7c3780accf5afa27357b2b423c6"
+          },
+          "context": {
+            "sourceId": "DEMO_SOURCE",
+            "synthetic": true,
+            "datasetSnapshotId": "DEMO"
+          },
+          "workId": "DEMO-work",
+          "revision": 1,
+          "ownerId": "DEMO-reviewer",
+          "updatedBy": "DEMO-reviewer",
+          "createdAt": "2026-01-03T00:00:00.000Z",
+          "updatedAt": "2026-01-03T00:00:00.000Z"
+        }
+      ],
+      "physicalOutcomeEstablished": false,
+      "chainAnchored": false,
+      "limitations": [
+        "Private team export: contains notes, reviewer identities and linked assessment content. Share only with authorization.",
+        "Plan links record historical allocation approval, not current assignment authority or a verified repair.",
+        "Snapshot changes recommend record review. Missing records are not zero emissions; metadata changes are not physical outcomes.",
+        "Verification checks commitments and relationships. Replaying snapshot differences against both original normalized inputs requires verify:snapshot-transition.",
+        "The expected digest must come from a separately trusted channel. This unsigned dossier is not a blockchain receipt or independent identity certification."
+      ],
+      "digest": "0x1e3dec5f865b30cee1355eee348f13efe606300a84a05bedded304323c9524b1"
+    },
+    "physicalOutcomeEstablished": false,
+    "digest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec"
+  },
+  "newWorkRevision": {
+    "status": "review_recorded",
+    "question": "DEMO investigation",
+    "notes": "",
+    "evidenceRequest": "",
+    "nextAction": "",
+    "claimType": "mitigation_confirmed",
+    "scope": {
+      "startDate": "2026-01-01",
+      "endDate": "2026-01-02"
+    },
+    "assessmentLink": {
+      "auditId": "DEMO-audit",
+      "bundleHash": "0x7bfab4d089b976542163f29073ffa6b01485d7c3780accf5afa27357b2b423c6"
+    },
+    "requestEvents": [
+      {
+        "type": "issued",
+        "requestId": "DEMO-T3-REQUEST",
+        "requirement": "DEMO post-action measurement with method, uncertainty and source scope.",
+        "acceptanceCriteria": "DEMO source KAZ_S_159 / scope 2026-01-01..2026-01-02 / operator attestation.",
+        "recipientRole": "operator",
+        "dueDate": "2026-01-15"
+      },
+      {
+        "type": "response_received",
+        "requestId": "DEMO-T3-REQUEST",
+        "responseId": "DEMO-T3-RESPONSE",
+        "reference": "https://example.org/DEMO-T3-response",
+        "locator": "DEMO page 1",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "reportedDate": {
+          "precision": "month",
+          "value": "2026-01"
+        },
+        "rights": "owned"
+      }
+    ],
+    "context": {
+      "sourceId": "DEMO_SOURCE",
+      "synthetic": true,
+      "datasetSnapshotId": "DEMO"
+    },
+    "workId": "DEMO-work",
+    "revision": 2,
+    "ownerId": "DEMO-reviewer",
+    "updatedBy": "DEMO-reviewer",
+    "createdAt": "2026-01-03T00:00:00.000Z",
+    "updatedAt": "2026-01-05T00:00:00.000Z"
+  },
+  "verificationCommand": "bun --no-env-file scripts/verify-investigation-decision.ts decision.json --expected-digest <trustedDigest>",
+  "requiredOutputFields": [
+    "workId",
+    "decisionDigest",
+    "disposition",
+    "rationale",
+    "revisitState",
+    "revisitReasonCodes",
+    "historicalDecisionUnchanged",
+    "verificationValid",
+    "physicalOutcomeEstablished"
+  ],
+  "limitations": [
+    "The dossier and reviewer identity are DEMO fixtures, not an independent human review.",
+    "A digest or blockchain receipt proves integrity and chronology, not physical repair or emissions reduction.",
+    "The historical decision must remain unchanged when a new response recommends review."
+  ]
+}

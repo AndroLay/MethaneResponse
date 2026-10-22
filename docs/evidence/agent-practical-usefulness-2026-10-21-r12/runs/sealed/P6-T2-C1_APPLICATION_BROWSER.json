@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P6-T2-C1_APPLICATION_BROWSER",
+  "pairId": "P6-T2",
+  "personaId": "P6",
+  "taskId": "T2",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T06:31:11.344Z",
+    "endedAt": "2026-10-21T06:37:16.770Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "navigation",
+  "output": {
+    "sourceId": "KAZ_S_159",
+    "claimType": "mitigation_confirmed",
+    "claimText": "The KAZ_S_159 operator completed mitigation of the 2026-06-05 detected methane plume, and a post-action measurement confirms the outcome by 2026-07-31.",
+    "scope": {
+      "startDate": "2026-06-01",
+      "endDate": "2026-07-31",
+      "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd"
+    },
+    "verdict": "insufficient_evidence",
+    "limitations": [
+      "Catatan MARS historis mengidentifikasi observasi 2026-06-05 pukul 2026-06-05T07:40:02 (timestamp tanpa offset diperlakukan UTC oleh UI), observationId 7529d451-018f-4da3-9114-59b76c3a3bcd, EnMAP - DLR, 307 ± 66 kg/h; UI menjelaskan ketidakpastian yang ditampilkan sebagai ±1 standard deviation. Ini adalah estimasi plume, bukan laju emisi kontinu.",
+      "Dalam scope juga ada observasi kemudian pada 2026-07-11T08:12:14, observationId 941806b5-2afe-46ac-baac-a0230880cede, EnMAP - DLR, 496 ± 226 kg/h (±1 standard deviation). Rekaman tidak menghubungkannya sebagai pengukuran pascatindakan: tanggal tindakan tidak tersedia. Nilai ini tidak menetapkan apakah mitigasi terjadi atau hasilnya.",
+      "Metadata tingkat sumber menunjukkan notified: Yes dan feedback: Yes, tetapi tidak mencantumkan penerima atau waktu notifikasi yang tepat; keduanya bukan bukti penyelesaian perbaikan atau hasil fisik.",
+      "UI menyebut satu referensi laporan penerbit tertaut, namun isi PDF tidak disertakan dan belum diaudit ulang. Ringkasan casebook menyatakan item UNEP bertanggal 23 Sep 2026 UTC melaporkan IMEO mengonfirmasi tindakan mitigasi di Uzen Field pada Juli 2026; pernyataan penerbit itu belum mengaitkan tindakan dengan observationId 7529d451-018f-4da3-9114-59b76c3a3bcd atau menyediakan pengukuran pascatindakan dalam scope ini.",
+      "Snapshot unep-mars-675417694883 adalah arsip historis sampai 2026-09-13 UTC, bukan pemantauan kontinu. Observasi KAZ_S_159 terbaru yang tampil adalah 2026-07-11; tidak adanya observasi lebih lanjut bukan bukti emisi nol.",
+      "Catatan berlabel DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM menyatakan tidak ada tanggal tindakan, pengukuran pascatindakan, metode pengukuran pascatindakan, ketidakpastian pengukuran pascatindakan, atau referensi tindak lanjut untuk klaim ini. Catatan itu diperlakukan sebagai teks proyek berlabel DEMO, bukan klaim penerbit."
+    ],
+    "requestedEvidence": [
+      {
+        "item": "Catatan tindakan primer yang dapat diatribusikan (misalnya work order atau laporan penyelesaian) dari operator yang bertanggung jawab atas KAZ_S_159. Catatan harus menyebut observationId 7529d451-018f-4da3-9114-59b76c3a3bcd, lokasi/komponen dan lingkup tindakan, tindakan yang benar-benar diselesaikan, serta waktu penyelesaian UTC.",
+        "timeframe": "Tindakan harus selesai paling lambat 2026-07-31 UTC agar menjawab klaim dalam scope yang diberikan."
+      },
+      {
+        "item": "Laporan pengukuran tindak lanjut bertanggal yang secara eksplisit menyatakan pengukuran dilakukan setelah tindakan di atas dan pada sumber/lokasi yang sama; sertakan identitas penerbit/pengukur, referensi dokumen, waktu UTC, metode dan instrumen, cakupan spasial, kondisi/QC, hasil fluks dengan satuan, ketidakpastian dan batas deteksi, serta perbandingan yang dapat ditafsirkan dengan observasi dasar.",
+        "timeframe": "Pengukuran harus terjadi setelah waktu tindakan yang terdokumentasi dan pada atau sebelum 2026-07-31 UTC."
+      }
+    ],
+    "whyNeeded": "Bukti yang tersedia mengidentifikasi plume 2026-06-05 dan observasi lain pada 2026-07-11, tetapi tidak menetapkan kapan tindakan dilakukan atau bahwa observasi 2026-07-11 diambil setelah tindakan. Metadata notifikasi/feedback dan ringkasan laporan penerbit yang belum diperiksa tidak membuktikan hubungan tindakan dengan plume tertentu maupun hasil pascatindakan. Catatan bertanggal dan pengukuran dengan metode, cakupan, hasil, serta ketidakpastian diperlukan untuk menilai klaim tanpa mengubah data yang hilang menjadi bukti mitigasi atau ketiadaan emisi.",
+    "acceptanceCriteria": [
+      "Catatan tindakan memiliki provenance yang dapat ditelusuri (penerbit/penanggung jawab, tanggal/versi atau referensi primer) dan secara eksplisit mengidentifikasi sourceId KAZ_S_159 serta observationId 7529d451-018f-4da3-9114-59b76c3a3bcd; tidak hanya menyebut fasilitas atau notifikasi secara umum.",
+      "Catatan membedakan tindakan yang selesai dari tindakan yang direncanakan/diberitahukan, menjelaskan lingkup dan lokasi/komponen yang ditangani, serta menyertakan waktu penyelesaian UTC yang tidak melewati 2026-07-31.",
+      "Laporan tindak lanjut menautkan dirinya ke tindakan dan sumber/lokasi yang sama, memberi waktu pengukuran UTC yang setelah tindakan dan tidak melewati 2026-07-31, dan menyertakan tanggal serta referensi tindak lanjut yang dapat diperiksa.",
+      "Laporan menyebut metode, instrumen, cakupan spasial, kondisi pengukuran dan kontrol mutu, hasil dengan unit (termasuk kg/h bila melaporkan fluks), ketidakpastian dan batas deteksi; setiap non-detection harus dilaporkan dengan batas deteksi dan tidak dinyatakan sebagai nol.",
+      "Perbandingan dengan data dasar menjelaskan kesetaraan/perbedaan metode dan bagaimana ketidakpastian diperlakukan; hasil pengukuran harus mendukung kesimpulan yang dinyatakan tanpa menyamakan satu observasi dengan pemantauan berkelanjutan.",
+      "Isi sumber atau kutipan yang diizinkan untuk diperiksa tersedia bersama identitas penerbit dan provenance; tautan atau metadata bibliografis saja tidak memenuhi kriteria."
+    ],
+    "ownerRole": "Operator yang bertanggung jawab atas KAZ_S_159 untuk catatan tindakan; penerbit/pengukur yang teridentifikasi (sebaiknya independen dari pelaksana tindakan) untuk laporan pengukuran tindak lanjut.",
+    "dueDateOrReasonUnset": "Belum ditetapkan: bukti yang tersedia tidak mengidentifikasi pemilik kontak atau tenggat yang disepakati; batas klaim 2026-07-31 UTC sudah merupakan periode historis.",
+    "references": [
+      {
+        "type": "dataset_snapshot",
+        "sourceId": "KAZ_S_159",
+        "datasetSnapshotId": "unep-mars-675417694883",
+        "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "archiveDates": "2020-10-29 through 2026-09-13",
+        "license": "UNEP IMEO MARS metadata, CC BY-NC-SA 4.0"
+      },
+      {
+        "type": "MARS plume observation metadata",
+        "sourceId": "KAZ_S_159",
+        "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "timestampDisplayed": "2026-06-05T07:40:02",
+        "timestampBasis": "UTC; the application states timestamps without an offset are treated as UTC",
+        "instrument": "EnMAP - DLR",
+        "reportedFlux": "307 ± 66 kg/h",
+        "uncertainty": "±1 standard deviation, as described by the application chart"
+      },
+      {
+        "type": "MARS plume observation metadata",
+        "sourceId": "KAZ_S_159",
+        "observationId": "941806b5-2afe-46ac-baac-a0230880cede",
+        "timestampDisplayed": "2026-07-11T08:12:14",
+        "timestampBasis": "UTC; the application states timestamps without an offset are treated as UTC",
+        "instrument": "EnMAP - DLR",
+        "reportedFlux": "496 ± 226 kg/h",
+        "uncertainty": "±1 standard deviation, as described by the application chart",
+        "relevance": "Later in the requested scope, but not documented as post-action."
+      },
+      {
+        "type": "publisher-linked record",
+        "referenceId": "[external report metadata withheld]",
+        "sourceId": "KAZ_S_159",
+        "displayedPublisherSummary": "The casebook says the UNEP item reports that IMEO confirmed a methane mitigation action at Uzen Field, Kazakhstan, in July 2026; the casebook labels the item date 23 Sep 2026 UTC.",
+        "limitation": "Report body/PDF is not included and has not been independently re-audited; the displayed summary does not link the action to the specified plume or a dated follow-up measurement."
+      },
+      {
+        "type": "source-level metadata",
+        "sourceId": "KAZ_S_159",
+        "fields": {
+          "notified": "Yes",
+          "feedback": "Yes"
+        },
+        "limitation": "No recipient or exact notification time is identified in the displayed record; these fields are not proof of delivery, repair, or reduced emissions."
+      },
+      {
+        "type": "DEMO project note",
+        "label": "DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM",
+        "treatment": "Used only as a labeled project note; not treated as publisher evidence."
+      },
+      {
+        "type": "application evidence inventory",
+        "page": "/dashboard/audit",
+        "summary": "For the selected mitigation confirmation claim, the UI showed 0 required-type and 0 contrary document references; it says the required evidence is a scoped, attributable action record with a date and dated follow-up reference. This is an application inventory, not independent evidence."
+      }
+    ],
+    "steps": [
+      "Navigated to the local application home page and read the KAZ_S_159 historical case and snapshot context.",
+      "Opened Cases; inspected the selected KAZ_S_159 record, its notification/feedback flags, three observations, and warning that missing plume rows do not imply zero emissions.",
+      "Opened Evidence Auditor; inspected the mitigation confirmation requirements and claim-specific evidence inventory. Drafted period start 2026-06-01 and end 2026-07-31, but could not select the assigned observation event through the exposed browser control; the scope remained unapplied and the rules baseline was not run.",
+      "Opened the Evidence Library and reviewed the five visible KAZ_S_159 references: one linked external report, three plume observation metadata records, and one source-level notification metadata record."
+    ],
+    "evidenceIds": [
+      "KAZ_S_159",
+      "unep-mars-675417694883",
+      "7529d451-018f-4da3-9114-59b76c3a3bcd",
+      "941806b5-2afe-46ac-baac-a0230880cede"
+    ],
+    "errors": [
+      "Clicking Evidence as a tab timed out because no matching accessible tab control was exposed.",
+      "Clicking Examine source evidence as a link timed out because no matching accessible link control was exposed.",
+      "Selecting the scope control labeled Observation event timed out; the browser page then reported that scope changes were unapplied.",
+      "Filling Exact claim to assess returned the application tool's generic action-failed response.",
+      "Selecting the dated-observation control by the supplied observation UUID and by its displayed option text both returned a generic action-failed response.",
+      "Clicking the observation reference by its inferred full accessible name returned a generic action-failed response; searching the document library by its displayed search label timed out."
+    ],
+    "requestsForHelp": []
+  },
+  "timing": {
+    "wallClockSeconds": 365.4,
+    "modelCalls": 1,
+    "inputTokens": 665523,
+    "outputTokens": 17523,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Bukti tidak cukup untuk menetapkan klaim mitigation_confirmed. Abstain sesuai instruksi; tidak menyimpulkan klaim palsu atau bahwa tidak ada tindakan.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+    "steps": 19,
+    "toolNames": [
+      "navigate",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "click",
+      "read_page",
+      "fill",
+      "fill",
+      "select",
+      "fill",
+      "read_page",
+      "select",
+      "select",
+      "click",
+      "read_page",
+      "click",
+      "fill"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 621696,
+    "reasoningOutputTokens": 13631,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

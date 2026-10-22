@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P2-T3-C0_MANUAL_PACKET",
+  "pairId": "P2-T3",
+  "personaId": "P2",
+  "taskId": "T3",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T04:49:08.034Z",
+    "endedAt": "2026-10-21T04:50:05.139Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "unknown",
+  "output": {
+    "workId": "DEMO-work",
+    "decisionDigest": null,
+    "disposition": "request_more_evidence",
+    "rationale": "DEMO source-specific follow-up is missing; request attributable measurements.",
+    "revisitState": "not_recorded_tool_unavailable",
+    "revisitReasonCodes": [
+      "response_received"
+    ],
+    "historicalDecisionUnchanged": true,
+    "verificationValid": null,
+    "physicalOutcomeEstablished": false,
+    "trustedDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec",
+    "suppliedHistoricalDecisionDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec",
+    "evidenceIds": [
+      "DEMO-audit",
+      "0x7bfab4d089b976542163f29073ffa6b01485d7c3780accf5afa27357b2b423c6",
+      "DEMO-T3-REQUEST",
+      "DEMO-T3-RESPONSE"
+    ],
+    "sourceMetadata": {
+      "sourceId": "DEMO_SOURCE",
+      "claimType": "mitigation_confirmed",
+      "scope": {
+        "startDate": "2026-01-01",
+        "endDate": "2026-01-02"
+      },
+      "datasetSnapshotId": "DEMO",
+      "dataMode": "demo_authored_fixture",
+      "synthetic": true,
+      "label": "DEMO DECISION AND DEMO EVIDENCE EVENT — NOT A HUMAN REVIEW OR PHYSICAL OUTCOME",
+      "responseReference": "https://example.org/DEMO-T3-response",
+      "responseLocator": "DEMO page 1",
+      "responseSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "reportedDate": {
+        "precision": "month",
+        "value": "2026-01"
+      },
+      "units": null,
+      "uncertainty": null
+    },
+    "steps": [
+      "Inspected the available lab MCP tool inventory; only submit_result was exposed.",
+      "Read the supplied frozen manual packet and identified the response_received event as a potential revisit trigger.",
+      "Did not modify the dossier or historical decision.",
+      "Could not create an export or run the prescribed verification command."
+    ],
+    "errors": [
+      "Manual-packet read/write, export, and verification tools were unavailable."
+    ],
+    "requestsForHelp": [
+      "Provide the assigned manual-packet interface or an export artifact generated after recording DEMO-T3-RESPONSE, so the export can be checked against the separately trusted digest."
+    ],
+    "verificationCommand": "bun --no-env-file scripts/verify-investigation-decision.ts decision.json --expected-digest <trustedDigest>",
+    "verificationAttempted": false
+  },
+  "timing": {
+    "wallClockSeconds": 57.1,
+    "modelCalls": 1,
+    "inputTokens": 182659,
+    "outputTokens": 4285,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Abstain: the lab exposed submit_result but no manual-packet interaction, export, or verification tool. No dossier mutation or review was performed.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+    "steps": 0,
+    "toolNames": [],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 140416,
+    "reasoningOutputTokens": 3264,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

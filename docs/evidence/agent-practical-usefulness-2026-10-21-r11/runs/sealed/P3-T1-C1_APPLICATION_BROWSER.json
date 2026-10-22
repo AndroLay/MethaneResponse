@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P3-T1-C1_APPLICATION_BROWSER",
+  "pairId": "P3-T1",
+  "personaId": "P3",
+  "taskId": "T1",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T05:04:56.571Z",
+    "endedAt": "2026-10-21T05:10:13.498Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "completed",
+  "assistance": "none",
+  "output": {
+    "selectedStrategy": "Weighted historical indicators",
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": "BHR_S_003 (Bahrain, Oil and Gas) terpilih pada urutan 9 dari 10, dengan magnitude 93.7, recurrence 98.4, dan weighted ranking 96.1. Sumber ini masuk dalam kapasitas 10 dan kuota Bahrain (maksimum 2 per negara) belum penuh dalam daftar terpilih. Hasil indikator historis bukan bukti mitigasi.",
+    "excludedRationale": "IRN_S_001 tidak masuk alokasi Weighted historical indicators. Batasnya 2 sumber per negara; daftar terpilih telah menggunakan kedua slot Iran untuk IRN_S_075 (urutan 4; weighted 97.5) dan IRN_S_065 (urutan 7; weighted 96.9). Karena itu kuota Iran penuh sebelum IRN_S_001 dapat dialokasikan. Baris pengecualian individual IRN_S_001 tidak berhasil dibuka; dasar alasan ini adalah daftar terpilih dan kuota yang tampak di UI.",
+    "activationStateBeforeCapacityChange": "Rencana aktif: Weighted historical indicators; kapasitas 10; 10 sumber pada snapshot unep-mars-675417694883. UI mengonfirmasi “10 planned sources activated · 10 added · 0 removed”. Sumber aktif sama dengan selectedSourceIds.",
+    "activationStateAfterCapacityChange": "Input Investigation slots diubah menjadi 20 dan planner ditutup tanpa aktivasi ulang. Kartu aktif tetap menunjukkan Weighted historical indicators, kapasitas 10, snapshot unep-mars-675417694883, dan 10 sumber yang sama. Perubahan parameter tidak mengganti antrean aktif secara otomatis.",
+    "parameters": {
+      "initialCapacity": 10,
+      "changedCapacity": 20,
+      "maxPerCountry": 2,
+      "recurrenceWeightPercent": 50,
+      "magnitudeWeightPercent": 50,
+      "countryScope": "All regions",
+      "sectorScope": "All sectors",
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "archiveThrough": "2026-09-13 UTC"
+    },
+    "timestamps": {
+      "datasetRetrievedAt": "2026-10-14T06:10:12+00:00",
+      "datasetArchiveThrough": "2026-09-13 UTC",
+      "sourceA_latestObservationTimestamp": "2026-06-07T07:06:19 UTC",
+      "sourceA_latestObservationId": "8c7b5908-1f3b-4e8a-a00c-357a86752bb1",
+      "sourceA_latestObservationFlux": "4,933 kg/h",
+      "IRN_S_075_latestObservationTimestamp": "2026-04-26T07:20:56 UTC",
+      "IRN_S_065_latestObservationTimestamp": "2026-09-13T07:16:21 UTC",
+      "IRN_S_001_latestObservationTimestamp": "Tidak berhasil diperoleh dari UI",
+      "planActivationTimestamp": "Tidak ditampilkan oleh UI/MCP",
+      "capacityChangeTimestamp": "Tidak ditampilkan oleh UI/MCP"
+    },
+    "evidenceIds": [
+      "unep-mars-675417694883",
+      "BHR_S_003",
+      "IRN_S_001",
+      "IRN_S_075",
+      "IRN_S_065",
+      "8c7b5908-1f3b-4e8a-a00c-357a86752bb1"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "action": "Membaca halaman Cases dan detail BHR_S_003.",
+        "result": "Bahrain, Oil and Gas; last observed 2026-06-07; 40 linked plume records; mitigation not independently verified; latest displayed observation 4,933 kg/h.",
+        "evidenceIds": [
+          "BHR_S_003",
+          "8c7b5908-1f3b-4e8a-a00c-357a86752bb1"
+        ]
+      },
+      {
+        "order": 2,
+        "action": "Membuka planner dan membandingkan empat rencana pada capacity 10, maximum per country 2, all regions/all sectors, recurrence 50%.",
+        "result": "Weighted historical indicators memperlihatkan 10/10 slot terisi; BHR_S_003 berada di urutan 9 dengan weighted score 96.1."
+      },
+      {
+        "order": 3,
+        "action": "Mengaktifkan Weighted historical indicators.",
+        "result": "UI mengonfirmasi 10 sumber diaktifkan, 10 ditambahkan, 0 dihapus; queue menampilkan BHR_S_003, IRN_S_075, IRN_S_065 dan tujuh sumber lainnya."
+      },
+      {
+        "order": 4,
+        "action": "Mengubah input Investigation slots menjadi 20 tanpa mengaktifkan alokasi baru.",
+        "result": "Kartu active plan tetap menampilkan Weighted historical indicators, capacity 10, 10 sources, dan snapshot unep-mars-675417694883."
+      }
+    ],
+    "errors": [
+      "Klik Excluded sources sebagai tab: timeout, kontrol dengan role tab tidak ditemukan.",
+      "Klik Excluded sources sebagai tombol: timeout, kontrol dengan role button tidak ditemukan.",
+      "Klik Inspect rows sebagai tombol: timeout, kontrol dengan role button tidak ditemukan.",
+      "Klik Open source search: timeout, kontrol visible tidak ditemukan.",
+      "Isi Search cases dengan IRN_S_001: timeout, field visible tidak ditemukan."
+    ],
+    "requestsForHelp": []
+  },
+  "timing": {
+    "wallClockSeconds": 316.9,
+    "modelCalls": 1,
+    "inputTokens": 1243788,
+    "outputTokens": 16430,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Dikerjakan melalui UI lokal MethaneResponse. Waktu aktivasi dan perubahan kapasitas tidak ditampilkan oleh UI/MCP; alasan source B diturunkan dari batas negara dan dua sumber Iran yang tampak di alokasi. Tidak ada klaim mitigasi fisik.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+    "steps": 22,
+    "toolNames": [
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "read_page",
+      "read_page",
+      "click",
+      "click",
+      "click",
+      "click",
+      "read_page",
+      "read_page",
+      "click",
+      "click",
+      "fill",
+      "read_page",
+      "click",
+      "read_page",
+      "read_page",
+      "fill",
+      "click"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 1170432,
+    "reasoningOutputTokens": 13288,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

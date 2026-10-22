@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedDate": "2026-10-20",
+  "checkedDate": "2026-10-23",
   "projectName": "MethaneResponse",
   "elevatorPitch": "Trace methane claims to evidence. Explore historical satellite data, identify missing proof, and verify the integrity of investigation reports.",
   "track": "Climate Data & Environmental Monitoring",
@@ -30,18 +30,19 @@
     },
     {
       "label": "Live prototype",
-      "url": null,
-      "status": "fill_after_deployment_and_public_workflow_verification"
+      "url": "https://methaneresponse-preview.onrender.com/dashboard",
+      "status": "limited_public_preview; inspect dated access-status and exact-commit release checks separately"
     }
   ],
   "video": {
     "url": null,
     "status": "local_export_only_fill_with_uploaded_embeddable_video_URL",
-    "localPath": "delivery-output/story-v12/MethaneResponse-Final-Presentation-Demo-v12.mp4",
-    "sha256": "9b087b3b65f117937cb064e05a3af03030fa7ca80df8146d35efe00b067682b9",
-    "durationSeconds": 267.92
+    "localPath": "delivery-output/final-v18/MethaneResponse-Final-Submission-v18.mp4",
+    "sha256": "b14bc61f893176631c8ce15445217ea1ab4977e52a1c252b81d2e661b4006fad",
+    "durationSeconds": 297,
+    "version": "v18"
   },
-  "uploadFile": "delivery-output/release-nonrender-2026-10-20/MethaneResponse-NonRender-Judging-Pack.zip",
+  "uploadFile": "delivery-output/release-sync-2026-10-23/MethaneResponse-Devpost-Judging-Pack-v18-aligned.zip",
   "limitsFromProvidedForm": {
     "elevatorPitchCharacters": 200,
     "builtWithTags": 25,
@@ -54,8 +55,11 @@
   "externalSubmissionPerformed": false,
   "prototypeScope": {
     "blockchain": "local Anvil 31337, no public funding required; Sepolia optional and not verified",
-    "ai": "Luna provider configuration to be supplied later; no live Luna result claimed",
-    "render": "excluded by user",
+    "ai": "DeepSeek deepseek-v4.1-flash-1017 backend integration; separate archived KAZ_S_159 project-authored DEMO, not independent accuracy validation",
+    "render": "existing limited Render Free preview; ephemeral state, no private review or chain writes; full local workflow in video",
     "notion": "not required"
-  }
+  },
+  "primaryVideoSourceId": "TKM_S_021",
+  "proofDirectory": "docs/evidence/video-v17-2026-10-22",
+  "videoVerificationFile": "docs/evidence/video-v18-2026-10-22/verification-summary.json"
 }

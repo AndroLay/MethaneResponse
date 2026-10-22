@@ -1,9 +1,11 @@
 import { expect, test } from 'bun:test';
 import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { decisionFixture } from '../apps/api/src/fixtures/investigation-decision';
 import { investigationDigest } from '../packages/shared/src/investigation-dossier';
 test('independent decision CLI accepts original, rejects edits/recomputed hash, requires separate digest and chain configuration', async () => {
-  const dir = await mkdtemp('/tmp/methane-decision-cli-');
+  const dir = await mkdtemp(join(tmpdir(), 'methane-decision-cli-'));
   try {
     const decision = await decisionFixture(), path = `${dir}/decision.json`;
     const run = (...args:string[]) => Bun.spawnSync([process.execPath,'--no-env-file',`${import.meta.dir}/verify-investigation-decision.ts`,path,...args],{stdout:'pipe',stderr:'pipe',env:{PATH:process.env.PATH}});

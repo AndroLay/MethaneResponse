@@ -1,0 +1,1184 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r12",
+  "frozenAt": "2026-10-21T08:21:21.298Z",
+  "pairs": [
+    {
+      "pairId": "P1-T1",
+      "personaId": "P1",
+      "taskId": "T1",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P1-T2",
+      "personaId": "P1",
+      "taskId": "T2",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P1-T3",
+      "personaId": "P1",
+      "taskId": "T3",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P2-T1",
+      "personaId": "P2",
+      "taskId": "T1",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P2-T2",
+      "personaId": "P2",
+      "taskId": "T2",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P2-T3",
+      "personaId": "P2",
+      "taskId": "T3",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P3-T1",
+      "personaId": "P3",
+      "taskId": "T1",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P3-T2",
+      "personaId": "P3",
+      "taskId": "T2",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P3-T3",
+      "personaId": "P3",
+      "taskId": "T3",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P4-T1",
+      "personaId": "P4",
+      "taskId": "T1",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P4-T2",
+      "personaId": "P4",
+      "taskId": "T2",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P4-T3",
+      "personaId": "P4",
+      "taskId": "T3",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P5-T1",
+      "personaId": "P5",
+      "taskId": "T1",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P5-T2",
+      "personaId": "P5",
+      "taskId": "T2",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P5-T3",
+      "personaId": "P5",
+      "taskId": "T3",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P6-T1",
+      "personaId": "P6",
+      "taskId": "T1",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P6-T2",
+      "personaId": "P6",
+      "taskId": "T2",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P6-T3",
+      "personaId": "P6",
+      "taskId": "T3",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P7-T1",
+      "personaId": "P7",
+      "taskId": "T1",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P7-T2",
+      "personaId": "P7",
+      "taskId": "T2",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P7-T3",
+      "personaId": "P7",
+      "taskId": "T3",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P8-T1",
+      "personaId": "P8",
+      "taskId": "T1",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P8-T2",
+      "personaId": "P8",
+      "taskId": "T2",
+      "order": [
+        "C1_APPLICATION_BROWSER",
+        "C0_MANUAL_PACKET"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    },
+    {
+      "pairId": "P8-T3",
+      "personaId": "P8",
+      "taskId": "T3",
+      "order": [
+        "C0_MANUAL_PACKET",
+        "C1_APPLICATION_BROWSER"
+      ],
+      "checks": [
+        {
+          "item": "Pinned dataset identity",
+          "c0": "dataset block in packet",
+          "c1": "application dataset selector / planner provenance",
+          "equivalent": true,
+          "note": "Both use the same snapshot ID and archive hash."
+        },
+        {
+          "item": "Source identifiers and timestamps",
+          "c0": "candidate or plume records in packet",
+          "c1": "source/plume records rendered by application",
+          "equivalent": true,
+          "note": "No application-only identifiers are added to the comparison."
+        },
+        {
+          "item": "Claim, scope and units",
+          "c0": "claim block and request template",
+          "c1": "assessment scope and evidence fields",
+          "equivalent": true,
+          "note": "Exact UTC dates and kg/h units are preserved."
+        },
+        {
+          "item": "Rules baseline",
+          "c0": "policy prose and acceptance criteria",
+          "c1": "Run rules baseline control",
+          "equivalent": true,
+          "note": "C0 must apply the written rules; it does not receive a precomputed verdict."
+        },
+        {
+          "item": "Trusted digest verification",
+          "c0": "exported file + sha256sum / verifier CLI",
+          "c1": "Verify and download decision",
+          "equivalent": true,
+          "note": "Both verify against a digest supplied outside the checked artifact."
+        }
+      ],
+      "status": "DECLARED_EQUIVALENT_NOT_EXERCISED",
+      "deviations": [],
+      "note": "Parity is declared from the frozen inputs. It is not measured until sealed runs complete."
+    }
+  ],
+  "exclusions": []
+}

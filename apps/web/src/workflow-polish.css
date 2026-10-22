@@ -1,0 +1,81 @@
+/* Task hierarchy and responsive disclosures; keep scientific context available. */
+.workspace-app .metric-label,.workspace-app .metric-change,.workspace-app .panel-subtitle,
+.workspace-app .snapshot-bar>span,.workspace-app .note-small {font-size:13px;line-height:1.6;color:#b5c9d8}
+.workspace-app .eyebrow,.workspace-app .environment-status {font-size:11px}
+.workspace-app .outline-btn,.workspace-app .primary-btn {font-size:13px;min-height:44px}
+.workspace-app .topbar .icon-button {min-width:44px;min-height:44px}
+.workspace-app .mobile-search-toggle,.workspace-app .mobile-search-close {display:none}
+.workspace-app .top-search input {font-size:14px}
+.workspace-app :is(button,input,select,textarea,summary,a):focus-visible {outline:2px solid #63e3cc;outline-offset:3px}
+.workspace-app .intelligence-heading {align-items:flex-start;gap:16px;flex-wrap:wrap}
+.workspace-app .intelligence-heading p {font-size:14px;line-height:1.6;max-width:72ch}
+.workspace-app .intel-grid {display:flex;flex-direction:column;gap:20px}
+.workspace-app .intel-assessment {padding:22px}
+.workspace-app .intel-form-grid {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;margin-top:24px}
+.workspace-app .intel-form-section {border:0;padding:0;margin:0;min-width:0}
+.workspace-app .intel-form-section legend,.workspace-app .intel-review-controls h3 {color:#e6f2f8;font-size:17px;font-weight:600;margin:0 0 16px;padding:0}
+.workspace-app .intel-form-section>label,.workspace-app .intel-form-section .intel-token-form>label,
+.workspace-app .intel-import>label,.workspace-app .intel-review-controls>label,
+.workspace-app .intel-review-controls>form>label {display:grid;gap:8px;margin-top:16px;color:#d2e1eb;font-size:14px;line-height:1.55}
+.workspace-app .intel-card :is(input:not([type=checkbox]),select,textarea) {min-height:44px;font-size:14px;line-height:1.5}
+.workspace-app .intel-card textarea {resize:vertical}
+.workspace-app .intel-license-fields label {font-size:14px;line-height:1.55}
+.workspace-app .intel-disclaimer,.workspace-app .intel-empty,.workspace-app .intel-warning,
+.workspace-app .intel-card>ul {font-size:13px;line-height:1.65;color:#b5c9d8}
+.workspace-app .intel-card .intel-consent {display:flex;align-items:flex-start;gap:12px;font-size:13px;line-height:1.6;min-height:44px;padding-block:4px;color:#c9dce7}
+.workspace-app .intel-consent input {flex:none;width:18px;height:18px;margin-top:3px;accent-color:#54d7bb}
+.workspace-app .intel-action,.workspace-app .intel-secondary-action {min-height:44px;font-size:14px;white-space:normal}
+.workspace-app :is(.intel-import,.intel-sharing,.intel-report-details,.intel-processing-limits) {margin-top:16px;border-block:1px solid #264555;padding:4px 0}
+.workspace-app :is(.intel-import,.intel-sharing,.intel-report-details,.intel-processing-limits,.intel-context) summary {cursor:pointer;min-height:44px;padding:12px 4px;font-size:14px;line-height:1.55;color:#c7e0e9;overflow-wrap:anywhere}
+.workspace-app .intel-context {border-top:1px solid #264555}
+.workspace-app .intel-context>summary {font-weight:600;padding:14px 8px}
+.workspace-app .intel-context>summary span {display:block;margin-left:18px;font-size:13px;font-weight:400;color:#b5c9d8}
+.workspace-app .intel-context>.intel-card {margin-top:8px}
+.workspace-app .intel-result {border-top:2px solid #54d7bb;margin-top:24px;padding-top:24px;font-size:14px;line-height:1.65}
+.workspace-app :is(.intel-result,.intelligence-heading) {scroll-margin-top:84px}
+.workspace-app .intel-result>b {font-size:18px;color:#e6f2f8}
+.workspace-app .intel-result>p,.workspace-app .intel-claim-statement p {font-size:14px;line-height:1.65}
+.workspace-app .intel-result .intel-result-status {font-size:13px;color:#b5c9d8}
+.workspace-app .intel-result :is(small,code) {font-size:13px;line-height:1.65;overflow-wrap:anywhere}
+.workspace-app .intel-result blockquote {margin:20px 0;padding:12px 18px;border-left:3px solid #54d7bb;background:#0b3040}
+.workspace-app .intel-result blockquote>b {display:block;font-size:13px;line-height:1.6}
+.workspace-app .intel-result blockquote p {font-size:16px;line-height:1.7}
+.workspace-app .intel-review-controls {margin-top:24px}
+.workspace-app .plan-queue-list>li {align-items:flex-start;gap:16px}
+.workspace-app .plan-source-details>summary {font-size:13px;color:#b5c9d8;cursor:pointer;min-height:44px;padding:12px 0}
+.workspace-app .plan-source-details[open]>small {display:block;margin-bottom:8px}
+.workspace-app .plan-queue .plan-actions button,.workspace-app .plan-source-details button {min-height:44px;font-size:14px}
+.workspace-app .plan-queue-list>li>.plan-actions>button {background:#123e44;border-color:#327c72;color:#c9fae9}
+.workspace-app .evidence-event-list {padding-left:24px}
+.workspace-app .evidence-event-list>li {padding:0;border-bottom:1px solid #264555}
+.workspace-app .evidence-event>summary {padding:12px 4px;font-size:14px;font-weight:400}
+.workspace-app .evidence-event>summary span {display:block;margin:4px 0 0 18px;font-size:13px;color:#b5c9d8}
+.workspace-app .evidence-event dl {margin:4px 0 16px;font-size:13px;line-height:1.6}
+.workspace-app .evidence-event dt {color:#b5c9d8;margin-top:12px}
+.workspace-app .evidence-event dd {margin:4px 0;overflow-wrap:anywhere}
+.workspace-app .evidence-history-pagination {display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:16px 0;font-size:13px}
+.workspace-app .evidence-history-pagination button {min-height:44px;padding:8px 12px;background:#123442;color:#d2e1eb;border:1px solid #345768;border-radius:6px}
+.workspace-app .evidence-history-pagination button:disabled {opacity:.5;cursor:not-allowed}
+@media(max-width:900px) {
+  .workspace-app .intel-form-grid {grid-template-columns:minmax(0,1fr)}
+  .workspace-app .intel-form-section+fieldset {border-top:1px solid #264555;padding-top:20px}
+}
+@media(max-width:620px) {
+  .workspace-app .topbar {gap:6px}
+  .workspace-app .topbar>.top-search {display:none}
+  .workspace-app .mobile-search-toggle,.workspace-app .mobile-search-close {display:inline-flex;align-items:center;justify-content:center}
+  .workspace-app .top-actions {flex:1;min-width:0;justify-content:flex-end;gap:4px}
+  .workspace-app .environment-status {display:inline-flex;white-space:normal;line-height:1.4;max-width:145px;font-size:10px}
+  .workspace-app .topbar.mobile-search-open>.top-search {display:flex;flex:1;min-width:0;width:auto;height:44px}
+  .workspace-app .topbar.mobile-search-open>:is(.mobile-menu,.mobile-search-toggle,.top-actions) {display:none}
+  .workspace-app .top-search input {font-size:16px;min-width:0}
+  .workspace-app .top-search>svg {flex:none}
+  .workspace-app .search-results {width:100%;max-height:65dvh;overflow:auto}
+  .workspace-app .search-results button {min-height:52px}
+  .workspace-app .intel-assessment {padding:16px}
+  .workspace-app .intel-card :is(input:not([type=checkbox]),select,textarea) {font-size:16px}
+  .workspace-app .plan-queue-list>li {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
+  .workspace-app .plan-queue-list>li>.plan-actions {align-self:start}
+  .workspace-app .plan-queue-list>li>.plan-actions>button {padding-inline:10px}
+  .workspace-app .intel-result blockquote {padding:10px 12px}
+}

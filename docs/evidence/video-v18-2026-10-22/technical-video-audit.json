@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "input_file": "MethaneResponse-Final-Submission-v18.mp4",
+  "input_sha256": "b14bc61f893176631c8ce15445217ea1ab4977e52a1c252b81d2e661b4006fad",
+  "technical_status": "pass",
+  "creative_status": "not_reviewed",
+  "delivery_ready": false,
+  "spec": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "duration_seconds": 297,
+    "duration_tolerance_seconds": 0.05,
+    "audio": "required",
+    "codec": "h264",
+    "pixel_format": "yuv420p",
+    "audio_channels": 2,
+    "audio_sample_rate": 48000,
+    "loudness_target_lufs": -18,
+    "loudness_tolerance_lu": 1,
+    "max_true_peak_dbfs": -1.5
+  },
+  "checks": [
+    {
+      "name": "readable_media",
+      "status": "pass",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "name": "video_streams",
+      "status": "pass",
+      "expected": 1,
+      "actual": 1
+    },
+    {
+      "name": "audio_streams",
+      "status": "pass",
+      "expected": "at most one",
+      "actual": 1
+    },
+    {
+      "name": "dimensions",
+      "status": "pass",
+      "expected": [
+        1920,
+        1080
+      ],
+      "actual": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "average_fps",
+      "status": "pass",
+      "expected": 25.0,
+      "actual": 25.0
+    },
+    {
+      "name": "video_duration",
+      "status": "pass",
+      "expected": 297,
+      "actual": 297.0
+    },
+    {
+      "name": "container_duration",
+      "status": "pass",
+      "expected": 297,
+      "actual": 297.0
+    },
+    {
+      "name": "codec",
+      "status": "pass",
+      "expected": "h264",
+      "actual": "h264"
+    },
+    {
+      "name": "pixel_format",
+      "status": "pass",
+      "expected": "yuv420p",
+      "actual": "yuv420p"
+    },
+    {
+      "name": "audio_presence",
+      "status": "pass",
+      "expected": "required",
+      "actual": 1
+    },
+    {
+      "name": "full_decode",
+      "status": "pass",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "name": "audio_channels",
+      "status": "pass",
+      "expected": 2,
+      "actual": 2
+    },
+    {
+      "name": "audio_sample_rate",
+      "status": "pass",
+      "expected": 48000,
+      "actual": 48000
+    },
+    {
+      "name": "audio_duration",
+      "status": "pass",
+      "expected": 297,
+      "actual": 297.0
+    },
+    {
+      "name": "audio_signal",
+      "status": "pass",
+      "expected": "measurable non-silent signal",
+      "actual": -2.0
+    },
+    {
+      "name": "loudness",
+      "status": "pass",
+      "expected": -18,
+      "actual": -18.02
+    },
+    {
+      "name": "true_peak",
+      "status": "pass",
+      "expected": -1.5,
+      "actual": -2.0
+    },
+    {
+      "name": "source_unchanged",
+      "status": "pass",
+      "expected": "unchanged during audit",
+      "actual": true
+    }
+  ],
+  "samples": [
+    {
+      "file": "frame-000.png",
+      "frame": 0,
+      "seconds": 0.0
+    },
+    {
+      "file": "frame-001.png",
+      "frame": 549,
+      "seconds": 21.96
+    },
+    {
+      "file": "frame-002.png",
+      "frame": 550,
+      "seconds": 22.0
+    },
+    {
+      "file": "frame-003.png",
+      "frame": 551,
+      "seconds": 22.04
+    },
+    {
+      "file": "frame-004.png",
+      "frame": 1074,
+      "seconds": 42.96
+    },
+    {
+      "file": "frame-005.png",
+      "frame": 1075,
+      "seconds": 43.0
+    },
+    {
+      "file": "frame-006.png",
+      "frame": 1076,
+      "seconds": 43.04
+    },
+    {
+      "file": "frame-007.png",
+      "frame": 1485,
+      "seconds": 59.4
+    },
+    {
+      "file": "frame-008.png",
+      "frame": 1574,
+      "seconds": 62.96
+    },
+    {
+      "file": "frame-009.png",
+      "frame": 1575,
+      "seconds": 63.0
+    },
+    {
+      "file": "frame-010.png",
+      "frame": 1576,
+      "seconds": 63.04
+    },
+    {
+      "file": "frame-011.png",
+      "frame": 2474,
+      "seconds": 98.96
+    },
+    {
+      "file": "frame-012.png",
+      "frame": 2475,
+      "seconds": 99.0
+    },
+    {
+      "file": "frame-013.png",
+      "frame": 2476,
+      "seconds": 99.04
+    },
+    {
+      "file": "frame-014.png",
+      "frame": 2970,
+      "seconds": 118.8
+    },
+    {
+      "file": "frame-015.png",
+      "frame": 3124,
+      "seconds": 124.96
+    },
+    {
+      "file": "frame-016.png",
+      "frame": 3125,
+      "seconds": 125.0
+    },
+    {
+      "file": "frame-017.png",
+      "frame": 3126,
+      "seconds": 125.04
+    },
+    {
+      "file": "frame-018.png",
+      "frame": 3824,
+      "seconds": 152.96
+    },
+    {
+      "file": "frame-019.png",
+      "frame": 3825,
+      "seconds": 153.0
+    },
+    {
+      "file": "frame-020.png",
+      "frame": 3826,
+      "seconds": 153.04
+    },
+    {
+      "file": "frame-021.png",
+      "frame": 4149,
+      "seconds": 165.96
+    },
+    {
+      "file": "frame-022.png",
+      "frame": 4150,
+      "seconds": 166.0
+    },
+    {
+      "file": "frame-023.png",
+      "frame": 4151,
+      "seconds": 166.04
+    },
+    {
+      "file": "frame-024.png",
+      "frame": 4374,
+      "seconds": 174.96
+    },
+    {
+      "file": "frame-025.png",
+      "frame": 4375,
+      "seconds": 175.0
+    },
+    {
+      "file": "frame-026.png",
+      "frame": 4376,
+      "seconds": 175.04
+    },
+    {
+      "file": "frame-027.png",
+      "frame": 4454,
+      "seconds": 178.16
+    },
+    {
+      "file": "frame-028.png",
+      "frame": 4599,
+      "seconds": 183.96
+    },
+    {
+      "file": "frame-029.png",
+      "frame": 4600,
+      "seconds": 184.0
+    },
+    {
+      "file": "frame-030.png",
+      "frame": 4601,
+      "seconds": 184.04
+    },
+    {
+      "file": "frame-031.png",
+      "frame": 5174,
+      "seconds": 206.96
+    },
+    {
+      "file": "frame-032.png",
+      "frame": 5175,
+      "seconds": 207.0
+    },
+    {
+      "file": "frame-033.png",
+      "frame": 5176,
+      "seconds": 207.04
+    },
+    {
+      "file": "frame-034.png",
+      "frame": 5939,
+      "seconds": 237.56
+    },
+    {
+      "file": "frame-035.png",
+      "frame": 6149,
+      "seconds": 245.96
+    },
+    {
+      "file": "frame-036.png",
+      "frame": 6150,
+      "seconds": 246.0
+    },
+    {
+      "file": "frame-037.png",
+      "frame": 6151,
+      "seconds": 246.04
+    },
+    {
+      "file": "frame-038.png",
+      "frame": 6574,
+      "seconds": 262.96
+    },
+    {
+      "file": "frame-039.png",
+      "frame": 6575,
+      "seconds": 263.0
+    },
+    {
+      "file": "frame-040.png",
+      "frame": 6576,
+      "seconds": 263.04
+    },
+    {
+      "file": "frame-041.png",
+      "frame": 7424,
+      "seconds": 296.96
+    }
+  ],
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "average_fps": 25.0,
+    "duration_seconds": 297.0,
+    "duration_source": "video_stream",
+    "codec": "h264",
+    "pixel_format": "yuv420p"
+  },
+  "audio": {
+    "channels": 2,
+    "sample_rate": 48000,
+    "duration_seconds": 297.0,
+    "integrated_lufs": -18.02,
+    "true_peak_dbfs": -2.0
+  },
+  "contact_sheet": "contact-sheet.png"
+}

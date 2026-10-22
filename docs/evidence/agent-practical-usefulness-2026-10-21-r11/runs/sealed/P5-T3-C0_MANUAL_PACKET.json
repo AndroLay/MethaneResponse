@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P5-T3-C0_MANUAL_PACKET",
+  "pairId": "P5-T3",
+  "personaId": "P5",
+  "taskId": "T3",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T06:18:47.554Z",
+    "endedAt": "2026-10-21T06:20:05.768Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "workId": "DEMO-work",
+    "decisionDigest": null,
+    "disposition": "request_more_evidence",
+    "rationale": "Preserve the historical DEMO disposition request_more_evidence and its rationale: DEMO source-specific follow-up is missing; request attributable measurements. The supplied response_received event is metadata only (reportedDate precision month, value 2026-01); the report body was withheld and is not available for provider processing. It does not establish an attributable post-action measurement, methane reduction, mitigation, repair, or physical outcome. No authorized review or export could be performed with the exposed tools.",
+    "revisitState": "recommended_pending_review",
+    "revisitReasonCodes": [
+      "response_received",
+      "post_action_measurement_unverified"
+    ],
+    "revisitReasonCodesAreDescriptive": true,
+    "historicalDecisionUnchanged": true,
+    "verificationValid": null,
+    "verificationStatus": "not_performed_no_export_or_verifier_tool",
+    "physicalOutcomeEstablished": false,
+    "expectedTrustedDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec",
+    "observedExportDigest": null,
+    "sourceFacts": {
+      "label": "DEMO DECISION AND DEMO EVIDENCE EVENT — NOT A HUMAN REVIEW OR PHYSICAL OUTCOME",
+      "dataMode": "demo_authored_fixture",
+      "synthetic": true,
+      "sourceId": "DEMO_SOURCE",
+      "claimType": "mitigation_confirmed",
+      "scope": {
+        "startDate": "2026-01-01",
+        "endDate": "2026-01-02"
+      },
+      "datasetSnapshotId": "DEMO",
+      "historicalDecision": {
+        "revision": 1,
+        "reviewedAt": "2026-10-21T04:03:48.721Z",
+        "disposition": "request_more_evidence",
+        "digest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec",
+        "assessmentBundleHash": "0x7bfab4d089b976542163f29073ffa6b01485d7c3780accf5afa27357b2b423c6",
+        "assessmentGeneratedAt": "2026-01-03T00:00:00.000Z",
+        "assessmentResult": "insufficient_evidence",
+        "assessmentReason": "DEMO no eligible reference."
+      },
+      "workRevision": {
+        "revision": 2,
+        "status": "review_recorded",
+        "createdAt": "2026-01-03T00:00:00.000Z",
+        "updatedAt": "2026-01-05T00:00:00.000Z"
+      },
+      "requestEvent": {
+        "type": "issued",
+        "requestId": "DEMO-T3-REQUEST",
+        "requirement": "DEMO post-action measurement with method, uncertainty and source scope.",
+        "acceptanceCriteria": "DEMO source KAZ_S_159 / scope 2026-01-01..2026-01-02 / operator attestation.",
+        "recipientRole": "operator",
+        "dueDate": "2026-01-15"
+      },
+      "responseEvent": {
+        "type": "response_received",
+        "requestId": "DEMO-T3-REQUEST",
+        "responseId": "DEMO-T3-RESPONSE",
+        "reference": "https://example.org/DEMO-T3-response",
+        "locator": "DEMO page 1",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "reportedDate": {
+          "precision": "month",
+          "value": "2026-01"
+        },
+        "rights": "owned",
+        "bodyAvailable": false
+      },
+      "measurementEvidence": {
+        "measurementValue": null,
+        "units": null,
+        "method": null,
+        "uncertainty": null,
+        "attributableOperatorAttestation": null
+      }
+    },
+    "steps": [
+      {
+        "step": "Read the frozen manual packet supplied in the assignment.",
+        "evidenceIds": [
+          "DEMO-work",
+          "DEMO-audit",
+          "DEMO-T3-REQUEST",
+          "DEMO-T3-RESPONSE"
+        ],
+        "result": "Historical decision and response metadata identified."
+      },
+      {
+        "step": "Check exposed lab MCP tool availability.",
+        "evidenceIds": [
+          "mcp__agent_lab__submit_result"
+        ],
+        "result": "No manual-packet mutation, authorized-review, export, or verification operation was exposed."
+      },
+      {
+        "step": "Avoid changing the historical decision or claiming verification.",
+        "evidenceIds": [
+          "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec"
+        ],
+        "result": "No environment write or export was performed; historical decision left untouched."
+      }
+    ],
+    "errors": [
+      {
+        "error": "Required manual-packet operations are unavailable in the exposed MCP tools.",
+        "impact": "Could not stage the supplied response/snapshot change, record the authorized revisit, export the dossier, or compare an observed export digest to the trusted digest."
+      },
+      {
+        "error": "The linked report body and source-specific post-action measurement are not included.",
+        "impact": "Method, measurement units, uncertainty, and operator attestation are unavailable."
+      }
+    ],
+    "helpRequests": [
+      "Provide the manual-packet tool access for DEMO-work, including the authorized review/write, export, and digest-verification actions.",
+      "Provide the source-specific post-action measurement for KAZ_S_159 covering 2026-01-01..2026-01-02, with measurement timestamps, method, units, uncertainty, attributable source/operator attestation, and dataset or snapshot version. The current response event reports month precision only and omits the report body."
+    ]
+  },
+  "timing": {
+    "wallClockSeconds": 78.2,
+    "modelCalls": 1,
+    "inputTokens": 191692,
+    "outputTokens": 6205,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "The exposed lab MCP inventory contained only submit_result, with no manual-packet read/write/review/export/verify operations. No environment mutation occurred. This is an abstention for unavailable tooling and source insufficiency, not a digest mismatch.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+    "steps": 0,
+    "toolNames": [],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 147712,
+    "reasoningOutputTokens": 4485,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

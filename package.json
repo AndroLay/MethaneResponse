@@ -10,9 +10,10 @@
     "dev:web": "cd apps/web && bun run dev",
     "dev:api": "cd apps/api && bun run dev",
     "build:web": "cd apps/web && bun run build",
-    "check": "cd apps/api && bun run typecheck && cd ../web && bun run typecheck && cd ../.. && bun run check:e2e && bun run check:evaluation",
+    "check": "cd apps/api && bun run typecheck && cd ../web && bun run typecheck && cd ../.. && bun run check:e2e && bun run check:evaluation && bun run check:agent-lab",
     "check:e2e": "tsc --project tsconfig.e2e.json",
     "check:evaluation": "tsc --project scripts/tsconfig.evaluation.json",
+    "check:agent-lab": "tsc --project tsconfig.agent-lab.json",
     "test:api": "cd apps/api && bun test",
     "test:web": "cd apps/web && bun test",
     "test:e2e": "bash scripts/run-e2e.sh",
@@ -43,7 +44,16 @@
     "verify:evidence-overlap": "bun --no-env-file scripts/verify-evidence-overlap.ts",
     "verify:snapshot-transition": "bun --no-env-file scripts/verify-snapshot-transition.ts",
     "prove:snapshot-transition": "bun --no-env-file scripts/snapshot-transition-proof.ts",
-    "evaluate:product-value": "bun --no-env-file scripts/product-value-evaluation.ts"
+    "evaluate:product-value": "bun --no-env-file scripts/product-value-evaluation.ts",
+    "agent-lab:prepare": "bun --no-env-file scripts/agent-usefulness/prepare.ts",
+    "agent-lab:gates": "bun --no-env-file scripts/agent-usefulness/gates.ts",
+    "agent-lab:dry-run": "bun --no-env-file run playwright test --config playwright.agent-lab.config.ts",
+    "agent-lab:sealed": "bun --no-env-file run playwright test --config playwright.agent-lab-run.config.ts",
+    "agent-lab:all": "bun --no-env-file scripts/agent-usefulness/run-all.ts",
+    "agent-lab:run-luna": "bash scripts/agent-usefulness/run-openai-luna.sh",
+    "agent-lab:run-luna-max": "bash scripts/agent-usefulness/run-codex-luna-max.sh",
+    "agent-lab:finalize": "bun --no-env-file scripts/agent-usefulness/finalize.ts",
+    "agent-lab:test": "bun test scripts/agent-usefulness"
   },
   "engines": {
     "bun": ">=1.2.0"

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P7-T3-C0_MANUAL_PACKET",
+  "pairId": "P7-T3",
+  "personaId": "P7",
+  "taskId": "T3",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T07:45:12.176Z",
+    "endedAt": "2026-10-21T07:46:27.146Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "workId": "DEMO-work",
+    "decisionDigest": null,
+    "disposition": "not_recorded",
+    "rationale": "Tidak menerbitkan keputusan baru: alat paket manual tidak tersedia, sehingga dossier tidak dapat diperbarui dan ekspor tidak dapat dibandingkan dengan trustedDigest. Catatan historis tetap request_more_evidence. Event DEMO-T3-RESPONSE hanya metadata respons; providerProcessingNote menyatakan isi laporan tidak disertakan. Digest atau receipt hanya membuktikan integritas dan kronologi, bukan hasil fisik atau identitas reviewer.",
+    "revisitState": "not_applied",
+    "revisitReasonCodes": [
+      "DEMO-T3-RESPONSE"
+    ],
+    "revisitReasonDescription": "Packet mencatat requestId DEMO-T3-REQUEST dengan event response_received dan responseId DEMO-T3-RESPONSE. Ini adalah alasan untuk meninjau ulang, tetapi belum diterapkan melalui alat paket.",
+    "historicalDecisionUnchanged": true,
+    "historicalDisposition": "request_more_evidence",
+    "historicalDecisionDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec",
+    "verificationValid": null,
+    "physicalOutcomeEstablished": false,
+    "evidenceIds": [
+      "DEMO-work",
+      "DEMO-audit",
+      "0x7bfab4d089b976542163f29073ffa6b01485d7c3780accf5afa27357b2b423c6",
+      "DEMO-T3-REQUEST",
+      "DEMO-T3-RESPONSE",
+      "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec"
+    ],
+    "steps": [
+      "Memeriksa metadata alat MCP yang tersedia; hanya mcp__agent_lab__submit_result tersedia, tanpa operasi paket manual atau verifikasi ekspor.",
+      "Meninjau hanya packet DEMO yang diberikan: revisi historis 1, newWorkRevision 2, response_received untuk DEMO-T3-RESPONSE, dan trustedDigest yang diberikan.",
+      "Tidak mengubah dossier, tidak mengeluarkan keputusan baru, dan tidak mengklaim verifikasi ekspor."
+    ],
+    "errors": [],
+    "requestsForHelp": [
+      "Sediakan alat MCP paket manual yang ditugaskan untuk membuka/melengkapi dossier, mencatat event atau perubahan snapshot, mempertahankan keputusan historis, mengekspor dossier, dan menjalankan verifikasi dengan trustedDigest yang diberikan.",
+      "Untuk penilaian fisik, sediakan pengukuran pasca-tindakan yang dapat diatribusikan beserta metode, ketidakpastian, cakupan sumber KAZ_S_159 untuk 2026-01-01..2026-01-02, dan attestasi operator; isi laporan DEMO-T3-RESPONSE saat ini tidak disertakan."
+    ]
+  },
+  "timing": {
+    "wallClockSeconds": 75,
+    "modelCalls": 1,
+    "inputTokens": 155002,
+    "outputTokens": 3854,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Abstain: alat MCP paket manual untuk mutasi dossier dan verifikasi ekspor tidak tersedia dalam konteks ini. Hanya submit_result yang tersedia. Tidak ada ekspor yang dibuat atau diverifikasi.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "532cb3d5186e6c1fa12cbc1afaf2844f9345b0cb8014dba865f58895a5c02143",
+    "steps": 0,
+    "toolNames": [],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 130176,
+    "reasoningOutputTokens": 2829,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

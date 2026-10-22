@@ -1,0 +1,189 @@
+{
+  "date": "2026-10-23",
+  "scope": "Release alignment, not a new 48-episode study or model benchmark",
+  "baselineCommit": "b067ad36c792ab45c472334984b338662b679637",
+  "runtime": {
+    "localBun": "1.4.3",
+    "ciBun": "1.4.2",
+    "chromium": "/usr/bin/chromium"
+  },
+  "results": {
+    "frozenInstall": "PASS",
+    "typecheck": "PASS",
+    "api": {
+      "passed": 301,
+      "failed": 0
+    },
+    "web": {
+      "passed": 282,
+      "failed": 0
+    },
+    "verifier": {
+      "passed": 66,
+      "failed": 0
+    },
+    "pythonTooling": {
+      "passed": 16,
+      "failed": 0
+    },
+    "pythonPipeline": {
+      "passed": 221,
+      "failed": 0
+    },
+    "foundry": {
+      "passed": 4,
+      "failed": 0
+    },
+    "agentTooling": {
+      "passed": 78,
+      "failed": 0,
+      "modelCalls": 0
+    },
+    "deterministicGates": {
+      "passed": 12,
+      "failed": 0,
+      "command": "bun --no-env-file run agent-lab:gates (separate local check, not an overwrite of frozen r12)"
+    },
+    "submission": {
+      "passed": 17,
+      "failed": 0,
+      "note": "Latest run after adding release evidence and disambiguating prose userApprovedScope field; credential-key rejection unchanged."
+    },
+    "v18RevisionTests": {
+      "passed": 12,
+      "failed": 0
+    },
+    "productionBuild": "PASS",
+    "bundleBudget": "PASS",
+    "browserWorkflow": {
+      "passed": 42,
+      "failed": 0,
+      "baseline": 29,
+      "privateAndMockAi": 13,
+      "browserJourneys": 41,
+      "nodeSchemaChecks": 1
+    },
+    "rulesBaseline": "PASS: new output byte-identical to committed baseline-evaluation.json",
+    "sourceArchiveRegression": "PASS: new root-config test failed before allowlist change; all 16 Python tooling tests pass after change"
+  },
+  "resolvedCheckFailures": [
+    {
+      "check": "stage-snapshot-update real archive integration",
+      "initial": "Two complete verifier runs exceeded Bun default 5s per-test timeout; same assertions passed alone in 4.314s.",
+      "change": "Only this integration test receives 20s timeout; assertions and production behavior unchanged.",
+      "final": "66/66 verifier tests pass"
+    },
+    {
+      "check": "agent tooling browser launch",
+      "initial": "Four tests could not locate Playwright bundled headless shell.",
+      "change": "Selected installed system Chromium using existing PLAYWRIGHT_CHROMIUM_EXECUTABLE support. No browser install or sandbox change.",
+      "final": "78/78 tests pass; real MCP submit/interruption/contract-rejection covered"
+    },
+    {
+      "check": "source packaging configuration coverage",
+      "initial": "New typecheck and agent Playwright root configs omitted by source allowlist; added regression failed.",
+      "change": "Explicitly allow six required root configs; private-file exclusions remain unchanged.",
+      "final": "16 Python tooling tests pass"
+    }
+  ],
+  "preservation": {
+    "sourceHashes": 340,
+    "artifactHashes": 57,
+    "allAcceptanceHashesMatch": true,
+    "r12TaskCompletion": "0/48 frozen, unchanged",
+    "frozenRecoveryFiles": 73
+  },
+  "publication": {
+    "serviceId": "srv-dbbumltg1s2s73e8cct0",
+    "workspace": "Andro\u2019s workspace",
+    "plan": "free",
+    "region": "singapore",
+    "autoDeploy": false,
+    "rollbackRuntimeCommit": "98b25ca0af1e3e2df7ca9084c1569db1b6712a1e",
+    "serviceTarget": "https://methaneresponse-preview.onrender.com",
+    "status": "not performed at local gate recording time",
+    "userApprovedScope": "Existing user-approved main push and existing Free service deployment; no new paid resources or credentials"
+  },
+  "limits": [
+    "No new provider assessment, human pilot or 48-agent rerun",
+    "No public blockchain transaction",
+    "Full normal-speed final-video playback/listening not reviewed",
+    "Public preview is ephemeral and limits anonymous baseline sources; private reviewer and blockchain writes stay off",
+    "Free service plan is verified; workspace-wide zero billing cannot be independently guaranteed"
+  ],
+  "logs": {
+    "tooling.log": {
+      "sha256": "ba94d178800206803172b26f14a07f06dc731980572da814ba8c530a099f3094",
+      "bytes": 114
+    },
+    "agent-tooling-final.log": {
+      "sha256": "f0057630c9eaa4663f4758402f7b0b6a9f83ea262b2958a72b37e7d8bdaec36b",
+      "bytes": 9673
+    },
+    "video-v18-tests.log": {
+      "sha256": "3129d5cc0914e6372fe3f6a6492e0d2899f41b7e69cecf02c15c1c0410a2d7fc",
+      "bytes": 111
+    },
+    "verifier.log": {
+      "sha256": "7124171271c32a8b4631bd2d21e2f3213ea04971d92b5048a80fc1de3542d554",
+      "bytes": 7999
+    },
+    "local-gates.log": {
+      "sha256": "3dbf32ff12a502244e773fcbb86aba92bcc3b7a4f8a878d920ff7b0201d03059",
+      "bytes": 71296
+    },
+    "contracts.log": {
+      "sha256": "647d555cc704900615daf03e58b8f426f35a548ab86ae1d75754d92528efe9db",
+      "bytes": 556
+    },
+    "python.log": {
+      "sha256": "12ee1d85015ec49590e29298d3b914457de016017b8333f243fd2ff38b71fce3",
+      "bytes": 2552
+    },
+    "build.log": {
+      "sha256": "557876b7a40aeeb8fd979f7e7bdd3c7d85473f717c177d71380c66a8a2fa94c1",
+      "bytes": 5497
+    },
+    "staging-focused.log": {
+      "sha256": "b0822c325a5ac2a78178dcbf7858db4bbb093d73369de7e641d921033709827c",
+      "bytes": 532
+    },
+    "verifier-final.log": {
+      "sha256": "59bff0797729633466f155d4b0a326a2e134f976f9595279c6c9940a44400966",
+      "bytes": 7753
+    },
+    "agent-tooling.log": {
+      "sha256": "18262c792d4c7032cae20de333178a0d8ffe3ee94096c3c9c7f0c7fcd5add961",
+      "bytes": 14093
+    },
+    "bundle.log": {
+      "sha256": "e0e8b41f2d046f39d6cba472b8f1aac569b729644c891e272c3458db2b6c9683",
+      "bytes": 126
+    },
+    "submission-tests.log": {
+      "sha256": "5dbceafde5909194e13de6470c41a7e5c1d63d979aaea52511a66e68a8cc1ea1",
+      "bytes": 116
+    },
+    "tooling-final.log": {
+      "sha256": "f901fbabb56c390d7ec0076b3e0fd921737c4ab64cd9dae784da066e2bb10567",
+      "bytes": 115
+    },
+    "source-package-before.log": {
+      "sha256": "2146cf0ffa45482c36099838ed3ffb587c0291385361e57686f72443f7c64ef4",
+      "bytes": 1232
+    },
+    "baseline.log": {
+      "sha256": "12fa93bd2189c98568718524bca35c2f77960c8d34c6e7ce9aa3b309fb1b782b",
+      "bytes": 77
+    },
+    "e2e.log": {
+      "sha256": "fca14fd233073713d1404d245af93521b8bcd13f80b13c005168a58744ca1a2b",
+      "bytes": 11585
+    },
+    "submission-final-recheck.log": {
+      "sha256": "a7953b085ea6646a1e169aef756d9235d4312cbdefae898868123c9ae6f0acca",
+      "bytes": 116
+    }
+  },
+  "decision": "READY WITH RISKS for the limited prototype release; public deployment and exact-commit CI must be checked separately"
+}

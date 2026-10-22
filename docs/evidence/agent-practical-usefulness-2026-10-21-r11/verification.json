@@ -1,0 +1,559 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r11",
+  "checkedAt": "2026-10-21T07:49:40.275Z",
+  "protocolFrozenSha256": "1cdca0ba1dc2eb4e62941ed05313deb03426d3c22bd711993db7c042619c75cc",
+  "frozenAt": "2026-10-21T07:15:22.668Z",
+  "integrity": {
+    "ok": true,
+    "scenarios": [
+      {
+        "path": "scenarios/T1-plan-packet.json",
+        "expected": "dec594cfa670ec7fd97f62d124e87b2e087fe6ac7f2bc767ea752e01597888e4",
+        "actual": "dec594cfa670ec7fd97f62d124e87b2e087fe6ac7f2bc767ea752e01597888e4",
+        "match": true
+      },
+      {
+        "path": "scenarios/gold/T1-plan-gold.json",
+        "expected": "359144dc52a6f2a3fe4116fd8894338bd23b2782740882d20bb0f9e427e99e0c",
+        "actual": "359144dc52a6f2a3fe4116fd8894338bd23b2782740882d20bb0f9e427e99e0c",
+        "match": true
+      },
+      {
+        "path": "scenarios/T2-investigate-request-packet.json",
+        "expected": "908206ef22656e201d86aa8eaef03966e154f881399ff32259795aaad0370c5a",
+        "actual": "908206ef22656e201d86aa8eaef03966e154f881399ff32259795aaad0370c5a",
+        "match": true
+      },
+      {
+        "path": "scenarios/gold/T2-investigate-request-gold.json",
+        "expected": "0a21f04c7ecf43d204b9d79063f76e19597d3b3693b0aa84eb7d00e338ae6336",
+        "actual": "0a21f04c7ecf43d204b9d79063f76e19597d3b3693b0aa84eb7d00e338ae6336",
+        "match": true
+      },
+      {
+        "path": "scenarios/T3-review-revisit-verify-packet.json",
+        "expected": "532cb3d5186e6c1fa12cbc1afaf2844f9345b0cb8014dba865f58895a5c02143",
+        "actual": "532cb3d5186e6c1fa12cbc1afaf2844f9345b0cb8014dba865f58895a5c02143",
+        "match": true
+      },
+      {
+        "path": "scenarios/gold/T3-review-revisit-verify-gold.json",
+        "expected": "a6836a5f026faca507193e938ae6837f382cb87218d3428feb4ed86dd91f231c",
+        "actual": "a6836a5f026faca507193e938ae6837f382cb87218d3428feb4ed86dd91f231c",
+        "match": true
+      }
+    ],
+    "frozenMetadata": [
+      {
+        "path": "protocol-frozen.json",
+        "expected": "1cdca0ba1dc2eb4e62941ed05313deb03426d3c22bd711993db7c042619c75cc",
+        "actual": "1cdca0ba1dc2eb4e62941ed05313deb03426d3c22bd711993db7c042619c75cc",
+        "match": true
+      },
+      {
+        "path": "task-parity.json",
+        "expected": "bf78c13330ca2117c42073e4a126b2cf04b1a116918715cde6ebd29a671a3bb4",
+        "actual": "bf78c13330ca2117c42073e4a126b2cf04b1a116918715cde6ebd29a671a3bb4",
+        "match": true
+      }
+    ],
+    "runtimeFiles": [
+      {
+        "path": "scripts/agent-usefulness/continuation.ts",
+        "expected": "445906e09f3047b87884eef83a57bbb3cdfbf1d8218f1c5b0f16c89bebb138f2",
+        "actual": "445906e09f3047b87884eef83a57bbb3cdfbf1d8218f1c5b0f16c89bebb138f2",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/continuation.test.ts",
+        "expected": "a37e233715574d4ecbe0209092f5bf5b711f1d18f737594e26fbd3667258ab04",
+        "actual": "a37e233715574d4ecbe0209092f5bf5b711f1d18f737594e26fbd3667258ab04",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/migrate-continuation.ts",
+        "expected": "8b98c9c007d45d5468331e008a9b77e14a9a38d7f0eecbcf0b996bf9d029ad25",
+        "actual": "8b98c9c007d45d5468331e008a9b77e14a9a38d7f0eecbcf0b996bf9d029ad25",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/migrate-continuation.test.ts",
+        "expected": "db6c16470ef971646979e33a7648b0992d06cecd3933b433804fcad1b38571d4",
+        "actual": "db6c16470ef971646979e33a7648b0992d06cecd3933b433804fcad1b38571d4",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/protocol.ts",
+        "expected": "7d4b556267d8a21cd5bb825e2a31c9f006f1d5743a01ff442fd6e3c0f501cde1",
+        "actual": "7d4b556267d8a21cd5bb825e2a31c9f006f1d5743a01ff442fd6e3c0f501cde1",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/scenarios.ts",
+        "expected": "a53e492bbb669a1412835689fb3a9f936c1ea6fcb5c79d0b66d1920a3b471194",
+        "actual": "a53e492bbb669a1412835689fb3a9f936c1ea6fcb5c79d0b66d1920a3b471194",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/prepare.ts",
+        "expected": "f45feae11b3f1a207414bb8cfc2855c04d55ed8dd9810fb965f85cbc24d81a20",
+        "actual": "f45feae11b3f1a207414bb8cfc2855c04d55ed8dd9810fb965f85cbc24d81a20",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/gates.ts",
+        "expected": "a88956e122b22662669d5f2f82fa5bc2f0a091e08c26a463f791e595ea4cebde",
+        "actual": "a88956e122b22662669d5f2f82fa5bc2f0a091e08c26a463f791e595ea4cebde",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/finalize.ts",
+        "expected": "4466e101798554cca097bb20ad4e29cc9c05bda3e768c2a6753d6adca82a598e",
+        "actual": "4466e101798554cca097bb20ad4e29cc9c05bda3e768c2a6753d6adca82a598e",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/scorer.ts",
+        "expected": "eaee01e8980576f6efa53908cd5e47ac24b4a5bc3c044aa98deb3054ed3ed05d",
+        "actual": "eaee01e8980576f6efa53908cd5e47ac24b4a5bc3c044aa98deb3054ed3ed05d",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/protocol.test.ts",
+        "expected": "6327b6d6ea87371a5bf6b4e296b4ea8e9efdbec35bc98572f59c1c2aaa83c22f",
+        "actual": "6327b6d6ea87371a5bf6b4e296b4ea8e9efdbec35bc98572f59c1c2aaa83c22f",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/scenarios.test.ts",
+        "expected": "69f246a6bb8fbd1dea11e4af1111e10fee6badd330aa296e221eb27f8e2cd00d",
+        "actual": "69f246a6bb8fbd1dea11e4af1111e10fee6badd330aa296e221eb27f8e2cd00d",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/scorer.test.ts",
+        "expected": "060b9364bb396a6e1aef1525c7b8465766db5d124d6a69f45dc6234a72b30ee7",
+        "actual": "060b9364bb396a6e1aef1525c7b8465766db5d124d6a69f45dc6234a72b30ee7",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/gates.test.ts",
+        "expected": "a102e68126404c6c6ab2234249c0b0ca80b0c35b25607a90c269e446f3bb8b60",
+        "actual": "a102e68126404c6c6ab2234249c0b0ca80b0c35b25607a90c269e446f3bb8b60",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/runner-config.ts",
+        "expected": "d5eb0269a033542e831fe904e6ae24fac895b6c42f9f9decf451ca67842f70eb",
+        "actual": "d5eb0269a033542e831fe904e6ae24fac895b6c42f9f9decf451ca67842f70eb",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/runner-config.test.ts",
+        "expected": "c738d0756d5fa25c0ccca61ec1823bce03d1ed32ff3b0bb5929f77a2adaece20",
+        "actual": "c738d0756d5fa25c0ccca61ec1823bce03d1ed32ff3b0bb5929f77a2adaece20",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/runner-context.ts",
+        "expected": "7d4c2a214d297f37d1f432a54991312ce7d67372b05a1c96312bf06abef2d480",
+        "actual": "7d4c2a214d297f37d1f432a54991312ce7d67372b05a1c96312bf06abef2d480",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/runner-context.test.ts",
+        "expected": "dac87b150d3e5d904a8888cf64f074c01c4b70f5b896539f2877d5a4348262c1",
+        "actual": "dac87b150d3e5d904a8888cf64f074c01c4b70f5b896539f2877d5a4348262c1",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/provider.ts",
+        "expected": "4364c64a5f1017adfb43c179270410e8a331fa86c78968eb3e863a700d1ec425",
+        "actual": "4364c64a5f1017adfb43c179270410e8a331fa86c78968eb3e863a700d1ec425",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/provider.test.ts",
+        "expected": "f455bf4ffafb2538f06a67f67113c365af2456daed75e54805c3e7991f1c4bfd",
+        "actual": "f455bf4ffafb2538f06a67f67113c365af2456daed75e54805c3e7991f1c4bfd",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/agent-loop.ts",
+        "expected": "ad9e822e42979cc54eacb134256e48e777ecf61dcedc3f9fe4e78b96e7674c14",
+        "actual": "ad9e822e42979cc54eacb134256e48e777ecf61dcedc3f9fe4e78b96e7674c14",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/agent-loop.test.ts",
+        "expected": "75fdd7e389310ac9c8b5855036a67b428c57f5630465d4c3f4f962c693172bff",
+        "actual": "75fdd7e389310ac9c8b5855036a67b428c57f5630465d4c3f4f962c693172bff",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/manual-packet.ts",
+        "expected": "e54788d89f698b53a19f2accf3ed382c7a8054d774fee724ca300e1be453c291",
+        "actual": "e54788d89f698b53a19f2accf3ed382c7a8054d774fee724ca300e1be453c291",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/manual-packet.test.ts",
+        "expected": "760b404db1722f17cca32845222a7c04dd536774dda4864b4173580f54d2d881",
+        "actual": "760b404db1722f17cca32845222a7c04dd536774dda4864b4173580f54d2d881",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/browser-tools.ts",
+        "expected": "0c46855fea20895239f3859603f0e272f829fa407878d8173c92f7b7bd11b101",
+        "actual": "0c46855fea20895239f3859603f0e272f829fa407878d8173c92f7b7bd11b101",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/browser-tools.test.ts",
+        "expected": "4886e3f449785a1c815fefae14f6dd2c415af8bc89a39336b2345ed18340979e",
+        "actual": "4886e3f449785a1c815fefae14f6dd2c415af8bc89a39336b2345ed18340979e",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/budget-ledger.ts",
+        "expected": "d1f365b9afb092065083e2464fe1ed06cdb2558772429d8603a94c78612ecd72",
+        "actual": "d1f365b9afb092065083e2464fe1ed06cdb2558772429d8603a94c78612ecd72",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/budget-ledger.test.ts",
+        "expected": "5788991b00fe2957ba9b74651be8232916ba0654be44eed9501d1ba40f97008d",
+        "actual": "5788991b00fe2957ba9b74651be8232916ba0654be44eed9501d1ba40f97008d",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/run-all.ts",
+        "expected": "83cb9f971ab30825906b3ac521ba496004d3db09dc3cd7072d1b7c104a8d7287",
+        "actual": "83cb9f971ab30825906b3ac521ba496004d3db09dc3cd7072d1b7c104a8d7287",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/run-all.test.ts",
+        "expected": "0ec3c8197ae02b83895c443258026654ce4557a5b07dcbb15a709a61e33bbcb3",
+        "actual": "0ec3c8197ae02b83895c443258026654ce4557a5b07dcbb15a709a61e33bbcb3",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/run-openai-luna.sh",
+        "expected": "a78ec2639ac02ac9f87e8cab2b431ac39eccfd831bdbede1f012b249af2c4667",
+        "actual": "a78ec2639ac02ac9f87e8cab2b431ac39eccfd831bdbede1f012b249af2c4667",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/run-codex-luna-max.sh",
+        "expected": "cfa4541e9dabe70fdeb5db68cbb892989ac4a65983c5b93a024772de4b8adf50",
+        "actual": "cfa4541e9dabe70fdeb5db68cbb892989ac4a65983c5b93a024772de4b8adf50",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/codex-cli-runner.ts",
+        "expected": "a82d8a4a8055ae599439f47d57c5875512363b1786604526a937aa735e5fe1ac",
+        "actual": "a82d8a4a8055ae599439f47d57c5875512363b1786604526a937aa735e5fe1ac",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/codex-cli-runner.test.ts",
+        "expected": "23481f1b57327492bdf01f9ae975fbcca414efcde9ce60d9135b507046c67c6b",
+        "actual": "23481f1b57327492bdf01f9ae975fbcca414efcde9ce60d9135b507046c67c6b",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/codex-mcp-server.ts",
+        "expected": "26789f2c8e028b01c0632c0465a2d7a66f29933c8d882841f7bb92fba30c2df0",
+        "actual": "26789f2c8e028b01c0632c0465a2d7a66f29933c8d882841f7bb92fba30c2df0",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "scripts/agent-usefulness/codex-mcp-server.test.ts",
+        "expected": "17d55533414b8b42274c44e24689a0c3b9941200b90b2a2fb64f5be56645af6d",
+        "actual": "17d55533414b8b42274c44e24689a0c3b9941200b90b2a2fb64f5be56645af6d",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "playwright.agent-lab.config.ts",
+        "expected": "0d2589789d861d463f6293240fde0434ec8477c7eddba3c0552c281473e375ce",
+        "actual": "0d2589789d861d463f6293240fde0434ec8477c7eddba3c0552c281473e375ce",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "playwright.agent-lab-run.config.ts",
+        "expected": "c35dfad657380adcb48d50a2b19b375de2f5b71061da807dc7b3f603a87a5df3",
+        "actual": "c35dfad657380adcb48d50a2b19b375de2f5b71061da807dc7b3f603a87a5df3",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "e2e/agent-lab/plan-dry-run.spec.ts",
+        "expected": "b277da9170b0c9d447dcbf49838108c2e2a97dde865adbfbd15ff1adeacd7870",
+        "actual": "b277da9170b0c9d447dcbf49838108c2e2a97dde865adbfbd15ff1adeacd7870",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "e2e/agent-lab/sealed-runner.spec.ts",
+        "expected": "397dd27aed1172ded9b935770b757cb5a552ee2fe6a6bdd3507dc6ba98824f9c",
+        "actual": "397dd27aed1172ded9b935770b757cb5a552ee2fe6a6bdd3507dc6ba98824f9c",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "docs/evidence/agent-practical-usefulness-2026-10-21-r11-runbook.md",
+        "expected": "3b838add5ea86604e0f0551935397eba64e160338503892ec6c9d2289e13b8ec",
+        "actual": "3b838add5ea86604e0f0551935397eba64e160338503892ec6c9d2289e13b8ec",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "package.json",
+        "expected": "66c463d43a0d6fd02ff6c95f469da729a4e8ade97e6b79ae56aa058fcb9c259a",
+        "actual": "66c463d43a0d6fd02ff6c95f469da729a4e8ade97e6b79ae56aa058fcb9c259a",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "tsconfig.agent-lab.json",
+        "expected": "ff5eb778894269a4a6e7c12585e6a6ac72f9890d73b8a76428c753cf85c96894",
+        "actual": "ff5eb778894269a4a6e7c12585e6a6ac72f9890d73b8a76428c753cf85c96894",
+        "match": true,
+        "reason": null
+      },
+      {
+        "path": "bun.lock",
+        "expected": "0b1c52b35c173b29c5b5ac251176e752db6f7a2b960ee60573b2b005b604bd1a",
+        "actual": "0b1c52b35c173b29c5b5ac251176e752db6f7a2b960ee60573b2b005b604bd1a",
+        "match": true,
+        "reason": null
+      }
+    ],
+    "continuation": {
+      "applicable": true,
+      "ok": true,
+      "parentProtocolId": "agent-practical-usefulness-2026-10-21-r10",
+      "inheritedAttempts": 36,
+      "excludedCapStoppedAttempt": "P7-T1-C1_APPLICATION_BROWSER",
+      "parentUsageTokens": 50989768,
+      "cumulativeUsageTokens": 57885060,
+      "errors": []
+    }
+  },
+  "sealedRuns": {
+    "files": 43,
+    "accepted": 43,
+    "invalid": [],
+    "interruptedUnsealed": [
+      {
+        "path": "runs/runtime/started/P8-T1-C1_APPLICATION_BROWSER.json",
+        "episodeId": "P8-T1-C1_APPLICATION_BROWSER",
+        "error": null
+      }
+    ],
+    "staleStartedMarkers": []
+  },
+  "gates": {
+    "passed": 12,
+    "failed": 0,
+    "results": [
+      {
+        "id": "G01",
+        "title": "Feedback without action/follow-up cannot become mitigation_confirmed",
+        "passed": true,
+        "evidence": {
+          "sourceMetadata": {
+            "feedback": "Yes",
+            "notified": "Yes",
+            "synthetic": true
+          },
+          "includedEvidenceKinds": [
+            "metadata_notification"
+          ],
+          "actionEvidenceCount": 0,
+          "postActionMeasurementCount": 0,
+          "result": "insufficient_evidence",
+          "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false."
+        },
+        "limitation": "The evidence-coverage baseline inspects references, not physical truth."
+      },
+      {
+        "id": "G02",
+        "title": "Missing future observation is not zero emissions",
+        "passed": true,
+        "evidence": {
+          "result": "insufficient_evidence",
+          "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+          "plannerLimitationPresent": true
+        },
+        "limitation": "Historical observations are discontinuous. Missing later records do not establish zero emissions; source feedback does not prove repair."
+      },
+      {
+        "id": "G03",
+        "title": "Date precision 2026-09 is preserved as a month",
+        "passed": true,
+        "evidence": {
+          "monthAccepted": true,
+          "dayWithMonthRejected": true,
+          "eventPreserved": true,
+          "stored": {
+            "precision": "month",
+            "value": "2026-09"
+          }
+        },
+        "limitation": "Schema preservation does not prove the document date is correct."
+      },
+      {
+        "id": "G04",
+        "title": "Pre-action measurement is not a post-action result",
+        "passed": true,
+        "evidence": {
+          "result": "insufficient_evidence",
+          "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false."
+        },
+        "limitation": "Chronology rules need trustworthy action and measurement dates."
+      },
+      {
+        "id": "G05",
+        "title": "Missing evidence is not a contradiction",
+        "passed": true,
+        "evidence": {
+          "result": "insufficient_evidence",
+          "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false."
+        },
+        "limitation": "Absence of a supplied reference does not prove the event did not occur."
+      },
+      {
+        "id": "G06",
+        "title": "Shared document across claims is not automatic double counting",
+        "passed": true,
+        "evidence": {
+          "reasons": [
+            "shared_document_bytes",
+            "shared_reference_pointer"
+          ],
+          "duplicateMitigationEstablished": false
+        },
+        "limitation": "The report identifies candidates for human review; it does not establish duplication or fraud."
+      },
+      {
+        "id": "G07",
+        "title": "Snapshot already included in a frozen decision is not a new update",
+        "passed": true,
+        "evidence": {
+          "snapshotComparison": "already_in_decision_snapshot",
+          "state": "no_new_dependency_changes",
+          "reasonCodes": []
+        },
+        "limitation": "DEMO fixture only; production transitions require separately verified release files."
+      },
+      {
+        "id": "G08",
+        "title": "Rehashed tampered decision fails against the externally trusted digest",
+        "passed": true,
+        "evidence": {
+          "originalValid": true,
+          "internallyRehashed": true,
+          "tamperedAgainstTrusted": false
+        },
+        "limitation": "The trusted digest must reach the verifier through a separate channel; a digest stored beside the file is not a trust anchor."
+      },
+      {
+        "id": "G09",
+        "title": "Unauthorized read and approval are denied",
+        "passed": true,
+        "evidence": {
+          "anonymousRead": 401,
+          "readonlyApprove": 403,
+          "reviewScopeMalformedRequest": 400,
+          "privateIdentityLeaked": false
+        },
+        "limitation": "This checks route authorization and input rejection, not reviewer identity proof, durable storage or production deployment."
+      },
+      {
+        "id": "G10",
+        "title": "Historical snapshot is not labeled live methane monitoring",
+        "passed": true,
+        "evidence": {
+          "scenarioFiles": 6,
+          "historicalLabelPresent": true,
+          "liveMonitoringMatches": 0,
+          "offenders": []
+        },
+        "limitation": "Static artifact scan; it does not review every future UI string."
+      },
+      {
+        "id": "G11",
+        "title": "No token or secret appears in generated artifacts",
+        "passed": true,
+        "evidence": {
+          "scannedFiles": 63,
+          "offenders": []
+        },
+        "limitation": "Text scan only; screenshots and traces require visual inspection or redaction before publication."
+      },
+      {
+        "id": "G12",
+        "title": "DEMO reviewers are not presented as experts or external approval",
+        "passed": true,
+        "evidence": {
+          "scannedFiles": 58,
+          "offenders": [],
+          "demoLabelPresent": true
+        },
+        "limitation": "This checks generated artifacts, not what a future presenter says aloud."
+      }
+    ]
+  },
+  "dryRun": {
+    "expected": 4,
+    "recorded": 4,
+    "missing": [],
+    "duplicates": [],
+    "unexpected": [],
+    "invalid": [],
+    "passed": true
+  },
+  "status": "BLOCKED_INTERRUPTED_ATTEMPTS",
+  "passed": false,
+  "note": "Runtime file hashes cover the harness at freeze time. Any later edit is reported as a mismatch rather than silently ignored."
+}

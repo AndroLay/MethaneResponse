@@ -23,6 +23,8 @@ jobs:
       - run: bun run build:web
       - run: bun run check:web-bundle
       - run: bun run playwright install --with-deps chromium
+      - name: Verify agent tooling without calling a model
+        run: bun --no-env-file run agent-lab:test
       - run: bun run test:e2e --max-failures=1
 
   data-pipeline:

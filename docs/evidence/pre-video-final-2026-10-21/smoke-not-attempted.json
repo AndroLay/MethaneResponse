@@ -1,0 +1,9 @@
+{
+  "kind": "operator reconstruction from runner log and remaining allowance; not an agent answer",
+  "tasks": {
+    "T1": "No provider started: worker restart collided with frozen protocol creation; allowance already exceeded.",
+    "T2": "No provider started: test did not run after worker failure; allowance already exceeded."
+  },
+  "newProviderTurnsAfterT3": 0,
+  "automaticRetries": 0
+}

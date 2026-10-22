@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P7-T2-C1_APPLICATION_BROWSER",
+  "pairId": "P7-T2",
+  "personaId": "P7",
+  "taskId": "T2",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T07:31:39.177Z",
+    "endedAt": "2026-10-21T07:34:30.722Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "navigation",
+  "output": {
+    "sourceId": "KAZ_S_159",
+    "claimType": "mitigation_confirmed",
+    "claimText": "The KAZ_S_159 operator completed mitigation of the 2026-06-05 detected methane plume, and a post-action measurement confirms the outcome by 2026-07-31.",
+    "scope": {
+      "startDate": "2026-06-01",
+      "endDate": "2026-07-31",
+      "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd"
+    },
+    "verdict": "abstain_insufficient_evidence",
+    "limitations": [
+      "The supplied DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM says feedback: Yes and notified: Yes are publisher metadata; it supplies no action date, post-action measurement, method, uncertainty, or follow-up reference. The UI also labels notification/response metadata as not proof of delivery, operator response, or equipment repair.",
+      "The KAZ_S_159 historical record lists the 2026-06-05 07:40 AM UTC observation 7529d451-018f-4da3-9114-59b76c3a3bcd at 307 kg/h. The visible record did not provide an uncertainty value for this observation.",
+      "A later separate overpass is listed for 2026-07-11 08:12 AM UTC, observation 941806b5-2afe-46ac-baac-a0230880cede, at 496 kg/h ± 226 kg/h standard deviation. Without a dated action record, it cannot be established as post-action or as a follow-up confirming the claimed outcome.",
+      "The 2024-06-07 08:05 AM UTC record 82758651-76f4-4e06-b4ab-c247ce765192 is another separate overpass (591 kg/h); gaps between overpasses do not establish zero emissions or mitigation.",
+      "The linked publisher report body and external report metadata are withheld/not included, and the assignment says the metadata was not cleared for provider processing. No report content was processed.",
+      "The local verification center reports no generated audit bundle, no receipt, no transaction, no recorded issuer, no public audit revisions, and zero loaded public history for KAZ_S_159. It identifies Sepolia as an optional testnet. No tamper-test evidence or local Anvil versus public-network comparison was available.",
+      "A digest or chain receipt can support integrity and chronology of recorded data only; it does not establish physical truth, mitigation, operator authority, or reviewer identity."
+    ],
+    "requestedEvidence": "For source KAZ_S_159 and the exact scope 2026-06-01 through 2026-07-31 UTC (observation 7529d451-018f-4da3-9114-59b76c3a3bcd), provide: (1) an attributable operator action record linked to that source and observation, identifying the action, site/equipment, actor and role, evidence of the actor's authority to represent the operator, and action start/completion timestamps in UTC; include original record ID, signed/approved status, and complete creation/revision history. (2) A permitted, attributable post-action measurement reference dated after the recorded completion and on or before 2026-07-31 UTC, explicitly linked to the same source/site; include measurement timestamp, method, instrument/product, QC/calibration context, measured flux and units, uncertainty/statistical meaning and detection limits, and the evidence needed to compare it with the 2026-06-05 baseline. State if any field is unavailable; do not infer zero emissions. (3) For any digest/receipt offered to support chronology or integrity, provide the exact versioned evidence bundle and its SHA-256, evidence/version identifiers and parent/version history with UTC timestamps, and the separately verifiable authorization/key-custody record for the issuer and any human reviewer. Include reproducible tamper tests on the exact bundle/export (original and intentionally altered artifacts, expected and observed digests, verifier version, and results showing altered content is detected). Identify each execution environment: label local Anvil runs DEMO/local and report chain ID, endpoint/context, deployed contract/version, issuer, and test results; separately identify any public-network transaction with network name/chain ID, transaction and block hashes, contract/version, issuer, and an independently checkable receipt/event. If no public transaction exists, state that explicitly. Do not present local Anvil evidence as public-chain anchoring or a receipt as proof of the physical outcome.",
+    "whyNeeded": "The claim asserts both completed mitigation and a confirming post-action measurement within the stated UTC period. Current publisher metadata and separate overpass records do not link an authorized actor, a dated action, and a measurement after that action. Authorization and version history are needed to assess attribution and chronology; tamper results and network-specific receipt details are needed to assess only the integrity/chronology of any supporting bundle.",
+    "acceptanceCriteria": [
+      "The action record is attributable to KAZ_S_159, explicitly linked to observation 7529d451-018f-4da3-9114-59b76c3a3bcd, identifies the mitigation action and site/equipment, and gives a completion timestamp in UTC within the requested scope.",
+      "The actor's identity/role and authority to make the operator statement are evidenced separately from any blockchain address or receipt; any human reviewer identity/approval is also evidenced separately.",
+      "A linked follow-up measurement is timestamped after the documented completion and no later than 2026-07-31 UTC, and provides method, instrument/product, QC context, units, uncertainty and detection limits sufficient to interpret the claimed outcome against the baseline. It must not equate a missing detection with zero emissions.",
+      "Original record identifiers, source/document versions, UTC creation and revision timestamps, parent/version relationships, and digests form a coherent chronology without unexplained backdating or version gaps.",
+      "Tamper tests use the exact bundle/export and preserve inputs, altered test artifacts, expected versus observed hashes, verifier/version information, and results that show material changes are detected.",
+      "Local Anvil results are explicitly marked DEMO/local and distinguished by chain ID/environment from a public network. Any claimed public transaction is independently verifiable on its named network with transaction/block, contract/version, issuer, receipt/event and digest details; absence of a transaction is stated plainly.",
+      "Blockchain evidence is described only as integrity/chronology evidence and is not used to establish physical mitigation, source truth, issuer authorization, or reviewer identity."
+    ],
+    "ownerRole": "Authorized KAZ_S_159 operator records custodian, coordinating the follow-up measurement provider and the system custodian for any audit/chain artifacts",
+    "dueDateOrReasonUnset": "No due date is supplied in the task or source record; the evidence-request owner should set one.",
+    "references": [
+      {
+        "evidenceId": "claimTextSha256:341d23c08aa1239ee85fd1c6ea850764206b609c8fc0fd5d70aab27c5460f8c1",
+        "source": "Task assignment",
+        "detail": "Exact mitigation_confirmed claim and scope: 2026-06-01 through 2026-07-31; observationId 7529d451-018f-4da3-9114-59b76c3a3bcd."
+      },
+      {
+        "evidenceId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "source": "MethaneResponse Observations page · KAZ_S_159",
+        "detail": "2026-06-05 07:40 AM UTC; reported flux 307 kg/h; no uncertainty value surfaced for this row."
+      },
+      {
+        "evidenceId": "941806b5-2afe-46ac-baac-a0230880cede",
+        "source": "MethaneResponse Observations page · KAZ_S_159",
+        "detail": "2026-07-11 08:12 AM UTC; reported flux 496 kg/h ± 226 kg/h standard deviation; not shown to be post-action."
+      },
+      {
+        "evidenceId": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "source": "MethaneResponse Observations page · KAZ_S_159",
+        "detail": "2024-06-07 08:05 AM UTC; reported flux 591 kg/h."
+      },
+      {
+        "evidenceId": "unep-mars-675417694883",
+        "source": "Supplied dataset assignment and MethaneResponse snapshot UI",
+        "detail": "Dataset snapshot ID; archive 2020-10-29 through 2026-09-13; inputFileSha256 f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7; archiveSha256 675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43; UNEP IMEO MARS metadata, CC BY-NC-SA 4.0 (dataset terms). Assignment attribution says normalized source and plume CSV tables into JSON, retained source-level feedback and unresolved plume links, and inferred no mitigation confirmation. UI retrieval shown as Oct 14, 2026, 06:10 AM UTC."
+      },
+      {
+        "evidenceId": "DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM",
+        "source": "Supplied assignment note",
+        "detail": "Feedback: Yes and notified: Yes are publisher metadata; no action date, post-action measurement, method, uncertainty, or follow-up reference is supplied."
+      },
+      {
+        "evidenceId": "Blockchain Verification Center · /dashboard/blockchain",
+        "source": "MethaneResponse local UI",
+        "detail": "No audit bundle/receipt/transaction or issuer is recorded; no public audit revisions/history loaded for KAZ_S_159; Sepolia shown as optional testnet; UI states blockchain does not prove physical leak repair."
+      }
+    ],
+    "steps": [
+      "Read /dashboard/audit; confirmed KAZ_S_159, mitigation_confirmed, three loaded observations, publisher metadata limitations, and that linked report content was not included.",
+      "Attempted to open the Mitigation confirmation claim card; tool timed out.",
+      "Opened Observations; recorded the three observation IDs, dates, visible flux values, and the July 11 uncertainty.",
+      "Attempted to select the June 5 event in the audit scope control; tool timed out.",
+      "Opened /dashboard/blockchain; confirmed there was no generated bundle, receipt, transaction, recorded issuer, or public history for this source."
+    ],
+    "errors": [
+      "click on button named Mitigation confirmation claim: Timeout 15000ms exceeded while waiting for the exact accessible name.",
+      "select Observation event: Timeout 15000ms exceeded while waiting for the exact label."
+    ],
+    "requestsForHelp": []
+  },
+  "timing": {
+    "wallClockSeconds": 171.5,
+    "modelCalls": 1,
+    "inputTokens": 348733,
+    "outputTokens": 11299,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Abstained on the physical mitigation claim because the supplied evidence does not establish an authorized dated action or a linked post-action measurement; requested the precise missing evidence and integrity/chain artifacts.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "908206ef22656e201d86aa8eaef03966e154f881399ff32259795aaad0370c5a",
+    "steps": 7,
+    "toolNames": [
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "select",
+      "click",
+      "read_page"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 307584,
+    "reasoningOutputTokens": 8224,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

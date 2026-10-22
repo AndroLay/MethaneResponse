@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P3-T1-C0_MANUAL_PACKET",
+  "pairId": "P3-T1",
+  "personaId": "P3",
+  "taskId": "T1",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T05:10:13.533Z",
+    "endedAt": "2026-10-21T05:11:41.123Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "completed",
+  "assistance": "none",
+  "output": {
+    "selectedStrategy": {
+      "name": "Peringkat weightedScore menurun, lalu terapkan kuota geografis",
+      "rankingSource": "halaman ranked_page offset 0, mencakup rank 1–30",
+      "recurrenceWeight": 50,
+      "startingCapacity": 10,
+      "maxPerCountry": 2,
+      "countryFilters": [],
+      "sectorFilters": [],
+      "quotaSelectionMethod": "Telusuri peringkat menurun; lewati baris setelah negara mencapai dua pilihan; berhenti setelah 10 pilihan."
+    },
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": {
+      "sourceId": "BHR_S_003",
+      "reason": "Rank 18 dan weightedScore 96.083932. Saat baris ini dicapai, kuota Bahrain belum terpakai dan sembilan pilihan telah dibuat; sumber ini menjadi pilihan ke-9. Negara dan sektor sesuai parameter tanpa filter negara/sektor.",
+      "evidence": {
+        "country": "Bahrain",
+        "sector": "Oil and Gas",
+        "rank": 18,
+        "weightedScore": 96.083932,
+        "magnitudePoints": 93.7211,
+        "recurrencePoints": 98.446763,
+        "medianFluxKgHr": 8156,
+        "medianUncertaintyKgHr": 3129,
+        "distinctDates": 37,
+        "observationCount": 40,
+        "missingFluxCount": 0,
+        "lastObserved": "2026-06-07T07:06:19"
+      }
+    },
+    "excludedRationale": {
+      "sourceId": "IRN_S_001",
+      "reason": "Rank 19 dan weightedScore 96.013748, tetapi kuota Iran dua sumber telah tercapai oleh IRN_S_075 (rank 5) dan IRN_S_065 (rank 10). IRN_S_001 dilewati karena batas maxPerCountry=2; BHR_S_003 di rank 18 tetap terpilih karena Bahrain belum mencapai batas.",
+      "evidence": {
+        "country": "Iran (Islamic Republic of)",
+        "sector": "Oil and Gas",
+        "rank": 19,
+        "weightedScore": 96.013748,
+        "magnitudePoints": 92.406912,
+        "recurrencePoints": 99.620583,
+        "medianFluxKgHr": 6895,
+        "medianUncertaintyKgHr": 2381,
+        "distinctDates": 116,
+        "observationCount": 129,
+        "missingFluxCount": 0,
+        "lastObserved": "2026-07-09T07:14:53"
+      }
+    },
+    "activationStateBeforeCapacityChange": {
+      "recordedCapacity": 10,
+      "recordedPlanSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "state": "Rencana kapasitas 10 tercatat dari packet; status active pada aplikasi tidak dapat diverifikasi melalui alat manual yang tersedia.",
+      "decisionTimestamp": null,
+      "timestampNote": "Respons packet tidak memberikan waktu tindakan/pemilihan."
+    },
+    "activationStateAfterCapacityChange": {
+      "requestedCapacity": 20,
+      "capacityChangeAppliedOrVerified": false,
+      "intendedNoAutoReplacementState": "ID dan isi rencana kapasitas 10 di atas tetap dipertahankan; perubahan kapasitas tidak mengganti rencana secara otomatis.",
+      "actualApplicationState": "Tidak dapat diverifikasi: alat lab yang tersedia hanya menyediakan pembacaan packet dan submit_result, tanpa operasi perubahan kapasitas atau pemeriksaan active-plan.",
+      "decisionTimestamp": null,
+      "timestampNote": "Tidak ada timestamp tindakan dalam respons packet; tidak mengarang waktu perubahan."
+    },
+    "datasetEvidence": {
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "scope": "full_snapshot",
+      "claimType": "UNEP IMEO Eye on Methane / MARS detected source and plume data; baris yang diranking adalah record source-level.",
+      "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "intelligenceSha256": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+      "synthetic": false,
+      "demoLabel": "Bukan fixture DEMO menurut dataset.synthetic=false.",
+      "retrievedAt": "2026-10-14T06:10:12+00:00",
+      "archiveStartDate": "2020-10-29",
+      "archiveEndDate": "2026-09-13",
+      "fluxUnit": "kg/hr",
+      "uncertaintyUnit": "kg/hr"
+    },
+    "steps": [
+      {
+        "action": "Cari kedua ID sumber yang ditugaskan melalui read_manual_packet find_sources.",
+        "evidenceIds": [
+          "BHR_S_003",
+          "IRN_S_001"
+        ],
+        "timestamp": null
+      },
+      {
+        "action": "Baca halaman weighted ranking terbatas offset 0 limit 30; cukup untuk menerapkan kuota hingga kapasitas 10 dan mencakup rank 18–20.",
+        "evidenceIds": [
+          "unep-mars-675417694883",
+          "rank:1-30"
+        ],
+        "timestamp": null
+      },
+      {
+        "action": "Terapkan sendiri maxPerCountry=2 pada urutan skor menurun; pilih 10 sumber dengan rank 1, 2, 4, 5, 6, 7, 10, 15, 18, 20.",
+        "evidenceIds": [
+          "BHR_S_003",
+          "IRN_S_001",
+          "rank:1-20"
+        ],
+        "timestamp": null
+      },
+      {
+        "action": "Catat kapasitas baru yang diminta 20 dan pertahankan rencana terpilih sebagai keadaan tanpa penggantian otomatis; perubahan aplikasi aktual tidak tersedia untuk dilakukan atau diverifikasi melalui packet tool.",
+        "evidenceIds": [
+          "task parameters",
+          "available manual-packet tool capability"
+        ],
+        "timestamp": null
+      }
+    ],
+    "errors": [],
+    "requestsForHelp": [],
+    "finalOutput": {
+      "selectedSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "sourceAIncluded": "BHR_S_003, rank 18; Bahrain has not reached quota 2.",
+      "sourceBExcluded": "IRN_S_001, rank 19; Iran quota already filled by IRN_S_075 and IRN_S_065.",
+      "capacityAfterRequestedChange": 20,
+      "activePlanReplacement": "Tidak otomatis; actual application state not verified by read-only packet."
+    }
+  },
+  "timing": {
+    "wallClockSeconds": 87.6,
+    "modelCalls": 1,
+    "inputTokens": 166664,
+    "outputTokens": 8636,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Pemilihan kapasitas-10 dapat ditentukan dari packet. Packet yang tersedia hanya baca dan tidak menyediakan operasi untuk mengubah kapasitas atau memeriksa status active-plan; karena itu perubahan ke 20 dan status aplikasi aktual tidak saya klaim sebagai telah diterapkan.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+    "steps": 2,
+    "toolNames": [
+      "read_manual_packet",
+      "read_manual_packet"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 122880,
+    "reasoningOutputTokens": 6486,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

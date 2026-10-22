@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P1-T1-C1_APPLICATION_BROWSER",
+  "pairId": "P1-T1",
+  "personaId": "P1",
+  "taskId": "T1",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T04:04:57.510Z",
+    "endedAt": "2026-10-21T04:10:36.559Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "completed",
+  "assistance": "none",
+  "output": {
+    "selectedStrategy": "Weighted historical indicators — recurrence 50%, magnitude 50%, all regions, all sectors, maximum 2 investigations per country.",
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": "BHR_S_003 (Bahrain, Oil and Gas) masuk pada urutan 9 dari 10, dengan magnitude percentile 93.7, recurrence percentile 98.4, dan weighted score 96.1. Baris rencana mencatat 37 tanggal observasi dari 40 rekaman, median flux 8,156 kg/h, median reported SD 3,129 kg/h, 0 rekaman tanpa flux, dan latest 2026-06-07T07:06:19 UTC. Sumber ini memenuhi alokasi berbobot dalam kapasitas dan kuota negara; angka historis tersebut adalah observasi plume satelit, bukan laju emisi kontinu atau bukti perbaikan.",
+    "excludedRationale": "IRN_S_001 (Iran (Islamic Republic of), Oil and Gas) tidak muncul dalam 10 sumber terpilih. Alokasi berbobot sudah memakai kedua slot Iran untuk IRN_S_075 (97.5 weighted points) dan IRN_S_065 (96.9), di bawah batas 2 per negara. IRN_S_001 memiliki 129 rekaman plume historis (129 terkuantifikasi), observasi terakhir 2026-07-09, dan maksimum tercatat 26,852 kg/h; maksimum bukan laju emisi kontinu. UI yang terlihat tidak menampilkan skor atau alasan baris pengecualian khusus IRN_S_001, jadi saya tidak mengklaim skor/ranking individualnya. Banyaknya observasi saja tidak mengatasi batas kapasitas dan kuota.",
+    "activationStateBeforeCapacityChange": {
+      "state": "active",
+      "strategy": "Weighted historical indicators",
+      "capacity": 10,
+      "maxPerCountry": 2,
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "selectedSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "activationEvidence": "UI confirmed: 10 planned sources activated · 10 added · 0 removed."
+    },
+    "activationStateAfterCapacityChange": {
+      "state": "active plan unchanged",
+      "activeStrategy": "Weighted historical indicators",
+      "activePlanCapacity": 10,
+      "activeSelectedSourceCount": 10,
+      "plannerInputCapacity": 20,
+      "automaticallyReplaced": false,
+      "verificationEvidence": "After filling Investigation slots with 20, the UI still showed 10 sources in the active plan and 'Weighted historical indicators · capacity 10 · unep-mars-675417694883'."
+    },
+    "timestamps": {
+      "datasetRetrievedAt": "2026-10-14T06:10:12+00:00",
+      "datasetArchiveWindow": {
+        "start": "2020-10-29",
+        "end": "2026-09-13"
+      },
+      "BHR_S_003LatestPlanRecord": "2026-06-07T07:06:19 UTC",
+      "IRN_S_001LastObserved": "2026-07-09 (source detail provides date only)",
+      "planActivationAction": "Exact action timestamp was not exposed by the browser MCP output.",
+      "capacityChangeAction": "Exact action timestamp was not exposed by the browser MCP output."
+    },
+    "sourceEvidence": {
+      "BHR_S_003": {
+        "claimType": "UNEP MARS historical satellite plume observations",
+        "reportedLocation": "Bahrain",
+        "sector": "Oil and Gas",
+        "observedDates": 37,
+        "plumeRecords": 40,
+        "medianFlux": "8,156 kg/h",
+        "medianReportedStandardDeviation": "3,129 kg/h",
+        "recordsWithoutFlux": 0,
+        "maximumReportedFlux": "36,474 kg/h",
+        "notificationField": "Yes",
+        "feedbackField": "No",
+        "evidenceReferences": 0,
+        "latestObservationEvidenceId": "8c7b5908-1f3b-4e8a-a00c-357a86752bb1"
+      },
+      "IRN_S_001": {
+        "claimType": "UNEP MARS historical satellite plume observations",
+        "reportedLocation": "Iran (Islamic Republic of)",
+        "sector": "Oil and Gas",
+        "plumeRecords": 129,
+        "quantifiedPlumeRecords": 129,
+        "lastObserved": "2026-07-09",
+        "maximumReportedFlux": "26,852 kg/h",
+        "notificationField": "Yes",
+        "feedbackField": "No",
+        "evidenceReferences": 0,
+        "latestObservationEvidenceId": "b05968c5-10a0-416f-935c-ff3672a791bd"
+      },
+      "interpretationLimit": "Historical plume records and notification/feedback metadata do not establish repair, mitigation, reduced emissions, or zero emissions. Flux values in kg/h are not continuous monitoring."
+    },
+    "dataset": {
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "scope": "full_snapshot",
+      "totalSourceCount": 4218,
+      "synthetic": false
+    },
+    "steps": [
+      "Inspected BHR_S_003 source panel and plan row.",
+      "Looked up IRN_S_001 through the local source search and inspected its source panel.",
+      "Computed four plans with capacity 10, maximum 2 per country, all regions, all sectors, and 50% recurrence weight.",
+      "Selected and explicitly activated Weighted historical indicators.",
+      "Changed Investigation slots to 20 and confirmed the previously active 10-source plan remained unchanged."
+    ],
+    "evidenceIds": [
+      "BHR_S_003",
+      "8c7b5908-1f3b-4e8a-a00c-357a86752bb1",
+      "IRN_S_001",
+      "b05968c5-10a0-416f-935c-ff3672a791bd",
+      "unep-mars-675417694883"
+    ],
+    "errors": [
+      "Search cases fill timed out twice while not interactable.",
+      "Open source search click timed out once after closing the planner.",
+      "Exact-name click on IRN_S_001 timed out; selecting the full accessible name succeeded.",
+      "Excluded sources tab/button click attempts timed out; no candidate-specific exclusion score became visible."
+    ],
+    "requestsForHelp": []
+  },
+  "timing": {
+    "wallClockSeconds": 339,
+    "modelCalls": 1,
+    "inputTokens": 1625951,
+    "outputTokens": 13686,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Rencana kapasitas 10 telah diaktifkan, lalu input kapasitas diubah ke 20. UI mempertahankan rencana aktif 10 sumber. UI tidak mengekspos waktu tindakan yang presisi; timestamp sumber dan batasan ini dicatat di output.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+    "steps": 31,
+    "toolNames": [
+      "read_page",
+      "click",
+      "read_page",
+      "fill",
+      "click",
+      "click",
+      "read_page",
+      "fill",
+      "read_page",
+      "fill",
+      "read_page",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "read_page",
+      "click",
+      "read_page",
+      "read_page",
+      "read_page",
+      "read_page",
+      "read_page",
+      "read_page",
+      "click",
+      "click",
+      "click",
+      "read_page",
+      "fill",
+      "read_page"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 1552000,
+    "reasoningOutputTokens": 9865,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

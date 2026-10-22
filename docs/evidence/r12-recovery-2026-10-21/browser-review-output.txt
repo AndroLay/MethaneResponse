@@ -1,0 +1,42 @@
+$ bash scripts/run-e2e.sh "e2e/ai-review-workflow.spec.ts" --grep "connected investigation preserves|local mock AI citations|human-only evidence decisions"
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/e2e-runner-utils.test.ts:
+(pass) only the geospatial browser suite forces software WebGL; document workflows retain default graphics [0.06ms]
+(pass) browser checks build a fresh production preview and reject unsafe or invalid ports [0.15ms]
+(pass) Chromium sandbox remains enabled locally and on unknown CI, with a narrow hosted-runner exception [0.08ms]
+(pass) E2E runner environment > copies only explicitly allowlisted non-secret settings [0.03ms]
+(pass) E2E argument routing > runs only the matching phase when a workflow file is selected [0.16ms]
+(pass) E2E argument routing > keeps both workflow phases for unscoped or mixed selections [0.07ms]
+
+ 6 pass
+ 0 fail
+ 21 expect() calls
+Ran 6 tests across 1 file. [14.00ms]
+[WebServer] $ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment
+[WebServer] 
+[WebServer] "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+[WebServer]  * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+[WebServer]  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment
+[WebServer] 
+[WebServer] "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] $ vite preview --host "127.0.0.1" --port "4179" --strictPort
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/ai-review-workflow.spec.ts:22:5 › connected investigation preserves allocation, evidence request, human review and historical changes in one verifiable dossier (36.0s)
+  ✓  2 [chromium] › e2e/ai-review-workflow.spec.ts:644:5 › human-only evidence decisions save private revisions and export without invoking document AI (10.7s)
+  ✓  3 [chromium] › e2e/ai-review-workflow.spec.ts:742:5 › local mock AI citations receive a separate scoped review and remain private until publication consent (7.0s)
+
+  3 passed (1.1m)

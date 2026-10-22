@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-10-22T22:42:41.034130+00:00",
+  "scope": "v18 submission alignment; no application behavior changes",
+  "videoVersion": "v18",
+  "videoSha256": "b14bc61f893176631c8ce15445217ea1ab4977e52a1c252b81d2e661b4006fad",
+  "primarySource": "TKM_S_021",
+  "proofTake": "v17_take8_reused_in_v18",
+  "trustedDigest": "0xcab36a271a000facd92cefbbfb902b314cce70eed565a9471ca6b263b5353ec2",
+  "tests": {
+    "test_submission.py": 8,
+    "test_current_package.py": 3,
+    "test_v18_package.py": 6
+  },
+  "testScope": "Focused local packaging regressions; not full application test rerun",
+  "newRetainedReplayExits": [
+    0,
+    1,
+    1,
+    0
+  ],
+  "transactionsSent": 0,
+  "assessmentProviderCalls": 0,
+  "acceptanceBoundSourceHashesUnchanged": 340,
+  "acceptanceBoundArtifactHashesUnchanged": 57,
+  "localMarkdownTargetsChecked": true,
+  "frozenR12TaskCompletion": "0/48 unchanged",
+  "fullNormalSpeedVideoPlaybackAndListening": "not_reviewed",
+  "externalMutationsPerformed": false,
+  "sourceSha256": {
+    "README.md": "36ac0e36052e1e38fadf0b78c4b87b8a639d1358487d107dda5ef96d9f803533",
+    "docs/README.md": "b7c0ed4fdab4fe795e8a08a1248cc74a6160f5cd4aa17c9275fc687a65f60b8f",
+    "docs/release/current-implementation-status.md": "da4ceb3b517623f2999069b1a4eee0d79fe69e5c2fac5709b3b31f79eb095f2d",
+    "docs/release/judge-evidence-matrix.md": "a289e903e1eb2e1077f0f7cd839dc2d9097ed8304bf63f3d2457c2df5124e3b8",
+    "docs/release/devpost-submission/README.md": "9b17170a4303af27bbba8df140ca41033f68c0ac174f1dc380fbb2ce1e9d2e6e",
+    "docs/release/devpost-submission/fields.json": "eb1d563ccf5ab87d6eba16410bd9c1d417067c8333d4ede9701e676777b582aa",
+    "docs/release/devpost-submission/project-story.md": "b16c4ed8ba9738935b79b54032ca54562a1fda5ee37fa5d6d8da59251d4ec555",
+    "docs/release/devpost-submission/judges-guide.md": "359484e983896b6310674924d5ab24044971156def543c9f087cd59e1e4759ad",
+    "docs/release/devpost-submission/rules-check.md": "2b76dac59633e7d8b06e10bae3e2fe35ff341bbf2567e31c37458bbde821f92d",
+    "docs/release/devpost-submission/source-links.md": "9cacf76bddd3f05bf8ec1f3c83f204a0bf6822f532e9dfc5fef9177c8b1b172a",
+    "docs/release/devpost-submission/access-status.json": "277791dbec2ecd63ca7e420e814a550e289b7e704552f56e83bb07111185aba8",
+    "docs/release/devpost-submission/package_v18_submission.py": "ab921f123d3734d5827429a0766433dba584b5cece3a8bbde2935c0295ba577d",
+    "docs/release/devpost-submission/test_v18_package.py": "c59e69a996475c91d5e54158788ea00aacf4a4389a96aeef801cd3b7d9f09784",
+    "docs/release/devpost-submission/test_submission.py": "7aac2404e3fa8b0b990f7036e7c53d323672242c0b3dd370435c99498444c4cd",
+    "docs/evidence/video-v17-2026-10-22/README.md": "c829e1b6f3a88cd6b9ee5f05d7b5929ed412df21fc3e7c7abb6363ceab37e716"
+  }
+}

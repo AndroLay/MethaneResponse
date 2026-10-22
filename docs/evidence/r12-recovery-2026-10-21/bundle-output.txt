@@ -1,0 +1,2 @@
+$ bun scripts/check-web-bundle.ts
+Web bundle budget passed: App 74935 gzip bytes; 8 route chunks; MapPanel 1123502 raw bytes.

@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P8-T1-C0_MANUAL_PACKET",
+  "pairId": "P8-T1",
+  "personaId": "P8",
+  "taskId": "T1",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T07:46:27.177Z",
+    "endedAt": "2026-10-21T07:48:14.578Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "selectedStrategy": "Manual: urutkan kandidat menurut weightedScore yang disediakan (recurrenceWeight=50), telusuri berurutan, dan terima paling banyak 2 source per country sampai capacity=10. Filters countries=[] dan sectors=[]. Rencana hasil hitungan belum diaktifkan.",
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": "BHR_S_003 (Bahrain, Oil and Gas) berada pada rank 18 dengan weightedScore 96.083932; medianFluxKgHr=8156 kg/hr, medianUncertaintyKgHr=3129 kg/hr, distinctDates=37, observationCount=40, missingFluxCount=0, lastObserved=2026-06-07T07:06:19. Saat dipindai, kuota Bahrain belum terpakai; source ini menjadi pilihan ke-9. Pilihan ke-10 adalah rank 20, DZA_S_011. Waktu lastObserved adalah waktu observasi sumber, bukan waktu aktivasi rencana.",
+    "excludedRationale": "IRN_S_001 (Iran (Islamic Republic of), Oil and Gas) berada pada rank 19 dengan weightedScore 96.013748; medianFluxKgHr=6895 kg/hr, medianUncertaintyKgHr=2381 kg/hr, distinctDates=116, observationCount=129, missingFluxCount=0, lastObserved=2026-07-09T07:14:53. Kuota Iran telah penuh oleh IRN_S_075 pada rank 5 dan IRN_S_065 pada rank 10 (maksimum 2 per country), sehingga IRN_S_001 dilewati. Waktu lastObserved adalah waktu observasi sumber, bukan waktu perubahan kapasitas.",
+    "activationStateBeforeCapacityChange": {
+      "state": "Tidak dapat dipastikan dari packet. Rencana 10-source dihitung secara manual, tetapi tidak ada operasi aktivasi dan tidak ada activePlanId dalam bukti.",
+      "capacity": 10,
+      "activationTimestamp": "Tidak tersedia dalam packet."
+    },
+    "activationStateAfterCapacityChange": {
+      "state": "Perubahan kapasitas menjadi 20 tidak dilakukan atau diverifikasi; packet hanya-baca tidak menyediakan operasi perubahan. Tidak ada bukti tentang apakah active plan tetap sama.",
+      "requestedCapacity": 20,
+      "capacityChangePerformed": false,
+      "activePlanAfterChange": "Tidak diketahui",
+      "changeTimestamp": "Tidak tersedia dalam packet."
+    },
+    "selectedRankEvidence": [
+      {
+        "sourceId": "MEX_S_003",
+        "country": "Mexico",
+        "rank": 1,
+        "weightedScore": 99.140094,
+        "medianFluxKgHr": 42515,
+        "medianUncertaintyKgHr": 16404,
+        "lastObserved": "2026-08-25T16:52:53"
+      },
+      {
+        "sourceId": "MEX_S_007",
+        "country": "Mexico",
+        "rank": 2,
+        "weightedScore": 98.428065,
+        "medianFluxKgHr": 41870,
+        "medianUncertaintyKgHr": 17519,
+        "lastObserved": "2026-08-25T16:52:53"
+      },
+      {
+        "sourceId": "TKM_S_021",
+        "country": "Turkmenistan",
+        "rank": 4,
+        "weightedScore": 97.594706,
+        "medianFluxKgHr": 10398,
+        "medianUncertaintyKgHr": 3678.5,
+        "lastObserved": "2026-09-05T07:06:19"
+      },
+      {
+        "sourceId": "IRN_S_075",
+        "country": "Iran (Islamic Republic of)",
+        "rank": 5,
+        "weightedScore": 97.472696,
+        "medianFluxKgHr": 11857,
+        "medianUncertaintyKgHr": 4401,
+        "lastObserved": "2026-04-26T07:20:56"
+      },
+      {
+        "sourceId": "TKM_S_047",
+        "country": "Turkmenistan",
+        "rank": 6,
+        "weightedScore": 97.42092,
+        "medianFluxKgHr": 9651,
+        "medianUncertaintyKgHr": 3243,
+        "lastObserved": "2026-02-17T07:08:49"
+      },
+      {
+        "sourceId": "MYS_S_001",
+        "country": "Malaysia",
+        "rank": 7,
+        "weightedScore": 97.312013,
+        "medianFluxKgHr": 10679,
+        "medianUncertaintyKgHr": 4022,
+        "lastObserved": "2026-07-18T03:32:01"
+      },
+      {
+        "sourceId": "IRN_S_065",
+        "country": "Iran (Islamic Republic of)",
+        "rank": 10,
+        "weightedScore": 96.855231,
+        "medianFluxKgHr": 9396,
+        "medianUncertaintyKgHr": 2974,
+        "lastObserved": "2026-09-13T07:16:21"
+      },
+      {
+        "sourceId": "VEN_S_008",
+        "country": "Venezuela",
+        "rank": 15,
+        "weightedScore": 96.228359,
+        "medianFluxKgHr": 11917,
+        "medianUncertaintyKgHr": 3608,
+        "lastObserved": "2026-08-04T15:14:35"
+      },
+      {
+        "sourceId": "BHR_S_003",
+        "country": "Bahrain",
+        "rank": 18,
+        "weightedScore": 96.083932,
+        "medianFluxKgHr": 8156,
+        "medianUncertaintyKgHr": 3129,
+        "lastObserved": "2026-06-07T07:06:19"
+      },
+      {
+        "sourceId": "DZA_S_011",
+        "country": "Algeria",
+        "rank": 20,
+        "weightedScore": 95.591259,
+        "medianFluxKgHr": 7515,
+        "medianUncertaintyKgHr": 2826.5,
+        "lastObserved": "2026-08-22T10:00:21"
+      }
+    ],
+    "evidenceIds": {
+      "sourceRows": [
+        "BHR_S_003",
+        "IRN_S_001",
+        "IRN_S_075",
+        "IRN_S_065"
+      ],
+      "rankedPage": "offset=0, limit=50; ranks 1-50",
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "scope": "full_snapshot",
+      "totalSourceCount": 4218,
+      "archiveStartDate": "2020-10-29",
+      "archiveEndDate": "2026-09-13",
+      "retrievedAt": "2026-10-14T06:10:12+00:00",
+      "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "intelligenceSha256": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+      "synthetic": false,
+      "provenance": "UNEP International Methane Emissions Observatory (IMEO), Eye on Methane / MARS detected sources and plumes; license CC BY-NC-SA 4.0. Source/plume CSV tables were normalized to JSON; source feedback remains source-level; unresolved plume links retained; no mitigation confirmation inferred.",
+      "claimType": "Manual weighted-ranking / quota selection only; no physical mitigation outcome claim."
+    },
+    "steps": [
+      "Called find_sources for BHR_S_003 and IRN_S_001; both rows returned with source metadata, rank, weightedScore, and lastObserved.",
+      "Attempted ranked_page offset=0 limit=100; tool returned a limit validation error.",
+      "Read ranked_page offset=0 limit=50; manually applied maxPerCountry=2 in rank order and stopped at 10 selected sources on rank 20.",
+      "Could not activate the calculated plan or change capacity because the manual-packet tool is read-only."
+    ],
+    "errors": [
+      "ranked_page limit=100 returned: limit must be between 1 and 50"
+    ],
+    "requestsForHelp": [
+      "Provide a writable plan-control operation or an authoritative event record showing the active plan at capacity 10 and the capacity-20 change, including their event timestamps; the current packet has no such controls or records."
+    ],
+    "demoLabel": "Dataset metadata states synthetic=false; these are dataset candidate records, not DEMO fixtures. No physical outcome is inferred."
+  },
+  "timing": {
+    "wallClockSeconds": 107.4,
+    "modelCalls": 1,
+    "inputTokens": 132735,
+    "outputTokens": 8020,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Perhitungan rencana selesai dari packet, tetapi operasi untuk mengaktifkan rencana atau mengubah kapasitas tidak tersedia di lingkungan manual yang hanya-baca.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "dec594cfa670ec7fd97f62d124e87b2e087fe6ac7f2bc767ea752e01597888e4",
+    "steps": 3,
+    "toolNames": [
+      "read_manual_packet",
+      "read_manual_packet",
+      "read_manual_packet"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 100096,
+    "reasoningOutputTokens": 5563,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error"
+    ]
+  }
+}

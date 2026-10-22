@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P7-T2-C0_MANUAL_PACKET",
+  "pairId": "P7-T2",
+  "personaId": "P7",
+  "taskId": "T2",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T07:30:20.069Z",
+    "endedAt": "2026-10-21T07:31:39.162Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "sourceId": "KAZ_S_159",
+    "claimType": "mitigation_confirmed",
+    "claimText": "The KAZ_S_159 operator completed mitigation of the 2026-06-05 detected methane plume, and a post-action measurement confirms the outcome by 2026-07-31.",
+    "scope": {
+      "startDate": "2026-06-01",
+      "endDate": "2026-07-31",
+      "timezone": "UTC",
+      "dateBoundaryConvention": "Inclusive UTC calendar dates; dates preserved as supplied in the claim scope.",
+      "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd"
+    },
+    "verdict": "ABSTAIN — the supplied evidence does not substantiate mitigation_confirmed. It does not establish that mitigation occurred or that a post-action measurement confirmed the outcome.",
+    "limitations": [
+      "The historical source metadata says notified=Yes and feedback=Yes, with feedbackOperator=Yes, feedbackGovernment=Yes, and feedbackScope=source. These are source-level publisher metadata, not an action record, a mitigation confirmation, or proof of reviewer identity.",
+      "source.mitigationConfirmed is null. The packet provides no action date, completion record, method, asset linkage, post-action measurement method, uncertainty, or follow-up reference for the claimed 2026-06-05 plume.",
+      "The plume observation 7529d451-018f-4da3-9114-59b76c3a3bcd is dated 2026-06-05T07:40:02, with fluxKgHr=307 and fluxStdKgHr=66; satellite=EnMAP - DLR; actionable=Yes; notified=true. The packet's tileDate has no timezone suffix, so its timestamp is preserved literally and is not independently established as UTC.",
+      "A later plume record for the same source, 941806b5-2afe-46ac-baac-a0230880cede, is dated 2026-07-11T08:12:14, with fluxKgHr=496 and fluxStdKgHr=226; satellite=EnMAP - DLR; actionable=Yes; notified=true. This is a later detected plume within the stated date scope and must be reconciled with any claimed post-action result; it alone does not establish whether an action occurred, failed, or was followed by recurrence. Its tileDate also has no timezone suffix.",
+      "The source reports persistency=0.67, persistencyStd=0.27, persistencyCategory=frequent. These values do not prove the claimed action or its outcome.",
+      "The packet includes real historical metadata and a project-authored note explicitly labeled DEMO, not a repair confirmation. The DEMO note repeats the metadata limitations and is not a publisher claim.",
+      "The supplied inputFileSha256, archiveSha256, and claimTextSha256 are identifiers/hashes in the packet; no signature verification, version chronology, receipt, transaction, block, contract, or chain read was supplied. A hash or blockchain receipt can support integrity and chronology only; it cannot establish physical truth or reviewer identity.",
+      "No tamper-test results or environment identifiers were supplied. Local Anvil evidence, if any, would establish only local test behavior unless separately corroborated on the identified public chain."
+    ],
+    "requestedEvidence": [
+      {
+        "item": "Authorized action and completion record",
+        "request": "Provide the operator's signed or otherwise independently verifiable action record explicitly linked to sourceId KAZ_S_159, observationId 7529d451-018f-4da3-9114-59b76c3a3bcd, and the physical asset/location represented by that source. Include action identifier, action performed, start and completion timestamps with explicit UTC offsets, facility/asset linkage, actor organization and role, authorization basis, and verifiable signature/key or delegation details valid at signing time. Identify the record version and its creation/issuance time."
+      },
+      {
+        "item": "Post-action measurement and reconciliation",
+        "request": "Provide the measurement record claimed to confirm the outcome, collected after the documented completion and on or before 2026-07-31 UTC. Link it to the same source, asset/location, and action identifier; include observation/reference ID, exact collection timestamp and timezone, measurement method and instrument, calibration and quality-control records, methane result with original units and uncertainty, detection limit, and dataset/report version. Explain comparability with the 2026-06-05 EnMAP - DLR observation and explicitly reconcile the later 2026-07-11T08:12:14 plume record 941806b5-2afe-46ac-baac-a0230880cede (496 kg/hr, standard deviation 226 kg/hr, actionable=Yes, notified=true), including whether it maps to the same asset and whether it represents recurrence or another source."
+      },
+      {
+        "item": "Publisher provenance and version chronology",
+        "request": "Provide the authoritative publisher export or source-level record for datasetSnapshotId unep-mars-675417694883, with the exact source and plume rows, schema/version, publication or issue timestamps with timezone, and any correction/change history. Provide the canonicalization or CSV-to-JSON mapping and reproducible digest verification for inputFileSha256 f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7 and archiveSha256 675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43. Identify which version was used for claimTextSha256 341d23c08aa1239ee85fd1c6ea850764206b609c8fc0fd5d70aab27c5460f8c1."
+      },
+      {
+        "item": "Authorization, tamper tests, and chain environment evidence (if a chain receipt is used to support the claim)",
+        "request": "Provide the signed claim/source-version payload and its verification procedure; for each receipt, give transaction hash, receipt/log data, chain ID and network identity, contract address and code hash, block number/hash/time, signer address, and an independently verifiable read of the committed digest. State separately whether each record is from local Anvil or a public chain; for Anvil provide the local chain ID/genesis or instance identity and deployment/test identifiers, and for a public chain provide its network identifier and independent RPC/explorer verification. Provide the tamper-test harness/version and reproducible expected-versus-actual results for altered claim/source content, altered version/order/timestamp, wrong signer, and replay. If no chain evidence is relied on, state that explicitly. Do not present Anvil results as public-chain evidence."
+      }
+    ],
+    "whyNeeded": [
+      "The action record establishes whether an authorized operator action was completed and binds it to the exact detected plume and physical asset.",
+      "A post-action measurement with method, uncertainty, timing, and source/asset linkage is necessary to support the claim that a measurement confirmed the outcome; the later July plume must be reconciled rather than ignored.",
+      "Publisher provenance and version history allow the source metadata and claim payload chronology to be checked against the supplied dataset snapshot and hashes.",
+      "Authorization and reproducible tamper tests are needed to evaluate who or what was authorized and whether version/payload changes are detected. Separating Anvil and public-chain identifiers prevents a local test receipt from being treated as a public-chain transaction. Any receipt supports integrity/chronology, not physical mitigation or reviewer identity."
+    ],
+    "acceptanceCriteria": [
+      "All submitted records preserve sourceId KAZ_S_159, claimType mitigation_confirmed, the exact claimText, the UTC calendar scope 2026-06-01 through 2026-07-31 inclusive, and observationId 7529d451-018f-4da3-9114-59b76c3a3bcd.",
+      "The action record identifies the exact plume and associated physical asset, documents the action and completion time with explicit UTC offset, and permits verification of the actor's authority and record signature.",
+      "At least one post-completion measurement exists by 2026-07-31 UTC, is linked to the same source, asset, and action, and includes observation ID, exact time/timezone, method, instrument, calibration/QC, result, units, uncertainty, detection limit, and version.",
+      "The evidence explicitly reconciles the 2026-07-11 plume record 941806b5-2afe-46ac-baac-a0230880cede and does not treat notification or source-level feedback as mitigation confirmation.",
+      "The authoritative publisher version, record history, CSV-to-JSON mapping, and reproducible digest checks tie the source rows and claim payload to the supplied dataset snapshot and hash identifiers without treating a hash as proof of physical outcome.",
+      "Tamper tests are reproducible and show expected versus actual verification outcomes for altered payload/content, version chronology/order, timestamps, signer, and replay.",
+      "Local Anvil and public-chain records are identified and verified separately; a local receipt is not represented as a public-chain receipt. A receipt is used only for integrity/chronology, not physical truth or human identity.",
+      "If any required artifact is unavailable, its absence and reason are stated; no missing observation is interpreted as zero emissions, and no mitigation or repair is asserted solely from feedback, a digest, or a receipt."
+    ],
+    "ownerRole": {
+      "primary": "Authorized operator methane mitigation/measurement records custodian for KAZ_S_159.",
+      "supporting": [
+        "Publisher data/version custodian for the UNEP IMEO MARS metadata export.",
+        "Chain deployment and test engineer for any separately identified Anvil and public-chain artifacts."
+      ]
+    },
+    "dueDateOrReasonUnset": "Unset: the supplied packet specifies no deadline or service-level target, so no due date is inferred.",
+    "references": [
+      {
+        "evidenceId": "datasetSnapshotId:unep-mars-675417694883",
+        "details": "Real historical metadata snapshot; archive dates 2020-10-29 through 2026-09-13; dataset terms CC BY-NC-SA 4.0. Attribution supplied: Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred."
+      },
+      {
+        "evidenceId": "KAZ_S_159",
+        "details": "country=Kazakhstan; sector=Oil and Gas; sourceType=O&G source (generic); notified=Yes; feedback=Yes; feedbackOperator=Yes; feedbackGovernment=Yes; feedbackScope=source; mitigationConfirmed=null; persistency=0.67; persistencyStd=0.27; persistencyCategory=frequent; latestPlumeDate=2026-07-11T08:12:14; synthetic=false."
+      },
+      {
+        "evidenceId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "details": "Source plume record: sourceId=KAZ_S_159; satellite=EnMAP - DLR; tileDate=2026-06-05T07:40:02; fluxKgHr=307; fluxStdKgHr=66; notified=true; actionable=Yes; synthetic=false."
+      },
+      {
+        "evidenceId": "941806b5-2afe-46ac-baac-a0230880cede",
+        "details": "Source plume record: sourceId=KAZ_S_159; satellite=EnMAP - DLR; tileDate=2026-07-11T08:12:14; fluxKgHr=496; fluxStdKgHr=226; notified=true; actionable=Yes; synthetic=false."
+      },
+      {
+        "evidenceId": "82758651-76f4-4e06-b4ac-c247ce765192",
+        "details": "Earlier source plume record: sourceId=KAZ_S_159; satellite=EnMAP - DLR; tileDate=2024-06-07T08:05:04; fluxKgHr=591; fluxStdKgHr=335; notified=false; actionable=No; synthetic=false."
+      },
+      {
+        "evidenceId": "inputFileSha256:f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+        "details": "Hash identifier supplied in the packet; independent recomputation or signature verification was not supplied."
+      },
+      {
+        "evidenceId": "archiveSha256:675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "details": "Hash identifier supplied in the packet; independent recomputation or signature verification was not supplied."
+      },
+      {
+        "evidenceId": "claimTextSha256:341d23c08aa1239ee85fd1c6ea850764206b609c8fc0fd5d70aab27c5460f8c1",
+        "details": "Hash identifier for the supplied exact claim text; no chain receipt or verification output was included."
+      },
+      {
+        "evidenceId": "DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM",
+        "details": "DEMO note only: “The source record reports feedback: Yes and notified: Yes. Those fields are publisher metadata. This packet supplies no action date, no post-action measurement, no measurement method, no uncertainty, and no follow-up reference for the claimed 2026-06-05 plume.”"
+      },
+      {
+        "evidenceId": "providerProcessingNote",
+        "details": "External report metadata withheld; it was not cleared for provider processing. The linked report body is not included."
+      }
+    ]
+  },
+  "timing": {
+    "wallClockSeconds": 79.1,
+    "modelCalls": 1,
+    "inputTokens": 106262,
+    "outputTokens": 7641,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Manual packet reviewed; claim cannot be confirmed from supplied evidence. Submitted a precise evidence request and explicit limitations.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "908206ef22656e201d86aa8eaef03966e154f881399ff32259795aaad0370c5a",
+    "steps": 0,
+    "toolNames": [],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 71680,
+    "reasoningOutputTokens": 4372,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

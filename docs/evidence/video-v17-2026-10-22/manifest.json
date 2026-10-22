@@ -1,0 +1,42 @@
+{
+  "kind": "same-take-local-demo-proof",
+  "revision": "v17",
+  "sourceId": "TKM_S_021",
+  "chainId": 31337,
+  "trustedDigest": "0xcab36a271a000facd92cefbbfb902b314cce70eed565a9471ca6b263b5353ec2",
+  "browserVideoSha256": "b86f15e7ebfcbdab62fc2b92f903a04024e01fa93c8317bd8089d38f6adb749e",
+  "publicNetworkUsed": false,
+  "providerCalls": 0,
+  "files": {
+    "browser-export.json": {
+      "sha256": "04a9aa8f405b66a98655b7bc21c4bcc6e0b38c40bec807b43e9de50c725faf6f",
+      "bytes": 1242552
+    },
+    "trusted-digest.json": {
+      "sha256": "3324e71d7acab4f6143ab8e3c8e4180d74f4e30b3693b52178ecfded2f333e61",
+      "bytes": 248
+    },
+    "anvil-proof.json": {
+      "sha256": "2d25c448e901cd216fedfbb9b89e057cdc5d5573d73b43c869116be6bbb66d7f",
+      "bytes": 2615775
+    },
+    "anvil-state.json": {
+      "sha256": "78c92f9871715391df3be27b9e26917838788b65e590ae5e0961b0674f1d3cea",
+      "bytes": 9354
+    },
+    "verified-facts.json": {
+      "sha256": "7de50f75c3311a3427635c2bbf828c0423e152af0063b5ce7f2688143e6d5224",
+      "bytes": 2089
+    },
+    "MARS-DATA-LICENSE.txt": {
+      "sha256": "1349a4b6148492b44f629e64eed676612e234fe9a839e4f3b277c1482c8849f1",
+      "bytes": 20849
+    },
+    "decision-with-receipt.json": {
+      "sha256": "adb4753dfb104e5041333366d289f3a9e874940e949bd0ab172d7b6c11c391df",
+      "bytes": 2490140
+    }
+  },
+  "publication": "Prepared locally, not pushed or uploaded",
+  "trustBoundary": "Project-supplied DEMO Anvil state and UI pin, not independent public notarization"
+}

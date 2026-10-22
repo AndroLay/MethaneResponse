@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r11",
+  "taskId": "T2",
+  "goldKind": "author-frozen-rule-check",
+  "sourceId": "KAZ_S_159",
+  "claimType": "mitigation_confirmed",
+  "claimTextSha256": "341d23c08aa1239ee85fd1c6ea850764206b609c8fc0fd5d70aab27c5460f8c1",
+  "scope": {
+    "startDate": "2026-06-01",
+    "endDate": "2026-07-31",
+    "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd"
+  },
+  "verdict": "insufficient_evidence",
+  "mustPreserve": [
+    "sourceId=KAZ_S_159",
+    "observationId=7529d451-018f-4da3-9114-59b76c3a3bcd",
+    "scope=2026-06-01/2026-07-31",
+    "claimType=mitigation_confirmed"
+  ],
+  "requiredEvidenceRequirementIds": [
+    "action_record",
+    "post_action_measurement",
+    "method_and_uncertainty",
+    "follow_up_date",
+    "source_claim_scope"
+  ],
+  "requiredRequestFields": [
+    "requestedEvidence",
+    "whyNeeded",
+    "acceptanceCriteria",
+    "ownerRole",
+    "dueDateOrReasonUnset",
+    "sourceId",
+    "claimText",
+    "scope",
+    "references"
+  ],
+  "forbiddenConclusions": [
+    "mitigation_confirmed",
+    "physical_mitigation_established",
+    "zero_emissions_established"
+  ],
+  "limitations": [
+    "A feedback flag is not evidence that an operator received a notice, repaired equipment or reduced emissions.",
+    "Missing later observations do not establish zero emissions.",
+    "The linked external report is metadata-only and was not rights-cleared for provider processing."
+  ]
+}

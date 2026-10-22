@@ -33,7 +33,7 @@ class SubmissionTests(unittest.TestCase):
         self.assertNotIn('PostgreSQL', self.fields['builtWith'])
 
     def test_unpublished_urls_are_explicitly_pending(self):
-        self.assertIsNone(self.fields['tryItOutLinks'][1]['url'])
+        self.assertEqual(self.fields['tryItOutLinks'][1]['url'], 'https://methaneresponse-preview.onrender.com/dashboard')
         self.assertIsNone(self.fields['video']['url'])
         self.assertFalse(self.fields['externalSubmissionPerformed'])
         self.assertTrue(180 <= self.fields['video']['durationSeconds'] <= 300)

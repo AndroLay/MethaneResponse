@@ -1,6 +1,20 @@
 # Panduan repository MethaneResponse
 
-Dokumentasi ini menjelaskan produk, susunan kode, arsitektur, dan cara bekerja di repo. **Panduan aktif diselaraskan dengan working tree pada 20 Oktober 2026.** Bukti tes, riset, dan materi demo mempertahankan tanggal serta revisi asalnya.
+Dokumentasi ini menjelaskan produk, susunan kode, arsitektur, dan cara bekerja di repo. **Dokumen arsitektur mempertahankan revisi asalnya; indeks delivery diselaraskan pada 23 Oktober 2026.** Bukti tes, riset, dan materi demo mempertahankan tanggal serta revisi asalnya.
+
+## Submission aktif — v18
+
+[Materi Devpost terkini](release/devpost-submission/README.md) menyelaraskan story,
+fields, panduan juri dan ZIP dengan [video v18](demo/delivery-2026-10-22-final-v18/README.md)
+4:57 serta [proof take8 TKM](evidence/video-v17-2026-10-22/README.md).
+Contoh DeepSeek KAZ tetap terpisah. [Status akses](release/devpost-submission/access-status.json)
+membedakan main GitHub, preview terbatas dan artefak lokal yang belum diterbitkan.
+Evaluasi agent terbaru adalah [r12](evidence/agent-practical-usefulness-2026-10-21-r12/findings.md):
+0/48 menurut frozen scorer; kelulusan 12 gate bukan keberhasilan 48 tugas.
+
+[Penyelarasan rilis 23 Oktober](evidence/release-sync-2026-10-23/README.md)
+adalah titik masuk pemeriksaan lokal terbaru, publikasi, batas preview dan rollback.
+Hasil bertanggal sebelumnya tetap mengacu revisinya sendiri.
 
 ## Urutan membaca
 

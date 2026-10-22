@@ -1,0 +1,21 @@
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/retained-decision-chain.test.ts:
+52 |     const build = Bun.spawnSync(['forge','build','--quiet'],{cwd:resolve('contracts'),stdout:'pipe',stderr:'pipe'});
+53 |     expect(build.exitCode).toBe(0);
+54 |     const artifact = JSON.parse(await readFile('contracts/out/EvidenceRegistry.sol/EvidenceRegistry.json','utf8'));
+55 |     const secret = generatePrivateKey(), account = privateKeyToAccount(secret);
+56 |     const funded = await reader.request({method:'anvil_setBalance' as any,params:[account.address,'0x8ac7230489e80000'] as any});
+57 |     expect(funded).not.toBeNull();
+                            ^
+error: expect(received).not.toBeNull()
+
+Received: null
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/retained-decision-chain.test.ts:57:24)
+(fail) retained TKM decision: scoped API anchor, tamper rejection, revocation and restored local chain [810.43ms]
+
+ 0 pass
+ 1 fail
+ 6 expect() calls
+Ran 1 test across 1 file. [1500.00ms]

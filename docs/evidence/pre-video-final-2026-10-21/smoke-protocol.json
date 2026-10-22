@@ -1,0 +1,150 @@
+{
+  "version": "pre-video-p8-smoke/1",
+  "frozenAt": "2026-10-21T09:58:22.430Z",
+  "tasks": [
+    {
+      "task": "T3",
+      "assignment": "Verify the operator-provisioned export with the supplied verify_export tool. Report the returned source, digest, integrity verdict and chain verification status. You are checking a previously DEMO-reviewed record, not performing a review or authenticating a human. This task provides no reviewer authority. Do not infer a physical outcome from the hash.",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "type": "string",
+            "const": "TKM_S_021"
+          },
+          "digest": {
+            "type": "string",
+            "const": "0x7f150071975c7acf393707578f782d654bcb6b5fa18ffd3414dd6dca96af803b"
+          },
+          "verificationValid": {
+            "type": "boolean",
+            "const": true
+          },
+          "chainStatus": {
+            "type": "string",
+            "const": "NOT_VERIFIED"
+          },
+          "physicalOutcomeEstablished": {
+            "type": "boolean",
+            "const": false
+          }
+        },
+        "required": [
+          "sourceId",
+          "digest",
+          "verificationValid",
+          "chainStatus",
+          "physicalOutcomeEstablished"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "task": "T1",
+      "assignment": "Using the application, compare investigation plans for 10 slots, at most 2 sources per country, all countries/sectors, and the default equal recurrence/magnitude weighting. Activate the weighted historical plan. Then edit capacity to 20 without activating a replacement. Inspect the active queue and report its actual source IDs and capacities. Do not claim a repair. No reviewer permissions are provided or required.",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "activeCapacity": {
+            "type": "number",
+            "const": 10
+          },
+          "editedCapacity": {
+            "type": "number",
+            "const": 20
+          },
+          "activeSourceIds": {
+            "minItems": 10,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "replacementActivated": {
+            "type": "boolean",
+            "const": false
+          },
+          "physicalOutcomeEstablished": {
+            "type": "boolean",
+            "const": false
+          }
+        },
+        "required": [
+          "activeCapacity",
+          "editedCapacity",
+          "activeSourceIds",
+          "replacementActivated",
+          "physicalOutcomeEstablished"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "task": "T2",
+      "assignment": "Inspect the historical UNEP MARS record TKM_S_021 in the application. Report the count of archived plume observations, whether these are historical, whether they establish confirmed repair, and one specific additional measurement/document needed to assess a mitigation claim. This is a read-only historical interpretation subtask; do not run AI, create a review or pretend to submit an evidence request.",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "type": "string",
+            "const": "TKM_S_021"
+          },
+          "historical": {
+            "type": "boolean",
+            "const": true
+          },
+          "observationCount": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          },
+          "repairConfirmed": {
+            "type": "boolean",
+            "const": false
+          },
+          "nextEvidenceNeeded": {
+            "type": "string",
+            "minLength": 30
+          },
+          "physicalOutcomeEstablished": {
+            "type": "boolean",
+            "const": false
+          }
+        },
+        "required": [
+          "sourceId",
+          "historical",
+          "observationCount",
+          "repairConfirmed",
+          "nextEvidenceNeeded",
+          "physicalOutcomeEstablished"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "limits": {
+    "maxAttempts": 3,
+    "retries": 0,
+    "tokenAllowance": 60000,
+    "tokenEnforcement": "Codex reports aggregate tokens only at turn completion; this allowance stops later attempts, not internal requests.",
+    "billing": "existing ChatGPT plan; consumes plan quota, no new API key or per-token paid provider"
+  },
+  "oracle": {
+    "plan": "r12 exact source membership retained; not exposed to task agent",
+    "observationCount": 130,
+    "trustedPin": "0x7f150071975c7acf393707578f782d654bcb6b5fa18ffd3414dd6dca96af803b"
+  },
+  "hashes": {
+    "scripts/agent-usefulness/pre-video-smoke.ts": "b641355e9e0e09d694e594682d9de02f938db75d656467cfc10748f15d601411",
+    "e2e/agent-lab/pre-video-smoke.spec.ts": "bbb31979cb1a8737b8dc6624384964c9928ab0dbeb5515d348e517fb2fd42c27",
+    "scripts/agent-usefulness/codex-cli-runner.ts": "09a7c0cfb461cd9762bda491eb033d68d5540e451fe16795941e22b1c916e871",
+    "scripts/agent-usefulness/codex-mcp-server.ts": "9e827284848e12faffb5dbf199d71995b30f14cfdae69c2982cb4314927abb25",
+    "/home/andro/dev/projects/Devpost/iEEE-Methane-response/docs/evidence/r12-blocker-followup-2026-10-21/browser/frozen-investigation-decision.json": "bb8f626b356b49da59d4036e49c5462e6a1690403984208efebc7f6693b8b9d7"
+  },
+  "scope": "Bounded synthetic P8 diagnostic tasks only. No full r12 rescore, human productivity claim, reviewer mutation, AI backend call, public chain or deployment."
+}

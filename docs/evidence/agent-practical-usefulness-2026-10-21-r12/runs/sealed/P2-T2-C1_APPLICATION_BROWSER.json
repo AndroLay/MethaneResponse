@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P2-T2-C1_APPLICATION_BROWSER",
+  "pairId": "P2-T2",
+  "personaId": "P2",
+  "taskId": "T2",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T04:40:25.404Z",
+    "endedAt": "2026-10-21T04:47:53.424Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "sourceId": "KAZ_S_159",
+    "claimType": "mitigation_confirmed",
+    "claimText": "The KAZ_S_159 operator completed mitigation of the 2026-06-05 detected methane plume, and a post-action measurement confirms the outcome by 2026-07-31.",
+    "scope": {
+      "startDate": "2026-06-01",
+      "endDate": "2026-07-31",
+      "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd"
+    },
+    "verdict": "ABSTAIN — insufficient evidence to verify the stated mitigation and post-action outcome. The claim is not established by the inspected evidence; this does not establish that no action occurred or that the claim is false.",
+    "limitations": [
+      "The inspected record is a historical UNEP IMEO MARS snapshot, not a live or continuous measurement. The archive runs through 2026-09-13 UTC.",
+      "For the selected observation 7529d451-018f-4da3-9114-59b76c3a3bcd, MARS reports 307 kg/h with ± 66 kg/h standard deviation at 2026-06-05T07:40:02Z. A later in-scope overpass, 941806b5-2afe-46ac-baac-a0230880cede, reports 496 kg/h with ± 226 kg/h standard deviation at 2026-07-11T08:12:14Z. These are discrete overpasses; no action date or linkage establishes that the later record is post-action or verifies an outcome.",
+      "The 2024-06-07T08:05:04Z observation is outside the requested scope. The three records are separate overpasses; gaps or missing detections do not mean zero emissions. The publisher-supplied plume outline is not raw satellite pixels, continuous concentration, an operator response, or proof of mitigation.",
+      "The inspected UI identifies EnMAP - DLR and product IDs, but does not provide instrument footprint/valid coverage, observation opportunities, detection limits, or coverage/quality masks for interpreting a non-detection. Satellite context is shown as unavailable.",
+      "Publisher notification/response metadata is Yes (the DEMO project note says notified: Yes and feedback: Yes); these fields do not prove notice delivery, a mitigation action, or equipment repair.",
+      "One linked publisher report is listed, but its contents are not included or independently reviewed. External report metadata is withheld and was not cleared for provider processing; no excerpt was used.",
+      "The deterministic application baseline reports insufficient reference coverage. Its reference metadata analysis does not authenticate document contents or establish physical outcomes; no human assessment was recorded."
+    ],
+    "requestedEvidence": [
+      {
+        "evidenceType": "Dated, attributable action record",
+        "request": "Provide an inspectable operator work order, maintenance log, or equivalent action record tied to KAZ_S_159 and the relevant facility/source or equipment. Identify the action, responsible party/role, and exact action/completion date and time in UTC, with a stable record ID or reference and issuer."
+      },
+      {
+        "evidenceType": "Attributable post-action measurement and method",
+        "request": "Provide the dated follow-up measurement for the same source/equipment, with the exact UTC timestamp, observation/product ID, measurement method and instrument, source linkage, reported flux and units, and reported uncertainty (including whether the value is a standard deviation). State the outcome criterion used to say that mitigation succeeded; do not assume zero emissions."
+      },
+      {
+        "evidenceType": "Instrument coverage and evidence provenance",
+        "request": "For the follow-up measurement, provide the applicable spatial footprint/valid coverage over the source, observation opportunities and gaps, detection limit/sensitivity, retrieval or quality flags, and the source data/document reference. Identify the issuer and date, provide exact citations, and confirm rights to inspect/process the submitted material. If action and follow-up share a calendar day, include timestamps precise enough to establish their order."
+      }
+    ],
+    "whyNeeded": "The supplied MARS records establish dated source-linked flux estimates, but no scoped action record, action date, measurement method, or attributable post-action reference is included. The 2026-07-11 overpass follows the 2026-06-05 observation in calendar time, but without an action timestamp it cannot be identified as post-action. Instrument coverage and measurement uncertainty are needed to interpret a follow-up or any missing detection; publisher flags and a linked-report pointer do not establish the physical outcome.",
+    "acceptanceCriteria": [
+      "The action record identifies the source/facility or equipment and links it to KAZ_S_159 and the relevant event; it states the action, responsible party/role, and exact UTC action/completion date and time within 2026-06-01 through 2026-07-31.",
+      "The action record has an inspectable, attributable reference with issuer, record/document ID, date, and a stable source or authorized copy.",
+      "The follow-up measurement is attributable to the same source/equipment, has an exact UTC timestamp on or after the action and within the stated scope, and cites its observation/product ID. Same-calendar-day evidence gives sufficient time precision to establish order.",
+      "The follow-up states measurement method and instrument, flux value and units, uncertainty with its type (including standard deviation if reported), and the outcome criterion used; no unprovided threshold or zero-emissions assumption is introduced.",
+      "The measurement package states relevant instrument coverage/footprint over the source, observation opportunities or gaps, detection limit/sensitivity, and applicable retrieval/quality information so that a missing detection is not treated as zero.",
+      "Issuer, exact citations, source linkage, and document/data processing rights are inspectable; any publisher report excerpt is supplied only with appropriate permission."
+    ],
+    "ownerRole": "KAZ_S_159 source operator's maintenance/methane-mitigation records custodian for the action record; the follow-up measurement provider or instrument-data custodian for the measurement, coverage, and provenance package.",
+    "dueDateOrReasonUnset": {
+      "dueDate": null,
+      "reasonUnset": "No request deadline or responsible individual is supplied. 2026-07-31 is the claim scope end date, not a source-provided evidence-request due date."
+    },
+    "references": [
+      {
+        "type": "UNEP MARS plume observation metadata",
+        "sourceId": "KAZ_S_159",
+        "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "timestampUTC": "2026-06-05T07:40:02Z",
+        "reportedSourceFlux": "307 kg/h",
+        "reportedStandardDeviation": "± 66 kg/h",
+        "satelliteInstrument": "EnMAP - DLR",
+        "satelliteProductId": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z"
+      },
+      {
+        "type": "UNEP MARS plume observation metadata; later in-scope overpass",
+        "sourceId": "KAZ_S_159",
+        "observationId": "941806b5-2afe-46ac-baac-a0230880cede",
+        "timestampUTC": "2026-07-11T08:12:14Z",
+        "reportedSourceFlux": "496 kg/h",
+        "reportedStandardDeviation": "± 226 kg/h",
+        "satelliteInstrument": "EnMAP - DLR",
+        "satelliteProductId": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z"
+      },
+      {
+        "type": "UNEP MARS plume observation metadata; outside requested scope",
+        "sourceId": "KAZ_S_159",
+        "observationId": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "timestampUTC": "2024-06-07T08:05:04Z",
+        "reportedSourceFlux": "591 kg/h",
+        "reportedStandardDeviation": "± 335 kg/h",
+        "satelliteInstrument": "EnMAP - DLR",
+        "satelliteProductId": "ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z"
+      },
+      {
+        "type": "Dataset provenance",
+        "datasetSnapshotId": "unep-mars-675417694883",
+        "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "archiveStartDate": "2020-10-29",
+        "archiveEndDate": "2026-09-13",
+        "retrievedAtUTC": "2026-10-14 06:10 AM UTC",
+        "license": "UNEP IMEO MARS metadata, CC BY-NC-SA 4.0 (dataset terms)",
+        "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred."
+      },
+      {
+        "type": "MethaneResponse deterministic reference-coverage analysis",
+        "scope": "2026-06-01 to 2026-07-31 UTC",
+        "result": "Insufficient reference coverage; 0 supporting, 0 contrary, 3 excluded, 3 total records; no eligible references to remove.",
+        "criterionShown": "A scoped, attributable action record with a date and dated follow-up reference. Metadata coverage does not verify the physical outcome.",
+        "status": "Application metadata analysis only; no saved human review or physical verification."
+      },
+      {
+        "type": "MethaneResponse bounded archive cross-check",
+        "scope": "2026-06-01 to 2026-07-31 UTC inclusive",
+        "result": "2 records in period, 1 outside period, 0 missing flux. The two in-scope records contradict only the archive-level statement 'No linked detection records in this period'; the tool explicitly says this does not determine whether equipment was repaired.",
+        "status": "Exploratory archive check, not a repair verdict or human assessment."
+      },
+      {
+        "type": "DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM",
+        "text": "The source record reports feedback: Yes and notified: Yes. Those fields are publisher metadata. This packet supplies no action date, no post-action measurement, no measurement method, no uncertainty, and no follow-up reference for the claimed 2026-06-05 plume.",
+        "status": "Labeled DEMO project text; not treated as publisher evidence."
+      },
+      {
+        "type": "Provider processing note",
+        "text": "External report metadata withheld; it was not cleared for provider processing. The linked report body is not included."
+      }
+    ],
+    "taskLog": {
+      "steps": [
+        "Read the MethaneResponse audit page and inspected the KAZ_S_159 claim and available evidence requirements.",
+        "Inspected all three MARS observations, including the assigned 2026-06-05 record, and recorded timestamps, flux, standard deviation, instrument and product IDs.",
+        "Applied the inclusive UTC period 2026-06-01 through 2026-07-31 and ran the rules baseline.",
+        "Ran deterministic reference coverage and the bounded archive cross-check; retained their stated limits and did not treat them as physical verification.",
+        "Did not open or process the withheld publisher report and did not save a human determination."
+      ],
+      "evidenceIds": [
+        "KAZ_S_159",
+        "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "941806b5-2afe-46ac-baac-a0230880cede",
+        "82758651-76f4-4e06-b4ab-c247ce765192",
+        "unep-mars-675417694883",
+        "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+        "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43"
+      ],
+      "errors": [
+        "Browser select for 'Observation event' timed out; selecting 'Statement to check' also timed out. The assigned observation ID remains preserved in the submitted scope and references.",
+        "The 'Use selected observation day' action failed while preparing the wider date scope. The period-only scope was then applied successfully."
+      ],
+      "requestsForHelp": []
+    }
+  },
+  "timing": {
+    "wallClockSeconds": 448,
+    "modelCalls": 1,
+    "inputTokens": 2796225,
+    "outputTokens": 24095,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Abstained from confirming physical mitigation because the supplied evidence is insufficient. A precise next-evidence request and the task log are included in output; no human help was requested.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+    "steps": 46,
+    "toolNames": [
+      "read_page",
+      "click",
+      "read_page",
+      "select",
+      "read_page",
+      "click",
+      "read_page",
+      "fill",
+      "select",
+      "fill",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "fill",
+      "fill",
+      "select",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "select",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "select",
+      "read_page",
+      "select",
+      "read_page",
+      "click",
+      "click",
+      "select",
+      "click",
+      "read_page"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 2703744,
+    "reasoningOutputTokens": 19110,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

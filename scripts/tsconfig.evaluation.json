@@ -25,6 +25,8 @@
     "verify-plan.test.ts",
     "verify-investigation-decision.ts",
     "verify-investigation-decision.test.ts",
+    "retained-decision-chain.test.ts",
+    "run-retained-decision-proof.ts",
     "verify-investigation.ts",
     "verify-investigation.test.ts",
     "investigation-operations-proof.ts",

@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P3-T3-C0_MANUAL_PACKET",
+  "pairId": "P3-T3",
+  "personaId": "P3",
+  "taskId": "T3",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T05:26:11.504Z",
+    "endedAt": "2026-10-21T05:27:23.764Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "workId": "DEMO-work",
+    "decisionDigest": null,
+    "disposition": "request_more_evidence",
+    "rationale": "Packet-only MRV assessment: the historical DEMO decision is request_more_evidence. DEMO-T3-RESPONSE is recorded as response_received for DEMO-T3-REQUEST, with reference https://example.org/DEMO-T3-response, locator DEMO page 1, declared SHA-256 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, reportedDate precision month/value 2026-01, and rights owned. The linked report body is explicitly withheld, so its contents and declared digest cannot be checked. The response does not establish the requested post-action measurement method, uncertainty, units, source scope KAZ_S_159 / 2026-01-01..2026-01-02, or operator attestation. The response event is a reason to revisit the record; it does not establish authenticity or a physical outcome. Request the report body cleared for review, source-attributable post-action measurements with method, units, uncertainty and observation timestamp, operator attestation, and dataset version/snapshot provenance.",
+    "revisitState": "not_recorded",
+    "revisitReasonCodes": [
+      "response_received"
+    ],
+    "historicalDecisionUnchanged": true,
+    "verificationValid": false,
+    "physicalOutcomeEstablished": false,
+    "steps": [
+      "Read the supplied frozen manual packet and preserved its DEMO labels.",
+      "Checked the exposed tool catalog for manual-packet operations; only mcp__agent_lab__submit_result was available for this task.",
+      "Compared the supplied response-event metadata with its stated acceptance criteria; no dossier mutation, authorized review write, export, or digest verification was possible."
+    ],
+    "evidenceIds": [
+      "DEMO-work",
+      "DEMO_SOURCE",
+      "DEMO-T3-REQUEST",
+      "DEMO-T3-RESPONSE",
+      "DEMO-audit",
+      "0x7bfab4d089b976542163f29073ffa6b01485d7c3780accf5afa27357b2b423c6"
+    ],
+    "sourceDetails": {
+      "claimType": "mitigation_confirmed",
+      "scope": {
+        "startDate": "2026-01-01",
+        "endDate": "2026-01-02"
+      },
+      "datasetSnapshotId": "DEMO",
+      "datasetVersion": null,
+      "responseReportedDate": {
+        "precision": "month",
+        "value": "2026-01"
+      },
+      "measurementUnits": null,
+      "measurementUncertainty": null,
+      "responseSha256Declared": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "responseBodyAvailable": false
+    },
+    "suppliedHistoricalDecision": {
+      "disposition": "request_more_evidence",
+      "digest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec",
+      "trustedDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec"
+    },
+    "verificationStatus": "not_performed_tool_unavailable",
+    "toolLimitation": "No supplied manual-packet tool was available to load the dossier, add the response or snapshot change, record revisit, export decision.json, or run verificationCommand.",
+    "requestsForHelp": [
+      "Expose the assigned manual-packet tool interface for dossier updates, authorized review/revisit, export, and verification against the supplied trusted digest.",
+      "Provide the linked DEMO response body for review with post-action measurement method, units, uncertainty, observation time, source/scope attribution, operator attestation, and dataset version/snapshot provenance."
+    ],
+    "errors": []
+  },
+  "timing": {
+    "wallClockSeconds": 72.3,
+    "modelCalls": 1,
+    "inputTokens": 137782,
+    "outputTokens": 5591,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Only the supplied frozen DEMO packet and tool catalog were available. No manual-packet environment tool was exposed to complete or verify the requested write/export workflow.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+    "steps": 0,
+    "toolNames": [],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 111744,
+    "reasoningOutputTokens": 4384,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

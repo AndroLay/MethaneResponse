@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P8-T3-C1_APPLICATION_BROWSER",
+  "pairId": "P8-T3",
+  "personaId": "P8",
+  "taskId": "T3",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T08:34:25.845Z",
+    "endedAt": "2026-10-21T08:35:27.577Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "failed",
+  "assistance": "unknown",
+  "output": null,
+  "timing": {
+    "wallClockSeconds": 61.7,
+    "modelCalls": 1,
+    "inputTokens": 184651,
+    "outputTokens": 1966,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": [
+      "codex_result_missing"
+    ]
+  },
+  "artifactPaths": [],
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "8507b0dbdbecdcc848b33e07aff57fe18927d51393d14c166b7b52cb293d44ce",
+    "steps": 0,
+    "toolNames": [],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 144128,
+    "reasoningOutputTokens": 1615,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

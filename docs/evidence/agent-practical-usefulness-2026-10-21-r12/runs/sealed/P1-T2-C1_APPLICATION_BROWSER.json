@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P1-T2-C1_APPLICATION_BROWSER",
+  "pairId": "P1-T2",
+  "personaId": "P1",
+  "taskId": "T2",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T04:13:20.757Z",
+    "endedAt": "2026-10-21T04:19:42.897Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "sourceId": "KAZ_S_159",
+    "claimType": "mitigation_confirmed",
+    "claimText": "The KAZ_S_159 operator completed mitigation of the 2026-06-05 detected methane plume, and a post-action measurement confirms the outcome by 2026-07-31.",
+    "scope": {
+      "startDate": "2026-06-01",
+      "endDate": "2026-07-31",
+      "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+      "timezone": "UTC"
+    },
+    "verdict": "insufficient_evidence",
+    "limitations": [
+      "Baseline aturan di UI untuk rentang 2026-06-01 sampai 2026-07-31 menghasilkan “Insufficient Reference Coverage” dengan 0 cited references; UI juga menyatakan belum ada human review. Baseline tersebut memeriksa metadata/relasi referensi, bukan hasil fisik.",
+      "Dalam periode tugas terdapat dua overpass berbeda: 2026-06-05T07:40:02 UTC (307 kg/h ± 66 kg/h standard deviation) dan 2026-07-11T08:12:14 UTC (496 kg/h ± 226 kg/h standard deviation). Overpass 11 Juli adalah pengamatan tersendiri; tanpa tanggal dan keterkaitan tindakan, tidak dapat disebut pengukuran pascatindakan ataupun dijadikan bukti konfirmasi atau sanggahan.",
+      "UI menampilkan metadata sumber notified: Yes, feedback: Yes, dan response metadata: Yes. Metadata itu tidak mengidentifikasi penerima/timestamp pemberitahuan dan tidak membuktikan tindakan fisik.",
+      "Satu referensi laporan penerbit tertaut untuk KAZ_S_159, tetapi isi dan metadata eksternal ditandai withheld/tidak disertakan serta belum dinilai. Ringkasan publisher yang terlihat di preview bukan pengukuran pascatindakan yang ditinjau secara independen.",
+      "Tidak ada tanggal tindakan, pengukuran pascatindakan, metode, ketidakpastian pengukuran, atau referensi follow-up untuk plume 2026-06-05 dalam paket yang diberikan.",
+      "Kasus snapshot menampilkan catatan terakhir 2026-07-11. Tidak adanya baris observasi sesudahnya sampai akhir arsip bukan bukti emisi nol.",
+      "SHA-256 dan snapshot mematok versi data arsip; keduanya tidak membuktikan tindakan operator, autenticitas hasil fisik, atau berhentinya emisi."
+    ],
+    "requestedEvidence": "Minta satu paket bukti terbatas untuk KAZ_S_159: (1) catatan work order/penutupan tindakan yang dapat diatribusikan kepada operator atau pelaksana, mengidentifikasi lokasi/aset dan kaitannya dengan observationId 7529d451-018f-4da3-9114-59b76c3a3bcd, menjelaskan tindakan, penanggung jawab, serta waktu selesai UTC; (2) laporan pengukuran methane pascatindakan yang dilakukan setelah waktu selesai itu dan paling lambat 2026-07-31 UTC, untuk lokasi/sumber yang sama, beserta hasil, unit, ketidakpastian, metode/instrumen, cakupan spasial-waktu, batas deteksi, QA/kalibrasi, dan rekaman/data pendukung; (3) ID versi, penerbit, provenance dan referensi yang dapat dibuka untuk meninjau hubungan tindakan dengan pengukuran. Minta laporan membahas relevansi overpass 2026-07-11 tanpa menganggapnya otomatis sebagai tindak lanjut.",
+    "whyNeeded": "KAZ_S_159 dipilih untuk kapasitas satu sumber karena klaim terikat pada satu plume bertanggal dan aplikasi menampilkan dua overpass di dalam rentang serta satu tautan laporan untuk sumber yang sama; ini memungkinkan pemeriksaan terarah. Trade-off-nya, tidak dilakukan perbandingan lintas sumber. Data yang ada memberi tanggal/flux satelit dan flag administratif, tetapi tidak membangun urutan tindakan lalu pengukuran atau hubungan hasil dengan plume 2026-06-05. Paket tersebut diperlukan untuk menilai klaim secara scoped; jika hasil/metodenya tidak memadai, klaim tetap belum terkonfirmasi.",
+    "acceptanceCriteria": [
+      "Dokumen secara eksplisit menyebut KAZ_S_159 dan menghubungkan tindakan yang dicatat dengan lokasi/aset serta observationId 7529d451-018f-4da3-9114-59b76c3a3bcd; identitas penerbit/pelaksana dan referensi dokumen dapat ditelusuri.",
+      "Catatan tindakan menguraikan apa yang dilakukan dan waktu selesai dalam UTC; waktu itu berada dalam cakupan yang dinilai dan tidak melewati 2026-07-31.",
+      "Laporan pengukuran secara eksplisit menyatakan waktu pengukuran setelah penyelesaian tindakan dan pada atau sebelum 2026-07-31 UTC, serta menjelaskan mengapa titik/cakupan pengukuran mewakili sumber/plume yang sama.",
+      "Laporan memberikan hasil methane dengan unit dan ketidakpastian, metode/instrumen, cakupan spasial dan temporal, batas deteksi, serta provenance dan pemeriksaan QA/kalibrasi yang cukup untuk menilai kualitas dan keterbatasannya.",
+      "Perbandingan dengan bukti dasar dinyatakan dengan metode dan ketidakpastiannya; laporan menilai overpass 2026-07-11 (496 kg/h ± 226 kg/h standard deviation) bila relevan dan tidak menyamakan tidak adanya pengamatan berikutnya dengan emisi nol.",
+      "Paket menyediakan ID/version dan referensi yang dapat diakses beserta izin/persyaratan pemrosesan yang berlaku. Hasil yang tidak konklusif atau bertentangan harus dinyatakan apa adanya; keberadaan dokumen saja tidak memenuhi klaim hasil fisik."
+    ],
+    "ownerRole": "Pemimpin pemantauan/pengukuran lingkungan atau pengelola catatan operasi dari operator untuk KAZ_S_159; identitas operator tertentu tidak tersedia dalam bukti yang diperiksa.",
+    "dueDateOrReasonUnset": "Belum ditetapkan — tidak ada tenggat atau jadwal pemilik sumber dalam bukti yang diperiksa. Ini adalah rancangan permintaan, belum dikirim.",
+    "references": [
+      {
+        "kind": "Task claim and assigned scope",
+        "sourceId": "KAZ_S_159",
+        "claimType": "mitigation_confirmed",
+        "claimText": "The KAZ_S_159 operator completed mitigation of the 2026-06-05 detected methane plume, and a post-action measurement confirms the outcome by 2026-07-31.",
+        "scope": {
+          "startDate": "2026-06-01",
+          "endDate": "2026-07-31",
+          "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "timezone": "UTC"
+        }
+      },
+      {
+        "kind": "UNEP MARS observation",
+        "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "observedAt": "2026-06-05T07:40:02 UTC",
+        "reportedFlux": "307 kg/h",
+        "reportedStandardDeviation": "± 66 kg/h",
+        "satelliteInstrument": "EnMAP - DLR",
+        "satelliteProductId": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z"
+      },
+      {
+        "kind": "UNEP MARS observation",
+        "observationId": "941806b5-2afe-46ac-baac-a0230880cede",
+        "observedAt": "2026-07-11T08:12:14 UTC",
+        "reportedFlux": "496 kg/h",
+        "reportedStandardDeviation": "± 226 kg/h",
+        "satelliteInstrument": "EnMAP - DLR",
+        "satelliteProductId": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z",
+        "scopeRelation": "Overpass terpisah di dalam rentang tanggal; tidak ada bukti yang mengaitkannya dengan tindakan."
+      },
+      {
+        "kind": "UNEP MARS observation outside assigned scope",
+        "observationId": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "observedAt": "2024-06-07T08:05:04 UTC",
+        "reportedFlux": "591 kg/h",
+        "reportedStandardDeviation": "± 335 kg/h",
+        "satelliteInstrument": "EnMAP - DLR",
+        "scopeRelation": "Di luar rentang 2026-06-01 sampai 2026-07-31."
+      },
+      {
+        "kind": "Pinned dataset snapshot",
+        "datasetSnapshotId": "unep-mars-675417694883",
+        "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+        "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+        "archiveStartDate": "2020-10-29",
+        "archiveEndDate": "2026-09-13",
+        "retrievedAt": "2026-10-14T06:10:00 UTC",
+        "license": "UNEP IMEO MARS metadata, CC BY-NC-SA 4.0 (dataset terms)"
+      },
+      {
+        "kind": "Source-level publisher metadata",
+        "sourceId": "KAZ_S_159",
+        "notified": "Yes",
+        "feedback": "Yes",
+        "responseMetadata": "Yes",
+        "recipientAndExactNotificationTime": "Not identified in the visible source metadata.",
+        "followUpDate": "No date supplied."
+      },
+      {
+        "kind": "DEMO note",
+        "label": "DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM",
+        "text": "The source record reports feedback: Yes and notified: Yes. Those fields are publisher metadata. This packet supplies no action date, no post-action measurement, no measurement method, no uncertainty, and no follow-up reference for the claimed 2026-06-05 plume."
+      },
+      {
+        "kind": "Linked publisher report",
+        "recordLabel": "[external report metadata withheld]",
+        "sourceId": "KAZ_S_159",
+        "contentStatus": "Linked reference only; report body not included or independently reviewed; title, issuer/reference, date, and license are withheld in the Evidence Library preview.",
+        "projectPreviewSummary": "The MethaneResponse project preview says the UNEP item page reports that IMEO confirmed a methane mitigation action at Uzen Field, Kazakhstan, in July 2026; the preview says the PDF was not independently re-audited. This remains a publisher-level summary, not post-action measurement evidence.",
+        "publisherRecordDateShownInHomePreview": "23 Sep 2026 UTC"
+      },
+      {
+        "kind": "Rules baseline",
+        "route": "/dashboard/audit",
+        "result": "Insufficient Reference Coverage",
+        "citedReferences": 0,
+        "humanReview": "No human review recorded",
+        "basis": "Reference metadata coverage; physical verification not established by the application."
+      }
+    ],
+    "executionRecord": {
+      "steps": [
+        "Navigated to the MethaneResponse localhost home page and opened Evidence Auditor for KAZ_S_159.",
+        "Inspected the Observations step; selected observation 7529d451-018f-4da3-9114-59b76c3a3bcd and recorded the 2026-06-05 flux, standard deviation, instrument, and product ID.",
+        "Returned to the claim step, entered 2026-06-01 and 2026-07-31, and applied the date range. The UI retained “whole period” rather than the assigned observation ID.",
+        "Ran the UI rules baseline for that date range; it returned “Insufficient Reference Coverage” and 0 cited references.",
+        "Opened the Documents/Evidence Library view and inspected the linked report preview and visible source-level notification metadata; report content and identifying metadata were withheld."
+      ],
+      "evidenceIds": [
+        "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "941806b5-2afe-46ac-baac-a0230880cede",
+        "82758651-76f4-4e06-b4ab-c247ce765192",
+        "unep-mars-675417694883"
+      ],
+      "errors": [
+        "A Period start fill attempt made while the Observations step was active failed; it succeeded after returning to the claim step.",
+        "Clicking the exact workflow label “Evidence Auditor. Assessment pending” timed out; clicking the visible “Evidence Auditor” button succeeded.",
+        "The scope select for “Observation event” could not be targeted by the supplied select tool, and “Use selected observation day” did not activate. The applied UI scope therefore remained the whole date period; the submitted scope preserves the assigned observationId from the task.",
+        "An initial “Open source references” click from the claim step timed out; the same control succeeded from the Observations step and opened /dashboard/documents."
+      ],
+      "requestsForHelp": [],
+      "humanAssessmentSaved": false,
+      "evidenceRequestSent": false
+    }
+  },
+  "timing": {
+    "wallClockSeconds": 382.1,
+    "modelCalls": 1,
+    "inputTokens": 1411876,
+    "outputTokens": 23620,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "T2: abstain because the supplied and inspected evidence does not establish a dated action and a scoped post-action measurement. No help was requested; the evidence request is a draft and was not sent.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+    "steps": 28,
+    "toolNames": [
+      "navigate",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "select",
+      "read_page",
+      "fill",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "fill",
+      "fill",
+      "select",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "read_page"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 1340544,
+    "reasoningOutputTokens": 19290,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

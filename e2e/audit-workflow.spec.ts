@@ -144,6 +144,8 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
   await expect(queue.getByRole('heading')).toHaveText('10 sources in your active plan');
   expect(await queue.locator('li strong').allTextContents()).toEqual(ten.portfolios[0].selectedIds);
   await planner.getByLabel('Investigation slots', { exact: true }).fill('20');
+  await expect(planner).toContainText('Editing parameters clears this preview only; your active plan stays unchanged');
+  expect(await queue.locator('li strong').allTextContents()).toEqual(ten.portfolios[0].selectedIds);
   await expect(queue.getByRole('heading')).toHaveText('10 sources in your active plan');
   await planner.getByRole('button', { name: 'Compare investigation plans', exact: true }).click();
   await expect(planner.getByTestId('planner-summary')).toContainText('4,218');
@@ -171,6 +173,7 @@ test('Active investigation plan keeps exact 10 to 20 source membership across qu
     }).observe({ type: 'longtask' });
   });
   const contextsBeforeLocate = await page.evaluate(() => (window as unknown as { publicMapContextCount: number }).publicMapContextCount);
+  await queue.locator('.plan-queue-list>li').first().getByText('Source details & map', { exact: true }).click();
   await queue.getByRole('button', { name: `Locate planned source ${twenty.portfolios[0].selectedIds[0]}`, exact: true }).click();
   await expect(page).toHaveURL(/\/dashboard\/map/);
   try {
@@ -1248,4 +1251,69 @@ test('chain recovery controls protect credentials and never retry a pending writ
   await page.screenshot({ path: testInfo.outputPath('DEMO-chain-controls-mobile.png'), fullPage: true });
   await controls.getByRole('button', { name: 'Clear credential' }).click();
   await expect(controls.getByLabel('Anchor access token')).toHaveValue('');
+});
+
+
+test('Polished Auditor and mobile header keep tasks readable, searchable and keyboard accessible', async ({ page }, testInfo) => {
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await page.route(/^https?:\/\//, route => ['127.0.0.1','localhost'].includes(new URL(route.request().url()).hostname) ? route.continue() : route.abort());
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/dashboard/audit?sourceId=KAZ_S_159');
+  await page.getByRole('navigation', { name: 'Evidence audit steps' }).getByRole('button', { name: /Document AI/ }).click();
+  const claim = page.getByRole('textbox', { name: 'Exact claim to assess', exact: true });
+  await expect(claim).toBeVisible();
+  const context = page.locator('.intel-context');
+  await expect(context).not.toHaveAttribute('open');
+  const processingLimits = page.locator('.intel-processing-limits');
+  await expect(processingLimits).not.toHaveAttribute('open');
+  await processingLimits.locator(':scope > summary').click();
+  await expect(processingLimits.getByText(/Full excerpts are not persisted/)).toBeVisible();
+  await processingLimits.locator(':scope > summary').click();
+  await expect(page.getByRole('group', { name: '1. Claim & supporting document', exact: true })).toBeVisible();
+  await expect(page.getByRole('group', { name: '2. Permission & assessment', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Assess documented claim', exact: true })).toBeDisabled();
+  await claim.fill('DEMO claim draft remains intact when inspecting historical context.');
+  await context.locator(':scope > summary').click();
+  await expect(context).toHaveAttribute('open');
+  await context.locator(':scope > summary').click();
+  await expect(claim).toHaveValue('DEMO claim draft remains intact when inspecting historical context.');
+  await page.locator('.intelligence-heading').evaluate(node => node.scrollIntoView({ block: 'start', behavior: 'instant' }));
+  expect((await page.locator('.intelligence-heading').boundingBox())!.y).toBeGreaterThanOrEqual(64);
+  await page.screenshot({ path: testInfo.outputPath('auditor-focused-desktop.png') });
+  for (const width of [390, 320]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.evaluate(() => scrollTo(0, 0));
+    const openSearch = page.getByRole('button', { name: 'Open source search', exact: true });
+    await expect(openSearch).toBeVisible();
+    await expect(page.getByRole('textbox', { name: 'Search methane sources', exact: true })).toBeHidden();
+    await openSearch.click();
+    const search = page.getByRole('textbox', { name: 'Search methane sources', exact: true });
+    await expect(search).toBeFocused();
+    await expect(search).toHaveCSS('font-size', '16px');
+    await search.fill('KAZ_S_159');
+    await expect(page.locator('.search-results').getByRole('button', { name: /KAZ_S_159/ })).toBeVisible();
+    await search.press('Escape');
+    await expect(openSearch).toBeFocused();
+    await expect(openSearch).toHaveAttribute('aria-expanded', 'false');
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    const bounds = await openSearch.boundingBox(); expect(bounds!.height).toBeGreaterThanOrEqual(44); expect(bounds!.width).toBeGreaterThanOrEqual(44);
+    if (width === 390) await page.screenshot({ path: testInfo.outputPath('mobile-header-collapsed.png') });
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.keyboard.press('Control+k');
+  const search = page.getByRole('textbox', { name: 'Search methane sources', exact: true });
+  await expect(search).toBeFocused();
+  await page.screenshot({ path: testInfo.outputPath('mobile-header-search.png') });
+  await page.getByRole('button', { name: 'Close source search', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Open source search', exact: true })).toBeFocused();
+  await expect(claim).toHaveCSS('font-size', '16px');
+  await claim.scrollIntoViewIfNeeded();
+  await page.screenshot({ path: testInfo.outputPath('auditor-focused-mobile.png') });
+  await page.getByRole('button', { name: 'Open source search', exact: true }).click();
+  await search.fill('KAZ_S_159');
+  await page.locator('.search-results').getByRole('button', { name: /KAZ_S_159/ }).click();
+  await expect(page).toHaveURL(/\/dashboard\/cases/);
+  await expect(page.getByRole('button', { name: 'Open source search', exact: true })).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator('#dashboard-main')).toBeFocused();
+  expect(errors).toEqual([]);
 });

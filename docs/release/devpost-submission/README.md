@@ -1,18 +1,14 @@
-# Devpost submission — ready-to-copy fields
+# MethaneResponse — current Devpost submission, v18
 
-**Prepared/check date: 19 October 2026.** This package prepares content and local
-attachments. It does not save a Devpost form, upload media, publish source or
-deploy the application.
+**Prepared: 23 October 2026.** These are local, ready-to-copy materials and an
+allowlisted judging attachment. Preparing files does not publish source, upload
+video, deploy a revision or submit Devpost.
 
-## Project overview / General info
+## General info
 
-**Project name**
+**Project name:** MethaneResponse
 
-```text
-MethaneResponse
-```
-
-**Elevator pitch** — 143 characters, within the supplied 200-character limit:
+**Elevator pitch** (143 characters, within the supplied 200-character limit):
 
 ```text
 Trace methane claims to evidence. Explore historical satellite data, identify missing proof, and verify the integrity of investigation reports.
@@ -20,95 +16,96 @@ Trace methane claims to evidence. Explore historical satellite data, identify mi
 
 **Track:** Climate Data & Environmental Monitoring.
 
-## Project details / About the project
+Paste [project-story.md](project-story.md) into About the project in Markdown
+mode. Its seven headings match the requested form. The current story follows
+**Plan → Investigate → Verify**, primary source **TKM_S_021**, with a separately
+labeled archived **KAZ_S_159 DeepSeek DEMO**.
 
-Paste [project-story.md](project-story.md), beginning with `## Inspiration` and
-ending with `## What's next for Methane Response`. Its seven headings match the
-form supplied by the user. Use Markdown mode, then inspect the rendered preview.
+**Built with** (15 tags): React, TypeScript, Vite, MapLibre GL JS, Bun, Hono,
+Zod, Python, uv, Solidity, Foundry, viem, Ethereum, SHA-256, Playwright.
+No database is required or presented as a completed service.
 
-## Built with
+## Try it out and access status
 
-Enter these 15 tags separately:
+- Source: https://github.com/AndroLay/MethaneResponse
+- Limited preview: https://methaneresponse-preview.onrender.com/dashboard
+- Video URL: **pending upload**. A local MP4 is not an embeddable public URL.
 
-React, TypeScript, Vite, MapLibre GL JS, Bun, Hono, Zod, Python, uv, Solidity,
-Foundry, viem, Ethereum, SHA-256, Playwright.
+[access-status.json](access-status.json) retains the **pre-release baseline**:
+GitHub `b067ad36c792ab45c472334984b338662b679637` had successful CI; it did not
+contain the local v18 delivery. The first preview checks had a health timeout
+and dashboard HTTP 503; retries returned HTTP 200 with the casebook ready and
+model configured. These observations apply to their recorded time, not every
+later deployment. See the [23 October release record](../../evidence/release-sync-2026-10-23/README.md)
+for fresh local gates and exact-commit CI/deployment inspection links. Do not infer
+current runtime identity or a successful model call from a prior HTTP check.
 
-No database or unsupported model framework is added to the tags. JSON storage
-and the optional model integration are explained in the story.
+> The demo shows the full local prototype. The public preview is limited to
+> selected sources and excludes private review and blockchain writes.
 
-## Try it out links
+The public health response lists only KAZ_S_159, LBY_S_143 and CAN_S_002 for
+anonymous baseline operations, and marks audit state ephemeral. Download anything
+that must be preserved. Do not promise the full TKM private-review journey on
+Render. The recorded DeepSeek result is historical integration evidence, not a
+new provider run performed during this packaging.
 
-| Label | Value for the form |
-|---|---|
-| Source code | `https://github.com/AndroLay/MethaneResponse` |
-| Live prototype | Add the actual verified deployment URL; no URL is invented here |
+## Current video
 
-The repository address comes from this project. The current public revision was
-not verified by the web reader on this pass (cache miss); check the committed
-version and unauthenticated access before submission.
+- Local file: `delivery-output/final-v18/MethaneResponse-Final-Submission-v18.mp4`.
+- **4:57**, 1920×1080, 25fps, English burned-in captions and stock synthetic male
+  Andrew voice; original instrumental score.
+- SHA-256: `b14bc61f893176631c8ce15445217ea1ab4977e52a1c252b81d2e661b4006fad`.
+- [Delivery/review scope](../../demo/delivery-2026-10-22-final-v18/README.md):
+  18 technical checks and 34 video regressions pass. Full normal-speed playback
+  and actual listening remain unreviewed; these tests do not establish usability.
+- Upload the MP4 separately to a Devpost-supported host, verify anonymous access
+  and captions, then fill `video.url` in [fields.json](fields.json) with that actual
+  address. Do not include the 56 MB MP4 in the 35 MB attachment.
 
-## Project Media / Image gallery
+## Generate the matching judging attachment
 
-Run the packager below. It copies six unchanged actual UI captures to
-`delivery-output/devpost-submission-2026-10-19/gallery/`. Upload them in numbered
-order; the English titles/captions are in `gallery-captions.json` beside them.
-Each image is under 5 MB. They retain the native **16:9** interface frame, including
-credits. The form recommends **3:2**; it does not require cropping the interface.
-
-## Video demo link
-
-Upload the finished video to a platform supported by Devpost and paste its
-embeddable/publicly accessible URL. A local file path is not a video URL.
-
-Local video:
-`delivery-output/story-v12/MethaneResponse-Final-Presentation-Demo-v12.mp4`.
-Duration: **4:27.92**, within the official 3–5-minute window. The matching English
-SRT is beside the MP4. Do not put the video inside the 35 MB form attachment.
-The video has technical verification and sampled frame review; full listening
-and normal-speed human playback remain unverified.
-
-## Additional info / Upload a File
-
-Upload the generated **`MethaneResponse-Devpost-Judging-Pack.zip`**. It contains
-the project story, judging guide, source links, real gallery images, example
-original/changed report files, scoped verification summaries, rights notices,
-and checksums. Source code is reached through the repository link.
-
-```sh
-python3 docs/release/devpost-submission/package_submission.py
-python3 docs/release/devpost-submission/test_submission.py
+```bash
+python3 docs/release/devpost-submission/test_v18_package.py
+python3 docs/release/devpost-submission/package_v18_submission.py \
+  --output delivery-output/release-sync-2026-10-23/MethaneResponse-Devpost-Judging-Pack-v18-aligned.zip
 ```
 
-Output:
-`delivery-output/devpost-submission-2026-10-19/MethaneResponse-Devpost-Judging-Pack.zip`.
-The packager enforces a conservative **35,000,000-byte** maximum and preserves
-any existing output. Its ZIP is a judge attachment, not the full repository or
-the video. The helper copies only explicit approved inputs, never environment
-files, private state, credentials or third-party report bodies.
+The builder rejects replacement of an existing ZIP, verifies the exact MP4 and
+proof manifest, restricts inputs to an explicit allowlist, and enforces the
+conservative 35,000,000-byte attachment limit through archive validation.
+It includes the current story/fields/guide, v18 audit, the exact v17 **take8**
+TKM export/pin/receipt/local state, recorded AI smoke summary, frozen r12 findings,
+the dated release validation, licenses and six gallery images. No signing key, model credential, raw browser
+trace, full third-party report body, or video is included. This is an evidence
+attachment, not the full source repository. Clone the full repository for replay.
 
-## Rules alignment and remaining fields
+Gallery images retain 16:9 rather than cropping out useful evidence. The form
+recommends 3:2. Each image is under 5 MB. `gallery-captions.json` distinguishes
+actual archived browser capture, composed application footage, proof readout and
+an **editorial impact diagram**. Do not call the diagram observational evidence.
 
-[Rules alignment](rules-check.md) records the current official sources, judging
-coverage, form limits, access checks and unresolved eligibility discrepancy.
-[fields.json](fields.json) keeps pending live/video URLs explicitly null. These
-must be filled with actual addresses; they are not evidence of publication.
+Older dated v12/v16 and non-render attachments remain historical. The legacy
+`package_submission.py` and `package_current_submission.py` serve their earlier
+package formats; use `package_v18_submission.py` for the current attachment.
 
-Actual form limits for media/file upload are taken from the user's supplied
-form. Recheck them in the authenticated form if it changes. No external party
-has been contacted and no submission is claimed.
+## Scientific, technical and publication boundaries
 
-## Current completion attachment — 20 October
+- Historical snapshot: 4,218 sources; 30,414 total plume records; 23,861 linked
+  and 6,553 unlinked. Historical observations are not a live emissions feed.
+- Take8 pin: `0xcab36a271a000facd92cefbbfb902b314cce70eed565a9471ca6b263b5353ec2`.
+  Use [the take8 proof instructions](../../evidence/video-v17-2026-10-22/README.md),
+  never the older v16 take2 pin. Anvil is local chain 31337, not Sepolia.
+- `mitigation_confirmed` names the claim under review; the actual TKM decision
+  is `request_more_evidence`. Reviewer and response are software DEMO fixtures.
+- AI proposes document assessments; review and exact citations constrain use.
+  Blockchain commits report integrity; neither establishes physical repair.
+- Potential field follow-up and comparable measurements explain the impact
+  pathway. No achieved repairs, emissions reduction or productivity is measured.
+- Frozen r12 remains **0/48 task completion** under its scorer. Twelve passing
+  deterministic gates do not replace the 48 task results.
 
-The additive packager retains the dated v12 materials and P2 evidence. Use the
-explicit completion switch to also include the current map regression, local
-Anvil receipt and desktop/mobile captures:
-
-```sh
-python3 docs/release/devpost-submission/package_current_submission.py --include-non-render-completion --output delivery-output/release-nonrender-2026-10-20/MethaneResponse-NonRender-Judging-Pack.zip
-```
-
-Existing output is never overwritten. `completion-proof/checks.json` records
-the new run; `current-proof/` remains the earlier P2 package. Blockchain acceptance
-is local Anvil chain 31337, without public-wallet funding. Luna live-model
-verification is deferred until the user provides the provider configuration.
-This creates a local ZIP, not a submitted entry or uploaded video.
+See [judges-guide.md](judges-guide.md), [sources](source-links.md),
+[rules-check.md](rules-check.md) and [fields.json](fields.json). Remaining external
+steps include exact-commit public source/deployment verification, MP4 upload/access
+checks, confirmation of participant eligibility and the actual authenticated submission. No numeric
+judging score or winner outcome is guaranteed.

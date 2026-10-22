@@ -1,0 +1,34 @@
+{
+  "kind": "retained-state-reverification-not-new-public-transaction",
+  "sourceId": "TKM_S_021",
+  "trustedDigest": "0xd65ec689ebe7dc5a85f4c77845d4a30fa675b3ea16a3cfe8515f7f662e8bbcf7",
+  "chainId": 31337,
+  "restoredState": true,
+  "checks": {
+    "original": {
+      "exitCode": 0,
+      "stdout": "{\"valid\":true,\"digest\":\"0xd65ec689ebe7dc5a85f4c77845d4a30fa675b3ea16a3cfe8515f7f662e8bbcf7\",\"revision\":1,\"workId\":\"default\",\"sourceId\":\"TKM_S_021\",\"chainStatus\":\"VERIFIED_LATEST\",\"physicalOutcomeEstablished\":false,\"limitation\":\"Canonical JSON integrity relative to the supplied trusted digest; formatting alone may normalize. Blockchain verifies chronology and integrity, not physical repair or independent reviewer identity.\"}",
+      "stderr": ""
+    },
+    "alteredTrusted": {
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "Frozen decision failed trusted digest, dossier replay or assessment checks."
+    },
+    "alteredRehashed": {
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "Chain event does not match this frozen decision."
+    },
+    "originalAgain": {
+      "exitCode": 0,
+      "stdout": "{\"valid\":true,\"digest\":\"0xd65ec689ebe7dc5a85f4c77845d4a30fa675b3ea16a3cfe8515f7f662e8bbcf7\",\"revision\":1,\"workId\":\"default\",\"sourceId\":\"TKM_S_021\",\"chainStatus\":\"VERIFIED_LATEST\",\"physicalOutcomeEstablished\":false,\"limitation\":\"Canonical JSON integrity relative to the supplied trusted digest; formatting alone may normalize. Blockchain verifies chronology and integrity, not physical repair or independent reviewer identity.\"}",
+      "stderr": ""
+    }
+  },
+  "providerCalls": 0,
+  "transactionsSent": 0,
+  "publicNetworkUsed": false,
+  "physicalOutcomeEstablished": false,
+  "limitation": "Project-supplied local state and separately retained DEMO UI pin; not independently witnessed public notarization."
+}

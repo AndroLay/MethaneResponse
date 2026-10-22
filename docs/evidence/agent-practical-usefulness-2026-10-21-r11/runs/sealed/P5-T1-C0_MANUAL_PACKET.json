@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P5-T1-C0_MANUAL_PACKET",
+  "pairId": "P5-T1",
+  "personaId": "P5",
+  "taskId": "T1",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T06:02:44.189Z",
+    "endedAt": "2026-10-21T06:04:01.881Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "completed",
+  "assistance": "none",
+  "output": {
+    "selectedStrategy": {
+      "name": "Weighted-score descending selection with a per-country quota",
+      "parameters": {
+        "startingCapacity": 10,
+        "maxPerCountry": 2,
+        "recurrenceWeight": 50,
+        "countries": [],
+        "sectors": []
+      },
+      "policy": "Walk the frozen weighted ranking from highest to lowest; include a source if its country remains below the quota, until 10 sources are selected."
+    },
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": {
+      "sourceId": "BHR_S_003",
+      "reason": "Rank 18 is reached before the 10-source capacity is filled. Bahrain has no earlier selected source, so including this source respects maxPerCountry=2. Its weightedScore is 96.083932, slightly higher than IRN_S_001 at rank 19.",
+      "claimType": "Source-level methane plume observation; this is not evidence of field work or repair.",
+      "scope": "full_snapshot",
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "synthetic": false,
+      "demoLabel": "Not a DEMO fixture; packet dataset synthetic=false.",
+      "rank": 18,
+      "weightedScore": 96.083932,
+      "magnitudePoints": 93.7211,
+      "recurrencePoints": 98.446763,
+      "country": "Bahrain",
+      "sector": "Oil and Gas",
+      "medianFluxKgHr": 8156,
+      "medianUncertaintyKgHr": 3129,
+      "distinctDates": 37,
+      "observationCount": 40,
+      "missingFluxCount": 0,
+      "lastObserved": "2026-06-07T07:06:19"
+    },
+    "excludedRationale": {
+      "sourceId": "IRN_S_001",
+      "reason": "Iran already has two higher-ranked selected sources, IRN_S_075 (rank 5) and IRN_S_065 (rank 10). The maxPerCountry=2 quota therefore excludes IRN_S_001 at rank 19. Its weightedScore is 96.013748, which is also below BHR_S_003 at rank 18.",
+      "claimType": "Source-level methane plume observation; this is not evidence of field work or repair.",
+      "scope": "full_snapshot",
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "synthetic": false,
+      "demoLabel": "Not a DEMO fixture; packet dataset synthetic=false.",
+      "rank": 19,
+      "weightedScore": 96.013748,
+      "magnitudePoints": 92.406912,
+      "recurrencePoints": 99.620583,
+      "country": "Iran (Islamic Republic of)",
+      "sector": "Oil and Gas",
+      "medianFluxKgHr": 6895,
+      "medianUncertaintyKgHr": 2381,
+      "distinctDates": 116,
+      "observationCount": 129,
+      "missingFluxCount": 0,
+      "lastObserved": "2026-07-09T07:14:53"
+    },
+    "activationStateBeforeCapacityChange": {
+      "capacity": 10,
+      "activePlanSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "planState": "Selected for the manual packet.",
+      "timestamp": "No selection timestamp is supplied by the packet tools."
+    },
+    "activationStateAfterCapacityChange": {
+      "capacity": 20,
+      "activePlanSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "autoReplaced": false,
+      "planState": "The 10-source plan remains selected after recording the requested capacity change to 20; no automatic replacement is specified.",
+      "timestamp": "No capacity-change timestamp is supplied by the packet tools.",
+      "liveMutationConfirmed": false,
+      "limitation": "The assigned manual-packet tools are read-only for the source table and provide no plan or capacity mutation endpoint."
+    },
+    "timestamps": {
+      "datasetRetrievedAt": "2026-10-14T06:10:12+00:00",
+      "sourceA_lastObserved": "2026-06-07T07:06:19",
+      "sourceB_lastObserved": "2026-07-09T07:14:53",
+      "selectionTimestamp": "Not recorded by the supplied tools.",
+      "capacityChangeTimestamp": "Not recorded by the supplied tools."
+    },
+    "dataset": {
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "intelligenceSha256": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+      "provenanceProvider": "UNEP International Methane Emissions Observatory (IMEO)",
+      "provenanceDataset": "Eye on Methane / MARS detected sources and plumes",
+      "license": "CC BY-NC-SA 4.0",
+      "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred.",
+      "scope": "full_snapshot",
+      "totalSourceCount": 4218,
+      "archiveStartDate": "2020-10-29",
+      "archiveEndDate": "2026-09-13",
+      "synthetic": false
+    },
+    "steps": [
+      "Read the named rows BHR_S_003 and IRN_S_001 with find_sources.",
+      "Read weighted ranking page offset 0, limit 25; it returned ranks 1 through 25.",
+      "Applied maxPerCountry=2 in descending rank order until capacity 10 was filled; rank 20 DZA_S_011 is the tenth selected source.",
+      "Recorded capacity 20 with the previously selected 10-source plan unchanged; the manual packet has no mutation endpoint, so no live state change is claimed."
+    ],
+    "evidenceIds": [
+      "BHR_S_003 (rank 18; weightedScore 96.083932; lastObserved 2026-06-07T07:06:19)",
+      "IRN_S_001 (rank 19; weightedScore 96.013748; lastObserved 2026-07-09T07:14:53)",
+      "IRN_S_075 (rank 5; selected; Iran quota use 1 of 2)",
+      "IRN_S_065 (rank 10; selected; Iran quota use 2 of 2)",
+      "ranked_page offset 0 limit 25",
+      "datasetSnapshotId unep-mars-675417694883"
+    ],
+    "errors": [],
+    "requestsForHelp": []
+  },
+  "timing": {
+    "wallClockSeconds": 77.7,
+    "modelCalls": 1,
+    "inputTokens": 163196,
+    "outputTokens": 6411,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Manual selection and rationale completed from the supplied frozen packet. Selection and capacity-change timestamps are unavailable; no live plan/capacity mutation endpoint was supplied.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+    "steps": 2,
+    "toolNames": [
+      "read_manual_packet",
+      "read_manual_packet"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 130176,
+    "reasoningOutputTokens": 4337,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

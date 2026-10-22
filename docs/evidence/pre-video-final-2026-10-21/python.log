@@ -1,0 +1,261 @@
+$ cd services/data-pipeline && uv run --locked --extra research pytest
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/andro/dev/projects/Devpost/iEEE-Methane-response/services/data-pipeline
+configfile: pyproject.toml
+testpaths: tests, test_import_mars_map.py
+collected 221 items
+
+tests/test_active_snapshot_release.py ..                                 [  0%]
+tests/test_agent_diagnostic_bindings.py .........                        [  4%]
+tests/test_agent_metadata_diagnostic.py .............                    [ 10%]
+tests/test_annotator_agreement.py ...........FFFFF.                      [ 18%]
+tests/test_build_intelligence.py ............                            [ 23%]
+tests/test_build_plume_geometries.py .....                               [ 26%]
+tests/test_build_publisher_indicators.py ......                          [ 28%]
+tests/test_build_web_snapshot.py ..                                      [ 29%]
+tests/test_casebook.py ....                                              [ 31%]
+tests/test_check_mars_upstream.py ..........                             [ 36%]
+tests/test_evaluate_baseline.py .....                                    [ 38%]
+tests/test_evaluate_evidence_ai.py ........................F.            [ 50%]
+tests/test_ingest.py ....                                                [ 52%]
+tests/test_investigation_plan_oracle.py ..                               [ 52%]
+tests/test_mars_archive.py ....                                          [ 54%]
+tests/test_observation_check_oracle.py ...                               [ 56%]
+tests/test_pilot_study.py ..................F                            [ 64%]
+tests/test_prepare_evidence.py ........                                  [ 68%]
+tests/test_progressive_snapshot.py ....                                  [ 70%]
+tests/test_prospective_recurrence.py ................................... [ 85%]
+...............                                                          [ 92%]
+tests/test_publisher_indicator_comparison.py ..                          [ 93%]
+tests/test_record_recurrence.py .......                                  [ 96%]
+tests/test_snapshot_transition_oracle.py ....                            [ 98%]
+tests/test_train_redetection.py .                                        [ 99%]
+test_import_mars_map.py ..                                               [100%]
+
+=================================== FAILURES ===================================
+__________ test_private_input_file_with_group_permissions_is_rejected __________
+
+tmp_path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_private_input_file_with_g0')
+
+    def test_private_input_file_with_group_permissions_is_rejected(tmp_path):
+        annotation_path = tmp_path / 'review.jsonl'
+        annotation_path.write_text('{}\n')
+        annotation_path.chmod(0o640)
+    
+>       with pytest.raises(ValueError, match='owner-only permissions'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'owner-only permissions'
+E         Actual message: 'Private annotation inputs must be outside the repository'
+
+tests/test_annotator_agreement.py:187: AssertionError
+______________ test_private_input_in_shared_directory_is_rejected ______________
+
+tmp_path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_private_input_in_shared_d0')
+
+    def test_private_input_in_shared_directory_is_rejected(tmp_path):
+        shared_directory = tmp_path / 'shared'
+        shared_directory.mkdir()
+        shared_directory.chmod(0o755)
+        annotation_path = shared_directory / 'review.jsonl'
+        annotation_path.write_text('{}\n')
+        annotation_path.chmod(0o600)
+    
+>       with pytest.raises(ValueError, match='owner-only permissions'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'owner-only permissions'
+E         Actual message: 'Private annotation inputs must be outside the repository'
+
+tests/test_annotator_agreement.py:199: AssertionError
+__________ test_report_is_private_and_never_overwrites_existing_file ___________
+
+tmp_path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_report_is_private_and_nev0')
+
+    def test_report_is_private_and_never_overwrites_existing_file(tmp_path):
+        report_path = tmp_path / 'agreement.json'
+        report = {'goldLabelsCreated': False}
+    
+>       write_private_report(report_path, report)
+
+tests/test_annotator_agreement.py:207: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_report_is_private_and_nev0/agreement.json')
+report = {'goldLabelsCreated': False}
+
+    def write_private_report(path: Path, report: dict[str, Any]) -> None:
+        parent = path.parent.resolve(strict=True)
+        target = parent / path.name
+        if _is_inside(target, ROOT):
+>           raise ValueError('Private agreement reports must be written outside the repository')
+E           ValueError: Private agreement reports must be written outside the repository
+
+annotator_agreement.py:278: ValueError
+_________________ test_report_in_shared_directory_is_rejected __________________
+
+tmp_path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_report_in_shared_director0')
+
+    def test_report_in_shared_directory_is_rejected(tmp_path):
+        shared_directory = tmp_path / 'shared'
+        shared_directory.mkdir()
+        shared_directory.chmod(0o755)
+    
+>       with pytest.raises(ValueError, match='owner-only permissions'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'owner-only permissions'
+E         Actual message: 'Private agreement reports must be written outside the repository'
+
+tests/test_annotator_agreement.py:221: AssertionError
+______ test_cli_processes_private_files_without_echoing_the_private_path _______
+
+    def main() -> None:
+        parser = argparse.ArgumentParser(description='Compare two private evidence annotation files without creating gold labels.')
+        parser.add_argument('--reviewer-a', type=Path, required=True)
+        parser.add_argument('--reviewer-b', type=Path, required=True)
+        parser.add_argument('--output', type=Path, required=True)
+        args = parser.parse_args()
+    
+        try:
+>           reviewer_a_path = _resolve_private_input(args.reviewer_a)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+annotator_agreement.py:305: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_cli_processes_private_fil0/restricted/review-a.jsonl')
+
+    def _resolve_private_input(path: Path) -> Path:
+        resolved = path.resolve(strict=True)
+        if _is_inside(resolved, ROOT):
+>           raise ValueError('Private annotation inputs must be outside the repository')
+E           ValueError: Private annotation inputs must be outside the repository
+
+annotator_agreement.py:245: ValueError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_cli_processes_private_fil0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f06b6a81250>
+capsys = <_pytest.capture.CaptureFixture object at 0x7f06b6a81340>
+
+    def test_cli_processes_private_files_without_echoing_the_private_path(tmp_path, monkeypatch, capsys):
+        private_directory = tmp_path / 'restricted'
+        private_directory.mkdir()
+        private_directory.chmod(0o700)
+        reviewer_a_path = private_directory / 'review-a.jsonl'
+        reviewer_b_path = private_directory / 'review-b.jsonl'
+        output_path = private_directory / 'agreement.json'
+        reviewer_a_path.write_text('\n'.join(json.dumps(row) for row in annotations('reviewer-a')) + '\n')
+        reviewer_b_path.write_text('\n'.join(json.dumps(row) for row in annotations('reviewer-b')) + '\n')
+        reviewer_a_path.chmod(0o600)
+        reviewer_b_path.chmod(0o600)
+        monkeypatch.setattr(sys, 'argv', [
+            'annotator_agreement.py',
+            '--reviewer-a', str(reviewer_a_path),
+            '--reviewer-b', str(reviewer_b_path),
+            '--output', str(output_path),
+        ])
+    
+>       main()
+
+tests/test_annotator_agreement.py:243: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def main() -> None:
+        parser = argparse.ArgumentParser(description='Compare two private evidence annotation files without creating gold labels.')
+        parser.add_argument('--reviewer-a', type=Path, required=True)
+        parser.add_argument('--reviewer-b', type=Path, required=True)
+        parser.add_argument('--output', type=Path, required=True)
+        args = parser.parse_args()
+    
+        try:
+            reviewer_a_path = _resolve_private_input(args.reviewer_a)
+            reviewer_b_path = _resolve_private_input(args.reviewer_b)
+            reviewer_a_rows, reviewer_a_digest = _read_jsonl(reviewer_a_path)
+            reviewer_b_rows, reviewer_b_digest = _read_jsonl(reviewer_b_path)
+            report = compare_annotations(reviewer_a_rows, reviewer_b_rows)
+            report['inputSha256'] = {'reviewerA': reviewer_a_digest, 'reviewerB': reviewer_b_digest}
+            write_private_report(args.output, report)
+        except (OSError, UnicodeDecodeError, ValueError) as exc:
+>           raise SystemExit(f'annotation agreement refused: {exc}') from exc
+E           SystemExit: annotation agreement refused: Private annotation inputs must be outside the repository
+
+annotator_agreement.py:313: SystemExit
+___________ test_cli_enforces_private_no_overwrite_and_quiet_output ____________
+
+tmp_path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_cli_enforces_private_no_o0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f06b2ea6a80>
+capsys = <_pytest.capture.CaptureFixture object at 0x7f06b2ea6ab0>
+
+    def test_cli_enforces_private_no_overwrite_and_quiet_output(tmp_path, monkeypatch, capsys):
+        gold_path, prediction_path = tmp_path / 'gold.jsonl', tmp_path / 'predictions.jsonl'
+        for path, data in ((gold_path, row()), (prediction_path, prediction())):
+            path.write_text(json.dumps(data) + '\n')
+            path.chmod(0o600)
+        output = tmp_path / 'report.json'
+        monkeypatch.setattr(sys, 'argv', ['evaluate_evidence_ai.py', '--gold', str(gold_path),
+            '--predictions', str(prediction_path), '--out', str(output)])
+>       main()
+
+tests/test_evaluate_evidence_ai.py:281: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+evaluate_evidence_ai.py:466: in main
+    gold_path = _resolve_private_input(args.gold)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_cli_enforces_private_no_o0/gold.jsonl')
+
+    def _resolve_private_input(path: Path) -> Path:
+        resolved = path.resolve(strict=True)
+        if _is_inside(resolved, ROOT):
+>           raise ValueError('Private annotation inputs must be outside the repository')
+E           ValueError: Private annotation inputs must be outside the repository
+
+annotator_agreement.py:245: ValueError
+____ test_cli_writes_private_report_refuses_overwrite_and_only_emits_counts ____
+
+tmp_path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_cli_writes_private_report0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f06b2e97d40>
+capsys = <_pytest.capture.CaptureFixture object at 0x7f06b2e97b30>
+
+    def test_cli_writes_private_report_refuses_overwrite_and_only_emits_counts(tmp_path, monkeypatch, capsys):
+        config = study('agent')
+        rows, exits = inputs(config)
+        for name, payload in [('study.json', json.dumps(config)), ('tasks.jsonl', '\n'.join(json.dumps(r) for r in rows)),
+                              ('exits.jsonl', '\n'.join(json.dumps(r) for r in exits))]:
+            (tmp_path / name).write_text(payload)
+            (tmp_path / name).chmod(0o600)
+        monkeypatch.setattr(sys, 'argv', ['pilot_study.py', '--study', str(tmp_path / 'study.json'),
+            '--tasks', str(tmp_path / 'tasks.jsonl'), '--exits', str(tmp_path / 'exits.jsonl'), '--output', str(tmp_path / 'report.json')])
+>       main()
+
+tests/test_pilot_study.py:188: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+pilot_study.py:210: in main
+    paths = [_resolve_private_input(p) for p in (args.study, args.tasks, args.exits)]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/home/andro/dev/projects/Devpost/iEEE-Methane-response/.playwright-cli/deepseek-test-tmp/pytest-of-andro/pytest-0/test_cli_writes_private_report0/study.json')
+
+    def _resolve_private_input(path: Path) -> Path:
+        resolved = path.resolve(strict=True)
+        if _is_inside(resolved, ROOT):
+>           raise ValueError('Private annotation inputs must be outside the repository')
+E           ValueError: Private annotation inputs must be outside the repository
+
+annotator_agreement.py:245: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_annotator_agreement.py::test_private_input_file_with_group_permissions_is_rejected
+FAILED tests/test_annotator_agreement.py::test_private_input_in_shared_directory_is_rejected
+FAILED tests/test_annotator_agreement.py::test_report_is_private_and_never_overwrites_existing_file
+FAILED tests/test_annotator_agreement.py::test_report_in_shared_directory_is_rejected
+FAILED tests/test_annotator_agreement.py::test_cli_processes_private_files_without_echoing_the_private_path
+FAILED tests/test_evaluate_evidence_ai.py::test_cli_enforces_private_no_overwrite_and_quiet_output
+FAILED tests/test_pilot_study.py::test_cli_writes_private_report_refuses_overwrite_and_only_emits_counts
+======================== 7 failed, 214 passed in 22.72s ========================
+error: script "test:data" exited with code 1

@@ -1,5 +1,23 @@
 # Status implementasi aktif
 
+## Penyelarasan delivery v18 — 23 Oktober 2026
+
+[Pemeriksaan rilis terbaru](../evidence/release-sync-2026-10-23/README.md)
+memuat gate baru, penanganan timeout integrasi, input beku, target publikasi
+dan rollback. Hasil tersebut tidak mengganti skor r12 atau bukti tes lama.
+
+[Paket submission aktif](devpost-submission/README.md) mengacu MP4 v18 lokal
+4:57 dan [proof take8 v17](../evidence/video-v17-2026-10-22/README.md),
+bukan receipt take2 v16 atau video v12. TKM_S_021 adalah investigasi utama;
+KAZ_S_159 adalah contoh DeepSeek DEMO terpisah. Tambahan dampak lingkungan
+adalah jalur potensial menuju tindakan organisasi dan pengukuran, bukan hasil
+mitigasi terukur. V18 lulus 18 audit teknis dan 34 regresi video; ini bukan
+pengulangan suite aplikasi. Listening/pemutaran penuh belum diverifikasi.
+Status GitHub dan endpoint publik diperiksa terpisah di
+[access-status.json](devpost-submission/access-status.json). Catatan bertanggal
+di bawah tetap hasil historis pada revisinya; tidak semuanya dieksekusi ulang.
+
+
 [Pusat dokumentasi](../README.md) · [Arsitektur](../architecture/overview.md) · [Indeks bukti](../evidence/README.md)
 
 ## Pembaruan aktif — 21 Oktober 2026

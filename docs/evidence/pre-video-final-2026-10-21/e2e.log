@@ -1,0 +1,171 @@
+$ bash scripts/run-e2e.sh
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/e2e-runner-utils.test.ts:
+(pass) only the geospatial browser suite forces software WebGL; document workflows retain default graphics [0.08ms]
+(pass) browser checks build a fresh production preview and reject unsafe or invalid ports [0.27ms]
+(pass) Chromium sandbox remains enabled locally and on unknown CI, with a narrow hosted-runner exception [0.10ms]
+(pass) E2E runner environment > copies only explicitly allowlisted non-secret settings [0.04ms]
+(pass) E2E argument routing > runs only the matching phase when a workflow file is selected [0.22ms]
+(pass) E2E argument routing > keeps both workflow phases for unscoped or mixed selections [0.08ms]
+
+ 6 pass
+ 0 fail
+ 21 expect() calls
+Ran 6 tests across 1 file. [15.00ms]
+[WebServer] $ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment
+[WebServer] 
+[WebServer] "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+[WebServer]  * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+[WebServer]  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment
+[WebServer] 
+[WebServer] "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] $ vite preview --host "127.0.0.1" --port "4179" --strictPort
+
+Running 29 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/audit-workflow.spec.ts:17:5 › Historical snapshot watch connects real release changes to selected investigations, exact fields and paged records (18.0s)
+  ✓   2 [chromium] › e2e/audit-workflow.spec.ts:64:5 › Historical snapshot watch discards delayed results after the selected strategy changes (8.6s)
+  ✓   3 [chromium] › e2e/audit-workflow.spec.ts:83:5 › Historical snapshot failure explains the blocker and permits an explicit retry (4.1s)
+Public map readiness: {"events":[{"kind":"before-locate","at":6608.79999999702},{"kind":"shell","at":7133.20000000298},{"kind":"caption","at":7133.20000000298}],"gpu":[{"method":"getContext","start":7140.5999999940395,"duration":14.799999997019768}],"contexts":1}
+  ✓   4 [chromium] › e2e/audit-workflow.spec.ts:100:5 › Active investigation plan keeps exact 10 to 20 source membership across queue, globe and evidence handoff (14.4s)
+  ✓   5 [chromium] › e2e/audit-workflow.spec.ts:218:5 › Delayed activation cannot publish a strategy that the analyst has already changed (3.5s)
+  ✓   6 [chromium] › e2e/audit-workflow.spec.ts:240:5 › Earlier plan import requires trusted digest and separates capacity differences from dataset changes (6.4s)
+  ✓   7 [chromium] › e2e/audit-workflow.spec.ts:264:5 › Scoped active plans never restore reports under different visible country controls (4.0s)
+  ✓   8 [chromium] › e2e/audit-workflow.spec.ts:280:5 › Investigation planner compares capacity-constrained portfolios, exports replay and opens exact cases on desktop and mobile (13.1s)
+  ✓   9 [chromium] › e2e/audit-workflow.spec.ts:328:5 › Investigation planner invalidates pending results, recovers from API failure and reports unfilled quotas (5.8s)
+  ✓  10 [chromium] › e2e/audit-workflow.spec.ts:357:5 › Investigation planner handoff clears hiding filters and confirms unsaved work exactly once (10.5s)
+  ✓  11 [chromium] › e2e/audit-workflow.spec.ts:390:5 › Observation cross-check exposes exact historical counterexamples, refuses repair inference and invalidates stale results (9.6s)
+  ✓  12 [chromium] › e2e/audit-workflow.spec.ts:462:5 › Decision Lab explains real record eligibility, exports requests and keeps authored challenges separate (7.1s)
+  ✓  13 [chromium] › e2e/audit-workflow.spec.ts:503:5 › scope presets and report verification work without a CLI on desktop and mobile (17.2s)
+  ✓  14 [chromium] › e2e/audit-workflow.spec.ts:565:5 › analyst case work resumes after refresh with a bounded scope and a work-status queue (8.2s)
+  ✓  15 [chromium] › e2e/audit-workflow.spec.ts:608:5 › claim requirements guide investigation and export a readable snapshot-bound brief (8.5s)
+  ✓  16 [chromium] › e2e/audit-workflow.spec.ts:659:5 › P4 reviewer v2 is readable without external assets and supports keyboard navigation on mobile (770ms)
+  ✓  17 [chromium] › e2e/audit-workflow.spec.ts:691:5 › saved assessments can be compared by claim without creating extra revisions (3.9s)
+  ✓  18 [chromium] › e2e/audit-workflow.spec.ts:720:5 › late audit and verification responses cannot overwrite a changed investigation (5.8s)
+  ✓  19 [chromium] › e2e/audit-workflow.spec.ts:769:5 › opening a saved revision takes precedence over an earlier pending assessment (4.5s)
+  ✓  20 [chromium] › e2e/audit-workflow.spec.ts:800:5 › map case details show the official Canada report link with its date and license metadata (5.0s)
+  ✓  21 [chromium] › e2e/audit-workflow.spec.ts:834:5 › MARS publisher indicators load lazily, preserve monthly/country history, paginate, and jump to an exact source (5.7s)
+  ✓  22 [chromium] › e2e/audit-workflow.spec.ts:906:5 › historical MARS case can be audited, exported, verified, and tampering is rejected (13.5s)
+  ✓  23 [chromium] › e2e/audit-workflow.spec.ts:999:5 › guided investigation keeps the selected source and exposes discrete audit stages (7.4s)
+  ✓  24 [chromium] › e2e/audit-workflow.spec.ts:1061:5 › collapsed navigation reveals its label on keyboard focus (3.1s)
+  ✓  25 [chromium] › e2e/audit-workflow.spec.ts:1077:5 › global historical map becomes usable when remote basemap tiles are unavailable (4.4s)
+  ✓  26 [chromium] › e2e/audit-workflow.spec.ts:1095:5 › unsaved work is guarded and recovered while separate investigations keep independent scopes (14.0s)
+  ✓  27 [chromium] › e2e/audit-workflow.spec.ts:1158:5 › human drafts recover exact metadata without credentials or inspection confirmation and skip optional AI (8.4s)
+  ✓  28 [chromium] › e2e/audit-workflow.spec.ts:1203:5 › chain recovery controls protect credentials and never retry a pending write (UI fixture) (9.0s)
+  ✓  29 [chromium] › e2e/audit-workflow.spec.ts:1257:5 › Polished Auditor and mobile header keep tasks readable, searchable and keyboard accessible (4.7s)
+
+  29 passed (4.1m)
+[WebServer] $ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment
+[WebServer] 
+[WebServer] "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+[WebServer]  * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+[WebServer]  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment
+[WebServer] 
+[WebServer] "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] $ vite preview --host "127.0.0.1" --port "4179" --strictPort
+
+Running 13 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/ai-review-workflow.spec.ts:13:5 › shared dossier schemas load consistently in the Node ESM browser runner (399ms)
+  ✘   2 [chromium] › e2e/ai-review-workflow.spec.ts:22:5 › connected investigation preserves allocation, evidence request, human review and historical changes in one verifiable dossier (44.0s)
+  ✘   3 [chromium] › e2e/ai-review-workflow.spec.ts:214:5 › Plan reviewers save authenticated immutable revisions, preserve stale drafts and export verified history (5.3s)
+  ✓   4 [chromium] › e2e/ai-review-workflow.spec.ts:276:5 › shared team investigations import explicitly, hand off across isolated sessions, and retain conflicting drafts (11.1s)
+  ✓   5 [chromium] › e2e/ai-review-workflow.spec.ts:395:5 › DEMO trust controls publish only an opted-in redacted summary with independently checked checksum (7.9s)
+  ✓   6 [chromium] › e2e/ai-review-workflow.spec.ts:467:5 › DEMO publication correction and withdrawal stay consistent after reload and failed refresh (6.9s)
+  ✓   7 [chromium] › e2e/ai-review-workflow.spec.ts:532:5 › DEMO publication history loads older pages without reviving superseded versions (7.1s)
+  ✓   8 [chromium] › e2e/ai-review-workflow.spec.ts:562:5 › DEMO human correction recovers its parent after a baseline and protects an unsaved draft (4.1s)
+  ✓   9 [chromium] › e2e/ai-review-workflow.spec.ts:602:5 › DEMO withdrawal reloads the current list after a concurrent public correction (3.6s)
+  ✓  10 [chromium] › e2e/ai-review-workflow.spec.ts:656:5 › human-only evidence decisions save private revisions and export without invoking document AI (10.5s)
+  ✓  11 [chromium] › e2e/ai-review-workflow.spec.ts:754:5 › local mock AI citations receive a separate scoped review and remain private until publication consent (7.8s)
+  ✓  12 [chromium] › e2e/ai-review-workflow.spec.ts:973:5 › Evidence history paginates, reveals exact request details and preserves all events when saved (4.4s)
+  ✓  13 [chromium] › e2e/ai-review-workflow.spec.ts:1019:5 › late document responses stay out of a restarted claim investigation (3.6s)
+
+
+  1) [chromium] › e2e/ai-review-workflow.spec.ts:22:5 › connected investigation preserves allocation, evidence request, human review and historical changes in one verifiable dossier 
+
+    TimeoutError: locator.textContent: Timeout 20000ms exceeded.
+    Call log:
+      - waiting for getByRole('region', { name: 'Shared case work', exact: true }).getByRole('region', { name: 'Connected investigation', exact: true }).locator('details.investigation-lifecycle').filter({ has: locator('summary').filter({ hasText: 'Review → freeze decision' }) }).locator('ol > li').filter({ has: getByText('Decision 1 · Request more evidence', { exact: true }) }).locator('code')
+
+
+      158 |   // A self-consistent hash chosen by that file alone is not a trusted digest.
+      159 |   const frozenHead = decisionPanel.locator('ol > li').filter({has:page.getByText('Decision 1 · Request further evidence',{exact:true})});
+    > 160 |   const displayedDecisionDigest = (await frozenHead.locator('code').textContent())!.trim();
+          |                                                                     ^
+      161 |   expect(displayedDecisionDigest).toMatch(/^0x[a-f0-9]{64}$/);
+      162 |   await writeFile(testInfo.outputPath('trusted-decision-digest.json'),JSON.stringify({digest:displayedDecisionDigest,source:'Reviewer UI decision history before download',reviewerKind:'DEMO software fixture only; no human identity verified',sourceId:'TKM_S_021'},null,2)+'\n');
+      163 |   const decisionDownload = page.waitForEvent('download');
+        at /home/andro/dev/projects/Devpost/iEEE-Methane-response/e2e/ai-review-workflow.spec.ts:160:69
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .playwright-cli/pre-video-final-e2e/ai-review-workflow-connect-b0c40-s-in-one-verifiable-dossier-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .playwright-cli/pre-video-final-e2e/ai-review-workflow-connect-b0c40-s-in-one-verifiable-dossier-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .playwright-cli/pre-video-final-e2e/ai-review-workflow-connect-b0c40-s-in-one-verifiable-dossier-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace .playwright-cli/pre-video-final-e2e/ai-review-workflow-connect-b0c40-s-in-one-verifiable-dossier-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › e2e/ai-review-workflow.spec.ts:214:5 › Plan reviewers save authenticated immutable revisions, preserve stale drafts and export verified history 
+
+    Error: response.json: Protocol error (Network.getResponseBody): No data found for resource with given identifier
+    Response body is not available for a response that was navigated away from. Read response.body() before triggering any navigation.
+
+      233 |   await review.getByRole('combobox', { name: 'Allocation decision', exact: true }).selectOption('defer');
+      234 |   await review.getByLabel('Decision rationale', { exact: true }).fill('DEMO second review: defer allocation until the original evidence is inspected. This is not a human pilot.');
+    > 235 |   const saveSecond = page.waitForResponse(response => response.url().includes('/api/investigation-plans/') && response.request().method() === 'PUT').then(async response => ({url:response.url(),requestData:response.request().postDataJSON(),saved:await response.json()}));
+          |                                                                                                                                                                                                                                                                     ^
+      236 |   await review.getByRole('button', { name: 'Save reviewer decision', exact: true }).click();
+      237 |   const secondResponse = await saveSecond, saved = secondResponse.saved;
+      238 |   await expect(review).toContainText('2 preserved decision revisions');
+        at /home/andro/dev/projects/Devpost/iEEE-Methane-response/e2e/ai-review-workflow.spec.ts:235:261
+        at /home/andro/dev/projects/Devpost/iEEE-Methane-response/e2e/ai-review-workflow.spec.ts:237:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .playwright-cli/pre-video-final-e2e/ai-review-workflow-Plan-re-0d3e9-and-export-verified-history-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .playwright-cli/pre-video-final-e2e/ai-review-workflow-Plan-re-0d3e9-and-export-verified-history-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .playwright-cli/pre-video-final-e2e/ai-review-workflow-Plan-re-0d3e9-and-export-verified-history-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace .playwright-cli/pre-video-final-e2e/ai-review-workflow-Plan-re-0d3e9-and-export-verified-history-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › e2e/ai-review-workflow.spec.ts:22:5 › connected investigation preserves allocation, evidence request, human review and historical changes in one verifiable dossier 
+    [chromium] › e2e/ai-review-workflow.spec.ts:214:5 › Plan reviewers save authenticated immutable revisions, preserve stale drafts and export verified history 
+  11 passed (2.2m)
+error: "playwright" exited with code 1
+error: script "test:e2e" exited with code 1

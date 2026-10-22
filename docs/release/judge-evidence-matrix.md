@@ -1,5 +1,13 @@
 # Matriks Bukti Kesiapan Penjurian — 14 Oktober 2026
 
+> **Arsip penilaian pada tanggal asal.** Untuk submission saat ini gunakan
+> [paket v18](devpost-submission/README.md) dan [status implementasi aktif](current-implementation-status.md).
+> Rencana database/Luna dan status belum-deploy dalam catatan lama di bawah
+> telah digantikan oleh prototipe tanpa database, smoke DeepSeek, dan preview
+> Render terbatas. Tidak ada klaim pilot manusia, receipt Sepolia, atau dampak
+> emisi terukur. V18 belum diterbitkan hanya karena file lokalnya tersedia.
+
+
 > Catatan bertanggal ini mempertahankan bukti yang dikumpulkan saat PostGIS masih ada di implementasi. Keputusan 15 Oktober menghapus database dari scope aktif; lihat [keputusan scope prototipe](../architecture/decisions/2026-10-15-local-prototype-no-database.md). Hasil PostGIS di bawah adalah bukti historis, bukan dependensi atau kriteria kerja saat ini.
 
 > **Jangan gunakan angka, snapshot, status skor, atau daftar gate dalam dokumen ini sebagai status terkini.** Isinya dibekukan per 14 Oktober dan mencakup hitungan uji serta asumsi deployment lama. Untuk implementasi, verifikasi, dan PR aktif, ikuti [status implementasi terkini](current-implementation-status.md), yang juga mencatat integrasi MARS Indicators 15 Oktober.

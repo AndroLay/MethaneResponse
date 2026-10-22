@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P2-T1-C0_MANUAL_PACKET",
+  "pairId": "P2-T1",
+  "personaId": "P2",
+  "taskId": "T1",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T04:31:46.631Z",
+    "endedAt": "2026-10-21T04:33:03.809Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "completed",
+  "assistance": "none",
+  "output": {
+    "selectedStrategy": "Sort eligible sources by weightedScore descending and take the next source while respecting maxPerCountry=2, until capacity=10 is filled. Applied the packet parameters (recurrenceWeight=50; no country or sector filters).",
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": "BHR_S_003 (Bahrain; rank 18; weightedScore 96.083932) is included as the ninth quota-admissible source in rank order. No Bahrain source appeared in the higher-ranked selected set, so it is within the country limit of 2 and is included before capacity 10 is filled at rank 20. Source metadata: medianFluxKgHr=8156, medianUncertaintyKgHr=3129, distinctDates=37, observationCount=40, missingFluxCount=0, lastObserved=2026-06-07T07:06:19.",
+    "excludedRationale": "IRN_S_001 (Iran (Islamic Republic of); rank 19; weightedScore 96.013748) is excluded because the two Iran slots are already occupied by IRN_S_075 (rank 5) and IRN_S_065 (rank 10), satisfying maxPerCountry=2. Source metadata: medianFluxKgHr=6895, medianUncertaintyKgHr=2381, distinctDates=116, observationCount=129, missingFluxCount=0, lastObserved=2026-07-09T07:14:53. Its higher recurrence score does not override the country quota.",
+    "activationStateBeforeCapacityChange": "Active in the manual task record: the capacity-10 plan and selectedSourceIds above. Runtime activation was not observable through the supplied read-only packet tool.",
+    "activationStateAfterCapacityChange": "The task record sets capacity to 20 while retaining the same active plan and selectedSourceIds; automatic replacement is false per instruction. This is a recorded task state, not a runtime mutation or independently observed application state.",
+    "timestamps": {
+      "datasetRetrievedAt": "2026-10-14T06:10:12+00:00",
+      "BHR_S_003_lastObserved": "2026-06-07T07:06:19",
+      "IRN_S_001_lastObserved": "2026-07-09T07:14:53",
+      "selectionActionTimestamp": null,
+      "capacityChangeActionTimestamp": null,
+      "actionTimestampNote": "The packet provides source observation times and dataset retrieval time, but no clock or state-changing tool; action timestamps are unavailable and not fabricated."
+    },
+    "dataset": {
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "scope": "full_snapshot",
+      "synthetic": false,
+      "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "provider": "UNEP International Methane Emissions Observatory (IMEO)",
+      "datasetName": "Eye on Methane / MARS detected sources and plumes",
+      "license": "CC BY-NC-SA 4.0"
+    },
+    "evidenceIds": [
+      "BHR_S_003",
+      "IRN_S_001",
+      "IRN_S_075",
+      "IRN_S_065",
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "TKM_S_047",
+      "MYS_S_001",
+      "VEN_S_008",
+      "DZA_S_011",
+      "manual_packet ranked_page offset=0 limit=20",
+      "manual_packet ranked_page offset=20 limit=20"
+    ],
+    "steps": [
+      "Read named source rows for BHR_S_003 and IRN_S_001.",
+      "Read ranking rows 1-20 and applied maxPerCountry=2; capacity 10 is reached at DZA_S_011 rank 20.",
+      "Read the next bounded ranking page; it does not change the selected top ten.",
+      "Recorded the requested capacity-20 transition with the existing active plan retained; no runtime mutation was available."
+    ],
+    "errors": [],
+    "requestsForHelp": []
+  },
+  "timing": {
+    "wallClockSeconds": 77.2,
+    "modelCalls": 1,
+    "inputTokens": 114804,
+    "outputTokens": 6779,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Manual selection and requested capacity transition are recorded from the supplied read-only packet. No state-mutating control or action timestamp was supplied, so runtime activation/capacity changes are not claimed.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+    "steps": 3,
+    "toolNames": [
+      "read_manual_packet",
+      "read_manual_packet",
+      "read_manual_packet"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 83840,
+    "reasoningOutputTokens": 5250,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

@@ -20,9 +20,13 @@ The connected workflow also checks related investigations for overlapping source
 
 The pinned UNEP snapshot contains **4,218 source rows and 30,414 plume rows**, covering observations from October 2020 to September 2026. These are historical records; each map source still needs appropriate supporting documents before it becomes a complete evidence case.
 
-The historical v12 demo follows **KAZ_S_159 in Kazakhstan**. UNEP's [catalogue records mitigation action in July 2026](https://wedocs.unep.org/handle/20.500.11822/49949), while the selected snapshot includes an observation on July 11. The retained catalogue metadata does not establish the exact action day. The review therefore produces a useful next request: obtain the action date and attributable follow-up evidence.
+The current **v18 film (4:57)** follows **TKM_S_021 in Turkmenistan** through a local investigation: compare capacity 10 and 20, inspect a source, evaluate the available evidence, request follow-up measurements, freeze a reviewer decision, revisit it after a DEMO response, and verify its integrity. The reviewer and response are explicitly software DEMO fixtures; they are not operator communications or a human study.
 
-The local result, **Insufficient Reference Coverage**, describes the submitted material. It does not contradict UNEP's catalogue or establish that mitigation failed.
+The claim under review is whether mitigation is confirmed. The actual decision is **request more evidence**. Feedback is not proof of repair; missing later observations are not zero emissions.
+
+A separately labeled **KAZ_S_159** segment presents recorded DeepSeek integration on a project-authored DEMO excerpt. It is not an AI assessment of TKM_S_021. UNEP's [Kazakhstan catalogue](https://wedocs.unep.org/handle/20.500.11822/49949) records mitigation action in July 2026, but the retained metadata does not establish the exact action day. Asking for attributable follow-up evidence does not contradict UNEP or establish failed mitigation.
+
+**The demo shows the full local prototype. The public preview is limited to selected sources and excludes private review and blockchain writes.** Preview state is temporary. Evidence requests are recorded work artifacts; the prototype does not send them to an operator.
 
 ## How we built it
 
@@ -30,7 +34,7 @@ The interface uses **React, TypeScript, Vite, and MapLibre GL JS**. Progressive 
 
 **Python and uv** power offline ingestion and analysis, preserving source identifiers, recorded dates, units, uncertainty, provenance, and dataset hashes. **Bun, Hono, and Zod** provide the API, validation, scoped assessments, review permissions, and immutable audit revisions. The prototype uses local JSON files with a single-writer design.
 
-A deterministic rules baseline provides the demonstrated evidence checks. An optional document-AI path adds exact-quotation validation, abstention, and human review controls. Its live-provider quality has not yet been independently established; the video demonstrates the rules workflow.
+A deterministic rules baseline provides the demonstrated evidence checks. An optional document-AI path adds exact-quotation validation, abstention, and human review controls. Backend integration with ExperientialLabs model `deepseek-v4.1-flash-1017` has recorded live smoke evidence. The film shows that separate archived KAZ DEMO, not a new live call or an independently validated model benchmark. AI proposes; people review.
 
 **Solidity, Foundry, and viem** implement an EvidenceRegistry integration with durable transaction intents and recovery. Deployment, anchoring, and failure recovery have been exercised on **local Anvil**. The preview has no public Sepolia receipt. Reports use SHA-256; a local hash check establishes consistency with the recorded digest, while trusted commitments are needed to establish which version to trust. Neither a hash nor a blockchain receipt proves physical repair.
 
@@ -47,21 +51,21 @@ Engineering challenges included conflicting edits, interrupted writes, transacti
 ## Accomplishments that we're proud of
 
 - A working path from historical source exploration to a specific evidence request and independently checkable report.
-- A repeatable original → changed → original report test in the actual application: the altered copy is rejected, and the untouched original passes again.
+- Same-take TKM export, separately retained UI digest and Anvil local receipt: the original verifies, an altered-and-rehashed decision is rejected against the contract commitment, and the restored original verifies. The project-supplied local ledger is not independent public notarization.
 - Three documented historical case studies, with provenance and explicit interpretation limits.
-- A recorded local verification package with **716 passing tests**, plus build checks and focused desktop/mobile-viewport browser scenarios on its October 18 revision. Later video checks are recorded separately.
+- A recorded local verification package with **716 passing tests**, plus build checks and focused desktop/mobile-viewport browser scenarios on its October 18 revision. This is historical revision evidence. V18 separately passes 18 technical video checks and 34 video regressions; those do not constitute a fresh application gate.
 - A product that can give a constructive answer when the evidence is incomplete: explain what is missing and preserve the next investigation step.
 
 ## What we learned
 
 Different questions require different evidence. A detection, a notification, a reported action, and a confirmed outcome should remain separate throughout the interface, API, and report.
 
-AI also needs to earn its role. The bounded agent-based experiments did not demonstrate an advantage over the rules baseline. Keeping that result visible helped prioritize reproducibility and review controls. Agent simulations are not human research or an independent benchmark of the application provider.
+AI also needs to earn its role. The bounded agent-based experiments did not demonstrate an advantage over the rules baseline. Keeping that result visible helped prioritize reproducibility and review controls. Agent simulations are not human research or an independent benchmark of the application provider. The latest frozen r12 scorer reports **0/48 task completion**, despite 12 deterministic gates passing. It does not establish Practical Usefulness; recovery tests and alternative diagnostic interpretations do not replace that result.
 
 ## What's next for Methane Response
 
 The next milestones are to expand permitted documentary evidence, obtain domain review, evaluate the optional model path against independently labeled claims, and test the workflow with researchers and auditors. Public testnet verification and physical-device performance checks remain separate validation steps.
 
-User studies should measure decision quality, missing-evidence detection, and investigation effort. Any claim of emissions reduction would require evidence of subsequent real-world action. Opt-in snapshot staging prepares complete record comparisons without replacing active inputs or historical decisions; future acquisition and activation require explicit provenance and review.
+Potential climate impact comes after the software: prioritized investigations and specific evidence requests can guide organizational field follow-up. Documented repairs and comparable post-action measurements, with methods and uncertainty, are needed to substantiate emissions reductions. We have not measured those outcomes. User studies should measure decision quality, missing-evidence detection, and investigation effort. Opt-in snapshot staging prepares complete record comparisons without replacing active inputs or historical decisions; future acquisition and activation require explicit provenance and review.
 
-**Our goal: make methane-related claims easier to trace, review, and responsibly act on.**
+**One explainable investigation plan. One actionable evidence request. One verifiable decision.**

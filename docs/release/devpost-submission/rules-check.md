@@ -1,7 +1,7 @@
-# Submission alignment — 19 October 2026
+# Submission alignment — 23 October 2026
 
 This is a preparation record, not an organizer eligibility decision or a submitted
-entry. Official sources were read directly on the checked date.
+entry. Official rules were read directly on the checked date. Earlier overview/community-guideline readings are historical unless noted; see source-links.md.
 
 ## Current requirements
 
@@ -17,14 +17,14 @@ Both pages describe five qualitative judging criteria with no numeric weights.
 | Project description | Seven requested story headings, target audience, workflow, architecture, challenges, learning and next steps | Prepared |
 | Climate Impact | Traceability and follow-up decision support; intended benefit distinguished from measured impact | Prepared, user/physical outcomes unmeasured |
 | Innovation | Scoped claims, evidence requests, human review, versioned audit and independent integrity checks | Implemented locally; external model benefit unestablished |
-| Technical Execution | Real UI/API flow; revision-bound tests; Anvil contract/recovery; explicit provider/testnet limits | Local evidence; public runtime pending verification |
+| Technical Execution | Real UI/API flow; revision-bound tests; Anvil contract/recovery; explicit provider/testnet limits | Local evidence; dated preview smoke and current access observations are separate |
 | Practical Usefulness | One repeatable investigator journey; browser verifier and explicit next request | Local evidence; no human pilot or hosting-durability claim |
-| Presentation | v12 video 267.92 s, English narration/captions, actual footage | Local export; upload/access and full audiovisual listening pending |
-| Public code | Known repository address in fields | Current public revision/access not verified on this pass |
-| Prototype link | Reserved field in fields.json | Actual deployment URL needed |
+| Presentation | v18 video 297 s, English narration/captions, actual footage | Local export; upload/access and full audiovisual listening pending |
+| Public code | Known repository address in fields | Main b067ad36c792 and its successful CI observed; local v18 not published |
+| Prototype link | Known limited preview URL in fields.json | Health retry HTTP 200; full browser workflow not rechecked |
 | Video link | Reserved field in fields.json | Uploaded embeddable URL needed |
 | Required file upload | Judging ZIP, checked below conservative 35 MB | Local artifact after packager runs; not uploaded |
-| Gallery | Six actual 1920×1080 PNG captures, each below 5 MB | Local files; native 16:9, form recommendation is 3:2 |
+| Gallery | Six images from actual/composed footage, archived AI and an editorial diagram; each below 5 MB | Local files; native 16:9, form recommendation is 3:2 |
 
 The 200-character pitch limit, maximum 25 tags, maximum 15 gallery items, 5 MB
 image limit and 35 MB attachment limit come from the supplied authenticated-form
@@ -63,6 +63,6 @@ user time savings, winning score or public Sepolia transaction is introduced.
    the intended current revision and the exact user journey.
 2. Watch the full video, check English captions/audio and confirm permission for
    every uploaded asset. Keep the real-image credits visible.
-3. Fill the two pending URLs, confirm eligibility/team details, upload the ZIP,
+3. Fill the pending uploaded-video URL and confirm the preview address, confirm eligibility/team details, upload the ZIP,
    inspect Devpost's Markdown preview and submit within the confirmed window.
 4. Retain the actual submission confirmation. A prepared ZIP is not submission.

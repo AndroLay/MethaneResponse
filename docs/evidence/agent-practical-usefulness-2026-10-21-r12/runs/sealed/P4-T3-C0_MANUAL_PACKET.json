@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P4-T3-C0_MANUAL_PACKET",
+  "pairId": "P4-T3",
+  "personaId": "P4",
+  "taskId": "T3",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T05:43:11.238Z",
+    "endedAt": "2026-10-21T05:44:05.921Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "workId": "DEMO-work",
+    "decisionDigest": null,
+    "disposition": "not_recorded",
+    "rationale": "Abstain: the manual-packet environment is not available through the supplied tools, so I could not complete the dossier, record an authorized review, add evidence or a snapshot change, or verify an export. The frozen historical decision remains request_more_evidence with rationale “DEMO source-specific follow-up is missing; request attributable measurements.” The supplied response is metadata only; its report body is withheld and not cleared for provider processing.",
+    "revisitState": "not_recorded",
+    "revisitReasonCodes": [
+      "response_received",
+      "report_body_unavailable",
+      "source_specific_measurement_unverified"
+    ],
+    "historicalDecisionUnchanged": null,
+    "verificationValid": null,
+    "physicalOutcomeEstablished": false,
+    "steps": [
+      "Inspected the exposed MCP tool catalog for a manual-packet environment and dossier/export/verification operations.",
+      "Found only mcp__agent_lab__submit_result under the lab server; no packet operation was available.",
+      "Did not access the linked report or mutate any record."
+    ],
+    "evidenceIds": [
+      "DEMO-T3-REQUEST",
+      "DEMO-T3-RESPONSE",
+      "DEMO-audit",
+      "0x7bfab4d089b976542163f29073ffa6b01485d7c3780accf5afa27357b2b423c6"
+    ],
+    "sourceEvidence": {
+      "sourceId": "DEMO_SOURCE",
+      "claimType": "mitigation_confirmed",
+      "scope": {
+        "startDate": "2026-01-01",
+        "endDate": "2026-01-02"
+      },
+      "requestId": "DEMO-T3-REQUEST",
+      "responseId": "DEMO-T3-RESPONSE",
+      "responseReportedDate": {
+        "precision": "month",
+        "value": "2026-01"
+      },
+      "reportBody": "not included; provider processing not cleared",
+      "historicalDecisionDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec",
+      "trustedDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec"
+    },
+    "errors": [
+      "Manual-packet tools were absent from the exposed MCP tool catalog."
+    ],
+    "helpRequests": [
+      "Provide access to the assigned manual-packet environment, including dossier mutation, export, and trusted-digest verification operations."
+    ],
+    "nextEvidenceNeeded": [
+      "Provider-cleared report body for DEMO-T3-RESPONSE.",
+      "Attributable post-action measurements for source KAZ_S_159 and scope 2026-01-01..2026-01-02, including method, uncertainty, timestamps, units, dataset version, and operator attestation."
+    ],
+    "coordinationProposal": {
+      "ownerRole": "operator",
+      "nextAction": "Provide the cleared report and attributable source-specific post-action measurements described above.",
+      "dueDate": null,
+      "dueDateReason": "No authorized packet operation or due-date policy was available; no deadline was invented."
+    }
+  },
+  "timing": {
+    "wallClockSeconds": 54.7,
+    "modelCalls": 1,
+    "inputTokens": 170705,
+    "outputTokens": 4062,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "The exposed MCP tool set contains submit_result but no manual-packet read/write, export, or verification tools. No dossier mutation or verification was attempted.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+    "steps": 0,
+    "toolNames": [],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 136192,
+    "reasoningOutputTokens": 2965,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

@@ -1,0 +1,36 @@
+.E..E.E........
+======================================================================
+ERROR: test_consistent_headers_and_content_produce_original_hash_and_manifest (test_fetch_mars_candidate.CandidateFetchTests.test_consistent_headers_and_content_produce_original_hash_and_manifest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/test_fetch_mars_candidate.py", line 41, in test_consistent_headers_and_content_produce_original_hash_and_manifest
+    result = fetch_candidate(out, True, lambda: headers, lambda: Response(data, headers))
+  File "/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/fetch_mars_candidate.py", line 51, in fetch_candidate
+    raise ValueError('Download output must be an isolated delivery-output or /tmp stage')
+ValueError: Download output must be an isolated delivery-output or /tmp stage
+
+======================================================================
+ERROR: test_redirected_archive_is_rejected_and_original_url_is_recorded (test_fetch_mars_candidate.CandidateFetchTests.test_redirected_archive_is_rejected_and_original_url_is_recorded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/test_fetch_mars_candidate.py", line 86, in test_redirected_archive_is_rejected_and_original_url_is_recorded
+    result=fetch_candidate(Path(temp)/'official',True,lambda:headers,lambda:Response(data,headers))
+  File "/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/fetch_mars_candidate.py", line 51, in fetch_candidate
+    raise ValueError('Download output must be an isolated delivery-output or /tmp stage')
+ValueError: Download output must be an isolated delivery-output or /tmp stage
+
+======================================================================
+ERROR: test_requires_approval_before_network_and_preserves_existing_output (test_fetch_mars_candidate.CandidateFetchTests.test_requires_approval_before_network_and_preserves_existing_output)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/test_fetch_mars_candidate.py", line 35, in test_requires_approval_before_network_and_preserves_existing_output
+    fetch_candidate(Path(temp), True)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/fetch_mars_candidate.py", line 51, in fetch_candidate
+    raise ValueError('Download output must be an isolated delivery-output or /tmp stage')
+ValueError: Download output must be an isolated delivery-output or /tmp stage
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.022s
+
+FAILED (errors=3)

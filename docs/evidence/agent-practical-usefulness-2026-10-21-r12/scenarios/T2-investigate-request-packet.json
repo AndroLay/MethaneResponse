@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r12",
+  "taskId": "T2",
+  "label": "REAL HISTORICAL METADATA + PROJECT-AUTHORED DEMO NOTE — NOT A REPAIR CONFIRMATION",
+  "dataMode": "real_historical_metadata_with_demo_note",
+  "synthetic": false,
+  "dataset": {
+    "datasetSnapshotId": "unep-mars-675417694883",
+    "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+    "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+    "archiveStartDate": "2020-10-29",
+    "archiveEndDate": "2026-09-13",
+    "license": "UNEP IMEO MARS metadata, CC BY-NC-SA 4.0 (dataset terms)",
+    "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred."
+  },
+  "claim": {
+    "sourceId": "KAZ_S_159",
+    "claimType": "mitigation_confirmed",
+    "claimText": "The KAZ_S_159 operator completed mitigation of the 2026-06-05 detected methane plume, and a post-action measurement confirms the outcome by 2026-07-31.",
+    "scope": {
+      "startDate": "2026-06-01",
+      "endDate": "2026-07-31",
+      "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd"
+    },
+    "claimTextSha256": "341d23c08aa1239ee85fd1c6ea850764206b609c8fc0fd5d70aab27c5460f8c1"
+  },
+  "source": {
+    "sourceId": "KAZ_S_159",
+    "country": "Kazakhstan",
+    "sector": "Oil and Gas",
+    "sourceType": "O&G source (generic)",
+    "notified": "Yes",
+    "feedback": "Yes",
+    "feedbackOperator": "Yes",
+    "feedbackGovernment": "Yes",
+    "feedbackScope": "source",
+    "mitigationConfirmed": null,
+    "persistency": 0.67,
+    "persistencyStd": 0.27,
+    "persistencyCategory": "frequent",
+    "latestPlumeDate": "2026-07-11T08:12:14",
+    "synthetic": false
+  },
+  "plumeRecords": [
+    {
+      "plumeId": "82758651-76f4-4e06-b4ab-c247ce765192",
+      "sourceId": "KAZ_S_159",
+      "satellite": "EnMAP - DLR",
+      "tileDate": "2024-06-07T08:05:04",
+      "fluxKgHr": 591,
+      "fluxStdKgHr": 335,
+      "notified": false,
+      "actionable": "No",
+      "synthetic": false
+    },
+    {
+      "plumeId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+      "sourceId": "KAZ_S_159",
+      "satellite": "EnMAP - DLR",
+      "tileDate": "2026-06-05T07:40:02",
+      "fluxKgHr": 307,
+      "fluxStdKgHr": 66,
+      "notified": true,
+      "actionable": "Yes",
+      "synthetic": false
+    },
+    {
+      "plumeId": "941806b5-2afe-46ac-baac-a0230880cede",
+      "sourceId": "KAZ_S_159",
+      "satellite": "EnMAP - DLR",
+      "tileDate": "2026-07-11T08:12:14",
+      "fluxKgHr": 496,
+      "fluxStdKgHr": 226,
+      "notified": true,
+      "actionable": "Yes",
+      "synthetic": false
+    }
+  ],
+  "externalEvidenceMetadata": [
+    {
+      "title": "Methane Alert and Response System (Mars) Confirmed Mitigation Action - Kazakhstan (KAZ_S_159)",
+      "url": "https://wedocs.unep.org/handle/20.500.11822/49949",
+      "publisher": "United Nations Environment Programme",
+      "reportDate": "2026-09-23",
+      "license": "Attribution-NonCommercial-NoDerivs 3.0 IGO",
+      "contentIncluded": false,
+      "providerProcessing": false,
+      "note": "Metadata only. The linked report is not reproduced, downloaded, or sent to a provider in this lab."
+    }
+  ],
+  "demoSafetyNote": {
+    "label": "DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM",
+    "text": "The source record reports feedback: Yes and notified: Yes. Those fields are publisher metadata. This packet supplies no action date, no post-action measurement, no measurement method, no uncertainty, and no follow-up reference for the claimed 2026-06-05 plume."
+  },
+  "requiredOutputFields": [
+    "sourceId",
+    "claimType",
+    "claimText",
+    "scope",
+    "verdict",
+    "limitations",
+    "requestedEvidence",
+    "whyNeeded",
+    "acceptanceCriteria",
+    "ownerRole",
+    "dueDateOrReasonUnset",
+    "references"
+  ]
+}

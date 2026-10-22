@@ -1,0 +1,16 @@
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/agent-usefulness/codex-cli-runner.test.ts:
+(pass) Codex CLI usage events > uses Bun to start the TypeScript MCP bridge from the Node Playwright runner [0.04ms]
+(pass) Codex CLI usage events > counts the snake_case usage fields emitted in turn.completed JSONL events [0.15ms]
+(pass) Codex CLI usage events > ignores non-completed and malformed JSONL events [0.07ms]
+(pass) Codex CLI usage events > spawns the CLI through Node child_process and persists real usage events [13.91ms]
+(pass) missing submission retains safe checkpoints and records a prose final without promoting it [2.74ms]
+(pass) diagnostic reader rejects invalid payloads and strips untrusted tool text [0.49ms]
+(pass) runner real MCP browser roundtrip: submit [1014.43ms]
+(pass) runner real MCP browser roundtrip: interrupt [473.33ms]
+
+ 8 pass
+ 0 fail
+ 46 expect() calls
+Ran 8 tests across 1 file. [1.52s]

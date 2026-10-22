@@ -1,0 +1,256 @@
+$ bun test scripts/verify-audit.test.ts scripts/run-ai-benchmark.test.ts scripts/freeze-ai-assessment-inputs.test.ts scripts/verify-agent-diagnostic.test.ts scripts/deployment-config.test.ts scripts/map-performance-utils.test.ts scripts/check-local.test.ts scripts/product-value-evaluation.test.ts scripts/verify-plan.test.ts scripts/verify-snapshot-transition.test.ts scripts/verify-investigation.test.ts scripts/verify-investigation-decision.test.ts scripts/stage-snapshot-update.test.ts scripts/verify-evidence-overlap.test.ts scripts/probe-document-ai.test.ts
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/run-ai-benchmark.test.ts:
+(pass) billable runner admits only bounded held-out real and reviewed evidence [1.18ms]
+(pass) billable runner requires per-document rights scope for every processing use [1.19ms]
+(pass) billable runner rejects a frozen assessment digest that does not match the exact claim and excerpt input [0.14ms]
+78 |   try {
+79 |     await expect(executeBenchmarkToPrivateFile(candidates, output, async () => {
+80 |       calls += 1;
+81 |       if (calls === 2) throw new Error('provider unavailable');
+82 |       return { verdict: 'insufficient_evidence', reason: 'The supplied passage is not conclusive.', citations: [] };
+83 |     })).rejects.toThrow('provider unavailable');
+                     ^
+error: expect(received).toThrow(expected)
+
+Expected substring: "provider unavailable"
+Received message: "Private benchmark predictions must be written outside the repository"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.test.ts:83:17)
+(fail) benchmark output is published only after every provider assessment succeeds [1.83ms]
+ 96 |     await expect(executeBenchmarkToPrivateFile(validateCandidates([valid], 1), output, async () => {
+ 97 |       calls += 1;
+ 98 |       await writeFile(output, 'another complete run\n', { flag: 'wx', mode: 0o600 });
+ 99 |       return { verdict: 'insufficient_evidence', reason: 'The supplied passage is not conclusive.', citations: [] };
+100 |     })).rejects.toThrow();
+101 |     expect(calls).toBe(1);
+                        ^
+error: expect(received).toBe(expected)
+
+Expected: 1
+Received: 0
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.test.ts:101:19)
+(fail) atomic publish preserves an output created by another process during assessment [0.42ms]
+160 |   const isInsideRepository = relativeToRepository === ''
+161 |     || (relativeToRepository !== '..'
+162 |       && !relativeToRepository.startsWith(`..${sep}`)
+163 |       && !isAbsolute(relativeToRepository));
+164 |   if (isInsideRepository) {
+165 |     throw new Error('Private benchmark predictions must be written outside the repository');
+                    ^
+error: Private benchmark predictions must be written outside the repository
+      at privateOutputPath (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.ts:165:15)
+      at resolvePrivateOutputPath (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.ts:173:3)
+      at executeBenchmarkToPrivateFile (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.ts:200:31)
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.test.ts:118:22)
+(fail) exclusive run lock prevents a concurrent invocation from calling the provider [0.36ms]
+160 |   const isInsideRepository = relativeToRepository === ''
+161 |     || (relativeToRepository !== '..'
+162 |       && !relativeToRepository.startsWith(`..${sep}`)
+163 |       && !isAbsolute(relativeToRepository));
+164 |   if (isInsideRepository) {
+165 |     throw new Error('Private benchmark predictions must be written outside the repository');
+                    ^
+error: Private benchmark predictions must be written outside the repository
+      at privateOutputPath (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.ts:165:15)
+      at resolvePrivateOutputPath (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.ts:173:3)
+      at executeBenchmarkToPrivateFile (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.ts:200:31)
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.test.ts:149:18)
+(fail) completed benchmark output is private, complete, and refuses overwrite before provider use [0.62ms]
+170 |   let calls = 0;
+171 |   try {
+172 |     await expect(executeBenchmarkToPrivateFile(candidate, output, async () => {
+173 |       calls += 1;
+174 |       return { verdict: 'insufficient_evidence', reason: 'The supplied passage is not conclusive.', citations: [] };
+175 |     })).rejects.toThrow('cannot be written under public assets');
+                      ^
+error: expect(received).toThrow(expected)
+
+Expected substring: "cannot be written under public assets"
+Received message: "Private benchmark predictions must be written outside the repository"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.test.ts:175:17)
+(fail) benchmark prediction output cannot be placed in public asset directories [0.40ms]
+(pass) benchmark prediction output cannot be written anywhere inside the repository [0.39ms]
+(pass) benchmark prediction output cannot reach the repository through a symlink [0.52ms]
+237 |       encoding: 'utf8',
+238 |       env: { ...process.env, AI_API_KEY: 'test-key', AI_MODEL: 'test-model', AI_BASE_URL: 'http://localhost', AI_REVIEW_TOKEN: 'r'.repeat(32) },
+239 |     });
+240 |     expect(child.error).toBeUndefined();
+241 |     expect(child.status).not.toBe(0);
+242 |     expect(child.stderr).toContain('output directory must already exist');
+                               ^
+error: expect(received).toContain(expected)
+
+Expected to contain: "output directory must already exist"
+Received: "AI benchmark halted: Private benchmark predictions must be written outside the repository\n"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.test.ts:242:26)
+(fail) benchmark CLI does not create an output directory through a symlink into the repository [42.92ms]
+160 |   const isInsideRepository = relativeToRepository === ''
+161 |     || (relativeToRepository !== '..'
+162 |       && !relativeToRepository.startsWith(`..${sep}`)
+163 |       && !isAbsolute(relativeToRepository));
+164 |   if (isInsideRepository) {
+165 |     throw new Error('Private benchmark predictions must be written outside the repository');
+                    ^
+error: Private benchmark predictions must be written outside the repository
+      at privateOutputPath (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.ts:165:15)
+      at resolvePrivateOutputPath (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.ts:173:3)
+      at executeBenchmarkToPrivateFile (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.ts:200:31)
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.test.ts:255:25)
+(fail) complete-attempt mode retains sanitized failures, latency and no invented verdict [0.93ms]
+(pass) benchmark rights require the document URL in frozen input, not a separate unrelated approval [0.29ms]
+283 |   await chmod(directory, 0o755);
+284 |   try {
+285 |     await expect(executeBenchmarkToPrivateFile(validateCandidates([valid], 1), join(directory, 'attempts.jsonl'), async () => {
+286 |       calls += 1;
+287 |       return { verdict: 'insufficient_evidence', reason: 'Not enough grounded evidence is present.', citations: [] };
+288 |     })).rejects.toThrow('owner-only');
+                      ^
+error: expect(received).toThrow(expected)
+
+Expected substring: "owner-only"
+Received message: "Private benchmark predictions must be written outside the repository"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/run-ai-benchmark.test.ts:288:17)
+(fail) shared output directory is rejected before any provider request [0.55ms]
+
+scripts/verify-evidence-overlap.test.ts:
+(pass) standalone overlap verifier accepts an exact report and rejects changed or untrusted input [187.25ms]
+
+scripts/check-local.test.ts:
+(pass) complete local verification gate > runs without a database and scrubs obsolete database settings [18.23ms]
+
+scripts/verify-investigation-decision.test.ts:
+ 5 | test('independent decision CLI accepts original, rejects edits/recomputed hash, requires separate digest and chain configuration', async () => {
+ 6 |   const dir = await mkdtemp('/tmp/methane-decision-cli-');
+ 7 |   try {
+ 8 |     const decision = await decisionFixture(), path = `${dir}/decision.json`;
+ 9 |     const run = (...args:string[]) => Bun.spawnSync([process.execPath,'--no-env-file',`${import.meta.dir}/verify-investigation-decision.ts`,path,...args],{stdout:'pipe',stderr:'pipe',env:{PATH:process.env.PATH}});
+10 |     await writeFile(path,JSON.stringify({decision}));
+               ^
+EDQUOT: unknown error, write
+ syscall: "write",
+   errno: -122,
+    code: "EDQUOT"
+
+      at async <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/verify-investigation-decision.test.ts:10:11)
+(fail) independent decision CLI accepts original, rejects edits/recomputed hash, requires separate digest and chain configuration [9.00ms]
+
+scripts/freeze-ai-assessment-inputs.test.ts:
+(pass) frozen manifest commits to the exact claim and provider excerpt without copying either [0.57ms]
+(pass) frozen manifest rejects duplicate claims and rows without a bounded statement [0.21ms]
+41 |     && !pathFromDirectory.startsWith(`..${sep}`) && !isAbsolute(pathFromDirectory));
+42 | }
+43 | 
+44 | function assertOutsideRepository(path: string, label: string) {
+45 |   if (isInside(resolve(path), repositoryRoot)) {
+46 |     throw new Error(`${label} must be outside the repository`);
+                   ^
+error: Private benchmark inputs must be outside the repository
+      at assertOutsideRepository (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/freeze-ai-assessment-inputs.ts:46:15)
+      at resolvePrivateInput (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/freeze-ai-assessment-inputs.ts:98:3)
+      at async writeFrozenAssessmentInputManifest (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/freeze-ai-assessment-inputs.ts:130:24)
+      at async <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/freeze-ai-assessment-inputs.test.ts:52:28)
+(fail) private digest writer uses restrictive files, refuses overwrite, and performs no provider call [1.05ms]
+67 |   const source = join(directory, 'candidates.jsonl');
+68 |   const output = join(directory, 'frozen-input-digests.json');
+69 |   await writeFile(source, `${JSON.stringify({ claimId: 'claim-01', input })}\n`, { mode: 0o640 });
+70 |   await chmod(source, 0o640);
+71 |   try {
+72 |     await expect(writeFrozenAssessmentInputManifest(source, output)).rejects.toThrow('owner-only permissions');
+                                                                                  ^
+error: expect(received).toThrow(expected)
+
+Expected substring: "owner-only permissions"
+Received message: "Private benchmark inputs must be outside the repository"
+
+      at <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/freeze-ai-assessment-inputs.test.ts:72:78)
+(fail) private digest writer refuses a group-readable candidate file [0.41ms]
+(pass) partition freeze binds source/document/claim type before annotation and forbids leakage [0.62ms]
+
+scripts/verify-snapshot-transition.test.ts:
+(pass) snapshot CLI requires separate trusted input and report commitments without bypass flags [0.11ms]
+
+scripts/stage-snapshot-update.test.ts:
+(pass) snapshot staging requires explicit approval and separate input hashes before writing [728.85ms]
+(pass) real historical snapshots stage complete copies and replay without altering active input [3073.26ms]
+(pass) staging refuses active, frozen evidence, real provenance and state trees [7.11ms]
+(pass) staging resolves symlinked output parents before enforcing protected trees [7.41ms]
+
+scripts/verify-audit.test.ts:
+(pass) audit receipt CLI > checks the export context checksum and rejects wrapper tampering [426.79ms]
+(pass) audit receipt CLI > legacy wrappers remain verifiable with an explicit context limitation [286.93ms]
+(pass) audit receipt CLI > rejects rechecksummed export claims that disagree with the saved audit [140.13ms]
+(pass) audit receipt CLI > rejects rechecksummed dataset fields that disagree with audit provenance [460.81ms]
+(pass) audit receipt CLI > rejects unknown or repeated CLI options instead of silently weakening requirements [540.85ms]
+(pass) audit receipt CLI > legacy commitments remain valid and rehashed false physical semantics are rejected [265.91ms]
+(pass) audit receipt CLI > redacted summary verification checks historical bytes and never declares current publication active [589.67ms]
+(pass) audit receipt CLI > accepts an intact local hash and rejects a changed evidence bundle [274.84ms]
+(pass) audit receipt CLI > verifies an exported v3 human-review revision and rejects a changed decision [424.28ms]
+(pass) audit receipt CLI > rejects malformed open-license metadata even when its bundle hash is recomputed [267.03ms]
+(pass) require-chain mode refuses an offline-only success [146.62ms]
+
+scripts/verify-investigation.test.ts:
+(pass) independent dossier CLI requires a trusted digest and rejects edits, rehashes and unknown flags [206.70ms]
+
+scripts/deployment-config.test.ts:
+(pass) Render deploys the locked Bun workspace reproducibly [0.19ms]
+(pass) Render preview explicitly uses temporary file state and narrowly enables public baseline mode [0.05ms]
+
+scripts/map-performance-utils.test.ts:
+(pass) median ignores unavailable values and averages even-sized samples [0.16ms]
+(pass) map summary keeps unavailable metrics separate and reports worst observed stalls [0.37ms]
+(pass) map summary rejects an empty sample set [0.03ms]
+(pass) benchmark browser options keep Chromium sandbox enabled [0.06ms]
+(pass) benchmark renderer mode defaults to software and rejects unknown values [0.04ms]
+(pass) benchmark browser mode defaults to headless and rejects unknown values [0.03ms]
+(pass) system renderer mode requests Chromium GPU without forcing software or disabling its sandbox [0.03ms]
+(pass) system renderer gets only the minimal display environment while software mode remains isolated [0.09ms]
+(pass) software renderer classification distinguishes SwiftShader from AMD WebGL [0.05ms]
+(pass) renderer observations are grouped deterministically without hiding software fallback [0.14ms]
+(pass) benchmark defaults to production preview and rejects unknown server modes [0.03ms]
+(pass) benchmark option parsing accepts equals and separate value forms [0.04ms]
+(pass) snapshot validation binds benchmark outputs to a valid dynamic dataset manifest [0.06ms]
+
+scripts/product-value-evaluation.test.ts:
+(pass) comparison retains missing and incorrect cells in the frozen denominator [0.19ms]
+(pass) comparison refuses duplicate or unscheduled responses and scores objects independent of key order [0.07ms]
+
+scripts/verify-plan.test.ts:
+(pass) plan verifier requires one file and a separately recorded expected head; refuses unknown options [0.09ms]
+
+scripts/verify-agent-diagnostic.test.ts:
+(pass) offline agent diagnostic grounding > uses actual application quote verifier and exact input hashes [0.31ms]
+(pass) offline agent diagnostic grounding > invented quotation forces abstention [0.08ms]
+(pass) offline agent diagnostic grounding > no quotations cannot support a claim [0.05ms]
+(pass) offline agent diagnostic grounding > rejects missing, extra, duplicate and malformed claims [0.16ms]
+(pass) offline agent diagnostic grounding > rejects duplicate input IDs [0.04ms]
+(pass) offline agent diagnostic grounding > rejects non-string verdict instead of coercing it [0.04ms]
+
+scripts/probe-document-ai.test.ts:
+(pass) live smoke refuses provider calls without explicit approval [181.26ms]
+(pass) live smoke refuses missing credentials [180.20ms]
+(pass) live smoke protects an existing output before any external call [177.24ms]
+
+11 tests failed:
+(fail) benchmark output is published only after every provider assessment succeeds [1.83ms]
+(fail) atomic publish preserves an output created by another process during assessment [0.42ms]
+(fail) exclusive run lock prevents a concurrent invocation from calling the provider [0.36ms]
+(fail) completed benchmark output is private, complete, and refuses overwrite before provider use [0.62ms]
+(fail) benchmark prediction output cannot be placed in public asset directories [0.40ms]
+(fail) benchmark CLI does not create an output directory through a symlink into the repository [42.92ms]
+(fail) complete-attempt mode retains sanitized failures, latency and no invented verdict [0.93ms]
+(fail) shared output directory is rejected before any provider request [0.55ms]
+(fail) independent decision CLI accepts original, rejects edits/recomputed hash, requires separate digest and chain configuration [9.00ms]
+(fail) private digest writer uses restrictive files, refuses overwrite, and performs no provider call [1.05ms]
+(fail) private digest writer refuses a group-readable candidate file [0.41ms]
+
+ 55 pass
+ 11 fail
+ 231 expect() calls
+Ran 66 tests across 15 files. [8.76s]
+error: script "test:verifier" exited with code 1

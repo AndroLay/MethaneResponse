@@ -1,6 +1,9 @@
 # Sources and implementation evidence
 
-## Official event sources checked 20 October 2026
+## Official event sources
+
+Rules were checked directly on 23 October 2026. Overview and community guidelines
+below retain their earlier preparation checks; they were not re-read in this pass.
 
 - Rules: https://ieee-climatechain-hack.devpost.com/rules
 - Track, deliverables and overview: https://ieee-climatechain-hack.devpost.com/
@@ -20,6 +23,11 @@ zero emissions.
 
 ## Repository evidence (paths within the repository)
 
+- Current local video v18: `docs/demo/delivery-2026-10-22-final-v18/README.md`.
+- Encoded v18 verification and checksum: `docs/evidence/video-v18-2026-10-22/verification-summary.json`.
+- Same-take TKM export/pin/Anvil receipt and replay: `docs/evidence/video-v17-2026-10-22/README.md`.
+- Frozen r12 agent result (not a success claim): `docs/evidence/agent-practical-usefulness-2026-10-21-r12/results.json`.
+- Software acceptance before capture: `docs/evidence/pre-video-final-2026-10-21/README.md`.
 - Data provenance: `data/real/README.md`.
 - Active implementation scope: `docs/release/current-implementation-status.md`.
 - Three case studies: `docs/research/three-historical-decision-cases-2026-10-18.md`.
@@ -33,3 +41,9 @@ zero emissions.
 
 Repository address: https://github.com/AndroLay/MethaneResponse.
 Publication of the current local revision must be checked separately.
+
+- Recorded DeepSeek provider smoke: `docs/evidence/deepseek-live-2026-10-21/README.md`.
+- Public access observations (read-only, dated): `docs/release/devpost-submission/access-status.json`.
+
+The v18 TKM film retains the v17 take8 proof. V16 take2 is a different
+local decision and must not be presented as the receipt in v18.

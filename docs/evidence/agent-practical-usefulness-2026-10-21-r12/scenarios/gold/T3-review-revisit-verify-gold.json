@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r12",
+  "taskId": "T3",
+  "goldKind": "frozen-decision-replay-and-revisit",
+  "workId": "DEMO-work",
+  "decisionDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec",
+  "disposition": "request_more_evidence",
+  "revisitState": "review_recommended",
+  "revisitReasonCodes": [
+    "new_authorized_response"
+  ],
+  "revisitReasonIds": [
+    "DEMO-T3-RESPONSE"
+  ],
+  "historicalDecisionUnchanged": true,
+  "verificationValid": true,
+  "physicalOutcomeEstablished": false,
+  "expectedReasonCode": "new_authorized_response",
+  "expectedResponseId": "DEMO-T3-RESPONSE"
+}

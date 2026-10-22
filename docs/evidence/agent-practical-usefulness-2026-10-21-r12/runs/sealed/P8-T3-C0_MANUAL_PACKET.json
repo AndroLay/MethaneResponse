@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P8-T3-C0_MANUAL_PACKET",
+  "pairId": "P8-T3",
+  "personaId": "P8",
+  "taskId": "T3",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T08:33:31.443Z",
+    "endedAt": "2026-10-21T08:34:25.831Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "unknown",
+  "output": {
+    "workId": "DEMO-work",
+    "decisionDigest": null,
+    "disposition": null,
+    "rationale": "Abstain. Paket yang diberikan menunjukkan keputusan historis DEMO request_more_evidence dengan alasan meminta pengukuran yang dapat diatribusikan. Revision 2 memuat metadata respons DEMO, tetapi isi laporan tidak disertakan; metadata tersebut tidak membuktikan pengukuran atau hasil fisik. Saya tidak dapat menyelesaikan review atau memperoleh export dari lingkungan packet yang tidak tersedia.",
+    "revisitState": null,
+    "revisitReasonCodes": null,
+    "historicalDecisionUnchanged": null,
+    "verificationValid": null,
+    "physicalOutcomeEstablished": false,
+    "steps": [
+      "Memeriksa tool MCP yang tersedia untuk menemukan tool manual-packet; hanya submit_result tersedia di namespace agent_lab.",
+      "Tidak membuka atau mengubah dossier dan tidak mengekspor keputusan karena tool lingkungan packet tidak tersedia.",
+      "Menggunakan hanya informasi DEMO yang terdapat dalam packet di prompt."
+    ],
+    "evidenceIds": [
+      "DEMO-work",
+      "DEMO-audit",
+      "0x7bfab4d089b976542163f29073ffa6b01485d7c3780accf5afa27357b2b423c6",
+      "DEMO-T3-REQUEST",
+      "DEMO-T3-RESPONSE",
+      "trustedDigest:0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec"
+    ],
+    "errors": [
+      "Tool manual-packet tidak tersedia; operasi dossier, evidence/snapshot, revisit, export, dan verify tidak dapat dilakukan."
+    ],
+    "requestsForHelp": [
+      "Sediakan tool atau sesi manual-packet untuk membuka DEMO-work, mencatat revisi baru dan reason code revisit tanpa mengubah historicalDecision, mengekspor, lalu memverifikasi export terhadap trustedDigest yang diberikan.",
+      "Sediakan isi laporan pada DEMO-T3-RESPONSE atau pengukuran pasca-aksi yang dapat diatribusikan untuk KAZ_S_159, scope 2026-01-01..2026-01-02, termasuk metode, ketidakpastian, dan attestasi operator."
+    ]
+  },
+  "timing": {
+    "wallClockSeconds": 54.4,
+    "modelCalls": 1,
+    "inputTokens": 131686,
+    "outputTokens": 2617,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Saya hanya menemukan tool submit_result; tidak ada tool packet manual untuk membuka atau mengubah dossier, menambahkan evidence/snapshot change, membuat alasan revisit, mengekspor, atau memverifikasi digest. Tidak ada perubahan yang diklaim.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "8507b0dbdbecdcc848b33e07aff57fe18927d51393d14c166b7b52cb293d44ce",
+    "steps": 0,
+    "toolNames": [],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 100352,
+    "reasoningOutputTokens": 1796,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

@@ -1,0 +1,15 @@
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/agent-usefulness/task-contract-v13.test.ts:
+(pass) r12 T2 mismatch is detected before a trial; the new contract advertises every checked field [4.80ms]
+(pass) T1 cannot request runtime activation from the old read-only manual packet [0.72ms]
+(pass) T3 requires seeded exact decision, scoped reviewer and executable export verification [0.41ms]
+(pass) impossible contract exits before starting a provider process or charging the shared budget [1.49ms]
+(pass) new T2 JSON format retains real omissions; matching abstention alone is insufficient [7.61ms]
+(pass) T1 exact observed membership is preserved; duplicates and silent replacement are rejected [2.66ms]
+(pass) T3 does not accept a digest supplied by an altered export or a physical-outcome claim [1.33ms]
+
+ 7 pass
+ 0 fail
+ 30 expect() calls
+Ran 7 tests across 1 file. [133.00ms]

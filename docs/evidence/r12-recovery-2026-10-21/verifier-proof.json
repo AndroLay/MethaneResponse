@@ -1,0 +1,38 @@
+{
+  "kind": "local CLI verification; no chain call",
+  "sourceId": "TKM_S_021",
+  "expectedDigest": "0x24d360507d8b6e4bfc6354863233ec661e894a4c6aba41311cc0fa04c31b6e1e",
+  "trust": "Pinned from authenticated software DEMO reviewer export; this is not independent reviewer identity validation.",
+  "checks": [
+    {
+      "name": "original",
+      "exitCode": 0,
+      "stdout": "{\"valid\":true,\"digest\":\"0x24d360507d8b6e4bfc6354863233ec661e894a4c6aba41311cc0fa04c31b6e1e\",\"revision\":1,\"workId\":\"default\",\"sourceId\":\"TKM_S_021\",\"chainStatus\":\"NOT_VERIFIED\",\"physicalOutcomeEstablished\":false,\"limitation\":\"Canonical JSON integrity relative to the supplied trusted digest; formatting alone may normalize. Blockchain verifies chronology and integrity, not physical repair or independent reviewer identity.\"}",
+      "stderr": ""
+    },
+    {
+      "name": "altered_and_rehashed",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "Frozen decision failed trusted digest, dossier replay or assessment checks."
+    },
+    {
+      "name": "original_again",
+      "exitCode": 0,
+      "stdout": "{\"valid\":true,\"digest\":\"0x24d360507d8b6e4bfc6354863233ec661e894a4c6aba41311cc0fa04c31b6e1e\",\"revision\":1,\"workId\":\"default\",\"sourceId\":\"TKM_S_021\",\"chainStatus\":\"NOT_VERIFIED\",\"physicalOutcomeEstablished\":false,\"limitation\":\"Canonical JSON integrity relative to the supplied trusted digest; formatting alone may normalize. Blockchain verifies chronology and integrity, not physical repair or independent reviewer identity.\"}",
+      "stderr": ""
+    },
+    {
+      "name": "missing_trusted_digest",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "Usage: bun --no-env-file scripts/verify-investigation-decision.ts <decision.json> --expected-digest <trusted 0x SHA-256> [--require-chain]"
+    },
+    {
+      "name": "chain_required_but_unconfigured",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "A receipt and configured read-only chain target are required."
+    }
+  ]
+}

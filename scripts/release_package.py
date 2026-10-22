@@ -9,7 +9,10 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 ROOT_NAMES = {'README.md', 'AGENTS.md', 'LICENSE', 'NOTICE', 'package.json', 'bun.lock',
-              'render.yaml', 'playwright.config.ts', '.gitignore', '.env.example', '.bun-version', '.editorconfig', 'tsconfig.e2e.json'}
+              'render.yaml', 'playwright.config.ts', '.gitignore', '.env.example', '.bun-version', '.editorconfig', 'tsconfig.e2e.json',
+              'tsconfig.agent-lab.json', 'playwright.agent-lab.config.ts',
+              'playwright.agent-lab-r12.config.ts', 'playwright.agent-lab-run-r12.config.ts',
+              'playwright.agent-lab-run.config.ts', 'playwright.agent-lab-smoke.config.ts'}
 TREES = ('apps/', 'packages/', 'scripts/', 'e2e/', 'contracts/', 'services/data-pipeline/', 'docs/',
          'data/fixtures/', 'data/real/', 'data/processed/', '.github/')
 EXCLUDED_PARTS = {'node_modules', '.git', '.venv', '__pycache__', '.pytest_cache', '.cache',

@@ -250,6 +250,8 @@ export default function App() {
   const [reportExportError, setReportExportError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [searchFocused, setSearchFocused] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const searchToggleRef = useRef<HTMLButtonElement>(null);
   const [showReport, setShowReport] = useState(false);
   const [showNotice, setShowNotice] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -258,6 +260,7 @@ export default function App() {
   const [preferencesSaveSucceeded, setPreferencesSaveSucceeded] = useState<boolean | null>(null);
   const [caseDialogSourceId, setCaseDialogSourceId] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => { if (mobileSearchOpen) ref.current?.querySelector('input')?.focus(); }, [mobileSearchOpen]);
   const manualDatasetChoice = useRef(false);
   const queryClient = useQueryClient();
 
@@ -710,7 +713,7 @@ export default function App() {
     }
   }
   async function copyHash() { if (!audit) return; try { await navigator.clipboard.writeText(audit.bundleHash); setCopied(true); setTimeout(()=>setCopied(false),1600); } catch { setCopied(false); } }
-  useEffect(() => { const k = (event: KeyboardEvent) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); ref.current?.querySelector('input')?.focus(); } if(event.key==='Escape') { setShowReport(false); setSearchFocused(false); setExpandedMap(false); } }; window.addEventListener('keydown',k);return () => window.removeEventListener('keydown',k); }, []);
+  useEffect(() => { const k = (event: KeyboardEvent) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); if (window.matchMedia('(max-width: 620px)').matches) setMobileSearchOpen(true); ref.current?.querySelector('input')?.focus(); } if(event.key==='Escape') { setShowReport(false); setSearchFocused(false); setMobileSearchOpen(false); if (window.matchMedia('(max-width: 620px)').matches && ref.current?.contains(document.activeElement)) requestAnimationFrame(()=>searchToggleRef.current?.focus()); setExpandedMap(false); } }; window.addEventListener('keydown',k);return () => window.removeEventListener('keydown',k); }, []);
   const local = (s: ReviewSource) => s.region.replace('Synthetic ', '');
   const sourcePlumes = filteredSources.reduce((count, item) => count + (item.plumeCount ?? item.observations?.length ?? 0), 0);
   const allLoadedPlumes = snapshot?.plumeCount ?? sourcePlumes;
@@ -790,8 +793,9 @@ export default function App() {
       <div className="sidebar-bottom"><div className="sidebar-data-status" title={realMode ? `Historical MARS archive · through ${latestObservationDate || 'date unavailable'} UTC` : 'Synthetic demonstration · not live'}><span className="sidebar-status-dot"/><span><strong>{realMode ? 'Historical MARS archive' : 'Synthetic demo data'}</strong><small>{realMode ? `Through ${latestObservationDate || 'date unavailable'} UTC` : 'DEMO · not live'}</small></span></div><div className="sidebar-credit"><span>RESEARCH PROTOTYPE</span><small>v0.3</small></div></div>
     </aside>
     <div className="app-main">
-      <header className="topbar"><button className="mobile-menu icon-button" aria-label="Open navigation" aria-expanded={mobileNav} aria-controls="workspace-sidebar" onClick={()=>setMobileNav(true)}><Icon name="menu"/></button>
-        <div className="top-search" ref={ref}><Icon name="search" size={18}/><input value={search} onChange={e=>{setSearch(e.target.value);setSearchFocused(true);}} onFocus={()=>setSearchFocused(true)} placeholder="Search locations, cases, satellites, or evidence…" aria-label="Search methane sources"/><kbd>⌘ K</kbd>{searchFocused && search.trim() && <div className="search-results">{displayedResults.slice(0,12).map(item=><button key={item.sourceId} onClick={()=>{if (!pickSource(item.sourceId)) return;setSearchFocused(false);switchPage('cases', true);}}><Icon name="pin" size={15}/><span><strong>{item.sourceId}</strong><small>{item.region} · {item.sector || 'Source'}</small></span></button>)}{!displayedResults.length && <div className="search-empty">No matching sources</div>}</div>}</div>
+      <header className={`topbar${mobileSearchOpen ? ' mobile-search-open' : ''}`}><button className="mobile-menu icon-button" aria-label="Open navigation" aria-expanded={mobileNav} aria-controls="workspace-sidebar" onClick={()=>setMobileNav(true)}><Icon name="menu"/></button>
+        <button type="button" ref={searchToggleRef} className="mobile-search-toggle icon-button" aria-label="Open source search" aria-expanded={mobileSearchOpen} aria-controls="header-source-search" onClick={()=>setMobileSearchOpen(true)}><Icon name="search" size={19}/></button>
+        <div className="top-search" id="header-source-search" ref={ref}><Icon name="search" size={18}/><input value={search} onChange={e=>{setSearch(e.target.value);setSearchFocused(true);}} onFocus={()=>setSearchFocused(true)} placeholder="Search locations, cases, satellites, or evidence…" aria-label="Search methane sources"/><kbd>⌘ K</kbd><button type="button" className="mobile-search-close icon-button" aria-label="Close source search" onClick={()=>{setMobileSearchOpen(false);setSearchFocused(false);requestAnimationFrame(()=>searchToggleRef.current?.focus());}}><Icon name="close" size={18}/></button>{searchFocused && search.trim() && <div className="search-results">{displayedResults.slice(0,12).map(item=><button key={item.sourceId} onClick={()=>{if (!pickSource(item.sourceId)) return;setSearchFocused(false);setMobileSearchOpen(false);switchPage('cases', true);requestAnimationFrame(()=>document.getElementById('dashboard-main')?.focus({preventScroll:true}));}}><Icon name="pin" size={15}/><span><strong>{item.sourceId}</strong><small>{item.region} · {item.sector || 'Source'}</small></span></button>)}{!displayedResults.length && <div className="search-empty">No matching sources</div>}</div>}</div>
         <div className="top-actions"><span className="environment-status"><span className={`data-status-indicator ${getDataStatusIndicatorKind(realMode)}`} aria-hidden="true"/> {realMode?'UNEP SNAPSHOT · NOT LIVE':'SYNTHETIC PREVIEW'}</span><button className="icon-button notification" aria-label="Data and prototype information" onClick={()=>setShowNotice(true)}><Icon name="bell" size={19}/><i/></button><div className="top-sep"/><button className="account" onClick={()=>setShowNotice(true)}><span className="avatar">MR</span><span className="account-copy"><strong>Research Workspace</strong><small>Prototype · no sign-in</small></span><Icon name="chevron" size={13}/></button></div>
       </header>
       <main id="dashboard-main" tabIndex={-1} className="dashboard-content workspace-content">

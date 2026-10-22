@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P5-T1-C1_APPLICATION_BROWSER",
+  "pairId": "P5-T1",
+  "personaId": "P5",
+  "taskId": "T1",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T05:54:49.009Z",
+    "endedAt": "2026-10-21T06:02:44.142Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "completed",
+  "assistance": "none",
+  "output": {
+    "taskId": "P5-T1-C1_APPLICATION_BROWSER",
+    "selectedStrategy": "Weighted historical indicators",
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": "BHR_S_003 (Bahrain, Oil and Gas) is selected at rank 9/10 in the active Weighted historical indicators plan. Under the displayed blend (recurrence 50%, magnitude 50%), it has magnitude 93.7, recurrence 98.4, and weighted 96.1 ranking points. Its planner row reports 37 observed dates across 40 records, median reported flux 8,156 kg/h, median reported SD 3,129 kg/h, 0 records without flux, and latest observation timestamp 2026-06-07T07:06:19 UTC. Bahrain remains within the maximum of 2 sources per country. These historical triage indicators do not establish repair or mitigation.",
+    "excludedRationale": "IRN_S_001 is absent from the activated selection. The plan already contains two Iran sources, IRN_S_075 (rank 4; weighted 97.5) and IRN_S_065 (rank 7; weighted 96.9), filling the stated maximum of 2 per country. Therefore IRN_S_001 is excluded from this allocation under the country cap. The UI's excluded-source detail control could not be accessed, so IRN_S_001's own ranking score and latest observation timestamp were not directly inspected; no source-specific metrics are inferred.",
+    "activationStateBeforeCapacityChange": {
+      "active": true,
+      "strategy": "Weighted historical indicators",
+      "capacity": 10,
+      "selectedSourceIds": [
+        "MEX_S_003",
+        "MEX_S_007",
+        "TKM_S_021",
+        "IRN_S_075",
+        "TKM_S_047",
+        "MYS_S_001",
+        "IRN_S_065",
+        "VEN_S_008",
+        "BHR_S_003",
+        "DZA_S_011"
+      ],
+      "activationEvidence": "UI confirmed 10 planned sources activated · 10 added · 0 removed."
+    },
+    "activationStateAfterCapacityChange": {
+      "active": true,
+      "activePlanStrategy": "Weighted historical indicators",
+      "activePlanCapacity": 10,
+      "activePlanSourceIdsUnchanged": true,
+      "editedCapacity": 20,
+      "automaticReplacement": false,
+      "verificationEvidence": "After changing Investigation slots to 20, the UI still showed 10 sources in the active plan and 'Weighted historical indicators · capacity 10 · unep-mars-675417694883'."
+    },
+    "timestamps": {
+      "sourceObservations": {
+        "BHR_S_003_latest": "2026-06-07T07:06:19 UTC",
+        "IRN_S_075_latest": "2026-04-26T07:20:56 UTC",
+        "IRN_S_065_latest": "2026-09-13T07:16:21 UTC"
+      },
+      "planActivationTime": "Not surfaced by the application or supplied browser tool.",
+      "capacityChangeTime": "Not surfaced by the application or supplied browser tool."
+    },
+    "evidenceIds": [
+      "unep-mars-675417694883",
+      "BHR_S_003",
+      "IRN_S_075",
+      "IRN_S_065",
+      "IRN_S_001"
+    ],
+    "evidenceNotes": "The planner is based on the pinned historical UNEP MARS snapshot unep-mars-675417694883 (archive through 2026-09-13 UTC). The BHR and selected Iran planner rows expose source-level summaries, not plume record IDs. IRN_S_001 is the assigned excluded-source ID but its excluded-row detail was not directly accessible.",
+    "steps": [
+      "Navigated to the local application dashboard, opened Cases, and opened the investigation planner.",
+      "Verified planner settings: capacity 10, maximum per country 2, all regions, all sectors, recurrence weight 50%.",
+      "Compared four plans. Selected Weighted historical indicators: 10/10 slots, 7 countries, 1 sector, pinned snapshot unep-mars-675417694883.",
+      "Inspected the selected-source rows and confirmed BHR_S_003 at rank 9 with the reported historical indicators and latest observation timestamp.",
+      "Activated Weighted historical indicators; the UI confirmed 10 planned sources activated, 10 added, 0 removed.",
+      "Filled Investigation slots with 20 without comparing or activating a replacement. The active plan continued to show the same 10 sources and capacity 10.",
+      "Reopened the planner from the map view and rechecked the active-plan summary."
+    ],
+    "errors": [
+      {
+        "action": "Click Excluded sources as tab",
+        "error": "Timed out after 15 seconds waiting for an accessible tab with that exact name."
+      },
+      {
+        "action": "Click Excluded sources as button and radio",
+        "error": "Each timed out after 15 seconds waiting for an accessible control with that exact name."
+      },
+      {
+        "action": "Click Excluded sources as link",
+        "error": "Timed out after 30 seconds waiting for an accessible link with that exact name."
+      },
+      {
+        "action": "Fill Search cases with IRN_S_001",
+        "error": "Timed out after 15 seconds waiting for a visible labeled field."
+      },
+      {
+        "action": "Open source search / Open navigation",
+        "error": "The corresponding visible accessible controls were not available to the browser tool; timed out after 15 seconds."
+      }
+    ],
+    "helpRequests": [],
+    "actionTimestampLimitation": "The browser tool responses did not include wall-clock timestamps for UI actions. No action time was fabricated."
+  },
+  "timing": {
+    "wallClockSeconds": 475.1,
+    "modelCalls": 1,
+    "inputTokens": 1789712,
+    "outputTokens": 16510,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Completed the requested allocation and capacity-change check. The quota explanation is supported by the two selected Iran rows; IRN_S_001-specific rank and timestamp remain unavailable because the excluded-row control timed out.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+    "steps": 34,
+    "toolNames": [
+      "navigate",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "read_page",
+      "click",
+      "fill",
+      "click",
+      "fill",
+      "read_page",
+      "click",
+      "click",
+      "click",
+      "read_page",
+      "fill",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "click",
+      "read_page",
+      "click"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 1713280,
+    "reasoningOutputTokens": 13064,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

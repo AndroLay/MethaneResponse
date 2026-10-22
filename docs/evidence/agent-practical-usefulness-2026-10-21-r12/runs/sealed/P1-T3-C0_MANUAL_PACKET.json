@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P1-T3-C0_MANUAL_PACKET",
+  "pairId": "P1-T3",
+  "personaId": "P1",
+  "taskId": "T3",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T04:30:45.032Z",
+    "endedAt": "2026-10-21T04:31:46.583Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "navigation",
+  "output": {
+    "workId": "DEMO-work",
+    "decisionDigest": null,
+    "disposition": "abstained",
+    "rationale": "ABSTAINED because no assigned manual-packet operation tool was exposed. The supplied frozen DEMO packet records the historical disposition request_more_evidence for claimType mitigation_confirmed, scope 2026-01-01 through 2026-01-02, sourceId DEMO_SOURCE, datasetSnapshotId DEMO, with assessment DEMO-audit reporting insufficient_evidence and no eligible reference. DEMO-T3-REQUEST asks for a post-action measurement with method, uncertainty, source scope, and operator attestation for source KAZ_S_159 and scope 2026-01-01..2026-01-02. DEMO-T3-RESPONSE contains only response metadata (reportedDate precision month, value 2026-01; reference https://example.org/DEMO-T3-response; locator DEMO page 1; rights owned; supplied sha256 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa). Its report body is explicitly withheld, so there are no attributable measurements, method, units, or quantified uncertainty to assess. The response event is a reason to revisit the record, not evidence that mitigation occurred. I could not record a new authorized review, modify the dossier, export it, or verify its digest against trustedDigest 0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec. No repair, methane reduction, or physical outcome is established.",
+    "revisitState": "not_recorded",
+    "revisitReasonCodes": [
+      "response_received"
+    ],
+    "historicalDecisionUnchanged": true,
+    "verificationValid": false,
+    "physicalOutcomeEstablished": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "Inspected the exposed MCP tool catalog for the assigned manual-packet environment.",
+        "result": "Only mcp__agent_lab__submit_result was exposed; no packet read/write, export, or verify operation was available."
+      },
+      {
+        "step": 2,
+        "action": "Reviewed the frozen DEMO packet supplied in the task.",
+        "result": "Historical revision 1 is request_more_evidence; revision 2 metadata contains a response_received event, but the linked report body is withheld."
+      },
+      {
+        "step": 3,
+        "action": "Stopped without changing the dossier or attempting an export.",
+        "result": "Historical decision was not rewritten. Revisit was not recorded and digest verification was not run."
+      }
+    ],
+    "evidenceIds": [
+      "DEMO-work",
+      "DEMO-audit",
+      "0x7bfab4d089b976542163f29073ffa6b01485d7c3780accf5afa27357b2b423c6",
+      "DEMO-T3-REQUEST",
+      "DEMO-T3-RESPONSE"
+    ],
+    "evidenceContext": {
+      "sourceId": "DEMO_SOURCE",
+      "claimType": "mitigation_confirmed",
+      "scope": {
+        "startDate": "2026-01-01",
+        "endDate": "2026-01-02"
+      },
+      "datasetSnapshotId": "DEMO",
+      "responseRequirementSource": "KAZ_S_159",
+      "reportedDate": {
+        "precision": "month",
+        "value": "2026-01"
+      },
+      "measurementUnits": "not supplied",
+      "measurementUncertainty": "not supplied",
+      "responseBody": "withheld"
+    },
+    "errors": [
+      "Assigned manual-packet tools were unavailable in the exposed MCP catalog.",
+      "Export verification was not run; decisionDigest is unknown, and verificationValid is false."
+    ],
+    "requestsForHelp": [
+      "Expose the assigned manual-packet tools for loading supplied records, adding the supplied evidence or snapshot change, recording revisit while preserving the historical decision, exporting the dossier, and verifying the export against the separately trusted digest.",
+      "If assessment of the response content is required, provide the attributable report body for DEMO-T3-RESPONSE with source/scope, measurement timestamp, method, units, quantified uncertainty, and operator attestation; keep the DEMO label."
+    ],
+    "trustedDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec"
+  },
+  "timing": {
+    "wallClockSeconds": 61.5,
+    "modelCalls": 1,
+    "inputTokens": 208496,
+    "outputTokens": 5190,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "DEMO packet interface unavailable: only submit_result was exposed. No dossier mutation, revisit write, export, or digest verification was performed. Help needed: expose the assigned manual-packet operations, then provide/export the dossier so its decision digest can be checked against the separately trusted digest.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+    "steps": 0,
+    "toolNames": [],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 180864,
+    "reasoningOutputTokens": 3745,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

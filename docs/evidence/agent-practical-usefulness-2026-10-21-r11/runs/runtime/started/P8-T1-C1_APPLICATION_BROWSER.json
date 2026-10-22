@@ -1,0 +1,11 @@
+{
+  "protocolId": "agent-practical-usefulness-2026-10-21-r11",
+  "episodeId": "P8-T1-C1_APPLICATION_BROWSER",
+  "provider": "codex-cli-chatgpt-plan",
+  "model": "gpt-6-luna",
+  "seed": null,
+  "reasoningEffort": "max",
+  "billingMode": "chatgpt-plan",
+  "codexCliVersion": "0.160.0",
+  "startedAt": "2026-10-21T07:48:14.599Z"
+}

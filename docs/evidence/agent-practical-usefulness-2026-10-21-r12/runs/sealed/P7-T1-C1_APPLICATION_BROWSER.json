@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P7-T1-C1_APPLICATION_BROWSER",
+  "pairId": "P7-T1",
+  "personaId": "P7",
+  "taskId": "T1",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T07:17:28.172Z",
+    "endedAt": "2026-10-21T07:28:20.252Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "completed",
+  "assistance": "none",
+  "output": {
+    "selectedStrategy": {
+      "name": "Weighted historical indicators",
+      "blend": "Recurrence 50% · magnitude 50%",
+      "capacityAtSelection": 10,
+      "maxPerCountry": 2,
+      "countryScope": "All regions",
+      "sectorScope": "All sectors",
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "snapshotScope": "full_snapshot",
+      "archiveStartDate": "2020-10-29",
+      "archiveEndDate": "2026-09-13"
+    },
+    "selectedSourceIds": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "includedRationale": {
+      "sourceId": "BHR_S_003",
+      "explanation": "Termasuk pada urutan 9 dari 10, dalam kapasitas 10 dan kuota Bahrain yang belum penuh. Alokasi menyatakan “Selected within capacity and country quota.” Skor historis berbobot 96.1 poin (magnitude 93.7; recurrence 98.4). Rekaman rencana menampilkan 37 observed dates · 40 records; median reported flux 8,156 kg/h; median reported SD 3,129 kg/h; latest 2026-06-07T07:06:19 UTC.",
+      "observationType": "historical MARS source/plume records; not continuous monitoring",
+      "evidenceIds": [
+        "unep-mars-675417694883",
+        "BHR_S_003"
+      ],
+      "physicalOutcomeClaim": false
+    },
+    "excludedRationale": {
+      "sourceId": "IRN_S_001",
+      "explanation": "IRN_S_001 berada di Iran. Dua slot kuota Iran (maksimum 2 per negara) sudah ditempati IRN_S_075 dan IRN_S_065 dalam rencana terpilih, sehingga IRN_S_001 tidak dapat masuk di bawah kendala geografis tersebut. Baris alasan/skor khusus IRN_S_001 pada tab sumber yang dikecualikan tidak berhasil ditampilkan; saya tidak menyatakan peringkatnya atau bahwa kuota adalah satu-satunya faktor jika ada batas peringkat lain.",
+      "corroboratingSourceRecord": "Daftar kasus menampilkan IRN_S_001 · Iran (Islamic Republic of) · Oil and Gas; source-directory priority 74.7/80 · high and 129 plume records. Directory priority is not the allocation score.",
+      "evidenceIds": [
+        "unep-mars-675417694883",
+        "IRN_S_001",
+        "IRN_S_075",
+        "IRN_S_065"
+      ],
+      "exactAllocationRowObserved": false,
+      "physicalOutcomeClaim": false
+    },
+    "activationStateBeforeCapacityChange": {
+      "active": true,
+      "strategy": "Weighted historical indicators",
+      "activePlanCapacity": 10,
+      "activationResult": "10 planned sources activated · 10 added · 0 removed",
+      "timestamp": null,
+      "timestampNote": "Browser MCP did not expose an execution timestamp."
+    },
+    "activationStateAfterCapacityChange": {
+      "capacityInputChangedTo": 20,
+      "capacityEditAcknowledged": true,
+      "activePlanRemained": true,
+      "activePlanCapacity": 10,
+      "activePlanSourceCount": 10,
+      "strategyRemained": "Weighted historical indicators",
+      "replacementActivated": false,
+      "timestamp": null,
+      "timestampNote": "Browser MCP did not expose an execution timestamp. The active plan card still showed 10 sources, capacity 10, and the same strategy after the input edit."
+    },
+    "timestamps": {
+      "includedSourceLatestRecord": "2026-06-07T07:06:19 UTC",
+      "datasetArchiveRange": [
+        "2020-10-29",
+        "2026-09-13"
+      ],
+      "activationExecutionTime": null,
+      "capacityEditExecutionTime": null,
+      "excludedSourceLatestRecord": null,
+      "limitation": "Exact action timestamps and IRN_S_001 latest-observation timestamp were not exposed in the inspected browser output."
+    },
+    "dataset": {
+      "datasetSnapshotId": "unep-mars-675417694883",
+      "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "intelligenceSha256": "40095bdf6963ab8f29f8188787de37e54620e7858d95982700a350187c1e7049",
+      "synthetic": false,
+      "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0."
+    },
+    "steps": [
+      "Opened Cases → Plan investigation capacity; planner showed capacity 10, maximum per country 2, all regions, all sectors, recurrence 50%.",
+      "Compared four plans; selected the weighted historical indicators plan and inspected its 10 selected source rows.",
+      "Explicitly activated the plan; UI confirmed 10 planned sources activated, 10 added, 0 removed.",
+      "Changed Investigation slots to 20. The active plan remained the 10-source weighted plan with active capacity 10; no replacement was activated.",
+      "Looked up IRN_S_001 through the local source search; confirmed country Iran and reviewed the selected Iran sources in the active plan."
+    ],
+    "errors": [
+      "Clicks on Excluded sources using tab, button, and radio roles timed out; the direct allocation row for IRN_S_001 was not displayed.",
+      "Search cases fill and some off-screen navigation controls timed out; local global source search succeeded afterward."
+    ],
+    "requestsForHelp": [],
+    "limits": [
+      "The active plan is a proposed allocation, not an assignment or human approval.",
+      "Historical MARS observations, score, notification/feedback fields, or a digest do not establish repair, physical mitigation, methane reduction, or emissions cessation.",
+      "The specific excluded-row score for IRN_S_001 was not observed; exclusion rationale states the verified quota constraint and marks the row-level limitation."
+    ]
+  },
+  "timing": {
+    "wallClockSeconds": 652.1,
+    "modelCalls": 1,
+    "inputTokens": 2299124,
+    "outputTokens": 21742,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Tugas selesai melalui UI lokal MethaneResponse. Browser MCP tidak menampilkan waktu eksekusi aktivasi atau edit kapasitas; waktu tersebut dicatat sebagai tidak tersedia, bukan direka.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "dec594cfa670ec7fd97f62d124e87b2e087fe6ac7f2bc767ea752e01597888e4",
+    "steps": 42,
+    "toolNames": [
+      "navigate",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "fill",
+      "click",
+      "click",
+      "read_page",
+      "fill",
+      "read_page",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "fill",
+      "click",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "fill",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "read_page",
+      "read_page",
+      "read_page",
+      "select"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 2213632,
+    "reasoningOutputTokens": 17660,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

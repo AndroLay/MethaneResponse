@@ -1,0 +1,6 @@
+{
+  "digest": "0x7f150071975c7acf393707578f782d654bcb6b5fa18ffd3414dd6dca96af803b",
+  "source": "Observed on the authenticated DEMO reviewer UI in browser/decision-desktop.png before this chain proof; then compared with the exported decision",
+  "reviewer": "connected-demo-mitigation",
+  "limitation": "Software DEMO enrollment, not independent human identity or expert review"
+}

@@ -1,5 +1,7 @@
 import { beforeAll, afterAll, expect, test } from 'bun:test';
 import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { FileAuditStore } from './store';
 import { MemoryCaseWorkStore } from './case-work';
 import { createApp } from './app';
@@ -11,7 +13,7 @@ const previous = process.env.REVIEWER_AUTH_SECRET;
 const query = () => new URLSearchParams({...context,synthetic:'false'}).toString();
 const base = () => `/api/case-work/DEMO-decision/decisions?${query()}`;
 beforeAll(async () => {
-  dir = await mkdtemp('/tmp/methane-decision-api-'); process.env.REVIEWER_AUTH_SECRET = 'DEMO-decision-auth-'.padEnd(60,'x');
+  dir = await mkdtemp(join(tmpdir(), 'methane-decision-api-')); process.env.REVIEWER_AUTH_SECRET = 'DEMO-decision-auth-'.padEnd(60,'x');
   headers = {authorization:`Bearer ${issueReviewerToken(process.env.REVIEWER_AUTH_SECRET,'DEMO-decision-reviewer',['private_read','review','anchor'],600)}`,'content-type':'application/json'};
   store = new FileAuditStore(`${dir}/audits.json`); works = new MemoryCaseWorkStore();
   api = createApp(store,undefined,{loadReviewerAssurance:async () => ({status:'operator_attested'} as any)},{caseWorkStore:works});

@@ -4,6 +4,9 @@ These records describe checks that were actually run, including their data snaps
 
 | Evidence | What it covers | Important boundary |
 |---|---|---|
+| [Release alignment — 23 October 2026](release-sync-2026-10-23/README.md) | Fresh local gates, publication scope, v18/take8 continuity and preview operation | Local validation, CI, deployment and uploaded video are separate; frozen r12 remains 0/48 |
+| [Frozen r12 and recovery](agent-practical-usefulness-2026-10-21-r12/findings.md) | Original 48 episodes; separate recovery audit and runner fixes linked from the release record | Original scores are unchanged; focused regressions do not replace the study |
+| [v18 technical video audit](video-v18-2026-10-22/verification-summary.json) | 297-second local film, retained take8 chain proof and conditional impact pathway | Not full playback/listening, a video upload or a measured field outcome |
 | [Render public preview — 21 October 2026](render-preview-2026-10-21/README.md) | Free Singapore service, loaded globe, authenticated DeepSeek browser assessment, exact citation/hash and private-report isolation | Ephemeral state; DEMO evidence; no public reviewer/signing, independent benchmark or total-cost guarantee |
 | [DeepSeek live integration — 21 October 2026](deepseek-live-2026-10-21/README.md) | Real provider catalog and three bounded document scenarios, usage and citation/hash validation | Project-authored DEMO integration smoke, not independently labeled accuracy or physical mitigation |
 | [Non-Render completion — 20 October 2026](non-render-completion-2026-10-20/README.md) | CI/map regression red→green, 877 primary tests, 40 browser/schema checks, real local Anvil and additive delivery packaging | Render excluded; Luna deferred; blockchain accepted as local unfunded prototype, not public Sepolia |

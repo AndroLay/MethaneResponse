@@ -1,0 +1,77 @@
+{
+  "checkedAt": "2026-10-22T22:38:40.520905+00:00",
+  "method": "Unauthenticated read-only HTTPS requests; no deployment, token or provider assessment",
+  "github": {
+    "url": "https://github.com/AndroLay/MethaneResponse",
+    "mainCommit": "b067ad36c792ab45c472334984b338662b679637",
+    "latestAction": {
+      "status": "completed",
+      "conclusion": "success",
+      "headSha": "b067ad36c792ab45c472334984b338662b679637",
+      "url": "https://github.com/AndroLay/MethaneResponse/actions/runs/39509564442"
+    },
+    "localV18Published": false
+  },
+  "preview": {
+    "url": "https://methaneresponse-preview.onrender.com/dashboard",
+    "firstObservations": [
+      {
+        "route": "/api/health",
+        "result": "read_timeout_30_seconds"
+      },
+      {
+        "route": "/dashboard",
+        "httpStatus": 503
+      }
+    ],
+    "historicallyVerifiedRuntimeCommit": "98b25ca0af1e3e2df7ca9084c1569db1b6712a1e",
+    "runtimeCommitVerifiedNow": null,
+    "fullLocalWorkflowAvailable": false,
+    "retry": {
+      "httpStatus": 200,
+      "status": "ok",
+      "casebookReady": true,
+      "preview": {
+        "enabled": true,
+        "auditState": "ephemeral",
+        "publicBaselineSources": [
+          "KAZ_S_159",
+          "LBY_S_143",
+          "CAN_S_002"
+        ]
+      },
+      "chainConfigured": false,
+      "chainWriteConfigured": false
+    },
+    "interpretation": "Reachability observation only; a timeout/503 does not identify the cause or establish permanent downtime. No current browser workflow or model run was performed.",
+    "finalReadChecks": [
+      {
+        "route": "/dashboard",
+        "httpStatus": 200,
+        "checkedAt": "2026-10-22T22:40:53.470664+00:00",
+        "htmlDocument": true
+      },
+      {
+        "route": "/api/intelligence/status",
+        "httpStatus": 200,
+        "checkedAt": "2026-10-22T22:40:53.684712+00:00",
+        "capabilities": {
+          "documentModelConfigured": true,
+          "humanReviewConfigured": false,
+          "chainConfigured": false,
+          "chainWriteConfigured": false,
+          "modelMode": "server-side-document-assessment"
+        }
+      }
+    ]
+  },
+  "video": {
+    "version": "v18",
+    "publicUrl": null,
+    "uploaded": false
+  },
+  "externalMutationsPerformed": false,
+  "submissionPerformed": false,
+  "recordScope": "Pre-release baseline observations, preserved at their checkedAt timestamps. Not a continuously updated assertion of the current main or live runtime.",
+  "subsequentReleaseRecord": "docs/evidence/release-sync-2026-10-23/README.md"
+}

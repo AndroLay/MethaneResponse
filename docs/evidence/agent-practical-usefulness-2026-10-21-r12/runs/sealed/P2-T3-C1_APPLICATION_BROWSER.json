@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P2-T3-C1_APPLICATION_BROWSER",
+  "pairId": "P2-T3",
+  "personaId": "P2",
+  "taskId": "T3",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": "Chromium 153.0.8010.52",
+    "startedAt": "2026-10-21T04:50:05.153Z",
+    "endedAt": "2026-10-21T05:04:56.494Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "workId": "DEMO-work",
+    "decisionDigest": "0x83adddd80121f6d3a999bb7fbc81396d486e0a2b0b8d76fa59e127d8cc0e7543",
+    "disposition": "Insufficient reference coverage (rules baseline; no human review recorded)",
+    "rationale": "In synthetic DEMO-001, the case view shows 0 linked plume rows and no real imagery. The supplied synthetic references are a plume observation dated 2026-09-01 (DEMO-OBS-001) and an operator-notification reference dated 2026-09-04; neither establishes notification delivery, a dated mitigation action, or a post-action follow-up measurement. The rules baseline had no explicit period scope, 0 accepted citations, and stated that existing records alone do not establish the mitigation claim. Physical verification is not established.",
+    "revisitState": "open_awaiting_evidence_and_authorized_review",
+    "revisitReasonCodes": [
+      "new_synthetic_notification_reference",
+      "missing_attributable_action_record",
+      "missing_dated_follow_up_measurement"
+    ],
+    "historicalDecisionUnchanged": true,
+    "verificationValid": false,
+    "physicalOutcomeEstablished": false,
+    "trustedDigest": "0xd6a6e3eccfacbea7e83b715157191470c425a50eb52d3340f6215e4e042d2aec",
+    "localVerification": "Local SHA-256 valid for audit b5def00a-2322-4679-b699-b8136aecf332, revision 1; no on-chain verification configured. Actual bundle digest differs from trustedDigest.",
+    "caseWork": {
+      "sourceId": "DEMO-001",
+      "savedAt": "2026-10-21T05:02:18.155Z",
+      "revision": 1,
+      "workStatus": "Investigate",
+      "storage": "browser-local",
+      "historicalDecisionChanged": false
+    },
+    "evidenceReviewed": {
+      "historicalSourceId": "KAZ_S_159",
+      "datasetVersion": "unep-mars-675417694883",
+      "retrievedAt": "2026-10-14T06:10:00Z",
+      "license": "CC BY-NC-SA 4.0",
+      "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+      "plumeRecords": [
+        {
+          "observationId": "82758651-76f4-4e06-b4ab-c247ce765192",
+          "timestamp": "2024-06-07T08:05:04Z",
+          "flux": {
+            "value": 591,
+            "unit": "kg/h"
+          },
+          "standardDeviation": {
+            "value": 335,
+            "unit": "kg/h"
+          },
+          "instrument": "EnMAP - DLR",
+          "productId": "ENMAP01-____L1B-DT0000076517_20240607T080504Z_001_V010402_20240610T205144Z"
+        },
+        {
+          "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+          "timestamp": "2026-06-05T07:40:02Z",
+          "flux": {
+            "value": 307,
+            "unit": "kg/h"
+          },
+          "standardDeviation": {
+            "value": 66,
+            "unit": "kg/h"
+          },
+          "instrument": "EnMAP - DLR",
+          "productId": "ENMAP01-____L1B-DT0000198771_20260605T074002Z_002_V010506_20260609T065340Z"
+        },
+        {
+          "observationId": "941806b5-2afe-46ac-baac-a0230880cede",
+          "timestamp": "2026-07-11T08:12:14Z",
+          "flux": {
+            "value": 496,
+            "unit": "kg/h"
+          },
+          "standardDeviation": {
+            "value": 226,
+            "unit": "kg/h"
+          },
+          "instrument": "EnMAP - DLR",
+          "productId": "ENMAP01-____L1B-DT0000205901_20260711T081214Z_002_V010506_20260712T055107Z"
+        }
+      ],
+      "limits": "Three separate historical overpasses; not continuous monitoring. MARS notification and feedback flags are metadata only. Missing or later observations do not establish zero emissions or repair."
+    },
+    "errors": [
+      "Human assessment save unavailable: application states no server-issued reviewer token is configured; shared review also requires signed token and current claim authority.",
+      "Synthetic challenge select failed with getByLabel timeout.",
+      "Work status select failed with getByLabel timeout; saved case work retained default Investigate status.",
+      "An initial Verify saved digest attempt before report generation failed due missing audit bundle."
+    ],
+    "requestsForHelp": [
+      "Provide a server-issued reviewer token and current claim authority for the DEMO review.",
+      "Identify or provide the intended DEMO-work export; the local app exposed DEMO-001 and generated a different digest from the trusted value.",
+      "Provide an attributable dated action record, notification recipient and delivery timestamp, and a dated post-action follow-up observation with method, instrument, units, uncertainty and observation coverage."
+    ]
+  },
+  "timing": {
+    "wallClockSeconds": 891.3,
+    "modelCalls": 1,
+    "inputTokens": 5092822,
+    "outputTokens": 30378,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "Dossier work and a rules baseline were recorded in the DEMO browser workspace. Human review could not be authorized: the UI states that no server-issued reviewer token is configured. Local SHA-256 verification succeeded for the generated DEMO-001 bundle, but its digest does not match the supplied trusted digest; no exported JSON file was available through the permitted browser tools for separate file verification.",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+    "steps": 76,
+    "toolNames": [
+      "navigate",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "select",
+      "read_page",
+      "select",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "select",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "select",
+      "fill",
+      "fill",
+      "fill",
+      "fill",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page",
+      "click",
+      "read_page"
+    ],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 4958592,
+    "reasoningOutputTokens": 25740,
+    "browser": "Chromium 153.0.8010.52",
+    "pageErrorCount": 0,
+    "bridgeFailures": [
+      "tool_action_error",
+      "tool_action_error",
+      "tool_action_error"
+    ]
+  }
+}

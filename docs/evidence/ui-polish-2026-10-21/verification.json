@@ -1,0 +1,59 @@
+{
+  "baseCommit": "b067ad36c792ab45c472334984b338662b679637",
+  "state": "Local uncommitted UI changes; not pushed or deployed",
+  "sourceSha256": {
+    "apps/web/src/App.tsx": "e8b7624270765719f39a8136d8e20c577b09d770fd5d4524de6f5dc00a25367c",
+    "apps/web/src/IntelligencePanel.tsx": "1258549be265e14e65ed07213b569d5426ab61f0626223e5346b1fd5314f747b",
+    "apps/web/src/EvidenceRequestPanel.tsx": "6e5f885aa790f79c7f89d1145574c271f5cc13fac25e647572631b5740e648d7",
+    "apps/web/src/PlanQueue.tsx": "fccc35ea6f6a06c1777de36d4cfcc2379c2366888747b15d2984d61d642eed61",
+    "apps/web/src/main.tsx": "c2a61ad765eb04e68a95cd71f268805c7561e1f8714ae30fd4d2d56f7a4bee6e",
+    "apps/web/src/workflow-polish.css": "a76ea6420b84df030ef9a1678d86ce91baf7537db9a5a5683d3b499e06cbdf25",
+    "apps/web/src/IntelligencePanel.test.ts": "26c7782d1505f1e9f23d248823d489f5ebc2eaaa747d6dcfd5437553fa87dec8",
+    "apps/web/src/EvidenceRequestPanel.test.ts": "344ef41ddfe51ee4eef2234ce2dda05efe6f2a984fb5db749c01df8a40b1ec1e",
+    "e2e/audit-workflow.spec.ts": "92670eebfbc9ddeb868c5d8d9647cb62c3024e48d6bd98859a9eed8d06c92e8e",
+    "e2e/ai-review-workflow.spec.ts": "d5b02c73ea650508230559fe848b1486ca641634651aa913d68b070060011422"
+  },
+  "captureSha256": {
+    "active-plan-queue-mobile.png": "c83f28df6a2e151dcaa0b6d2e8d6b5dd42d426f4d0c5034785494ef30e0f255b",
+    "auditor-focused-desktop.png": "b4c215ac418e387ab4cb8d5835753f26b8fb615805efc1d357daf809615bab89",
+    "auditor-focused-mobile.png": "1db224054ea66fae4a5c174d1b448ce8e696166588a65cf399e6743738edb9af",
+    "document-assessment-result-desktop.png": "73e8fae5f27590cc047a504c9843d0ab3a7625f89dfc268c06e99245d393ec73",
+    "evidence-history-mobile.png": "01c54cd31208c26344ca1df833232e871b89b07ab2eee27b0b57229963ff5fa4",
+    "mobile-header-collapsed.png": "3f8f1373055563c2a3c4493190eb024d9f940192d914fad8b3c3a4bd92361f48",
+    "mobile-header-search.png": "d3b55b2ee33c14a1aa574c0c6a56397a71d0683ab8378d3f5b93a61f1f32f6c4"
+  },
+  "verification": {
+    "webTests": {
+      "passed": 282,
+      "failed": 0
+    },
+    "fullBrowserGate": {
+      "baselinePassed": 29,
+      "mockAiPassed": 12,
+      "failed": 0
+    },
+    "finalFocusedConfirmation": {
+      "baselinePassed": 2,
+      "mockAiAndHistoryPassed": 2,
+      "failed": 0
+    },
+    "uniqueWorkflowScenariosCovered": 42,
+    "countNote": "Focused runs repeat existing scenarios except one new evidence-history pagination/save test. Do not sum runs as distinct tests.",
+    "revisionNote": "The full browser gate preceded the last copy, focus and typography refinements. Current-source web/type/build checks and focused browser confirmations cover those refinements.",
+    "typecheck": "passed: API, web, E2E and evaluation TypeScript",
+    "productionBuild": "passed through isolated E2E runner",
+    "appGzipBytes": 74933,
+    "appGzipBudgetBytes": 75000,
+    "desktopViewport": [
+      1440,
+      1000
+    ],
+    "mobileViewportWidths": [
+      390,
+      320
+    ],
+    "physicalMobileDevices": "not tested",
+    "liveAiCalls": 0,
+    "publicDeployment": "unchanged"
+  }
+}

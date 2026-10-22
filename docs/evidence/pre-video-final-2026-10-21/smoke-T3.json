@@ -1,0 +1,70 @@
+{
+  "version": "pre-video-p8-smoke/1",
+  "task": "T3",
+  "attempt": {
+    "status": "failed",
+    "assistance": "none",
+    "output": {
+      "sourceId": "TKM_S_021",
+      "digest": "0x7f150071975c7acf393707578f782d654bcb6b5fa18ffd3414dd6dca96af803b",
+      "verificationValid": true,
+      "chainStatus": "NOT_VERIFIED",
+      "physicalOutcomeEstablished": false
+    },
+    "note": null,
+    "steps": 1,
+    "toolNames": [
+      "verify_export"
+    ],
+    "providerUsageEstimate": false,
+    "timing": {
+      "wallClockSeconds": 23.9,
+      "modelCalls": 1,
+      "inputTokens": 73152,
+      "outputTokens": 398,
+      "costUsd": null,
+      "retries": 0,
+      "hints": 0,
+      "failures": [
+        "lab_token_cap"
+      ]
+    },
+    "execution": {
+      "executor": "codex-cli",
+      "codexCliVersion": "0.160.0",
+      "reasoningEffort": "max",
+      "billingMode": "chatgpt-plan",
+      "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+      "cachedInputTokens": 54016,
+      "reasoningOutputTokens": 158,
+      "browser": null,
+      "pageErrorCount": 0,
+      "bridgeFailures": [],
+      "bridgeDiagnostic": {
+        "schemaVersion": 1,
+        "stage": "submitted",
+        "steps": 1,
+        "submitted": true,
+        "toolNames": [
+          "verify_export"
+        ],
+        "failureCount": 0
+      },
+      "processExitCode": 143,
+      "stderrBytes": 386,
+      "finalMessageBytes": 73,
+      "submittedThroughBridge": true
+    }
+  },
+  "score": {
+    "pass": true,
+    "reason": "limited_task_output_matches_oracle"
+  },
+  "genuineModelSubmission": true,
+  "pass": false,
+  "budgetAfter": {
+    "totalTokens": 73550,
+    "costUsd": 0,
+    "providerCalls": 1
+  }
+}

@@ -1,0 +1,11 @@
+$ cd contracts && forge test
+No files changed, compilation skipped
+
+Ran 4 tests for test/EvidenceRegistry.t.sol:EvidenceRegistryTest
+[PASS] testAuthorizedSecondIssuerCannotOverwriteOtherIssuersCase() (gas: 432033)
+[PASS] testCannotAnchorEmptyHash() (gas: 33049)
+[PASS] testIssuerCanAnchorAndRevise() (gas: 162504)
+[PASS] testUntrustedAccountCannotAnchor() (gas: 189676)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 854.86µs (1.26ms CPU time)
+
+Ran 1 test suite in 10.72ms (854.86µs CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)

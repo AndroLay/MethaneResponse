@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r11",
+  "migratedAt": "2026-10-21T07:16:36.974Z",
+  "parent": {
+    "protocolId": "agent-practical-usefulness-2026-10-21-r10",
+    "protocolFrozenSha256": "f7b93d00144d515f1513a61ce4363b5ee0f58ffcdd725c0f2a09760feb1e8228",
+    "sourceManifestSha256": "8b79098a7aa06a5e378164dc391745c89075b2f88ec1aedd7fd1a40cb644b134",
+    "resultsSha256": "03d320eb0eee986cdcdf08255f7b2675db298233c25eb8622a558f8978eba5df",
+    "verificationSha256": "5eef1c42890f5d3d179ff06d397a7cfe37a63533ec98e2dcc6d1e2d3acc9ca17",
+    "usageLedgerSha256": "27bfce0b03a361f3cd32e16a19de8e830aea7909bde47e52533b134557f8a9a7",
+    "checksumsVerified": true
+  },
+  "packetParity": {
+    "T1": {
+      "parentPacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "childPacketSha256": "dec594cfa670ec7fd97f62d124e87b2e087fe6ac7f2bc767ea752e01597888e4",
+      "parentGoldSha256": "4db3bbba5105d77f13d60f4feba304fc458fe36cc9330b3b14e2743637999034",
+      "childGoldSha256": "359144dc52a6f2a3fe4116fd8894338bd23b2782740882d20bb0f9e427e99e0c"
+    },
+    "T2": {
+      "parentPacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "childPacketSha256": "908206ef22656e201d86aa8eaef03966e154f881399ff32259795aaad0370c5a",
+      "parentGoldSha256": "39ed2b64f6aadb714640fe647db7689035ea230f93aee7ffe01536faadce6a1d",
+      "childGoldSha256": "0a21f04c7ecf43d204b9d79063f76e19597d3b3693b0aa84eb7d00e338ae6336"
+    },
+    "T3": {
+      "parentPacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "childPacketSha256": "532cb3d5186e6c1fa12cbc1afaf2844f9345b0cb8014dba865f58895a5c02143",
+      "parentGoldSha256": "710e249c9ea975efc5c9614f70c1988922181d7047815205ccd0f86ea86ab5b0",
+      "childGoldSha256": "a6836a5f026faca507193e938ae6837f382cb87218d3428feb4ed86dd91f231c"
+    }
+  },
+  "inheritedAttempts": [
+    {
+      "episodeId": "P1-T1-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "cea2fd31669ef529815b2f675a210bf4562f73a6d6e8ddb203ad06b601795f9b",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 108809,
+      "outputTokens": 8629,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P1-T1-C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "sha256": "a0625447bdc031532c96bc6ac08cd105341abbe21e2426c4d65500caf2a3b7b8",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 1625951,
+      "outputTokens": 13686,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P1-T2-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "1e1930192ad805bb2badf23b467f32fb2fd48fd81387ff4afe5c0d61f09b32a1",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 114573,
+      "outputTokens": 8799,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P1-T2-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "91991320bcbf397d881b654a14c4e339c78f9bcabe6a370d0a5facb6c2fdbd4a",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 1411876,
+      "outputTokens": 23620,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P1-T3-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "95a5b795acc27ed6ef1f116ee767499742b6bbe96e7acc0e1c23a55379129775",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 208496,
+      "outputTokens": 5190,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P1-T3-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "dc7f96f18ceaa45dcf7a49f2c1380aaa0c0751791b880f12012b4ab68590cc05",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 5494216,
+      "outputTokens": 26050,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P2-T1-C0_MANUAL_PACKET",
+      "status": "completed",
+      "sha256": "6b32345d46988a65e7bd88d2310fee58ec1482b94f59fbad718688ab8e387f81",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 114804,
+      "outputTokens": 6779,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P2-T1-C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "sha256": "2cecc420fe976ac281437af650deb2c3a1d27d0fa73de46477023191abd7a448",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 2469634,
+      "outputTokens": 18518,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P2-T2-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "3d132a87246ff548e2198340b8bd44ebd371531b255d34be2e59e8b3d002d926",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 65492,
+      "outputTokens": 8299,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P2-T2-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "51eced97cf7c540a0e9a06196fff695f1bdc1481b056d33f54ea377b375ff8a1",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 2796225,
+      "outputTokens": 24095,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P2-T3-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "e4310d61b61847db45de8c3da00bdd27692c1c85512fec0baa3ce2bc1404d76d",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 182659,
+      "outputTokens": 4285,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P2-T3-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "d545858d5cc975a9ecb848a1b5f8c55b321ddd6a9c5d49593a6fdb6ccd8baaff",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 5092822,
+      "outputTokens": 30378,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P3-T1-C0_MANUAL_PACKET",
+      "status": "completed",
+      "sha256": "443832752c9d6c5d23d1e27042f4078d6680609d8cf5c4f2ba2c29239f21c9f4",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 166664,
+      "outputTokens": 8636,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P3-T1-C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "sha256": "fa530048cbb676b644290f25f9b8d14c54f03f7608d111a60647f8a4eaaf4860",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 1243788,
+      "outputTokens": 16430,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P3-T2-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "3c1dccbc19480883884c22e11cfed47a473142cce4cdf255f4231c1ba57a6b53",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 83463,
+      "outputTokens": 6231,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P3-T2-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "141ce10840f2dd11b8539710d528e94eeaad2185374b686554b91651d54ca6f9",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 578165,
+      "outputTokens": 11059,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P3-T3-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "56623236acf8f1fb9dd88ea674c9284ce93c6ff99490151cf565ee42f9dcdfca",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 137782,
+      "outputTokens": 5591,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P3-T3-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "e78a39fd97e9cac928d96cce31048ba3af31d67b5715c1bdd566ce984bd4bffd",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 4298106,
+      "outputTokens": 22259,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P4-T1-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "3dc1eb26c982830b3dc0fe9c61e2d35eee2f0e166668a0cbbfbe993add638820",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 148126,
+      "outputTokens": 11165,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P4-T1-C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "sha256": "966ed56b55f424503524172ee2bbe3ae141bc661c72589a0e30122ffa5c45a25",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 2078022,
+      "outputTokens": 19646,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P4-T2-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "75807b04e6791acdf398c9a69b847ba3f1dcd7faef9b7e874bc4d8eed2bee09c",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 119598,
+      "outputTokens": 8230,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P4-T2-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "23ce2dbc48b6abaa30057ed06b3b71c0e967f5fe681a64e6c0e9539ce5e3f45f",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 646473,
+      "outputTokens": 18505,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P4-T3-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "3a5d9a31e22bd52accb6504e77c09f805c64b6788fffe1f5c6d87c3ed51a8764",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 170705,
+      "outputTokens": 4062,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P4-T3-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "5b8b726cfd66641e21c55870ee2e8a0bccfa05dfcf84b23ad618bb60a7e8ce9f",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 3945030,
+      "outputTokens": 31060,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P5-T1-C0_MANUAL_PACKET",
+      "status": "completed",
+      "sha256": "413906014357bdd4ad6f45b06dfb524313ef82bdc55ccc7ea7a44b0b2daef6e2",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 163196,
+      "outputTokens": 6411,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P5-T1-C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "sha256": "694a886780fa4582f53d1f0f47adabe6f2e310f56d726cb00fbaae372deed9f0",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 1789712,
+      "outputTokens": 16510,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P5-T2-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "2ad12b0ea9757d5cc7b5be80610775ec5b290d0b2cf28962d475843a433826e5",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 110751,
+      "outputTokens": 8650,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P5-T2-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "be73cc21cd59ab60b304a6f35adacc4e03536c69bbb231b9231fa86bd7ea6226",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 579069,
+      "outputTokens": 13114,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P5-T3-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "6afe5b6d9d68a79143eb42f47945a7f719d56e8f468fbf5d5e1d21019f2070f9",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 191692,
+      "outputTokens": 6205,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P5-T3-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "2880d7a15127782eeadf47f4c241c607a5706f3ef5d1e802754fedf18152a8c0",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 3802997,
+      "outputTokens": 22271,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P6-T1-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "4ab3adbf1ee92b5a4d6aa0897cb6456c0cef0af947df104219e2c4e44a331711",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 86674,
+      "outputTokens": 6266,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P6-T1-C1_APPLICATION_BROWSER",
+      "status": "completed",
+      "sha256": "24f0f89e2af61680842d0c5d9177bcbd13056dc9deef8fce7ff5736a7c5f8954",
+      "sourcePacketSha256": "a234da9a14397b3873cb07d22e98c6f4764e82f2810ea03751c6fd262a23df40",
+      "inputTokens": 2946271,
+      "outputTokens": 17832,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P6-T2-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "4c9276a094512aaae144fa8e8045c509b8a49c368a0e522cc40e0542883ca6de",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 107287,
+      "outputTokens": 9444,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P6-T2-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "b277f01c2d55c6d91b121418f155b77d4d7e7b0edf5d3c3fc11e1d0a3db1cb15",
+      "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+      "inputTokens": 665523,
+      "outputTokens": 17523,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P6-T3-C0_MANUAL_PACKET",
+      "status": "abstained",
+      "sha256": "5c155c1e2bde63043f533e8de2e399b3aa0487129597984c206f1c62cb10c0ae",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 188450,
+      "outputTokens": 5110,
+      "modelCalls": 1
+    },
+    {
+      "episodeId": "P6-T3-C1_APPLICATION_BROWSER",
+      "status": "abstained",
+      "sha256": "8a8aa774d6b4a23c8e61b56ed0a271fe9da060218c6d4aac002ac74eb4a35614",
+      "sourcePacketSha256": "fc8429f76dd10d21cbce465b53d529f14b9c6b61b5b7ec1a5b58c21741ef27c4",
+      "inputTokens": 3970314,
+      "outputTokens": 26281,
+      "modelCalls": 1
+    }
+  ],
+  "excludedCapStoppedAttempt": {
+    "episodeId": "P7-T1-C1_APPLICATION_BROWSER",
+    "status": "failed",
+    "sha256": "a1ad4d958386e28f71aa32c185ad01db39b7595d1c872b7eac852299602ccee0",
+    "inputTokens": 2572159,
+    "outputTokens": 17375,
+    "modelCalls": 1,
+    "failures": [
+      "lab_token_cap"
+    ],
+    "disposition": "Excluded from scoring and scheduled for a fresh r11 attempt; its usage remains in the cumulative token ledger."
+  },
+  "parentUsageCarriedForward": {
+    "totalTokens": 50989768,
+    "costUsd": 0,
+    "providerCalls": 37
+  },
+  "episodeAccounting": {
+    "parentSealedAttempts": 37,
+    "inheritedValidAttempts": 36,
+    "excludedAndReplayedAttempts": 1,
+    "parentEpisodesNotRun": 11,
+    "childEpisodesToExecute": 12,
+    "note": "The failed cap-stopped attempt consumed plan usage and remains in cumulative usage, but its output is excluded and its scheduled episode must be run once under the r11 cap."
+  },
+  "modelChange": {
+    "provider": "unchanged",
+    "model": "unchanged",
+    "reasoningEffort": "unchanged",
+    "billingMode": "unchanged",
+    "tokenCap": "50,000,000 to 100,000,000 cumulative tokens"
+  }
+}

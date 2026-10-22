@@ -1,0 +1,39 @@
+{
+  "title": "MethaneResponse — One Decision. Defensible Evidence.",
+  "duration": 280,
+  "voice": "en-US-AndrewMultilingualNeural",
+  "scenes": [
+    {"id":"hook","start":0,"end":22,"chapter":"A decision worth defending","kind":"motion","cues":[
+      {"id":"capacity","text":"Thousands of historical methane observations. Capacity for just ten investigations. Which ten should your team choose, and how can you defend that decision?"},
+      {"id":"stakes","text":"Methane warms our climate. Detecting an emission starts an investigation. A reported response, by itself, does not establish a successful repair."}]},
+    {"id":"position","start":22,"end":43,"chapter":"From observations to accountable decisions","kind":"motion","cues":[
+      {"id":"mars","text":"UNEP's Methane Alert and Response System already detects major emissions, notifies stakeholders, and supports follow-up."},
+      {"id":"users","text":"MethaneResponse helps analysts, regulators, and environmental investigators use those records: decide where to investigate, what evidence to request, and which conclusion another reviewer can check."}]},
+    {"id":"globe","start":43,"end":63,"chapter":"01  Plan · Start with traceable observations","kind":"app","cues":[
+      {"id":"snapshot","text":"This pinned snapshot contains four thousand two hundred eighteen source records and thirty thousand four hundred fourteen plume records."},
+      {"id":"historical","text":"We follow this Turkmenistan source. Dates, estimates, and uncertainty remain traceable. These are historical observations. Gaps do not mean zero emissions."}]},
+    {"id":"planner","start":63,"end":99,"chapter":"01  Plan · Allocate a limited investigation budget","kind":"app","cues":[
+      {"id":"ten","text":"Set ten investigation slots, with at most two sources per country. Compare alternative plans under the same constraints. The weighted strategy combines historical emission magnitude and recurrence. Selection reasons explain the trade-offs; country quotas also explain exclusions."},
+      {"id":"twenty","text":"Activate the ten-source plan. Now change capacity to twenty. The active queue remains intact while you compare a replacement. Only explicit activation changes the queue. This is explainable decision support, not a calibrated forecast or a promise of emissions savings."}]},
+    {"id":"scope","start":99,"end":125,"chapter":"02  Investigate · One source, one claim, one period","kind":"app","cues":[
+      {"id":"question","text":"Open this source in Evidence Auditor. Keep source, claim, and UTC review period together. Our labeled demonstration claim asks whether mitigation was completed and confirmed by source-specific follow-up measurements."},
+      {"id":"gap","text":"Historical detection metadata cannot establish that outcome. Insufficient evidence describes this investigation's coverage. It does not prove that no repair occurred."}]},
+    {"id":"ai","start":125,"end":153,"chapter":"02  Investigate · AI assists; citations stay checkable","kind":"archive","cues":[
+      {"id":"separate","text":"A separate recorded example: Kazakhstan source K A Z S one five nine. DeepSeek assessed a permitted demonstration excerpt through the backend. Exact quotations were checked against the submitted text."},
+      {"id":"roles","text":"Correspondence did not establish physical mitigation. AI helps locate evidence and expose gaps; review remains necessary. This was not a model run for our Turkmenistan case."}]},
+    {"id":"request","start":153,"end":184,"chapter":"02  Investigate · Turn an evidence gap into a next action","kind":"app","cues":[
+      {"id":"action","text":"Back in Turkmenistan, request the source and action date, a dated follow-up measurement, its method, units, uncertainty, and observation opportunities. Record the recipient, due date, and acceptance criteria."},
+      {"id":"review","text":"A locally authorized software demonstration reviewer records the rationale and freezes the dossier. The decision requests further evidence. This demonstrates the workflow, not an independent expert assessment or a confirmed repair."}]},
+    {"id":"revisit","start":184,"end":207,"chapter":"03  Verify · New evidence, preserved history","kind":"app","cues":[
+      {"id":"change","text":"Now add a new demonstration response. The system recommends reviewing the investigation and gives a specific reason: new authorized response."},
+      {"id":"history","text":"The earlier decision stays unchanged. New information opens another review, without rewriting the past. A response is not proof of mitigation. Historical snapshot changes are also inspectable."}]},
+    {"id":"verify","start":207,"end":246,"chapter":"03  Verify · Check the decision against a trusted commitment","kind":"proof","cues":[
+      {"id":"anchor","text":"Export this same Turkmenistan decision, and retain the reviewer's digest separately. Replay that exact export in an isolated backend on an Anvil local chain. The registry records its digest, with a transaction receipt and event."},
+      {"id":"tamper","text":"Independent verification accepts the original. Alter the rationale and recalculate the file's digest: verification still rejects it against the trusted commitment. Restore the original, and it passes again, including after restart."},
+      {"id":"boundary","text":"Unauthorized reviewers cannot anchor it. This demonstrates local integrity and version chronology. Blockchain does not establish whether a methane leak was physically repaired."}]},
+    {"id":"close","start":246,"end":280,"chapter":"One decision. Defensible evidence.","kind":"motion","cues":[
+      {"id":"outputs","text":"One explainable investigation plan. One actionable evidence request. One verifiable decision. Concrete work products an organization can inspect, share with authorization, and revisit."},
+      {"id":"limits","text":"Local workflow tests and recorded integrations support the prototype. Our agent lab did not establish practical usefulness. Human productivity and climate outcomes remain unproven."},
+      {"id":"ending","text":"Decide what to investigate, what evidence to demand, and which decisions you can defend. Inspect the source. Reproduce the checks. Build accountability from evidence."}]}
+  ]
+}

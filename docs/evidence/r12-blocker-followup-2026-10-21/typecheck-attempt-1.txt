@@ -1,0 +1,9 @@
+$ cd apps/api && bun run typecheck && cd ../web && bun run typecheck && cd ../.. && bun run check:e2e && bun run check:evaluation && bun run check:agent-lab
+$ tsc --noEmit
+$ tsc --noEmit
+$ tsc --project tsconfig.e2e.json
+scripts/retained-decision-chain.test.ts(122,96): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(expected: undefined): void', gave the following error.
+    Argument of type 'true' is not assignable to parameter of type 'undefined'.
+  Overload 2 of 2, '(expected: undefined): void', gave the following error.
+    Argument of type 'true' is not assignable to parameter of type 'undefined'.

@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "P6-T2-C0_MANUAL_PACKET",
+  "pairId": "P6-T2",
+  "personaId": "P6",
+  "taskId": "T2",
+  "condition": "C0_MANUAL_PACKET",
+  "runner": {
+    "kind": "agent",
+    "model": "gpt-6-luna",
+    "provider": "codex-cli-chatgpt-plan",
+    "seed": null,
+    "browser": null,
+    "startedAt": "2026-10-21T06:37:16.792Z",
+    "endedAt": "2026-10-21T06:38:54.793Z",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "codexCliVersion": "0.160.0"
+  },
+  "status": "abstained",
+  "assistance": "none",
+  "output": {
+    "sourceId": "KAZ_S_159",
+    "claimType": "mitigation_confirmed",
+    "claimText": "The KAZ_S_159 operator completed mitigation of the 2026-06-05 detected methane plume, and a post-action measurement confirms the outcome by 2026-07-31.",
+    "scope": {
+      "startDate": "2026-06-01",
+      "endDate": "2026-07-31",
+      "observationId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+      "timezone": "UTC",
+      "timestampNote": "The packet's tileDate values are preserved as supplied and have no explicit UTC offset suffix."
+    },
+    "verdict": "Abstain — insufficient evidence to establish that mitigation was completed or that a post-action measurement confirmed an outcome.",
+    "limitations": [
+      "The source record reports notified=Yes and feedback=Yes, with feedbackOperator=Yes and feedbackGovernment=Yes, but feedbackScope=source; these source-level publisher metadata fields do not establish completion of mitigation for observation 7529d451-018f-4da3-9114-59b76c3a3bcd.",
+      "source.mitigationConfirmed is null. The supplied packet gives no action date, intervention record, post-action measurement method, or follow-up reference for the claim.",
+      "The scoped June 5, 2026 EnMAP - DLR record reports fluxKgHr=307 and fluxStdKgHr=66, with actionable=Yes and notified=true. The packet does not link it to a completed action.",
+      "The July 11, 2026 EnMAP - DLR record reports fluxKgHr=496 and fluxStdKgHr=226, with actionable=Yes and notified=true. It is a later plume observation in the selected date scope, but the missing action date prevents determining whether it was post-action; it is not by itself proof of mitigation failure.",
+      "Absence of a later observation in this packet does not establish zero emissions or a successful outcome. The DEMO note is explicitly project-authored text, not a publisher claim.",
+      "The supplied packet says external report metadata was withheld because it was not cleared for provider processing, and the linked report body is not included."
+    ],
+    "requestedEvidence": [
+      {
+        "item": "A traceable intervention or maintenance record for source KAZ_S_159 that explicitly links the completed action to observation 7529d451-018f-4da3-9114-59b76c3a3bcd, identifies the facility or plume location, describes the intervention, and gives the actual completion timestamp with timezone."
+      },
+      {
+        "item": "The underlying post-action methane measurement report or data for the same source/location, acquired strictly after the documented action and no later than 2026-07-31 UTC. Include the observation time and timezone, measurement method and sensor/platform, measured flux and unit, uncertainty and detection limit, quality or calibration information, and a stable report/data identifier."
+      },
+      {
+        "item": "For any linked external report referenced by the source, provide its stable identifier and public URL where available, issuer, report/version date, relevant report body and measurement metadata, and provenance sufficient to trace the result to KAZ_S_159 and the stated observation."
+      }
+    ],
+    "whyNeeded": "The source-level feedback and notification fields do not document a completed intervention or a measurement after that intervention. The July 11 plume record is later than the selected observation, but without an action timestamp it cannot be classified as pre-action or post-action. Original, traceable action and measurement records are needed to evaluate the specific claim without treating a notification, feedback, missing observation, or DEMO note as proof of an outcome.",
+    "acceptanceCriteria": [
+      "The action record identifies sourceId KAZ_S_159 and explicitly links to observationId 7529d451-018f-4da3-9114-59b76c3a3bcd; it includes the site/location, intervention performed, completion status, and an actual completion timestamp with an explicit timezone or UTC conversion.",
+      "The documented action completion is on or before the scope end date 2026-07-31 UTC.",
+      "The follow-up measurement identifies the same source/site or plume footprint, has an acquisition timestamp strictly after the documented action and no later than 2026-07-31 UTC, and is linked by a stable observation or report identifier.",
+      "The measurement record states the method, sensor/platform, flux value and units, uncertainty, detection limit, and relevant quality/calibration information. It reports non-detection as non-detection and does not equate it with zero emissions.",
+      "Each record has traceable provenance: issuer or custodian, stable document/data ID, report or dataset version/date, and a public source URL where available. The evidence distinguishes directly observed results from interpretation and supports any outcome wording within the supplied scope."
+    ],
+    "ownerRole": "KAZ_S_159 operator environmental/compliance records custodian, coordinating with the custodian of the follow-up measurement data if different.",
+    "dueDateOrReasonUnset": "Unset: the packet supplies no responsible contact, response service level, or due-date basis.",
+    "references": [
+      {
+        "referenceId": "KAZ_S_159",
+        "recordType": "source metadata",
+        "details": {
+          "country": "Kazakhstan",
+          "sector": "Oil and Gas",
+          "sourceType": "O&G source (generic)",
+          "notified": "Yes",
+          "feedback": "Yes",
+          "feedbackOperator": "Yes",
+          "feedbackGovernment": "Yes",
+          "feedbackScope": "source",
+          "mitigationConfirmed": null,
+          "persistency": 0.67,
+          "persistencyStd": 0.27,
+          "persistencyCategory": "frequent",
+          "latestPlumeDate": "2026-07-11T08:12:14",
+          "synthetic": false
+        }
+      },
+      {
+        "referenceId": "7529d451-018f-4da3-9114-59b76c3a3bcd",
+        "recordType": "plume observation linked in claim scope",
+        "details": {
+          "sourceId": "KAZ_S_159",
+          "satellite": "EnMAP - DLR",
+          "tileDate": "2026-06-05T07:40:02",
+          "fluxKgHr": 307,
+          "fluxStdKgHr": 66,
+          "notified": true,
+          "actionable": "Yes",
+          "synthetic": false
+        }
+      },
+      {
+        "referenceId": "941806b5-2afe-46ac-baac-a0230880cede",
+        "recordType": "later plume observation within selected date scope",
+        "details": {
+          "sourceId": "KAZ_S_159",
+          "satellite": "EnMAP - DLR",
+          "tileDate": "2026-07-11T08:12:14",
+          "fluxKgHr": 496,
+          "fluxStdKgHr": 226,
+          "notified": true,
+          "actionable": "Yes",
+          "synthetic": false
+        }
+      },
+      {
+        "referenceId": "82758651-76f4-4e06-b4ab-c247ce765192",
+        "recordType": "historical plume observation outside selected date scope; not used to establish outcome",
+        "details": {
+          "sourceId": "KAZ_S_159",
+          "satellite": "EnMAP - DLR",
+          "tileDate": "2024-06-07T08:05:04",
+          "fluxKgHr": 591,
+          "fluxStdKgHr": 335,
+          "notified": false,
+          "actionable": "No",
+          "synthetic": false
+        }
+      },
+      {
+        "referenceId": "unep-mars-675417694883",
+        "recordType": "dataset snapshot",
+        "details": {
+          "inputFileSha256": "f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7",
+          "archiveSha256": "675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43",
+          "archiveStartDate": "2020-10-29",
+          "archiveEndDate": "2026-09-13",
+          "license": "UNEP IMEO MARS metadata, CC BY-NC-SA 4.0 (dataset terms)",
+          "attribution": "Contains data from UNEP IMEO Eye on Methane / MARS, licensed CC BY-NC-SA 4.0. Changes: normalized the source and plume CSV tables into JSON; source feedback remains source-level; unresolved plume links are retained; no mitigation confirmation is inferred."
+        }
+      },
+      {
+        "referenceId": "341d23c08aa1239ee85fd1c6ea850764206b609c8fc0fd5d70aab27c5460f8c1",
+        "recordType": "claimTextSha256"
+      },
+      {
+        "referenceId": "DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM",
+        "recordType": "demoSafetyNote",
+        "details": "The note says the source record reports feedback=Yes and notified=Yes; it also says the packet supplies no action date, post-action measurement, measurement method, uncertainty, or follow-up reference for the claimed plume."
+      },
+      {
+        "referenceId": "providerProcessingNote",
+        "recordType": "packet limitation",
+        "details": "External report metadata withheld; it was not cleared for provider processing. The linked report body is not included."
+      }
+    ]
+  },
+  "timing": {
+    "wallClockSeconds": 98,
+    "modelCalls": 1,
+    "inputTokens": 107287,
+    "outputTokens": 9444,
+    "costUsd": null,
+    "retries": 0,
+    "hints": 0,
+    "failures": []
+  },
+  "artifactPaths": [],
+  "notes": "{\"taskId\":\"P6-T2-C0_MANUAL_PACKET\",\"steps\":[\"Reviewed the supplied frozen manual packet and preserved its source, claim, UTC date scope, dataset, timestamps, units, uncertainty fields, and DEMO label.\",\"Checked the available agent_lab tools; submit_result was the only exposed lab tool, so no additional packet records were retrieved.\",\"Compared source-level notification and feedback metadata with the June 5 observation and July 11 plume record; no action date or post-action linkage is supplied.\",\"Prepared an explicit abstention and a bounded request with verifiable acceptance criteria.\"],\"evidenceIds\":[\"KAZ_S_159\",\"7529d451-018f-4da3-9114-59b76c3a3bcd\",\"941806b5-2afe-46ac-baac-a0230880cede\",\"82758651-76f4-4e06-b4ab-c247ce765192\",\"unep-mars-675417694883\",\"341d23c08aa1239ee85fd1c6ea850764206b609c8fc0fd5d70aab27c5460f8c1\",\"DEMO AUTHORED NOTE — PROJECT TEXT, NOT A PUBLISHER CLAIM\"],\"errors\":[],\"helpRequests\":[]}",
+  "execution": {
+    "schemaVersion": 1,
+    "sourcePacketSha256": "f25475742a627b989e41c4fab892274a229ca8593d211fd23fd8c50c97c3b9c9",
+    "steps": 0,
+    "toolNames": [],
+    "providerUsageEstimate": false,
+    "executor": "codex-cli",
+    "codexCliVersion": "0.160.0",
+    "reasoningEffort": "max",
+    "billingMode": "chatgpt-plan",
+    "usageSemantics": "Codex CLI turn.completed aggregate for this isolated episode; internal request counts are unavailable.",
+    "cachedInputTokens": 71168,
+    "reasoningOutputTokens": 6830,
+    "browser": null,
+    "pageErrorCount": 0,
+    "bridgeFailures": []
+  }
+}

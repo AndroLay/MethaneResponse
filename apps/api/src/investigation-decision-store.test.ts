@@ -1,10 +1,12 @@
 import { expect, test } from 'bun:test';
 import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { FileAuditStore } from './store';
 import { verifyInvestigationDecision } from '@methane/shared/investigation-decision';
 import { decisionFixture } from './fixtures/investigation-decision';
 test('review freezes exact dossier, preserves revisions and survives file store restart', async () => {
-  const dir = await mkdtemp('/tmp/methane-decision-');
+  const dir = await mkdtemp(join(tmpdir(), 'methane-decision-'));
   try {
     const store = new FileAuditStore(`${dir}/audits.json`), decision = await decisionFixture();
     await store.saveInvestigationDecision(decision, null, async () => true);
@@ -18,7 +20,7 @@ test('review freezes exact dossier, preserves revisions and survives file store 
 });
 
 test('frozen state rejects normalization, payload edits and new unknown commitment fields on disk', async () => {
-  const dir = await mkdtemp('/tmp/methane-decision-tamper-');
+  const dir = await mkdtemp(join(tmpdir(), 'methane-decision-tamper-'));
   try {
     const path = `${dir}/audits.json`, store = new FileAuditStore(path), decision = await decisionFixture();
     await store.saveInvestigationDecision(decision,null,async () => true);

@@ -1,0 +1,152 @@
+{
+  "gates": [
+    {
+      "id": "G01",
+      "title": "Feedback without action/follow-up cannot become mitigation_confirmed",
+      "passed": true,
+      "evidence": {
+        "sourceMetadata": {
+          "feedback": "Yes",
+          "notified": "Yes",
+          "synthetic": true
+        },
+        "includedEvidenceKinds": [
+          "metadata_notification"
+        ],
+        "actionEvidenceCount": 0,
+        "postActionMeasurementCount": 0,
+        "result": "insufficient_evidence",
+        "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false."
+      },
+      "limitation": "The evidence-coverage baseline inspects references, not physical truth."
+    },
+    {
+      "id": "G02",
+      "title": "Missing future observation is not zero emissions",
+      "passed": true,
+      "evidence": {
+        "result": "insufficient_evidence",
+        "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false.",
+        "plannerLimitationPresent": true
+      },
+      "limitation": "Historical observations are discontinuous. Missing later records do not establish zero emissions; source feedback does not prove repair."
+    },
+    {
+      "id": "G03",
+      "title": "Date precision 2026-09 is preserved as a month",
+      "passed": true,
+      "evidence": {
+        "monthAccepted": true,
+        "dayWithMonthRejected": true,
+        "eventPreserved": true,
+        "stored": {
+          "precision": "month",
+          "value": "2026-09"
+        }
+      },
+      "limitation": "Schema preservation does not prove the document date is correct."
+    },
+    {
+      "id": "G04",
+      "title": "Pre-action measurement is not a post-action result",
+      "passed": true,
+      "evidence": {
+        "result": "insufficient_evidence",
+        "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false."
+      },
+      "limitation": "Chronology rules need trustworthy action and measurement dates."
+    },
+    {
+      "id": "G05",
+      "title": "Missing evidence is not a contradiction",
+      "passed": true,
+      "evidence": {
+        "result": "insufficient_evidence",
+        "reason": "No eligible reference of the required type matches the pointer, date and declared scope requirements. Absence does not prove the claim is false."
+      },
+      "limitation": "Absence of a supplied reference does not prove the event did not occur."
+    },
+    {
+      "id": "G06",
+      "title": "Shared document across claims is not automatic double counting",
+      "passed": true,
+      "evidence": {
+        "reasons": [
+          "shared_document_bytes",
+          "shared_reference_pointer"
+        ],
+        "duplicateMitigationEstablished": false
+      },
+      "limitation": "The report identifies candidates for human review; it does not establish duplication or fraud."
+    },
+    {
+      "id": "G07",
+      "title": "Snapshot already included in a frozen decision is not a new update",
+      "passed": true,
+      "evidence": {
+        "snapshotComparison": "already_in_decision_snapshot",
+        "state": "no_new_dependency_changes",
+        "reasonCodes": []
+      },
+      "limitation": "DEMO fixture only; production transitions require separately verified release files."
+    },
+    {
+      "id": "G08",
+      "title": "Rehashed tampered decision fails against the externally trusted digest",
+      "passed": true,
+      "evidence": {
+        "originalValid": true,
+        "internallyRehashed": true,
+        "tamperedAgainstTrusted": false
+      },
+      "limitation": "The trusted digest must reach the verifier through a separate channel; a digest stored beside the file is not a trust anchor."
+    },
+    {
+      "id": "G09",
+      "title": "Unauthorized read and approval are denied",
+      "passed": true,
+      "evidence": {
+        "anonymousRead": 401,
+        "readonlyApprove": 403,
+        "reviewScopeMalformedRequest": 400,
+        "privateIdentityLeaked": false
+      },
+      "limitation": "This checks route authorization and input rejection, not reviewer identity proof, durable storage or production deployment."
+    },
+    {
+      "id": "G10",
+      "title": "Historical snapshot is not labeled live methane monitoring",
+      "passed": true,
+      "evidence": {
+        "scenarioFiles": 6,
+        "historicalLabelPresent": true,
+        "liveMonitoringMatches": 0,
+        "offenders": []
+      },
+      "limitation": "Static artifact scan; it does not review every future UI string."
+    },
+    {
+      "id": "G11",
+      "title": "No token or secret appears in generated artifacts",
+      "passed": true,
+      "evidence": {
+        "scannedFiles": 70,
+        "offenders": []
+      },
+      "limitation": "Text scan only; screenshots and traces require visual inspection or redaction before publication."
+    },
+    {
+      "id": "G12",
+      "title": "DEMO reviewers are not presented as experts or external approval",
+      "passed": true,
+      "evidence": {
+        "scannedFiles": 62,
+        "offenders": [],
+        "demoLabelPresent": true
+      },
+      "limitation": "This checks generated artifacts, not what a future presenter says aloud."
+    }
+  ],
+  "passed": 12,
+  "failed": 0
+}

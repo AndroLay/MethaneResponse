@@ -1,0 +1,120 @@
+$ bun test scripts/verify-audit.test.ts scripts/run-ai-benchmark.test.ts scripts/freeze-ai-assessment-inputs.test.ts scripts/verify-agent-diagnostic.test.ts scripts/deployment-config.test.ts scripts/map-performance-utils.test.ts scripts/check-local.test.ts scripts/product-value-evaluation.test.ts scripts/verify-plan.test.ts scripts/verify-snapshot-transition.test.ts scripts/verify-investigation.test.ts scripts/verify-investigation-decision.test.ts scripts/stage-snapshot-update.test.ts scripts/verify-evidence-overlap.test.ts scripts/probe-document-ai.test.ts
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/run-ai-benchmark.test.ts:
+(pass) billable runner admits only bounded held-out real and reviewed evidence [1.21ms]
+(pass) billable runner requires per-document rights scope for every processing use [0.95ms]
+(pass) billable runner rejects a frozen assessment digest that does not match the exact claim and excerpt input [0.12ms]
+(pass) benchmark output is published only after every provider assessment succeeds [2.37ms]
+(pass) atomic publish preserves an output created by another process during assessment [1.69ms]
+(pass) exclusive run lock prevents a concurrent invocation from calling the provider [1.69ms]
+(pass) completed benchmark output is private, complete, and refuses overwrite before provider use [1.35ms]
+(pass) benchmark prediction output cannot be placed in public asset directories [0.35ms]
+(pass) benchmark prediction output cannot be written anywhere inside the repository [0.35ms]
+(pass) benchmark prediction output cannot reach the repository through a symlink [0.43ms]
+(pass) benchmark CLI does not create an output directory through a symlink into the repository [54.52ms]
+(pass) complete-attempt mode retains sanitized failures, latency and no invented verdict [1.32ms]
+(pass) benchmark rights require the document URL in frozen input, not a separate unrelated approval [0.34ms]
+(pass) shared output directory is rejected before any provider request [0.34ms]
+
+scripts/verify-evidence-overlap.test.ts:
+(pass) standalone overlap verifier accepts an exact report and rejects changed or untrusted input [193.05ms]
+
+scripts/check-local.test.ts:
+(pass) complete local verification gate > runs without a database and scrubs obsolete database settings [17.69ms]
+
+scripts/verify-investigation-decision.test.ts:
+ 5 | test('independent decision CLI accepts original, rejects edits/recomputed hash, requires separate digest and chain configuration', async () => {
+ 6 |   const dir = await mkdtemp('/tmp/methane-decision-cli-');
+ 7 |   try {
+ 8 |     const decision = await decisionFixture(), path = `${dir}/decision.json`;
+ 9 |     const run = (...args:string[]) => Bun.spawnSync([process.execPath,'--no-env-file',`${import.meta.dir}/verify-investigation-decision.ts`,path,...args],{stdout:'pipe',stderr:'pipe',env:{PATH:process.env.PATH}});
+10 |     await writeFile(path,JSON.stringify({decision}));
+               ^
+EDQUOT: unknown error, write
+ syscall: "write",
+   errno: -122,
+    code: "EDQUOT"
+
+      at async <anonymous> (/home/andro/dev/projects/Devpost/iEEE-Methane-response/scripts/verify-investigation-decision.test.ts:10:11)
+(fail) independent decision CLI accepts original, rejects edits/recomputed hash, requires separate digest and chain configuration [8.39ms]
+
+scripts/freeze-ai-assessment-inputs.test.ts:
+(pass) frozen manifest commits to the exact claim and provider excerpt without copying either [0.59ms]
+(pass) frozen manifest rejects duplicate claims and rows without a bounded statement [0.18ms]
+(pass) private digest writer uses restrictive files, refuses overwrite, and performs no provider call [2.01ms]
+(pass) private digest writer refuses a group-readable candidate file [0.27ms]
+(pass) partition freeze binds source/document/claim type before annotation and forbids leakage [0.57ms]
+
+scripts/verify-snapshot-transition.test.ts:
+(pass) snapshot CLI requires separate trusted input and report commitments without bypass flags [0.12ms]
+
+scripts/stage-snapshot-update.test.ts:
+(pass) snapshot staging requires explicit approval and separate input hashes before writing [791.36ms]
+(pass) real historical snapshots stage complete copies and replay without altering active input [3133.05ms]
+(pass) staging refuses active, frozen evidence, real provenance and state trees [7.02ms]
+(pass) staging resolves symlinked output parents before enforcing protected trees [8.05ms]
+
+scripts/verify-audit.test.ts:
+(pass) audit receipt CLI > checks the export context checksum and rejects wrapper tampering [443.88ms]
+(pass) audit receipt CLI > legacy wrappers remain verifiable with an explicit context limitation [280.08ms]
+(pass) audit receipt CLI > rejects rechecksummed export claims that disagree with the saved audit [140.78ms]
+(pass) audit receipt CLI > rejects rechecksummed dataset fields that disagree with audit provenance [460.42ms]
+(pass) audit receipt CLI > rejects unknown or repeated CLI options instead of silently weakening requirements [597.78ms]
+(pass) audit receipt CLI > legacy commitments remain valid and rehashed false physical semantics are rejected [317.34ms]
+(pass) audit receipt CLI > redacted summary verification checks historical bytes and never declares current publication active [596.61ms]
+(pass) audit receipt CLI > accepts an intact local hash and rejects a changed evidence bundle [282.15ms]
+(pass) audit receipt CLI > verifies an exported v3 human-review revision and rejects a changed decision [414.12ms]
+(pass) audit receipt CLI > rejects malformed open-license metadata even when its bundle hash is recomputed [280.92ms]
+(pass) require-chain mode refuses an offline-only success [145.58ms]
+
+scripts/verify-investigation.test.ts:
+(pass) independent dossier CLI requires a trusted digest and rejects edits, rehashes and unknown flags [219.53ms]
+
+scripts/deployment-config.test.ts:
+(pass) Render deploys the locked Bun workspace reproducibly [0.19ms]
+(pass) Render preview explicitly uses temporary file state and narrowly enables public baseline mode [0.05ms]
+
+scripts/map-performance-utils.test.ts:
+(pass) median ignores unavailable values and averages even-sized samples [0.10ms]
+(pass) map summary keeps unavailable metrics separate and reports worst observed stalls [0.33ms]
+(pass) map summary rejects an empty sample set [0.03ms]
+(pass) benchmark browser options keep Chromium sandbox enabled [0.05ms]
+(pass) benchmark renderer mode defaults to software and rejects unknown values [0.04ms]
+(pass) benchmark browser mode defaults to headless and rejects unknown values [0.03ms]
+(pass) system renderer mode requests Chromium GPU without forcing software or disabling its sandbox [0.03ms]
+(pass) system renderer gets only the minimal display environment while software mode remains isolated [0.06ms]
+(pass) software renderer classification distinguishes SwiftShader from AMD WebGL [0.05ms]
+(pass) renderer observations are grouped deterministically without hiding software fallback [0.15ms]
+(pass) benchmark defaults to production preview and rejects unknown server modes [0.04ms]
+(pass) benchmark option parsing accepts equals and separate value forms [0.05ms]
+(pass) snapshot validation binds benchmark outputs to a valid dynamic dataset manifest [0.06ms]
+
+scripts/product-value-evaluation.test.ts:
+(pass) comparison retains missing and incorrect cells in the frozen denominator [0.22ms]
+(pass) comparison refuses duplicate or unscheduled responses and scores objects independent of key order [0.07ms]
+
+scripts/verify-plan.test.ts:
+(pass) plan verifier requires one file and a separately recorded expected head; refuses unknown options [0.09ms]
+
+scripts/verify-agent-diagnostic.test.ts:
+(pass) offline agent diagnostic grounding > uses actual application quote verifier and exact input hashes [0.33ms]
+(pass) offline agent diagnostic grounding > invented quotation forces abstention [0.11ms]
+(pass) offline agent diagnostic grounding > no quotations cannot support a claim [0.09ms]
+(pass) offline agent diagnostic grounding > rejects missing, extra, duplicate and malformed claims [0.21ms]
+(pass) offline agent diagnostic grounding > rejects duplicate input IDs [0.05ms]
+(pass) offline agent diagnostic grounding > rejects non-string verdict instead of coercing it [0.05ms]
+
+scripts/probe-document-ai.test.ts:
+(pass) live smoke refuses provider calls without explicit approval [173.31ms]
+(pass) live smoke refuses missing credentials [170.42ms]
+(pass) live smoke protects an existing output before any external call [180.71ms]
+
+1 tests failed:
+(fail) independent decision CLI accepts original, rejects edits/recomputed hash, requires separate digest and chain configuration [8.39ms]
+
+ 65 pass
+ 1 fail
+ 266 expect() calls
+Ran 66 tests across 15 files. [9.01s]
+error: script "test:verifier" exited with code 1

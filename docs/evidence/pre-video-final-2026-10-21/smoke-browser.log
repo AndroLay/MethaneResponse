@@ -1,0 +1,56 @@
+[WebServer] $ tsc -b && vite build && bun run ../../scripts/prune-uncleared-ui-assets.ts
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js (74:0): A comment
+[WebServer] 
+[WebServer] "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+[WebServer]  * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+[WebServer]  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] ../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js (400:0): A comment
+[WebServer] 
+[WebServer] "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+[WebServer] 
+[WebServer] in "../../node_modules/.bun/zod@4.6.6/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[WebServer] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] $ vite preview --host "127.0.0.1" --port "4197" --strictPort
+
+Running 3 tests using 1 worker
+
+{"task":"T3","pass":false,"status":"failed","steps":1,"modelTurns":1,"tokens":73550,"failures":["lab_token_cap"]}
+  ✘  1 [chromium-agent] › e2e/agent-lab/pre-video-smoke.spec.ts:28:30 › single actual P8 agent limited T3 (23.9s)
+  ✘  2 [chromium-agent] › e2e/agent-lab/pre-video-smoke.spec.ts:28:30 › single actual P8 agent limited T1 (0ms)
+  -  3 [chromium-agent] › e2e/agent-lab/pre-video-smoke.spec.ts:28:30 › single actual P8 agent limited T2
+
+
+  1) [chromium-agent] › e2e/agent-lab/pre-video-smoke.spec.ts:28:30 › single actual P8 agent limited T3 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      43 |   console.log(JSON.stringify({task,pass,status:attempt.status,steps:attempt.steps,modelTurns:attempt.timing.modelCalls,tokens:attempt.timing.inputTokens===null || attempt.timing.outputTokens===null?null:attempt.timing.inputTokens+attempt.timing.outputTokens,failures:attempt.timing.failures}));
+      44 |   if(!genuine || attempt.timing.failures.some(f=>f.startsWith('codex_cli_exit') || f==='codex_result_missing')) infrastructureStopped=true;
+    > 45 |   expect(pass).toBe(true);
+         |                ^
+      46 | });
+      47 |
+        at /home/andro/dev/projects/Devpost/iEEE-Methane-response/e2e/agent-lab/pre-video-smoke.spec.ts:45:16
+
+    Error Context: .playwright-cli/pre-video-smoke-results/pre-video-smoke-single-actual-P8-agent-limited-T3-chromium-agent/error-context.md
+
+  2) [chromium-agent] › e2e/agent-lab/pre-video-smoke.spec.ts:28:30 › single actual P8 agent limited T1 
+
+    Error: EEXIST: file already exists, open 'docs/evidence/pre-video-final-2026-10-21/smoke-protocol.json'
+
+    Error Context: .playwright-cli/pre-video-smoke-results/pre-video-smoke-single-actual-P8-agent-limited-T1-chromium-agent/error-context.md
+
+  2 failed
+    [chromium-agent] › e2e/agent-lab/pre-video-smoke.spec.ts:28:30 › single actual P8 agent limited T3 
+    [chromium-agent] › e2e/agent-lab/pre-video-smoke.spec.ts:28:30 › single actual P8 agent limited T1 
+  1 did not run
+error: "playwright" exited with code 1

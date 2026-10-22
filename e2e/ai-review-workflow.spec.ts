@@ -32,17 +32,17 @@ test('connected investigation preserves allocation, evidence request, human revi
   await planner.getByRole('button', { name: 'Compare investigation plans', exact: true }).click();
   await expect(planner.getByTestId('planner-summary')).toContainText('4,218');
   const review = page.getByLabel('Plan reviewer decisions', { exact: true });
-  const token = issueReviewerToken(process.env.METHANE_E2E_REVIEWER_SECRET!, 'trust-demo-reviewer', ['review','private_read'], 600);
+  const token = issueReviewerToken(process.env.METHANE_E2E_REVIEWER_SECRET!, 'connected-demo-mitigation', ['review','private_read'], 600);
   await review.getByLabel('Plan reviewer token (memory only)').fill(token);
   await review.getByRole('button', { name: 'Connect plan reviewer', exact: true }).click();
-  await expect(review).toContainText('Connected as trust-demo-reviewer');
+  await expect(review).toContainText('Connected as connected-demo-mitigation');
   await review.getByLabel('Plan ID', { exact: true }).fill('DEMO-connected-browser-plan');
   await review.getByLabel('Decision rationale', { exact: true }).fill('DEMO software reviewer accepts this historical allocation for evidence investigation. This is not a human pilot.');
   await review.getByRole('button', { name: 'Save reviewer decision', exact: true }).click();
   await expect(review).toContainText('1 preserved decision revisions');
   capture?.mark('Save an authorized software DEMO allocation decision');
   await planner.getByRole('button', { name: 'Evidence TKM_S_021', exact: true }).click();
-  await page.locator('#claim-audit').selectOption('source_detected');
+  await page.locator('#claim-audit').selectOption('mitigation_confirmed');
   const scope = page.getByRole('region', { name: 'Assessment scope', exact: true });
   await scope.getByLabel('Period start').fill('2020-10-29');
   await scope.getByLabel('Period end').fill('2026-09-13');
@@ -75,7 +75,8 @@ test('connected investigation preserves allocation, evidence request, human revi
   await page.getByRole('navigation', { name: 'Evidence audit steps' }).getByRole('button', { name: /^Human assessment/ }).click();
   const human = page.getByRole('region', { name: 'Human evidence assessment', exact: true });
   capture?.mark('Record a separate assessment; DEMO reviewer, not a human study');
-  await human.getByLabel('Exact claim for human assessment').fill('DEMO analyst question: do the available source records establish the requested source-specific follow-up?');
+  const investigationClaim = 'DEMO claim to assess: mitigation of TKM_S_021 was completed and confirmed by source-specific post-action measurements within 2020-10-29 through 2026-09-13 UTC.';
+  await human.getByLabel('Exact claim for human assessment').fill(investigationClaim);
   await human.getByLabel('Reason for your determination').fill('DEMO software workflow: historical detection metadata does not supply an attributable follow-up report. This is not a domain expert assessment.');
   await human.getByLabel('Next evidence request').fill('DEMO obtain the source-linked follow-up measurement and its observation opportunities.');
   await human.getByLabel('Human assessment reviewer token (session only)').fill(token);
@@ -96,6 +97,9 @@ test('connected investigation preserves allocation, evidence request, human revi
   expect(await verifyInvestigationDossier(dossier, trusted)).toBe(true);
   expect(dossier.history).toHaveLength(3); expect(dossier.plans).toHaveLength(1); expect(dossier.transitions).toHaveLength(1); expect(dossier.assessments).toHaveLength(1);
   expect(dossier.context.sourceId).toBe('TKM_S_021'); expect(bytes).not.toContain(token);
+  expect(dossier.history.every((work: {claimType: string}) => work.claimType === 'mitigation_confirmed')).toBe(true);
+  expect(dossier.assessments[0].bundle.claimType).toBe('mitigation_confirmed');
+  expect(dossier.assessments[0].bundle.humanAssessment.claimText).toBe(investigationClaim);
   const crossOrigin = await page.evaluate(async ({ port, token, context, workId }) => {
     const query = new URLSearchParams({ ...context, synthetic: String(context.synthetic) });
     const response = await fetch(`http://127.0.0.1:${port}/api/case-work/${workId}/dossier?${query}`, { headers: { authorization: `Bearer ${token}` } });
@@ -150,11 +154,18 @@ test('connected investigation preserves allocation, evidence request, human revi
   await decisionPanel.getByLabel('I inspected the scoped source, linked assessment, evidence and exact dossier digest.',{exact:true}).check();
   await decisionPanel.getByRole('button',{name:'Freeze reviewed investigation decision',exact:true}).click();
   await expect(decisionPanel).toContainText('Decision 1 frozen');
+  // Read the reviewer's displayed trust pin BEFORE opening the downloaded file.
+  // A self-consistent hash chosen by that file alone is not a trusted digest.
+  const frozenHead = decisionPanel.locator('ol > li').filter({has:page.getByText('Decision 1 · Request further evidence',{exact:true})});
+  const displayedDecisionDigest = (await frozenHead.locator('code').textContent())!.trim();
+  expect(displayedDecisionDigest).toMatch(/^0x[a-f0-9]{64}$/);
+  await writeFile(testInfo.outputPath('trusted-decision-digest.json'),JSON.stringify({digest:displayedDecisionDigest,source:'Reviewer UI decision history before download',reviewerKind:'DEMO software fixture only; no human identity verified',sourceId:'TKM_S_021'},null,2)+'\n');
   const decisionDownload = page.waitForEvent('download');
   await decisionPanel.getByRole('button',{name:'Verify and download decision 1',exact:true}).click();
   const decisionBytes = await readFile((await (await decisionDownload).path())!,'utf8'), decisionRecord = JSON.parse(decisionBytes);
   const { verifyInvestigationDecision } = await import('../packages/shared/src/investigation-decision');
-  expect(await verifyInvestigationDecision(decisionRecord.decision,decisionRecord.decision.digest)).toBe(true);
+  expect(decisionRecord.decision.digest).toBe(displayedDecisionDigest);
+  expect(await verifyInvestigationDecision(decisionRecord.decision,displayedDecisionDigest)).toBe(true);
   expect(decisionRecord.decision.dossier.history).toHaveLength(5);
   expect(decisionRecord.decision.dossier.history[4].requestEvents[1].reportedDate).toEqual({precision:'month',value:'2026-09'});
   expect(decisionRecord.chainStatus).toBe('not_anchored'); expect(decisionBytes).not.toContain(token);
@@ -173,6 +184,7 @@ test('connected investigation preserves allocation, evidence request, human revi
   const revisited = JSON.parse(await readFile((await (await revisitDownload).path())!,'utf8'));
   expect(revisited.decision).toEqual(decisionRecord.decision); expect(revisited.revisit.state).toBe('review_recommended');
   expect(revisited.revisit.reasons[0].code).toBe('new_authorized_response');
+  await writeFile(testInfo.outputPath('revisited-investigation-decision.json'), JSON.stringify(revisited,null,2)+'\n');
   await connected.scrollIntoViewIfNeeded(); await page.screenshot({ path: testInfo.outputPath('connected-investigation-desktop.png') });
   await page.setViewportSize({ width: 390, height: 844 });
   await expect.poll(async () => (await connected.boundingBox())?.width || 0).toBeGreaterThan(280);
@@ -220,11 +232,18 @@ test('Plan reviewers save authenticated immutable revisions, preserve stale draf
   await expect(review).toContainText('1 preserved decision revisions');
   await review.getByRole('combobox', { name: 'Allocation decision', exact: true }).selectOption('defer');
   await review.getByLabel('Decision rationale', { exact: true }).fill('DEMO second review: defer allocation until the original evidence is inspected. This is not a human pilot.');
-  const saveSecond = page.waitForResponse(response => response.url().includes('/api/investigation-plans/') && response.request().method() === 'PUT').then(async response => ({url:response.url(),requestData:response.request().postDataJSON(),saved:await response.json()}));
+  const saveSecond = page.waitForRequest(request => request.url().includes('/api/investigation-plans/') && request.method() === 'PUT').then(request => ({url:request.url(),requestData:request.postDataJSON()}));
   await review.getByRole('button', { name: 'Save reviewer decision', exact: true }).click();
-  const secondResponse = await saveSecond, saved = secondResponse.saved;
+  const secondResponse = await saveSecond;
   await expect(review).toContainText('2 preserved decision revisions');
   await expect(review).toContainText('accept these historical sources');
+  // Read committed history independently after the UI acknowledges revision 2.
+  // CDP can drop a response body after React finishes consuming that request.
+  const committed = await request.get(secondResponse.url,{headers:{Authorization:`Bearer ${token}`}});
+  expect(committed.status()).toBe(200);
+  const saved = await committed.json();
+  expect(saved.revisions).toHaveLength(2);
+  expect(saved.revisions.at(-1).revision).toBe(2);
   const concurrent = await request.put(secondResponse.url, { headers: { Authorization: `Bearer ${token}` }, data: {
     ...secondResponse.requestData, expectedRevision: 2, expectedHead: saved.revisions.at(-1).hash,
     rationale: 'DEMO concurrent software review: additional documents are required. This is not a real human study.',
@@ -785,6 +804,10 @@ test('local mock AI citations receive a separate scoped review and remain privat
   await expect(page.getByText('KAZ_S_159 · Evidence inventory')).toBeVisible();
   await auditSteps.getByRole('button', { name: /Document AI/ }).click();
   await expect(page.getByText('DOCUMENT AI AVAILABLE', { exact: true })).toBeVisible();
+  const historicalContext = page.locator('.intel-context');
+  await expect(historicalContext).not.toHaveAttribute('open');
+  await expect(page.getByLabel('Exact claim to assess')).toBeVisible();
+  await historicalContext.locator(':scope > summary').click();
   const validationStatus = page.getByText('Same-snapshot development holdout · prospective/external validation pending', { exact: true });
   await expect(validationStatus).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
@@ -798,6 +821,7 @@ test('local mock AI citations receive a separate scoped review and remain privat
   expect(await page.evaluate(() => document.documentElement.scrollWidth), 'the loaded Auditor layout should fit a 390px viewport').toBeLessThanOrEqual(390);
   await page.screenshot({ path: testInfo.outputPath('record-recurrence-validation-mobile.png') });
   await page.setViewportSize({ width: 1280, height: 800 });
+  await historicalContext.locator(':scope > summary').click();
 
   await page.getByLabel('Exact claim to assess').fill(claimText);
   await page.getByLabel('Source document title').fill(fixtureTitle);
@@ -835,6 +859,10 @@ test('local mock AI citations receive a separate scoped review and remain privat
   await expect(evidenceRegion.getByText('The exact submitted passages were not conclusive for this claim; human review is required.')).toBeVisible();
   await expect(evidenceRegion.locator('blockquote')).toContainText(fixtureQuote);
   await expect(evidenceRegion.locator('blockquote')).toContainText(fixtureTitle);
+  await expect(evidenceRegion.locator('.intel-report-details')).not.toHaveAttribute('open');
+  await evidenceRegion.locator('.intel-result').evaluate(node => node.scrollIntoView({ block: 'start', behavior: 'instant' }));
+  await page.screenshot({ path: testInfo.outputPath('document-assessment-result-desktop.png') });
+  await evidenceRegion.getByText('Report provenance, permissions & hashes', { exact: true }).click();
   await expect(evidenceRegion).toContainText('Submitter declared open-license basis: CC BY 4.0');
   await expect(evidenceRegion).toContainText(fixtureAttribution);
 
@@ -947,6 +975,52 @@ test('local mock AI citations receive a separate scoped review and remain privat
   await expect(page.getByRole('button', { name: 'Download JSON report' })).toBeDisabled();
   await expect(page.getByRole('button', { name: 'Download investigation brief' })).toBeDisabled();
   expect(pageErrors).toEqual([]);
+});
+
+test('Evidence history paginates, reveals exact request details and preserves all events when saved', async ({ page }, testInfo) => {
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await page.route(/^https?:\/\//, route => ['127.0.0.1','localhost'].includes(new URL(route.request().url()).hostname) ? route.continue() : route.abort());
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/dashboard/audit?sourceId=KAZ_S_159');
+  await page.locator('#claim-audit').selectOption('source_detected');
+  await page.getByRole('button', { name: 'Open shared workspace', exact: true }).click();
+  const shared = page.getByRole('region', { name: 'Shared case work', exact: true });
+  const token = issueReviewerToken(process.env.METHANE_E2E_REVIEWER_SECRET!, 'trust-demo-reviewer', ['review','private_read'], 600);
+  await shared.getByLabel('Shared reviewer token (memory only)').fill(token);
+  await shared.getByRole('button', { name: 'Connect shared workspace', exact: true }).click();
+  await expect(shared.getByLabel('Shared investigations')).toBeVisible();
+  await shared.getByLabel('Open question', { exact: true }).fill('DEMO request-history pagination and save regression.');
+  await shared.getByRole('textbox', { name: 'Evidence to request', exact: true }).fill('DEMO obtain a dated source-linked notification receipt.');
+  await shared.getByLabel('Evidence acceptance criteria', { exact: true }).fill('DEMO verify the facility identity, recipient and document date.');
+  const lifecycle = shared.locator('details.investigation-lifecycle').filter({ has: page.locator('summary', { hasText: 'Structured evidence requests' }) });
+  await lifecycle.locator(':scope > summary').click();
+  await lifecycle.getByLabel('Request due date', { exact: true }).fill('2026-10-25');
+  for (let i = 0; i < 11; i++) await lifecycle.getByRole('button', { name: 'Add evidence event to draft', exact: true }).click();
+  await expect(lifecycle).toContainText('11 issued');
+  await expect(lifecycle.locator('.evidence-event-list>li')).toHaveCount(1);
+  await expect(lifecycle).toContainText('Events 11–11 of 11');
+  await lifecycle.getByRole('button', { name: 'Previous events', exact: true }).click();
+  await expect(lifecycle.locator('.evidence-event-list>li')).toHaveCount(10);
+  const first = lifecycle.locator('.evidence-event').first();
+  await expect(first).not.toHaveAttribute('open');
+  await first.locator(':scope > summary').click();
+  await expect(first.getByText('DEMO verify the facility identity, recipient and document date.', { exact: true })).toBeVisible();
+  await expect(first.locator('dd').first()).toHaveText(/^[a-f0-9-]{36}$/);
+  await first.locator(':scope > summary').click();
+  await lifecycle.getByRole('button', { name: 'Next events', exact: true }).click();
+  await expect(lifecycle.locator('.evidence-event-list>li')).toHaveCount(1);
+  await expect(lifecycle.getByRole('button', { name: 'Next events', exact: true })).toBeDisabled();
+  await lifecycle.evaluate(node => node.scrollIntoView({ block: 'start', behavior: 'instant' }));
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  await page.screenshot({ path: testInfo.outputPath('evidence-history-mobile.png') });
+  const saved = page.waitForResponse(response => response.url().includes('/api/case-work/') && response.request().method() === 'PUT');
+  await shared.getByRole('button', { name: 'Save shared work', exact: true }).click();
+  const response = await saved; expect(response.status()).toBe(201);
+  const work = (await response.json()).work;
+  expect(work.requestEvents).toHaveLength(11);
+  expect(new Set(work.requestEvents.map((event: { requestId: string }) => event.requestId)).size).toBe(11);
+  expect(work.requestEvents.every((event: { dueDate: string }) => event.dueDate === '2026-10-25')).toBe(true);
+  expect(errors).toEqual([]);
 });
 
 test('late document responses stay out of a restarted claim investigation', async ({ page }) => {

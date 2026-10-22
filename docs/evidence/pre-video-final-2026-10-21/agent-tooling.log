@@ -1,0 +1,122 @@
+bun test v1.4.3 (c6da4a4d3)
+
+scripts/agent-usefulness/scorer.test.ts:
+(pass) deterministic scorer > NOT_RUN episodes are excluded from metric denominators and block the composite [0.73ms]
+(pass) deterministic scorer > a correct T1 run scores, but one scored episode still yields no composite [0.79ms]
+(pass) deterministic scorer > wrong selection and a missing quota rationale fail the episode [0.07ms]
+(pass) deterministic scorer > critical physical-outcome overclaims are detected [0.10ms]
+(pass) deterministic scorer > T2 verifies the claim text itself against the frozen claim digest [0.36ms]
+(pass) deterministic scorer > T2 does not call a request complete when an evidence requirement is missing [0.12ms]
+(pass) deterministic scorer > run timestamps are required and must be ordered [0.05ms]
+(pass) deterministic scorer > a failed browser launch is a valid sealed attempt without browser metadata [0.08ms]
+(pass) deterministic scorer > sealed attempts must match the frozen provider, model and seed [0.04ms]
+(pass) deterministic scorer > a direct mitigation_confirmed verdict counts as false-supported against insufficient evidence [0.11ms]
+(pass) deterministic scorer > a record whose identity does not match the scheduled episode is invalid, not NOT_RUN [0.05ms]
+
+scripts/agent-usefulness/provider.test.ts:
+(pass) OpenAI-compatible task provider > sends a bounded tool-call request to the frozen local endpoint and parses usage [5.48ms]
+(pass) OpenAI-compatible task provider > sends the required no-reasoning mode for GPT-6 Luna function calling [1.22ms]
+(pass) OpenAI-compatible task provider > does not include provider response bodies in HTTP failures [1.06ms]
+
+scripts/agent-usefulness/run-all.test.ts:
+(pass) full agent lab execution plan > prepares and scripts dry-run only when no frozen artifacts exist yet [0.05ms]
+(pass) full agent lab execution plan > reuses a complete dry-run and never overwrites a finalized report [0.05ms]
+(pass) full agent lab execution plan > fails closed on partial or excess scripted dry-run records [0.03ms]
+
+scripts/agent-usefulness/migrate-continuation.test.ts:
+(pass) continuation migration evidence rules > the only allowed packet change is the top-level protocol ID [0.07ms]
+(pass) continuation migration evidence rules > records the cap-stopped attempt in usage but excludes it from reusable scoring [0.15ms]
+(pass) continuation migration evidence rules > refuses any failed attempt that did not stop at the global cap [0.04ms]
+
+scripts/agent-usefulness/pre-video-smoke.test.ts:
+(pass) limited smoke checks exact membership, not labels or number of rows alone [2.71ms]
+(pass) historical count needs an independently loaded oracle and cannot imply repair [0.75ms]
+(pass) trusted digest is not human or blockchain or physical verification [0.45ms]
+
+scripts/agent-usefulness/codex-mcp-server.test.ts:
+(pass) the Codex bridge exposes only submit_result for a packet task without tools [677.47ms]
+(pass) browser initialization failure writes safe diagnostics without a submitted result [692.27ms]
+(pass) T3 explicitly provisioned export is verified through MCP without a shell or agent-controlled trust pin [1199.12ms]
+
+scripts/agent-usefulness/scenarios.test.ts:
+(pass) frozen T1 planner scenario > names the source A/B records while keeping their gold dispositions out of the packet [1803.50ms]
+
+scripts/agent-usefulness/agent-loop.test.ts:
+(pass) agent tool loop > executes a local packet tool then records the submitted result and usage [4.50ms]
+(pass) agent tool loop > does not execute a second action beyond the task step limit [2.49ms]
+
+scripts/agent-usefulness/task-contract-v13.test.ts:
+(pass) r12 T2 mismatch is detected before a trial; the new contract advertises every checked field [5.41ms]
+(pass) T1 cannot request runtime activation from the old read-only manual packet [1.13ms]
+(pass) T3 requires seeded exact decision, scoped reviewer and executable export verification [2.26ms]
+(pass) impossible contract exits before starting a provider process or charging the shared budget [2.00ms]
+(pass) new T2 JSON format retains real omissions; matching abstention alone is insufficient [9.14ms]
+(pass) T1 exact observed membership is preserved; duplicates and silent replacement are rejected [3.62ms]
+(pass) T3 does not accept a digest supplied by an altered export or a physical-outcome claim [2.11ms]
+
+scripts/agent-usefulness/runner-config.test.ts:
+(pass) agent lab runner configuration > freezes an exact local model configuration without persisting an API key [0.17ms]
+(pass) agent lab runner configuration > provides an explicitly selected GPT-6 Luna API preset with a bounded $5 token budget [0.37ms]
+(pass) agent lab runner configuration > freezes GPT-6 Luna Max through the signed-in Codex plan without API credentials or API pricing [0.20ms]
+(pass) agent lab runner configuration > requires explicit remote-provider opt-in and declared price and cost limits [0.14ms]
+(pass) agent lab runner configuration > rejects endpoint credentials and query strings before they can enter frozen metadata [0.07ms]
+(pass) agent lab runner configuration > refuses runtime model or budget drift from the frozen protocol [0.17ms]
+
+scripts/agent-usefulness/manual-packet.test.ts:
+(pass) manual packet candidate table > returns bounded weighted ranking pages without applying the quota or selecting a plan [0.93ms]
+(pass) manual packet candidate table > finds named source rows outside the current page and rejects oversized reads [0.39ms]
+
+scripts/agent-usefulness/recovery-scorer.test.ts:
+(pass) T1 display label and observed objects normalize without modifying the sealed record [1.09ms]
+(pass) T1 rejects wrong active membership, replacement, duplicates and hypothetical manual state [1.45ms]
+(pass) T2 recognizes bounded abstention but never supplies absent hash, requirements, scope or request fields [0.54ms]
+(pass) T3 cannot pass through missing digest/auth or mismatched reason codes [0.60ms]
+(pass) all 48 original sealed attempts receive an audit classification and frozen bytes remain unchanged [26.96ms]
+
+scripts/agent-usefulness/browser-tools.test.ts:
+(pass) Playwright agent tools > reads visible controls without token values, operates the local page and blocks external navigation [652.48ms]
+
+scripts/agent-usefulness/trusted-export-tool.test.ts:
+(pass) read-only export tool uses the separately pinned TKM decision and never implies chain or physical proof [590.10ms]
+(pass) tool rejects agent path/digest overrides, missing files, symlinks and altered then rehashed content [149.07ms]
+
+scripts/agent-usefulness/runner-context.test.ts:
+(pass) agent lab provider context > removes uncleared external report metadata while preserving the licensed source evidence [0.19ms]
+(pass) agent lab provider context > redacts uncleared report metadata if it appears in visible browser text [0.09ms]
+(pass) agent lab provider context > sends task assignment data without leaking the full T1 candidate table [0.11ms]
+
+scripts/agent-usefulness/gates.test.ts:
+(pass) synthetic safety and reliability gates > G01 exercises positive publisher feedback without action or follow-up evidence [83.83ms]
+(pass) synthetic safety and reliability gates > all twelve gates run and preserve their individual outcomes [88.27ms]
+
+scripts/agent-usefulness/protocol.test.ts:
+(pass) frozen synthetic-agent protocol > schedules 24 matched pairs and 48 balanced episodes [0.49ms]
+(pass) frozen synthetic-agent protocol > passes each persona goal and limits into its runner prompt [0.32ms]
+(pass) frozen synthetic-agent protocol > keeps P8 open-ended without exposing a click list or frozen answers [0.18ms]
+(pass) frozen synthetic-agent protocol > labels the matched browser and manual-packet conditions distinctly [0.10ms]
+
+scripts/agent-usefulness/continuation.test.ts:
+(pass) r10 to r11 continuation controls > changes only the packet protocol identifier [0.06ms]
+(pass) r10 to r11 continuation controls > rejects packets from an unexpected parent revision [0.07ms]
+(pass) r10 to r11 continuation controls > reuses completed and abstained records but replays only the cap-stopped attempt [0.10ms]
+(pass) r10 to r11 continuation controls > rejects non-cap failures and duplicate attempt records [0.10ms]
+
+scripts/agent-usefulness/budget-ledger.test.ts:
+(pass) agent lab usage ledger > persists only totals and reloads them for a non-rerunning continuation [2.06ms]
+(pass) agent lab usage ledger > refuses to reuse usage from a different frozen model configuration [0.76ms]
+
+scripts/agent-usefulness/codex-cli-runner.test.ts:
+(pass) Codex CLI usage events > uses Bun to start the TypeScript MCP bridge from the Node Playwright runner [0.05ms]
+(pass) Codex CLI usage events > counts the snake_case usage fields emitted in turn.completed JSONL events [0.26ms]
+(pass) Codex CLI usage events > ignores non-completed and malformed JSONL events [0.05ms]
+(pass) Codex CLI usage events > spawns the CLI through Node child_process and persists real usage events [6.61ms]
+(pass) missing submission retains safe checkpoints and records a prose final without promoting it [4.06ms]
+(pass) diagnostic reader rejects invalid payloads and strips untrusted tool text [0.75ms]
+(pass) runner real MCP browser roundtrip: submit [628.24ms]
+(pass) runner real MCP browser roundtrip: interrupt [556.17ms]
+(pass) runner real MCP browser roundtrip: contract-rejection [598.90ms]
+
+ 76 pass
+ 0 fail
+ 363 expect() calls
+Ran 76 tests across 20 files. [8.41s]

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r12",
+  "episodeId": "P8-T1-C0_MANUAL_PACKET",
+  "pairId": "P8-T1",
+  "personaId": "P8",
+  "taskId": "T1",
+  "condition": "C0_MANUAL_PACKET",
+  "runKind": "dry_run_scripted_instrumentation",
+  "actor": "scripted-playwright-flow",
+  "aiAgentExecuted": false,
+  "humanParticipant": false,
+  "scored": false,
+  "exclusionReason": "Scripted browser or packet inspection instrumentation; excluded from all metrics and cannot stand in for an agent episode.",
+  "executedAt": "2026-10-21T08:21:53.678Z",
+  "observations": {
+    "entryPath": "docs/evidence/agent-practical-usefulness-2026-10-21-r12/scenarios/T1-plan-packet.json",
+    "packetSha256": "265f0ae0050cc5a2febd5e5f1ced02f3183a06f792fe3af4917e28f6e7b43ea8",
+    "candidateCount": 4218,
+    "datasetSnapshotId": "unep-mars-675417694883",
+    "sourceAId": "BHR_S_003",
+    "sourceBId": "IRN_S_001",
+    "capacityChange": [
+      10,
+      20
+    ],
+    "policyVersionPresent": true,
+    "requiredOutputFieldCount": 6,
+    "readableWithoutApplication": true,
+    "observedAt": "2026-10-21T08:21:53.677Z"
+  },
+  "evidence": [
+    "docs/evidence/agent-practical-usefulness-2026-10-21-r12/scenarios/T1-plan-packet.json"
+  ],
+  "limitations": [
+    "Scripted instrumentation only. No AI agent, no human participant and no persona reasoning was involved.",
+    "Completing a scripted flow does not measure task usefulness, decision accuracy or time savings.",
+    "The flow covers the T1 planner screen only; T2 and T3 screens were not exercised in this dry-run."
+  ]
+}

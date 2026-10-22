@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r12",
+  "taskId": "T1",
+  "goldKind": "planner-policy-replay-pin",
+  "policyVersion": "investigation-allocation/1",
+  "selectedStrategy": "weighted",
+  "reportDigest": "0x52e42d2d5429012c29ed21a35ad3a3d6cb539cc99d93139563d0150e839ae8b5",
+  "reportAfterCapacityDigest": "0xe4eb8148a14768172d6bb7927a59bf78bf619b86e43090bbd46dc0530597c596",
+  "selectedSourceIds": [
+    "MEX_S_003",
+    "MEX_S_007",
+    "TKM_S_021",
+    "IRN_S_075",
+    "TKM_S_047",
+    "MYS_S_001",
+    "IRN_S_065",
+    "VEN_S_008",
+    "BHR_S_003",
+    "DZA_S_011"
+  ],
+  "selectedSourceIdsAtCapacity20": [
+    "MEX_S_003",
+    "MEX_S_007",
+    "TKM_S_021",
+    "IRN_S_075",
+    "TKM_S_047",
+    "MYS_S_001",
+    "IRN_S_065",
+    "VEN_S_008",
+    "BHR_S_003",
+    "DZA_S_011",
+    "IND_S_042",
+    "USA_S_015",
+    "THA_S_008",
+    "USA_S_073",
+    "DZA_S_248",
+    "PAK_S_001",
+    "CHL_S_001",
+    "SYR_S_001",
+    "VEN_S_001",
+    "ARG_S_026"
+  ],
+  "dispositions": {
+    "included": {
+      "sourceId": "BHR_S_003",
+      "disposition": "selected"
+    },
+    "excludedQuota": {
+      "sourceId": "IRN_S_001",
+      "disposition": "country_quota_filled"
+    },
+    "excludedCapacity": {
+      "sourceId": "AFG_S_001",
+      "disposition": "capacity_filled"
+    }
+  },
+  "activePlanRule": "Changing parameters to capacity 20 must not replace the active capacity-10 plan; only an explicit activation may replace it.",
+  "limitations": [
+    "This is an analyst-defined allocation, not a repair estimate, emissions reduction, cost estimate or validation of future leakage.",
+    "Flux and recurrence baselines are application-defined, not the official UNEP Top 50 ranking.",
+    "Historical observations are discontinuous. Missing later records do not establish zero emissions; source feedback does not prove repair.",
+    "A replay checksum detects change relative to a trusted digest; it does not authenticate data origin or physical truth."
+  ]
+}

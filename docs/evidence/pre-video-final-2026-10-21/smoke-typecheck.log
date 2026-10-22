@@ -1,0 +1,3 @@
+$ tsc --project tsconfig.agent-lab.json
+e2e/agent-lab/pre-video-smoke.spec.ts(41,127): error TS18047: 'attempt.timing.inputTokens' is possibly 'null'.
+e2e/agent-lab/pre-video-smoke.spec.ts(41,154): error TS18047: 'attempt.timing.outputTokens' is possibly 'null'.

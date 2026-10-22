@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r12",
+  "episodeId": "P1-T1-C1_APPLICATION_BROWSER",
+  "pairId": "P1-T1",
+  "personaId": "P1",
+  "taskId": "T1",
+  "condition": "C1_APPLICATION_BROWSER",
+  "runKind": "dry_run_scripted_instrumentation",
+  "actor": "scripted-playwright-flow",
+  "aiAgentExecuted": false,
+  "humanParticipant": false,
+  "scored": false,
+  "exclusionReason": "Scripted browser or packet inspection instrumentation; excluded from all metrics and cannot stand in for an agent episode.",
+  "executedAt": "2026-10-21T08:21:47.917Z",
+  "observations": {
+    "entryPath": "/dashboard/cases?sourceId=KAZ_S_159",
+    "plannerVisible": true,
+    "parameters": {
+      "capacityBeforeChange": 10,
+      "capacityAfterChange": 20,
+      "maxPerCountry": 2,
+      "recurrenceWeight": 50
+    },
+    "plannerSummary": "4,218 eligible sources 4,218 catalog records · 2020-10-29 – 2026-09-13 UTC Full pinned source snapshot; country / sector scope applied above.",
+    "weightedPlanLabel": "Weighted historical indicators 20 / 20 slots 14 countries · 2 sectors Median source flux 10,538.5 kg/h Median observed dates 34 20 shared with weighted plan · 0 unfilled",
+    "selectedSourceIdsAtCapacity10": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011"
+    ],
+    "selectedSourceIdsAtCapacity20": [
+      "MEX_S_003",
+      "MEX_S_007",
+      "TKM_S_021",
+      "IRN_S_075",
+      "TKM_S_047",
+      "MYS_S_001",
+      "IRN_S_065",
+      "VEN_S_008",
+      "BHR_S_003",
+      "DZA_S_011",
+      "IND_S_042",
+      "USA_S_015",
+      "THA_S_008",
+      "USA_S_073",
+      "DZA_S_248",
+      "PAK_S_001",
+      "CHL_S_001",
+      "SYR_S_001",
+      "VEN_S_001",
+      "ARG_S_026"
+    ],
+    "activeCapacityAfterReplan": 10,
+    "activePlanIdsPreservedAfterReplan": true,
+    "replaySha256": "5035b5caf7feab683b882669f3988532b6805863d4f9843fb07a3b0b870ade78",
+    "replayDigest": "0xe4eb8148a14768172d6bb7927a59bf78bf619b86e43090bbd46dc0530597c596",
+    "replaySelectedIdsMatchDisplay": true,
+    "pageErrors": [],
+    "observedAt": "2026-10-21T08:21:47.917Z"
+  },
+  "evidence": [
+    "docs/evidence/agent-practical-usefulness-2026-10-21-r12/screenshots/P1-T1-C1_APPLICATION_BROWSER-weighted-plan.png",
+    "docs/evidence/agent-practical-usefulness-2026-10-21-r12/runs/dry-run/P1-T1-C1_APPLICATION_BROWSER-plan-replay.json"
+  ],
+  "limitations": [
+    "Scripted instrumentation only. No AI agent, no human participant and no persona reasoning was involved.",
+    "Completing a scripted flow does not measure task usefulness, decision accuracy or time savings.",
+    "The flow covers the T1 planner screen only; T2 and T3 screens were not exercised in this dry-run."
+  ]
+}

@@ -27,6 +27,21 @@ test('document assessment UI exposes a per-document rights declaration and its l
   expect(html).toContain('does not independently verify copyright, permission, source authenticity, or completeness');
 });
 
+test('document workflow puts claim and evidence before collapsed historical context and keeps permission gates visible', () => {
+  const html = renderToStaticMarkup(createElement(IntelligencePanel, {
+    sourceId: 'KAZ_S_159', observations: [], claimType: 'operator_notified', synthetic: false,
+    documentAssessmentAllowed: true, currentAudit: null, onAssessment: () => {},
+    capability: null, capabilityLoading: false, onRetryCapability: () => {},
+  }));
+  expect(html).toContain('<legend>1. Claim &amp; supporting document</legend>');
+  expect(html).toContain('<legend>2. Permission &amp; assessment</legend>');
+  expect(html.indexOf('Exact claim to assess')).toBeLessThan(html.indexOf('Historical source context'));
+  expect(html).toContain('<details class="intel-context">');
+  expect(html).toContain('<details class="intel-processing-limits">');
+  expect(html).toContain('<summary>Optional public sharing permissions</summary>');
+  expect(html).toContain('Human review is required before publication or anchoring.');
+});
+
 test('review rights summary distinguishes declarations from verified permissions and handles legacy reports', () => {
   const html = renderToStaticMarkup(createElement(DocumentRightsSummary, {
     documents: [

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "protocolId": "agent-practical-usefulness-2026-10-21-r11",
+  "runnerConfigSha256": "43a88ee682de595d78aae629fb4900103ab196dddb274b75f5c7613adadf1c75",
+  "budget": {
+    "totalTokens": 57885060,
+    "costUsd": 0,
+    "providerCalls": 44
+  },
+  "updatedAt": "2026-10-21T07:48:12.704Z"
+}
