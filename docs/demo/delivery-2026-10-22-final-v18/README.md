@@ -64,6 +64,17 @@ Verification command completed with exit 0. Machine-readable evidence is in
 and [`technical-video-audit.json`](../../evidence/video-v18-2026-10-22/technical-video-audit.json).
 Samples and the rejected first export remain local in `delivery-output/final-v18/`.
 
+## Subsequent CI test change — 23 October
+
+The historical 340-source-byte audit above matches commit `a6567d4` with the
+retained local media. A later release changes only the E2E evidence-history test
+to read persisted data through an authenticated GET after save, avoiding a missing
+Chromium CDP response body. That leaves 339 source hashes and all 57 artifact
+hashes unchanged; production code, the film and take8 commitment are unchanged.
+Use the historical commit for that exact full-byte audit. The
+[release follow-up](../../evidence/release-sync-2026-10-23/README.md) records new
+checks separately, without rewriting the acceptance manifest.
+
 **Review boundary:** technically verified local export with sampled visual inspection.
 Complete normal-speed playback and actual audio listening remain `not_reviewed`;
 the automated audit intentionally does not certify artistic readiness. No upload,

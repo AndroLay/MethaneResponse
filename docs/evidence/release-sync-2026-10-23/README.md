@@ -38,8 +38,22 @@ budget pass. **42 E2E checks pass**: 29 main plus 13 private/mock-AI checks
 byte-identical to the committed baseline. These counts describe software checks,
 not independent model accuracy or measured organizational effectiveness.
 
-The 340 acceptance-bound source hashes, 57 artifact hashes and 73 frozen recovery
-input files remain unchanged. Frozen r12 is still **0/48** according to its scorer.
+The initial commit `a6567d4` preserved all 340 acceptance-bound source hashes.
+Its first CI run passed 29 main browser checks, then failed while reading a
+Chromium PUT response body in the evidence-history test (11 private checks passed,
+one failed and one did not run). The follow-up test reads persisted state through
+an authenticated GET and still checks all 11 events, unique IDs and due dates.
+It also requires the saved UI revision and exact source/snapshot context.
+The focused test now creates a new work item through the UI on each run;
+otherwise repeat runs reopen the previous saved default investigation.
+**Three consecutive focused browser runs pass, with no retry.** The original
+42/42 local run remains bound to `a6567d4`; the three follow-ups are separate,
+not a new full-suite result. Exact-commit CI must still complete before deploy.
+This changes **one E2E test file**: 339 source hashes, all 57 artifact hashes and
+all 73 frozen recovery inputs remain unchanged. Production runtime is unchanged.
+For the historical full video-byte binding use `a6567d4` and the retained local
+media; do not rewrite the frozen manifest to accept the revised test.
+Frozen r12 is still **0/48** according to its scorer.
 Its [findings](../agent-practical-usefulness-2026-10-21-r12/findings.md),
 [recovery audit](../r12-recovery-2026-10-21/README.md) and
 [follow-up](../r12-blocker-followup-2026-10-21/README.md) have distinct scopes.

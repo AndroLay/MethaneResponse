@@ -61,10 +61,17 @@
       "baseline": 29,
       "privateAndMockAi": 13,
       "browserJourneys": 41,
-      "nodeSchemaChecks": 1
+      "nodeSchemaChecks": 1,
+      "revisionScope": "42/42 local results at a6567d4; follow-up changes one E2E test only and has its own 3-run regression. Do not merge these into a new 42-run result."
     },
     "rulesBaseline": "PASS: new output byte-identical to committed baseline-evaluation.json",
-    "sourceArchiveRegression": "PASS: new root-config test failed before allowlist change; all 16 Python tooling tests pass after change"
+    "sourceArchiveRegression": "PASS: new root-config test failed before allowlist change; all 16 Python tooling tests pass after change",
+    "focusedPersistenceRegression": {
+      "passed": 3,
+      "failed": 0,
+      "retries": 0,
+      "freshWorkItemPerRun": true
+    }
   },
   "resolvedCheckFailures": [
     {
@@ -89,9 +96,14 @@
   "preservation": {
     "sourceHashes": 340,
     "artifactHashes": 57,
-    "allAcceptanceHashesMatch": true,
+    "allAcceptanceHashesMatch": false,
     "r12TaskCompletion": "0/48 frozen, unchanged",
-    "frozenRecoveryFiles": 73
+    "frozenRecoveryFiles": 73,
+    "unchangedSourceHashes": 339,
+    "changedSourceFiles": [
+      "e2e/ai-review-workflow.spec.ts"
+    ],
+    "changeReason": "Only the E2E persistence assertion changes after the initial CI failure; production runtime and all 57 artifact hashes unchanged. Use commit a6567d4 for the historical 340-source-byte video binding."
   },
   "publication": {
     "serviceId": "srv-dbbumltg1s2s73e8cct0",
@@ -183,7 +195,42 @@
     "submission-final-recheck.log": {
       "sha256": "a7953b085ea6646a1e169aef756d9235d4312cbdefae898868123c9ae6f0acca",
       "bytes": 116
+    },
+    "ci-failure.log": {
+      "sha256": "244cd3f8bd7b02886c316e5f7a7e82208ff04c78da9c1c3acf58db1909edbdfd",
+      "bytes": 26517
+    },
+    "evidence-history-regression.log": {
+      "sha256": "970c3b5dd6895d206f0702cbde6e195ca6972b6fb719da61f59ea9252357f367",
+      "bytes": 6383
+    },
+    "evidence-history-final.log": {
+      "sha256": "b6866c942f793914ef1917ad6a2ed502714f564fa884dc587ef03db189f4868e",
+      "bytes": 3199
+    },
+    "typecheck-e2e-followup.log": {
+      "sha256": "b787cb9f7b5807a6a447a0ef1d162e5100f2ec2211f19509c0eb615d6e06d14e",
+      "bytes": 34
     }
   },
-  "decision": "READY WITH RISKS for the limited prototype release; public deployment and exact-commit CI must be checked separately"
+  "decision": "READY WITH RISKS for the limited prototype release; public deployment and exact-commit CI must be checked separately",
+  "ciFollowup": {
+    "initialRun": "https://github.com/AndroLay/MethaneResponse/actions/runs/39870682114",
+    "initialCommit": "a6567d45e058e1133f7f9c689893467de93db898",
+    "result": "FAILED",
+    "mainBrowserChecks": {
+      "passed": 29,
+      "failed": 0
+    },
+    "privateMockChecks": {
+      "passed": 11,
+      "failed": 1,
+      "notRun": 1
+    },
+    "failure": "Chromium CDP Network.getResponseBody unavailable when test reads PUT response.json; HTTP 201 was received",
+    "fix": "Assert saved UI revision then use independent authenticated GET to inspect persisted work, retaining all 11-event assertions",
+    "productionCodeChanged": false,
+    "followup": "PASS: focused browser test repeated 3 times, no retries, after explicit New shared investigation per run. New exact-commit CI is still required.",
+    "repeatIsolation": "An initial repeated run reopened the previous default work record and timed out at Open question; the test now creates a new work item through the UI before editing."
+  }
 }

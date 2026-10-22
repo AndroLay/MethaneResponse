@@ -977,7 +977,7 @@ test('local mock AI citations receive a separate scoped review and remain privat
   expect(pageErrors).toEqual([]);
 });
 
-test('Evidence history paginates, reveals exact request details and preserves all events when saved', async ({ page }, testInfo) => {
+test('Evidence history paginates, reveals exact request details and preserves all events when saved', async ({ page, request }, testInfo) => {
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   await page.route(/^https?:\/\//, route => ['127.0.0.1','localhost'].includes(new URL(route.request().url()).hostname) ? route.continue() : route.abort());
   await page.setViewportSize({ width: 390, height: 844 });
@@ -989,6 +989,8 @@ test('Evidence history paginates, reveals exact request details and preserves al
   await shared.getByLabel('Shared reviewer token (memory only)').fill(token);
   await shared.getByRole('button', { name: 'Connect shared workspace', exact: true }).click();
   await expect(shared.getByLabel('Shared investigations')).toBeVisible();
+  // Repeated runs share a server but must not edit the preceding run's record.
+  await shared.getByRole('button', { name: 'New shared investigation', exact: true }).click();
   await shared.getByLabel('Open question', { exact: true }).fill('DEMO request-history pagination and save regression.');
   await shared.getByRole('textbox', { name: 'Evidence to request', exact: true }).fill('DEMO obtain a dated source-linked notification receipt.');
   await shared.getByLabel('Evidence acceptance criteria', { exact: true }).fill('DEMO verify the facility identity, recipient and document date.');
@@ -1016,7 +1018,18 @@ test('Evidence history paginates, reveals exact request details and preserves al
   const saved = page.waitForResponse(response => response.url().includes('/api/case-work/') && response.request().method() === 'PUT');
   await shared.getByRole('button', { name: 'Save shared work', exact: true }).click();
   const response = await saved; expect(response.status()).toBe(201);
-  const work = (await response.json()).work;
+  await expect(shared).toContainText('Saved shared revision 1');
+  // Chromium can evict the intercepted PUT body while React refreshes its
+  // workspace. Read persisted state independently rather than relying on CDP's
+  // Network.getResponseBody; keep the same authenticated source/snapshot scope.
+  const submitted = response.request().postDataJSON();
+  expect(submitted.context.sourceId).toBe('KAZ_S_159');
+  const query = new URLSearchParams({ ...submitted.context, synthetic: String(submitted.context.synthetic) });
+  const persisted = await request.get(`${response.url()}?${query}`, { headers: { authorization: `Bearer ${token}` } });
+  expect(persisted.status()).toBe(200);
+  const work = (await persisted.json()).work;
+  expect(work.context).toEqual(submitted.context);
+  expect(work.revision).toBe(1);
   expect(work.requestEvents).toHaveLength(11);
   expect(new Set(work.requestEvents.map((event: { requestId: string }) => event.requestId)).size).toBe(11);
   expect(work.requestEvents.every((event: { dueDate: string }) => event.dueDate === '2026-10-25')).toBe(true);

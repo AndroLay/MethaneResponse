@@ -67,7 +67,7 @@ new provider run performed during this packaging.
 ```bash
 python3 docs/release/devpost-submission/test_v18_package.py
 python3 docs/release/devpost-submission/package_v18_submission.py \
-  --output delivery-output/release-sync-2026-10-23/MethaneResponse-Devpost-Judging-Pack-v18-aligned.zip
+  --output delivery-output/release-sync-2026-10-23/MethaneResponse-Devpost-Judging-Pack-v18-aligned-final.zip
 ```
 
 The builder rejects replacement of an existing ZIP, verifies the exact MP4 and
