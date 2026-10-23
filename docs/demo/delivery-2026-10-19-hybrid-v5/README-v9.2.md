@@ -32,6 +32,6 @@ MARS is the detection, notification, and follow-up system. MethaneResponse demon
 - `composition-v9.html` — v9.1 presentation timeline and authored composition
 - `capture-slide-stills-v9.mjs` and `render-hybrid-v9.mjs` — reproducible capture, focus-study and final render pipeline
 - `delivery-spec-v9.json` — technical delivery contract at 25 fps
-- [Local export review](delivery-review-v9.2.md) — technical result, frame-sampling scope, and review limits
+- The originally referenced v9.2 local export review is not retained at its documented path. The [later v9.3 review](delivery-review-v9.3.md) is a separate record, not a replacement v9.2 verification.
 
-The current local export is `MethaneResponse-Hybrid-Presentation-Demo-4m50-v9.2-final.mp4`, with an English SRT sidecar, captured animation states, and a technical audit under the ignored `delivery-output/story-v5/` directory. Earlier v5–v9.1 renders remain preserved. No external video was uploaded or published. See [storyboard.md](storyboard.md) for the timed narration-to-visual map and [delivery-review-v9.2.md](delivery-review-v9.2.md) for verification details.
+The local export at this historical checkpoint was `MethaneResponse-Hybrid-Presentation-Demo-4m50-v9.2-final.mp4`, with an English SRT sidecar, captured animation states, and a technical audit under the ignored `delivery-output/story-v5/` directory. Earlier v5–v9.1 renders remain preserved. No external video was uploaded or published in that session. See [storyboard.md](storyboard.md) for the timed narration-to-visual map. The originally linked v9.2 review file is unavailable in the tracked repository; do not treat the later v9.3 review as evidence for this export.

@@ -1,84 +1,87 @@
-# Desain Repository MethaneResponse
+# MethaneResponse Repository Design
 
-> **Proposal repository terdahulu.** Dokumen ini menjelaskan rancangan saat riset awal, bukan susunan kode saat ini. Baca [peta repo](../repository-map.md), [arsitektur aktif](../architecture/overview.md) dan [ADR file lokal](../architecture/decisions/2026-10-15-local-prototype-no-database.md).
+> **Earlier repository proposal.** This document describes the initial research design, not the current code structure. See the [repository map](../repository-map.md), [active architecture](../architecture/overview.md), and [local-file ADR](../architecture/decisions/2026-10-15-local-prototype-no-database.md).
 
-**Tanggal:** 11 Oktober 2026 (WITA)  
-**Status:** starter telah diimpor ke root repository; fondasi demo sintetis ada, integrasi runtime belum diverifikasi  
-**Ruang kerja proyek:** `/home/andro/dev/projects/Devpost/iEEE-Methane-response`  
-**Referensi struktur:** `/home/andro/dev/projects/Devpost/RevenueCat Shipaton 2026` (Evidrilo; repositori yang sudah ada dan tidak diubah)
+**Date:** 11 October 2026 (WITA)
 
-## Ringkasan
+**Status:** starter imported to repository root; synthetic demo foundation exists, runtime integration not verified
 
-MethaneResponse adalah prototipe audit bukti untuk observasi metana. MVP mengambil snapshot data publik MARS, mempertahankan asal dan waktu pengambilan, menampilkan observasi dan riwayat kasus, lalu memungkinkan hash bundle bukti serta perubahan status diperiksa melalui kontrak EVM.
+**Project workspace:** `/home/andro/dev/projects/Devpost/iEEE-Methane-response`
 
-Proyek tidak akan mengklaim mendeteksi kebocoran lebih baik daripada MARS, membuktikan perbaikan fisik, atau mengukur emisi yang berhasil dihindari. Data MARS yang memuat feedback adalah bukti status feedback yang dipublikasikan; itu sendiri bukan konfirmasi mitigasi.
+**Structure reference:** `/home/andro/dev/projects/Devpost/RevenueCat Shipaton 2026` (Evidrilo; an existing repository that was not modified)
 
-## Status starter yang diimpor
+## Summary
 
-- Starter ZIP diimpor ke repository `/home/andro/dev/projects/Devpost/iEEE-Methane-response`; Git lokal tetap pada branch `main`, tanpa commit awal.
-- Starter berisi UI/API dengan fixture sintetis, parser CSV lokal, baseline aturan, kontrak, dan migrasi target. API masih memakai Map in-memory; migrasi belum digunakan oleh API.
-- Tidak ada dataset UNEP, koneksi database persisten, deployment Sepolia, LLM, atau model ML di starter.
-- Pembuat starter melaporkan tiga uji Python lulus dan pemeriksaan sintaks sepuluh file TypeScript lulus. Laporan itu belum memiliki log di ZIP dan belum direproduksi dalam runtime ini.
-- Bun tidak tersedia pada runtime ini; dependency install, build web, test runner Bun, dan Foundry belum dijalankan.
-- Pemeriksaan statis menemukan ketidaksesuaian panjang hash antara API (`0x` + 64 digit) dan migrasi SQL (`CHAR(64)`). Migrasi starter sudah diperbaiki menjadi teks dengan format `0x` 64 digit hex.
+MethaneResponse is an evidence-audit prototype for methane observations. The MVP ingests a public MARS data snapshot, preserves its provenance and capture time, displays observations and case history, then allows an EVM contract to record and verify evidence-bundle hashes and status changes.
 
-## Konteks dan kendala
+The project will not claim to detect leaks better than MARS, prove physical repair, or measure emissions avoided. MARS data containing feedback are evidence of the published feedback status; that alone does not confirm mitigation.
 
-- Pengguna memilih React/Vite, TypeScript, Bun/Hono, PostgreSQL/PostGIS, Python untuk analisis offline, Solidity/Foundry/viem, dan deployment Cloudflare Pages + Render + Supabase.
-- Referensi Evidrilo digunakan untuk prinsip pemisahan tanggung jawab dan dokumentasi keputusan. Modul, workflow, dan teknologi Evidrilo tidak disalin.
-- Data publik MARS merupakan snapshot/replay, bukan feed real-time. Pipeline harus mencatat lisensi, URL, waktu pengambilan UTC, dan hash sumber.
-- Jumlah observasi, kelengkapan label, dan kecukupan data untuk model belum diprofilkan dari berkas yang benar-benar akan dipakai. Model tidak boleh dianggap terbukti sebelum evaluasi.
-- Path referensi sudah berisi aplikasi lain. Proyek baru disiapkan terpisah di workspace IEEE; penulisan ke path referensi tidak termasuk desain ini.
+## Imported-starter status
 
-## Tujuan MVP
+- Starter ZIP was imported into `/home/andro/dev/projects/Devpost/iEEE-Methane-response`; local Git remained on branch `main`, with no initial commit.
+- Starter contained UI/API with synthetic fixtures, a local CSV parser, rules baseline, contract, and target migrations. API still used an in-memory Map; migrations were not used by the API.
+- Starter included no UNEP dataset, persistent database connection, Sepolia deployment, LLM, or ML model.
+- Starter creator reported three passing Python tests and syntax checks on ten TypeScript files. No logs were included in the ZIP, and these results were not reproduced in this runtime.
+- Bun was unavailable in this runtime; dependency install, web build, Bun test runner, and Foundry had not run.
+- Static inspection found a hash-length mismatch between API (`0x` + 64 digits) and SQL migration (`CHAR(64)`). The starter migration was corrected to text with the `0x` + 64 hexadecimal digit format.
 
-1. Mengimpor setidaknya satu snapshot sumber data MARS yang penggunaannya sesuai lisensi.
-2. Menormalisasi observasi ke skema sumber, plume, dan waktu dengan provenance yang dapat ditelusuri.
-3. Menampilkan peta, detail sumber, observasi berurutan, dan status feedback dengan label asal data yang jelas.
-4. Membentuk bundle bukti deterministik, menghitung digest, mencatat commitment dan transisi kasus di testnet, serta memeriksa perubahan artefak.
-5. Menyediakan prioritisasi transparan. Model prediktif hanya diaktifkan jika tersedia label dan pemisahan evaluasi yang layak.
-6. Membedakan data asli, data yang dikirim pengguna, data demo sintetis, dan status transaksi yang belum berhasil.
+## Context and constraints
 
-## Bukan tujuan MVP
+- The user selected React/Vite, TypeScript, Bun/Hono, PostgreSQL/PostGIS, Python for offline analysis, Solidity/Foundry/viem, and Cloudflare Pages + Render + Supabase deployment.
+- Evidrilo was used as a reference for separation of responsibility and decision records. Its modules, workflows, and technologies were not copied.
+- Public MARS data are snapshots/replays, not a real-time feed. The pipeline must record license, URL, UTC capture time, and source hash.
+- Observation counts, label completeness, and data sufficiency for a model had not been profiled from the actual files to be used. Do not treat a model as proven before evaluation.
+- The reference path already contained another application. The new project was set up separately in the IEEE workspace; writing to the reference path is outside this design.
 
-- Mengganti deteksi, atribusi fasilitas, atau sistem notifikasi MARS/Carbon Mapper.
-- Menyebut status feedback sebagai bukti perbaikan kebocoran.
-- Mengirim alert operasional real-time atau menjadi sistem respons darurat.
-- Menerbitkan carbon credit, token, NFT, atau klaim pengurangan emisi.
-- Menyimpan dokumen mentah atau data pribadi di blockchain.
-- Membuat microservices, worker terpisah, autentikasi multi-organisasi, atau deployment produksi sebelum ada kebutuhan yang teruji.
+## MVP goals
 
-## Pilihan arsitektur
+1. Import at least one MARS source-data snapshot whose use complies with its license.
+2. Normalize observations into source, plume, and time schemas with traceable provenance.
+3. Show a map, source details, ordered observations, and feedback status with clear source labels.
+4. Build a deterministic evidence bundle, compute its digest, record a testnet commitment and case-status transition, and detect artifact changes.
+5. Provide transparent prioritization. Enable a predictive model only if labels and a suitable evaluation split are available.
+6. Distinguish original data, user-submitted data, synthetic demo data, and unsuccessful/pending transaction status.
 
-| Pilihan | Bentuk | Trade-off |
+## Not MVP goals
+
+- Replace MARS/Carbon Mapper detection, facility attribution, or notification systems.
+- Treat feedback status as evidence that a leak was repaired.
+- Send operational real-time alerts or act as an emergency-response system.
+- Issue carbon credits, tokens, NFTs, or emissions-reduction claims.
+- Store raw documents or personal data on blockchain.
+- Create microservices, separate workers, multi-organization authentication, or production deployment before a tested need exists.
+
+## Architecture options
+
+| Option | Shape | Trade-off |
 |---|---|---|
-| A — TypeScript API + batch Python (dipilih) | React/Vite, Hono/Bun, Postgres/PostGIS, pipeline Python offline, kontrak EVM | Cocok dengan stack yang dipilih; membutuhkan kontrak berkas/skema yang jelas antara pipeline dan API. |
-| B — Python API utama | React/Vite, FastAPI, Postgres/PostGIS, pipeline dan model Python, kontrak EVM | Batas analitik lebih sederhana; mengganti pilihan backend TypeScript dan menggabungkan API dengan pipeline. |
-| C — Dashboard statis | React/Vite membaca artefak lokal, kontrak EVM untuk demo | Jalur demo awal paling kecil; tidak menyediakan state kasus/API bersama dan kueri database. |
+| A — TypeScript API + Python batch (selected) | React/Vite, Hono/Bun, Postgres/PostGIS, offline Python pipeline, EVM contract | Fits the selected stack; needs a clear file/schema contract between pipeline and API. |
+| B — Python main API | React/Vite, FastAPI, Postgres/PostGIS, Python pipeline/model, EVM contract | Simpler analytics boundary; replaces the selected TypeScript backend and combines API with pipeline. |
+| C — Static dashboard | React/Vite reads local artifacts, EVM contract for demo | Smallest initial demo path; no shared case/API state or database queries. |
 
-Pilihan A dipilih untuk MVP. API menjadi modular monolith; pemrosesan historis berjalan sebagai perintah batch lokal. Jika model perlu inferensi online atau Python batch tidak dapat menghasilkan artefak yang cukup untuk aplikasi, keputusan ini ditinjau ulang sebelum menambah service.
+Option A was selected for the MVP. The API is a modular monolith; historical processing runs as a local batch command. Revisit this decision before adding a service if the model needs online inference or the Python batch cannot produce artifacts sufficient for the application.
 
-## Arsitektur dan kepemilikan
+## Architecture and ownership
 
-| Unit | Tanggung jawab | Teknologi | Kepemilikan data/interface |
+| Unit | Responsibility | Technology | Data/interface ownership |
 |---|---|---|---|
-| `apps/web` | Peta, filter, detail sumber/kasus, timeline, status audit | React, Vite, TypeScript, TanStack Query, React Router, MapLibre, ECharts | Mengonsumsi kontrak HTTP berversi; tidak mengakses DB atau kunci signer. |
-| `apps/api` | REST API, validasi request, alur kasus, akses DB, verifikasi digest, pengiriman transaksi demo | Bun, Hono, Zod, Drizzle, viem | Pemilik state kasus dan komposisi adapter DB/chain. |
-| `packages/shared` | Skema request/response dan tipe yang dipakai web/API | TypeScript, Zod | Kontrak lintas aplikasi; bukan tempat menyimpan logika database. |
-| `services/data-pipeline` | Mengambil snapshot, memvalidasi schema, menormalisasi, membentuk fitur dan laporan evaluasi | Python, pandas; scikit-learn bila label cukup | Menulis artefak bertanda versi yang dibaca API; tidak menjadi API kedua untuk MVP. |
-| `contracts` | Registry commitment dan catatan transisi yang dapat diperiksa publik | Solidity, Foundry | Menyimpan hash/ID pseudonim/jenis event; tidak menyimpan koordinat rinci atau isi berkas. |
-| `platform/database` | Schema dan migrasi | PostgreSQL, PostGIS, Drizzle migrations | State aplikasi dan geometri/indeks spasial yang dipakai kueri. |
-| Supabase Storage (opsional) | Menyediakan bundle bukti berukuran besar untuk diunduh | Object storage | Berkas off-chain; kontrak menyimpan digest, bukan URL rahasia atau isi. |
+| `apps/web` | Map, filters, source/case details, timeline, audit status | React, Vite, TypeScript, TanStack Query, React Router, MapLibre, ECharts | Consumes versioned HTTP contracts; does not access DB or signer keys. |
+| `apps/api` | REST API, request validation, case flow, DB access, digest verification, demo transaction submission | Bun, Hono, Zod, Drizzle, viem | Owns case state and DB/chain adapter composition. |
+| `packages/shared` | Request/response schemas and types shared by web/API | TypeScript, Zod | Cross-app contract; not a place for database logic. |
+| `services/data-pipeline` | Capture snapshot, validate schema, normalize, create features and evaluation reports | Python, pandas; scikit-learn if labels suffice | Writes versioned artifacts read by API; is not a second MVP API. |
+| `contracts` | Publicly inspectable commitment registry and transition records | Solidity, Foundry | Stores hashes/pseudonymous IDs/event types; not detailed coordinates or file contents. |
+| `platform/database` | Schema and migrations | PostgreSQL, PostGIS, Drizzle migrations | Application state and geometries/spatial indexes used by queries. |
+| Supabase Storage (optional) | Serve larger evidence bundles for download | Object storage | Off-chain files; contract stores digest, not a secret URL or contents. |
 
-Zustand hanya ditambahkan bila state UI bersama—misalnya filter peta yang harus bertahan lintas panel—tidak tertangani sederhana oleh React. Hosted LLM menjadi adapter opsional untuk ringkasan berbasis fakta terverifikasi dan referensi sumber; keluaran LLM tidak menentukan status kasus atau klaim mitigasi.
+Add Zustand only if shared UI state—such as map filters preserved across panels—cannot be handled simply with React. A hosted LLM would be an optional adapter for summaries based on verified facts/source references; LLM output would not determine case status or mitigation claims.
 
-## Alur data utama
+## Main data flow
 
 ```text
 MARS CSV/GeoJSON
       │
       ▼
-Python ingest ── simpan snapshot, URL, waktu UTC, lisensi, SHA-256
+Python ingest ── save snapshot, URL, UTC time, license, SHA-256
       │
       ▼
 schema validation + normalization + feature/evaluation artifacts
@@ -87,30 +90,30 @@ schema validation + normalization + feature/evaluation artifacts
 PostgreSQL/PostGIS ◄──── Hono API ───── React/Vite
       │                    │                 ├─ MapLibre
       │                    │                 └─ ECharts
-      │                    └──── viem signer (kunci hanya di backend)
+      │                    └──── viem signer (key only in backend)
       │                                      │
-      └─ bundle evidence off-chain           ▼
+      └─ evidence bundle off-chain           ▼
                                     EVM testnet registry
                                     hashes + case events
 ```
 
-Pipeline menyimpan snapshot mentah tanpa perubahan sebelum normalisasi. Setiap artefak hasil harus menunjuk ke snapshot dan versi skema yang membentuknya. Kueri spasial memakai SRID dan urutan koordinat yang dinyatakan eksplisit; data API mengirimkan GeoJSON/koordinat yang tervalidasi.
+The pipeline stores the raw snapshot unchanged before normalization. Each output artifact must point to the snapshot/schema version that produced it. Spatial queries use explicit SRID and coordinate ordering; API data return validated GeoJSON/coordinates.
 
-### AI dan batas inferensi
+### AI and inference limits
 
-- Langkah pertama adalah baseline deterministik yang dapat dijelaskan, profil data, dan kumpulan contoh klaim/evidence yang diberi label secara manual.
-- Baseline menilai dukungan untuk klaim yang sempit berdasarkan referensi bukti eksplisit. `supported` berarti didukung oleh bukti yang diberikan, bukan bukti itu sendiri sudah membuktikan keadaan fisik.
-- Model atau LLM hanya dipertimbangkan jika baseline dan data menunjukkan kebutuhan yang terukur. Evaluasi harus memisahkan sumber antara train/test dan melaporkan kesalahan serta abstention.
-- Jangan memprediksi perbaikan fisik hanya dari `feedback`, status akhir, atau tidak adanya plume lanjutan. Jangan memakai nilai `persistency` terbaru untuk merekonstruksi fitur historis jika mencakup observasi setelah cutoff.
-- Jika ringkasan LLM nanti diaktifkan, ia hanya menerima field tervalidasi, menghasilkan JSON tervalidasi, dan mencantumkan ID observasi pendukung. Keluarannya adalah bantuan narasi, bukan keputusan audit.
+- First establish a deterministic, explainable baseline, profile the data, and manually label a small set of claim/evidence examples.
+- Baseline assesses support for a narrow claim based on explicit evidence references. `supported` means supported by the supplied evidence, not that the evidence itself proves physical state.
+- Consider a model or LLM only if the baseline/data show a measurable need. Evaluation must separate sources between train/test and report errors and abstention.
+- Do not predict physical repair from `feedback`, final status, or no later plume. Do not use current `persistency` to reconstruct historical features if it includes observations after the cutoff.
+- If LLM summaries are later enabled, give them validated fields only, require validated JSON output, and list supporting observation IDs. Output is narrative assistance, not an audit decision.
 
-### Ledger dan integritas bukti
+### Ledger and evidence integrity
 
-Bundle kanonis mencakup identitas sumber publik, waktu tangkap, hash snapshot, versi normalisasi, ID kasus pseudonim, dan jenis transisi. Kontrak mencatat digest bundle, digest record sebelumnya, jenis event, waktu chain, dan pengirim. Event append-only mempertahankan urutan yang dapat diaudit.
+The canonical bundle contains public source identity, capture time, snapshot hash, normalization version, pseudonymous case ID, and transition type. The contract records bundle digest, previous-record digest, event type, chain time, and sender. Append-only events preserve auditable order.
 
-Kontrak membuktikan bahwa digest yang sama dikomit dan dapat dicocokkan kembali. Ia tidak membuktikan kebenaran data sumber, identitas organisasi di balik alamat wallet, atau tindakan mitigasi di lapangan. Write key disimpan di environment API dan tidak masuk ke bundle frontend. Tidak ada data pribadi atau isi laporan sensitif yang dicatat on-chain.
+The contract proves that the same digest was committed and can be matched again. It does not prove source-data truth, the identity of the organization behind a wallet, or field mitigation. Write keys stay in the API environment and never enter the frontend bundle. No personal data or sensitive report contents are recorded on-chain.
 
-## Struktur repository
+## Repository structure
 
 ```text
 iEEE-Methane-response/
@@ -118,78 +121,78 @@ iEEE-Methane-response/
 │   ├── web/                    # React/Vite SPA
 │   └── api/                    # Hono modular monolith
 ├── services/
-│   └── data-pipeline/          # ETL/evaluasi Python offline
+│   └── data-pipeline/          # offline Python ETL/evaluation
 ├── packages/
-│   └── shared/                 # Zod schemas dan tipe bersama web/API
+│   └── shared/                 # Zod schemas and types shared by web/API
 ├── contracts/
 │   ├── src/                    # Solidity registry
 │   ├── script/                 # deployment scripts
-│   └── schemas/                # skema bundle bukti lintas runtime
+│   └── schemas/                # cross-runtime evidence-bundle schema
 ├── platform/
-│   └── database/               # Drizzle config dan Postgres/PostGIS migrations
+│   └── database/               # Drizzle config and Postgres/PostGIS migrations
 ├── data/
-│   ├── raw/                    # file unduhan dikecualikan dari Git
-│   ├── processed/              # artefak lokal dikecualikan dari Git bila besar
-│   └── manifests/              # metadata sumber, lisensi, dan digest
+│   ├── raw/                    # downloaded files excluded from Git
+│   ├── processed/              # large local artifacts excluded from Git
+│   └── manifests/              # source metadata, license, and digest
 ├── docs/
-│   ├── architecture/           # data flow dan batas klaim
-│   ├── decisions/              # ADR ringkas
-│   └── operations/             # setup, konfigurasi, dan demo fallback
-├── scripts/                    # perintah ingest/export yang benar-benar dipakai
-├── AGENTS.md                   # batas data, klaim, secrets, dan cara verifikasi
-├── package.json                # Bun workspaces untuk aplikasi TypeScript
-├── pyproject.toml              # environment pipeline Python
-├── foundry.toml                # konfigurasi kontrak EVM
-├── .env.example                # nama variabel saja, tanpa nilai rahasia
+│   ├── architecture/           # data flow and claim limits
+│   ├── decisions/              # concise ADRs
+│   └── operations/             # setup, configuration, demo fallback
+├── scripts/                    # ingest/export commands actually used
+├── AGENTS.md                   # data, claims, secrets, and verification limits
+├── package.json                # Bun workspaces for TypeScript apps
+├── pyproject.toml              # Python pipeline environment
+├── foundry.toml                # EVM contract configuration
+├── .env.example                # variable names only, no secret values
 └── README.md
 ```
 
-Tree mengikuti pola `apps/`, `contracts/`, `platform/`, `docs/`, dan `scripts/` pada repo referensi. Hanya folder yang memiliki file dan tanggung jawab nyata yang dibuat; tidak ada modul kosong atau worker terpisah untuk mencocokkan bentuk referensi. Bun menjadi package manager/workspace untuk kode TypeScript; `pyproject.toml` mengelola pipeline Python; Foundry mengelola kontrak.
+The tree follows `apps/`, `contracts/`, `platform/`, `docs/`, and `scripts/` patterns from the reference repo. Create only folders with real files/responsibilities; no empty modules or separate workers just to match the reference shape. Bun is the TypeScript package manager/workspace, `pyproject.toml` manages the Python pipeline, and Foundry manages contracts.
 
-## Kegagalan dan fallback demo
+## Failure behavior and demo fallback
 
-| Kondisi | Perilaku yang dirancang |
+| Condition | Designed behavior |
 |---|---|
-| Sumber data tidak tersedia | Baca snapshot yang disimpan; tampilkan waktu capture dan badge `cached`. |
-| Schema berubah/field wajib hilang | Gagalkan ingest dengan laporan field yang hilang; jangan menulis record parsial sebagai data valid. |
-| Data tidak cukup untuk skor model | Tampilkan `insufficient evidence` atau baseline aturan dengan penjelasan. |
-| LLM/provider gagal | Sembunyikan ringkasan generatif; map, timeline, dan audit deterministik tetap berfungsi. |
-| RPC/testnet gagal | Tampilkan `not anchored`/`pending`; verifikasi lokal boleh ditunjukkan tetapi tidak disebut transaksi publik. |
-| Respons operator disimulasikan | Beri label simulasi di UI, bundle bukti, dan video demo. |
+| Data source unavailable | Read saved snapshot; show capture time and `cached` badge. |
+| Schema changes/required field missing | Fail ingestion with missing-field report; do not write partial records as valid data. |
+| Too little data for a model score | Show `insufficient evidence` or explain the rules baseline. |
+| LLM/provider failure | Hide generative summary; map, timeline, and deterministic audit remain usable. |
+| RPC/testnet failure | Show `not anchored`/`pending`; local verification may be shown but not called a public transaction. |
+| Simulated operator response | Label simulation in UI, evidence bundle, and demo video. |
 
-## Deployment dan konfigurasi
+## Deployment and configuration
 
-- `apps/web`: Cloudflare Pages sebagai SPA statis, output Vite `dist`.
-- `apps/api`: Render runtime Bun dengan versi Bun yang dipin.
-- Database: Supabase PostgreSQL; aktifkan PostGIS hanya melalui migrasi yang terdokumentasi. Supabase Storage bersifat opsional.
-- Kontrak: uji lokal dengan Foundry, kemudian Sepolia untuk transaksi demo publik.
-- Secrets: RPC URL dan private key testnet/LLM berada di environment backend. Tidak ada service-role key, database credential, atau signer key pada bundle Vite.
-- API membatasi CORS ke domain demo yang dipakai. Environment lokal menyediakan URL frontend/API/database yang terpisah.
+- `apps/web`: Cloudflare Pages as a static SPA, Vite `dist` output.
+- `apps/api`: Render Bun runtime with pinned Bun version.
+- Database: Supabase PostgreSQL; enable PostGIS only through documented migrations. Supabase Storage is optional.
+- Contract: test locally with Foundry, then use Sepolia for a public demo transaction.
+- Secrets: RPC URL and testnet/LLM private keys live in backend environment. No service-role key, database credential, or signer key in the Vite bundle.
+- API restricts CORS to the demo domain. Local environment separates frontend/API/database URLs.
 
-## Rencana verifikasi setelah implementasi disetujui
+## Verification plan after implementation approval
 
-- Python: ingest snapshot, validasi schema, chronology/no-leakage, reproduksi metrik, dan lisensi/provenance manifest.
-- API: validasi request Zod, alur status yang sah, digest round-trip, dan perilaku saat dependency gagal.
-- Kontrak: Foundry untuk kontrol akses, duplikasi, status ilegal, dan komit/cek digest.
-- Frontend: Vitest untuk komponen/format data; Playwright untuk satu alur demo dari detail sumber sampai hasil verifikasi.
-- Pemeriksaan ujung-ke-ujung: satu snapshot asli, satu bundle bukti, satu transaksi testnet yang dapat diperiksa, dan satu tamper drill yang jelas dilabeli.
+- Python: ingest snapshot, schema validation, chronology/no-leakage, metric reproduction, license/provenance manifest.
+- API: Zod request validation, allowed status flow, digest round trip, and dependency-failure behavior.
+- Contract: Foundry checks access control, duplicates, illegal status, and commit/digest verification.
+- Frontend: Vitest for components/data formatting; Playwright for one demo flow from source details to verification result.
+- End-to-end: one original snapshot, one evidence bundle, one inspectable testnet transaction, and one clearly labeled tamper drill.
 
-Perintah final belum dicantumkan karena lockfile, versi paket, migrasi, serta konfigurasi provider belum dibuat atau dijalankan. Tidak ada hasil build, test, ingest, atau deployment yang diklaim oleh dokumen desain ini. Rincian laporan yang disertakan pembuat starter dan status verifikasinya dicatat di `docs/history/delivery-notes.md`.
+No final commands are listed because lockfile, package versions, migrations, and provider configuration were not yet created or run. This design document claims no build, test, ingestion, or deployment results. Details from the starter creator's report and their verification status are recorded in `docs/history/delivery-notes.md`.
 
-## Kriteria penerimaan vertical slice
+## Vertical-slice acceptance criteria
 
-1. Dari checkout bersih, petunjuk README menjelaskan setup dan menjalankan web/API/pipeline lokal.
-2. Satu snapshot MARS yang diizinkan dapat diproses ulang dan menghasilkan manifest dengan URL, waktu UTC, lisensi, dan hash.
-3. Detail sumber menampilkan observasi berurutan dengan field yang tertaut ke provenance.
-4. Bundle bukti menghasilkan digest stabil; mengubah satu byte menyebabkan verifier melaporkan mismatch.
-5. Kontrak testnet menyimpan commitment yang dapat dilihat melalui explorer; kegagalan RPC tidak ditampilkan sebagai sukses.
-6. UI membedakan data publik, cache, input simulasi, model/baseline, dan bukti mitigasi.
-7. Tidak ada klaim real-time atau kausal yang tidak didukung oleh data.
+1. From a clean checkout, README instructions explain local web/API/pipeline setup and execution.
+2. One licensed MARS snapshot can be reprocessed to produce a manifest with URL, UTC time, license, and hash.
+3. Source details show ordered observations with fields linked to provenance.
+4. Evidence bundle produces a stable digest; changing one byte makes the verifier report a mismatch.
+5. EVM testnet contract stores a commitment visible in an explorer; RPC failure is not shown as success.
+6. UI distinguishes public data, cache, simulated input, model/baseline, and mitigation evidence.
+7. No unsupported real-time or causal claim is made.
 
-## Risiko dan keputusan yang belum dibuat
+## Risks and undecided choices
 
-- Kelengkapan akses, row count, schema aktual, dan lisensi setiap file yang dipilih masih perlu dibuktikan sebelum pipeline dibangun.
-- Kebutuhan PostGIS akan dipertahankan jika peta/kueri benar-benar memakai operasi spasial; jika hanya menampilkan titik, schema bisa dimulai dengan Postgres sederhana.
-- Keunikan kebutuhan lintas-sumber dan manfaat pengguna belum divalidasi melalui wawancara; MVP adalah demonstrasi audit, bukan deployment organisasi.
-- Jumlah dataset yang layak melatih model tidak diketahui. Pemilihan model tetap bersyarat pada profiling dan evaluasi.
-- Repository baru diusulkan berada di workspace IEEE. Path Evidrilo tetap utuh dan menjadi referensi struktur sampai ada arahan lain.
+- Access completeness, row count, actual schema, and license of every selected file still need proof before pipeline work.
+- Keep PostGIS only if the map/query actually uses spatial operations; if it only displays points, start with plain Postgres.
+- Cross-source need and user benefit have not been validated through interviews; the MVP is an audit demo, not organizational deployment.
+- The size of a usable model dataset is unknown. Model selection remains conditional on profiling/evaluation.
+- The new repo was proposed for the IEEE workspace. The Evidrilo path remains intact and is only a structural reference unless directed otherwise.

@@ -1,60 +1,65 @@
-# DeepSeek V4.1 Flash 1017 — integrasi backend
+# DeepSeek V4.1 Flash 1017 — backend integration
 
-[Konfigurasi](configuration.md#document-ai-opsional) · [Protokol benchmark](../testing/ai-benchmark-annotation.md)
+[Configuration](configuration.md#optional-document-ai) · [Benchmark protocol](../testing/ai-benchmark-annotation.md)
 
-Pengguna memilih model ini pada 21 Oktober 2026 untuk menggantikan Luna.
-Katalog API akun mengembalikan slug persis `deepseek-v4.1-flash-1017`.
-[Halaman model resmi](https://platform.experientiallabs.ai/models/deepseek-v4.1-flash-1017)
-dan [dokumentasi API](https://platform.experientiallabs.ai/docs/openai-compatibility)
-mengonfirmasi base URL `https://api.experientiallabs.ai/v1` serta JSON output.
-Tidak menggunakan model `uncensored`, alias latest atau fallback ke model lain.
+On 21 October 2026, the user selected this model to replace Luna.
+The account API catalog returned the exact slug `deepseek-v4.1-flash-1017`.
+The [official model page](https://platform.experientiallabs.ai/models/deepseek-v4.1-flash-1017)
+and [API documentation](https://platform.experientiallabs.ai/docs/openai-compatibility)
+confirm the base URL `https://api.experientiallabs.ai/v1` and JSON output.
+The `uncensored` model, a latest alias, and fallback to another model are not used.
 
-## Konfigurasi privat
+## Private configuration
 
-`data/state/experiential.env` diabaikan Git dan berisi konfigurasi backend saja:
+`data/state/experiential.env` is Git-ignored and contains backend configuration only:
 `AI_BASE_URL`, `AI_MODEL`, `AI_API_KEY`, `AI_REVIEW_TOKEN`,
-`AI_MAX_OUTPUT_TOKENS=2048`, `AI_REASONING_EFFORT=none`.
-Key provider dan token akses assessment terpisah. File dibuat mode 0600.
-Jangan menyalin isinya ke screenshot, laporan, ZIP atau `VITE_*`.
+`AI_MAX_OUTPUT_TOKENS=2048`, and `AI_REASONING_EFFORT=none`.
+The provider key and assessment access token are separate. The file is created
+with mode 0600. Do not copy its contents into screenshots, reports, ZIPs, or
+`VITE_*`.
 
-Jalankan API dari root dengan konfigurasi tersebut:
+Run the API from the repository root with this configuration:
 
 ```bash
 bun --env-file=./data/state/experiential.env run dev:api
 ```
 
-UI Evidence Auditor tetap meminta token akses assessment. Token bukan API key
-provider dan tidak memberi akses review manusia/anchoring. Pengguna mengambil
-token dari konfigurasi privatnya sendiri; jangan mencetaknya dalam sesi agent.
+Evidence Auditor still asks for an assessment access token. The token is not the
+provider API key and does not grant human-review/anchoring access. The user obtains
+the token from their own private configuration; do not print it in an agent
+session.
 
-## Pembuktian transport dan grounding
+## Transport and grounding evidence
 
 ```bash
 bun --env-file=./data/state/experiential.env scripts/probe-document-ai.ts \
   --approve-provider-calls --output=/tmp/deepseek-smoke-unique.json
 ```
 
-Tool menjalankan tiga contoh DEMO milik proyek melalui route Hono yang sama,
-real provider, dan throwaway in-memory store. Batas enam panggilan, tidak ada retry
-otomatis, maksimum 2048 token output per panggilan pada profil ini. Respons dengan
-`finish_reason` selain `stop` ditolak meskipun content parsial bisa dibaca sebagai
-JSON; provider mock lama tanpa field tersebut tetap kompatibel. Hasil mencatat
-model respons, token/cost bila dilaporkan provider, kutipan, verdict, hash bundle,
-commit dan status perubahan source. Output baru dibuat mode 0600; tidak menimpa
-hasil lama. Excerpt DEMO tidak disimpan ke riwayat investigasi pengguna.
+The tool runs three project DEMO examples through the same Hono route, the real
+provider, and a throwaway in-memory store. The limit is six calls, with no
+automatic retries and a maximum of 2048 output tokens per call for this profile.
+Responses with a `finish_reason` other than `stop` are rejected even if partial
+content can be parsed as JSON; older mock providers without that field remain
+compatible. Results record the response model, tokens/cost if reported by the
+provider, quotations, verdict, bundle hash, commit, and source-change status. New
+output is created with mode 0600 and does not overwrite an existing result. DEMO
+excerpts are not stored in the user's investigation history.
 
-Smoke ini membuktikan transport dan perilaku software pada contoh kecil, bukan
-akurasi pada laporan nyata, benchmark independen, atau konfirmasi fisik mitigasi.
-Benchmark held-out tetap memerlukan label/adjudikasi manusia dan izin dokumen.
-Harga/kredit dan retention mengikuti akun provider; tidak menjanjikan AI gratis
-atau zero-retention. Jangan mengirim dokumen privat tanpa consent dan izin.
+This smoke check demonstrates transport and software behavior on a small example;
+it does not establish accuracy on real reports, an independent benchmark, or
+physical confirmation of mitigation. A held-out benchmark still requires human
+labels/adjudication and document permissions. Pricing/credits and retention follow
+the provider account; free AI or zero retention is not promised. Do not send
+private documents without consent and authorization.
 
 ## Render
 
-[Preview Render aktif](../evidence/render-preview-2026-10-21/README.md) menggunakan
-state sementara dan jalur baseline publik terbatas. Provider key serta token
-assessment terpisah dipasang sebagai environment backend privat pada layanan
-MethaneResponse yang disetujui. Token assessment lokal tersedia pada
-`data/state/experiential.env`; masukkan hanya token assessment ke formulir sesi,
-bukan API key provider. Assessment anonim ditolak. Reviewer dan signing secrets
-tidak dipasang; jangan mengirim dokumen rahasia ke preview.
+The [active Render preview](../evidence/render-preview-2026-10-21/README.md) uses
+temporary state and the limited public-baseline path. The provider key and a
+separate assessment token are installed as private backend environment variables
+on the approved MethaneResponse service. The local assessment token is available
+in `data/state/experiential.env`; enter only the assessment token in the session
+form, not the provider API key. Anonymous assessment is rejected. Reviewer and
+signing secrets are not installed; do not send confidential documents to the
+preview.

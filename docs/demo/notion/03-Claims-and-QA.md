@@ -2,7 +2,7 @@
 
 **Purpose:** keep every presentation claim within its evidence boundary.
 
-Baseline: `a82e2eee99bb79327f859f304f2f5d5939f07041`. The presentation is an English-facing narrative; operator and readiness notes are in Bahasa Indonesia. This package does not report external DeepThink validation.
+Baseline: `a82e2eee99bb79327f859f304f2f5d5939f07041`. The presentation is an English-facing narrative; operator and readiness notes are in English. This package does not report external DeepThink validation.
 
 ## Claim ledger
 

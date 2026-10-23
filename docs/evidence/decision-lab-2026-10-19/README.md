@@ -1,48 +1,48 @@
-# Evidence Decision Lab — 19 Oktober 2026
+# Evidence Decision Lab — 19 October 2026
 
-Increment prototipe dari baseline `8e19c034e666a6b00d93b4cb3f5747f563c75aab`. Source runtime dan regresi baru diikat melalui SHA-256 pada [verification.json](proof/verification.json); perubahan ini belum dinyatakan sudah push/deploy. Bukti, video dan judging pack terdahulu tidak ditulis ulang.
+Prototype increment from baseline `8e19c034e666a6b00d93b4cb3f5747f563c75aab`. [verification.json](proof/verification.json) binds runtime source/regressions by SHA-256. This historical record does not claim that the increment was pushed or deployed. Earlier evidence, video, and judging packages were not rewritten.
 
-## Keputusan yang kini dapat diperiksa
+## Decisions that can be inspected
 
-**Pertanyaan produk:** referensi mana yang mengubah keputusan, dan bukti apa yang harus diperoleh berikutnya?
+**Product question:** which references change the decision, and what evidence should be obtained next?
 
-| Kemampuan | Implementasi dan batas |
+| Capability | Implementation and boundary |
 |---|---|
-| Eligibility trace | Alasan referensi mendukung, berlawanan atau dikeluarkan, memakai policy baseline yang sama. Tanggal/event/penerima serta action/follow-up tetap diperlukan sesuai kategori. Metadata eligible bukan autentikasi isi dokumen. |
-| Sensitivity | Hapus satu ID dan jalankan policy kembali; maksimal delapan dependency individual dan satu penghapusan aggregate. Sisa individual yang tidak ditampilkan dihitung eksplisit. Bukan probabilitas repair, uncertainty ilmiah atau forecast. |
-| Evidence request | Draft Markdown berisi source/scope, snapshot/hash, attribution/license, keterbatasan serta acceptance checks. Tidak mengirim email atau mengubah status kerja otomatis. |
-| Replay | Unduh input, trace, sensitivity, versi policy dan digest. Browser serta CLI memeriksa checksum lalu menghitung ulang hasil. Unsigned; autentisitas membutuhkan penerbit/commitment tepercaya terpisah. |
-| Human handoff | Aksi eksplisit ke human assessment dan follow-up pada investigasi yang dipilih. Jalur reviewer/otorisasi serta audit schema 2/3/4 dipertahankan. |
-| Authored challenges | Lima fixture DEMO terpisah; tidak mengganti audit atau metadata kasus nyata. Menunjukkan lengkap, follow-up hilang, di luar periode, contrary dan konflik. |
+| Eligibility trace | Explains supporting, contrary, and excluded references using the baseline policy. Dates/events/recipients and action/follow-up remain required by category. Eligible metadata does not authenticate document contents. |
+| Sensitivity | Remove one ID and rerun policy: at most eight individual dependencies and one aggregate removal. Omitted individual dependencies are counted explicitly. Not a repair probability, scientific uncertainty estimate, or forecast. |
+| Evidence request | Markdown draft with source/scope, snapshot/hash, attribution/license, limitations, and acceptance checks. No email or automatic work-status change. |
+| Replay | Download input, trace, sensitivity, policy version, and digest. Browser/CLI verify checksum and recalculate. Unsigned; authenticity requires a separately trusted issuer/commitment. |
+| Human handoff | Explicit actions to human assessment/follow-up for the selected investigation. Reviewer authorization and audit schemas 2/3/4 are preserved. |
+| Authored challenges | Five separate DEMO fixtures: complete, missing follow-up, out-of-period, contrary, and conflict. They do not replace real-case audits or metadata. |
 
-Tidak ada database, model frontend, kontrak baru atau dependency baru. API membatasi body 16 KiB dan analisis 20 per menit per client dengan limiter terpisah. Evidence berasal dari snapshot server; field evidence/provenance yang disuntikkan klien ditolak. Analisis tidak menulis audit, memanggil provider AI, atau mengambil dokumen eksternal.
+No database, frontend model, contract, or dependency was added. The API limits bodies to 16 KiB and analysis to 20 requests/minute/client with a separate limiter. Evidence comes from the server snapshot; client-injected evidence/provenance is rejected. Analysis does not write audits, call an AI provider, or fetch external documents.
 
-## Coba melalui aplikasi
+## Try it in the application
 
-Jalankan API dan web mengikuti [setup lokal](../../development/local-setup.md). Buka `/dashboard/audit?sourceId=KAZ_S_159`.
+Follow [local setup](../../development/local-setup.md) and open `/dashboard/audit?sourceId=KAZ_S_159`.
 
-1. Pilih claim `source_detected`, lalu **Decision Lab → Explain current evidence**. Tiga referensi deteksi source-level memenuhi aturan. Menghapus seluruh referensi eligible mengubah hasil menjadi insufficient.
-2. Kembali ke scope controls, terapkan hari UTC `2024-06-07`, lalu ulangi analisis. Hanya satu dari tiga referensi eligible; dua lainnya dikeluarkan karena berada di luar periode. Menghapus satu referensi tersebut mengubah hasil.
-3. Pilih klaim mitigasi dalam periode yang sesuai. Tinjau action/follow-up checks dan unduh evidence request. Hasil insufficient menyatakan kekurangan referensi yang dimuat, bukan bukti repair tidak terjadi.
-4. Buka synthetic challenges. **Complete reference metadata** menghasilkan required references present; **missing follow-up** menghasilkan insufficient; **contrary** menghasilkan contrary reference present; **conflict** menghasilkan insufficient dan adjudication request. Skenario di luar periode juga insufficient.
-5. Pada conflict, hapus supporting reference → contrary; hapus contrary reference → supported; hapus keduanya → insufficient. Ini perubahan policy yang dapat direplay, bukan kejadian lingkungan.
-6. **Return to selected MARS source** mengembalikan konteks nyata. Lanjutkan ke human assessment atau buka follow-up, salin draft yang telah ditinjau dan simpan melalui workflow yang sudah ada.
+1. Select `source_detected`, then **Decision Lab → Explain current evidence**. Three source-level detection references meet policy. Removing all eligible references produces insufficient evidence.
+2. Apply UTC day `2024-06-07` in scope controls and rerun. Only one of three references is eligible; the others fall outside the period. Removing that reference changes the result.
+3. Select a mitigation claim for the appropriate period, inspect action/follow-up checks, and download the evidence request. Insufficient evidence describes gaps in loaded references; it does not prove that no repair occurred.
+4. Open synthetic challenges. **Complete reference metadata** produces required references present; **missing follow-up** produces insufficient; **contrary** produces contrary reference present; **conflict** produces insufficient with an adjudication request. Out-of-period also produces insufficient.
+5. For conflict, remove support → contrary; remove contrary → supported; remove both → insufficient. These are replayable policy changes, not environmental events.
+6. **Return to selected MARS source** restores real context. Continue to human assessment/follow-up, copy the reviewed draft, and save through the existing workflow.
 
-Scope draft harus diterapkan terlebih dahulu. Perubahan source/claim/scope/snapshot menghapus konteks hasil dan membatalkan request lama. State loading, unavailable source, stale snapshot, permission preview, rate limit, clipboard fallback dan error tersedia. Trace dimulai dengan 20 baris, lalu ditambah 50 per aksi. Chunk Decision Lab dimuat saat langkahnya dibuka.
+Apply draft scope before analysis. Source/claim/scope/snapshot changes clear results and invalidate old requests. Loading, unavailable source, stale snapshot, preview permission, rate-limit, clipboard fallback, and error states are covered. Trace starts with 20 rows and adds 50 per action. The Decision Lab chunk loads when opened.
 
-## Hasil yang direkam
+## Recorded results
 
-- [Enam analisis historis dan source binding](proof/verification.json): KAZ_S_159, LBY_S_143, CAN_S_002, masing-masing klaim deteksi dan mitigasi. Deteksi supported; mitigasi insufficient pada referensi yang dimuat. **6/6 cocok dengan saved baseline**. Ini conformance test kecil menggunakan policy yang sama, bukan akurasi terhadap gold independen.
-- [Contoh permintaan bukti KAZ](proof/KAZ_S_159-mitigation_confirmed-request.md), dengan snapshot `unep-mars-675417694883`, archive hash dan lisensi tercatat. JSON serta request untuk dua sumber lain tersedia di folder yang sama.
-- [Lima challenge DEMO](proof/DEMO-conflict.json) menggunakan sumber buatan `DEMO_DECISION_LAB`; tidak ada operator, pengukuran atau repair nyata yang direpresentasikan.
-- [Empat pemeriksaan CLI](cli-verification.json): replay original dan expected digest cocok diterima; perubahan isi dan expected digest salah ditolak.
-- [Transaksi Anvil aktual](local-chain-proof.json): deploy lokal, anchor audit deteksi KAZ_S_159, verifier proses terpisah menerima original, lalu menolak laporan yang diubah **dan dihash ulang** karena receipt/event terikat pada commitment lama. Bukti juga merekam historical receipt, forged issuer, revert, SIGKILL sebelum/sesudah broadcast, serta RPC acknowledgement yang hilang. Ini chain disposable **31337**, bukan Sepolia; endpoint chain tidak tetap hidup setelah pengujian.
+- [Six historical analyses and source binding](proof/verification.json): detection and mitigation for KAZ_S_159, LBY_S_143, CAN_S_002. Detection was supported; mitigation insufficient against loaded references. **6/6 matched the saved baseline**: small same-policy conformance, not independent-gold accuracy.
+- [KAZ evidence request](proof/KAZ_S_159-mitigation_confirmed-request.md) records snapshot `unep-mars-675417694883`, archive hash, and license. JSON/requests for the other sources are alongside it.
+- [Five DEMO challenges](proof/DEMO-conflict.json) use authored source `DEMO_DECISION_LAB`; no real operator, measurement, or repair is represented.
+- [Four CLI checks](cli-verification.json): original replay and matching expected digest accepted; changed contents and wrong expected digest rejected.
+- [Actual Anvil transactions](local-chain-proof.json): local deployment and KAZ_S_159 detection-audit anchor; a separate verifier accepts the original and rejects an altered **and rehashed** report because receipt/event retain the original commitment. Historical receipts, forged issuer, revert, SIGKILL before/after broadcast, and lost RPC acknowledgement are also recorded. Disposable chain **31337**, not Sepolia; RPC does not remain running afterward.
 
-CAN_S_002 mempunyai tautan laporan mitigasi resmi pada UI. Trace ini hanya memeriksa referensi metadata yang dimuat; tidak mengekstrak atau mereproduksi isi laporan berlisensi terpisah. Hasil insufficient tidak menyangkal laporan penerbit atau menyatakan fasilitas tidak diperbaiki.
+CAN_S_002 has an official mitigation-report link in the UI. This trace checks loaded reference metadata, not separately licensed report contents. Insufficient evidence neither disputes the publisher nor asserts that the facility was not repaired.
 
-## Pemeriksaan dan reproduksi
+## Checks and reproduction
 
-Lihat [hasil run](checks.json) dan [cuplikan output aktual](checks-output.txt) untuk counts dan status lokal/remote. Gate utama: **735 tes** (210 API, 255 web, 54 tooling, 212 Python, 4 Foundry), frozen install, typecheck API/web/E2E/evaluation, production build, bundle budget dan baseline conformance. **26 skenario browser** lulus dalam satu invocation lengkap (17 utama + 9 privat/tim/publikasi/mock-provider), tanpa skip/retry otomatis. Empat helper runner dan satu integrasi chain/42 assertions dicatat terpisah agar tidak menghitung ulang focused repeats.
+[checks.json](checks.json) and [actual output](checks-output.txt) distinguish local/remote status. Main gates: **735 tests** (210 API, 255 web, 54 tooling, 212 Python, 4 Foundry), frozen install, API/web/E2E/evaluation typecheck, production build, bundle budget, and baseline conformance. **26 browser scenarios** passed in one complete invocation (17 main + nine private/team/publication/mock-provider), without skips/automatic retries. Four runner helpers and one chain integration/42 assertions are separate; focused repeats are not added.
 
 ```bash
 bun run check:all
@@ -52,37 +52,37 @@ bun run prove:decision --output /tmp/methane-new-decision-proof
 bun run prove:decision --verify docs/evidence/decision-lab-2026-10-19/proof/KAZ_S_159-source_detected.json
 ```
 
-Output directory proof harus belum ada; script menolak overwrite. `--expected-digest 0x…` dapat dipakai untuk membandingkan digest dengan commitment yang diperoleh melalui kanal tepercaya. Kompatibilitas replay masa depan memerlukan implementasi policy versi yang dicatat; format baru tidak mengganti audit bundle/receipt lama.
+The proof output directory must not exist; overwrite is refused. `--expected-digest 0x…` compares against a commitment obtained through a trusted channel. Future replay requires the recorded policy implementation. This new format does not replace historical bundles/receipts.
 
-Runtime lokal Bun **1.4.3**, sedangkan pin repo tetap 1.4.2. Python, Foundry dan Chromium menggunakan tool lokal yang tercatat pada hasil pemeriksaan. Browser memakai SwiftShader dan sandbox aktif; mobile adalah viewport emulation, bukan HP fisik atau benchmark FPS.
+Local Bun was **1.4.3**, repository pin 1.4.2. Checks record local Python, Foundry, and Chromium versions. Browser used SwiftShader with sandbox enabled; mobile means viewport emulation, not a physical phone or FPS benchmark.
 
-Screenshot aplikasi aktual: [desktop, source nyata](decision-lab-real-desktop.png) · [mobile, challenge DEMO konflik](decision-lab-challenge-mobile.png). Capture terfokus terpisah tidak ditambahkan lagi ke jumlah skenario suite lengkap.
+Actual screenshots: [real source, desktop](decision-lab-real-desktop.png) · [DEMO conflict, mobile](decision-lab-challenge-mobile.png). Separate focused captures are not extra full-suite scenarios.
 
-## Peta perubahan
+## Change map
 
-| Berkas | Tanggung jawab |
+| File | Responsibility |
 |---|---|
-| [Shared policy](../../../packages/shared/src/decision-lab.ts) | Skema, eligibility trace, bounded sensitivity, digest/replay dan authored fixtures; subpath package additive |
-| [API](../../../apps/api/src/app.ts) · [regresi](../../../apps/api/src/decision-lab.test.ts) | Dua route non-persistent, source/snapshot binding, preview/input/rate-limit boundaries |
-| [Panel](../../../apps/web/src/DecisionLabPanel.tsx) · [client/export](../../../apps/web/src/decision-lab.ts) | Lazy step, error/permission states, replay, export, handoff dan responsive styles |
-| [Proof runner](../../../scripts/decision-lab-proof.ts) | Enam historical plans, lima authored challenges, baseline parity, source hashes dan CLI verification |
-| [Browser policy](../../../scripts/e2e-runner-utils.ts) · [E2E](../../../e2e/audit-workflow.spec.ts) | Hosted-runner compatibility, local sandbox, credential isolation dan workflow/capture regresi |
-| [Chain integration](../../../scripts/chain-integration.test.ts) | Actual local transaction dan penolakan rehashed tampering pada real-source audit |
+| [Shared policy](../../../packages/shared/src/decision-lab.ts) | Schemas, eligibility trace, bounded sensitivity, digest/replay, authored fixtures; additive package subpath |
+| [API](../../../apps/api/src/app.ts) · [regressions](../../../apps/api/src/decision-lab.test.ts) | Two nonpersistent routes; source/snapshot, preview/input/rate-limit boundaries |
+| [Panel](../../../apps/web/src/DecisionLabPanel.tsx) · [client/export](../../../apps/web/src/decision-lab.ts) | Lazy step, error/permission states, replay/export/handoff, responsive styles |
+| [Proof runner](../../../scripts/decision-lab-proof.ts) | Six historical plans, five challenges, baseline parity, source hashes, CLI verification |
+| [Browser policy](../../../scripts/e2e-runner-utils.ts) · [E2E](../../../e2e/audit-workflow.spec.ts) | Hosted-runner compatibility, local sandbox, credential isolation, workflow/capture regressions |
+| [Chain integration](../../../scripts/chain-integration.test.ts) | Actual local transaction and rehashed-tampering rejection for a real-source audit |
 
-Tidak ada migrasi database atau perubahan kontrak Solidity. Audit schema/receipt historis dipertahankan; DecisionPlan schema 1 merupakan artefak analisis terpisah.
+No database migration or Solidity change. Historical schemas/receipts remain; DecisionPlan schema 1 is a separate analysis artifact.
 
-### CI dan kegagalan yang ditangani
+### CI and handled failures
 
-- GitHub Actions baseline [run 39237532964](https://github.com/AndroLay/MethaneResponse/actions/runs/39237532964) gagal sebelum assertion E2E: `No usable sandbox`. Policy baru mengecualikan sandbox hanya bila `CI=true`, `GITHUB_ACTIONS=true`, dan `RUNNER_ENVIRONMENT=github-hosted`; local, self-hosted serta CI tak dikenal tetap sandboxed. Empat regresi helper memeriksa policy dan isolasi credential. **Run GitHub untuk perubahan baru belum tersedia.**
-- Gate awal menemukan satu bug baru: endpoint DEMO meneruskan field source tambahan ke input strict. API sekarang memilih field secara eksplisit; regresi 20 request sukses/21st rate-limit serta suite final lulus.
-- Upaya browser awal tanpa izin socket gagal di lingkungan sandbox eksekusi. Browser dijalankan dengan akses host yang disetujui, tetap dengan Chromium sandbox aktif.
-- Full browser run pertama: 16 pass/1 fail. Trace menunjukkan `ERR_NETWORK_CHANGED` pada fetch modul lokal sebelum aplikasi tampil, bukan assertion dokumen yang salah. Tidak menambah skip/retry otomatis atau melonggarkan assertion; suite lengkap dijalankan ulang dan hasilnya dicatat terpisah.
-- Review kode read-only menemukan provenance/license belum ikut export; diperbaiki pada plan, UI, Markdown dan regresi. Dugaan literal `\\n` diperiksa terhadap source bytes dan tes newline; tidak terbukti dan tidak memerlukan perubahan serializer.
+- Baseline [GitHub Actions run 39237532964](https://github.com/AndroLay/MethaneResponse/actions/runs/39237532964) failed before E2E assertions: `No usable sandbox`. The new policy disables sandbox only when `CI=true`, `GITHUB_ACTIONS=true`, and `RUNNER_ENVIRONMENT=github-hosted`. Local, self-hosted, and unknown CI retain sandboxing. Four helpers check policy/credential isolation. **No remote run for this increment was available at this checkpoint.**
+- Initial gates found a new DEMO endpoint bug: extra source fields were passed to strict input. Explicit field selection fixed it; 20 successful requests/21st rate-limit regression and final suite passed.
+- Initial browser execution lacked socket permission. Approved host access was used while retaining Chromium sandboxing.
+- First full browser run: 16 pass/one fail; trace showed `ERR_NETWORK_CHANGED` fetching a local module before rendering, not an incorrect document assertion. No skip, automatic retry, or weaker assertion was added. A complete rerun is recorded separately.
+- Read-only code review found missing provenance/license in exports; plan/UI/Markdown/regressions were fixed. Suspected literal `\\n` was checked against source bytes/newline tests and was not established; serialization did not need changing.
 
-## Batas dan pekerjaan berikutnya
+## Boundaries and next steps at this checkpoint
 
-1. Publikasikan perubahan yang disetujui, lalu periksa GitHub Actions pada revisi baru. Perbaikan konfigurasi lokal tidak sama dengan CI remote hijau.
-2. Bila materi submission diperbarui, tambahkan demo dependency/conflict dan local-chain tamper yang dihash ulang; video v12 lama belum memuat langkah baru ini.
-3. Review pakar/pilot manusia tetap ditunda sesuai keputusan pengguna. AI provider eksternal, manfaat waktu/akurasi pada pengguna, dan dampak pengurangan emisi belum dibuktikan oleh increment ini.
+1. Publish approved changes and check Actions on the new revision. Local configuration fixes are not remote CI success.
+2. Updated submission material should demonstrate dependency/conflict and local-chain rehashed tampering. Historical v12 lacks these steps.
+3. Expert review/human pilot remain deferred. This increment does not establish external-provider AI, user time/accuracy gains, or emission reductions.
 
-Increment ini memperjelas keputusan dan kebutuhan bukti pada prototipe. Jumlah tes atau kelengkapan fixture tidak membuktikan ranking kompetisi, keberhasilan repair, atau keunggulan AI atas rules.
+The increment clarifies decisions and evidence needs. Test counts and fixtures establish neither competition ranking, successful repairs, nor AI superiority over rules.

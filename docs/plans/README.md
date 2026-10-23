@@ -1,40 +1,40 @@
-# Rencana implementasi dan hasil
+# Implementation Plans and Results
 
-[Pusat dokumentasi](../README.md) · [Status aktif](../release/current-implementation-status.md) · [History](../history/README.md)
+[Documentation home](../README.md) · [Current status](../release/current-implementation-status.md) · [History](../history/README.md)
 
-Halaman rencana mencatat tujuan dan pekerjaan pada increment tertentu. Checklist selesai mengacu pada bukti yang ditautkan; bukan instruksi untuk menjalankan ulang pekerjaan atau persetujuan deployment/transaksi.
+Plan pages record the goals and work for a particular increment. Checked items refer to linked evidence; they are not instructions to rerun work or authorization for deployment/transactions.
 
-## Penyelesaian aktif — 20 Oktober 2026
+## Active completion — 20 October 2026
 
-[Penyelesaian selain Render](2026-10-20-non-render-completion.md) mencatat
-perbaikan CI/peta, verifikasi prototipe dan paket delivery terbaru. Render
-dikecualikan pengguna, Notion tidak menjadi deliverable aktif, blockchain
-diterima sebagai prototipe Anvil tanpa funding, dan konfigurasi model Luna
-akan diberikan kemudian. [Serah terima 18 Oktober](2026-10-18-luna-delivery-handoff.md)
-tetap disimpan sebagai checkpoint historis; keputusan yang lebih baru berlaku.
+[Non-Render completion](2026-10-20-non-render-completion.md) records
+CI/map fixes, prototype verification, and the latest delivery package. The user
+excluded Render, Notion is not an active deliverable, blockchain is accepted as
+an Anvil prototype without funding, and Luna model configuration will be
+provided later. The [18 October handoff](2026-10-18-luna-delivery-handoff.md)
+remains as a historical checkpoint; newer decisions take precedence.
 
-| Rencana | Cakupan | Status |
+| Plan | Scope | Status |
 |---|---|---|
-| [Urutan penyelesaian enam paket](2026-10-17-six-package-completion.md) | Kolaborasi/persistensi, blockchain, koreksi publikasi, review pakar, manfaat pengguna dan evaluasi AI; penutupan docs/demo lintas paket | P1 verified lokal; [profil testing P2 tanpa faucet](../evidence/p2-local-testing-2026-10-17/README.md) verified, target Sepolia awal belum terpenuhi; [P3](../evidence/publication-lifecycle-2026-10-18/README.md) verified lokal; [P4](../evidence/domain-review-remediation-2026-10-18/README.md) menunggu manusia; [P5/P6 dalam cakupan agent selesai](../evidence/p5-p6-agent-completion-2026-10-18/README.md), studi manusia/provider pending. Target internal keseluruhan tetap 20 Oktober 23.59 WITA |
+| [Six-package completion sequence](2026-10-17-six-package-completion.md) | Collaboration/persistence, blockchain, publication correction, expert review, user benefit, and AI evaluation; cross-package docs/demo closeout | P1 verified locally; [P2 no-faucet test profile](../evidence/p2-local-testing-2026-10-17/README.md) verified, initial Sepolia target not met; [P3](../evidence/publication-lifecycle-2026-10-18/README.md) verified locally; [P4](../evidence/domain-review-remediation-2026-10-18/README.md) awaiting humans; [P5/P6 complete within agent scope](../evidence/p5-p6-agent-completion-2026-10-18/README.md), human/provider studies pending. Overall internal target remained 20 October, 23:59 WITA |
 
-## Increment 18 Oktober 2026
+## 18 October 2026 increment
 
-[Penguatan manfaat produk](2026-10-18-product-value-strengthening.md): alur scope/verifier, pembanding fungsional dan tiga studi kasus historis; [paket hasil](../evidence/product-value-2026-10-18/README.md).
+[Product value strengthening](2026-10-18-product-value-strengthening.md): scope/verifier workflow, functional comparison, and three historical case studies; [results package](../evidence/product-value-2026-10-18/README.md).
 
-[Simulasi tiga integrasi melalui peran agent](2026-10-18-integration-role-simulation.md) selesai dalam cakupan engineering lokal: HTTPS provider fixture, profil production lokal dan lost-ack RPC Anvil, dengan [bukti baru](../evidence/integration-role-simulation-2026-10-18/README.md). Provider eksternal, hosting publik dan receipt Sepolia belum terverifikasi.
+[Simulating three integrations through agent roles](2026-10-18-integration-role-simulation.md) is complete within local engineering scope: HTTPS provider fixture, local production profile, and Anvil RPC lost-ack, with [new evidence](../evidence/integration-role-simulation-2026-10-18/README.md). An external provider, public hosting, and Sepolia receipt remain unverified.
 
-[Eksekusi P5/P6 melalui agent](2026-10-18-p5-p6-agent-execution.md) selesai: 48 tugas berpasangan dan 72 klaim per agent, analisis serta penutupan temuan. [Increment persiapan sebelumnya](2026-10-18-p5-p6-evaluation.md) tetap historis; penelitian manusia/provider masih pending. P4 ditunda sesuai arahan pengguna.
+[P5/P6 execution through agents](2026-10-18-p5-p6-agent-execution.md) is complete: 48 paired tasks and 72 claims per agent, analysis, and issue resolution. The [earlier preparation increment](2026-10-18-p5-p6-evaluation.md) remains historical; human/provider research is still pending. P4 was deferred as directed by the user.
 
-## Increment 17 Oktober 2026
+## 17 October 2026 increment
 
-| Rencana | Cakupan | Bukti hasil |
+| Plan | Scope | Result evidence |
 |---|---|---|
-| [Human investigation workspace](2026-10-17-human-investigation-workspace.md) | Penilaian manual, bounded scope, case work dan queue | [Evidence](../evidence/human-investigation-workspace-2026-10-17/README.md) |
-| [Workflow continuity](2026-10-17-workflow-continuity.md) | Draft recovery, manual route, shared coverage, request transfer dan banyak investigasi | [Evidence](../evidence/workflow-continuity-2026-10-17/README.md) |
-| [Trust dan transparansi](2026-10-17-trust-transparency.md) | Reference checks, directory assurance, private reports dan public summary | [Evidence](../evidence/trust-transparency-2026-10-17/README.md) |
+| [Human investigation workspace](2026-10-17-human-investigation-workspace.md) | Manual assessment, bounded scope, casework, and queue | [Evidence](../evidence/human-investigation-workspace-2026-10-17/README.md) |
+| [Workflow continuity](2026-10-17-workflow-continuity.md) | Draft recovery, manual path, shared coverage, request transfer, and multiple investigations | [Evidence](../evidence/workflow-continuity-2026-10-17/README.md) |
+| [Trust and transparency](2026-10-17-trust-transparency.md) | Reference checks, directory assurance, private reports, and public summary | [Evidence](../evidence/trust-transparency-2026-10-17/README.md) |
 
-Ketiga increment sudah diimplementasikan lokal. Batas eksternal/validasi yang dicatat di masing-masing rencana tidak berubah menjadi hasil nyata hanya karena checklist implementasi selesai.
+All three increments were implemented locally. External/validation limits recorded in each plan do not become real-world results just because implementation checklists are complete.
 
-## Rencana terdahulu
+## Earlier plans
 
-[Rencana 12–15 Oktober](../superpowers/plans/README.md) dipertahankan pada lokasi semula agar tautan tetap berlaku. Asumsi database pada rencana awal digantikan [ADR tanpa database](../architecture/decisions/2026-10-15-local-prototype-no-database.md). Gunakan [peta repository](../repository-map.md) untuk struktur kode saat ini.
+[Plans from 12–15 October](../superpowers/plans/README.md) remain at their original locations so links continue to work. The database assumption in the initial plan was superseded by the [no-database ADR](../architecture/decisions/2026-10-15-local-prototype-no-database.md). Use the [repository map](../repository-map.md) for the current code structure.

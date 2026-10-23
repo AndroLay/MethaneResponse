@@ -1,28 +1,28 @@
-# Review implementasi dan perbaikan
+# Implementation review and fixes
 
-Cakupan: dossier, permission boundary, keputusan beku, shared single-writer state, verifier dan UI investigasi. Ini review software lokal, bukan review pakar metana, identitas reviewer atau pilot manusia. Perubahan pengguna dan evidence terdahulu dipertahankan.
+Scope: dossier, permission boundaries, frozen decisions, shared single-writer state, verifier, and investigation UI. This is a local software review, not methane-expert review, reviewer-identity verification, or a human pilot. User edits and earlier evidence were preserved.
 
-| Temuan | Perbaikan | Regresi |
+| Finding | Fix | Regression |
 |---|---|---|
-| Link rencana dihapus pada revisi terbaru, tetapi masih ada pada riwayat yang diekspor | Authority untuk rencana diperiksa terhadap seluruh riwayat | `investigation-decision-api.test.ts`, historical plan authority |
-| Authority berubah selama pemuatan perbandingan snapshot | Pemeriksaan authority ulang setelah await terakhir, sebelum respons privat/digest header | Tes yang sama, revocation during transition load |
-| Parsing dapat menormalisasi whitespace pada payload beku sehingga perubahan file tampak tidak berubah | Bandingkan canonical raw dengan parsed; verifikasi setiap digest sebelum cache state | `investigation-decision-store.test.ts`, normalization/payload/unknown-field tamper |
-| Reconcile terminal reverted mencoba memeriksa chain kembali | Outcome terminal dikembalikan idempotent; tidak broadcast/inspect lagi | `investigation-decision-api.test.ts`, terminal reverted reconciliation |
-| Review baru atas respons lama belum memicu revisit | `response_review_changed` dipisahkan dari `new_authorized_response` | `investigation-revisit.test.ts` |
-| Validator metadata frontend mengimpor dependensi yang tidak dimiliki web | Gunakan subpath shared yang mempunyai Zod; tanpa dependency/lockfile baru | `investigation-decision-ui.test.ts`, typecheck dan build |
-| Selector tes “Due date” cocok juga dengan “Request due date” baru | Exact accessible label untuk tenggat work item; assertion perilaku tetap | Full private/team browser phase |
-| Tes tim menganggap direktori hanya berisi satu investigasi, padahal workflow sebelumnya kini menyimpan investigasi tambahan | Periksa keberadaan sumber target dan bahwa semua baris memenuhi status; bedakan filter direktori dari assignment pada selector shared work. Seluruh konflik/history assertions dipertahankan | Full private/team browser phase |
+| The latest revision removed a plan link that remained in exported history | Check plan authority across the complete history | `investigation-decision-api.test.ts`, historical plan authority |
+| Authority changed while a snapshot comparison was loading | Recheck authority after the final await, before private responses/digest headers | Same test file, revocation during transition load |
+| Parsing could normalize whitespace in a frozen payload and hide file changes | Compare canonical raw and parsed forms; verify every digest before caching state | `investigation-decision-store.test.ts`, normalization/payload/unknown-field tamper |
+| Reconciliation of terminal reverted state inspected the chain again | Return the terminal outcome idempotently, without rebroadcast/inspection | `investigation-decision-api.test.ts`, terminal reverted reconciliation |
+| Reviewing an existing response did not trigger revisit | Separate `response_review_changed` from `new_authorized_response` | `investigation-revisit.test.ts` |
+| Frontend metadata validation imported a dependency not owned by web | Use the shared subpath owning Zod; no dependency/lockfile addition | `investigation-decision-ui.test.ts`, typecheck/build |
+| “Due date” test selector also matched the new “Request due date” | Use the exact accessible work-item deadline label; preserve behavioral assertions | Full private/team browser phase |
+| Team test assumed only one investigation existed after earlier workflows began retaining more | Check target-source presence and every row's status; distinguish directory filtering from assignment in the shared-work selector. Preserve conflict/history assertions | Full private/team browser phase |
 
-## Pemeriksaan kompatibilitas
+## Compatibility checks
 
-- EvidenceRegistry dan `registryCaseId` audit lama dipertahankan. Keputusan memakai key berbeda melalui `registryInvestigationId`.
-- File state legacy, envelope 1/2 dan audit bundle 2/3/4 tetap dibaca. Envelope 3 diperlukan setelah keputusan pertama; rollback writer lama bukan operasi yang kompatibel tanpa backup sebelum migrasi.
-- Intent baru dan audit lama menggunakan pemeriksaan pending/issuer/nonce bersama. Pengujian Anvil menguji blocking kedua arah, lost acknowledgement, reopen, reconciliation, historical verification serta tamper dengan checksum baru.
-- Casework claim/scope tidak berubah dalam satu work ID. Evidence events append-only; actor/waktu berasal dari revisi server. Scope atau klaim berbeda memerlukan pekerjaan baru.
-- Respons baru, review respons, kriteria/assessment berubah dan record snapshot yang relevan menghasilkan alasan terpisah. Catatan kerja biasa tidak mengubah determination. Report yang sudah termasuk snapshot keputusan diberi label sebagai konteks historis yang sudah tercakup.
+- EvidenceRegistry and historical audit `registryCaseId` remain unchanged. Decisions use a separate key through `registryInvestigationId`.
+- Legacy file state, envelopes 1/2, and audit bundles 2/3/4 remain readable. Envelope 3 is required after the first decision; rolling back to an older writer requires a pre-migration backup.
+- New intents and old audits share pending/issuer/nonce checks. Anvil tests cover blocking in both directions, lost acknowledgements, reopening, reconciliation, historical verification, and tampering with a recomputed checksum.
+- Casework claim/scope remain immutable within a work ID. Evidence events are append-only; actor/time come from server revisions. A different scope or claim requires new work.
+- New responses, response reviews, changed criteria/assessments, and relevant snapshot records produce separate reasons. Ordinary work notes do not change a determination. Reports already in the decision snapshot are labeled as previously included historical context.
 
-## Risiko yang tetap ada
+## Remaining risks
 
-Satu writer/file privat, tidak multi-instance atau encrypted storage. Deklarasi hak/hash respons bukan autentikasi berkas. Pemeriksaan digest memerlukan commitment yang diperoleh secara tepercaya; pemegang file dapat menghitung checksum baru. Blockchain menambahkan pemeriksaan commitment/urutan, bukan kebenaran fisik. Reviewer DEMO software tidak menunjukkan manfaat pengguna atau penilaian pakar.
+Private files require one writer; this is neither multi-instance nor encrypted storage. Response-rights declarations and hashes do not authenticate files. Digest checks require a commitment obtained through a trusted channel: file holders can calculate new checksums. Blockchain adds commitment/chronology checks, not physical truth. DEMO software reviewers do not establish user benefit or expert assessment.
 
-Lihat `checks.json` untuk hasil perintah yang benar-benar dicatat dan `artifact-manifest.json` untuk integritas paket ini. Manifest bukan tanda tangan pihak independen.
+See `checks.json` for recorded commands and `artifact-manifest.json` for package integrity. The manifest is not an independent signature.

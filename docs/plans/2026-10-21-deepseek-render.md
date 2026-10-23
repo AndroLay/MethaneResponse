@@ -1,58 +1,57 @@
-# DeepSeek dan preview Render — 21 Oktober 2026
+# DeepSeek and Render Preview — 21 October 2026
 
-## Keputusan pengguna
+## User decisions
 
-- Model Luna diganti dengan `deepseek-v4.1-flash-1017` melalui ExperientialLabs.
-- API key dibaca dari berkas privat yang diberikan pengguna; nilainya tidak
-  dipublikasikan, dicetak, atau dimasukkan ke frontend.
-- Deployment Render kembali diminta, pada Andro's workspace, Singapore, Free.
-  Persetujuan terdahulu mensyaratkan batas Rp0 terverifikasi; bukan izin biaya.
-- Tidak ada perubahan database, transaksi Sepolia, atau layanan Evidrilo.
+- Replace the Luna model with `deepseek-v4.1-flash-1017` through ExperientialLabs.
+- Read the API key from the private file provided by the user; its value was not
+  published, printed, or included in the frontend.
+- A Render deployment was requested again, in Andro's workspace, Singapore, Free.
+  Prior approval required a verified Rp0 spending limit; it was not spending authorization.
+- No database change, Sepolia transaction, or Evidrilo service change.
 
-## Urutan dan penerimaan
+## Sequence and acceptance
 
-1. Cocokkan slug dengan katalog API dan dokumentasi provider. Simpan konfigurasi
-   privat mode 0600 di `data/state/experiential.env`, di luar Git dan ZIP.
-2. Batasi output per panggilan (default 2048, maksimum 4096 token), pilih reasoning
-   secara eksplisit, pertahankan timeout, exact citations dan pemeriksaan kedua.
-3. Jalankan regresi dan smoke API nyata terhadap tiga dokumen DEMO milik proyek,
-   maksimum enam panggilan. Catat versi, usage, verdict dan integritas bundle.
-   Tidak boleh menyebut smoke sebagai benchmark independen atau hasil lapangan.
-4. Verifikasi biaya workspace sebelum membuat `methaneresponse-preview`.
-   Konektor Render tidak mengekspos billing/spend limits; dashboard otomatis
-   pada sesi pemeriksaan tidak merender konten. Permintaan verifikasi pengguna
-   sudah dikirim sebelum pembuatan layanan.
-   Pengguna kemudian menjawab "Iya silahkan anda buatkan layanan tersebut".
-   Pembuatan layanan Free dilanjutkan dengan persetujuan eksplisit ini; kontrol
-   billing tidak dinyatakan telah terbaca dan tidak ada klaim jaminan biaya total Rp0.
-5. Setelah persetujuan pembuatan Free diberikan: publikasikan revisi teruji ke main, buat satu
-   web/API Free, auto-deploy off, tanpa disk/database/signer. Periksa commit,
-   health, snapshot, route aplikasi dan akses AI terautentikasi pada URL publik.
-6. Catat deployment ID/status dan keterbatasan preview. Rollback dengan suspend
-   layanan khusus MethaneResponse atau deploy kembali revisi sebelumnya; tidak
-   mengubah billing/workspace atau layanan proyek lain.
+1. Match the slug to the API catalog and provider documentation. Store the private
+   configuration with mode 0600 in `data/state/experiential.env`, outside Git and ZIP files.
+2. Limit output per call (default 2048, maximum 4096 tokens), select reasoning
+   explicitly, and retain timeouts, exact citations, and the second-pass check.
+3. Run regressions and a real API smoke test against three project-owned DEMO documents,
+   with at most six calls. Record version, usage, verdict, and bundle integrity.
+   Do not describe a smoke test as an independent benchmark or field result.
+4. Verify workspace costs before creating `methaneresponse-preview`.
+   The Render connector does not expose billing/spend limits; the dashboard
+   did not render content during the inspection session. A request for user
+   verification was sent before service creation.
+   The user then replied, "Yes, please create that service."
+   The Free service was created with this explicit approval; billing controls
+   were not claimed to have been inspected, and no guarantee of a total Rp0 cost was made.
+5. After approval to create the Free service: publish the tested revision to main, create one
+   Free web/API service, disable auto-deploy, and use no disk/database/signer. Check the commit,
+   health, snapshot, application route, and authenticated AI access at the public URL.
+6. Record the deployment ID/status and preview limitations. Roll back by suspending
+   the MethaneResponse-only service or redeploying the previous revision; do not
+   change billing/workspace settings or other project services.
 
-## Hasil integrasi dan tes
+## Integration and test results
 
-Katalog berhasil diakses dengan credential pengguna. Smoke provider nyata 3/3
-lulus, lima panggilan, model respons persis `deepseek-v4.1-flash-1017`;
-[ringkasan dan batas bukti](../evidence/deepseek-live-2026-10-21/README.md).
-Typecheck, 301 tes API, 66 tooling tests dan 12 pemeriksaan browser/schema lulus.
-Ini menggantikan status Luna
-pending untuk transport; benchmark independen tetap belum tersedia.
+The catalog was accessed using the user's credential. The real-provider smoke test passed 3/3,
+using five calls and returning exactly model `deepseek-v4.1-flash-1017`;
+[summary and evidence limits](../evidence/deepseek-live-2026-10-21/README.md).
+Typecheck, 301 API tests, 66 tooling tests, and 12 browser/schema checks passed.
+This replaces Luna's
+pending transport status; an independent benchmark remains unavailable.
 
-## Hasil deployment aktual
+## Actual deployment result
 
-Pengguna menyetujui pembuatan Free setelah penjelasan kontrol biaya. Layanan
-`srv-dbbumltg1s2s73e8cct0` dibuat di Singapore; deployment terakhir
-`dep-dbbunbv4695c73eb958g` live pada source `98b25ca`.
-Backend DeepSeek aktif. Satu perjalanan browser publik menghasilkan assessment
-DEMO HTTP 201, kutipan exact dan hash valid dalam sekitar 3,2 detik. Token/privasi
-dan konfigurasi pada rollout terakhir juga diperiksa.
-[Bukti lengkap dan batas biaya/state](../evidence/render-preview-2026-10-21/README.md).
+The user approved creating the Free service after the cost-control explanation. Service
+`srv-dbbumltg1s2s73e8cct0` was created in Singapore; the latest deployment
+`dep-dbbunbv4695c73eb958g` is live on source `98b25ca`.
+The DeepSeek backend is active. One public browser journey produced a DEMO assessment
+The DEMO request returned HTTP 201 with exact citations and a valid hash in about 3.2 seconds. Token/privacy behavior and the final rollout configuration were also checked.
+[Full evidence and cost/state limits](../evidence/render-preview-2026-10-21/README.md).
 
-## Batas interpretasi hasil
+## Interpretation limits
 
-Konfigurasi backend lokal, transport provider nyata, benchmark kualitas, runtime
-publik dan submission adalah status yang berbeda. State Render `/tmp` bersifat
-sementara; model tidak dapat mengesahkan repair atau mengotorisasi anchoring.
+Local backend configuration, real provider transport, quality benchmark, public
+runtime, and submission are distinct statuses. Render `/tmp` state is temporary;
+the model cannot certify a repair or authorize anchoring.

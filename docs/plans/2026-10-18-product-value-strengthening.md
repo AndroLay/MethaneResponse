@@ -1,37 +1,37 @@
-# Penguatan manfaat dan alur investigasi
+# Strengthening Product Value and Investigation Workflow
 
-**Status:** verified dalam cakupan lokal · 18 Oktober 2026. Root menjadi satu-satunya penulis repo; agen membantu analisis dan review secara read-only.
+**Status:** verified within local scope · 18 October 2026. Root is the repository's sole writer; agents assist with read-only analysis and review.
 
-**Otorisasi:** pengguna menyetujui tiga keluaran dan memberikan kebebasan implementasi. Tes telah diizinkan. Eksekusi mengikuti adapter `adaptive-engineering/references/persistent-plans.md`; tidak melakukan commit/deploy/publikasi eksternal.
+**Authorization:** the user approved three deliverables and left implementation choices open. Tests are authorized. Execution follows the `adaptive-engineering/references/persistent-plans.md` adapter; no commit/deployment/external publication was performed.
 
-**Tujuan:** meningkatkan kegunaan dan bukti nilai Climate Impact, Innovation, dan Practical Usefulness. Target 18/20 merupakan aspirasi penilaian internal, bukan keluaran tes atau jaminan nilai juri.
+**Goal:** improve usefulness and evidence for Climate Impact, Innovation, and Practical Usefulness. The 18/20 target is an internal scoring aspiration, not a test result or guarantee of a judge's score.
 
-**Baseline:** HEAD `a82e2eee99bb79327f859f304f2f5d5939f07041` dengan 201 perubahan working tree yang dipertahankan. Paket P5/P6 dan integration-role-simulation tetap beku. Temuan P5 yang lambat/parsial tidak diganti hasil baru.
+**Baseline:** HEAD `a82e2eee99bb79327f859f304f2f5d5939f07041` with 201 retained working-tree changes. P5/P6 and integration-role-simulation packages remain frozen. Slow/partial P5 findings are not replaced with new results.
 
-## Desain yang dikerjakan
+## Implemented design
 
-1. Gunakan editor scope yang ada: preset rentang observasi UTC dan satu hari event, preview sebelum Apply, penanda draft belum diterapkan, serta blokir baseline ketika periodenya masih draft. Preset hanya membantu input, tidak menentukan tanggal tindakan/mitigasi.
-2. Tempatkan verifikasi file langsung dalam Reports. Mode default meminta checksum konteks ekspor lengkap, dengan opsi eksplisit untuk berkas legacy. Tampilkan integritas bundle, konteks, dan keterbatasan secara terpisah. Tidak membutuhkan CLI untuk pemeriksaan file lokal.
-3. Bekukan tugas/rubrik sebelum perbandingan. Baseline manual memperoleh data/provenance/aturan dan alat hash yang sama; laporkan hasil fungsional dan langkah, bukan penghematan waktu manusia. Jangan membatasi kemampuan manual secara artifisial atau mengklaim baseline MARS asli diuji.
-4. Tiga studi kasus historis: fakta snapshot, masalah keputusan, bukti yang ada, yang belum ada, hasil aturan untuk scope eksplisit, dan permintaan bukti berikutnya. Tidak mereproduksi isi laporan pihak ketiga.
+1. Use the existing scope editor: presets for UTC observation ranges and a single event day, preview before Apply, an unapplied-draft indicator, and a baseline block while the period remains a draft. Presets assist input; they do not determine action/mitigation dates.
+2. Put file verification directly in Reports. The default mode requires the complete export-context checksum, with an explicit option for legacy files. Show bundle integrity, context, and limitations separately. Local file checks do not require the CLI.
+3. Freeze tasks/rubric before comparison. Give the manual baseline the same data/provenance/rules and hash tool; report functional outcomes and steps, not time saved for people. Do not artificially limit the manual condition or claim that the original MARS baseline was tested.
+4. Three historical case studies: snapshot facts, decision problem, available and missing evidence, rules results for an explicit scope, and the next evidence request. Do not reproduce third-party report contents.
 
-## Milestone dan penerimaan
+## Milestones and acceptance
 
-- [x] **M1 — alur scope dan verifier.** Files: `AssessmentScopeEditor.tsx`, helper scope/tests, `EvidenceAuditorWorkflow.tsx`, `ImportedAuditVerifier.tsx`, `imported-audit-verifier.ts`/tests, Reports di `App.tsx`, CSS dan E2E. Red→green untuk perilaku baru; Chromium desktop/mobile mencakup preset/apply, draft guard, export/import utuh dan tamper.
-- [x] **M2 — perbandingan fungsional.** Files: paket baru `docs/evidence/product-value-2026-10-18/`, harness/tooling tests jika diperlukan. Inputs/protocol/rubric di-hash sebelum eksekusi; hasil baseline dan app mentah dipertahankan, kegagalan tidak disembunyikan. Agen tidak dihitung sebagai responden manusia.
-- [x] **M3 — tiga studi kasus dan dokumentasi.** Files: `docs/research/` studi kasus; product workflow, status, indeks bukti/rencana. Semua fakta numerik direplay dari dataset tetap. Dokumentasikan batas lama dan baru.
-- [x] **M4 — review dan bukti akhir.** Jalankan focused tests → typecheck → browser → build/bundle. Review independen terhadap perubahan/hasil. Bekukan file hashes, raw logs, screenshot terpilih dan commands dalam paket baru. Full gate hanya jika sebanding dengan perubahan lintas komponen; jangan menyebut hasil lama sebagai rerun.
+- [x] **M1 — scope and verifier workflow.** Files: `AssessmentScopeEditor.tsx`, scope helper/tests, `EvidenceAuditorWorkflow.tsx`, `ImportedAuditVerifier.tsx`, `imported-audit-verifier.ts`/tests, Reports in `App.tsx`, CSS, and E2E. Use RED→GREEN for new behavior; Chromium desktop/mobile covers presets/apply, draft guard, complete export/import, and tampering.
+- [x] **M2 — functional comparison.** Files: new package `docs/evidence/product-value-2026-10-18/`, harness/tooling tests as needed. Hash inputs/protocol/rubric before execution; retain raw baseline and app results, and do not hide failures. Agents do not count as human respondents.
+- [x] **M3 — three case studies and documentation.** Files: case studies in `docs/research/`; product workflow, status, evidence index, and plan index. Replay all numerical facts from the fixed dataset. Document existing and new limits.
+- [x] **M4 — review and final evidence.** Run focused tests → typecheck → browser → build/bundle. Independently review changes/results. Freeze file hashes, raw logs, selected screenshots, and commands in a new package. Run the full gate only when proportionate to cross-component changes; do not describe old results as a rerun.
 
-## Batas kesimpulan
+## Conclusion limits
 
-Tidak ada pakar/partisipan manusia baru, provider AI eksternal, deployment publik, atau transaksi Sepolia baru dalam pekerjaan ini. Studi kasus menghasilkan keputusan transparan yang dapat ditelusuri, bukan bukti pengurangan emisi. Checksum tanpa penerbit tepercaya tidak membuktikan autentisitas. Nilai akan dinilai dari hasil, tidak otomatis dinaikkan.
+This work included no new expert/human participant, external AI provider, public deployment, or Sepolia transaction. Case studies produce transparent, traceable decisions, not proof of emissions reduction. A checksum without a trusted publisher does not prove authenticity. Scores must follow results; they are not raised automatically.
 
-## Hasil verifikasi
+## Verification results
 
-- Full `bun run check:all` exit 0: 193 API + 253 web + 54 tooling + 212 Python + 4 Foundry = **716 tes**, typecheck/build/bundle lulus (App 71.724 gzip bytes).
-- Empat skenario Chromium lokal lulus, termasuk desktop/mobile, preset/draft recovery, strict Reports verifier dan regresi investigasi. Browser sandbox tetap aktif.
-- Perbandingan beku: aplikasi 16/16 exact; manual 11/16 exact karena lima nilai boolean dibanding enum (tipe enum tidak dijelaskan prompt). Hasil mentah tetap. Analisis format post-hoc 16/16; **paritas keputusan**, bukan keunggulan ketepatan atau waktu manusia.
-- Tiga laporan historis mitigation scope menghasilkan insufficient_evidence dengan bundle/context valid; studi kasus mengatribusikan ringkasan UNEP, tanpa mereproduksi PDF.
-- Review independen menemukan draft scope hilang saat navigasi: diperbaiki dan diregresikan. Batas mode legacy helper, storage gagal, dan metrik overclaim terstruktur didokumentasikan. Hash 118 file produksi dan 204 checksum paket sebelumnya cocok.
+- Full `bun run check:all` exited 0: 193 API + 253 web + 54 tooling + 212 Python + 4 Foundry = **716 tests**; typecheck/build/bundle passed (App 71,724 gzip bytes).
+- Four local Chromium scenarios passed, including desktop/mobile, preset/draft recovery, strict Reports verifier, and investigation regression. Browser sandbox remained enabled.
+- Frozen comparison: app 16/16 exact; manual 11/16 exact because five boolean values were compared with enums (the prompt did not explain enum types). Raw results were retained. Post-hoc format analysis was 16/16; this is **decision parity**, not superior accuracy or human time savings.
+- Three historical mitigation-scope reports returned insufficient_evidence with valid bundle/context; case studies attribute UNEP summaries without reproducing PDFs.
+- Independent review found that scope drafts were lost during navigation; this was fixed and covered by a regression. Limits around legacy helper mode, storage failure, and structured overclaim metrics are documented. Hashes for 118 production files and 204 prior-package checksums matched.
 
-[Paket hasil dan perintah replay](../evidence/product-value-2026-10-18/README.md). Tidak ada temuan material yang masih memerlukan perubahan kode pada scope ini. Review manusia dan integrasi eksternal tetap pada ledger sebelumnya. Tidak melakukan commit/push/deploy.
+[Results package and replay commands](../evidence/product-value-2026-10-18/README.md). No material finding remains that requires a code change within this scope. Human review and external integrations remain as recorded in the prior ledger. No commit/push/deployment was performed.

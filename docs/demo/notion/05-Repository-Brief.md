@@ -1,63 +1,63 @@
-# Kondisi repo dan keputusan yang berlaku
+# Repository state and decisions in force
 
-**Baseline pemeriksaan:** `main` / `a82e2eee99bb79327f859f304f2f5d5939f07041`, 16 Oktober 2026 WITA. Working tree bersih sebelum materi demo ini ditambahkan. `origin/main` lokal sama; tidak ada fetch remote pada pass dokumentasi ini.
+**Inspection baseline:** `main` / `a82e2eee99bb79327f859f304f2f5d5939f07041`, 16 October 2026 WITA. The working tree was clean before these demo materials were added. Local `origin/main` matched; no remote fetch was performed during this documentation pass.
 
-## Produk yang benar-benar ada
+## What the product actually contains
 
-MethaneResponse adalah prototype riset untuk menelusuri sumber metana historis, memeriksa dukungan bukti terhadap klaim tertentu dan membawa hasil pemeriksaan dalam laporan yang dapat diverifikasi secara lokal. Ini bukan otoritas monitoring atau sertifikat perbaikan.
+MethaneResponse is a research prototype for tracing historical methane sources, checking whether evidence supports a specific claim, and carrying the assessment in a report that can be verified locally. It is not a monitoring authority or a repair certificate.
 
-| Bagian | Tanggung jawab |
+| Area | Responsibility |
 |---|---|
-| `apps/web` | React/Vite/TypeScript; MapLibre, sumber dan observasi, Indicators, audit bertahap, laporan serta verifier browser |
-| `apps/api` | Bun/Hono; sumber dari snapshot yang dipin, rules baseline, versi audit, review dan export; atomic JSON file store |
-| `packages/shared` | Kontrak data/Zod dan fixture synthetic yang wajib tetap berlabel DEMO |
-| `services/data-pipeline` | Python/uv; impor, normalisasi, validasi provenance, rules evaluation dan riset recurrence |
-| `data/real` | Arsip publisher, casebook historis dan provenance/license; terpisah dari synthetic fixtures |
-| `contracts` | Solidity/Foundry; registry dan receipt semantics; tidak berarti anchoring API sedang aktif |
-| `scripts` | Verifier mandiri, gate lokal, benchmark, map/bundle checks dan utilitas |
-| `docs` | ADR, protokol benchmark/pilot, bukti bertanggal, status aktif dan materi presentasi |
+| `apps/web` | React/Vite/TypeScript; MapLibre, sources and observations, Indicators, staged audits, reports, and a browser verifier |
+| `apps/api` | Bun/Hono; sources from a pinned snapshot, rules baseline, audit versions, review and export; atomic JSON file store |
+| `packages/shared` | Data contracts/Zod and synthetic fixtures that must remain labeled DEMO |
+| `services/data-pipeline` | Python/uv; import, normalization, provenance validation, rules evaluation, and recurrence research |
+| `data/real` | Publisher archives, historical casebook, and provenance/license information; separate from synthetic fixtures |
+| `contracts` | Solidity/Foundry; registry and receipt semantics; this does not mean API anchoring is active |
+| `scripts` | Standalone verifier, local gate, benchmark, map/bundle checks, and utilities |
+| `docs` | ADRs, benchmark/pilot protocols, dated evidence, active status, and presentation materials |
 
-Alur aktif: **arsip publisher → validasi dan snapshot lokal → UI/API → klaim dan referensi bukti → rules baseline → versi audit JSON → export → verifier lokal**.
+Active flow: **publisher archive → validation and local snapshot → UI/API → claim and evidence references → rules baseline → versioned JSON audit → export → local verifier**.
 
-## Keputusan yang harus dipertahankan
+## Decisions to preserve
 
-| Keputusan | Alasan / konsekuensi praktis |
+| Decision | Reason / practical consequence |
 |---|---|
-| MARS-first, file lokal, tanpa database service | ADR diterima 15 Oktober. Tidak menghidupkan kembali PostgreSQL/PostGIS/Supabase atau migrasi untuk demo ini. |
-| Snapshot publik dipisahkan dari state audit | Dataset dan derivasi memiliki versi/hash/provenance; audit memakai `AUDIT_STORE_PATH`, default `data/state/audits.json`. |
-| Satu proses untuk state lokal | Riwayat bertahan saat restart jika file sama; bukan durability multi-instance/hosted. Preview opsional memakai filesystem ephemeral. |
-| Klaim harus spesifik dan rules dijalankan lebih dulu | `source_detected`, `operator_notified`, `mitigation_confirmed` membutuhkan tipe bukti berbeda. Konflik atau bukti kurang mengarah ke abstention. |
-| Metadata tidak dinaikkan menjadi kebenaran fisik | Feedback, notifikasi metadata, report title dan tidak adanya observasi lanjutan tidak membuktikan perbaikan atau nol emisi. |
-| Exact source ID untuk Indicators | Tidak ada fuzzy join; tidak membuat ranking dari urutan CSV. Unit Top 50 t/h berbeda dari plume kg/h. |
-| Rights dan provenance dipertahankan | Data CC BY-NC-SA 4.0; report pihak ketiga link-only. Lisensi MIT software tidak mengubah lisensi dataset. |
-| AI opsional dan dibatasi | Jalur dokumen/quote/human review tersedia; provider tidak dikonfigurasi untuk demo. Benchmark independen belum ada. |
-| Digest dan receipt punya batas berbeda | Hash lokal memeriksa konsistensi; receipt membuktikan integritas/urutan versi. Keduanya tidak membuktikan mitigasi fisik. Anchoring API file store tidak aktif. |
+| MARS first, local files, no database service | ADR accepted on 15 October. Do not revive PostgreSQL/PostGIS/Supabase or migrations for this demo. |
+| Separate the public snapshot from audit state | The dataset and its derivations have version/hash/provenance; audits use `AUDIT_STORE_PATH`, defaulting to `data/state/audits.json`. |
+| One process for local state | History survives a restart when using the same file; this is not multi-instance or hosted durability. The optional preview uses ephemeral filesystem storage. |
+| Make claims specific and run rules first | `source_detected`, `operator_notified`, and `mitigation_confirmed` require different evidence types. Conflicts or missing evidence lead to abstention. |
+| Do not elevate metadata into physical truth | Feedback, notification metadata, report titles, and absent follow-up observations do not prove repair or zero emissions. |
+| Require exact source IDs for Indicators | No fuzzy join; do not rank by CSV order. Top 50 units in t/h differ from plume kg/h. |
+| Preserve rights and provenance | Data is CC BY-NC-SA 4.0; third-party reports are link-only. The software's MIT license does not change the dataset license. |
+| Keep AI optional and bounded | Document/quote/human-review paths exist; no provider is configured for the demo. There is no independent benchmark yet. |
+| Distinguish digests from receipts | A local hash checks consistency; a receipt proves integrity/version order. Neither proves physical mitigation. API anchoring with the file store is inactive. |
 
-ADR hanya dibuka ulang untuk database jika alur konkret membutuhkan state bersama lintas restart dan pemilik menyetujui penambahan scope infrastruktur.
+Reopen the database ADR only if a concrete workflow needs shared state across restarts and the owner approves the added infrastructure scope.
 
-## Inventaris data aktif
+## Active data inventory
 
-- Snapshot `unep-mars-675417694883`: **4.218 sumber, 30.414 plume**; 23.861 plume terhubung ke source ID dan 6.553 tanpa source ID. Rentang 29 Oktober 2020–13 September 2026.
-- Casebook terkurasi: **4 kasus, 7 observasi**. Ini subset; audit source tidak terbatas pada empat kasus itu karena API dapat memuat sumber dari snapshot global yang dipin.
-- Indicators: **9 rilis Top 50 / 450 baris** dan **8 periode respons negara / 278 baris country-period**. Rilis terakhir Top 50 September 2026; periode negara terakhir Agustus 2025–Juli 2026.
-- Model logistic terlatih mengestimasi kemunculan record arsip yang terhubung dalam 365 hari. Ini berbeda dari heuristic priority/anomaly dan bukan prediksi emisi. Evaluasi retrospective telah dilihat saat development; ledger prospective masih menunggu outcome.
+- Snapshot `unep-mars-675417694883`: **4,218 sources, 30,414 plumes**; 23,861 plumes are linked to a source ID and 6,553 have no source ID. Date range: 29 October 2020–13 September 2026.
+- Curated casebook: **4 cases, 7 observations**. This is a subset; source audits are not limited to those four cases because the API can load sources from the pinned global snapshot.
+- Indicators: **9 Top 50 releases / 450 rows** and **8 country response periods / 278 country-period rows**. The latest Top 50 release is September 2026; the latest country period is August 2025–July 2026.
+- The trained logistic model estimates whether a linked archive record appears within 365 days. This differs from heuristic priority/anomaly scoring and is not an emissions forecast. Retrospective evaluation has been inspected during development; the prospective ledger is waiting for outcomes.
 
-## Bukti kualitas dan yang belum dibuktikan
+## Quality evidence and what remains unproven
 
-Gate lengkap, browser E2E dan CI terakhir tercatat pada 15 Oktober untuk implementasi `9ab1daf`. Commit setelah itu sampai baseline di atas hanya mengubah dokumentasi/bukti. Angka maupun hasil historis tidak disebut sebagai tes ulang untuk paket dokumen ini.
+The complete gate, browser E2E, and latest CI for implementation `9ab1daf` are recorded for 15 October. Commits after that through the baseline above changed documentation/evidence only. Historical counts and results are not presented as tests rerun for this document package.
 
-Pass presentasi ini memeriksa alur inti di browser lokal dan integritas paket; hasil rinci ada pada README dan capture manifest. Tidak ada perubahan kode produk.
+This presentation pass checked the core flow in a local browser and package integrity; detailed results are in the README and capture manifest. No product code changed.
 
-Masih terbuka: benchmark AI independen dengan dokumen berizin, pilot pengguna nyata, pengukuran perangkat fisik, deployment yang dapat dibuka juri bila dibutuhkan, transaksi chain bila dipertahankan dan diotorisasi, serta video final. Tak satu pun boleh dianggap selesai dari screenshot atau naskah.
+Still open: an independent AI benchmark using documents with clear rights, a real-user pilot, physical-device measurements, a deployment accessible to judges if needed, a chain transaction if retained and authorized, and the final video. None should be treated as complete based on screenshots or a script.
 
-## Pointers untuk melanjutkan tanpa mengulang keputusan lama
+## Pointers for continuing without reopening settled decisions
 
-- Status aktif: `docs/release/current-implementation-status.md`.
-- Keputusan scope: `docs/architecture/decisions/2026-10-15-local-prototype-no-database.md`.
-- Provenance dan batas dataset: `data/real/README.md`, `data/real/mars_publisher_archives/README.md`.
-- Bukti aturan klaim: `apps/api/src/audit.ts`, `apps/api/src/audit.test.ts`.
-- Alur utama yang sudah tersedia: `e2e/audit-workflow.spec.ts`.
-- Benchmark AI: `docs/testing/ai-benchmark-annotation.md`.
+- Active status: `docs/release/current-implementation-status.md`.
+- Scope decision: `docs/architecture/decisions/2026-10-15-local-prototype-no-database.md`.
+- Provenance and dataset limits: `data/real/README.md`, `data/real/mars_publisher_archives/README.md`.
+- Claim-rule evidence: `apps/api/src/audit.ts`, `apps/api/src/audit.test.ts`.
+- Existing main flow: `e2e/audit-workflow.spec.ts`.
+- AI benchmark: `docs/testing/ai-benchmark-annotation.md`.
 - Pilot: `docs/evidence/target-user-pilot-protocol.md`.
 
-Roadmap/checkpoint lama tetap merupakan catatan revisi asalnya. Keputusan database lama dan header status historis tidak mengalahkan ADR serta status aktif ini.
+Older roadmaps/checkpoints remain records of their original revisions. The older database decision and historical status header do not supersede the ADR and active status above.

@@ -1,6 +1,6 @@
 # MethaneResponse — IEEE ClimateChain Story v4
 
-**Version:** 19 October 2026 · **Demo:** 4:50 · **Presentation and narration:** English · **Presenter runbook:** Indonesian
+**Version:** 19 October 2026 · **Demo:** 4:50 · **Presentation and narration:** English · **Presenter runbook:** English
 
 This is a local presentation and demo reference package for Devpost preparation and review. Notion import or publication is not part of the delivery. The rendered video is a separate local artifact and has not been uploaded.
 

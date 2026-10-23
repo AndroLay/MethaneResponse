@@ -1,6 +1,6 @@
 # Globe Visual Trust Implementation Plan
 
-> **Arsip rencana 2026-10-13.** Pekerjaan dan instruksi di bawah merekam revisi asal. Untuk kondisi sekarang gunakan [status aktif](../../release/current-implementation-status.md) dan [arsitektur](../../architecture/overview.md); asumsi database digantikan [ADR file lokal](../../architecture/decisions/2026-10-15-local-prototype-no-database.md). [Indeks rencana](README.md).
+> **Archived plan, 13 October 2026.** The work and instructions below record the source revision. For current status, see [active status](../../release/current-implementation-status.md) and [architecture](../../architecture/overview.md); the database assumption was superseded by the [local-file ADR](../../architecture/decisions/2026-10-15-local-prototype-no-database.md). [Plan index](README.md). The original wording remains available at Git revision `9d38ad2`; frozen manifests and run-bound artifacts are unchanged.
 
 > **For agentic workers:** Execute inline in the active repository session. Steps use checkbox syntax for tracking.
 

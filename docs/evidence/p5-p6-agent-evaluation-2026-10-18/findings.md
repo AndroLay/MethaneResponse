@@ -1,23 +1,23 @@
-# Ledger temuan P5/P6
+# P5/P6 findings ledger
 
-Sumber: inspeksi alat oleh agent utama, pemeriksaan metadata oleh agent P6, dan penggunaan browser oleh agent P5. Seluruh penilaian adalah engineering/agent, bukan domain-expert endorsement.
+Sources: tool inspection by the main agent, metadata inspection by the P6 agent, and browser use by the P5 agent. All assessments are engineering/agent reviews, not domain-expert endorsements.
 
-| ID | Temuan | Tindakan / keputusan | Status |
+| ID | Finding | Action / decision | Status |
 |---|---|---|---|
-| E01 | P5 belum mempunyai pengolah hasil berpasangan | `pilot_study.py`: frozen assignments, T1–T4, denominator tugas hilang/gagal, bantuan/ketepatan/durasi, exit beliefs, private/no-overwrite output | Implemented; tes pada verification |
-| E02 | Agent dapat keliru dihitung sebagai manusia | `participantKind` terpisah; agent selalu gagal gerbang manusia; slot kosong bukan peserta aktual; pengujian counterbalance terpisah | Implemented; regresi tersedia |
-| E03 | Baseline P6 belum terikat exact input | Mandatory wording/input/rights digests + basis/version pada rules; mismatch ditolak | Implemented; regresi tersedia |
-| E04 | Baseline metadata tidak membaca bahasa alami dokumen | Basis wajib; metadata comparison tidak dapat mengesahkan manfaat document AI; 12 klaim agent dilaporkan policy conformance saja | Ditutup melalui kontrak/laporan, tanpa klaim kemampuan baru |
-| E05 | Satu provider gagal menghilangkan hasil satu batch | CLI complete-attempt mode menyimpan failure tersanitasi/verdict null/latensi; failure dihitung error, bukan jawaban insufficient yang benar | Implemented; fixture provider, tidak ada provider live |
-| E06 | Skor absolut lulus dapat disalahartikan sebagai manfaat AI | `aiBenefit` dan `activationEligible` terpisah; paired interval/basis/telemetry diperiksa; hasil seri/negatif tetap dilaporkan | Implemented; regresi positif dan negatif |
-| E07 | Freeze lama belum membekukan source/document split | `--require-partitions=yes` + metadata source/type/doc/split; source/document overlap ditolak sebelum anotasi | Implemented; mode lama tetap kompatibel |
-| E08 | Rights URL dapat berdiri sendiri tanpa source URL input | Benchmark mewajibkan input source URL sama dengan rights URL | Implemented; bukan legal clearance otomatis |
-| E09 | Input/report benchmark perlu penyimpanan privat | Guard file/direktori owner-only dan luar repo; evaluator output wajib, no overwrite, stdout status ringkas | Implemented; owner-only/no overwrite tests |
-| E10 | Tidak ada peserta/annotator/corpus/provider berizin | Paket tugas/answer key/manual packet/runbook siap, agent melakukan eksplorasi metadata. Tidak membuat hasil penelitian palsu | Pending input nyata; bukan penghambat pekerjaan engineering |
-| E11 | Prioritas rinci ditemukan agent pada Document AI step | Petunjuk task memisahkan panel input heuristik dari panggilan provider; AI tetap mati. Potensi discoverability memerlukan studi pengguna | Observasi UX; belum terbukti masalah manusia |
-| E12 | Baseline tidak meminta exact natural-language claim | P5 no-cleared-excerpt branch secara eksplisit menilai reference coverage dengan scope; P6 melarang perbandingan makna dokumen dari coverage | Batas kemampuan didokumentasikan; bukan bug yang ditutup dengan label palsu |
-| E13 | Export membutuhkan pemilihan revisi di Reports | Walkthrough mencatat langkah itu; verifier asli/tampered dijalankan di browser | Alur berfungsi; kegunaan manusia belum diukur |
+| E01 | P5 had no paired-results processor | `pilot_study.py`: frozen assignments, T1–T4, denominator includes missing/failed tasks, help/accuracy/duration, exit beliefs, private/no-overwrite output | Implemented; tests in verification |
+| E02 | An agent could be counted as a human | Separate `participantKind`; agents always fail the human gate; empty slots are not actual participants; separate counterbalancing test | Implemented; regression available |
+| E03 | P6 baseline was not bound to exact inputs | Mandatory wording/input/rights digests + rules basis/version; mismatches rejected | Implemented; regression available |
+| E04 | Metadata baseline does not read natural-language documents | A basis is mandatory; metadata comparison cannot establish document AI benefit; 12 agent claims are reported only as policy conformance | Closed through contract/reporting, without a new capability claim |
+| E05 | One provider failure could remove a batch result | CLI complete-attempt mode records sanitized failure/verdict null/latency; failure counts as an error, not a correct insufficient-evidence answer | Implemented; provider fixture, no live provider |
+| E06 | Passing an absolute score could be mistaken for AI benefit | `aiBenefit` and `activationEligible` separated; paired interval/basis/telemetry checked; ties/negative results remain reported | Implemented; positive/negative regressions |
+| E07 | Old freeze did not freeze source/document splits | `--require-partitions=yes` + source/type/doc/split metadata; source/document overlap rejected before annotation | Implemented; old mode remains compatible |
+| E08 | A rights URL could be supplied without being the input source URL | Benchmark requires input source URL to match rights URL | Implemented; not automatic legal clearance |
+| E09 | Benchmark inputs/reports needed private storage | Owner-only file/directory guards outside the repo; evaluator output required, no overwrite, concise stdout status | Implemented; owner-only/no-overwrite tests |
+| E10 | No participants/annotators/corpus/permitted provider | Task package/answer key/manual packet/runbook ready; agent explored metadata. No fabricated research results created | Pending real inputs; does not block engineering work |
+| E11 | Agent found detailed priority information at the Document AI step | Task instructions separate heuristic input panel from provider call; AI remains off. Potential discoverability needs a user study | UX observation; not established as a human problem |
+| E12 | Baseline did not request the exact natural-language claim | P5 no-cleared-excerpt branch explicitly assesses reference coverage with scope; P6 forbids comparing document meaning from coverage | Capability limit documented; not a bug closed with false labels |
+| E13 | Export requires selecting a revision in Reports | Walkthrough records the step; original/tampered verifiers were run in browser | Flow works; human usability has not been measured |
 
-P4 v1/v2, corpus model, projection public summary, dependency dan credential tidak diubah oleh increment ini. Perubahan source binding engineering lama tetap merupakan rekaman historis; current evaluation mempunyai manifest tersendiri.
+P4 v1/v2, the model corpus, public-summary projection, dependencies, and credentials were not changed in this increment. The earlier source-binding engineering change remains a historical record; current evaluation has its own manifest.
 
-Review tambahan menemukan telemetry legacy masih dapat lulus gate absolut, wording freeze terlalu sempit, dan cell assignment timpang. Ketiganya diperbaiki, diberi regresi RED→GREEN, lalu dikonfirmasi melalui inspeksi agent kedua. Hash binding adalah attestation equality; operator tetap harus menyimpan kode rules/transform, bukan hanya menempelkan digest.
+Additional review found that legacy telemetry could still pass the absolute gate, freeze wording was too narrow, and cell assignment was imbalanced. All three were fixed, given RED→GREEN regressions, then confirmed by a second agent inspection. Hash binding attests equality; the operator must still preserve the rules/transform code, not only attach a digest.

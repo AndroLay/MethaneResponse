@@ -1,49 +1,49 @@
-# Alur MARS dan peran MethaneResponse
+# MARS workflow and MethaneResponse's role
 
-Pemetaan implementasi diperbarui 18 Oktober 2026; halaman sumber primer diperiksa kembali pada tanggal tersebut. MARS adalah layanan UNEP International Methane Emissions Observatory (IMEO).
+The implementation mapping was updated on 18 October 2026; primary-source pages were rechecked on that date. MARS is a service of the UNEP International Methane Emissions Observatory (IMEO).
 
-## Alur resmi dari awal sampai akhir
+## Official end-to-end workflow
 
-UNEP membaginya menjadi empat komponen:
+UNEP divides it into four components:
 
-1. **Detect & Attribute:** deteksi satelit dianalisis dan diatribusikan ke sumber menggunakan informasi yang tersedia.
-2. **Notify & Engage:** IMEO memberi tahu pemerintah dan operator melalui jalur yang berlaku, lalu melanjutkan komunikasi.
-3. **Stakeholders Take Action:** pemerintah/operator menginvestigasi, menentukan respons, dan melaporkan tindakan.
-4. **Track, Collaborate & Learn:** IMEO memantau perkembangan, mendukung tindak lanjut dan pembelajaran, serta memublikasikan data.
+1. **Detect & Attribute:** satellite detections are analyzed and attributed to sources using available information.
+2. **Notify & Engage:** IMEO notifies governments and operators through applicable channels, then continues engagement.
+3. **Stakeholders Take Action:** governments/operators investigate, determine a response, and report their actions.
+4. **Track, Collaborate & Learn:** IMEO tracks progress, supports follow-up and learning, and publishes data.
 
-Sumber: [UNEP — How MARS works](https://www.unep.org/en/what-we-do/energy/methane/how-mars-works).
+Source: [UNEP — How MARS works](https://www.unep.org/en/what-we-do/energy/methane/how-mars-works).
 
-Untuk respons pemerintah, panduan IEA–IMEO merinci lima langkah: menerima/menugaskan/mengklasifikasikan notifikasi → memberi tahu operator → memperoleh respons operator → memverifikasi respons dan tindak lanjut → meninjau dan mendokumentasikan kasus. Ini pedoman operasional yang dapat disesuaikan, bukan jaminan semua kejadian selesai pada tenggat yang sama.
+For government response, the IEA–IMEO guide details five steps: receive/assign/classify a notification → notify the operator → obtain the operator's response → verify the response and follow-up → review and document the case. This is adaptable operational guidance, not a guarantee that every event will be resolved within the same timeframe.
 
-Sumber: [IEA–IMEO, 4 Mei 2026](https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system).
+Source: [IEA–IMEO, 4 May 2026](https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system).
 
 ```mermaid
 flowchart TD
-  A[Data satelit dan analisis IMEO] --> B[Deteksi dan atribusi sumber]
-  B --> C[Notifikasi pemerintah / operator]
-  C --> D[Penerimaan, penugasan dan investigasi]
-  D --> E[Tindakan atau rencana mitigasi operator]
-  E --> F[Feedback dan bukti tindakan]
-  F --> G[Pemeriksaan respons dan tindak lanjut]
-  G --> H[Dokumentasi, pemantauan dan publikasi]
-  G -->|Bukti belum cukup / kejadian berulang| D
+  A[Satellite data and IMEO analysis] --> B[Source detection and attribution]
+  B --> C[Government / operator notification]
+  C --> D[Receipt, assignment, and investigation]
+  D --> E[Operator action or mitigation plan]
+  E --> F[Feedback and evidence of action]
+  F --> G[Response and follow-up checks]
+  G --> H[Documentation, tracking, and publication]
+  G -->|Insufficient evidence / recurring event| D
 ```
 
-Feedback menunjukkan respons yang tercatat. Ketiadaan plume berikutnya bukan bukti nol emisi: keterbatasan cakupan, cuaca, dan sensitivitas satelit tetap berlaku. Bukti tindakan dan pemeriksaan tindak lanjut perlu dibedakan dari status administratif.
+Feedback indicates a recorded response. The absence of a later plume is not proof of zero emissions: coverage, weather, and satellite-sensitivity limits still apply. Evidence of action and follow-up checks must be distinguished from administrative status.
 
-Sumber: [IMEO — Eye on Methane FAQ](https://methanedata.unep.org/frequently-asked-questions).
+Source: [IMEO — Eye on Methane FAQ](https://methanedata.unep.org/frequently-asked-questions).
 
-## Pemetaan produk
+## Product mapping
 
-Pemetaan berikut adalah keputusan desain MethaneResponse untuk investigasi data historis publik, bukan pernyataan integrasi resmi dengan MARS.
+The following mapping is a MethaneResponse design decision for investigating public historical data, not a statement of official MARS integration.
 
-| Kebutuhan investigasi | Dukungan produk | Batas |
+| Investigation need | Product support | Limit |
 |---|---|---|
-| Menentukan sumber/kejadian | Map, Cases, observations, provenance snapshot | Tidak melakukan deteksi/atribusi satelit baru |
-| Memeriksa notifikasi | Klaim `operator_notified`, penerima dan tanggal referensi | Tidak mengirim notifikasi atau membuktikan pengiriman dari flag publisher |
-| Memeriksa tindakan | Scope kejadian/periode, referensi tindakan dan follow-up | Tidak menjalankan atau mengesahkan perbaikan lapangan |
-| Mendokumentasikan penilaian | Rules baseline dan penilaian manusia privat dengan alasan, referensi dan revisi | Model opsional; keputusan tetap harus menyebut metode dan batas bukti |
-| Melanjutkan investigasi | Beberapa work item per sumber/snapshot, permintaan bukti, next action, triage | Mode catatan browser atau shared queue terotorisasi satu writer; tidak mengirim pesan ke operator atau IMEO |
-| Menjaga rekam versi | JSON bundle, digest, riwayat dan laporan | Integritas tidak membuktikan kebenaran fisik |
+| Identify source/event | Map, Cases, observations, snapshot provenance | Does not perform new satellite detection/attribution |
+| Check notification | `operator_notified` claim, recipient, and reference date | Does not send notifications or prove delivery from a publisher flag |
+| Check action | Event/period scope, action references, and follow-up | Does not perform or certify field repairs |
+| Document an assessment | Rules baseline and private human assessment with rationale, references, and revisions | The model is optional; decisions must still state the method and evidence limits |
+| Continue an investigation | Multiple work items per source/snapshot, evidence requests, next actions, and triage | Browser-note mode or an authorized single-writer shared queue; does not message operators or IMEO |
+| Preserve version history | JSON bundle, digest, history, and report | Integrity does not establish physical truth |
 
-Alur manual produk: **Cases → Overview / scope → Observations → Human assessment → Review → Report**. Document AI dipilih secara opsional untuk klaim pada tingkat sumber.
+Manual product workflow: **Cases → Overview / scope → Observations → Human assessment → Review → Report**. Document AI can optionally be selected for source-level claims.

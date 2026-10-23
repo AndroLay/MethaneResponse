@@ -1,6 +1,6 @@
 # MethaneResponse performance changes — 13 October 2026
 
-> **Arsip perubahan dan pengukuran 13–14 Oktober 2026.** Angka, snapshot, database, dan kalimat status dalam bagian asli di bawah berlaku pada revisi asal. Untuk ukuran/batas terbaru lihat [status aktif](../release/current-implementation-status.md); untuk pemuatan saat ini lihat [peta](../architecture/real-map.md).
+> **Archive of changes and measurements from 13–14 October 2026.** Figures, snapshots, database, and status statements in the original sections below apply to their source revision. For the latest size/budget, see [active status](../release/current-implementation-status.md); for current loading behavior, see the [map guide](../architecture/real-map.md).
 
 This change reduces work and transfer on initial navigation and audit-history requests while preserving the pinned MARS snapshot, observation history, evidence provenance, and map layer quality. It does not cap or discard source or plume rows. The 13 October update moves snapshot verification/parsing to a Web Worker and returns complete records in bounded batches so one large structured clone does not block the UI.
 

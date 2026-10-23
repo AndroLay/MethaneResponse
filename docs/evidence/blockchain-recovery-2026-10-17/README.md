@@ -1,57 +1,84 @@
-# Bukti P2: intent anchor dan pemulihan
+# P2 evidence: durable anchor intents and recovery
 
-**Tanggal:** 17 Oktober 2026 · **Status:** fungsional verified lokal; integrasi Sepolia publik pending.
+**17 October 2026 — locally verified; public Sepolia integration pending.**
+[P2 plan](../../plans/2026-10-17-six-package-completion.md) ·
+[Runbook](../../development/blockchain-recovery.md) ·
+[ADR](../../architecture/decisions/2026-10-17-durable-anchor-intents.md) · [Manifest](manifest.json)
 
-[Rencana P2](../../plans/2026-10-17-six-package-completion.md#6-p2--blockchain-aktif-pemulihan-dan-verifikasi) · [Runbook](../../development/blockchain-recovery.md) · [ADR](../../architecture/decisions/2026-10-17-durable-anchor-intents.md) · [Manifest](manifest.json)
+## Verified behavior
 
-## Hasil yang dibuktikan
+`FileAuditStore` persists audits and intents in one envelope. Intent, transaction
+hash, nonce and target are flushed **before** broadcast; receipt and confirmed intent
+complete atomically. Legacy arrays retain their bundles/hashes. Missing previously
+initialized state or a damaged marker fails closed. Pending reservations block
+other issuer/revision writes; stale nonces/versions are rejected. A timeout never
+causes rebroadcast. Matching completion is idempotent; replacing a confirmed receipt
+is rejected. Receipt identity must match audit, case, claim, bundle, chain, registry,
+issuer and expected version.
 
-- `FileAuditStore` menyimpan audit dan intent dalam satu envelope. Intent/tx hash/nonce/target disimpan dan di-flush **sebelum** broadcast; receipt dan confirmed intent diselesaikan atomik. Baca array legacy mempertahankan bundle/hash. Marker rusak/hilangnya state yang pernah diinisialisasi menutup akses.
-- Reservasi pending menahan operasi issuer dan revisi lain; nonce/version stale ditolak. Timeout tidak mengirim ulang. Receipt harus cocok exact hash, audit/case/claim, chain/registry/issuer dan expected version. Completion yang sama idempoten; receipt berbeda setelah confirmed ditolak.
-- Integration test menjalankan kontrak Solidity sebenarnya pada **Anvil loopback chain 31337**, signer acak disposable. Proses dimatikan dengan **SIGKILL sebelum dan sesudah broadcast**. Hash-known pending bertahan setelah restart; receipt transaksi yang sudah mined dipulihkan tanpa broadcast baru. Revert mined tidak menandai audit anchored.
-- Verifier CLI dari proses berbeda memeriksa event/receipt jaringan: asli `VALID_LATEST`, setelah revisi `VALID_HISTORICAL`, perubahan bundle/issuer ditolak. Flag `--require-chain` menolak keberhasilan offline bila receipt/config tidak ada. [Receipt lokal](local-chain-receipt.json) adalah catatan jaringan disposable yang sudah dihentikan, bukan bukti Sepolia publik yang dapat dibuka di explorer.
-- Chain ID, registry emitter, issuer, case ID, bundle hash, version, tx status/block, canonical block dan minimum konfirmasi diperiksa. Default 2 konfirmasi; fixture Anvil 1. Tes RPC menunjukkan mismatch chain/registry/event/hash/block, insufficient confirmations dan reorg ditolak.
-- Admin mengotorisasi baseline. Reviewer anchor memerlukan attestation `operator_attested` terkini untuk claim; revoked/expired/outside-authority ditolak. Schema 4 privat dan AI unreviewed tetap dilarang. Pencabutan saat broadcast mencegah pengembalian full audit privat.
-- Verification Center memerlukan pemeriksaan target sebelum submit, menampilkan chain/registry/issuer/konfirmasi, mengikat target pada request, dan menyediakan status/reconcile read-only. Pending mematikan write; kegagalan pembacaan target membatalkan kesiapan lama. Credential hanya di memori tab. UI browser memakai fixture respons **DEMO**, terpisah dari bukti transaksi Anvil.
+The real Solidity contract ran on disposable **Anvil 31337** with a random signer.
+`SIGKILL` before/after broadcast tested durable pending state and mined-transaction
+recovery without rebroadcast. Reverted transactions were not anchored. A separate
+CLI verified events/receipts: original `VALID_LATEST`, then `VALID_HISTORICAL` after a
+new revision; altered bundle/issuer rejected. `--require-chain` fails without
+receipt/configuration. The [receipt](local-chain-receipt.json) records a stopped
+local chain, not a Sepolia explorer entry.
 
-## Pemeriksaan dan hasil
+Verification checks chain, emitter, issuer, case, hash, version, transaction status,
+canonical block and minimum confirmations. Default is two; Anvil fixtures used one.
+RPC regressions reject target/event/hash/block mismatch, insufficient confirmations
+and reorg. Baseline anchoring requires admin authorization; reviewers need current
+claim-scoped `operator_attested` status. Revoked, expired or unauthorized actors,
+private schema 4 and unreviewed AI are rejected. Revocation during broadcast prevents
+returning the full private audit.
 
-| Pemeriksaan | Hasil | Batas |
-|---|---|---|
-| `bun run check:all` | API 151, web 236, verifier 35, Python 160, Foundry 4; TypeScript/build/bundle/baseline lulus | Lokal, tanpa provider nyata atau Sepolia |
-| `bun run test:chain-integration --evidence <new-path>` | 1 integration scenario, 22 assertions lulus | Anvil disposable 31337, SIGKILL/revert/verifier proses terpisah; environment induk disaring, dotenv mati |
-| `bun run test:case-work-operations` | 2 lulus, 17 assertions | Regresi backup casework dan actual API crash/lock P1 setelah envelope P2 |
-| `bun run test:e2e` / phase specs | 14 main + 5 private/manual/shared/mock-AI = 19 skenario lulus | Chromium sandbox aktif; fixture loopback, bukan human acceptance/pilot |
-| Focused P2 browser repeat | Target check, dialog dismiss, keyboard, stale-target failure, pending tanpa retry, credential storage, desktop/mobile | Diulang setelah penguatan; tidak dijumlahkan lagi sebagai skenario baru |
-| Kandidat baseline publik | Hash VALID, receipt ABSENT | Belum dipersist/di-anchor; bukan izin transaksi publik |
+Verification Center binds target checks to requests, exposes target/confirmation
+and read-only reconciliation, disables writes while pending and invalidates stale
+readiness after target-read failure. Credentials remain tab-memory-only. Browser
+responses are DEMO fixtures, separate from actual Anvil transactions.
 
-Runtime dan source/config hashes yang tepat dicatat dalam manifest. Total non-browser yang berbeda adalah **589**, termasuk integration/operations terpisah; helper runner dan focused repeats tidak dihitung ulang. App akhir **74.704 gzip bytes** di bawah budget 75.000; advisory MapPanel raw-size tetap dicatat. Tidak ada dependency baru. Source checkout masih memuat perubahan pengguna dari pekerjaan terdahulu; tidak di-commit atau di-push. P1 evidence tetap snapshot aslinya.
+## Recorded checks
 
-## Review dan regresi
+| Check | Result and boundary |
+|---|---|
+|Full local gate|151 API, 236 web, 35 verifier, 160 Python, 4 Foundry; TypeScript/build/bundle/baseline passed; no live provider/Sepolia|
+|Chain integration|One scenario, 22 assertions; disposable 31337, SIGKILL, revert, separate CLI; filtered environment, no dotenv|
+|Casework operations|Two passed, 17 assertions; P1 backup/crash/lock regression after envelope change|
+|Browser phases|14 main+5 private/manual/shared/mock AI=19 passed; sandboxed Chromium, local fixtures|
+|Focused browser repeats|Target check, dismissal, keyboard, stale target, pending, no retry, credential storage, desktop/mobile; not added to scenario totals|
+|Public-baseline candidate|Hash VALID, receipt ABSENT; neither operationally persisted nor authorized for public broadcast|
 
-Reviewer implementasi independen baca-saja menemukan: (1) otorisasi direktori reviewer belum diperiksa pada endpoint chain, (2) confirmed completion dapat diganti, (3) UI belum menampilkan target sebelum submit. Tes mereproduksi kegagalan sebelum perbaikan; review ulang menutup ketiganya tanpa blocker high/medium baru dalam scope review. Ini bukan review pakar methane atau audit keamanan menyeluruh.
+There were 589 distinct non-browser checks including separate integration/operations.
+App entry was 74,704 gzip bytes against 75,000; lazy MapPanel size advisory remained.
+No dependency was added. The tested working tree included earlier user changes;
+HEAD alone did not represent it. This increment did not commit or push.
 
-Pemeriksaan visual juga memicu penguatan state: pembacaan target yang gagal setelah pernah berhasil harus mematikan write. Browser regression mereproduksi tombol tetap aktif, lalu lulus setelah readiness diinvalidasi sebelum refresh. Styling panel diselaraskan dengan palette/spacing workspace. Kegagalan awal Chromium dalam workspace sandbox (`socket() failed: Operation not permitted`) diselesaikan dengan izin proses lokal; sandbox Chromium tetap aktif.
+Read-only implementation review found missing reviewer-directory enforcement,
+replaceable confirmed completion and missing pre-submit target display. Regressions
+failed before fixes and passed afterward; rereview found no further high/medium
+blocker in scope. Visual review also reproduced stale readiness after failed refresh
+and prompted invalidation before refresh. Chromium socket permission initially
+failed; authorized local execution retained Chromium sandboxing.
 
-Raw traces/log browser tidak disalin karena dapat membawa credential fixture atau data tab. Manifest dan artefak hanya mencakup kode/config publik, metadata historis beratribusi dan fixture aman. Private key acak Anvil, token dan RPC credential tidak disimpan dalam evidence.
+## Captures and limits
 
-## Capture
+[Desktop](DEMO-chain-controls-desktop.png) · [Mobile](DEMO-chain-controls-mobile.png).
+Masked credentials and DEMO pending/target labels were inspected at 1600×1000 and
+390×844 with no horizontal overflow. This is not physical-device, screen-reader or
+comprehensive accessibility testing. Raw credential-bearing traces were excluded.
 
-- [Kontrol desktop DEMO](DEMO-chain-controls-desktop.png).
-- [Kontrol mobile DEMO](DEMO-chain-controls-mobile.png).
+Public Sepolia remained unavailable; writes default off. See the
+[candidate operation](sepolia-operation-review.md). Pre-broadcast crashes may leave
+an unresolved intent that blocks the issuer; no automatic cancellation/replacement
+or inference from transaction-not-found is allowed. Local fsync, one cooperative
+writer and a dedicated issuer remain assumptions. Full-volume loss, power failure,
+remote filesystems, backup rollback, multi-instance failover and atomic revocation
+against an external directory were not tested. Verification checks canonicality
+on demand, not continuous finality, and trusts the RPC/implementation. P1 backup is
+not a complete P2 envelope/intent backup. P3–P6, human review, pilots and provider
+benchmarks are outside this increment. Integrity/chronology do not establish repair.
 
-Keduanya diperiksa visual; label pending, registry/tx fixture dan credential masked terlihat. Viewport desktop 1600×1000 dan mobile 390×844 tidak mengalami horizontal overflow pada skenario ini. Ini bukan uji telepon fisik, screen reader atau audit aksesibilitas menyeluruh.
-
-## Batas dan pekerjaan tersisa
-
-- **Sepolia publik belum dijalankan:** RPC, registry dan signer belum tersedia; write default mati. [Kandidat operasi](sepolia-operation-review.md) menyebut audit publik, hash dan field target yang masih diperlukan. Target/operasi harus disetujui sesuai AGENTS.md/rencana P2 sebelum broadcast/deploy.
-- Crash sebelum broadcast dapat meninggalkan transaksi yang tidak pernah ada di jaringan; pending tetap memblokir issuer. Tidak ada clear/cancel/replacement otomatis atau asumsi tx-not-found berarti aman mengirim ulang.
-- Filesystem lokal harus menghormati fsync; tidak diuji mati listrik/disk failure nyata, remote volume, kehilangan seluruh volume/marker atau rollback backup lama. Backup casework P1 bukan backup lengkap envelope/intent P2.
-- Dedicated issuer tidak boleh dipakai di luar satu instance. `flock` melindungi launcher resmi; tidak ada multi-writer/failover guarantee. Revocation tepat di sela check terakhir dan broadcast tidak atomik dengan direktori eksternal.
-- Canonicality diperiksa saat verify/reconcile, bukan watcher finality. Reorg sesudah receipt tersimpan bisa membuat verifikasi berikutnya gagal; record historis tidak dihapus.
-- CLI terpisah memakai implementasi chain yang sama dan masih mempercayai node RPC. Tidak ada klaim dua implementasi independen atau kebenaran fisik metana.
-- P3–P6, review pakar manusia, pilot pengguna, benchmark provider dan deployment tidak diselesaikan oleh P2 lokal ini.
-
-## Pemeriksaan artefak
-
-Dari root repo, `sha256sum --check --quiet docs/evidence/blockchain-recovery-2026-10-17/implementation-files.sha256` memeriksa snapshot implementasi. Dari folder evidence ini, `sha256sum --check --quiet checksums.sha256` memeriksa artefak. Perubahan berikutnya dapat membuat manifest source lama tidak cocok; jangan memperbarui hash hasil lama seolah-olah telah diuji ulang.
+Historical artifact/source checksums remain in `checksums.sha256` and
+`implementation-files.sha256`. Later documentation translation changes current
+prose bytes; original records are retained at Git revision `9d38ad2`. Never rewrite
+historical checksums to imply a new run.

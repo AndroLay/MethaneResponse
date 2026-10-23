@@ -156,240 +156,240 @@ No phase completion implies a guaranteed judge score. The official rubric remain
 
 ### Definition of done
 
-“Selesai” berarti MVP dapat diuji secara independen dan klaim produknya didukung bukti yang sesuai; bukan berarti sistem bebas dari seluruh bug atau telah membuktikan pengurangan emisi. Target `18/20` per kriteria adalah ambang internal untuk kesiapan, bukan skala atau skor resmi dari penyelenggara. Devpost mempublikasikan lima kriteria kualitatif.
+“Complete” means the MVP can be independently tested and product claims are supported by appropriate evidence; it does not mean the system is bug-free or has proven emissions reductions. The 18/20 target per criterion is an internal readiness threshold, not an official organizer scale or score. Devpost publishes five qualitative criteria.
 
-Untuk target internal tersebut, syarat penutupnya adalah:
+The closing conditions for that internal target are:
 
-- **Climate Impact:** sedikitnya lima pengguna sasaran mengikuti uji formatif pada kasus nyata; catat penyelesaian tugas, kesalahan, waktu, dan kebutuhan bantuan dibandingkan alur manual. Hasil pilot kecil hanya mendukung kegunaan/transparansi, bukan klaim pengurangan emisi.
-- **Innovation & Creativity:** benchmark independen berisi 40–80 klaim dari 10–20 dokumen yang diizinkan, terpisah menurut sumber dan dokumen, mencakup tiga label audit. Laporkan macro-F1, ketepatan kutipan, interval ketidakpastian, false confirmation, dan selisih berpasangan terhadap baseline aturan. Ambang internal: macro-F1 ≥0,80, exact-citation precision ≥0,90, dan nol false-supported pada set terbatas. Jika model tidak menunjukkan nilai tambah terhadap baseline, jangan mengklaim peningkatan AI.
-- **Technical Execution:** alur dari origin yang dapat diakses sampai observasi, penilaian, validasi kutipan, review manusia, revisi laporan, penyimpanan setelah restart, dan verifier berjalan; semua gate lokal yang relevan lulus. Jika demo menyertakan blockchain, satu receipt testnet harus diverifikasi independen dari event dan digest.
-- **Practical Usefulness:** pengguna sasaran dapat menyelesaikan alur inti tanpa operator teknis; hasil pilot mencatat tingkat keberhasilan, waktu, kesalahan, dan umpan balik. Ukuran sampel kecil harus disebut sebagai pilot, bukan bukti efektivitas populasi.
-- **Presentation & Communication:** video 3–5 menit memperlihatkan satu alur yang benar-benar berjalan, menjelaskan batas data historis, AI, prediksi, dan blockchain, serta selaras dengan revision/build yang diserahkan.
+- **Climate Impact:** at least five target users complete a formative test on real cases; record task completion, errors, time, and assistance compared with the manual workflow. A small pilot supports usability/transparency only, not emissions-reduction claims.
+- **Innovation & Creativity:** an independent benchmark of 40–80 claims from 10–20 authorized documents, separated by source and document, covering all three audit labels. Report macro-F1, citation precision, uncertainty intervals, false confirmations, and paired difference against the rules baseline. Internal thresholds: macro-F1 ≥0.80, exact-citation precision ≥0.90, and zero false-supported results on the limited set. If the model does not add value over baseline, do not claim AI improvement.
+- **Technical Execution:** the end-to-end workflow from an accessible origin through observations, assessment, citation validation, human review, report revision, persistence after restart, and verifier must run; all relevant local gates must pass. If the demo includes blockchain, independently verify one testnet receipt from its event and digest.
+- **Practical Usefulness:** target users can complete the core workflow without a technical operator; pilot results record success rate, time, errors, and feedback. A small sample must be identified as a pilot, not population-wide effectiveness evidence.
+- **Presentation & Communication:** a 3–5 minute video shows one working workflow, explains the limits of historical data, AI, prediction, and blockchain, and matches the submitted revision/build.
 
-### Paket kerja, gerbang, dan durasi
+### Work packages, gates, and duration
 
-Durasi di bawah adalah **hari kerja rekayasa**; waktu menunggu izin, akun, reviewer, peserta, dan layanan dihitung terpisah. Beberapa paket bisa berjalan paralel setelah gerbang awal.
+Durations below are **engineering workdays**; waiting time for permissions, accounts, reviewers, participants, and services is separate. Some packages can run in parallel after initial gates.
 
-| Urutan | Paket dan kriteria selesai | Status saat ini | Estimasi |
+| Order | Package and completion criteria | Current status | Estimate |
 |---|---|---|---:|
-| 0 | **Gerbang kompetisi dan akses:** penyelenggara mengonfirmasi waktu mulai/tutup dan kelayakan peserta; ada jalur dokumen yang sah serta jadwal reviewer/pilot; revision repo yang akan dinilai dapat diakses tanpa login. | **Belum ditutup.** Konflik window submission dan eligibility masih butuh jawaban resmi. Source release `37169eeb35de5ad4e3217f08ae2ab8d9ccffa48d` telah dipush; anonymous no-credential `git ls-remote` membuktikan public `main` dapat diakses. GitHub Actions sukses. Video final, jadwal reviewer/pilot, dan bukti submission belum ada. | 0,5–1 hari kerja + waktu tunggu eksternal |
-| 1 | **Benchmark bukti independen:** pilih 10–20 dokumen yang hak pemrosesan/kutipannya jelas; dua penilai memberi label dan kutipan exact; adjudikasi; pisahkan train/dev/test menurut sumber dan dokumen; jalankan AI dan baseline dengan evaluator serta interval yang sudah ada. | **Protokol dan evaluator tersedia; korpus belum.** 0 dari 3 referensi yang ditinjau sudah dibersihkan untuk input provider. | 5–8 hari kerja setelah sumber berizin dan penilai tersedia; izin dapat memperpanjang tanpa batas pasti |
-| 2 | **Layanan live dan persistensi:** konfigurasi provider di backend, Postgres/PostGIS, autentikasi reviewer, deployment yang disetujui; buktikan cold start/restart dan alur end-to-end pada origin target. | **Belum dikonfigurasi.** Kredensial dan target layanan belum tersedia di repo yang diperiksa. | 2–3 hari kerja setelah akses tersedia |
-| 3 | **Verifikasi blockchain eksternal:** hanya jika akan dijadikan bukti demo; dengan otorisasi pemilik, konfigurasi issuer/RPC, anchor laporan yang telah disetujui reviewer, lalu cocokkan receipt, event, dan digest melalui verifier independen. | **Kontrak diuji lokal; Sepolia belum dibuktikan.** Tidak ada transaksi yang dikirim. | 1–2 hari kerja setelah otorisasi dan akun testnet tersedia |
-| 4 | **Pilot manfaat dan kegunaan:** rekrut minimal lima pengguna sasaran; jalankan tugas yang sama pada alur manual dan MethaneResponse; catat waktu, keberhasilan, kesalahan, bantuan, serta komentar; tulis batas generalisasi. | **Belum dijalankan.** Partisipan belum tersedia. | 2–4 hari kerja untuk sesi dan analisis + sekitar 2–7 hari kalender untuk penjadwalan |
-| 5 | **Validasi perangkat, peta, dan pemulihan:** periksa desktop dan ponsel fisik bila tersedia; ukur metrik yang benar-benar dapat direkam; uji kegagalan imagery/provider dan retry; jangan membuat klaim FPS tanpa perangkat/GPU yang diukur. | **Browser Chromium lokal lulus; akselerasi GPU dan perangkat fisik belum terverifikasi.** | 1–2 hari kerja jika perangkat tersedia |
-| 6 | **Freeze dan submission:** jalankan ulang seluruh gate, periksa attribution/izin aset, pastikan revision source dapat dibuka juri, rekam dan tinjau video 3–5 menit, cocokkan build, URL, screenshots, dan klaim, lalu submit melalui akun peserta. | **Belum siap.** Repo publik terbukti pada commit lama saja; perubahan aktif belum terbit. Video belum dibuat dan izin/attribution aset masih perlu ditinjau. | 1,5–2 hari kerja setelah isi demo stabil |
+| 0 | **Competition/access gate:** organizer confirms opening/closing time and participant eligibility; a lawful document path and reviewer/pilot schedule exist; the revision to be judged is accessible without login. | **Not closed.** Submission-window and eligibility conflicts still need an official answer. Source release 37169eeb35de5ad4e3217f08ae2ab8d9ccffa48d was pushed; anonymous no-credential git ls-remote demonstrated that public main is accessible. GitHub Actions passed. Final video, reviewer/pilot schedule, and submission proof are missing. | 0.5–1 workday + external wait |
+| 1 | **Independent evidence benchmark:** select 10–20 documents with clear processing/quotation rights; two reviewers label claims and exact citations; adjudicate; split train/dev/test by source and document; run AI and baseline with the existing evaluator and intervals. | **Protocol and evaluator available; corpus absent.** 0 of 3 reviewed references are cleared for provider input. | 5–8 workdays after licensed sources and reviewers are available; permissions may take an unknown amount of time |
+| 2 | **Live service and persistence:** configure the backend provider, Postgres/PostGIS, reviewer authentication, and approved deployment; demonstrate cold start/restart and end-to-end workflow on the target origin. | **Not configured.** Credentials and service target are not available in the checked repository. | 2–3 workdays after access |
+| 3 | **External blockchain verification:** only if used as demo evidence; with owner authorization, configure issuer/RPC, anchor a reviewer-approved report, then match receipt, event, and digest using an independent verifier. | **Contract tested locally; Sepolia unproven.** No transaction was sent. | 1–2 workdays after authorization and testnet account access |
+| 4 | **Benefit and usability pilot:** recruit at least five target users; run the same task in the manual and MethaneResponse workflows; record time, success, errors, assistance, and comments; state generalization limits. | **Not run.** Participants are unavailable. | 2–4 workdays for sessions/analysis + about 2–7 calendar days for scheduling |
+| 5 | **Device, map, and recovery validation:** inspect desktop and physical phone if available; measure only metrics that can actually be recorded; test imagery/provider failure and retry; do not claim FPS without a measured device/GPU. | **Local Chromium browser passed; GPU acceleration and physical devices are unverified.** | 1–2 workdays if devices are available |
+| 6 | **Freeze and submission:** rerun all gates, check asset attribution/permissions, ensure judges can open the source revision, record/review a 3–5 minute video, match build, URLs, screenshots, and claims, then submit through the participant account. | **Not ready.** Public repository was demonstrated only at an older commit; active changes were not published. Video has not been made and asset permissions/attribution need review. | 1.5–2 workdays after demo content stabilizes |
 
-### ETA dan skenario
+### ETA and scenarios
 
-- **Perkiraan kerja untuk target internal berbukti:** sekitar **14–22 hari kerja rekayasa**. Dengan akses, dokumen, reviewer, dan peserta tersedia segera, waktu kalender yang paling mungkin sekitar **4 minggu dari 14 Oktober 2026 (sekitar 11 November 2026)**; rentang yang masuk akal **3–6 minggu (sekitar 4–25 November)** karena sebagian pekerjaan menunggu pihak luar.
-- **Paket submission sebelum tanggal yang sedang ditampilkan Devpost:** dari 14 Oktober tersisa sekitar 11 hari kalender. Dalam waktu itu sasaran realistis adalah demo/entry yang jujur dan teruji lokal; tidak aman menjanjikan benchmark independen plus pilot dan layanan live lengkap kecuali semua akses eksternal tersedia segera. Tenggat dan waktu mulai harus diklarifikasi terlebih dahulu karena informasi halaman yang diperiksa tidak konsisten.
-- **Jika hak dokumen, provider/database, atau peserta belum tersedia:** tanggal target bergeser sesuai waktu pemenuhan gerbang tersebut. Untuk izin dan rekrutmen, tidak ada tanggal selesai yang bisa dijanjikan dengan akurat sebelum respons pihak terkait.
+- **Estimated work for evidence-backed internal targets:** about **14–22 engineering workdays**. If access, documents, reviewers, and participants are immediately available, the most likely calendar time is around **4 weeks from 14 October 2026 (about 11 November 2026)**; a reasonable range is **3–6 weeks (about 4–25 November)** because some work waits on external parties.
+- **Submission package before the date shown by Devpost:** about 11 calendar days remained as of 14 October. The realistic goal in that time is an honest, locally tested demo/entry; it is not safe to promise a complete independent benchmark, pilot, and live service unless all external access is available immediately. Clarify the deadline and opening time first because the checked pages were inconsistent.
+- **If document rights, provider/database, or participants are unavailable:** target dates move with those prerequisites. No accurate completion date can be promised for permissions and recruitment before external responses arrive.
 
-Perkiraan tanggal adalah rencana kerja, bukan janji skor. Angka `18/20` tidak dapat dijamin: rubrik resmi tidak mempublikasikan bobot atau skala numerik tersebut dan hanya juri yang menetapkan nilai.
+Dates are work plans, not score promises. The 18/20 figure cannot be guaranteed: the official rubric does not publish those weights or a numerical scale, and only judges set scores.
 
-### Prioritas eksekusi
+### Execution priorities
 
-1. Tutup Gerbang 0: minta konfirmasi aturan/waktu kepada penyelenggara dan verifikasi akses repo tanpa login; pemilik melaporkan repo sudah publik.
-2. Secara paralel, identifikasi dokumen alternatif yang hak penggunaan untuk pemrosesan dan kutipannya benar-benar jelas; jadwalkan dua penilai dan lima peserta pilot. Jangan mengirim konten laporan ke provider sebelum izin sesuai penggunaan diperoleh.
-3. Selesaikan benchmark dan live workflow hanya saat prasyaratnya lolos; pertahankan abstention bila kutipan atau bukti tidak cukup.
-4. Anchor testnet hanya setelah otorisasi; bukti blockchain tetap dibatasi sebagai integritas dan kronologi, bukan kebenaran mitigasi fisik.
-5. Bekukan demo berdasarkan hasil yang benar-benar teruji, lalu lengkapi video, attribution, akses repo, dan submission.
+1. Close Gate 0: ask the organizer to confirm rules/timing and verify repository access without login; the owner reports that the repository is public.
+2. In parallel, identify alternative documents with clear rights for processing and quotation; schedule two reviewers and five pilot participants. Do not send report content to a provider before the rights for that use are obtained.
+3. Complete the benchmark and live workflow only when prerequisites pass; retain abstention when citations or evidence are insufficient.
+4. Anchor on testnet only after authorization; blockchain evidence remains limited to integrity and chronology, not physical mitigation truth.
+5. Freeze the demo based on results actually tested, then complete the video, attribution, repository access, and submission.
 
-## Jadwal kerja teroptimasi — 14 sampai 25 Oktober 2026
+## Optimized work schedule — 14–25 October 2026
 
-### Asumsi kapasitas dan cara menjaga fokus
+### Capacity assumptions and focus
 
-- Kapasitas rencana: satu engineer dengan **5 jam fokus per hari** sampai 24 Oktober. Itu memberi sekitar 55 jam tersedia; 20% (11 jam) disimpan sebagai buffer perbaikan dan masalah submission, sehingga kapasitas kerja terencana sekitar **44 jam**.
-- Dalam estimasi ini, satu hari kerja rekayasa berarti satu blok fokus 5 jam. Target penuh berbukti memerlukan sekitar **14–22 blok (70–110 jam)**, ditambah waktu menunggu pihak luar. Dengan kapasitas 44 jam sebelum tenggat, target seluruh gerbang 18/20 tidak realistis dijanjikan sebelum 25 Oktober. Jalur sampai tenggat berfokus pada satu alur demo yang dapat dibuktikan; benchmark independen, pilot, layanan cloud, dan Sepolia hanya masuk jika prasyaratnya benar-benar tersedia.
-- Hindari perubahan visual/fitur baru setelah **22 Oktober** kecuali ada bug P0/P1 atau alur utama gagal. Sediakan 24 Oktober untuk akses juri, perbaikan terakhir, dan dry run; jangan memakai hari tenggat sebagai hari build.
-- Item yang menunggu orang/izin dimulai pertama dan berjalan paralel. Tidak ada konten dokumen yang dikirim ke AI dan tidak ada klaim pilot sebelum izin/hasilnya ada.
+- Planned capacity: one engineer with **5 focused hours per day** through 24 October. That provides about 55 hours; 20% (11 hours) is reserved for fixes and submission issues, leaving about **44 planned work hours**.
+- In this estimate, one engineering workday is one five-hour focus block. The full evidence target needs about **14–22 blocks (70–110 hours)**, plus external wait time. With 44 hours available before the deadline, it is not realistic to promise all 18/20 gates by 25 October. Work before the deadline focuses on one demonstrable workflow; an independent benchmark, pilot, cloud service, and Sepolia are included only if prerequisites are actually available.
+- Avoid new visual/feature changes after **22 October** unless there is a P0/P1 bug or the primary workflow fails. Reserve 24 October for judge access, final fixes, and a dry run; do not use the deadline date as a build day.
+- Start items waiting on people/permissions first and run them in parallel. Do not send document content to AI or claim a pilot before permissions/results exist.
 
-### Anggaran 44 jam sampai release candidate
+### 44-hour budget through release candidate
 
-| Blok kerja | Batas waktu | Anggaran | Urutan nilai |
+| Work block | Deadline | Budget | Priority |
 |---|---|---:|---|
-| Aturan event, akses repo publik, hak aset/dokumen, dan pemilihan kasus demo | Mulai 14 Okt; keputusan korpus 16 Okt | 4 jam | Menghindari submission tidak memenuhi syarat atau penggunaan materi yang tidak berizin. |
-| Audit alur lokal dari snapshot sampai verifier dan perbaikan blocker P0/P1 | 17–19 Okt | 12 jam | Menjamin demo tetap bisa diulang walaupun layanan eksternal tidak tersedia. |
-| Provider/PostGIS dan review auth bila akses pemilik sudah tersedia | 18–20 Okt | Maks. 8 jam | Hanya dilakukan jika kredensial/target tersedia; selain itu, waktu dipakai untuk hardening alur lokal dan dokumentasi batas layanan. |
-| Uji pengguna terjadwal atau persiapan protokol uji | 20–22 Okt | Maks. 5 jam | Jalankan sesi hanya dengan peserta nyata; jika belum cukup peserta, simpan protokol dan laporkan pilot tertunda. |
-| Video, deskripsi, attribution, runbook, dan dry run submission | 23–24 Okt | 10 jam | Video direkam dari release candidate; satu revisi setelahnya berarti pemeriksaan ulang. |
-| Buffer insiden, jaringan, browser, atau form submission | 14–24 Okt | 5 jam | Tidak dialihkan untuk fitur baru. |
+| Event rules, public-repository access, asset/document rights, and demo-case choice | Start 14 Oct; corpus decision 16 Oct | 4 hours | Avoid ineligible submission or unauthorized material use. |
+| Local workflow audit from snapshot through verifier and P0/P1 blocker fixes | 17–19 Oct | 12 hours | Keep the demo repeatable even when external services are unavailable. |
+| Provider/PostGIS and auth review if owner access is available | 18–20 Oct | Up to 8 hours | Only if credentials/target are available; otherwise use the time for local-workflow hardening and service-limit documentation. |
+| Scheduled user test or test-protocol preparation | 20–22 Oct | Up to 5 hours | Run sessions only with real participants; if there are too few, keep the protocol and report the pilot as pending. |
+| Video, description, attribution, runbook, and submission dry run | 23–24 Oct | 10 hours | Record the video from the release candidate; any later revision requires rechecking. |
+| Incident, network, browser, or submission-form buffer | 14–24 Oct | 5 hours | Do not reallocate this time to new features. |
 
-Jumlah batas waktu kerja terencana: **44 jam**. Waktu engineer benchmark AI penuh tidak diberi slot palsu di jalur tenggat: benchmark baru dinyatakan selesai setelah korpus, anotasi independen, dan hasil evaluasi lengkap. Jika reviewer sudah bekerja paralel dan seluruh materi berizin tersedia, hasil benchmark boleh masuk submission hanya setelah semua kriteria penerimaan lulus.
+Planned work budget: **44 hours**. No artificial time slot is assigned to a complete AI benchmark on the deadline path: the benchmark is complete only after the corpus, independent annotations, and full evaluation results exist. If reviewers work in parallel and all licensed material is available, benchmark results may be included in the submission only after every acceptance criterion passes.
 
-### Klarifikasi panitia siap kirim
+### Organizer clarification ready to send
 
-Pemilik dapat mengirim pertanyaan ini melalui kanal resmi Devpost. Pesan belum dikirim dari workspace.
+The owner can send this question through an official Devpost channel. It has not been sent from the workspace.
 
 > Hello, could you please confirm the submission window and eligibility rules in writing? The event overview lists October 25, 2026 at 5:00 PM MSK, while the Rules page says not to submit before 8:00 AM PT on October 25. Please confirm the exact opening and closing timestamps in UTC. The overview says “students only,” while the Rules page also lists researchers, faculty, independent developers/startups, and environmental professionals. Could you confirm whether an individual participant residing in Indonesia is eligible and whether any country restrictions apply? Finally, are a public source repository and a 3–5 minute demo video required for every submission?
 
-### Jalur submission sebelum tenggat
+### Pre-deadline submission path
 
-| Tanggal (WITA) | Fokus utama | Keluaran yang harus tersimpan | Gerbang keputusan / fallback |
+| Date (WITA) | Main focus | Required saved output | Decision gate / fallback |
 |---|---|---|---|
-| **14 Okt** | Kunci satu alur demo: pilih sumber historis dengan observasi dan geometri yang bisa ditelusuri; inventarisasikan klaim yang dapat dan tidak dapat dibuktikan. Susun pertanyaan klarifikasi event untuk dikirim pemilik melalui kanal resmi. Mulai penjadwalan calon reviewer/pilot. | Naskah alur 5 langkah, daftar bukti dan batas klaim, daftar blocker dengan pemilik dan tanggal keputusan. | Jika eligibility atau submission window masih kabur, catat risiko; jangan mengasumsikan aturan. |
-| **15 Okt** | Verifikasi akses repo publik dari sesi tanpa login saat koneksi tersedia; cek instruksi run, lisensi/attribution aset, dan tautan demo. Secara paralel inventarisasi dokumen yang jelas hak pemrosesannya dan minta akses/konfirmasi layanan bila memang akan dipakai. | Bukti akses publik (URL/hasil clone tanpa token), daftar aset berlisensi, daftar kandidat dokumen beserta status haknya, daftar kredensial yang dibutuhkan tanpa menaruh secret di repo. | Jika akses GitHub belum dapat diuji dari workspace, pemilik menyimpan bukti tampilan incognito/clone; status tetap “dilaporkan publik” sampai ada verifikasi. |
-| **16 Okt — Gate A** | Tutup keputusan korpus: hak dokumen, dua penilai independen, dan kasus yang cukup untuk anotasi. Jalankan benchmark hanya jika semua syarat tersedia. | Jika lolos: dataset label berizin, sumber/dokumen terpisah, laporan baseline dan AI dengan interval. Jika tidak: catatan bahwa benchmark belum ada. | Tanpa dokumen berizin dan label independen, **AI tetap nonaktif/tidak diklaim tervalidasi**; demo memakai baseline aturan, kutipan yang tersedia, atau abstention. Jangan menurunkan ambang evaluasi agar terlihat lulus. |
-| **17–19 Okt** | Buktikan ulang alur hero secara lokal dari data MARS sampai detail sumber, histori, submission bukti yang diizinkan, review manusia, revisi laporan, ekspor, dan verifier. Perbaiki hanya kegagalan alur. Jalankan benchmark terbatas jika Gate A lolos. | Rekaman langkah, hasil gate API/web/Python/Foundry/verifier, screenshot browser, dan log kegagalan/retry yang relevan. | Jika provider tidak ada, gunakan mode lokal yang diberi label jelas; jangan menyebut mock sebagai AI live. Jika dokumen nyata tidak berizin, tampilkan metadata MARS dan status bukti tidak cukup. |
-| **18–20 Okt — Gate B** | Jika kredensial pemilik tersedia, hubungkan satu target Postgres/PostGIS dan provider backend; uji restart, reviewer auth, CORS/origin, dan privasi draft. Mulai sesi pilot yang telah dijadwalkan secara paralel. | URL environment uji, bukti persistensi setelah restart, hasil auth dan alur dari browser, lembar hasil pilot anonim bila ada. | Tanpa kredensial/otorisasi, tetap pada local file-store/PostGIS disposable yang sudah diuji; nyatakan cloud dan provider belum terverifikasi. Tanpa lima peserta, catat pilot sebagai tertunda dan jangan mengklaim manfaat pengguna. |
-| **20–22 Okt — Gate C dan feature freeze** | Selesaikan sesi pengguna yang tersedia; ukur penyelesaian tugas, waktu, kesalahan, kebutuhan bantuan, dan komentar. Uji browser desktop/mobile, fallback peta, dan pemulihan. Gunakan Sepolia hanya jika otorisasi serta akun testnet telah siap. Bekukan fitur pada 22 Oktober. | Ringkasan pilot dengan ukuran sampel dan batas, laporan browser/perangkat, bukti transaksi independen bila benar-benar ada, daftar bug tersisa dan keputusan freeze. | Jika tidak ada GPU/perangkat fisik, laporkan uji browser/software-rendering saja. Jika tidak ada transaksi, verifier tetap lokal; jangan tampilkan receipt demo sebagai transaksi nyata. |
-| **23 Okt** | Rekam video demo 3–5 menit dari build yang dibekukan. Ceritakan satu kasus dan satu klaim; tampilkan sumber/tanggal/ketidakpastian, hasil review, dan verifikasi digest. | Video draft, deskripsi submission, attribution dan daftar batasan. | Jangan masukkan langkah yang hanya berjalan pada mesin pengembang tetapi tidak bisa diulang juri. |
-| **24 Okt — Release candidate** | Dry run penuh dari browser bersih/perangkat lain; uji akses repo, instruksi instalasi, link, video, metadata, dan konsistensi setiap klaim. Simpan build/hash yang ditampilkan. Sisakan hari ini sebagai buffer. | Release checklist bertanda lulus/gagal, video final, project description, URL repo publik, dan manifest revision/demo. | Hanya perbaiki blocker submission atau bug yang menggagalkan alur. Perubahan sesudah rekaman mengharuskan video dan pemeriksaan terkait diulang. |
-| **25 Okt — Submission window** | Submit melalui akun peserta hanya setelah window yang sah dikonfirmasi; jangan menunggu menit terakhir. | Bukti submission dan timestamp yang dapat diperiksa. | Overview mencantumkan 17:00 MSK, sedangkan Rules memberi larangan submit sebelum 08:00 PT pada tanggal yang sama. Minta konfirmasi penyelenggara; jangan menebak window yang berlaku. |
+| **14 Oct** | Lock one demo workflow: choose a historical source with traceable observations and geometry; inventory claims that can/cannot be supported. Prepare event clarification questions for the owner to send through an official channel. Start scheduling potential reviewers/pilot. | Five-step workflow script, evidence and claim-limit list, blockers with owners and decision dates. | If eligibility or submission window is unclear, record the risk; do not assume the rules. |
+| **15 Oct** | When connectivity is available, verify public-repository access from a logged-out session; check run instructions, asset licensing/attribution, and demo links. In parallel, inventory documents with clear processing rights and request access/service confirmation if they will be used. | Public-access evidence (URL/clone result without token), licensed-asset list, candidate documents with rights status, and required credentials list without secrets in the repository. | If GitHub access cannot be checked from the workspace, the owner stores logged-out browser/clone evidence; status remains “reported public” until verified. |
+| **16 Oct — Gate A** | Decide the corpus: document rights, two independent reviewers, and enough cases to annotate. Run the benchmark only if all requirements are available. | If passed: licensed labeled dataset, source/document splits, baseline and AI report with intervals. Otherwise: record that no benchmark exists. | Without licensed documents and independent labels, **AI remains inactive/unvalidated**; demo uses rules baseline, available quotations, or abstention. Do not lower evaluation thresholds to make it pass. |
+| **17–19 Oct** | Reproduce the hero workflow locally from MARS data through source details, history, permitted evidence submission, human review, report revision, export, and verifier. Fix only workflow failures. Run a limited benchmark if Gate A passes. | Step recording, API/web/Python/Foundry/verifier gate results, browser screenshots, relevant failure/retry logs. | If no provider is available, use a clearly labeled local mode; do not describe a mock as live AI. If real documents lack rights, show MARS metadata and insufficient evidence status. |
+| **18–20 Oct — Gate B** | If owner credentials are available, connect one Postgres/PostGIS target and backend provider; test restart, reviewer auth, CORS/origin, and draft privacy. Begin previously scheduled pilot sessions in parallel. | Test-environment URL, evidence of persistence after restart, auth/browser-flow results, anonymous pilot result forms if any. | Without credentials/authorization, remain on the tested local file store/disposable PostGIS; state cloud and provider are unverified. Without five participants, mark the pilot pending and do not claim user benefit. |
+| **20–22 Oct — Gate C and feature freeze** | Complete available user sessions; measure task completion, time, errors, help needed, and comments. Test desktop/mobile browser, map fallback, and recovery. Use Sepolia only if authorization and a testnet account are ready. Freeze features on 22 October. | Pilot summary with sample size/limits, browser/device report, independent transaction evidence if any, remaining bug list and freeze decision. | Without a physical GPU/device, report browser/software-rendering tests only. Without a transaction, keep verifier local; do not present a demo receipt as a real transaction. |
+| **23 Oct** | Record a 3–5 minute demo video from the frozen build. Tell one case/claim story; show source/date/uncertainty, review result, and digest verification. | Video draft, submission description, attribution, and limitations list. | Do not include steps that only work on the developer's machine and cannot be reproduced by judges. |
+| **24 Oct — Release candidate** | Full dry run from a clean browser/another device; test repository access, install instructions, links, video, metadata, and claim consistency. Save the build/hash shown. Keep this day as buffer. | Release checklist with pass/fail, final video, project description, public repository URL, and revision/demo manifest. | Fix only submission blockers or bugs that break the workflow. A post-recording change requires the video and related checks to be repeated. |
+| **25 Oct — Submission window** | Submit through the participant account only after the valid window is confirmed; do not wait until the last minute. | Verifiable submission proof and timestamp. | Overview lists 17:00 MSK, while Rules prohibit submission before 08:00 PT on the same date. Ask the organizer; do not guess the applicable window. |
 
-### Urutan bukti untuk menjaga waktu
+### Evidence order to protect time
 
-1. **Wajib untuk demo:** kasus MARS historis dengan ID, tanggal, lokasi, flux/ketidakpastian jika tersedia, sumber data, dan batas bahwa feed bukan live.
-2. **Wajib untuk klaim mitigasi:** dokumen dengan hak penggunaan jelas, kutipan tepat, validasi kutipan, status reviewer, serta abstention ketika bukti kurang. Jika dokumen tidak tersedia, demo berhenti pada “bukti mitigasi belum cukup”.
-3. **Wajib untuk integritas hasil:** laporan berversi, digest SHA-256, dan verifier lokal. Klaim Sepolia hanya jika ada transaksi/event nyata.
-4. **Wajib untuk submission:** video 3–5 menit, public repository yang dapat dibuka, deskripsi track/target user/impact, attribution, cara menjalankan, serta batasan yang sama dengan build demo.
-5. **Tidak dikerjakan sebelum release candidate:** fitur tambahan, perombakan globe tanpa bug terukur, model forecasting baru, atau deployment yang mengharuskan akun/biaya/izin yang belum tersedia.
+1. **Required for the demo:** historical MARS case with ID, date, location, flux/uncertainty when available, data source, and statement that the feed is not live.
+2. **Required for a mitigation claim:** document with clear usage rights, exact quotation, quotation validation, reviewer status, and abstention when evidence is insufficient. If no document is available, the demo stops at “mitigation evidence is insufficient.”
+3. **Required for result integrity:** versioned report, SHA-256 digest, and local verifier. Claim Sepolia only if a real transaction/event exists.
+4. **Required for submission:** 3–5 minute video, public repository judges can open, track/target-user/impact description, attribution, run instructions, and limitations matching the demo build.
+5. **Do not do before release candidate:** extra features, globe redesign without a measured bug, new forecasting model, or deployment requiring unavailable accounts/cost/permissions.
 
-### Jalur setelah submission menuju target berbukti
+### Post-submission path toward evidence-backed targets
 
-Setelah demo diserahkan, lanjutkan blocker score-critical dengan urutan dependency, bukan menambah fitur acak:
+After submitting the demo, continue score-critical blockers in dependency order instead of adding unrelated features:
 
-1. **Korpus dan benchmark (5–8 hari kerja setelah izin):** 10–20 dokumen yang jelas haknya; dua penilai; 40–80 klaim; source/document-disjoint split; jalankan rules dan AI pada klaim sama; simpan dataset versi, seed, interval, dan error review.
-2. **Origin live (2–3 hari setelah kredensial):** provider server-side, Postgres/PostGIS, reviewer auth, migrasi, restart persistence, dan browser check dari origin yang dapat diakses juri.
-3. **Pilot (2–4 hari sesi/analisis + penjadwalan):** minimal lima pengguna sasaran; bandingkan task inti dengan baseline manual; publikasikan hanya hasil anonim dan batas sampelnya.
-4. **Sepolia dan perangkat nyata (1–2 hari masing-masing, setelah akses):** anchor hanya laporan yang disetujui; cocokkan receipt/event/digest; ukur map pada GPU/perangkat fisik yang tersedia.
-5. **Regression dan paket bukti (1,5–2 hari):** rerun checks yang terdampak, audit klaim submission, simpan bukti runtime dan batasan.
+1. **Corpus and benchmark (5–8 workdays after permission):** 10–20 clearly licensed documents; two reviewers; 40–80 claims; source/document-disjoint splits; run rules and AI on identical claims; store dataset version, seed, intervals, and review errors.
+2. **Live origin (2–3 days after credentials):** server-side provider, Postgres/PostGIS, reviewer auth, migration, persistence across restart, and browser check from an origin judges can access.
+3. **Pilot (2–4 days for sessions/analysis + scheduling):** at least five target users; compare the core task with manual baseline; publish only anonymous results and sample limits.
+4. **Sepolia and real devices (1–2 days each, after access):** anchor only an approved report; match receipt/event/digest; measure map on available physical GPU/device.
+5. **Regression and evidence package (1.5–2 days):** rerun affected checks, audit submission claims, save runtime evidence and limits.
 
-Rencana ini menjaga tanggal submission dan target pengembangan penuh sebagai dua sasaran berbeda. Bila salah satu prasyarat eksternal belum terpenuhi, pekerjaan yang tidak bergantung padanya tetap maju; status yang tertunda dicatat tanpa membuat bukti pengganti.
+This plan treats the submission date and full development target as separate goals. If an external prerequisite is unmet, independent work can proceed; pending status is recorded without substitute evidence.
 
-### Penyelesaian produk setelah hackathon
+### Post-hackathon product completion
 
-Target hackathon bukan bukti kesiapan produksi. Jika produk akan dipakai di luar demo, tambahkan gerbang terpisah berikut setelah jalur benchmark/live/pilot:
+Hackathon completion is not production readiness. If the product will be used beyond a demo, add these separate gates after benchmark/live/pilot work:
 
-- **Keamanan operasional:** identitas reviewer per pengguna, ownership laporan, rate limit lintas-replica, log audit akses tanpa menyimpan rahasia, prosedur rotasi secret, backup dan uji restore, kebijakan retensi/penghapusan dokumen, serta penanganan insiden.
-- **Prediksi:** pertahankan skor prioritas sebagai heuristik sampai ada snapshot MARS berikutnya untuk evaluasi prospektif. Bekukan prediksi sebelum periode tindak lanjut, bandingkan dengan indikator persistensi/status MARS, laporkan coverage dan kalibrasi hanya jika didukung label; jangan menyebut peluang kebocoran terkalibrasi tanpa validasi independen.
-- **Dampak iklim:** ukur perbaikan traceability dan workflow secara terpisah dari hasil emisi. Klaim pengurangan metana memerlukan bukti tindak lanjut fisik dan desain atribusi longitudinal; penggunaan aplikasi saja tidak membuktikan pengurangan.
-- **Kesiapan layanan:** uji beban dan batas biaya provider, pemantauan error/latency, backup dan pemulihan, aksesibilitas, kompatibilitas ponsel, serta lisensi data/citra pada deployment aktual.
+- **Operational security:** per-user reviewer identity, report ownership, cross-replica rate limits, access audit logs without secrets, secret rotation, backup/restore testing, document retention/deletion policy, and incident handling.
+- **Prediction:** keep priority scores as heuristics until a later MARS snapshot is available for prospective evaluation. Freeze predictions before follow-up, compare with MARS persistence/status indicators, and report coverage/calibration only when supported by labels; do not call leak probability calibrated without independent validation.
+- **Climate impact:** measure traceability/workflow improvement separately from emissions outcomes. Methane-reduction claims require physical follow-up evidence and longitudinal attribution design; application use alone does not prove reduction.
+- **Service readiness:** load and provider-cost limits, error/latency monitoring, backup/recovery, accessibility, phone compatibility, and data/imagery licensing on the actual deployment.
 
-Paket pasca-hackathon ini memerlukan estimasi dan keputusan deployment tersendiri. Ia tidak mengubah batas klaim atau kriteria release candidate yang sudah ditetapkan di atas.
+This post-hackathon package needs its own estimate and deployment decision. It does not change the claim limits or release-candidate criteria above.
 
-## Penanggung jawab, prasyarat, dan bukti penutupan
+## Owners, prerequisites, and closure evidence
 
-### Pembagian tanggung jawab
+### Responsibilities
 
-| Peran | Tanggung jawab | Batas akses/keputusan |
+| Role | Responsibility | Access/decision limits |
 |---|---|---|
-| **Codex/engineer repo** | Audit source, perubahan kode yang diperlukan, evaluator, dokumentasi, gate lokal, browser run dan pencatatan hasil. | Tidak menghubungi panitia/peserta, mengubah visibilitas repo, membuat deployment, mengirim dokumen ke provider, atau membuat transaksi tanpa otorisasi terpisah. |
-| **Pemilik proyek** | Mengirim pertanyaan aturan ke kanal resmi, mengonfirmasi submission dari akunnya, mengatur izin provider/database bila dipilih, merekrut reviewer/pilot, dan memberi keputusan biaya/visibility. | Kredensial dikirim melalui secret manager/environment yang aman; jangan dimasukkan ke Git, prompt log, atau `VITE_*`. |
-| **Dua penilai independen** | Melabeli klaim dan kutipan tanpa melihat label satu sama lain; menyelesaikan perbedaan melalui adjudikasi yang dicatat. | Hanya memakai dokumen yang hak pemrosesan, kutipan, penyimpanan, dan redistribusinya jelas. |
-| **Pengguna pilot** | Menjalankan tugas yang sama pada alur manual dan MethaneResponse; memberi umpan balik sukarela. | Data peserta dianonimkan; lima peserta hanya pilot formatif dan tidak membuktikan manfaat populasi. |
-| **Panitia** | Memberi jawaban tertulis untuk konflik waktu, kelayakan, dan deliverable. | Tidak ada asumsi tentang aturan sampai jawaban atau form peserta menyelesaikan konflik. |
+| **Codex/repository engineer** | Audit the source, make necessary code changes, maintain the evaluator/documentation, run local gates and browser flows, and record results. | Do not contact organizers/participants, change repository visibility, deploy, send documents to a provider, or make transactions without separate authorization. |
+| **Project owner** | Send rule questions through an official channel, confirm submission from their account, arrange provider/database access if selected, recruit reviewers/pilot users, and decide on cost/visibility. | Supply credentials through a secure secret manager/environment; do not put them in Git, prompt logs, or `VITE_*`. |
+| **Two independent reviewers** | Label claims and quotations without seeing each other's labels; resolve disagreements through documented adjudication. | Use only documents whose processing, quotation, storage, and redistribution rights are clear. |
+| **Pilot users** | Complete the same task in the manual and MethaneResponse workflows; provide voluntary feedback. | Anonymize participant data; five participants are a formative pilot only and do not prove population-level benefit. |
+| **Organizers** | Provide written answers to conflicts about timing, eligibility, and deliverables. | Do not assume how rules apply until a written answer or participant form resolves the conflict. |
 
-### Daftar prasyarat dengan tanggal keputusan
+### Prerequisites with decision dates
 
-| Prasyarat | Pemilik tindakan | Batas keputusan | Jika belum tersedia |
+| Prerequisite | Action owner | Decision deadline | If unavailable |
 |---|---|---|---|
-| Waktu mulai/tutup dan eligibility yang benar | Pemilik proyek mengirim draf klarifikasi di atas; simpan jawaban/form | **15 Okt** | Submission tetap berisiko; siapkan paket pada 24 Okt dan jangan mengandalkan waktu yang bertentangan. |
-| Akses repo tanpa login dan lisensi aset | Engineer mencoba clone/read anonim saat jaringan tersedia; pemilik dapat memberi bukti akses dari browser tanpa login | **15 Okt** | Catat sebagai belum diverifikasi; aset tanpa hak jelas diganti/dihilangkan sebelum final package. |
-| Dokumen untuk benchmark dan penggunaan AI | Engineer memeriksa lisensi/izin; pemilik memperoleh persetujuan tertulis bila syarat tidak jelas | **16 Okt** | Benchmark AI tidak dirilis; gunakan rules baseline dan abstention. |
-| Dua penilai independen | Pemilik menjadwalkan penilai dan satu adjudicator | **16 Okt** | Tidak ada klaim benchmark independen; lanjutkan tooling dan submission lain. |
-| Provider/PostGIS/origin demo | Pemilik memilih layanan dan mengonfigurasi secrets secara aman | **17 Okt** | Jalankan alur lokal; tandai provider dan cloud belum aktif. |
-| Lima pengguna pilot dan perangkat uji | Pemilik mengatur sesi serta perangkat yang tersedia | **18 Okt** | Tandai pilot/perangkat fisik tertunda; jangan mengganti dengan evaluasi internal. |
-| Sepolia issuer/RPC dan otorisasi transaksi | Pemilik memberi otorisasi serta menyiapkan akun testnet | **20 Okt** | Jangan anchor; demo hanya verifier lokal dan penjelasan digest. |
+| Confirmed opening/closing time and eligibility | Project owner sends the clarification draft above; retain the answer/form | **15 Oct** | Submission remains at risk; prepare the package on 24 Oct and do not rely on conflicting times. |
+| Anonymous repository access and asset licenses | Engineer tries an anonymous clone/read when network is available; owner may provide logged-out browser evidence | **15 Oct** | Record as unverified; replace/remove assets without clear rights before the final package. |
+| Documents for benchmark and AI use | Engineer checks licenses/permissions; owner obtains written approval if terms are unclear | **16 Oct** | Do not release an AI benchmark; use the rules baseline and abstention. |
+| Two independent reviewers | Owner schedules the reviewers and one adjudicator | **16 Oct** | Make no independent-benchmark claim; continue other tooling and submission work. |
+| Provider/PostGIS/demo origin | Owner selects the service and configures secrets securely | **17 Oct** | Run the local workflow; mark provider/cloud as inactive. |
+| Five pilot users and test devices | Owner arranges sessions and available devices | **18 Oct** | Mark pilot/physical-device work pending; do not substitute internal evaluation. |
+| Sepolia issuer/RPC and transaction authorization | Owner authorizes and prepares a testnet account | **20 Oct** | Do not anchor; demo only the local verifier and explain the digest. |
 
-Tanggal keputusan adalah batas untuk memilih jalur, bukan janji bahwa pihak eksternal akan merespons. Setelah batas lewat, gunakan fallback yang tercatat agar pekerjaan lokal tetap bergerak.
+Decision dates are cutoffs for choosing a path, not promises that external parties will respond. After a deadline, use the recorded fallback so local work can continue.
 
-### Gate verifikasi final yang harus menghasilkan artefak
+### Final verification gates that must produce artifacts
 
-| Gate | Pemeriksaan | Artefak bukti yang disimpan | Lulus jika |
+| Gate | Check | Evidence artifact to retain | Pass condition |
 |---|---|---|---|
-| **Data** | Validasi hash/manifes snapshot; cek ID sumber, tanggal UTC, koordinat, unit, uncertainty, dan label historis vs demo. | Log pemeriksaan, snapshot ID/hash, daftar sumber dan tanggal yang tampil pada demo. | Peta, detail kasus, dan laporan memakai snapshot yang sama; data kosong tidak diperlakukan sebagai nol. |
-| **Audit** | Jalankan kasus dengan kutipan valid, kutipan yang tidak cocok, dokumen yang tidak tersedia, dan bukti yang kontradiktif. | Hasil API/browser serta ID revisi laporan. | Kutipan tepat terikat ke input; tanpa bukti sistem abstain; `feedback` tidak menjadi bukti repair; perubahan laporan membuat revisi baru. |
-| **Persistence/reviewer** | Simpan audit, tutup proses, hidupkan lagi; coba read draft tanpa token, token salah, dan token reviewer yang benar. | Log restart/read permission dan hasil status HTTP. | Revisi tetap ada; akses terlarang tidak membocorkan isi; izin tidak berasal dari sekadar UI. |
-| **Integrity** | Ekspor report, validasi digest, ubah satu byte/field, verifikasi ulang. Jika Sepolia aktif, cocokkan transaction receipt, event, issuer, dan hash bundle. | Berkas export, digest, output verifier, dan tx hash bila nyata. | Perubahan terdeteksi; label lokal/testnet/public dibedakan; receipt hanya membuktikan integritas/urutan revisi. |
-| **Browser** | Jalankan alur utama pada desktop dan viewport 390×844; cek peta, case selection, evidence panel, audit, review, report, verifier, fallback tile/API. | Screenshot dari browser aktual, versi/build, console/network error summary. | Alur utama dapat diulang tanpa error pemblokir atau overflow; kegagalan imagery/provider menunjukkan fallback yang jelas. |
-| **Kualitas repo** | Jalankan `bun install --frozen-lockfile`, `bash scripts/check-local.sh`, lalu `bun run check:web-bundle`; ulangi gate terkait setelah setiap perbaikan. | Output ringkas bertanggal dan status pass/fail untuk setiap command. | Semua gate lulus atau setiap kegagalan/blocker ditulis dan tidak disamarkan sebagai lulus. |
-| **Submission** | Periksa repo publik tanpa login, project description, track, attribution, video 3–5 menit dan form submission dari akun pemilik. | Checklist, URL, durasi/hash video, confirmation/timestamp submission. | Semua link dapat diakses, video sesuai build, klaim cocok dengan bukti, dan timestamp berada di dalam window yang dikonfirmasi. |
+| **Data** | Validate the snapshot hash/manifest; check source ID, UTC date, coordinates, units, uncertainty, and historical-versus-demo labels. | Check log, snapshot ID/hash, and sources/dates shown in the demo. | Map, case details, and report use the same snapshot; missing data is not treated as zero. |
+| **Audit** | Run cases with a valid quote, a mismatched quote, an unavailable document, and conflicting evidence. | API/browser result and report revision ID. | Exact quotes are bound to input; the system abstains without evidence; `feedback` is not repair evidence; report changes create a new revision. |
+| **Persistence/reviewer** | Save an audit, stop and restart the process; try reading a draft without a token, with a wrong token, and with a valid reviewer token. | Restart/read-permission log and HTTP status results. | Revisions remain; unauthorized access does not expose content; authorization is not granted by UI alone. |
+| **Integrity** | Export a report, validate its digest, change one byte/field, and verify again. If Sepolia is active, match the transaction receipt, event, issuer, and bundle hash. | Export file, digest, verifier output, and tx hash if real. | Changes are detected; local/testnet/public labels are distinct; receipt proves only integrity/version order. |
+| **Browser** | Run the main flow on desktop and a 390×844 viewport; check map, case selection, evidence panel, audit, review, report, verifier, and tile/API fallback. | Screenshot from an actual browser, version/build, console/network error summary. | Main flow is repeatable without blocking errors or overflow; imagery/provider failure shows a clear fallback. |
+| **Repository quality** | Run `bun install --frozen-lockfile`, `bash scripts/check-local.sh`, then `bun run check:web-bundle`; repeat affected gates after each fix. | Dated concise output and pass/fail status for every command. | All gates pass or each failure/blocker is recorded and not presented as a pass. |
+| **Submission** | Check the public repository without login, project description, track, attribution, 3–5 minute video, and submission form from the owner's account. | Checklist, URL, video duration/hash, submission confirmation/timestamp. | All links are accessible, video matches the build, claims match evidence, and the timestamp is within the confirmed window. |
 
-Untuk pilot, ambang formatif yang diusulkan adalah **minimal 4 dari 5** peserta menyelesaikan tugas inti tanpa bantuan fasilitator. Laporkan waktu median, error, dan bantuan bersama jumlah peserta; ambang ini adalah aturan evaluasi internal, bukan jaminan nilai 18/20 atau bukti statistik umum.
+For the pilot, the proposed formative threshold is **at least 4 of 5** participants completing the core task without facilitator help. Report median time, errors, and assistance together with the participant count; this threshold is an internal evaluation rule, not a guarantee of an 18/20 score or general statistical evidence.
 
-### Status board pada 14 Oktober 2026
+### Status board as of 14 October 2026
 
-| Gate | Status berbasis catatan yang tersedia | Tindakan berikutnya |
+| Gate | Status based on available records | Next action |
 |---|---|---|
-| Data dan alur lokal | **PASS lokal untuk jalur MARS → PostGIS → restart → report → verifier.** Browser memilih `KAZ_S_159`, rules baseline abstain pada klaim mitigasi, audit dan hash bertahan setelah API restart, dan ekspor memisahkan tiga observasi historis sebagai konteks. | Ulangi pada release candidate dan origin publik; jangan menyamakan status lokal dengan AI live atau mitigasi terverifikasi. |
-| Evaluator | **PASS untuk tooling; 117 tes pipeline Python lulus pada rerun 14 Okt.** Belum ada gold set independen atau provider run. | Buat hasil benchmark hanya sesudah dokumen berizin dan anotasi independen tersedia. |
-| GitHub | **Dilaporkan publik oleh pemilik; akses remote belum diverifikasi pada sesi ini.** Base workspace menunjuk `AndroLay/MethaneResponse`; perubahan aktif lokal belum dipastikan terbit. | Uji anonymous clone/read dan samakan revision release candidate sebelum submission. |
-| Hak dokumen | **BLOCKED untuk 3 referensi yang disaring; 0 sudah cleared untuk provider input.** | Cari sumber alternatif berlisensi jelas; minta izin bila perlu. |
-| Provider dan database cloud | **Belum dikonfigurasi/UNVERIFIED live.** | Pemilik memilih target dan menyiapkan secrets; uji cold start serta restart persistence. |
-| Sepolia | **Belum ada alamat registry/receipt transaksi live.** | Gunakan hanya setelah otorisasi; jika belum siap, jangan tampilkan status on-chain. |
-| Pilot/perangkat fisik | **Belum ada sesi pengguna/performa GPU fisik tercatat.** | Jadwalkan lima peserta dan device test; bila tidak tersedia, laporkan gap. |
-| Submission | **Belum ada video atau timestamp submission.** Window dan eligibility memerlukan klarifikasi. | Freeze 24 Okt; submit hanya pada waktu yang dikonfirmasi. |
+| Data and local flow | **Local PASS for MARS → PostGIS → restart → report → verifier.** Browser selected `KAZ_S_159`, rules baseline abstained on the mitigation claim, audit/hash survived API restart, and export separated three historical observations as context. | Repeat on the release candidate and public origin; do not equate local status with live AI or verified mitigation. |
+| Evaluator | **Tooling PASS; 117 Python pipeline tests passed in the 14 Oct rerun.** No independent gold set or provider run yet. | Produce benchmark results only after permitted documents and independent annotations are available. |
+| GitHub | **Owner reported it public; remote access was not verified in this session.** Base workspace points to `AndroLay/MethaneResponse`; active local changes were not confirmed published. | Test anonymous clone/read and align the release-candidate revision before submission. |
+| Document rights | **BLOCKED for 3 screened references; 0 cleared for provider input.** | Find clearly licensed alternatives; request permission if needed. |
+| Provider and cloud database | **Not configured/UNVERIFIED live.** | Owner selects a target and prepares secrets; test cold start and persistence after restart. |
+| Sepolia | **No live registry address/transaction receipt.** | Use only after authorization; if not ready, do not show on-chain status. |
+| Pilot/physical device | **No recorded user session/physical GPU performance.** | Schedule five participants and a device test; report the gap if unavailable. |
+| Submission | **No video or submission timestamp yet.** Window and eligibility need clarification. | Freeze on 24 Oct; submit only at the confirmed time. |
 
-### Gerbang kualitas lokal terbaru — 14 Oktober 2026
+### Latest local quality gate — 14 October 2026
 
-`bash scripts/check-local.sh` lulus dengan PostGIS disposable aktif: API 108 tes / 633 assertions / 0 skip; web 164 / 164.424 assertions; verifier 9 / 53 assertions; Python 117; Foundry 4 / 0 skip; typecheck, build, bundle budget, dan baseline reproducible lulus. Detail dan batas run ada di [`bukti gerbang lokal`](../evidence/local-quality-gate-2026-10-14.md). Ini menguatkan bukti implementasi lokal; tidak membuktikan CI remote, cloud, model AI, receipt blockchain, manfaat pengguna, atau pengurangan emisi.
+`bash scripts/check-local.sh` passed with disposable PostGIS active: API 108 tests / 633 assertions / 0 skipped; web 164 / 164,424 assertions; verifier 9 / 53 assertions; Python 117; Foundry 4 / 0 skipped; typecheck, build, bundle budget, and reproducible baseline passed. Run details and limits are in the [`local quality gate evidence`](../evidence/local-quality-gate-2026-10-14.md). This strengthens local implementation evidence; it does not prove remote CI, cloud, an AI model, blockchain receipt, user benefit, or emissions reduction.
 
-### Format laporan progress harian
+### Daily progress reporting format
 
-Catat satu baris per tanggal dengan kolom: **rencana hari ini · keluaran yang benar-benar ada · path/link bukti · gate PASS/FAIL/BLOCKED · jam terpakai · blocker dan pemiliknya · tindakan 24 jam berikutnya**. Jangan memakai persentase gabungan; hitung gate yang benar-benar PASS dan tampilkan blocker secara terpisah. Jika hasil bergantung pada layanan eksternal, tandai `LOCAL`, `LIVE`, atau `UNVERIFIED`.
+Record one row per date with these columns: **today's plan · actual output · evidence path/link · gate PASS/FAIL/BLOCKED · hours spent · blocker and owner · next 24-hour action**. Do not use an aggregate percentage; count gates that actually PASS and show blockers separately. If a result depends on an external service, mark it `LOCAL`, `LIVE`, or `UNVERIFIED`.
 
 ### Progress update — repository visibility
 
-- Pemilik menyatakan repository GitHub sudah publik.
-- Pemeriksaan metadata melalui GitHub CLI dari workspace gagal karena koneksi ke `api.github.com` tidak tersedia. Tidak ada perubahan GitHub yang dilakukan dari sini.
-- Status kerja: **dilaporkan publik; akses anonim/juri dan hak redistribusi aset masih perlu diverifikasi**.
+- Owner reported that the GitHub repository is public.
+- Metadata check through GitHub CLI from the workspace failed because `api.github.com` was unreachable. No GitHub changes were made here.
+- Working status: **reported public; anonymous/judge access and asset redistribution rights still need verification**.
 
-### 2026-10-14 — Cold-run peta dan fallback imagery
+### 2026-10-14 — Map cold run and imagery fallback
 
-- Menjalankan lima konteks Chromium headless baru pada desktop 1280×800 dan viewport ponsel 390×844. Median status siap MapLibre **1.069 ms** dan **1.022 ms**, masing-masing; tiap pembukaan mengukur sekitar **5,96 MB** resource browser. Ini development server + software WebGL, bukan benchmark GPU/perangkat fisik atau CDN produksi.
-- Reproduksi kegagalan semua tile Esri menemukan kasus tetap bisa dipilih tetapi tidak ada penjelasan imagery gagal. Menambahkan notice aksesibel dan retry; tes helper red/green, browser menunjukkan source/koordinat tetap ada dan notice terlihat. Saat eksternal masih gagal setelah retry, notice tetap tampil; pemulihan provider tidak diklaim.
-- Gate: typecheck, web **161/161**, production build, dan bundle budget lulus. Detail per-run, resource, long task, fallback, dan screenshot tercatat di [`execution checkpoint`](../history/execution-checkpoint-2026-10-14.md) dan [`hasil cold-run peta`](../evidence/map-performance-cold-runs-2026-10-14.json).
-- Berikutnya pada jalur lokal: evaluasi long task 257–374 ms jika ada kesempatan profiling yang valid; uji fisik tetap memerlukan ponsel nyata. Gate eksternal benchmark berizin, layanan cloud, reviewer/pilot, Sepolia dan submission masih pending sesuai board di atas.
+- Ran five new headless Chromium contexts at desktop 1280×800 and mobile viewport 390×844. Median MapLibre-ready status was **1,069 ms** and **1,022 ms**, respectively; each opening measured about **5.96 MB** of browser resources. This used a development server and software WebGL, not a GPU/physical-device benchmark or production CDN.
+- Reproducing failure of all Esri tiles showed that the case remained selectable but there was no explanation for failed imagery. Added an accessible notice and retry; helper tests went red/green, and the browser showed that source/coordinates remained available and the notice appeared. When the external service still failed after retry, the notice remained; provider recovery is not claimed.
+- Gates: typecheck, web **161/161**, production build, and bundle budget passed. Per-run details, resources, long tasks, fallback, and screenshots are recorded in the [`execution checkpoint`](../history/execution-checkpoint-2026-10-14.md) and [`map cold-run results`](../evidence/map-performance-cold-runs-2026-10-14.json).
+- Next on the local path: evaluate 257–374 ms long tasks if valid profiling time is available; physical tests still require a real phone. External gates for a permitted benchmark, cloud services, reviewer/pilot, Sepolia, and submission remain pending as shown above.
 
-### 2026-10-14 — Browser proof untuk AI-review revision dan private persistence
+### 2026-10-14 — Browser evidence for AI-review revision and private persistence
 
-- Alur Evidence Auditor pada fixture sintetik yang diberi label menghasilkan kutipan exact dan verdict `insufficient_evidence`; reviewer test meminta bukti tambahan, sehingga laporan menjadi revision 2 tanpa dipromosikan ke `supported`.
-- API restart mempertahankan kedua revisi di file store lokal. Uji scope privat, no-store headers, token scope salah, parent hash, race dua keputusan reviewer, serta ekspor valid/tampered memberi hasil yang diharapkan. Bukti rinci ada pada [`execution checkpoint`](../history/execution-checkpoint-2026-10-14.md).
-- Ini menaikkan bukti alur kode lokal pada technical execution/usefulness; tidak menaikkan bukti akurasi AI, dampak iklim, atau validasi pengguna. Provider yang dipakai adalah mock loopback; reviewer identitas uji; file store bukan cloud; receipt blockchain tidak ada.
-- Status berikutnya: hasil rules baseline tetap satu-satunya basis AI komparatif yang tersedia. Untuk menyatakan AI berguna secara empiris dibutuhkan dokumen yang haknya jelas, anotasi independen, evaluasi pada contoh yang sama dengan baseline, lalu pilot pengguna sasaran.
+- The Evidence Auditor flow on a labeled synthetic fixture produced an exact quote and `insufficient_evidence` verdict; a reviewer test requested more evidence, so the report became revision 2 without being promoted to `supported`.
+- API restart retained both revisions in the local file store. Private-scope, no-store-header, wrong-scope-token, parent-hash, two-reviewer-decision race, and valid/tampered export tests returned expected results. Detailed evidence is in the [`execution checkpoint`](../history/execution-checkpoint-2026-10-14.md).
+- This strengthens evidence for local code-flow technical execution/usefulness; it does not strengthen evidence for AI accuracy, climate impact, or user validation. The provider was a loopback mock; the reviewer identity was a test identity; the file store is not cloud storage; no blockchain receipt exists.
+- Next status: the rules-baseline result remains the only available comparative basis for AI. An empirical AI-benefit claim requires documents with clear rights, independent annotations, evaluation on the same examples as the baseline, and then a target-user pilot.
 
-### 2026-10-14 — Provenance baseline diperbarui
+### 2026-10-14 — Baseline provenance updated
 
-- Evaluator rules dan fixture intelijen kini terikat ke snapshot MARS 13 Oktober (`unep-mars-ccd8267c55ee`); report menyertakan hash benchmark/casebook dan metadata provenance lengkap. Report dan tes reproducibility ada di `services/data-pipeline/reports/baseline-evaluation.json` dan `services/data-pipeline/tests/`.
-- Gate Python aktif: **117/117 lulus**; verifier **4/4 lulus**. Angka baseline tidak berubah menjadi bukti AI: 15 klaim (9 nyata, 6 DEMO), macro-F1 real **0,6667**, dan label `contradicted` tetap tidak terwakili pada subset real.
-- Prioritas berikutnya tidak berubah: tambah korpus berizin dan label independen sebelum menilai model AI; siapkan origin/provider dan pilot hanya ketika pemilik menyediakan akses serta persetujuan yang diperlukan.
+- The rules evaluator and intelligence fixture are now bound to the 13 October MARS snapshot (`unep-mars-ccd8267c55ee`); the report includes benchmark/casebook hashes and full provenance metadata. The report and reproducibility tests are in `services/data-pipeline/reports/baseline-evaluation.json` and `services/data-pipeline/tests/`.
+- Active Python gate: **117/117 passed**; verifier **4/4 passed**. Baseline scores are not AI evidence: 15 claims (9 real, 6 DEMO), real macro-F1 **0.6667**, and the `contradicted` label remains unrepresented in the real subset.
+- Next priorities are unchanged: add a permitted corpus and independent labels before evaluating an AI model; prepare an origin/provider and pilot only when the owner supplies access and required approvals.
 
-### 2026-10-14 — Rerun release gates lokal
+### 2026-10-14 — Local release-gate rerun
 
-- Gate agregat `scripts/check-local.sh` berakhir **exit 0**. Typecheck, 161 web tests, 4 verifier tests, 117 Python tests, 4 Foundry tests, production build dan bundle budget lulus.
-- API: 97 pass, 13 PostgreSQL tests **skip** karena koneksi DB tidak tersedia pada run ini. Akses Docker socket ditolak sandbox, jadi saya tidak membuat container baru; tes tersebut tidak dihitung sebagai lulus pada rerun ini. Hasil PostGIS disposable dari checkpoint terdahulu tetap merupakan bukti lokal terpisah, bukan layanan cloud.
-- Build masih mencatat warning ukuran chunk MapPanel raw di atas 500 kB; ukuran gzip dan budget yang dikonfigurasi lulus. GPU fisik, GitHub Actions pada perubahan lokal, AI provider, Postgres cloud, Sepolia, pilot, dan dampak emisi belum diverifikasi.
+- Aggregate gate `scripts/check-local.sh` ended at **exit 0**. Typecheck, 161 web tests, 4 verifier tests, 117 Python tests, 4 Foundry tests, production build, and bundle budget passed.
+- API: 97 passed; 13 PostgreSQL tests were **skipped** because no DB connection was available in this run. The sandbox denied access to the Docker socket, so I did not create a new container; those tests do not count as passed in this rerun. Disposable PostGIS results from an earlier checkpoint remain separate local evidence, not a cloud service.
+- Build still logged a warning that the raw MapPanel chunk exceeded 500 kB; gzip size and the configured budget passed. Physical GPU, GitHub Actions on local changes, AI provider, cloud Postgres, Sepolia, pilot, and emissions impact remain unverified.
 
-### 2026-10-14 — Shortlist hak benchmark diperluas
+### 2026-10-14 — Expanded benchmark-rights shortlist
 
-- Pemeriksaan laman primer Copernicus menambah delapan karya teks kandidat; inventaris sekarang memuat **13 dokumen/karya shortlist** dan menyebut lisensi yang terlihat serta kasus yang cocok untuk claim-level review.
-- Tidak ada kandidat yang otomatis cleared untuk provider, dan jumlah dokumen bukan jumlah source cluster. Benchmark masih memerlukan hak tiap lingkup penggunaan, peninjauan provider, 40+ klaim held-out, dua anotator independen, serta adjudikasi. Tidak ada PDF/suplemen yang diunduh atau provider yang dipanggil.
-- Catatan rinci beserta tautan dan batas masing-masing kandidat ada di [inventaris hak dokumen](/home/andro/dev/projects/Devpost/iEEE-Methane-response/docs/research/mars-casebook-document-rights-inventory-2026-10-14.md). AI tetap di belakang rules baseline sampai benchmark memenuhi protokol.
+- Review of primary Copernicus pages added eight candidate text works; the inventory now has **13 shortlisted documents/works** and notes visible licenses and cases suitable for claim-level review.
+- No candidate is automatically cleared for provider use, and document count is not source-cluster count. The benchmark still needs rights for each use scope, provider review, 40+ held-out claims, two independent annotators, and adjudication. No PDFs/supplements were downloaded and no provider was called.
+- Detailed notes, links, and limits for each candidate are in the [document-rights inventory](/home/andro/dev/projects/Devpost/iEEE-Methane-response/docs/research/mars-casebook-document-rights-inventory-2026-10-14.md). AI remains behind the rules baseline until the benchmark meets the protocol.
 
-### 2026-10-14 — PostGIS browser E2E dan konteks laporan
+### 2026-10-14 — PostGIS browser E2E and report context
 
-- Pada aplikasi lokal, `KAZ_S_159` dimuat dari snapshot UNEP MARS `unep-mars-ccd8267c55ee`; tiga plume historis ditampilkan. Klaim mitigasi yang sama dijalankan melalui rules baseline dan menghasilkan `insufficient_evidence`, bukan sukses mitigasi.
-- Audit disimpan ke PostGIS disposable lalu dibaca lagi sesudah API restart dengan audit ID dan bundle SHA-256 tetap sama. Browser membuka histori revisi, mengekspor JSON, dan CLI verifier menerima bundle dengan status chain `ABSENT`.
-- Ekspor kini membawa tiga observasi dalam `historicalContext` yang ditandai `context_only_not_claim_evidence`; `observations` tetap kosong karena tidak ada citation deteksi pada audit mitigasi. Verifier browser menunjukkan jumlah konteks tersebut. Perubahan nilai flux pada konteks menyebabkan checksum ekspor ditolak. Snapshot mismatch mengeluarkan kedua set observasi.
-- Gate sebelum perubahan indikator status historis: web **163/163**, verifier **9/9**, typecheck, build production, bundle budget, dan `git diff --check` lulus. Hasil itu superseded oleh rerun terbaru di atas dengan web 164/164. Warning chunk MapPanel raw **1.121,94 kB** tetap ada; batas gzip terkonfigurasi lulus.
-- Ini membuktikan alur software lokal dan persistensi pada container sementara, bukan PostgreSQL cloud, provider AI, reviewer independen, Sepolia, atau dampak mitigasi. Gate berikutnya tetap hak korpus dan label independen, deployment yang dipilih pemilik, pilot pengguna, serta bukti chain hanya setelah otorisasi.
+- In the local application, `KAZ_S_159` loaded from the UNEP MARS snapshot `unep-mars-ccd8267c55ee`; three historical plumes were shown. The same mitigation claim ran through the rules baseline and returned `insufficient_evidence`, not successful mitigation.
+- The audit was saved to disposable PostGIS and read again after API restart with the same audit ID and bundle SHA-256. The browser opened revision history and exported JSON; the CLI verifier accepted the bundle with chain status `ABSENT`.
+- Export now carries three observations in `historicalContext`, marked `context_only_not_claim_evidence`; `observations` remains empty because the mitigation audit has no detection citation. The browser verifier shows the context count. Changing a flux value in the context caused the export checksum to be rejected. A snapshot mismatch removes both observation sets.
+- Before the historical status indicator change, web **163/163**, verifier **9/9**, typecheck, production build, bundle budget, and `git diff --check` passed. That result is superseded by the latest rerun above with web 164/164. The raw MapPanel chunk warning remains at **1,121.94 kB**; the configured gzip limit passed.
+- This demonstrates the local software flow and persistence in a temporary container, not cloud PostgreSQL, an AI provider, an independent reviewer, Sepolia, or mitigation impact. Next gates remain corpus rights and independent labels, the deployment selected by the owner, a user pilot, and chain evidence only after authorization.
 
-### 2026-10-14 20.50 WITA — Public base dan gate release candidate
+### 2026-10-14 20.50 WITA — Public base and release-candidate gate
 
-- Anonymous `git ls-remote` membuktikan `HEAD` dan `main` repo publik menunjuk `99662e6de86b1d745e6ce3589ce37a9ed6c0d66c`, sama dengan basis lokal; perubahan pada working tree belum dipublikasikan.
-- Perbandingan terhadap manifest awal mencatat 338 path status saat file tak terlacak dihitung satu per satu, 34 path di luar manifest, 20 file baseline yang ukuran/hash-nya berubah, dan tidak ada entry baseline yang hilang. Semua perubahan tetap dipertahankan. High-confidence scanner untuk private-key headers dan token GitHub/AWS/OpenAI/Stripe/Slack menemukan 0 file kandidat; pemindaian pola bukan jaminan universal.
-- `bun install --frozen-lockfile` tidak mengubah dependency. Gate agregat tanpa pengaturan temp awalnya gagal dengan `EDQUOT` pada penulisan file store di `/tmp`; API suite dan dua assessment terkait lulus saat `TMPDIR=/dev/shm`. `TMPDIR=/dev/shm bun run check:all:postgis` kemudian berakhir exit 0, dengan API/PostGIS **112/112 (649 assertions, 0 skip)**, web **174/174 (164.716 assertions)**, verifier **20/20 (96 assertions)**, Python **122/122**, Foundry **4/4**, typecheck, production build dan bundle budget.
-- Asset guard **2/2 (23 assertions)** lulus dan 0/10 aset tanpa izin redistribusi muncul di production `dist/assets`. Sembilan file tracked dihapus dari revision lokal; tidak dilakukan force-push, sehingga file pada commit historis tetap dapat diakses.
-- Perkiraan payload file berubah sekitar **57,5 MB**. Snapshot browser yang dilisensikan tetap disertakan; arsip raw dikecualikan. CI GitHub untuk revision kandidat dan seluruh layanan live masih belum diverifikasi.
+- Anonymous `git ls-remote` showed that `HEAD` and `main` of the public repository pointed to `99662e6de86b1d745e6ce3589ce37a9ed6c0d66c`, matching the local base; working-tree changes had not been published.
+- Comparison against the initial manifest recorded 338 status paths when each untracked file is counted separately, 34 paths outside the manifest, 20 baseline files with changed size/hash, and no missing baseline entries. All changes were retained. The high-confidence scanner for private-key headers and GitHub/AWS/OpenAI/Stripe/Slack tokens found 0 candidate files; pattern scanning is not a universal guarantee.
+- `bun install --frozen-lockfile` did not change dependencies. The aggregate gate initially failed with `EDQUOT` while writing the file store in `/tmp` without temporary-directory configuration; the API suite and two related assessments passed with `TMPDIR=/dev/shm`. `TMPDIR=/dev/shm bun run check:all:postgis` then exited 0, with API/PostGIS **112/112 (649 assertions, 0 skipped)**, web **174/174 (164,716 assertions)**, verifier **20/20 (96 assertions)**, Python **122/122**, Foundry **4/4**, typecheck, production build, and bundle budget.
+- Asset guard **2/2 (23 assertions)** passed, and 0/10 assets without redistribution permission appeared in production `dist/assets`. Nine tracked files were removed from the local revision; no force-push was done, so files remain accessible in historical commits.
+- Estimated changed file payload was about **57.5 MB**. The licensed browser snapshot remains included; raw archives are excluded. GitHub CI for the candidate revision and all live services remained unverified.
 
-### 2026-10-14 21.08 WITA — Source release dipublikasikan dan CI terverifikasi
+### 2026-10-14 21.08 WITA — Source release published and CI verified
 
-- Commit `37169eeb35de5ad4e3217f08ae2ab8d9ccffa48d` dipush ke public `main` sebagai fast-forward dari `99662e6`. GitHub Actions run [38569058427](https://github.com/AndroLay/MethaneResponse/actions/runs/38569058427) untuk commit tersebut berakhir `success`.
-- `git ls-remote` dengan system/global Git config, credential helper, dan HTTP extraheader dinonaktifkan mengembalikan commit yang sama untuk `HEAD` dan `refs/heads/main`; `git status --short` kosong sesudah push.
-- Release berisi implementasi, data browser berlisensi, migrations, tests, dokumentasi dan bukti browser. Sembilan UI assets dihapus dari current tree; delapan mockup PNG disimpan lokal dan di-ignore. Riwayat lama tidak di-rewrite, sehingga file yang pernah dipublikasikan masih dapat diakses pada commit terdahulu.
-- Ini menutup akses source publik dan remote CI untuk source release, bukan submission competition. Konflik jadwal/eligibility, video, provider/benchmark AI, database cloud, Sepolia, pilot dan pengukuran perangkat masih terbuka.
+- Commit `37169eeb35de5ad4e3217f08ae2ab8d9ccffa48d` was pushed to public `main` as a fast-forward from `99662e6`. GitHub Actions run [38569058427](https://github.com/AndroLay/MethaneResponse/actions/runs/38569058427) for that commit ended with `success`.
+- `git ls-remote`, with system/global Git config, credential helper, and HTTP extraheader disabled, returned the same commit for `HEAD` and `refs/heads/main`; `git status --short` was empty after the push.
+- The release contains implementation, licensed browser data, migrations, tests, documentation, and browser evidence. Nine UI assets were removed from the current tree; eight PNG mockups were stored locally and ignored. Older history was not rewritten, so files published previously remain accessible in earlier commits.
+- This closes public-source access and remote CI for the source release, not competition submission. Schedule/eligibility conflicts, video, AI provider/benchmark, cloud database, Sepolia, pilot, and device measurement remain open.
 
 ### 2026-10-15 — Matched WebGL measurement, public CI, and submission recheck
 

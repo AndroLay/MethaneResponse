@@ -1,43 +1,43 @@
-# Simulasi tiga integrasi melalui peran agent
+# Simulating Three Integrations Through Agent Roles
 
-Mengikuti adapter `adaptive-engineering/references/persistent-plans.md`. Root menjadi satu penulis repository; agent lain membaca kode, merancang skenario dan menjalankan pemeriksaan terisolasi. Working tree lama dipertahankan.
+Follow the `adaptive-engineering/references/persistent-plans.md` adapter. Root is the sole repository writer; other agents read code, design scenarios, and run isolated checks. Preserve the existing working tree.
 
-## Tujuan dan batas
+## Goal and boundaries
 
-Pengguna mengonfirmasi tiga bagian: provider AI eksternal, deployment publik, dan receipt Sepolia. Permintaan ini dikerjakan melalui simulasi peran AI dengan pemeriksaan runtime lokal yang nyata. Simulasi tidak menghasilkan akun hosting, kredensial provider, funding atau transaksi Sepolia publik. Gerbang eksternal tetap memerlukan bukti dari target sebenarnya; tidak diisi dari fixture.
+The user confirmed three areas: an external AI provider, public deployment, and a Sepolia receipt. This request is handled through an AI role simulation with real local runtime checks. The simulation does not create a hosting account, provider credentials, funding, or a public Sepolia transaction. External gates still require evidence from the actual target; fixtures do not satisfy them.
 
-Snapshot awal: local `main` pada `a82e2eee99bb79327f859f304f2f5d5939f07041` beserta perubahan working tree yang sudah ada. Paket historis P1–P6 tidak ditulis ulang.
+Starting snapshot: local `main` at `a82e2eee99bb79327f859f304f2f5d5939f07041`, including existing working-tree changes. Historical P1–P6 packages are not rewritten.
 
-## Peran dan ekspektasi sebelum pelaksanaan
+## Roles and expectations before execution
 
 | Peran | Skenario | Ekspektasi |
 |---|---|---|
-| Analis pemohon | Dokumen DEMO milik sendiri, claim terbatas, consent dan token | Request provider terikat claim; hasil tetap suggestion/unreviewed dan privat |
-| Peninjau skeptis | Kedua pass berbeda pendapat atau kutipan dibuat-buat | Abstain; tidak berubah menjadi konfirmasi perbaikan fisik |
-| Provider bermasalah | HTTP gagal, JSON/schema rusak, redirect, respons terlalu besar | Gagal terkendali; tidak membuat revisi audit palsu atau mengirim ulang ke tujuan redirect |
-| Pengunjung tanpa hak | Tanpa token/consent/rights; mencoba membaca hasil privat | Ditolak sebelum provider; tidak membocorkan kutipan atau token |
-| Operator layanan | API production lokal, health/CORS, writer lock, backup dan crash/restart | State terjaga pada volume yang sama; proses kedua ditolak; bukan bukti durable cloud |
-| Issuer dan verifier | Deploy/anchor Anvil, crash, revert, revisi dan export diubah | Receipt lokal tervalidasi terpisah; versi historis dibedakan; manipulasi ditolak |
+| Requesting analyst | Own DEMO document, limited claim, consent, and token | Provider request is bound to the claim; result remains a private suggestion/unreviewed item |
+| Skeptical reviewer | Two passes disagree or a citation is fabricated | Abstain; do not turn the result into confirmation of physical repair |
+| Faulty provider | HTTP failure, malformed JSON/schema, redirect, oversized response | Fail in a controlled way; create no false audit revision or resend to a redirect target |
+| Unauthorized visitor | No token/consent/rights; attempts to read a private result | Reject before calling provider; disclose no citation or token |
+| Service operator | Local production API, health/CORS, writer lock, backup, crash/restart | State survives on the same volume; second process is rejected; this is not proof of durable cloud storage |
+| Issuer and verifier | Anvil deployment/anchor, crash, revert, revision, modified export | Local receipt is independently validated; historical versions are distinguished; tampering is rejected |
 
-Peran tidak dihitung sebagai manusia atau pakar independen. Respons provider fixture ditentukan untuk menguji protokol, bukan menilai kualitas model.
+Roles do not count as people or independent experts. Fixture provider responses are predetermined to test the protocol, not assess model quality.
 
-## Milestone
+## Milestones
 
-- [x] Agent meninjau provider serta deployment/chain; stale deployment documentation dan celah RPC acknowledgment ditangani.
-- [x] Tambahkan provider HTTPS lokal → API production dengan data/token DEMO dan environment terisolasi. Root memiliki file baru di `scripts/`; tidak ada dependency baru atau perubahan kredensial.
-- [x] Agent menjalankan provider 13 skenario/115 assertions dan operator/chain secara terpisah; hasil akhir dipertahankan pada paket evidence. Tidak ditemukan defect runtime aplikasi; kekeliruan fixture diperbaiki dan run final diulang.
-- [x] Typecheck, 34 tes terfokus, build/bundle, satu chain + dua casework + satu publication lulus. Empat pemeriksaan HTTP mencocokkan build production yang disajikan lokal; bukan rendering browser atau hosting publik.
-- [x] Review agent lain memeriksa assertion dan hasil; binding sumber/checksum serta dokumentasi disimpan bersama [bukti](../evidence/integration-role-simulation-2026-10-18/README.md). Fixture command menghentikan proses miliknya.
+- [x] An agent reviewed the provider and deployment/chain; stale deployment documentation and an RPC acknowledgment gap were addressed.
+- [x] Add a local HTTPS provider → production API path using DEMO data/tokens and an isolated environment. Root owns the new files in `scripts/`; no new dependency or credential change.
+- [x] An agent ran 13 provider scenarios/115 assertions and the operator/chain checks separately; final results are retained in the evidence package. No application runtime defect was found; fixture mistakes were corrected and the final run was repeated.
+- [x] Typecheck, 34 focused tests, build/bundle, one chain + two casework + one publication check passed. Four HTTP checks matched the locally served production build; this was not browser rendering or public hosting.
+- [x] Another agent reviewed assertions and results; source/checksum bindings and documentation are stored with the [evidence](../evidence/integration-role-simulation-2026-10-18/README.md). The fixture command stops its own process.
 
-## Perintah penerimaan
+## Acceptance commands
 
-- `bun --no-env-file test scripts/integration-role-runtime.test.ts` melalui runner environment terisolasi yang ditambahkan pada increment ini.
-- `bun run test:case-work-operations` dan `bun run test:publication-operations`.
+- `bun --no-env-file test scripts/integration-role-runtime.test.ts` through the isolated-environment runner added in this increment.
+- `bun run test:case-work-operations` and `bun run test:publication-operations`.
 - `bun run test:chain-integration --evidence /tmp/methane-integration-roles/chain.json`.
-- `bun run check`, pemeriksaan unit terkait perubahan, `bun run build:web`, `bun run check:web-bundle`.
+- `bun run check`, relevant unit checks, `bun run build:web`, and `bun run check:web-bundle`.
 
-Artefak baru: `docs/evidence/integration-role-simulation-2026-10-18/`. Hasil mencatat command, exit status, identitas peran, scope lokal/fixture, source hash dan gerbang eksternal secara eksplisit. Jika tidak ada perubahan aplikasi, tidak mengklaim suite lengkap dijalankan ulang.
+New artifacts: `docs/evidence/integration-role-simulation-2026-10-18/`. Results explicitly record commands, exit status, role identity, local/fixture scope, source hash, and external gates. If the application did not change, do not claim that the full suite was rerun.
 
 ## Status
 
-**Selesai dalam cakupan simulasi engineering melalui agent.** Total 39 tes terfokus/operasi, typecheck/build/bundle dan empat HTTP build checks lulus. Tidak ada provider eksternal, deployment publik atau receipt Sepolia baru; gerbang aslinya tetap pending. Arahan pengguna mencakup agent dan tes lokal. Operasi Sepolia terdahulu tetap mempunyai persetujuan terbatas yang tercatat; simulasi ini tidak memperluasnya menjadi deployment target lain.
+**Complete within the scope of engineering simulation through agents.** A total of 39 focused/operations tests, typecheck/build/bundle, and four HTTP build checks passed. No external provider, public deployment, or new Sepolia receipt was used; the original gates remain pending. The user's direction covers agents and local tests. The earlier Sepolia operation retains its recorded limited approval; this simulation does not extend it to another deployment target.

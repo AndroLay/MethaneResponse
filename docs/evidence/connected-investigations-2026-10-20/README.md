@@ -1,10 +1,10 @@
-# Connected Investigations — 20 Oktober 2026
+# Connected Investigations — 20 October 2026
 
-Alokasi investigasi, bukti, permintaan tindak lanjut, review, keputusan beku dan pemeriksaan ulang kini memakai satu konteks sumber/snapshot/scope. Ini hasil implementasi prototipe lokal, tanpa database/dependensi baru. [Panduan pengguna dan operasi](../../development/connected-investigations.md) · [API](../../architecture/api-reference.md) · [Rencana](../../plans/2026-10-20-connected-investigations.md).
+Investigation allocation, evidence, follow-up requests, review, frozen decisions, and revisit checks share one source/snapshot/scope context. This is a local prototype implementation without new databases/dependencies. [User/operations guide](../../development/connected-investigations.md) · [API](../../architecture/api-reference.md) · [Plan](../../plans/2026-10-20-connected-investigations.md).
 
-Baseline Git `8e19c034e666a6b00d93b4cb3f5747f563c75aab`; hasil berasal dari working tree yang belum di-commit. `source-manifest.json` mencatat byte source yang diperiksa; SHA commit baseline saja tidak mewakili increment ini. `checks.json` mencatat setiap run beserta batasnya, dan `artifact-manifest.json` mengikat berkas paket ini. Manifest bukan tanda tangan pihak independen.
+Git baseline: `8e19c034e666a6b00d93b4cb3f5747f563c75aab`; results came from an uncommitted working tree. `source-manifest.json` records inspected source bytes: the baseline commit alone does not represent this increment. `checks.json` records runs/limits; `artifact-manifest.json` binds package files. Manifests are not independent signatures.
 
-## Yang benar-benar terintegrasi
+## Integrated workflow
 
 ```mermaid
 flowchart LR
@@ -18,67 +18,67 @@ flowchart LR
   D --> R
 ```
 
-| Kemampuan | Implementasi dan pemeriksaan | Batas |
+| Capability | Implementation/check | Boundary |
 |---|---|---|
-| Plan → investigation | Exact accepted revision, source membership, snapshot/archive and replay; private API + browser | Persetujuan historis, bukan mandat terkini atau manfaat iklim terukur |
-| Source/claim/scope continuity | Immutable work identity, saved history, CAS dan stale-response guard | Perubahan claim/scope memerlukan work ID baru |
-| Request/response/review | Append-only typed events, peran/tenggat, SHA-256 asli, rights declaration, day/month/year/unknown | Event disimpan; tidak ada email/download/AI otomatis. Hash/rights belum diautentikasi |
-| Assessment | Reuse immutable baseline/human/model bundles, exact relations and quote checks | AI opsional; provider deterministik pada E2E bukan benchmark model nyata |
-| Frozen decision | Copy exact verified dossier, rationale/reviewer/time, revision ancestry, current authority/CAS | Review software DEMO dalam tes bukan pilot manusia atau konfirmasi repair |
-| Revisit | New response/review, criteria/assessment changes, matching next-snapshot records dan context notices | Tidak mengubah determination historis atau menganggap arsip terbaru sebagai live feed |
-| Independent verifier | Canonical SHA-256, separately trusted digest, internal relationship/replay checks | Self-supplied checksum bukan autentikasi; formatting JSON dapat dinormalisasi |
-| Blockchain | Actual Anvil contract/event, independent CLI, legacy/new nonce coordinator, lost-ack recovery | Chain 31337 disposable; bukan Sepolia, receipt publik atau fakta fisik |
-| UI | Private workspace, explicit saves/approvals, responsive controls, empty/error/loading/conflict states | Viewport mobile dan software WebGL; bukan HP fisik atau pengukuran FPS |
+| Plan → investigation | Exact accepted revision, source membership, snapshot/archive/replay; private API/browser | Historical approval, not a current mandate or measured climate benefit |
+| Source/claim/scope continuity | Immutable work identity, saved history, CAS, stale-response guard | Different claim/scope requires a new work ID |
+| Request/response/review | Append-only typed events, role/deadline, original SHA-256, rights declaration, day/month/year/unknown precision | Stored events; no automatic email/download/AI. Hashes/rights are not authenticated |
+| Assessment | Reuses immutable baseline/human/model bundles, exact relationships, quote checks | Optional AI; deterministic E2E providers are not real-model benchmarks |
+| Frozen decision | Exact verified dossier, rationale/reviewer/time, revision ancestry, current authority/CAS | DEMO software review is not a human pilot or repair confirmation |
+| Revisit | New responses/reviews, changed criteria/assessments, matching next-snapshot records, context notices | Does not rewrite historical determinations or turn a newer archive into live monitoring |
+| Independent verifier | Canonical SHA-256, separately trusted digest, relationship/replay checks | Self-supplied checksums do not authenticate; JSON formatting may normalize |
+| Blockchain | Actual Anvil contract/events, independent CLI, shared legacy/new nonce coordination, lost-ack recovery | Disposable chain 31337, not Sepolia, a public receipt, or physical truth |
+| UI | Private workspace, explicit saves/approvals, responsive controls, empty/error/loading/conflict states | Mobile viewport/software WebGL, not physical-phone/FPS measurement |
 
-Kode utama: [shared decision/dossier](../../../packages/shared/src/investigation-decision.ts), [durable decision routes](../../../apps/api/src/investigation-decision-routes.ts), [workspace](../../../apps/web/src/InvestigationContextPanel.tsx), [independent verifier](../../../scripts/verify-investigation-decision.ts). Tidak ada rewrite kontrak atau hash bundle historis.
+Main code: [shared decision/dossier](../../../packages/shared/src/investigation-decision.ts), [durable decision routes](../../../apps/api/src/investigation-decision-routes.ts), [workspace](../../../apps/web/src/InvestigationContextPanel.tsx), [independent verifier](../../../scripts/verify-investigation-decision.ts). Historical contracts/bundle hashes were not rewritten.
 
-## Bukti aktual dan hasil run
+## Actual evidence and recorded runs
 
-Hasil final, hitungan dan exit code dicatat di [checks.json](checks.json). Gate utama meliputi frozen install, API/web/E2E/evaluation typecheck, API/web/tooling tests, production build/budget, Python, baseline conformance dan Foundry. Browser serta operasi crash/chain dijalankan terpisah; focused repeats tidak dijumlahkan sebagai coverage baru.
+[checks.json](checks.json) records final counts/exit codes. Main gates cover frozen install, API/web/E2E/evaluation typecheck, API/web/tooling tests, production build/budget, Python, baseline conformance, and Foundry. Browser/crash/chain operations ran separately; focused repeats are not extra coverage.
 
-| Pemeriksaan final | Hasil aktual |
+| Final check | Recorded result |
 |---|---|
-| API / web / tooling / Python / Foundry | 284 / 275 / 58 / 221 / 4 — **842 tes**, tanpa fail/skip |
-| Main / private-team E2E | 28 / 12 — **40 pemeriksaan**: 39 browser journeys dan satu Node schema check, tanpa fail/retry/skip |
-| Operasi terpisah | Satu actual Anvil integration; dua casework dan satu publication crash/restart |
-| Retained export CLI | 11 skenario dengan exit code sesuai harapan, termasuk expected rejection dan kontrol batas trust |
-| App entry | 74.667/75.000 byte gzip; delapan required lazy route chunks lulus |
-| Bukti lama | 98 artefak dari lima paket sebelumnya cocok dengan manifest asal |
+| API / web / tooling / Python / Foundry | 284 / 275 / 58 / 221 / 4 — **842 tests**, no failures/skips |
+| Main / private-team E2E | 28 / 12 — **40 checks**: 39 browser journeys and one Node schema check, no failures/retries/skips |
+| Separate operations | One actual Anvil integration; two casework and one publication crash/restart |
+| Retained-export CLI | Eleven expected exit outcomes, including rejection and trust-boundary controls |
+| App entry | 74,667/75,000 gzip bytes; eight required lazy route chunks passed |
+| Prior evidence | 98 artifacts from five earlier packages matched original manifests |
 
-Gate lengkap juga diulang pada salinan source tanpa `node_modules`: **137 dependency packages dipasang secara frozen/offline dari cache lokal**, lalu seluruh 842 tes/typecheck/build/budget lulus. Sebanyak **414 berkas runtime/config serta input data** cocok byte-per-byte dengan source aktif. Percobaan fresh-cache download sebelumnya dihentikan karena lambat (exit 143); hasil itu tidak diklaim lulus. Bukti ini memverifikasi instalasi berbasis cache, bukan keberhasilan mengunduh seluruh dependency pada jaringan baru. Dokumentasi aktif diselesaikan setelah salinan kode dibuat.
+Complete gates were also repeated in a source copy without `node_modules`: **137 dependency packages installed frozen/offline from local cache**, then all 842 tests/typechecks/build/budget passed. **414 runtime/config/data-input files** matched active source byte-for-byte. An earlier fresh-cache download was stopped for slowness (exit 143), not claimed successful. This establishes cached installation, not all downloads on a fresh network. Active documentation was completed after the code copy.
 
-- `checks-output.txt`: full local gate log.
-- `browser-private-output.txt` dan `browser-main-output.txt`: masing-masing phase dengan production frontend baru, satu worker, tanpa retries.
-- `anvil-output.txt` dan `anvil-proof.json`: kontrak lokal aktual, bukan mock RPC receipt. Full frozen decision juga dipertahankan.
-- `casework-operations-output.txt` dan `publication-operations-output.txt`: backup/lock/restore dan actual API SIGKILL/restart.
-- `clean-install-output.txt`, `clean-checks-output.txt` dan `clean-network-interrupted.txt`: instalasi cache, gate pada salinan source, dan percobaan jaringan yang dihentikan.
-- [Review dan koreksi](review-notes.md): privacy/normalization/reconcile/revisit serta dua asumsi tes tim yang diperbaiki.
-- `prior-manifests.json`: pemeriksaan 98 artefak pada lima paket sebelumnya. Byte evidence lama tidak ditimpa.
+- `checks-output.txt`: complete local gate log.
+- `browser-private-output.txt`, `browser-main-output.txt`: separate phases, fresh production frontend, one worker, no retries.
+- `anvil-output.txt`, `anvil-proof.json`: actual local contract, not a mock receipt; complete frozen decision retained.
+- `casework-operations-output.txt`, `publication-operations-output.txt`: backup/lock/restore and actual API SIGKILL/restart.
+- `clean-install-output.txt`, `clean-checks-output.txt`, `clean-network-interrupted.txt`: cached install, copied-source gates, interrupted download.
+- [Review/fixes](review-notes.md): privacy, normalization, reconciliation, revisit, and two corrected team-test assumptions.
+- `prior-manifests.json`: 98 earlier artifacts checked; original evidence bytes were not overwritten.
 
-### Kasus browser
+### Browser case
 
-Real historical source **TKM_S_021**, snapshot `unep-mars-675417694883`, 4.218 source/30.414 plume rows. Reviewer bertanda **DEMO software** menerima alokasi dan menyimpan pertanyaan/permintaan, lalu assessment human-path `insufficient_evidence` sebagai fixture workflow. Tidak ada ahli manusia yang menilai kasus tersebut.
+Real historical source **TKM_S_021**, snapshot `unep-mars-675417694883`, 4,218 source/30,414 plume rows. A **DEMO software** reviewer accepted allocation and saved questions/requests, then a human-path `insufficient_evidence` assessment as a workflow fixture. No human expert assessed this case.
 
-Ekspor awal memiliki tiga revisi pekerjaan, satu plan, satu perbandingan snapshot dan satu assessment. Keputusan beku menyimpan lima revisi dan tiga evidence events, termasuk tanggal dokumen **`2026-09` dengan precision `month`**, tanpa hari palsu. Respons berikutnya memicu `new_authorized_response`; frozen decision tetap sama. Perbandingan snapshot historis yang sudah termasuk snapshot keputusan diberi status `already_in_decision_snapshot`.
+The initial export contains three work revisions, one plan, one snapshot comparison, one assessment. The frozen decision retains five revisions/three evidence events, including document date **`2026-09` with `month` precision**, without inventing a day. A later response triggers `new_authorized_response`; the frozen decision is unchanged. A historical comparison already included in its snapshot is `already_in_decision_snapshot`.
 
 - [Desktop decision](decision-desktop.png).
 - [Desktop investigation](connected-investigation-desktop.png).
 - [Mobile viewport 390×844](connected-investigation-mobile.png).
-- [Dossier awal](proof/connected-investigation.json) dan [keputusan beku browser](proof/browser-frozen-decision.json).
+- [Initial dossier](proof/connected-investigation.json), [frozen browser decision](proof/browser-frozen-decision.json).
 
-Browser menguji refresh/revision conflict, cross-origin digest exposure hanya bagi reviewer berwenang, stale result setelah perubahan revisi, tidak adanya page error/overflow pada journey ini dan tidak adanya token pada ekspor. External imagery diblokir; capture tidak membuktikan kualitas citra satelit live.
+Browser checks cover refresh/revision conflict, cross-origin digest exposure only to authorized reviewers, stale results after revision changes, no page errors/overflow on this journey, and token-free exports. External imagery was blocked; captures do not establish live satellite-imagery quality.
 
-### Bukti Anvil dan checksum
+### Anvil and checksum evidence
 
-[Keputusan yang benar-benar di-anchor secara lokal](proof/local-chain-decision.json) menggunakan real historical source **KAZ_S_159**, scoped `source_detected`, software reviewer DEMO. Assessment memeriksa cakupan metadata sumber; tidak menilai perbaikan fisik.
+The [decision actually anchored locally](proof/local-chain-decision.json) uses real historical source **KAZ_S_159**, scoped `source_detected`, with a DEMO software reviewer. Assessment checks metadata coverage, not physical repairs.
 
-Saat Anvil masih berjalan, CLI proses terpisah menerima original, menolak rationale yang diubah **bahkan dengan checksum baru yang diberikan sebagai expected digest**, menerima original kembali, lalu mengenali original sebagai historical setelah anchor revisi berikutnya. Recovery kehilangan acknowledgement meninggalkan durable intent dan hanya mengonsumsi satu nonce; jalur audit dan decision saling memblokir saat ada pending intent.
+While Anvil ran, a separate CLI accepted the original, rejected altered rationale **even with a newly supplied expected checksum**, accepted the original again, then recognized it as historical after a later anchor revision. Lost-ack recovery retained a durable intent and consumed only one nonce. Audit/decision paths blocked each other while an intent was pending.
 
-`proof/offline-decision-verification.json` mencatat tujuh pemanggilan CLI setelah chain dihentikan. Original → altered → altered+rehash → original diperiksa terhadap commitment awal. Kontrol negatif juga menunjukkan bahwa penyerang yang mengganti **berkas sekaligus supplied digest** dapat lolos pemeriksaan lokal. Inilah alasan digest harus datang dari kanal tepercaya; pengecekan chain yang aktual menolak perubahan tersebut saat integrasi berjalan.
+`proof/offline-decision-verification.json` records seven CLI calls after chain shutdown. Original → altered → altered+rehash → original were checked against the original commitment. A negative control shows that an attacker replacing **both file and supplied digest** can pass local checks. The digest therefore needs a trusted channel; actual chain checks rejected the change during integration.
 
-## Reproduksi dari source yang cocok
+## Reproduce from matching source
 
-Toolchain perlu tersedia: Bun, Python/uv dengan locked research extras, Foundry/Anvil, Linux `flock` dan Chromium yang dapat memakai sandbox/socket lokal. Jalankan dari root repo:
+Prerequisites: Bun, Python/uv with locked research extras, Foundry/Anvil, Linux `flock`, and Chromium with local sandbox/socket access. From repository root:
 
 ```bash
 bun install --frozen-lockfile
@@ -89,21 +89,21 @@ bun run test:publication-operations
 bun run test:chain-integration --evidence /tmp/NEW-anvil-proof.json
 ```
 
-Ganti path Chromium sesuai host. Path evidence Anvil harus belum ada. Runner tidak memakai development state, real RPC/signer atau inherited provider credentials. Untuk operasi manual, [setup lokal](../../development/local-setup.md) dan [reviewer governance](../../development/connected-investigations.md) tetap berlaku; jangan membuat reviewer nyata dari fixture.
+Adjust Chromium's path for the host. The Anvil evidence path must not exist. The runner does not use development state, real RPC/signers, or inherited provider credentials. [Local setup](../../development/local-setup.md) and [reviewer governance](../../development/connected-investigations.md) apply to manual operation; fixtures do not create real reviewers.
 
-Digest tepercaya per artefak tercatat pada `proof/trusted-digests.json`. Periksa ekspor menggunakan digest yang telah dicatat terpisah:
+`proof/trusted-digests.json` records artifact pins. Verify exports against separately recorded digests:
 
 ```bash
 bun run verify:investigation docs/evidence/connected-investigations-2026-10-20/proof/connected-investigation.json --expected-digest 0xTRUSTED_DOSSIER_DIGEST
 bun run verify:investigation-decision docs/evidence/connected-investigations-2026-10-20/proof/local-chain-decision.json --expected-digest 0xTRUSTED_DECISION_DIGEST
 ```
 
-Ganti placeholder dengan digest 64 digit yang benar. Tambahkan `--require-chain` hanya dengan receipt dan read-only RPC/registry yang tepat dan masih tersedia. Anvil dari tes telah dihentikan; alamat/tx lokal bukan tautan explorer publik. Menjalankan ulang menghasilkan akun, deployment, digest dan receipt baru.
+Replace placeholders with correct 64-digit digests. Add `--require-chain` only with the matching receipt and available read-only RPC/registry. Test Anvil was stopped; local addresses/transactions are not public explorer links. Reruns create new accounts, deployments, digests, and receipts.
 
-## Batas dan pekerjaan berikutnya
+## Limits and next steps at this checkpoint
 
-- Belum ada hasil baru provider AI eksternal/benchmark berlabel independen, pilot manusia/pakar, deployment publik atau receipt Sepolia pada increment ini.
-- Tidak ada klaim keunggulan atas proyek lain, penghematan waktu, probabilitas repair, pengurangan emisi, atau jaminan menang.
-- Tetap satu writer dengan private file state. Envelope 3 memerlukan writer yang memahami keputusan; backup/rollback dijelaskan pada panduan. Public preview tidak membuka dossier/keputusan privat.
-- Video/judging pack lama tetap terikat revisi runtime asal. Paket ini adalah bukti coding baru, bukan pernyataan bahwa video lama sudah memperagakan seluruh workflow baru atau submission telah dikirim.
-- Prioritas selanjutnya: sinkronkan materi demo dengan source yang siap dipublikasikan; verifikasi CI/deployment pada target publik bila diizinkan; evaluasi AI berizin dan manfaat pengguna sebagai studi terpisah.
+- No new external AI-provider/independent labeled-benchmark results, human/expert pilot, public deployment, or Sepolia receipt.
+- No claim of superiority, time savings, repair probability, emission reduction, or guaranteed competition success.
+- Private file state remains single-writer. Envelope 3 needs a decision-aware writer; guides describe backup/rollback. Public preview excludes private dossiers/decisions.
+- Earlier videos/judging packs remain bound to their original runtime revisions. This is new coding evidence, not proof that old footage shows every new workflow or that submission occurred.
+- Next: align demo material with publishable source; verify authorized public CI/deployment; evaluate licensed AI and user benefits as separate studies.

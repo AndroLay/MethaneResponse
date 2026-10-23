@@ -1,57 +1,57 @@
-# Persiapan operasi publik P2 — Sepolia
+# P2 public-operation preparation — Sepolia
 
-**Status:** target dan konfigurasi privat siap; ketiga operasi sudah disetujui pengguna. Menunggu test ETH; Chain Platform dan QuickNode sama-sama dilaporkan menolak issuer tanpa saldo Mainnet. **Belum ada deployment, anchor, atau receipt publik.**
+**Historical status:** target/private configuration prepared; the user approved the three operations. Funding remained blocked: both Chain Platform and QuickNode reportedly rejected an issuer without a Mainnet balance. **No public deployment, anchor, or receipt existed at this checkpoint.**
 
-Dokumen ini melanjutkan [bukti implementasi lokal P2](../blockchain-recovery-2026-10-17/README.md). Snapshot bukti lama dipertahankan. Persiapan ini tidak menutup integrasi P2.
+This continues [P2 local implementation evidence](../blockchain-recovery-2026-10-17/README.md). Earlier evidence is preserved. Preparation does not complete P2 integration.
 
-## Target konkret
+## Concrete target
 
-| Bidang | Nilai |
+| Field | Value |
 |---|---|
-| Jaringan | Ethereum Sepolia, chain ID `11155111` |
-| RPC publik yang diperiksa | `https://11155111.rpc.thirdweb.com`; bawaan Sepolia pada viem terpasang |
-| Issuer baru khusus P2 | `0x211334Ab7398e2A7268014c31809bd712F033afa` |
-| Registry yang direncanakan | `0x0F78a787142abF509b6A7178bA1bfDfb9c8b202d` |
-| Kondisi registry | Alamat prediksi CREATE dari issuer nonce 0; **belum memiliki bytecode** |
-| Audit operasional | `52d1031b-bdf0-4bc7-803c-8a59040975ab`, revisi 1 |
+| Network | Ethereum Sepolia, chain ID `11155111` |
+| Checked public RPC | `https://11155111.rpc.thirdweb.com`; installed viem Sepolia default |
+| Dedicated new P2 issuer | `0x211334Ab7398e2A7268014c31809bd712F033afa` |
+| Planned registry | `0x0F78a787142abF509b6A7178bA1bfDfb9c8b202d` |
+| Registry state | Predicted CREATE address at issuer nonce 0; **no bytecode yet** |
+| Operational audit | `52d1031b-bdf0-4bc7-803c-8a59040975ab`, revision 1 |
 | Source / case / claim | `KAZ_S_159` / `MARS-REPORT-KAZ-S-159` / `source_detected` |
 | Bundle SHA-256 | `0xc8bf622d1c87752a6d76dd5cca0c2e1897e78a1d017fe7b35f1b85951f82d442` |
-| Konfirmasi minimum | 2 block; canonicality diperiksa kembali, bukan jaminan finalitas |
+| Minimum confirmations | Two blocks with canonicality rechecked, not guaranteed finality |
 
-Audit dibuat melalui endpoint baseline dengan `FileAuditStore` nyata di bawah `flock`, pada state khusus baru. [Export operasional belum di-anchor](operational-baseline-unanchored.json) lolos verifier offline. Audit/hash kandidat terdahulu berbeda karena ID/waktu penerbitan baru dan **tidak** dianggap izin untuk operasi ini. Hanya metadata historis beratribusi digunakan; tidak ada hasil mitigasi buatan atau salinan isi laporan pihak ketiga.
+The audit was created through the baseline endpoint using actual `FileAuditStore` under `flock` in dedicated new state. The [unanchored operational export](operational-baseline-unanchored.json) passed offline verification. Earlier candidate audit/hash values differ because issuance ID/time changed; they do **not** authorize this operation. Only attributed historical metadata was used, without invented mitigation or copied third-party report contents.
 
-Konfigurasi server/signing key baru disiapkan atas permintaan pengguna agar tim menanganinya. File `data/state/p2-sepolia/server.env` dan seluruh state di bawahnya diabaikan Git; direktori mode 0700, file konfigurasi/audit/marker mode 0600. Jangan menampilkan isi file tersebut. Signing tetap `ENABLE_CHAIN_WRITES=false`. State ini terpisah dari `data/state/audits.json` pengguna; API aktif tidak otomatis berpindah ke state baru.
+Server/signing configuration was prepared at the user's request. `data/state/p2-sepolia/server.env` and all associated state are Git-ignored; directory mode 0700, configuration/audit/marker files 0600. Never display their contents. Signing remains `ENABLE_CHAIN_WRITES=false`. State is separate from the user's `data/state/audits.json`; the active API does not automatically switch.
 
-## Perkembangan funding
+## Funding history
 
-Pengguna kemudian melaporkan faucet Chain Platform meminta saldo **0,001 ETH Mainnet**. Karena issuer baru tidak memenuhi syarat itu, penyelesaian CAPTCHA saja tidak cukup. Tidak diminta membeli/mentransfer ETH Mainnet. [Catatan lanjutan](funding-follow-up.json) memisahkan laporan pengguna dari pemeriksaan browser pertama.
+The user reported Chain Platform required **0.001 Mainnet ETH**. The new issuer did not qualify; CAPTCHA completion alone was insufficient. No purchase/transfer of Mainnet ETH was requested. [Follow-up](funding-follow-up.json) separates the user report from the first browser inspection.
 
-QuickNode juga ditolak: pengguna melaporkan `Invalid ETH mainnet balance` pada formulir aktual. Ini bertentangan dengan FAQ resmi yang dipakai pada pemeriksaan sebelumnya. **Rekomendasi kesesuaian QuickNode untuk issuer baru ditarik**; tampilan awal/FAQ tidak membuktikan eligibility. [Catatan koreksi](funding-runtime-correction.json) menyimpan perbedaan bukti ini.
+QuickNode was also rejected: the user reported `Invalid ETH mainnet balance` on the actual form, contradicting the official FAQ used earlier. **The recommendation that QuickNode suited a new issuer was withdrawn.** An initial page/FAQ does not establish eligibility. [Correction](funding-runtime-correction.json) records this distinction.
 
-Pemeriksaan pertama pada alternatif: [Sepolia PoW Faucet](https://sepolia-faucet.pk910.de/), termasuk konfigurasi publik API. Config menyebut native SepETH, minimum klaim 0,05, CAPTCHA untuk mulai, serta modul PoW/passport. Browser memperlihatkan field alamat dan `Start Mining`. Tidak ada sesi/mining/klaim yang dimulai. Ketiadaan field mainnet-wallet dalam config klien tidak membuktikan eligibility server; penerimaan issuer dan payout masih belum diuji. Tidak ada instruksi membeli ETH Mainnet. Persetujuan deployment dan anchor sebelumnya tetap berlaku.
+An initial inspection of [Sepolia PoW Faucet](https://sepolia-faucet.pk910.de/) and its public API configuration found native SepETH, minimum claim 0.05, startup CAPTCHA, and PoW/passport modules. The browser showed an address field and `Start Mining`. No session/mining/claim started in that initial inspection. Missing Mainnet-wallet fields in client config do not establish server eligibility; issuer acceptance/payout remained untested. No Mainnet purchase was requested. Existing deployment/anchor approval remained valid.
 
-Atas permintaan pengguna berikutnya, agent **mencoba PoW langsung dua kali**: mengisi issuer dan menekan Start Mining, lalu satu muat ulang normal dan percobaan ulang. Kedua percobaan menghasilkan `[INVALID_CAPTCHA] captcha check failed: invalid token` dan `Could not start session`. Mining belum dimulai, tidak ada reward/claim, tidak ada upaya melewati CAPTCHA. Pemeriksaan RPC pada percobaan ini mengonfirmasi saldo **0 SepETH**, pending nonce **0**. [Catatan percobaan aktual](pow-agent-attempt.json) dan [tangkapan layar penolakan](pow-faucet-captcha-rejection.png) mendokumentasikan hasilnya. Integrasi P2 tetap belum selesai; target/hash serta izin deployment/anchor tetap berlaku.
+At the user's later request, the agent **tried PoW directly twice**: entered the issuer, clicked Start Mining, then performed one normal reload/retry. Both returned `[INVALID_CAPTCHA] captcha check failed: invalid token` and `Could not start session`. Mining never started; no reward/claim or CAPTCHA bypass occurred. RPC checks confirmed **0 SepETH**, pending nonce **0**. [Attempt record](pow-agent-attempt.json) and [rejection screenshot](pow-faucet-captcha-rejection.png) retain the outcome. P2 integration remained incomplete; target/hash and prior approval remained valid.
 
-## Operasi yang disetujui
+## Approved operations
 
-1. Klaim satu drip **0,1 test ETH** dari [Chain Platform Sepolia Faucet](https://faucet.chainplatform.co/faucets/ethereum-sepolia) ke issuer di atas. Halaman browser menampilkan Ethereum Sepolia `11155111`, field alamat dan tombol `Get 0.1 ETH`. Setelah persetujuan, alamat diisi dan tombol diklik satu kali. Faucet menolak dengan pesan `Please complete the captcha verification first.` ([catatan percobaan](faucet-attempt.json)); tidak ada tx hash klaim. Pengguna diminta menyelesaikan CAPTCHA; tidak ada upaya melewati anti-abuse.
-2. Deploy **satu** `EvidenceRegistry` tanpa constructor argument dari issuer nonce 0. Owner dan issuer awal adalah akun yang sama. Bytecode hasil `solc 0.8.24`, optimizer 200, dibekukan dalam [rincian operasi](deployment-and-anchor-review.json).
-3. Setelah bytecode runtime, owner, `isIssuer`, nonce dan saldo diperiksa, anchor **satu** audit/hash di atas melalui jalur API dan intent durabel P2. Expected version 1; tidak ada `setIssuer`, anchor kedua, pembelian ETH, atau operasi Mainnet yang diajukan.
-4. Jalankan verifier `--require-chain` dari proses lain dengan signing dimatikan, lalu uji salinan bundle/issuer yang diubah. Simpan receipt, tx hash deployment/anchor, block/hash, target dan hasil verifier. Baru setelah itu centang integrasi P2.
+1. Claim one **0.1 test ETH** drip from [Chain Platform Sepolia Faucet](https://faucet.chainplatform.co/faucets/ethereum-sepolia) to the issuer. Browser showed Sepolia `11155111`, address field, and `Get 0.1 ETH`. After approval, the address was entered and clicked once. The faucet replied `Please complete the captcha verification first.` ([attempt](faucet-attempt.json)); no claim transaction hash existed. The user was asked to complete CAPTCHA; no anti-abuse bypass was attempted.
+2. Deploy **one** EvidenceRegistry, no constructor arguments, from issuer nonce 0. Owner/initial issuer are the same account. Bytecode compiled with `solc 0.8.24`, optimizer 200, is frozen in [operation details](deployment-and-anchor-review.json).
+3. After checking runtime bytecode, owner, `isIssuer`, nonce, and balance, anchor **one** audit/hash above using the API and P2 durable intent. Expected version 1; no `setIssuer`, second anchor, ETH purchase, or Mainnet operation proposed.
+4. Run a separate verifier with signing disabled and `--require-chain`; test altered bundle/issuer copies. Retain receipt, deployment/anchor hashes, block/hash, target, and results before marking P2 integrated.
 
-Batas yang disetujui: deployment paling banyak **3.000.000 gas**, anchor paling banyak **1.000.000 gas**, `maxFeePerGas` paling banyak **1 gwei**, total biaya jaringan paling banyak **0,004 Sepolia test ETH**, transfer value 0. Periksa ulang dan hentikan bila batas, nonce, target, bytecode atau hash berubah. Tidak ada izin untuk uang asli. Dua konfirmasi tidak membuktikan perbaikan metana.
+Approved limits: deployment **3,000,000 gas**, anchor **1,000,000 gas**, `maxFeePerGas` **1 gwei**, total network cost **0.004 Sepolia test ETH**, transfer value zero. Recheck and stop if limits, nonce, target, bytecode, or hash change. No real-money authorization. Two confirmations do not establish methane repair.
 
-[Simulasi RPC](deployment-and-anchor-review.json) memperkirakan deployment 2.239.773 gas dan anchor 355.539 gas. Estimasi memakai **state override sementara di simulasi**: saldo untuk issuer serta code/storage untuk registry yang belum ada. Tidak ada perubahan state jaringan; estimasi bukan bukti dana tersedia atau deployment berhasil. Estimasi wajib diulang terhadap kondisi aktual sebelum broadcast. Saat diperiksa, saldo issuer **0**, nonce latest/pending **0**, registry belum deployed.
+[RPC simulation](deployment-and-anchor-review.json) estimated 2,239,773 deployment gas and 355,539 anchor gas using **temporary simulation state overrides** for issuer balance and undeployed registry code/storage. Network state did not change. Estimates establish neither available funds nor successful deployment and must be repeated before broadcast. Checked issuer balance/nonce were zero and the registry was undeployed.
 
-[Persetujuan ketiga operasi](authorization.json) sudah diterima dan mengikat hash JSON rincian operasi. Persetujuan yang sama tidak perlu diminta ulang. Persetujuan diminta karena kontrak operasional **AGENTS.md** mensyaratkan approval untuk deploy/mutasi eksternal, dan [rencana P2](../../plans/2026-10-17-six-package-completion.md#6-p2--blockchain-aktif-pemulihan-dan-verifikasi) mensyaratkan target serta operasi yang diotorisasi. Eksekusi tetap menunggu funding dan pemeriksaan ulang target/batas; persetujuan tidak merupakan bukti transaksi berhasil.
+[Authorization](authorization.json) was received for the three operations and binds the operation-detail JSON hash; identical approval need not be requested again. Approval was required by AGENTS.md for deployment/external mutation and by the [P2 plan](../../plans/2026-10-17-six-package-completion.md#6-p2--blockchain-aktif-pemulihan-dan-verifikasi) for authorized targets/operations. Execution still required funding and target/limit rechecks; approval is not transaction success.
 
-## Pemeriksaan pada persiapan ini
+## Checks performed during preparation
 
-- RPC publik nyata merespons Sepolia `11155111`; head, timestamp, saldo/nonce dan estimasi disimpan dalam JSON operasi.
-- `sha256sum --check --quiet docs/evidence/blockchain-recovery-2026-10-17/implementation-files.sha256`: cocok; source implementasi lokal yang diuji sebelumnya tidak berubah.
-- Tes terarah store/intent/idempotency/authority/chain: **25 lulus, 0 gagal, 105 assertions**, lima file. Hasil ini tidak dijumlahkan sebagai tambahan ke 589 tes snapshot terdahulu.
-- Forge build/test kontrak: lulus. Tidak ada perubahan source kontrak.
-- Verifier offline audit operasional: bundle VALID, receipt ABSENT.
-- Pemeriksaan mode dan `git check-ignore`: konfigurasi dan state privat terlindungi/diabaikan. Tidak ada private key/token dalam paket bukti.
+- Actual public RPC responded as Sepolia `11155111`; head, timestamp, balance/nonce, and estimates are retained in operation JSON.
+- `sha256sum --check --quiet docs/evidence/blockchain-recovery-2026-10-17/implementation-files.sha256` matched: previously tested implementation source unchanged.
+- Focused store/intent/idempotency/authority/chain tests: **25 passed, 0 failed, 105 assertions**, five files. Not added to the earlier 589-test snapshot.
+- Forge build/contract tests passed; contract source unchanged.
+- Operational offline verification: bundle VALID, receipt ABSENT.
+- Mode/`git check-ignore` checks confirmed private configuration/state protection. The evidence package contains no private key/token.
 
-P2 tetap **in progress** sampai receipt Sepolia nyata dan pemeriksaan proses terpisah tersedia. P3–P6 tidak termasuk pekerjaan ini.
+P2 remains **in progress at this historical checkpoint** pending a real Sepolia receipt and separate-process verification. P3–P6 are outside this record.

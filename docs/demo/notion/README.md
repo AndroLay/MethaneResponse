@@ -1,47 +1,47 @@
-# MethaneResponse — paket presentasi Notion
+# MethaneResponse — Notion presentation package
 
-**Cerita:** Evidence Before Claims · **Target demo:** 4:30 · **Disusun:** 16 Oktober 2026 WITA
+**Story:** Evidence Before Claims · **Demo target:** 4:30 · **Prepared:** 16 October 2026 WITA
 
-Paket lokal berisi halaman presentasi, panduan operator, bukti klaim, Q&A dan screenshot aplikasi. Belum ada halaman di workspace Notion: integrasi Notion belum terhubung pada sesi ini. Materi utama berbahasa Inggris untuk audiens hackathon; catatan operator dan kondisi repo berbahasa Indonesia.
+This local package contains a presentation page, operator guide, claim evidence, Q&A, and application screenshots. No page has been created in a Notion workspace: Notion integration was not connected during this session. The main presentation is in English for a hackathon audience; operator notes and repository status are maintained in English as well. This package is an optional archival reference.
 
-## Mulai dari sini
+## Start here
 
-| Halaman | Pemakaian |
+| Page | Use |
 |---|---|
-| [01 — Presentation](01-Presentation.md) | Halaman utama untuk audiens: masalah → kasus → dua klaim → export/verifikasi → langkah berikut |
-| [02 — Presenter Runbook](02-Presenter-Runbook.md) | Naskah, anggaran waktu, klik, reset dan fallback |
-| [03 — Claims and Q&A](03-Claims-and-QA.md) | Ledger bukti, batas klaim dan jawaban juri |
-| [04 — Publisher Appendix](04-Publisher-Appendix.md) | Indicators untuk Q&A; di luar alur utama |
-| [05 — Repository Brief](05-Repository-Brief.md) | Arsitektur, kondisi repo dan keputusan yang berlaku |
+| [01 — Presentation](01-Presentation.md) | Main audience page: problem → case → two claims → export/verification → next step |
+| [02 — Presenter Runbook](02-Presenter-Runbook.md) | Script, time budget, clicks, reset, and fallback |
+| [03 — Claims and Q&A](03-Claims-and-QA.md) | Evidence ledger, claim limits, and judge answers |
+| [04 — Publisher Appendix](04-Publisher-Appendix.md) | Indicators for Q&A; outside the main flow |
+| [05 — Repository Brief](05-Repository-Brief.md) | Architecture, repository state, and decisions in force |
 
-## Cara impor
+## Import instructions
 
-1. Gunakan ZIP yang dibangun dari folder ini, beserta `assets/`; jangan impor Markdown tanpa gambar.
-2. Di Notion desktop/web, buka **Settings → Import → Convert Zip to pages** dan pilih ZIP.
-3. Jadikan `01-Presentation` halaman utama. Tempatkan runbook, ledger, lampiran dan brief sebagai halaman pendukung.
-4. Aktifkan **Full width**, gunakan font default dan ukuran teks normal. Pertahankan satu kolom, divider antar bagian dan satu gagasan per bagian. Jangan menambahkan emoji atau kolom dekoratif ke alur utama.
-5. Periksa seluruh gambar, tabel, navigasi antarhalaman dan keterbacaan pada layar presentasi. Jika gambar hilang, unggah ulang PNG dari `assets/` pada posisi yang sama.
+1. Use the ZIP built from this folder, including `assets/`; do not import Markdown without its images.
+2. In Notion desktop/web, open **Settings → Import → Convert Zip to pages** and select the ZIP.
+3. Make `01-Presentation` the main page. Place the runbook, ledger, appendix, and brief as supporting pages.
+4. Enable **Full width**, use the default font and normal text size. Keep one column, dividers between sections, and one idea per section. Do not add emoji or decorative columns to the main flow.
+5. Check every image, table, inter-page navigation link, and readability on the presentation screen. If an image is missing, upload the PNG from `assets/` again in the same position.
 
-Notion mendukung impor Markdown dan folder ZIP; format khusus serta navigasi mungkin perlu dirapikan. Petunjuk ini mengikuti [panduan impor resmi Notion](https://www.notion.com/help/import-data-into-notion), diperiksa 16 Oktober 2026. Impor dan tampilan akhirnya belum diuji di workspace Notion yang terautentikasi.
+Notion supports importing Markdown and ZIP folders; special formatting and navigation may need adjustment. These instructions follow [Notion's official import guide](https://www.notion.com/help/import-data-into-notion), checked on 16 October 2026. The import and final rendering have not been checked in an authenticated Notion workspace.
 
-## Bukti capture — 16 Oktober 2026 WITA
+## Capture evidence — 16 October 2026 WITA
 
-- Baseline kode `a82e2eee99bb79327f859f304f2f5d5939f07041`, tanpa perubahan kode produk. Capture inti mulai 00:31 WITA; capture Summary terpisah mulai 00:36 WITA. Timestamp UTC tersimpan pada `capture-manifest.json`.
-- Chromium headless **dengan sandbox**, viewport 1600 × 1000, web Vite dan API Bun/Hono lokal, state JSON sementara terisolasi. Request HTTP eksternal diblokir. AI, reviewer dan chain write dinonaktifkan; tidak ada transaksi.
-- Alur yang diperiksa: KAZ_S_159 → tiga observasi → deteksi **Supported** → mitigasi **Insufficient Evidence** → export → digest bundle valid tanpa receipt → salinan tidak konsisten ditolak → Top 50 September → riwayat Algeria. Summary mengonfirmasi kedua metadata notifikasi/feedback **Yes**.
-- Sembilan PNG dibuat dan diperiksa secara visual. Panel verifikasi diambil dengan screenshot elemen browser agar hasilnya terbaca. Gambar bukan mockup atau hasil rekonstruksi. [Capture Map Explorer](assets/01-historical-map.png) sengaja mempertahankan pemberitahuan tile fallback; halaman utama memakai Summary agar metadata pembuka terlihat jelas.
-- Error halaman JavaScript: **0** pada kedua pass yang berhasil. Fallback tile tetap terlihat dan dijelaskan; ini bukan pengukuran GPU, jaringan publik, perangkat fisik atau build production.
-- `bun --no-env-file scripts/verify-audit.ts docs/demo/notion/audit-report.json`: exit 0, `bundle_hash: VALID`, `chain_receipt: ABSENT`. `document_rights_metadata: NOT_RECORDED` sesuai audit rules tanpa isi dokumen. File laporan asli dan manifest disimpan di folder ini, di luar ZIP impor.
-- Salinan perubahan ditolak dengan alasan **Audit summary fields do not match the hashed bundle.** Pemeriksaan berhenti sebelum membandingkan digest. Paket tidak mengklaim adegan tersebut mengisolasi kegagalan SHA-256.
-- SHA-256, ukuran dan header PNG dicocokkan dengan manifest; tautan lokal Markdown, isi/CRC ZIP dan `git diff --check` diperiksa. Hasil serta hash ZIP ada di `package-verification.json` setelah proses packaging.
+- Code baseline `a82e2eee99bb79327f859f304f2f5d5939f07041`, with no product-code changes. The main capture began at 00:31 WITA; the separate Summary capture began at 00:36 WITA. UTC timestamps are stored in `capture-manifest.json`.
+- Chromium headless **with sandbox**, viewport 1600 × 1000, local Vite web app and Bun/Hono API, isolated temporary JSON state. External HTTP requests were blocked. AI, reviewer, and chain writes were disabled; no transaction occurred.
+- Flow checked: KAZ_S_159 → three observations → **Supported** detection → **Insufficient Evidence** mitigation → export → valid bundle digest without a receipt → inconsistent copy rejected → September Top 50 → Algeria history. Summary confirms both notification/feedback metadata fields are **Yes**.
+- Nine PNGs were created and visually inspected. The verification panel was captured as a browser element screenshot so its result would be readable. The images are not mockups or reconstructions. [Capture Map Explorer](assets/01-historical-map.png) deliberately retains the tile-fallback notice; the main page uses Summary so the opening metadata is clearly visible.
+- JavaScript page errors: **0** in both successful passes. The tile fallback remains visible and explained; this is not a GPU, public-network, physical-device, or production-build measurement.
+- `bun --no-env-file scripts/verify-audit.ts docs/demo/notion/audit-report.json`: exit 0, `bundle_hash: VALID`, `chain_receipt: ABSENT`. `document_rights_metadata: NOT_RECORDED` is consistent with the audit rules because document contents are not included. The original report file and manifest are stored in this folder, outside the import ZIP.
+- The modified copy was rejected with **Audit summary fields do not match the hashed bundle.** The check stopped before comparing digests. The package does not claim that this scene isolates a SHA-256 failure.
+- SHA-256, size, and PNG headers were matched against the manifest; local Markdown links, ZIP contents/CRC, and `git diff --check` were checked. Results and the ZIP hash are in `package-verification.json` after packaging.
 
-Capture awal sempat tertahan karena environment proxy induk dan pembatasan Unix socket Chromium. Pass yang berhasil memakai isolasi environment sesuai runner repo dan izin host untuk browser, dengan sandbox Chromium tetap aktif. Tidak ada perbaikan kode aplikasi yang dibutuhkan.
+The initial capture was delayed by the parent environment's proxy and Chromium Unix-socket restrictions. The successful pass used environment isolation consistent with the repository runner and host permission for the browser, while keeping Chromium's sandbox enabled. No application-code fix was needed.
 
-Tidak ada full test-suite atau build baru untuk perubahan dokumentasi ini. Pemeriksaan di atas membuktikan alur lokal dan aset yang dicatat; ini bukan publikasi Notion, rehearsal presenter terukur atau video final.
+No full test suite or new build was run for these documentation changes. The checks above establish the recorded local flow and assets; they do not establish Notion publication, a timed presenter rehearsal, or a final video.
 
-## Membuat ulang ZIP lokal
+## Recreate the local ZIP
 
-Jalankan dari root repository. Perintah ini membuat file baru di `/tmp`, menolak overwrite, dan tidak mengunggah apa pun. JSON manifest/report tetap menjadi bukti repo dan tidak dimasukkan sebagai halaman impor.
+Run from the repository root. This command creates a new file in `/tmp`, refuses to overwrite an existing file, and uploads nothing. JSON manifests/reports remain repository evidence and are not included as import pages.
 
 ```python
 from pathlib import Path
@@ -58,17 +58,17 @@ with ZipFile(target) as package:
 print(target)
 ```
 
-## Status akhir yang masih memerlukan lingkungan luar
+## Final status items that still require an external environment
 
-| Tahap | Status |
+| Stage | Status |
 |---|---|
-| Cerita, naskah, Q&A dan konteks repo | Tersusun; dua reviewer independen meninjau narasi/batas bukti |
-| Alur dan screenshot lokal | Berhasil; 9 gambar, 0 error halaman pada pass berhasil, hasil mandiri verifier valid |
-| Halaman Notion dan visual QA hasil impor | Menunggu integrasi/workspace Notion; belum dilakukan |
-| Rehearsal presenter 4:30 | Naskah terjadwal; durasi aktual belum diukur |
-| Video baru dan caption yang sesuai | Belum dibuat dari naskah ini; video/caption lama bukan hasil final paket ini |
-| Eligibility dan jam submission | Konflik halaman resmi belum selesai; tidak ada konfirmasi panitia |
-| Public access, deployment, transaksi dan submission | Tidak dilakukan oleh paket lokal ini |
-| DeepThink eksternal | Tidak tersedia pada sesi ini; penelaahan dilakukan secara lokal dengan dua agen independen, bukan sesi ChatGPT Web |
+| Story, script, Q&A, and repository context | Prepared; two independent reviewers reviewed the narrative/evidence limits |
+| Local flow and screenshots | Successful; 9 images, 0 page errors in the successful pass, standalone verifier result valid |
+| Notion page and visual QA after import | Waiting for Notion integration/workspace; not performed |
+| 4:30 presenter rehearsal | Script is timed; actual duration has not been measured |
+| New video and matching captions | Not created from this script; older video/captions are not the final output of this package |
+| Eligibility and submission time | Official-page conflict remains unresolved; no organizer confirmation |
+| Public access, deployment, transaction, and submission | Not performed by this local package |
+| External DeepThink | Unavailable in this session; review was done locally by two independent agents, not in a ChatGPT Web session |
 
-Setelah Notion tersedia, perkiraan alokasi kerja adalah 20–40 menit untuk impor/penataan dan 60–120 menit untuk rehearsal, satu take bersih, caption serta review penuh. Ini perkiraan perencanaan, bukan waktu yang sudah diukur; take ulang dapat menambah waktu. Klarifikasi panitia dan penilaian eksternal tidak dapat dijanjikan durasinya.
+When Notion is available, estimated work is 20–40 minutes for import/layout and 60–120 minutes for rehearsal, one clean take, captions, and full review. These are planning estimates, not measured durations; retakes may add time. Organizer clarification and external evaluation cannot be assigned a guaranteed duration.

@@ -1,21 +1,21 @@
-# Review increment
+# Increment review
 
-Root menjadi satu-satunya penulis repo. Dua agen Luna max membantu desain kasus/perbandingan dan menjalankan baseline manual dalam konteks baru; satu agen Sol high melakukan review kode dan artefak secara read-only. Ini review software/simulasi, bukan review pakar methane atau penelitian manusia.
+Root was the sole repository writer. Two Luna max agents helped design cases/comparisons and ran the manual baseline in fresh contexts; one Sol high agent performed read-only review of code and artifacts. This was software/simulation review, not methane-expert review or human research.
 
-## Temuan dan penutupan
+## Findings and closure
 
-| Temuan | Tindakan / bukti |
+| Finding | Action / evidence |
 |---|---|
-| Draft scope bisa hilang saat berpindah halaman | Simpan empat field allowlist per konteks/tab; clear setelah perubahan scope diterima; tampilkan storage failure. Browser menguji pergi ke Reports dan kembali sebelum Apply |
-| Dugaan input scope usang setelah resume | Ditarik setelah memeriksa `key={contextKey}` yang memasang ulang workflow berdasarkan source/work/claim/scope; bukan bug yang terbukti |
-| Default helper verifier legacy berbeda dari UI strict | Kompatibilitas helper dipertahankan; UI meneruskan requireExportContext:true; perbedaan dijelaskan dalam docs |
-| Lima sel manual berbeda tipe data | Simpan raw 11/16 exact, tandai format prompt tidak lengkap, tambah sensitivitas post-hoc yang hanya memetakan lima boolean. Tidak mengklaim aplikasi lebih akurat |
-| Metrik overclaim tidak membaca seluruh teks | Nyatakan hitungan terbatas dua boolean; root meninjau teks bebas dan studi kasus terpisah |
-| Hash casebook tercatat tetapi tidak diperiksa replay rutin | Root memeriksa hash saat penutupan; replay memang menggunakan salinan input beku |
-| Referensi README ke artefak penutupan belum dibuat pada review awal | Log dan verification dibuat; source archive/manifest/checksums dibuat setelah review. Final hash/link checks dilaksanakan sesudah freeze |
+| Draft scope could be lost when navigating between pages | Save four allowlisted fields per context/tab; clear them after a scope change is accepted; show storage failure. Browser check navigated to Reports and back before Apply |
+| Suspected stale scope inputs after resume | Withdrawn after inspecting `key={contextKey}`, which remounts the workflow based on source/work/claim/scope; not a proven bug |
+| Legacy verifier-helper default differs from strict UI | Preserve helper compatibility; UI passes `requireExportContext:true`; difference documented |
+| Five manual cells had different data types | Preserve raw 11/16 exact result, mark prompt format as incomplete, add post-hoc sensitivity analysis mapping only the five booleans. Do not claim app is more accurate |
+| Overclaim metric did not read all text | State that the count is limited to two booleans; root reviewed free text and case studies separately |
+| Casebook hash recorded but not checked during routine replay | Root checked hash at closure; replay did use the frozen input copy |
+| README referenced closure artifacts that were not available in initial review | Logs and verification were created; source archive/manifest/checksums were created after review. Final hash/link checks ran after the freeze |
 
-Reviewer tidak menemukan kontradiksi material pada kesimpulan paritas atau fakta tiga kasus. Nilai observasi/ketidakpastian, flags dan tanggal dibandingkan dengan casebook; ringkasan tindakan tetap diatribusikan ke halaman katalog UNEP. Tidak ada perubahan pada paket P4/P5/P6/integrasi terdahulu; 204 checksum cocok.
+The reviewer found no material contradiction in the parity conclusion or the facts in the three cases. Observation/uncertainty values, flags, and dates were checked against the casebook; action summaries remain attributed to the UNEP catalog page. No earlier P4/P5/P6/integration package was changed; 204 checksums matched.
 
-## Batas pemeriksaan
+## Review limits
 
-Reviewer tidak menjalankan ulang seluruh tes. Root menjalankan full local gate dan empat skenario Chromium; hasil ada di logs dan verification.json. Reviewer memeriksa 118 binding file produksi, input/protokol/rubrik/harness dan kasus secara read-only. Source/packet hashes mengikat file, bukan sertifikasi penerbit atau bukti lapangan.
+The reviewer did not rerun all tests. Root ran the full local gate and four Chromium scenarios; results are in logs and `verification.json`. The reviewer read-only checked 118 production-file bindings, inputs/protocol/rubric/harness, and cases. Source/packet hashes bind files; they do not certify the publisher or establish field evidence.

@@ -1,53 +1,53 @@
-# P4 — hasil perbaikan temuan riset
+# P4 — Research Finding Remediation Results
 
-[Intake dan reproduksi awal](p4-research-bundle-assessment-2026-10-18.md) · [Rencana implementasi](../plans/2026-10-18-p4-research-remediation.md) · [Paket dan bukti v2](../evidence/domain-review-remediation-2026-10-18/README.md)
+[Intake and initial reproduction](p4-research-bundle-assessment-2026-10-18.md) · [Implementation plan](../plans/2026-10-18-p4-research-remediation.md) · [v2 package and evidence](../evidence/domain-review-remediation-2026-10-18/README.md)
 
-**Tanggal:** 18 Oktober 2026. **Jenis hasil:** perbaikan engineering dan keputusan cakupan atas F01–F13. Penilaian domain manusia, keaslian laporan dan outcome fisik belum terverifikasi. Ledger ini bukan jawaban pakar atau izin penggunaan laporan.
+**Date:** 18 October 2026. **Result type:** engineering fixes and scope decisions for F01–F13. Domain assessment, report authenticity, and physical outcomes remain unverified. This ledger is not an expert response or permission to use a report.
 
-## Perubahan yang dapat digunakan
+## Changes available for use
 
-1. Baseline ditampilkan sebagai **Required references present**, **Contrary reference present** atau **Insufficient reference coverage**. Kode `supported`/`contradicted` dipertahankan untuk kompatibilitas. Nama kategori `mitigation_confirmed` adalah pertanyaan klaim, bukan status fasilitas.
-2. Bundle baru mengikat `assessmentSemantics`: basis metadata/manusia/model dan `physicalVerification: not_established_by_application`. API, browser dan CLI menolak semantik palsu meski hash dihitung ulang. Human review atas keluaran model tetap memiliki basis model.
-3. Penilaian notification/mitigation baru memerlukan scope. Request baseline lama tetap diterima, tetapi tanpa scope menghasilkan insufficient dengan alasan eksplisit. Bundle tersimpan tidak dinilai atau di-hash ulang.
-4. Pointer utama/contrary/follow-up diperiksa. Bukti nyata memerlukan HTTPS valid tanpa credentials; `fixture://` hanya untuk DEMO. Pointer valid tidak membuktikan URL hidup, dokumen asli atau hubungan semantik tindakan/aset.
-5. Tanggal kalender diperiksa ketat; timestamp ber-offset dinormalisasi ke hari UTC. Timestamp MARS tanpa offset diperlakukan UTC. Resolver, baseline, human observation linkage, scope picker, inventory dan verifier memakai helper yang sama. Periode inklusif; follow-up tidak boleh sebelum aksi atau setelah akhir scope.
-6. URL invalid pada input manusia menghasilkan HTTP 400. Referensi utama dan follow-up tidak lagi melempar exception/500.
-7. UI, riwayat, report preview, brief dan ringkasan publik menjelaskan basis serta batas fisik. Pernyataan independensi manusia yang belum dibuktikan dihapus. Payload ringkasan publik schema 1 dipertahankan; tambahan penjelasan berada pada tampilan.
+1. The baseline displays **Required references present**, **Contrary reference present**, or **Insufficient reference coverage**. Codes `supported`/`contradicted` remain for compatibility. `mitigation_confirmed` is a claim question, not a facility status.
+2. New bundles bind `assessmentSemantics`: metadata/human/model basis and `physicalVerification: not_established_by_application`. API, browser, and CLI reject false semantics even if a hash is recomputed. Human review of model output still uses the model basis.
+3. New notification/mitigation assessments require scope. Legacy baseline requests remain accepted, but without scope return insufficient with an explicit reason. Stored bundles are not reassessed or rehashed.
+4. Primary/contrary/follow-up pointers are checked. Real evidence requires valid HTTPS without credentials; `fixture://` is for DEMO only. A valid pointer does not prove the URL is live, the document is authentic, or action/asset semantics are related.
+5. Calendar dates are checked strictly; offset timestamps normalize to UTC day. MARS timestamps without offset are treated as UTC. Resolver, baseline, human observation linkage, scope picker, inventory, and verifier use the same helper. Periods are inclusive; follow-up cannot be before the action or after the scope end.
+6. Invalid URLs in human input return HTTP 400. Primary and follow-up references no longer throw an exception/500.
+7. UI, history, report preview, brief, and public summary explain evidence basis and physical limits. Unproven claims of human independence were removed. The schema 1 public-summary payload remains unchanged; added explanation is in the view.
 
-## Disposition setiap temuan
+## Disposition of each finding
 
-| ID | Keputusan dan tindakan | Bukti / sisa yang nyata |
+| ID | Decision and action | Evidence / actual remaining work |
 |---|---|---|
-| F01 | Ditangani secara teknis: pisahkan metadata coverage dari human/model determination dan physical verification; basis terikat hash | Tes semantics/presentation/export. Kecukupan bahasa dan syarat bukti fisik tetap dinilai pakar; metadata palsu yang tampak lengkap tidak diubah menjadi klaim autentik |
-| F02 | Pointer contrary wajib valid dan sesuai claim/date/scope; label hanya menyatakan referensi contrary hadir | Replay M09 kini insufficient. Aplikasi tidak membaca substansi laporan secara otomatis; reviewer bertanggung jawab atas penilaian isi |
-| F03 | Semua notification/mitigation evaluations baru wajib scope, termasuk pemanggilan fungsi langsung | M08 kini insufficient; request legacy tidak error dan tidak dapat menghasilkan supported tanpa scope; hash lama tetap valid |
-| F04 | Source/event membership dan tanggal tetap diperiksa; basis human menyatakan inspection self-attested. Baseline tidak menyamakan field action dengan hasil fisik | M17 insufficient; M18 tetap dapat lolos coverage metadata dan selalu physical verification not established. Memvalidasi relevansi teks memerlukan inspeksi sumber, bukan heuristik kata kunci |
-| F05 | Kontrol sudah sesuai: flag `notified` bukan tanda terima. Scope menyebut penerima; R02 tetap insufficient | Tidak dibuat log sent/delivered/received fiktif. Pengiriman notifikasi resmi dan integrasi receipt merupakan pekerjaan integrasi baru dengan kanal/otorisasi tersendiri |
-| F06 | Publisher links, assessed citations dan historical context tetap terpisah; report/brief menjelaskan status masing-masing | Hasil insufficient atas bahan yang diberikan tidak membantah publisher. Tidak menyalin atau menyatakan telah membaca laporan yang hanya ditautkan |
-| F07 | Pertahankan unknown untuk non-detection; physical verification eksplisit tidak ditetapkan aplikasi | Tidak mengestimasi pengurangan emisi/zero methane/denominator valid tanpa data. D06 tetap insufficient; manfaat ilmiah dan lapangan belum dibuktikan |
-| F08 | Diperbaiki: helper UTC/kalender ketat dipakai lintas lapisan keputusan | M12/M13, resolver offset, scope UI dan verifier export; tanggal laporan publisher tetap tanggal publikasi, bukan tanggal aksi/follow-up |
-| F09 | Diperbaiki: trim dan lowercase recipient pada kedua sisi | M11 kini supported metadata; salah penerima tetap insufficient |
-| F10 | Kontrol lisensi/atribusi dipertahankan; tidak ada perubahan hak, reproduksi laporan atau penggunaan komersial baru | Notice CC BY-NC-SA dan provenance ada pada kedua paket; aplikasi tidak memberikan putusan hukum atas izin di luar tujuan saat ini |
-| F11 | Ditahan sebagai pertanyaan sumber yang belum terverifikasi; tidak mengarang bulan konfirmasi atau mengganti dataset beku | Pembukaan ulang item ARG melalui alat web kembali timeout pada 18 Oktober. `reportDate: 2023-11` tetap metadata publikasi; tidak diperlakukan sebagai tanggal konfirmasi. Pakar/publisher perlu menjelaskan dugaan March/May |
-| F12 | Paket v2 siap untuk fase A/B/C dengan formulir dan ledger manusia kosong; v1 disimpan historis | **0 pakar / 0 sesi / 0 hasil manusia.** Review dan recheck manusia tetap pekerjaan eksternal yang belum selesai |
-| F13 | Diperbaiki: validator URL aman pada kegagalan parsing | Regresi schema dan handler untuk kedua field: spasi/malformed/HTTP/credentials → 400; HTTPS valid diterima |
+| F01 | Technically addressed: separate metadata coverage from human/model determination and physical verification; bind basis to hash. | Semantics/presentation/export tests. Wording sufficiency and physical-evidence requirements remain for experts; complete-looking false metadata does not become an authentic claim. |
+| F02 | Require a valid contrary pointer matching claim/date/scope; label says only that a contrary reference exists. | M09 replay is now insufficient. The app does not automatically read report contents; reviewer remains responsible for assessing substance. |
+| F03 | Require scope for all new notification/mitigation evaluations, including direct function calls. | M08 now insufficient; legacy requests do not error and cannot return supported without scope; old hashes remain valid. |
+| F04 | Keep source/event membership and date checks; human basis says inspection is self-attested. Baseline does not equate an action field with physical outcome. | M17 insufficient; M18 may still pass metadata coverage and always has physical verification not established. Validating text relevance requires source inspection, not keyword heuristics. |
+| F05 | Existing control retained: `notified` flag is not proof of receipt. Scope names the recipient; R02 remains insufficient. | No fabricated sent/delivered/received log. Official notification delivery and receipt integration are new work requiring a separate channel/authorization. |
+| F06 | Publisher links, assessed citations, and historical context stay separate; report/brief explains each status. | An insufficient result on supplied material does not contradict the publisher. No report linked but unread was copied or described as read. |
+| F07 | Keep non-detection unknown; explicitly state physical verification is not established by the app. | No estimate of emission reduction/zero methane/valid denominator without data. D06 remains insufficient; scientific and field benefit are unproven. |
+| F08 | Fixed: strict UTC/calendar helper is used across decision layers. | M12/M13, offset resolver, scope UI, and export verifier; report date remains publication date, not action/follow-up date. |
+| F09 | Fixed: trim and lowercase recipient on both sides. | M11 is now supported metadata; wrong recipient remains insufficient. |
+| F10 | License/attribution controls retained; no rights change, report reproduction, or new commercial use. | CC BY-NC-SA notice/provenance appears in both packages; app makes no legal determination about permission beyond current purpose. |
+| F11 | Held as an unverified source question; no confirmation month was invented and no frozen dataset was replaced. | Reopening ARG item timed out again through web tool on 18 October. `reportDate: 2023-11` remains publication metadata, not a confirmation date. Expert/publisher should clarify the suspected March/May difference. |
+| F12 | v2 package is ready for phases A/B/C with empty human form/ledger; v1 remains historical. | **0 experts / 0 sessions / 0 human results.** Human review and recheck remain incomplete external work. |
+| F13 | Fixed: URL validator handles parse failure safely. | Schema/handler regressions for both fields: spaces/malformed/HTTP/credentials → 400; valid HTTPS accepted. |
 
-## Membaca replay 30 eksperimen
+## Reading the 30-experiment replay
 
-Tes `apps/api/src/p4-research-replay.test.ts` memakai 12 input v1 yang tidak diubah dan 18 variasi lokal yang dikonstruksi ulang. Kode JavaScript dari ZIP riset tidak dijalankan. Dua belas keluaran dasar tetap 3 supported metadata, 1 contrary, 8 insufficient. Perubahan yang disengaja:
+`apps/api/src/p4-research-replay.test.ts` uses 12 unchanged v1 inputs and 18 locally reconstructed variants. The JavaScript code from the research ZIP was not run. The twelve base outputs remain 3 supported metadata, 1 contrary, and 8 insufficient. Deliberate changes:
 
-| Variasi | Sebelum | Sesudah | Alasan |
+| Variant | Before | After | Reason |
 |---|---|---|---|
-| M03 / M04 | supported | insufficient | Pointer utama/follow-up hilang atau kosong |
-| M08 | supported | insufficient | Scope wajib |
-| M09 | contradicted | insufficient | Pointer contrary hilang |
-| M11 | insufficient | supported metadata | Normalisasi recipient simetris |
-| M13 | supported | insufficient | Instant berada di 1 Oktober UTC, di luar scope 30 September |
+| M03 / M04 | supported | insufficient | Primary/follow-up pointer missing or empty |
+| M08 | supported | insufficient | Scope required |
+| M09 | contradicted | insufficient | Contrary pointer missing |
+| M11 | insufficient | supported metadata | Symmetric recipient normalization |
+| M13 | supported | insufficient | Instant falls on 1 October UTC, outside 30 September scope |
 
-URL palsu yang valid secara sintaks, title palsu atau action yang tidak relevan (M01/M02/M10/M14/M18) masih dapat lolos **coverage metadata**. Ini merupakan batas yang secara eksplisit direkam, bukan verifikasi ilmiah. Tes tidak menyebut hasil tersebut sebagai kebenaran fisik atau akurasi model.
+Syntactically valid fake URLs, false titles, or irrelevant actions (M01/M02/M10/M14/M18) may still pass **metadata coverage**. This is an explicitly recorded limit, not scientific verification. Tests do not describe those outcomes as physical truth or model accuracy.
 
-## Kompatibilitas dan batas selesai
+## Compatibility and completion limits
 
-Bundle lama tanpa field semantics tetap diterima tanpa perubahan bytes. Revisi baru dari parent model legacy mendapat basis model sebelum hash; parent tidak berubah. Paket v1 dan evidence P1–P3 mempertahankan bytes. Binding kode historis dapat berbeda dari checkout baru; gunakan manifest v2 untuk versi ini.
+Old bundles without the semantics field remain accepted with unchanged bytes. A new revision from a legacy model parent gets a model basis before hashing; the parent remains unchanged. v1 and P1–P3 evidence packages retain their bytes. Historical code bindings may differ from the new checkout; use the v2 manifest for this version.
 
-Perbaikan teknis tidak mengisi lima checklist hasil manusia P4. Kriteria tersebut baru terpenuhi setelah pakar relevan menilai paket tertentu, temuan material ditindaklanjuti dan diperiksa ulang, serta ringkasan mendapat consent. Pilot pengguna P5, benchmark AI P6 dan receipt Sepolia publik tidak dihasilkan oleh pekerjaan ini.
+Engineering fixes do not complete the five P4 human-results checklist items. Those require a relevant expert to review a specified package, material findings to be addressed and rechecked, and consent for the summary. No P5 user pilot, P6 AI benchmark, or public Sepolia receipt was produced by this work.

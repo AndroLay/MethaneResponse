@@ -1,96 +1,96 @@
-# Pemeriksaan bundle riset P4 — 18 Oktober 2026
+# P4 Research-Bundle Assessment — 18 October 2026
 
-**Jenis:** triase riset berbantuan AI dan pemeriksaan implementasi lokal. **Status P4:** review manusia belum dilakukan. Dokumen ini mencatat hasil pemeriksaan bundle yang diberikan pengguna serta perbedaannya dengan konteks repo.
+**Type:** AI-assisted research triage and local implementation inspection. **P4 status:** human review has not occurred. This document records checks of the bundle supplied by the user and differences from repository context.
 
-[Checklist P4](../testing/p4-review-checklist.md) · [Paket review yang dibekukan](../evidence/domain-review-preparation-2026-10-18/README.md) · [Protokol manusia](../testing/domain-expert-review.md)
+[P4 checklist](../testing/p4-review-checklist.md) · [Frozen review package](../evidence/domain-review-preparation-2026-10-18/README.md) · [Human protocol](../testing/domain-expert-review.md)
 
-## Bahan yang diterima
+## Materials received
 
-Arsip asal: `/home/andro/Downloads/MethaneResponse-P4-research-bundle-2026-10-18.zip`, 15.222 bytes.
+Original archive: `/home/andro/Downloads/MethaneResponse-P4-research-bundle-2026-10-18.zip`, 15,222 bytes.
 
 SHA-256: `e4a014622a37933161e7449cf8c6bef80b66ff24aab8acdca905e29272223d73`.
 
-Lima berkas berisi README, laporan riset, CSV 30 eksperimen, CSV 12 temuan OPEN, dan port JavaScript dari potongan metode reviewer ZIP. Integritas CRC arsip lulus; tidak ada path absolut/traversal atau anggota terenkripsi. Seluruh dokumen dan kode dibaca secara lokal. Skrip dalam arsip tidak dijalankan.
+Five files contained a README, research report, CSV of 30 experiments, CSV of 12 OPEN findings, and JavaScript port of a ZIP review-method snippet. Archive CRC passed; there were no absolute/traversal paths or encrypted members. All documents/code were read locally. Scripts in the archive were not executed.
 
-Laporan menyatakan penilainya berbantuan AI, tanpa akses repo lengkap atau paket baseline fase B. Batas tersebut konsisten dengan bahan awal yang diberikan. Pernyataan bahwa comparison ZIP tidak diterima bukan bukti bahwa comparison ZIP belum tersedia di repo.
+The report says its assessment was AI-assisted, without access to the full repo or the Phase B baseline package. Those limits match the supplied input. The claim that the comparison ZIP had not been received is not evidence that no comparison ZIP existed in the repo.
 
-## Pemeriksaan yang dilakukan
+## Checks performed
 
-1. Membaca lima anggota arsip, termasuk seluruh perubahan M01–M18 dan ledger F01–F12.
-2. Membandingkan temuan dengan fungsi `assess`/`claimEvidence`, schema evidence/scope/human input, route API dan penyajian web saat ini.
-3. Merekonstruksi 12 kasus dan 18 perubahan dalam pemeriksa sementara buatan sendiri, lalu mengimpor fungsi TypeScript repo yang sebenarnya. Kode port dari ZIP tidak dipakai sebagai executable.
-4. Membandingkan hasil fungsi dengan 30 keluaran pada CSV. Menguji parsing schema input manusia pada fixture DEMO; ini bukan catatan penilaian pakar.
-5. Mereproduksi masalah URL pada handler Hono melalui `app.request`, otorisasi fixture dan `MemoryAuditStore`. Tidak ada server jaringan, deployment, penyimpanan persisten atau provider yang dipakai.
-6. Memeriksa sumber primer untuk konteks kamus MARS dan metadata publikasi ilmiah yang disebut laporan. Tidak membaca atau menyalin PDF laporan publisher.
+1. Read all five archive members, including all M01–M18 changes and F01–F12 ledger entries.
+2. Compared findings with current `assess`/`claimEvidence` functions, evidence/scope/human-input schemas, API routes, and web presentation.
+3. Reconstructed 12 cases and 18 changes in a temporary checker, then imported the repository's actual TypeScript functions. The ZIP's ported code was not used as an executable.
+4. Compared function outputs with all 30 CSV results. Tested human-input schema parsing on a DEMO fixture; this is not an expert-assessment record.
+5. Reproduced the URL issue on the Hono handler via `app.request`, fixture authorization, and `MemoryAuditStore`. No network server, deployment, persistent storage, or provider was used.
+6. Checked primary sources for MARS dictionary context and publication metadata cited in the report. Did not read or copy publisher-report PDFs.
 
-## Hasil utama
+## Main result
 
-**30 dari 30 hasil fungsi mentah cocok** dengan CSV: 12 kasus dasar dan 18 perubahan. Ini mengonfirmasi perilaku program pada input tersebut. Angka itu bukan akurasi ilmiah, 30 observasi lapangan, gold label manusia, atau bukti bahwa 30 request API akan diterima.
+**All 30 of 30 raw function results matched** the CSV: 12 base cases and 18 changes. This confirms program behavior on those inputs. It is not scientific accuracy, 30 field observations, human gold labels, or evidence that 30 API requests would be accepted.
 
-### Perbedaan fungsi mentah dengan validasi aplikasi
+### Raw function behavior versus current application validation
 
-| Kasus | Hasil fungsi mentah | Hasil pemeriksaan lapisan input saat ini |
+| Case | Raw function result | Current input-layer result |
 |---|---|---|
-| M03: reference dihapus | `supported` | Schema Evidence dan input manusia menolak reference yang hilang |
-| M04: follow-up reference berisi spasi | `supported` | Validator input manusia melempar `TypeError`; ditemukan bug tambahan F13 di bawah |
-| M08: scope dihapus | `supported` | `HumanAssessmentInput` mewajibkan scope. Baseline legacy memang menerima scope opsional |
-| M09: reference bantahan dihapus | `contradicted` | Schema Evidence dan input manusia menolak reference yang hilang |
-| M11: spasi ekstra pada scope recipient | `insufficient_evidence` | Schema scope memangkas spasi; baseline setelah parsing menjadi `supported` |
-| M13: timestamp ber-offset pada reference manusia | `supported` | Input manusia menerima tanggal kalender, sehingga timestamp tersebut ditolak; fungsi evidence generik tetap mempunyai perilaku substring tanggal |
+| M03: reference removed | `supported` | Evidence schema and human input reject the missing reference |
+| M04: follow-up reference contains spaces | `supported` | Human-input validator throws `TypeError`; additional bug F13 below |
+| M08: scope removed | `supported` | `HumanAssessmentInput` requires scope. Legacy baseline accepts optional scope |
+| M09: contrary reference removed | `contradicted` | Evidence schema and human input reject the missing reference |
+| M11: extra spaces in recipient scope | `insufficient_evidence` | Scope schema trims spaces; parsed baseline becomes `supported` |
+| M13: offset timestamp in human reference | `supported` | Human input accepts calendar dates, so that timestamp is rejected; generic evidence function still uses date-substring behavior |
 
-Enam variasi ditolak melalui hasil validasi schema: M03/M05/M08/M09/M12/M13. M04 menghasilkan exception, bukan penolakan validasi yang tertangani. Ini perlu dibedakan saat melaporkan hasil.
+Six variants are rejected by schema validation: M03/M05/M08/M09/M12/M13. M04 raises an exception rather than a handled validation rejection. Distinguish this when reporting results.
 
-Input manusia dibentuk dari fixture DEMO dengan locator dan field wajib untuk memeriksa parsing. Keberhasilan parsing tidak membuktikan autentikasi, source resolution atau penerimaan endpoint. Route baseline juga tidak menerima array evidence sewenang-wenang dari request; evidence diambil dari sumber server.
+Human input was constructed from a DEMO fixture with locator and required fields to test parsing. Successful parsing does not prove authentication, source resolution, or endpoint acceptance. The baseline route also does not accept arbitrary evidence arrays in requests; evidence is retrieved from the server source.
 
-## Triase F01–F12
+## F01–F12 triage
 
-Seluruh disposition berikut adalah penilaian implementer atas laporan; bukan status resolved atau recheck oleh pakar.
+All dispositions below are the implementer's assessment of the report; they are not resolved status or expert rechecks.
 
-| ID | Hasil pencocokan dengan repo | Tindak lanjut |
+| ID | Repository comparison | Follow-up |
 |---|---|---|
-| F01 | Risiko makna label relevan. Baseline hanya membaca jenis/scope metadata; UI dan bundle sudah menyatakan batasnya serta memisahkan human assessment | Prioritaskan penilaian kecukupan bahasa/status dan gerbang substantif oleh pakar. Jangan menganggap field lengkap sebagai verifikasi fisik |
-| F02 | Tag bantahan memang menentukan hasil fungsi; varian tanpa reference ditolak pada schema. Substansi dokumen tetap belum diperiksa otomatis | Pertahankan kontrol input; review hubungan exact claim, isi bantahan dan pertanggungjawaban reviewer |
-| F03 | Bypass pada fungsi tanpa scope dapat direproduksi. Human input wajib scope; kompatibilitas baseline tanpa scope tercatat pada tes yang sudah ada | Evaluasi penguatan fungsi tanpa merusak bundle/API legacy secara diam-diam; jangan menyebutnya bypass human endpoint |
-| F04 | Teks tindakan tidak diuji semantiknya oleh baseline. Human input sudah memeriksa sourceId; pembuat assessment juga memeriksa observation membership | Review kecukupan hubungan tindakan/aset/isi dokumen. Klaim bahwa seluruh linkage tidak ada perlu dipersempit |
-| F05 | R02 memang insufficient. Notifikasi agregat dipisahkan dari bukti penerima pada kode dan UI | Masukkan ke review interpretasi; event log sent/delivered/received merupakan usulan fungsi/integrasi lanjutan, belum kewajiban baru yang disepakati |
-| F06 | Publisher links, metadata dan assessed references sudah dibedakan; tidak ditemukan reproduksi pencampuran otomatis dari bahan ini | Minta pakar menilai kecukupan penyajian. Jangan langsung menyatakan bug pencampuran terkonfirmasi |
-| F07 | Batas non-detection, feedback dan klaim pengurangan emisi sudah dijelaskan. Paket ini tidak menyediakan denominator pengamatan valid atau estimasi penurunan | Review kecukupan penjelasan/next request. Perhitungan MRV tambahan memerlukan data dan metode tersendiri |
-| F08 | Substring tanggal terkonfirmasi pada fungsi generik; varian timestamp manusia ditolak oleh schema tanggal | Tetapkan kontrak waktu sebelum mengubah normalisasi; bedakan tanggal kalender manusia dari instant observasi publisher |
-| F09 | Asimetri trim terdapat pada pemanggilan fungsi langsung; schema scope sudah trim | Tidak direproduksi pada input yang telah diparse. Penguatan fungsi langsung boleh dievaluasi sebagai pertahanan tambahan |
-| F10 | Lisensi dataset dan batas penggunaan sudah dicatat pada data serta paket | Pertahankan atribusi dan batas hak; keputusan penggunaan komersial memerlukan pemeriksaan tersendiri sesuai tujuan penggunaan |
-| F11 | Perbedaan bulan pada metadata ARG belum berhasil diverifikasi ulang dari halaman primer pada pemeriksaan ini | Tetap unverified. Pertahankan periode kasus dan jangan menambahkan bulan konfirmasi hasil dugaan |
-| F12 | Pakar/hasil/recheck manusia memang belum ada. Comparison ZIP sudah tersedia dan sengaja diberikan setelah fase A | P4 tetap in progress; jalankan fase manusia sesuai protokol setelah pakar tersedia |
+| F01 | Label-meaning risk is relevant. Baseline reads only type/scope metadata; UI and bundle already state limits and separate human assessment. | Prioritize expert review of wording/status sufficiency and substantive evidence gates. Do not treat complete fields as physical verification. |
+| F02 | Contrary tags determine function output; a missing-reference variant is rejected by schema. Document substance is not automatically checked. | Keep input control; review exact claim/content relationship and reviewer accountability. |
+| F03 | The no-scope bypass is reproducible in the raw function. Human input requires scope; legacy baseline compatibility is covered by existing tests. | Consider strengthening the function without silently breaking legacy bundle/API compatibility; do not call it a human-endpoint bypass. |
+| F04 | Baseline does not test action-text semantics. Human input checks `sourceId`; assessment creation also checks observation membership. | Review sufficiency of action/asset/document-content linkage. Narrow any claim that no linkage exists. |
+| F05 | R02 is indeed insufficient. Aggregate notification is separated from recipient evidence in code/UI. | Include in interpretation review. A sent/delivered/received event log is a proposed follow-up feature/integration, not an agreed new requirement. |
+| F06 | Publisher links, metadata, and assessed references are distinguished; this input did not reproduce automatic mixing. | Ask an expert to assess presentation sufficiency. Do not immediately call a mixing bug confirmed. |
+| F07 | Non-detection, feedback, and emission-reduction claim limits are explained. This package has no valid-observation denominator or reduction estimate. | Review wording/next-request sufficiency. Additional MRV calculations need separate data and methods. |
+| F08 | Date-substring behavior is confirmed in the generic function; human timestamp variant is rejected by date schema. | Define the time contract before changing normalization; distinguish a human calendar date from a publisher observation instant. |
+| F09 | Trim asymmetry exists when calling the function directly; scope schema already trims. | Not reproduced on parsed input. Direct-function strengthening can be considered as extra defense. |
+| F10 | Dataset license and use limits are recorded in data/package. | Retain attribution/rights limits; commercial-use decisions need separate review for the intended purpose. |
+| F11 | The ARG metadata month difference could not be reverified on the primary page in this check. | Leave unverified. Preserve case period; do not add a guessed confirmation month. |
+| F12 | Human experts/results/recheck are indeed absent. Comparison ZIP was available and intentionally supplied after Phase A. | P4 remains in progress; run the human phase under its protocol when experts are available. |
 
-## Temuan tambahan F13 — URL invalid menghasilkan error server
+## Additional finding F13 — invalid URL produces a server error
 
-**Status:** confirmed lokal, belum diperbaiki. **Jenis:** bug penanganan input; prioritas teknis pertama dari intake ini.
+**Status:** locally confirmed, not fixed at the time of this intake. **Type:** input-handling bug; first technical priority from this intake.
 
-`SecureReference` menjalankan `new URL(value)` di dalam `.refine` tanpa menangani kegagalan parsing. Pada dependency Zod yang terpasang, pemeriksaan lanjutan itu masih dapat berjalan ketika string telah gagal pemeriksaan URL sebelumnya. Akibatnya `safeParse` melempar `TypeError`.
+`SecureReference` calls `new URL(value)` inside `.refine` without handling parse failure. With the installed Zod dependency, this later refinement can still run after the string failed the preceding URL check. Consequently, `safeParse` can throw `TypeError`.
 
-Reproduksi memakai dua request DEMO terotorisasi ke handler `/api/human-assessments` dengan input selain URL yang berbentuk benar:
+Reproduction used two authorized DEMO requests to `/api/human-assessments`, with a non-URL value:
 
-| Field yang diubah menjadi lima spasi | Status aktual | Perilaku yang diharapkan |
+| Field changed to five spaces | Actual status | Expected behavior |
 |---|---|---|
-| `evidence[0].reference` | **HTTP 500** | Penolakan input invalid, **HTTP 400** |
-| `evidence[0].followUpReference` | **HTTP 500** | Penolakan input invalid, **HTTP 400** |
+| `evidence[0].reference` | **HTTP 500** | Reject invalid input with **HTTP 400** |
+| `evidence[0].followUpReference` | **HTTP 500** | Reject invalid input with **HTTP 400** |
 
-Error terjadi saat parsing, sebelum penyimpanan assessment. Ini tidak membuktikan bypass yang menghasilkan assessment valid atau kebenaran fisik. Request lokal menggunakan identitas fixture dalam proses sementara, bukan identitas pakar atau perubahan konfigurasi operasional.
+The error occurs during parsing, before assessment storage. It does not show a bypass that creates a valid assessment or establishes physical truth. The local request used an in-process fixture identity, not an expert identity or operational configuration change.
 
-**Acuan:** [validator](../../packages/shared/src/index.ts:236), [route parsing](../../apps/api/src/app.ts:650).
+**References:** [validator](../../packages/shared/src/index.ts#L236), [route parsing](../../apps/api/src/app.ts#L650).
 
-**Perbaikan yang perlu diuji:** parsing URL harus menghasilkan validation failure secara aman untuk string invalid; pertahankan syarat HTTPS dan penolakan credentials dalam URL. Regresi mencakup reference utama/follow-up, string kosong/spasi/malformed, skema terlarang, URL berisi credentials dan URL HTTPS yang valid. Temuan ini belum boleh diberi status fixed sebelum perubahan dan pemeriksaan dilakukan.
+**Fix to test:** invalid URL strings should produce safe validation failure; retain HTTPS requirements and rejection of credentials in the URL. Regressions should include primary/follow-up references, empty/space/malformed strings, prohibited schemes, URLs with credentials, and valid HTTPS URLs. Do not mark this finding fixed until changes and checks are complete.
 
-## Sumber primer dan batas pembacaan
+## Primary sources and reading limits
 
-- [Kamus MARS](https://methanedata.unep.org/dict-mars-plumes), diperiksa 18 Oktober 2026: mendukung pemisahan source/plume, satuan flux/SD, flag agregat, catatan requantification dan notice lisensi. Dokumen ini tidak mengubah snapshot kasus yang dibekukan.
-- [Record PubMed penelitian Reuland dkk.](https://pubmed.ncbi.nlm.nih.gov/42875571/): judul/DOI, tanggal publikasi serta jumlah 746 events dan 12 satelit pada abstrak mendukung identitas penelitian yang disebut bundle. Angkanya tidak ditransfer menjadi performa MethaneResponse. Artikel penuh Nature gagal diakses melalui alat karena redirect autentikasi; tidak dilakukan review penuh metodologi atau supplementary data.
-- [Item publisher ARG](https://wedocs.unep.org/handle/20.500.11822/44120) gagal dibuka ulang melalui alat; dugaan perbedaan March/May tidak diangkat menjadi fakta terverifikasi.
+- [MARS dictionary](https://methanedata.unep.org/dict-mars-plumes), checked 18 October 2026: supports source/plume separation, flux/SD units, aggregate flags, requantification note, and license notice. This document does not alter the frozen case snapshot.
+- [PubMed record for Reuland et al.](https://pubmed.ncbi.nlm.nih.gov/42875571/): title/DOI, publication date, and abstract counts of 746 events and 12 satellites support the identity of the research cited in the bundle. Those values are not transferred to MethaneResponse performance. The full Nature article could not be opened through the tool because of an authentication redirect; no full methodology or supplementary-data review was done.
+- The [ARG publisher item](https://wedocs.unep.org/handle/20.500.11822/44120) could not be reopened through the tool; the suspected March/May difference is not treated as a verified fact.
 
-## Urutan tindak lanjut
+## Follow-up order
 
-1. Perbaiki F13 dengan regresi input dan pemeriksaan handler; catat bukti baru tanpa menimpa evidence lama.
-2. Evaluasi penguatan kelengkapan reference/follow-up pada fungsi mentah dan kompatibilitas scope legacy. Uji lapisan fungsi dan lapisan input secara terpisah.
-3. Bawa risiko F01/F02/F04 serta kecukupan bahasa F05–F08 ke review domain. Perubahan status/schema memerlukan desain kompatibilitas dan bukti yang sesuai.
-4. Lanjutkan fase A/B/C manusia, perbaikan material dan recheck. Riset ini menjadi bahan kerja tambahan; hasil pakar tetap belum tersedia.
+1. Fix F13 with input regression and handler checks; record new evidence without overwriting old evidence.
+2. Consider stronger reference/follow-up completeness in raw functions and legacy-scope compatibility. Test function and input layers separately.
+3. Bring F01/F02/F04 risks and F05–F08 wording sufficiency to domain review. Status/schema changes need compatibility design and appropriate evidence.
+4. Continue human phases A/B/C, material fixes, and rechecks. This research is additional input; expert results are still unavailable.
 
-Pada intake ini fungsi aplikasi tidak diubah. Dokumen dan ZIP P4 yang sudah dibekukan mempertahankan bytes, versi dan checksum asal. Pemeriksaan lokal ini tidak menjalankan ulang full gate/browser P3 atau memenuhi pilot P5/benchmark P6.
+No application function changed during this intake. Frozen P4 documents/ZIP retain their source bytes, versions, and checksums. This local review did not rerun the full P3 gate/browser or satisfy P5 pilot/P6 benchmark requirements.

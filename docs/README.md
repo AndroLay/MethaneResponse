@@ -1,81 +1,81 @@
-# Panduan repository MethaneResponse
+# MethaneResponse repository guide
 
-Dokumentasi ini menjelaskan produk, susunan kode, arsitektur, dan cara bekerja di repo. **Dokumen arsitektur mempertahankan revisi asalnya; indeks delivery diselaraskan pada 23 Oktober 2026.** Bukti tes, riset, dan materi demo mempertahankan tanggal serta revisi asalnya.
+This documentation describes the product, code layout, architecture, and development workflow. **Architecture documents retain their original revisions; the delivery index was aligned on 23 October 2026.** Test evidence, research, and demo materials retain their original dates and revisions.
 
-## Submission aktif — v18
+## Active submission — v18
 
-[Materi Devpost terkini](release/devpost-submission/README.md) menyelaraskan story,
-fields, panduan juri dan ZIP dengan [video v18](demo/delivery-2026-10-22-final-v18/README.md)
-4:57 serta [proof take8 TKM](evidence/video-v17-2026-10-22/README.md).
-Contoh DeepSeek KAZ tetap terpisah. [Status akses](release/devpost-submission/access-status.json)
-membedakan main GitHub, preview terbatas dan artefak lokal yang belum diterbitkan.
-Evaluasi agent terbaru adalah [r12](evidence/agent-practical-usefulness-2026-10-21-r12/findings.md):
-0/48 menurut frozen scorer; kelulusan 12 gate bukan keberhasilan 48 tugas.
+[Current Devpost materials](release/devpost-submission/README.md) align the story,
+fields, judges' guide, and ZIP with the 4:57 [v18 video](demo/delivery-2026-10-22-final-v18/README.md)
+and [take8 TKM proof](evidence/video-v17-2026-10-22/README.md).
+The DeepSeek KAZ example remains separate. [Access status](release/devpost-submission/access-status.json)
+distinguishes public GitHub main, the limited preview, and unpublished local artifacts.
+The latest agent evaluation is [r12](evidence/agent-practical-usefulness-2026-10-21-r12/findings.md):
+0/48 according to the frozen scorer; passing 12 gates does not mean 48 tasks succeeded.
 
-[Penyelarasan rilis 23 Oktober](evidence/release-sync-2026-10-23/README.md)
-adalah titik masuk pemeriksaan lokal terbaru, publikasi, batas preview dan rollback.
-Hasil bertanggal sebelumnya tetap mengacu revisinya sendiri.
+[The 23 October release sync](evidence/release-sync-2026-10-23/README.md)
+is the entry point for the latest local checks, publication status, preview limits, and rollback.
+Earlier dated results remain tied to their own revisions.
 
-## Urutan membaca
+## Reading order
 
-### Baru mengenal proyek
+### New to the project
 
-1. [README produk](../README.md): masalah yang ditangani, kemampuan, quick start, dan batas.
-2. [Alur penggunaan](product/user-workflow.md): perjalanan dari memilih sumber hingga laporan dan tindak lanjut.
-3. [Peta repository](repository-map.md): lokasi kode, data, konfigurasi, dan alat bantu.
-4. [Arsitektur sistem](architecture/overview.md): hubungan web, API, pipeline, penyimpanan, dan layanan opsional.
-5. [Aliran data dan audit](architecture/data-flow.md): bagaimana data berubah menjadi penilaian yang dapat ditelusuri.
-6. [Status implementasi](release/current-implementation-status.md): kemampuan saat ini dan bukti yang tersedia.
+1. [Product README](../README.md): the problem, capabilities, quick start, and limitations.
+2. [User workflow](product/user-workflow.md): the path from source selection through reporting and follow-up.
+3. [Repository map](repository-map.md): where to find code, data, configuration, and tools.
+4. [System architecture](architecture/overview.md): how the web app, API, pipeline, storage, and optional services fit together.
+5. [Data flow and audit](architecture/data-flow.md): how data becomes a traceable assessment.
+6. [Implementation status](release/current-implementation-status.md): current capabilities and available evidence.
 
-### Akan menjalankan atau mengembangkan kode
+### Running or developing the code
 
-Ikuti [setup lokal](development/local-setup.md) → [konfigurasi](development/configuration.md) → [panduan perubahan](development/contributing.md) → [referensi API](architecture/api-reference.md) → [pengujian](testing/README.md). Gunakan [glosarium](glossary.md) untuk istilah domain dan teknis.
+Follow [local setup](development/local-setup.md) → [configuration](development/configuration.md) → [contribution guide](development/contributing.md) → [API reference](architecture/api-reference.md) → [testing](testing/README.md). Use the [glossary](glossary.md) for domain and technical terms.
 
-### Akan memeriksa klaim atau keputusan proyek
+### Reviewing project claims or decisions
 
-Mulai dari [data dan claims](product/data-and-claims.md), [trust dan transparansi](product/trust-and-transparency.md), serta [keputusan tanpa database](architecture/decisions/2026-10-15-local-prototype-no-database.md). Lanjutkan ke [riset](research/README.md) dan [bukti bertanggal](evidence/README.md).
+Start with [data and claims](product/data-and-claims.md), [trust and transparency](product/trust-and-transparency.md), and the [no-database decision](architecture/decisions/2026-10-15-local-prototype-no-database.md). Continue to [research](research/README.md) and [dated evidence](evidence/README.md).
 
-Untuk review pakar P4, gunakan [checklist pemeriksaan](testing/p4-review-checklist.md): 12 area, fokus tiap kasus, format temuan dan syarat pemeriksaan ulang.
+For the P4 expert review, use the [review checklist](testing/p4-review-checklist.md): 12 areas, case-specific focus, finding format, and recheck requirements.
 
-P5/P6 sudah [selesai dalam cakupan agent](evidence/p5-p6-agent-completion-2026-10-18/README.md): 48 tugas manual/app, 72 klaim test per konteks agent, analisis hasil, perbaikan verifier serta 708 tes lokal lulus. Studi pengguna manusia/gold independen/provider benchmark tetap belum terpenuhi. [Paket awal dan runbook](evidence/p5-p6-agent-evaluation-2026-10-18/README.md) dipertahankan sebagai bukti historis.
+P5/P6 is [complete within the agent scope](evidence/p5-p6-agent-completion-2026-10-18/README.md): 48 manual/app tasks, 72 test claims in each agent context, results analysis, verifier fixes, and 708 passing local tests. A human user study, independent gold set, and provider benchmark remain outstanding. The [initial package and runbook](evidence/p5-p6-agent-evaluation-2026-10-18/README.md) are retained as historical evidence.
 
-[Hasil pemeriksaan bundle riset P4](research/p4-research-bundle-assessment-2026-10-18.md) mencatat 30 replay yang dicocokkan dengan kode, triase temuan dan bug input tambahan; hasil manusia masih menunggu pelaksanaan.
+[The P4 research-bundle assessment](research/p4-research-bundle-assessment-2026-10-18.md) records 30 replays matched against the code, finding triage, and an additional input bug; human results are still pending.
 
-## Isi dokumentasi
+## Documentation contents
 
-| Bagian | Isi | Titik masuk |
+| Section | Contents | Entry point |
 |---|---|---|
-| Product | Alur pengguna, arti data, MARS, recurrence, dan batas kepercayaan | [product](product/README.md) |
-| Architecture | Komponen, data lifecycle, kontrak API, peta, dan keputusan | [architecture](architecture/README.md) |
-| Development | Setup, konfigurasi, cara mengubah kode, UI dan performa | [development](development/README.md) |
-| Testing | Perintah pemeriksaan, browser terisolasi, dan protokol benchmark | [testing](testing/README.md) |
-| Release | Status lokal, opsi hosting, serta persyaratan kompetisi | [release](release/README.md) |
-| Research | Sumber ilmiah, inventaris hak, riset kandidat, dan landscape bertanggal | [research](research/README.md) |
-| Demo | Skrip, caption, presentasi dan rekaman aplikasi lokal | [demo](demo/README.md) |
-| Evidence | Rekaman tes, screenshot, manifest dan checksum dari run tertentu | [evidence](evidence/README.md) |
-| Plans | Rencana implementasi beserta status dan referensi hasil | [plans](plans/README.md) |
-| History | Keputusan/pekerjaan lama, checkpoint, serta asumsi yang digantikan | [history](history/README.md) |
+| Product | User workflow, data meaning, MARS, recurrence, and trust limits | [product](product/README.md) |
+| Architecture | Components, data lifecycle, API contracts, maps, and decisions | [architecture](architecture/README.md) |
+| Development | Setup, configuration, code changes, UI, and performance | [development](development/README.md) |
+| Testing | Check commands, isolated browser runs, and benchmark protocols | [testing](testing/README.md) |
+| Release | Local status, hosting options, and competition requirements | [release](release/README.md) |
+| Research | Scientific sources, rights inventory, candidate research, and dated landscape reviews | [research](research/README.md) |
+| Demo | Scripts, captions, presentations, and local app recordings | [demo](demo/README.md) |
+| Evidence | Test records, screenshots, manifests, and checksums from specific runs | [evidence](evidence/README.md) |
+| Plans | Implementation plans with status and result references | [plans](plans/README.md) |
+| History | Earlier decisions/work, checkpoints, and superseded assumptions | [history](history/README.md) |
 
-## Sumber kebenaran dan cara membaca arsip
+## Sources of truth and how to read archives
 
-| Pertanyaan | Acuan |
+| Question | Source |
 |---|---|
-| Apa yang dijalankan saat ini? | Source code dan manifest, dibantu [status aktif](release/current-implementation-status.md) |
-| Mengapa desain ini dipilih? | [Keputusan arsitektur](architecture/decisions/2026-10-15-local-prototype-no-database.md) dan rencana bertanggal |
-| Dataset mana yang dipakai? | [Provenance aktif](../data/real/README.md) dan manifest/hash yang dirujuk |
-| Apa yang benar-benar diperiksa? | Rekaman run di [evidence](evidence/README.md), berikut revisi, tanggal, kondisi dan keterbatasannya |
-| Apa persyaratan acara terkini? | Sumber resmi yang ditautkan dalam [catatan acara](release/event-requirements.md); halaman itu mencatat pemeriksaan terdahulu |
+| What runs today? | Source code and manifests, with the [active status](release/current-implementation-status.md) as a guide |
+| Why was this design chosen? | [Architecture decisions](architecture/decisions/2026-10-15-local-prototype-no-database.md) and dated plans |
+| Which dataset is in use? | [Current provenance](../data/real/README.md) and the referenced manifests/hashes |
+| What was actually checked? | Run records in [evidence](evidence/README.md), including their revision, date, conditions, and limitations |
+| What are the current event requirements? | Official sources linked in the [event notes](release/event-requirements.md); that page records earlier checks |
 
-Dokumen **panduan aktif** menjelaskan working tree; perubahan lokal belum tentu sudah masuk commit publik. Dokumen **arsip** menjelaskan kondisi pada tanggalnya. Proposal arsitektur lama yang menyebut PostgreSQL/PostGIS tidak menjadi instruksi setup saat ini. Catatan **protokol/rencana** menjelaskan pekerjaan yang direncanakan; hasil hanya ada bila ditautkan ke bukti pelaksanaan.
+**Current guides** describe the working tree; local changes may not be in a public commit. **Archives** describe conditions on their stated dates. Older architecture proposals that mention PostgreSQL/PostGIS are not current setup instructions. **Protocol/plan** notes describe planned work; results exist only when linked to execution evidence.
 
-Manifest evidence menyimpan checksum file yang diperiksa pada run asal. Perubahan dokumentasi dapat membuat checksum dokumen saat ini berbeda dari snapshot tersebut; checksum lama tetap dipertahankan sebagai bukti historis dan tidak diperbarui untuk menyerupai run baru.
+Evidence manifests store checksums for files checked in the original run. Documentation changes may make a current document's checksum differ from that snapshot. To validate a historical checksum, use the original source revision `9d38ad2`; never rehash an old manifest to match the translated working tree.
 
-## Konvensi
+## Conventions
 
-- Bahasa panduan utama: Bahasa Indonesia. Label UI, identifier, nama layanan, kutipan, dan arsip dapat berbahasa Inggris.
-- Jalankan perintah dari root repo kecuali dinyatakan lain. Path relatif di panduan mengikuti root saat disebut sebagai path kode.
-- Data asli, data turunan, dan fixture **DEMO** memiliki peran berbeda; lihat [peta repo](repository-map.md).
-- Untuk memperbarui dokumentasi, ikuti [pemeliharaan dokumentasi](development/contributing.md#pemeliharaan-dokumentasi).
+- Maintained documentation guidance and user-facing prose must be written in English. Preserve original frozen research inputs and source quotations verbatim, and provide English reading editions alongside them; see the [English reading guide](evidence/english-reading-guide.md). Preserve UI labels, identifiers, service names, and citation titles as recorded.
+- Run commands from the repository root unless stated otherwise. Relative paths in guides are rooted there when they refer to code paths.
+- Source data, derived data, and **DEMO** fixtures have different roles; see the [repository map](repository-map.md).
+- For documentation updates, follow [documentation maintenance](development/contributing.md#documentation-maintenance).
 
 
-**P4 terbaru:** [perbaikan riset F01–F13](research/p4-research-remediation-2026-10-18.md) dan [paket review v2](evidence/domain-review-remediation-2026-10-18/README.md). Bukti engineering dipisahkan dari review domain manusia yang belum dilakukan.
+**Latest P4:** [F01–F13 research remediation](research/p4-research-remediation-2026-10-18.md) and the [v2 review package](evidence/domain-review-remediation-2026-10-18/README.md). Engineering evidence is kept separate from the human domain review that has not yet taken place.

@@ -1,66 +1,61 @@
-# Anchor dan pemulihan transaksi
+# Anchoring and transaction recovery
 
-[Konfigurasi](configuration.md) · [API](../architecture/api-reference.md) · [ADR](../architecture/decisions/2026-10-17-durable-anchor-intents.md)
+[Configuration](configuration.md) · [API](../architecture/api-reference.md) · [ADR](../architecture/decisions/2026-10-17-durable-anchor-intents.md)
 
-## Batas dan status
+## Scope and status
 
-P2 menyediakan implementasi write/recovery lokal. Bukti transaksi disposable Anvil **bukan** receipt Sepolia publik. Aktivasi signing memerlukan opt-in server; transaksi/deployment publik memerlukan persetujuan target dan operasi. Receipt membuktikan digest, issuer dan kronologi, bukan autentisitas dokumen atau perbaikan fisik metana.
+P2 provides local write and recovery implementations. Disposable Anvil transaction evidence is **not** a public Sepolia receipt. Enabling signing requires server opt-in; public transactions/deployments require approval of the target and operation. A receipt proves a digest, issuer, and chronology, not document authenticity or physical methane mitigation.
 
-**Keputusan 20 Oktober 2026:** pengguna memilih menyelesaikan blockchain sebagai
-prototipe tanpa pendanaan. Jalur penerimaan aktif adalah Anvil lokal di bawah;
-Sepolia menjadi demonstrasi publik opsional kemudian. Jangan membeli ETH,
-memulai faucet, atau mengklaim receipt publik untuk menutup pekerjaan prototipe.
-Anvil menyediakan saldo simulasi hanya pada chain lokal; tidak memerlukan
-pendanaan wallet publik.
+**Decision on 20 October 2026:** the user chose to complete blockchain as an unfunded prototype. The active acceptance path is local Anvil below; Sepolia may be used for an optional public demonstration later. Do not buy ETH, start a faucet, or claim a public receipt to complete prototype work. Anvil provides simulated funds only on its local chain; no public wallet funding is required.
 
-## Alur operator
+## Operator workflow
 
-1. Jalankan API melalui launcher resmi agar `flock` melindungi satu path state. Gunakan volume lokal yang mendukung `fsync` file/direktori. Satu issuer khusus dipakai hanya oleh instance ini; jangan berbagi key dengan script, wallet atau instance lain.
-2. Pilih audit baseline publik yang hash-nya valid. Admin mengotorisasi baseline; reviewer berscope `anchor` terbatas pada schema 3 yang sudah direview dan attestation direktori `operator_attested` yang masih berlaku untuk claim. Token saja tidak cukup; unverified/expired ditolak untuk operasi chain. Schema 4 dan AI belum direview selalu ditolak. Larangan fixture sintetis di production tetap berlaku.
-3. Tinjau chain ID, registry, public issuer, audit ID, claim dan bundle hash sebelum persetujuan transaksi. Gunakan registry ber-bytecode `EvidenceRegistry` yang sudah diperiksa. Jumlah test ETH yang dibutuhkan bergantung pada estimasi gas jaringan.
-4. Setelah target/operasi disetujui, aktifkan `ENABLE_CHAIN_WRITES=true` pada server. Jangan memasukkan private key atau credential RPC ke browser, `VITE_*`, command history atau repo.
-5. Di Verification Center, masukkan credential operator/reviewer yang sesuai. `Check saved transaction` membaca intent lokal. `Anchor current audit` meminta satu transaksi. Konfirmasi UI tetap diperlukan; ini tidak menggantikan persetujuan operator atas target.
-6. Jika status pending/timeout, gunakan `Reconcile transaction`. Endpoint hanya membaca chain; tidak menandatangani atau mengirim ulang. Credential hanya berada di memori tab; gunakan Clear credential setelah selesai.
-7. Export JSON dan jalankan verifier dari proses lain dengan konfigurasi **read-only** untuk target yang sama:
+1. Start the API through the official launcher so `flock` protects a single state path. Use a local volume that supports file/directory `fsync`. A dedicated issuer must be used only by this instance; do not share its key with a script, wallet, or another instance.
+2. Select a public baseline audit with a valid hash. An admin authorizes the baseline; a reviewer scoped to `anchor` is limited to reviewed schema 3 and a current `operator_attested` directory attestation for the claim. A token alone is insufficient; unverified/expired subjects are rejected for chain operations. Schema 4 and AI that have not been reviewed are always rejected. The production ban on synthetic fixtures still applies.
+3. Review the chain ID, registry, public issuer, audit ID, claim, and bundle hash before approving the transaction. Use a registry with inspected `EvidenceRegistry` bytecode. The required amount of test ETH depends on the network's gas estimate.
+4. After the target and operation are approved, set `ENABLE_CHAIN_WRITES=true` on the server. Do not put a private key or RPC credential in the browser, `VITE_*`, command history, or repository.
+5. In Verification Center, enter the appropriate operator/reviewer credential. **Check saved transaction** reads the local intent. **Anchor current audit** requests one transaction. UI confirmation is still required; it does not replace operator approval of the target.
+6. If the status is pending/timeout, use **Reconcile transaction**. The endpoint only reads the chain; it does not sign or resend. Credentials remain only in tab memory; use **Clear credential** when finished.
+7. Export JSON and run the verifier from a separate process with **read-only** configuration for the same target:
 
 ```sh
 bun run verify:audit /path/to/report.json --require-chain
 ```
 
-`--require-chain` keluar nonzero bila receipt atau konfigurasi jaringan tidak ada. Tanpa flag, checksum offline bisa valid sementara receipt `ABSENT`/`NOT_CHECKED`. `VALID_LATEST` dan `VALID_HISTORICAL` menunjukkan event yang diverifikasi pada saat pemeriksaan; keduanya tidak membuktikan mitigasi.
+`--require-chain` exits nonzero if a receipt or network configuration is missing. Without the flag, the offline checksum may be valid while the receipt is `ABSENT`/`NOT_CHECKED`. `VALID_LATEST` and `VALID_HISTORICAL` indicate events verified at check time; neither proves mitigation.
 
-## State dan pemulihan
+## State and recovery
 
 ```mermaid
 stateDiagram-v2
-  [*] --> PreparedInMemory: prepare dan sign lokal
-  PreparedInMemory --> Pending: hash + nonce + target di-flush
-  Pending --> Pending: timeout / crash / tx belum ditemukan
-  Pending --> Confirmed: receipt canonical cocok + cukup konfirmasi
-  Pending --> Reverted: revert canonical + cukup konfirmasi
-  Reverted --> Pending: permintaan baru eksplisit, nonce baru
+  [*] --> PreparedInMemory: prepare and sign locally
+  PreparedInMemory --> Pending: hash + nonce + target flushed
+  Pending --> Pending: timeout / crash / transaction not found
+  Pending --> Confirmed: matching canonical receipt + enough confirmations
+  Pending --> Reverted: canonical revert + enough confirmations
+  Reverted --> Pending: explicit new request, new nonce
 ```
 
-- Hash dihitung dari byte transaksi bertanda tangan **sebelum broadcast**. Intent memuat operation/audit/case/claim, bundle hash, chain/registry/issuer, nonce, expected version, waktu dan kebijakan konfirmasi. Byte transaksi bertanda tangan hanya di memori; tidak disimpan, dilog atau dikembalikan API.
-- Audit dan intent berada dalam satu envelope JSON. P3 menambahkan `publicationEvents` wajib pada envelope versi 2; baca [migrasi dan batas rollback](publication-lifecycle.md#penyimpanan-dan-kompatibilitas) sebelum mengganti binary atau backup. Reservasi diakui setelah temp file `fsync`, rename dan direktori `fsync`; completion mengubah receipt audit dan intent menjadi confirmed dalam satu penulisan. Array audit legacy dibaca tanpa mengubah bundle/hash dan dimigrasikan pada write berikutnya.
-- Marker `.initialized` membedakan store baru dari state hilang. State hilang setelah inisialisasi, marker rusak, JSON rusak, symlink dan mode file terbuka menutup akses. Marker tidak mendeteksi hilangnya seluruh volume, rollback backup lama yang konsisten, atau disk yang tidak menghormati fsync.
-- Bila proses mati **sebelum broadcast**, hash tetap diketahui tetapi transaksi mungkin tidak pernah ada di jaringan. `transaction not found` bukan bukti pembatalan: intent tetap pending dan menahan issuer. Tidak ada tombol clear/retry untuk melewati ini. Pulihkan melalui investigasi operator terhadap issuer/nonce dan backup; jangan mengedit intent atau memakai issuer dari instance lain. Prototipe belum menyediakan pembatalan/replacement otomatis.
-- Bila proses mati setelah broadcast tetapi sebelum receipt tersimpan, `POST /api/audits/:id/reconcile` mencari hash yang sama lalu memeriksa transaksi dan event. Receipt dari transaksi lain, walaupun hash bundle sama, ditolak. Rekonsiliasi tanpa intent tidak diimpor otomatis; gunakan verifier independen untuk receipt legacy.
-- Revert yang canonical dan cukup konfirmasi mengakhiri attempt tanpa menandai audit anchored. Permintaan baru harus eksplisit dan memakai nonce baru. Riwayat attempt lama dipertahankan.
-- Default konfirmasi **2 block**; `CHAIN_CONFIRMATIONS` menerima 1–64. Pemeriksaan memakai nilai terbesar antara policy verifier saat ini dan policy receipt/intent. Ini inclusion confidence, bukan finalitas Ethereum. Reorg setelah completion dapat membuat `/verify` menolak receipt; metadata historis tidak dihapus. Tidak ada watcher reorg otomatis atau jaminan finalitas.
-- Target chain/registry yang berubah ketika intent belum selesai tidak membatalkan intent. Kembalikan konfigurasi yang cocok untuk rekonsiliasi. Key tidak dibutuhkan untuk rekonsiliasi atau verifier.
+- The hash is calculated from the signed transaction bytes **before broadcast**. The intent contains the operation/audit/case/claim, bundle hash, chain/registry/issuer, nonce, expected version, time, and confirmation policy. Signed transaction bytes exist only in memory; they are not stored, logged, or returned by the API.
+- The audit and intent are kept in one JSON envelope. P3 adds required `publicationEvents` to envelope version 2; read [migration and rollback limits](publication-lifecycle.md#storage-and-compatibility) before replacing the binary or backup. A reservation is acknowledged after the temp file is fsynced, renamed, and its directory fsynced; completion updates the audit receipt and intent to confirmed in one write. A legacy audit array is read without changing its bundle/hash and is migrated on the next write.
+- The `.initialized` marker distinguishes a new store from missing state. Missing state after initialization, a corrupt marker, corrupt JSON, symlinks, and permissive file modes fail closed. The marker does not detect loss of the entire volume, a consistent rollback to an old backup, or a disk that does not honor `fsync`.
+- If the process stops **before broadcast**, the hash remains known, but the transaction may never have reached the network. `transaction not found` does not prove cancellation: the intent remains pending and holds the issuer. There is no clear/retry button to bypass this. Recover by investigating the issuer/nonce and backups as an operator; do not edit the intent or use an issuer from another instance. The prototype does not provide automatic cancellation/replacement.
+- If the process stops after broadcast but before storing the receipt, `POST /api/audits/:id/reconcile` looks for the same hash, then checks the transaction and event. A receipt from another transaction is rejected even if its bundle hash matches. Reconciliation without an intent is not imported automatically; use the independent verifier for a legacy receipt.
+- A canonical revert with enough confirmations ends the attempt without marking the audit as anchored. A new request must be explicit and use a new nonce. The old attempt remains in the history.
+- The default is **2 blocks** of confirmation; `CHAIN_CONFIRMATIONS` accepts 1–64. The check uses the larger value of the current verifier policy and the receipt/intent policy. This is inclusion confidence, not Ethereum finality. A reorg after completion may cause `/verify` to reject the receipt; historical metadata is not removed. There is no automatic reorg watcher or finality guarantee.
+- Changing the chain/registry target while an intent is incomplete does not cancel the intent. Restore the matching configuration to reconcile it. A key is not needed for reconciliation or verification.
 
-## Menjalankan pemeriksaan lokal
+## Running local checks
 
 ```sh
 bun --no-env-file test apps/api/src/anchor-store.test.ts apps/api/src/anchor-intent.test.ts apps/api/src/anchor-idempotency.test.ts apps/api/src/anchor-authority.test.ts apps/api/src/chain-recovery.test.ts apps/api/src/chain.test.ts scripts/verify-audit.test.ts
 bun run test:chain-integration
 ```
 
-Integration runner menyaring environment dan menonaktifkan `.env`, membangun kontrak dengan Forge, lalu menjalankan Anvil loopback chain **31337** memakai signer acak disposable. Ia menguji `SIGKILL` sebelum/sesudah broadcast, rekonsiliasi, revert, revisi historis dan verifier CLI terpisah dengan report yang dimodifikasi. Tidak memanggil Sepolia/provider publik. `anvil`, `forge` dan izin socket lokal diperlukan.
+The integration runner filters the environment and disables `.env`, builds the contract with Forge, then runs an Anvil loopback chain **31337** with a disposable random signer. It tests `SIGKILL` before/after broadcast, reconciliation, reverts, historical revisions, and a separate verifier CLI using a modified report. It does not call Sepolia or a public provider. `anvil`, `forge`, and local socket permission are required.
 
-Ini merupakan jalur testing tanpa faucet, wallet Mainnet atau pembelian ETH. Opsional: `bun run test:chain-integration --evidence /tmp/methane-local-receipt-baru.json` menyimpan receipt ke path yang belum ada. Chain dihentikan setelah tes; receipt lokal bukan tautan explorer publik. [Hasil pengulangan 17 Oktober](../evidence/p2-local-testing-2026-10-17/README.md): 31 tes terfokus dan satu skenario integrasi lulus. Jalur lokal dapat dipakai sambil item transaksi Sepolia pada rencana awal tetap belum terpenuhi.
+This is a testing path without a faucet, Mainnet wallet, or ETH purchase. Optional: `bun run test:chain-integration --evidence /tmp/methane-local-receipt-new.json` saves a receipt to a path that does not yet exist. The chain stops after the test; a local receipt is not a public explorer link. [The 17 October rerun result](../evidence/p2-local-testing-2026-10-17/README.md): 31 focused tests and one integration scenario passed. The local path can be used while the Sepolia transaction item in the initial plan remains incomplete.
 
-Backup/restore harus mencakup audit envelope, marker, state casework dan markernya di bawah writer lock. [Runbook P1](shared-casework.md) menjelaskan alat backup casework; alat tersebut **belum** merupakan backup lengkap audit/intent P2. Jangan mengganti hanya envelope dengan backup lama: nonce dan intent confirmed bisa hilang. Desain ini dibatasi satu writer lokal, bukan failover multi-instance.
+Backup/restore must include the audit envelope, marker, casework state, and its marker under the writer lock. The [P1 runbook](shared-casework.md) describes casework backup tools; those tools are **not** a complete backup of the P2 audit/intent. Do not replace only the envelope with an old backup: the nonce and confirmed intent could be lost. This design is limited to one local writer, not multi-instance failover.
 
-Pencabutan direktori diperiksa pada awal operasi dan sebelum reservasi/penyelesaian yang relevan. Pencabutan persis setelah pemeriksaan terakhir dapat berpacu dengan broadcast; direktori eksternal dan jaringan blockchain tidak berada dalam transaksi atomik yang sama. Completion transaksi yang sudah disiarkan tetap dapat dicatat oleh operator yang berwenang.
+Directory revocation is checked at the start of an operation and before relevant reservation/completion steps. Revocation immediately after the last check can race with broadcast; the external directory and blockchain network are not part of the same atomic transaction. An authorized operator may still record completion of a transaction that has already been broadcast.

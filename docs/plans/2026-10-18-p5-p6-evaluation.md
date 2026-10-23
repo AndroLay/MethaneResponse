@@ -1,30 +1,30 @@
-# P5–P6: pelaksanaan lokal dan evaluasi berbantuan agent
+# P5–P6: Local Execution and Agent-Assisted Evaluation
 
-**Arahan pengguna, 18 Oktober:** biarkan P4 menunggu; lanjutkan P5/P6 dan gunakan agent untuk memakai aplikasi. Pelaksanaan mengikuti [rencana enam paket](2026-10-17-six-package-completion.md), melalui skill executing-plans dan adapter persistent-plans. Seluruh file perubahan ditulis agent utama; dua agent melakukan pemeriksaan terpisah tanpa mengubah repo.
+**User direction, 18 October:** leave P4 pending; continue P5/P6 and use agents to operate the application. Execution follows the [six-package plan](2026-10-17-six-package-completion.md), using the executing-plans skill and persistent-plans adapter. The primary agent wrote all changed files; two agents performed separate checks without modifying the repository.
 
-## Batas dan keputusan
+## Boundaries and decisions
 
-- P4 tetap pending review manusia; paket v1/v2 yang telah dibekukan tidak diubah.
-- Agent dapat menguji alur serta menghasilkan penilaian sementara. Hasilnya dilaporkan sebagai evaluasi agent, bukan peserta manusia, gold independen, atau kualitas provider AI.
-- Belum tersedia sesi manusia, corpus berizin dengan dua anotator/adjudikator, atau otorisasi target/biaya provider. Tidak membuat hasil pengganti atau mengirim dokumen keluar.
-- Pertahankan seluruh perubahan yang sudah ada pada HEAD `a82e2eee99bb79327f859f304f2f5d5939f07041` + working tree. Tidak mengubah dependency, deployment, atau proyeksi public summary.
+- P4 remains pending human review; do not modify the frozen v1/v2 packages.
+- Agents may test workflows and produce provisional assessments. Report results as agent evaluation, not human participants, independent gold, or AI provider quality.
+- Human sessions, an authorized corpus with two annotators/adjudicators, and provider target/cost authorization are not available. Do not create substitute results or send documents outside.
+- Preserve all existing changes at HEAD `a82e2eee99bb79327f859f304f2f5d5939f07041` plus the working tree. Do not change dependencies, deployment, or the public summary projection.
 
-## Milestone dan penerimaan
+## Milestones and acceptance
 
-| Pekerjaan | Status | Pemeriksaan |
+| Work | Status | Checks |
 |---|---|---|
-| Konfirmasi scope P5/P6 dan sumber yang tersedia | verified | Protokol, runner, evaluator, dan data casebook diperiksa; pengguna meminta agent |
-| P5: paket dua kasus, tugas/answer key, assignment counterbalanced dan analisis berpasangan | verified lokal | Tes denominator, tugas hilang, bantuan, build berbeda, exit misconception, mode agent; 19 tes pilot |
-| P6: ikat pembanding rules ke input yang sama; catat kegagalan/latensi/abstention dan keputusan manfaat | verified lokal | Regresi hash mismatch, provider gagal, legacy telemetry, benefit vs absolute gate; 26 tes evaluator + runner/freeze |
-| Agent memakai app serta memeriksa klaim metadata | verified lokal | Satu browser agent: KAZ T1–T4 + ARG T1–T2; agent kedua 12 provisional metadata claims; kondisi manual/timing/manusia/provider tidak dijalankan |
-| Bekukan paket, hasil lokal, batas, dan ledger | verified lokal | [Evidence](../evidence/p5-p6-agent-evaluation-2026-10-18/README.md); `check:all` exit 0/675 tes; 290 source files dan 139 data assets bound; studi manusia/provider pending |
+| Confirm P5/P6 scope and available sources | verified | Protocol, runner, evaluator, and casebook data inspected; user requested agents |
+| P5: two-case package, tasks/answer key, counterbalanced assignments, and paired analysis | locally verified | Denominator, missing-task, assistance, differing-build, exit-misconception, and agent-mode tests; 19 pilot tests |
+| P6: bind rules comparator to the same inputs; record failures/latency/abstention and benefit decision | locally verified | Hash mismatch, provider failure, legacy telemetry, and benefit-vs-absolute-gate regressions; 26 evaluator tests plus runner/freeze |
+| Agent operates the app and checks metadata claims | locally verified | One browser agent: KAZ T1–T4 + ARG T1–T2; second agent: 12 provisional metadata claims; manual/timing/human/provider conditions not run |
+| Freeze package, local results, limits, and ledger | locally verified | [Evidence](../evidence/p5-p6-agent-evaluation-2026-10-18/README.md); `check:all` exit 0/675 tests; 290 source files and 139 data assets bound; human/provider studies pending |
 
-**Celah konkret:** P5 baru mempunyai protokol tanpa agregator; baseline evaluator P6 memeriksa claim ID tetapi belum mengikat hash input; runner menghilangkan hasil ketika satu provider gagal dan tidak mencatat latensi. Metadata coverage tidak otomatis setara dengan penilaian makna dokumen: pembanding harus menyebut basisnya.
+**Concrete gaps:** P5 had a protocol but no aggregator; the P6 baseline evaluator checked claim IDs but did not bind input hashes; the runner dropped results when one provider failed and did not record latency. Metadata coverage is not automatically equivalent to assessing document meaning: the comparator must state its basis.
 
-**Hasil yang dituju:** paket yang langsung dapat dijalankan, analisis lokal yang teruji, hasil agent yang dapat ditelusuri, serta status studi manusia/provider yang tetap jujur. Penutupan teknis tidak mengubah kriteria penelitian asli.
+**Intended outcome:** directly runnable packages, tested local analysis, traceable agent results, and an accurate status for human/provider studies. Technical completion does not change the original research criteria.
 
-## Hasil dan langkah berikutnya
+## Results and next steps
 
-Semua pekerjaan engineering di atas selesai lokal. Review agent menemukan telemetry legacy, wording manifest dan cell imbalance; ketiganya diperbaiki, diuji RED→GREEN dan dikonfirmasi melalui inspeksi ulang. Tidak ada perubahan dependency atau public summary projection. P4 artefak historis tidak ditulis ulang.
+All engineering work above is complete locally. Agent review found legacy telemetry, manifest wording, and cell imbalance issues; all three were fixed, tested RED→GREEN, and confirmed by reinspection. No dependency or public summary projection changed. Historical P4 artifacts were not rewritten.
 
-Untuk menutup penelitian asli, fasilitator perlu sesi pengguna berpasangan serta corpus/rights/anotator/adjudikator/provider yang diotorisasi. User dapat menggunakan hasil agent sekarang sebagai rehearsal dan pemeriksaan fungsi, dengan batas yang tertera. Sesi berikutnya memerlukan freeze baru sebelum pengumpulan data.
+To complete the original research, a facilitator needs paired user sessions and an authorized corpus, rights, annotators/adjudicators, and provider. The user can use the current agent results as rehearsal and functional checks, within the stated limits. A new freeze is required before collecting data in the next sessions.

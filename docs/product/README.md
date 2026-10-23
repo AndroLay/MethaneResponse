@@ -1,15 +1,15 @@
-# Produk dan alur investigasi
+# Product and investigation workflow
 
-[Pusat dokumentasi](../README.md)
+[Documentation index](../README.md)
 
-| Urutan | Panduan | Isi |
+| Order | Guide | Contents |
 |---|---|---|
-| 1 | [Alur penggunaan](user-workflow.md) | Memilih sumber, menetapkan scope, menyimpan investigasi/penilaian, membandingkan revisi dan menyiapkan laporan |
-| 2 | [MARS dan peran produk](mars-response-workflow.md) | Alur resmi MARS dari deteksi hingga tindak lanjut, beserta pemetaan dukungan MethaneResponse |
-| 3 | [Data dan claims](data-and-claims.md) | Provenance, unit, uncertainty, versi data dan makna kategori klaim |
-| 4 | [Trust dan transparansi](trust-and-transparency.md) | Batas retrieval/digest, reviewer directory, consent dan publikasi minimal |
-| 5 | [Recurrence prospektif](prospective-recurrence.md) | Ledger prediksi record MARS, horizon outcome, prosedur evaluasi dan batas interpretasi |
+| 1 | [User workflow](user-workflow.md) | Selecting a source, defining scope, saving investigations/assessments, comparing revisions, and preparing reports |
+| 2 | [MARS and the product's role](mars-response-workflow.md) | The official MARS workflow from detection through follow-up, and how MethaneResponse maps to it |
+| 3 | [Data and claims](data-and-claims.md) | Provenance, units, uncertainty, data versions, and claim-category meanings |
+| 4 | [Trust and transparency](trust-and-transparency.md) | Retrieval/digest limits, reviewer directory, consent, and minimal publication |
+| 5 | [Prospective recurrence](prospective-recurrence.md) | MARS-record prediction ledger, outcome horizon, evaluation procedure, and interpretation limits |
 
-Produk mendukung investigasi data historis dan dokumentasi penilaian. Feedback bukan bukti perbaikan; missing observation bukan bukti emisi nol. Checksum/receipt tidak mengesahkan kebenaran fisik.
+The product supports investigations of historical data and assessment records. Feedback is not proof of repair; a missing observation is not proof of zero emissions. A checksum/receipt does not establish physical truth.
 
-Definisi istilah ada di [glosarium](../glossary.md), keputusan scope di [ADR](../architecture/decisions/2026-10-15-local-prototype-no-database.md), dan status fitur/bukti di [status implementasi](../release/current-implementation-status.md).
+Definitions are in the [glossary](../glossary.md), the scope decision is in the [ADR](../architecture/decisions/2026-10-15-local-prototype-no-database.md), and feature/evidence status is in [implementation status](../release/current-implementation-status.md).

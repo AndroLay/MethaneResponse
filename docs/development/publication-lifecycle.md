@@ -1,50 +1,50 @@
-# Koreksi dan penarikan ringkasan publik
+# Public summary corrections and withdrawal
 
-[Alur pengguna](../product/user-workflow.md) · [API](../architecture/api-reference.md) · [Rencana P3](../plans/2026-10-17-six-package-completion.md#5-p3--koreksi-dan-penarikan-publikasi)
+[User workflow](../product/user-workflow.md) · [API](../architecture/api-reference.md) · [P3 plan](../plans/2026-10-17-six-package-completion.md#5-p3--koreksi-dan-penarikan-publikasi)
 
-## Lingkup
+## Scope
 
-P3 mengatur ringkasan redaksi **human assessment schema 4**. Bundle penuh, exact claim, kutipan/URL, rationale dan identitas reviewer tetap privat. Laporan baseline/legacy dan reviewed AI schema 3 mengikuti aturan akses yang sudah ada. Status publikasi terpisah dari hash bundle dan checksum ringkasan historis.
+P3 governs redacted summaries for **human assessment schema 4**. The full bundle, exact claim, excerpts/URLs, rationale, and reviewer identity remain private. Baseline/legacy reports and reviewed AI schema 3 follow the existing access rules. Publication status is separate from the bundle hash and historical summary checksum.
 
-## Koreksi
+## Corrections
 
-1. Buka source, claim dan scope yang sama di Evidence Auditor. Pada **Human assessment**, masukkan token dengan akses privat dan pilih **Load latest human assessment**. Form meminta konfirmasi sebelum mengganti draft yang belum disimpan. Pemilihan mencocokkan source, claim, scope dan dataset serta memeriksa digest; **Saved audit history** tetap dapat dipakai untuk membandingkan versi.
-2. Perbaiki determination/referensi/rationale, lalu konfirmasi pemeriksaan sumber. Consent publikasi harus dipilih ulang untuk isi baru.
-3. **Save revised human determination** membuat bundle dan hash baru. Request memakai `parentAuditId`; parent harus revisi manusia terkini pada scope/claim tersebut. Audit baseline yang dibuat di antaranya tidak menghalangi koreksi.
-4. Dengan consent, revisi publik baru dan event `superseded` untuk publikasi aktif sebelumnya disimpan atomik. Tanpa consent, revisi privat baru tidak mengubah atau mengungkap status publik.
-5. Formulir stale menerima `409`. Muat revisi manusia terbaru, bandingkan isi, lalu putuskan koreksi; jangan mengirim ulang otomatis.
+1. Open the same source, claim, and scope in Evidence Auditor. Under **Human assessment**, enter a token with private access and select **Load latest human assessment**. The form asks for confirmation before replacing an unsaved draft. Selection matches the source, claim, scope, and dataset, and checks the digest; **Saved audit history** remains available for version comparison.
+2. Correct the determination/reference/rationale, then confirm that the source was reviewed. Publication consent must be selected again for the new content.
+3. **Save revised human determination** creates a new bundle and hash. The request uses `parentAuditId`; the parent must be the latest human revision for that scope/claim. A baseline audit created in between does not prevent a correction.
+4. With consent, the new public revision and a `superseded` event for the previously active publication are stored atomically. Without consent, the new private revision does not change or reveal public status.
+5. A stale form receives `409`. Load the latest human revision, compare the content, and decide whether to correct it; do not resubmit automatically.
 
-Default **Reports → Public transparency summaries** menampilkan revisi publik terakhir per scoped case/claim, termasuk penanda `withdrawn`. **Show publication history** menampilkan revisi publik lama. Tombol unduh memeriksa ulang detail/status server sebelum membuat JSON; URL revisi lama tetap menunjukkan status serta tautan pengganti bila tersedia.
+By default, **Reports → Public transparency summaries** shows the latest public revision per scoped case/claim, including a `withdrawn` marker. **Show publication history** shows older public revisions. The download button rechecks server details/status before creating JSON; an old revision URL still shows its status and a replacement link when available.
 
-## Penarikan
+## Withdrawal
 
-1. Buka **Reports → Public transparency summaries → Reviewer publication controls**.
-2. Masukkan token reviewer. Token berada di memori komponen, tidak di local/session storage. Akses memerlukan scope `review` dan direktori **`operator_attested` saat ini untuk kategori claim**; token legacy mengikuti konfigurasi kompatibilitas reviewer yang berlaku. Withdrawal tidak dibuka oleh flag audit yang mengizinkan reviewer unverified/expired.
-3. Pada ringkasan, pilih **Withdraw publication**, alasan baku, dan konfirmasi. Alasan yang diizinkan: `consent_withdrawn`, `published_in_error`, `evidence_under_review`. Tidak ada free text publik atau identitas yang diambil dari request.
-4. Server membandingkan `expectedVersion`, memeriksa ulang izin di dalam antrean writer, lalu menambah event `withdrawn`. Permintaan stale/berulang ditolak `409`; status tidak dikembalikan menjadi aktif otomatis.
-5. Pilih **Clear publication credential** setelah selesai. Bila request timeout/gagal, refresh status sebelum mencoba tindakan lain. UI membuang daftar yang sudah tidak dapat dipastikan setelah refresh/status check gagal.
+1. Open **Reports → Public transparency summaries → Reviewer publication controls**.
+2. Enter a reviewer token. The token stays in component memory, not local/session storage. Access requires the `review` scope and a current **`operator_attested` directory entry for the claim category**; legacy tokens follow the applicable reviewer compatibility configuration. The audit flag that allows unverified/expired reviewers does not enable withdrawal.
+3. On a summary, select **Withdraw publication**, choose a standard reason, and confirm. Allowed reasons are `consent_withdrawn`, `published_in_error`, and `evidence_under_review`. There is no public free text, and identity is not taken from the request.
+4. The server compares `expectedVersion`, rechecks permission inside the writer queue, then appends a `withdrawn` event. Stale/repeated requests are rejected with `409`; status is not automatically restored to active.
+5. Select **Clear publication credential** when finished. If a request times out/fails, refresh status before taking another action. If refresh/status checking fails, the UI discards the list that can no longer be confirmed.
 
-Penarikan **menandai status**; ringkasan historis redaksi tetap tersedia. Ini tidak menghapus salinan yang pernah diunduh, consent dalam bundle lama, atau hash/receipt yang sudah ada di blockchain. Untuk mengoreksi isi setelah penarikan, buat revisi baru dengan consent baru.
+Withdrawal **marks the status**; the historical redacted summary remains available. It does not delete copies that were already downloaded, consent in an old bundle, or hashes/receipts already on the blockchain. To correct content after withdrawal, create a new revision with new consent.
 
-## Verifikasi
+## Verification
 
-- `summaryHash` meliputi hanya `summary`, sehingga checksum historis tetap sama setelah koreksi atau penarikan.
-- `publication` adalah status/riwayat yang dilaporkan server saat dibaca. Actor event disimpan privat; publik hanya menerima versi, waktu, status, alasan baku dan ID pengganti publik.
-- `GET /api/transparency/:id/verify` memeriksa bundle sumber dan melaporkan status publikasi saat pemeriksaan. Ia tidak memverifikasi identitas issuer, dokumen fisik atau pengurangan emisi.
-- `bun run verify:audit /path/to/summary.json` memverifikasi checksum ringkasan secara offline dan menulis **`publication_status: NOT_CHECKED`**. File unduhan dapat memiliki metadata status yang sudah lama; checksum offline tidak mengesahkan metadata tersebut. `--require-chain` menolak summary karena tidak berisi receipt chain publik.
-- UI menyediakan **Check current publication status** serta pemeriksaan live untuk JSON yang diimpor. Pembacaan memakai `no-store`. Status tidak diperbarui otomatis setelah halaman dibiarkan terbuka; refresh untuk perubahan berikutnya.
+- `summaryHash` covers only `summary`, so the historical checksum remains the same after a correction or withdrawal.
+- `publication` is the status/history reported by the server when read. Event actors are stored privately; the public receives only the version, time, status, standard reason, and public replacement ID.
+- `GET /api/transparency/:id/verify` checks the source bundle and reports publication status at check time. It does not verify issuer identity, physical documents, or emissions reductions.
+- `bun run verify:audit /path/to/summary.json` verifies the summary checksum offline and writes **`publication_status: NOT_CHECKED`**. A downloaded file may have stale status metadata; the offline checksum does not authenticate that metadata. `--require-chain` rejects a summary because it does not contain a public chain receipt.
+- The UI provides **Check current publication status** and a live check for imported JSON. Reads use `no-store`. Status does not refresh automatically after the page has been left open; refresh to see subsequent changes.
 
-## Penyimpanan dan kompatibilitas
+## Storage and compatibility
 
-Envelope audit **schemaVersion 2** berisi `audits`, `anchorIntents`, dan `publicationEvents` wajib. Event ditambah pada file yang sama dengan bundle, memakai antrean satu writer, atomic rename serta fsync file/direktori yang sudah digunakan P2. Bundle/hash lama tidak diubah. Marker `.initialized` tetap kompatibel; ia menandai inisialisasi path, bukan versi skema envelope.
+Audit envelope **schemaVersion 2** contains required `audits`, `anchorIntents`, and `publicationEvents`. Events are added to the same file as the bundle using the single-writer queue, atomic rename, and file/directory `fsync` already used by P2. Existing bundle/hash values are unchanged. The `.initialized` marker remains compatible; it marks path initialization, not the envelope schema version.
 
-Array audit lama dan envelope versi 1 tanpa event tetap terbaca. Reader membentuk event genesis dari consent historis dengan origin privat `legacy_consent`, lalu menandai revisi publik sebelumnya `superseded` berdasarkan urutan revisi. Proyeksi ini tidak menulis file ketika dibaca; mutation normal berikutnya menyimpan envelope versi 2. Metadata event rusak, hilang pada versi 2, tidak lengkap, atau dua publikasi aktif untuk satu scope menutup akses. Rekonstruksi consent lama merupakan migrasi metadata, bukan bukti baru bahwa consent diberikan pada waktu migrasi.
+Legacy audit arrays and version 1 envelopes without events remain readable. The reader builds genesis events from historical consent with the private origin `legacy_consent`, then marks earlier public revisions `superseded` by revision order. This projection does not write the file during a read; the next normal mutation stores a version 2 envelope. Corrupt, missing (in version 2), or incomplete event metadata, or two active publications for one scope, fails closed. Reconstructing legacy consent is a metadata migration, not new evidence that consent was given at migration time.
 
-Sebelum mengganti binary/operator state, hentikan writer dan simpan backup privat seluruh envelope beserta marker dan state tim. **Rollback kode P2 lama tidak bisa membaca envelope versi 2.** Gunakan roll-forward untuk memperbaiki kode; jangan menghapus `publicationEvents` atau menurunkan versi file karena withdrawal/supersession bisa hilang. Restore backup lama juga dapat mengembalikan status publik lama dan kehilangan intent/nonce. Alat backup casework P1 belum mencakup envelope audit lengkap; batas yang sama dijelaskan pada [runbook blockchain](blockchain-recovery.md).
+Before replacing the binary/operator state, stop the writer and make a private backup of the entire envelope, marker, and team state. **P2-era code cannot read the version 2 envelope.** Use roll-forward to fix code; do not remove `publicationEvents` or downgrade the file version because withdrawal/supersession information could be lost. Restoring an old backup can also restore an old public status and lose an intent/nonce. P1 casework backup tools do not include the complete audit envelope; the same limit is described in the [blockchain runbook](blockchain-recovery.md).
 
-Satu proses Linux melalui launcher resmi tetap diperlukan; tidak ada multi-instance atau failover. Kronologi server tidak ditandatangani dan tidak tahan terhadap operator yang sengaja mengganti seluruh state/backup. Pembacaan satu response memakai snapshot audit+event yang sama; pagination lintas request bukan snapshot beku. Jika publikasi berubah selama pagination, refresh dari awal. Riwayat summary tidak membuka revisi privat di antaranya.
+A single Linux process through the official launcher is still required; there is no multi-instance setup or failover. Server chronology is unsigned and cannot resist an operator deliberately replacing all state/backups. A single response reads from one audit+event snapshot; pagination across requests is not a frozen snapshot. If a publication changes during pagination, refresh from the start. Summary history does not expose intervening private revisions.
 
-## Pemeriksaan lokal
+## Local checks
 
 ```sh
 bun --no-env-file test apps/api/src/publication-api.test.ts apps/web/src/transparency.test.ts scripts/verify-audit.test.ts
@@ -52,4 +52,4 @@ bun run test:publication-operations
 bun run test:e2e e2e/ai-review-workflow.spec.ts --grep 'DEMO (publication|human correction|withdrawal)'
 ```
 
-Tes operasi memakai proses API disposable dan `SIGKILL`; tes browser memakai DEMO, Chromium sandbox aktif, dan server lokal terisolasi. Tidak membutuhkan faucet atau transaksi publik. [Bukti P3 18 Oktober](../evidence/publication-lifecycle-2026-10-18/README.md) mencatat hasil final, screenshot, manifest sumber dan batas pengujian.
+The operations test uses a disposable API process and `SIGKILL`; the browser test uses DEMO, an active Chromium sandbox, and an isolated local server. No faucet or public transaction is needed. [P3 evidence from 18 October](../evidence/publication-lifecycle-2026-10-18/README.md) records the final result, screenshots, source manifest, and test limits.

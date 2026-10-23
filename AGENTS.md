@@ -2,6 +2,8 @@
 
 This repo is a small hackathon proof-of-concept, not a production methane-monitoring authority.
 
+- Write maintained documentation, README files, contributor instructions, and generated documentation in English. Preserve immutable original-language evidence and quotations; provide English reading guidance separately.
+
 - Never claim that `feedback` alone proves repaired methane equipment or reduced emissions.
 - Do not mark missing later plume measurements as proof of zero methane.
 - Keep the synthetic fixtures in `packages/shared` and `data/fixtures` visibly labeled DEMO. The separately attributed `data/real/` MARS casebook is real historical source/plume metadata under the recorded dataset license; preserve its provenance and limitations.

@@ -1,93 +1,93 @@
-# Menjalankan aplikasi secara lokal
+# Running the application locally
 
-[Pusat dokumentasi](../README.md) · [Konfigurasi](configuration.md) · [Pengujian](../testing/README.md)
+[Documentation home](../README.md) · [Configuration](configuration.md) · [Testing](../testing/README.md)
 
-Semua perintah di halaman ini dijalankan dari root repository. Baseline memakai data bawaan dan file audit lokal; tidak memerlukan akun cloud, database, AI provider, atau wallet.
+Run all commands on this page from the repository root. The baseline uses bundled data and a local audit file; it does not require a cloud account, database, AI provider, or wallet.
 
-## 1. Prasyarat
+## 1. Prerequisites
 
-| Kebutuhan | Versi/acuan | Diperlukan untuk |
+| Requirement | Version/reference | Required for |
 |---|---|---|
-| Bun | **1.4.2**, [.bun-version](../../.bun-version) | Install workspace, web, API, tes TypeScript |
-| Python | **3.11+**, [pyproject.toml](../../services/data-pipeline/pyproject.toml) | Pipeline dan evaluasi |
-| `uv` | Lockfile [uv.lock](../../services/data-pipeline/uv.lock) | Environment Python reproduktif |
-| Foundry / `forge` | [foundry.toml](../../contracts/foundry.toml) | Tes kontrak Solidity |
-| Chromium | Playwright managed browser atau executable host | Perjalanan E2E |
+| Bun | **1.4.2**, [.bun-version](../../.bun-version) | Workspace installation, web, API, TypeScript tests |
+| Python | **3.11+**, [pyproject.toml](../../services/data-pipeline/pyproject.toml) | Pipeline and evaluation |
+| `uv` | Lockfile [uv.lock](../../services/data-pipeline/uv.lock) | Reproducible Python environment |
+| Foundry / `forge` | [foundry.toml](../../contracts/foundry.toml) | Solidity contract tests |
+| Chromium | Playwright-managed browser or host executable | E2E journeys |
 
-Untuk sekadar membuka aplikasi, Bun sudah cukup. Internet diperlukan untuk install dan layanan tiles/imagery peta; dataset historis dasar sudah disertakan. Peta mempunyai fallback bila imagery tidak tersedia.
+Bun is enough just to open the application. Internet access is needed for installation and map tile/imagery services; the basic historical dataset is included. The map has a fallback when imagery is unavailable.
 
-## 2. Install dan jalankan
+## 2. Install and run
 
 ```bash
 bun install --frozen-lockfile
 ```
 
-Di terminal pertama:
+In the first terminal:
 
 ```bash
 bun run dev:api
 ```
 
-Di terminal kedua:
+In the second terminal:
 
 ```bash
 bun run dev:web
 ```
 
-| Alamat | Kegunaan |
+| Address | Use |
 |---|---|
-| <http://localhost:5173> | Landing dan dashboard |
-| <http://localhost:3001/api/health> | Kesiapan API/store/casebook |
-| <http://localhost:3001/api/intelligence/status> | Integrasi opsional yang terkonfigurasi |
+| <http://localhost:5173> | Landing page and dashboard |
+| <http://localhost:3001/api/health> | API/store/casebook readiness |
+| <http://localhost:3001/api/intelligence/status> | Configured optional integrations |
 
-Vite meneruskan `/api` ke `http://localhost:3001`. Jika port diganti, selaraskan konfigurasi proxy dan origin melalui [panduan konfigurasi](configuration.md). API default bind ke `0.0.0.0`; `HOST=127.0.0.1` dapat dipakai untuk bind lokal.
+Vite forwards `/api` to `http://localhost:3001`. If you change a port, align proxy and origin settings in the [configuration guide](configuration.md). The API binds to `0.0.0.0` by default; use `HOST=127.0.0.1` for a local-only bind.
 
-## 3. Coba alur dasar
+## 3. Try the basic workflow
 
-1. Buka [Map Explorer / KAZ_S_159](http://localhost:5173/dashboard/map?sourceId=KAZ_S_159).
-2. Periksa snapshot, tanggal observasi, flux, dan uncertainty. Ini data historis.
-3. Masuk Evidence Auditor, pilih claim `mitigation_confirmed`, lalu **Run rules baseline**. Data bawaan menghasilkan `insufficient_evidence` untuk klaim ini.
-4. Buka history/Reports, ekspor JSON, dan periksa di Verification Center.
-5. Untuk export aplikasi, gunakan `bun run verify:audit path/to/report.json --require-context`. Raw audit legacy tetap dapat diperiksa tanpa flag, dengan pesan keterbatasan konteks. Opsi tidak dikenal ditolak. Checksum export yang cocok tidak mengautentikasi issuer atau kebenaran fisik.
+1. Open [Map Explorer / KAZ_S_159](http://localhost:5173/dashboard/map?sourceId=KAZ_S_159).
+2. Inspect the snapshot, observation date, flux, and uncertainty. This is historical data.
+3. Open Evidence Auditor, select the `mitigation_confirmed` claim, then choose **Run rules baseline**. The bundled data returns `insufficient_evidence` for this claim.
+4. Open history/Reports, export JSON, and inspect it in Verification Center.
+5. For an application export, use `bun run verify:audit path/to/report.json --require-context`. A raw legacy audit can still be checked without the flag, with a context-limit message. Unknown options are rejected. A matching export checksum does not authenticate the issuer or physical truth.
 
-Untuk scope, catatan kerja, penilaian manual dan transparansi, lanjutkan ke [alur penggunaan](../product/user-workflow.md).
+For scope, work notes, manual assessment, and transparency, continue to the [user workflow](../product/user-workflow.md).
 
-## 4. Konfigurasi opsional
+## 4. Optional configuration
 
-Tidak ada `.env` yang wajib untuk baseline. Jika perlu pengaturan, salin isi [.env.example](../../.env.example) ke `apps/api/.env` **hanya bila file tujuan belum ada**. Bun memuat environment API saat command dijalankan di workspace itu. Jangan mengganti konfigurasi lokal yang sudah ada.
+No `.env` file is required for the baseline. If settings are needed, copy [.env.example](../../.env.example) to `apps/api/.env` **only if the destination file does not already exist**. Bun loads the API environment when the command runs in that workspace. Do not replace existing local configuration.
 
-Human assessment memerlukan konfigurasi reviewer di server dan capability token. AI memerlukan konfigurasi provider/token serta consent pemrosesan dokumen. Pengaturan lengkap ada di [configuration.md](configuration.md). Write chain memerlukan opt-in server, target yang diperiksa dan otorisasi operasi; lihat [runbook P2](blockchain-recovery.md). Baseline tidak memerlukannya.
+Human assessment requires reviewer configuration on the server and a capability token. AI requires provider/token configuration and consent to document processing. Full settings are in [configuration.md](configuration.md). Chain writes require server opt-in, a checked target, and operation authorization; see the [P2 runbook](blockchain-recovery.md). The baseline does not require these.
 
-## 5. Data dan state yang dipakai
+## 5. Data and state in use
 
-Launcher API membutuhkan Linux `flock` (util-linux); proses kedua pada path state yang sama ditolak. Semua command API resmi sudah memakai launcher.
+The API launcher requires Linux `flock` (util-linux); a second process using the same state path is rejected. All official API commands use the launcher.
 
-- Data browser: snapshot/manifest di `apps/web/public/data/`.
-- Data API: casebook `data/real/mars_casebook_2026-10-15.json` dan `data/processed/intelligence-snapshot.json`.
-- Audit baru: default `data/state/audits.json`, dibuat oleh file store. Revisi tetap tersedia setelah restart bila file yang sama masih ada.
-- Investigasi bersama opsional: file privat `.case-work.json` beserta `.initialized` di samping `AUDIT_STORE_PATH`; signed token/directory authority wajib. [Runbook](shared-casework.md) menjelaskan setup, import, konflik dan backup/restore.
-- Catatan/preferensi lokal: browser ini saja; draft recovery per tab. Clear browser data tidak menghapus file audit server, tetapi menghapus catatan browser.
+- Browser data: snapshot/manifest in `apps/web/public/data/`.
+- API data: casebook `data/real/mars_casebook_2026-10-15.json` and `data/processed/intelligence-snapshot.json`.
+- New audits: default `data/state/audits.json`, created by the file store. Revisions remain available after a restart as long as the same file remains.
+- Optional shared investigations: private `.case-work.json` and `.initialized` files beside `AUDIT_STORE_PATH`; a signed token/directory authority is required. The [runbook](shared-casework.md) explains setup, import, conflicts, and backup/restore.
+- Local notes/preferences: this browser only; recovery drafts are per tab. Clearing browser data does not delete the server audit file, but it deletes browser notes.
 
-Jangan jalankan beberapa proses API penulis pada file audit yang sama. Import dataset lewat browser tidak mengganti dataset server. Ikuti [provenance dan rebuild](../../data/real/README.md) bila mengembangkan pipeline; tidak perlu regenerasi data untuk onboarding.
+Do not run multiple API writer processes on the same audit file. Importing a dataset through the browser does not replace the server dataset. Follow [provenance and rebuild](../../data/real/README.md) when developing the pipeline; onboarding does not require regenerating data.
 
-## 6. Build dan pemeriksaan
+## 6. Build and checks
 
 ```bash
 bun run build:web
 bun run check:web-bundle
 ```
 
-Build web menghasilkan `apps/web/dist`. Build tidak mengemas API menjadi layanan yang sudah berjalan. Untuk pemeriksaan perilaku, gunakan perintah yang sesuai di [panduan pengujian](../testing/README.md). Hosting terpisah dijelaskan di [deployment](../release/deployment.md).
+The web build produces `apps/web/dist`. The build does not package the API as a running service. For behavior checks, use the appropriate commands in the [testing guide](../testing/README.md). Separate hosting is described in [deployment](../release/deployment.md).
 
-## Masalah yang umum
+## Common issues
 
-| Gejala | Periksa |
+| Symptom | Check |
 |---|---|
-| Port dipakai atau URL terbuka pada port lain | Baca alamat yang dilaporkan Vite/API; selaraskan `PORT`, proxy, dan `WEB_ORIGIN` |
-| Web terbuka tetapi request `/api` gagal | API berjalan di port yang diharapkan dan `METHANE_API_PROXY_TARGET` benar |
-| `/api/health` mengembalikan `503` | Field kesiapan store/casebook/rate limiter, path file dan izin baca/tulis |
-| Insight/ranking `503` | Artefak intelligence dan input snapshot cocok; jangan menghapus manifest untuk melewati pemeriksaan |
-| Imagery tidak muncul | Koneksi layanan tile/WebGL; data historis tetap memiliki batas terpisah dari imagery |
-| Human assessment atau AI dinonaktifkan | Periksa flag di `/api/intelligence/status` dan konfigurasi opsional, tanpa membagikan secret |
-| Audit sumber hasil import ditolak | Dataset browser belum tentu sama dengan snapshot yang dipin di API |
-| Browser test tidak dapat mulai | Chromium tersedia dan environment mengizinkan proses/browser/port lokal; lihat [E2E](../testing/end-to-end.md) |
+| Port is in use or the URL opens on another port | Read the address reported by Vite/API; align `PORT`, proxy, and `WEB_ORIGIN` |
+| Web app opens but `/api` requests fail | Confirm the API is running on the expected port and `METHANE_API_PROXY_TARGET` is correct |
+| `/api/health` returns `503` | Check store/casebook/rate-limiter readiness fields, file paths, and read/write permissions |
+| Insights/ranking return `503` | Confirm the intelligence artifact matches its input snapshot; do not delete the manifest to bypass the check |
+| Imagery does not appear | Check tile-service/WebGL connectivity; historical data has separate limits from imagery |
+| Human assessment or AI is disabled | Check `/api/intelligence/status` flags and optional configuration without sharing secrets |
+| An imported-source audit is rejected | The browser dataset may differ from the snapshot pinned by the API |
+| Browser tests do not start | Confirm Chromium is available and the environment permits local browser/process/port access; see [E2E](../testing/end-to-end.md) |

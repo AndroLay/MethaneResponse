@@ -1,45 +1,46 @@
-# Panduan perubahan dan pemeliharaan
+# Change and documentation maintenance guide
 
-[Peta repository](../repository-map.md) · [Arsitektur](../architecture/overview.md) · [Pengujian](../testing/README.md)
+[Repository map](../repository-map.md) · [Architecture](../architecture/overview.md) · [Testing](../testing/README.md)
 
-Baca [AGENTS.md](../../AGENTS.md) sebelum mengubah repo. Pertahankan perubahan lokal yang sudah ada, kontrak lama yang masih didukung, label DEMO, serta provenance dan lisensi data.
+Read [AGENTS.md](../../AGENTS.md) before changing the repository. Preserve existing local changes, supported older contracts, DEMO labels, and data provenance and licensing.
 
-## Menentukan lokasi perubahan
+## Choosing where to make a change
 
-| Perubahan | Titik mulai | Acuan terkait |
+| Change | Starting point | Related reference |
 |---|---|---|
-| Workspace, interaksi, navigation | `apps/web/src/App.tsx` dan komponen workspace | [UI](ui-implementation.md), [workflow](../product/user-workflow.md) |
-| Claim, scope, schema atau coverage | `packages/shared/src/index.ts`, API dan preview UI | [API](../architecture/api-reference.md), [data-flow](../architecture/data-flow.md) |
-| Human assessment/trust | API human-assessment, reviewer-directory, evidence-check; panel web | [Trust](../product/trust-and-transparency.md) |
-| Shared casework/persistence | shared case-work schemas, API case-work modules, SharedCaseWorkPanel dan operations scripts | [Runbook](shared-casework.md), API, ADR P1 dan operations/E2E regressions |
-| Report/export/public summary | report-export, investigation-brief, shared/transparency dan API visibility | [Batas publikasi](../product/trust-and-transparency.md#3-publish-a-minimal-redacted-summary) |
-| Peta dan pemuatan observasi | MapPanel, progressive loader, shard/manifest builder | [Peta](../architecture/real-map.md), [geometri](../architecture/mars-publisher-geometry.md) |
-| Dataset/analisis | `services/data-pipeline`, data versioning dan loader API | [Provenance/rebuild](../../data/real/README.md), [recurrence](../product/prospective-recurrence.md) |
-| Kontrak/receipt | Solidity registry, chain.ts dan verifier | [Arsitektur](../architecture/overview.md), [testing](../testing/README.md) |
+| Workspace, interaction, navigation | `apps/web/src/App.tsx` and workspace components | [UI](ui-implementation.md), [workflow](../product/user-workflow.md) |
+| Claim, scope, schema, or coverage | `packages/shared/src/index.ts`, API, and preview UI | [API](../architecture/api-reference.md), [data flow](../architecture/data-flow.md) |
+| Human assessment/trust | API human-assessment, reviewer-directory, evidence-check; web panels | [Trust](../product/trust-and-transparency.md) |
+| Shared casework/persistence | shared case-work schemas, API case-work modules, SharedCaseWorkPanel, and operations scripts | [Runbook](shared-casework.md), API, P1 ADR, and operations/E2E regressions |
+| Report/export/public summary | report-export, investigation-brief, shared/transparency, and API visibility | [Publication limits](../product/trust-and-transparency.md#3-publish-a-minimal-redacted-summary) |
+| Map and observation loading | MapPanel, progressive loader, shard/manifest builder | [Map](../architecture/real-map.md), [geometry](../architecture/mars-publisher-geometry.md) |
+| Dataset/analysis | `services/data-pipeline`, data versioning, and API loader | [Provenance/rebuild](../../data/real/README.md), [recurrence](../product/prospective-recurrence.md) |
+| Contract/receipt | Solidity registry, chain.ts, and verifier | [Architecture](../architecture/overview.md), [testing](../testing/README.md) |
 
-Perubahan skema perlu mempertimbangkan bundle versi lama, draft dan notes browser, ekspor/impor verifier, serta izin akses. Scope claim, snapshot, dan work ID tidak boleh dianggap saling menggantikan.
+Schema changes need to account for older bundles, browser drafts and notes, verifier export/import, and access permissions. Claim scope, snapshot, and work ID are distinct and must not be treated as interchangeable.
 
-## Alur kerja perubahan
+## Change workflow
 
-1. Cocokkan kebutuhan dengan panduan aktif, source dan keputusan arsitektur.
-2. Buat perubahan terbatas di komponen pemiliknya; gunakan shared selector bila UI/API perlu aturan yang sama.
-3. Fitur baru yang terlihat pengguna memerlukan tes reproduktif dan batas kemampuan terdokumentasi, sesuai AGENTS.md.
-4. Jalankan pemeriksaan terkecil yang mencakup perubahan. Gunakan [matriks testing](../testing/README.md); perluas saat kontrak menyentuh subsistem lain.
-5. Catat hasil yang benar-benar dijalankan: command, revisi/working tree, snapshot dan keterbatasan. Jangan menyebut mock AI sebagai kualitas model eksternal atau viewport emulation sebagai uji telepon fisik.
-6. Perbarui halaman acuan dan indeks yang relevan.
+1. Match the requirement to the active guide, source, and architecture decisions.
+2. Make a focused change in its owning component; use a shared selector when the UI and API need the same rule.
+3. New user-visible features require reproducible tests and documented capability limits, as required by AGENTS.md.
+4. Run the smallest check that covers the change. Use the [testing matrix](../testing/README.md); expand it when a contract touches another subsystem.
+5. Record only results that were actually run: command, revision/working tree, snapshot, and limitations. Do not describe mock AI as external model quality or viewport emulation as a physical-phone test.
+6. Update the relevant reference page and index.
 
-Database baru, provider baru, atau perubahan storage bersama adalah perubahan scope/arsitektur. Gunakan [ADR yang berlaku](../architecture/decisions/2026-10-15-local-prototype-no-database.md) sebagai titik awal keputusan.
+A new database, provider, or shared-storage change alters scope/architecture. Use the [applicable ADR](../architecture/decisions/2026-10-15-local-prototype-no-database.md) as the starting point for a decision.
 
-## Pemeliharaan dokumentasi
+## Documentation maintenance
 
-- **Satu halaman acuan per topik:** README untuk orientasi, architecture untuk desain aktif, product untuk perilaku pengguna, configuration untuk environment, status untuk kemampuan/bukti terbaru.
-- **Indeks wajib:** tautkan halaman baru dari README bagian terkait; gunakan tautan relatif agar tetap dapat dibaca di clone lokal.
-- **Pisahkan jenis catatan:** panduan aktif boleh diperbarui; riset/proposal diberi tanggal/status; rencana mengarah ke hasil; evidence mempertahankan run asal.
-- **Jaga evidence:** jangan mengedit screenshot, manifest, hash atau log run lama untuk menyesuaikannya dengan file sekarang. Bukti baru memakai direktori/versi baru.
-- **Hindari salinan perintah pipeline:** arahkan ke README provenance yang mengikat input, output, lisensi dan hash.
-- **Hindari ringkasan status berulang:** catatan lama menautkan [status aktif](../release/current-implementation-status.md) bila asumsi sudah berubah.
-- **Cek dokumentasi:** target tautan lokal/heading, navigasi indeks, path modul, nama command/environment, code fence dan whitespace. Perubahan prose saja tidak memerlukan build/tes aplikasi ulang kecuali mengubah instruksi yang harus dieksekusi untuk dibuktikan.
+- **One reference page per topic:** README for orientation, architecture for active design, product for user behavior, configuration for environment, and status for current capabilities/evidence.
+- **Index required:** link new pages from the relevant README section; use relative links so they remain readable in a local clone.
+- **Separate note types:** active guides may be updated; research/proposals are dated and labeled with status; plans link to results; evidence retains its original run record.
+- **Keep evidence intact:** do not edit old screenshots, manifests, hashes, or run logs to make them match current files. Store new evidence in a new directory/version.
+- **Avoid copied pipeline commands:** point to the provenance README that binds inputs, outputs, licenses, and hashes.
+- **Avoid repeated status summaries:** older notes should link to [active status](../release/current-implementation-status.md) when assumptions have changed.
+- **Language:** maintained guidance and user-facing prose must be in English. Preserve frozen source inputs and quotations verbatim, with English reading editions alongside them where needed.
+- **Check documentation:** verify local link targets/headings, index navigation, module paths, command/environment names, code fences, and whitespace. Prose-only changes do not require rerunning the application build/tests unless they change an instruction whose execution must be demonstrated.
 
-## Data dan artefak
+## Data and artifacts
 
-File public data dilayani browser dan tidak boleh memuat secret, direktori reviewer atau laporan privat. Catatan browser bukan tempat menyimpan credential atau isi laporan pihak ketiga. Dataset asli dan fixture sintetis tetap dibedakan. Pahami [NOTICE](../../NOTICE) sebelum menyalin aset atau memproses dokumen eksternal.
+Public data files are served to the browser and must not contain secrets, reviewer directories, or private reports. Browser notes are not a place to store credentials or third-party report content. Keep original datasets distinct from synthetic fixtures. Read [NOTICE](../../NOTICE) before copying assets or processing external documents.

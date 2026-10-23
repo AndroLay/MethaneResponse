@@ -1,153 +1,153 @@
-# Catatan Hackathon — IEEE ClimateChain Global Hackathon 2026
+# Hackathon notes — IEEE ClimateChain Global Hackathon 2026
 
-**Refresh untuk submission, 19 Oktober 2026:** Rules dan Overview dibaca langsung. Keduanya masih menampilkan deadline header 25 Oktober pukul 17.00 UTC+03 (22.00 WITA). Body Rules saat ini tidak memuat kalimat earliest-submission yang bertentangan dan dicatat pada pemeriksaan lama di bawah. Perbedaan kelayakan tetap ada: Overview menyebut students only, sedangkan Rules memuat kategori lebih luas. Paket [isi submission](devpost-submission/README.md) dan [alignment aturan](devpost-submission/rules-check.md) memakai pembacaan terbaru ini. Video 3–5 menit, track alignment, source repository dan lima kriteria tetap tercantum. Status form/publikasi/submission belum dikonfirmasi; paragraf bertanggal lebih lama dipertahankan sebagai riwayat akses.
+**Submission refresh, 19 October 2026:** Rules and Overview were read directly. Both still show the header deadline as 25 October at 17:00 UTC+03 (22:00 WITA). The current Rules body does not contain the conflicting earliest-submission sentence recorded in the earlier check below. Eligibility still differs: Overview says students only, while Rules lists broader categories. The [submission contents](devpost-submission/README.md) and [rules alignment](devpost-submission/rules-check.md) use this latest reading. A 3–5 minute video, track alignment, source repository, and five criteria are still listed. Form/publication/submission status is unconfirmed; older dated paragraphs are retained as access history.
 
-**Diperiksa ulang:** 16 Oktober 2026
-**Sumber utama:** halaman resmi Devpost
-**Status peserta/proyek:** belum dikonfirmasi; catatan ini tidak mendaftarkan peserta atau mengirim proyek.
+**Last rechecked:** 16 October 2026<br>
+**Primary source:** official Devpost page<br>
+**Participant/project status:** unconfirmed; this note does not register a participant or submit a project.
 
-**Pemeriksaan terbaru, 16 Oktober 2026:** [Overview](https://ieee-climatechain-hack.devpost.com/) dan [Rules](https://ieee-climatechain-hack.devpost.com/rules) dapat dibaca langsung. Overview tetap menyebut students only dan batas 25 Oktober, 17.00 MSK (22.00 WITA). Rules tetap memperluas kategori peserta dan menyebut waktu mulai 08.00 PT pada tanggal yang sama (23.00 WITA). Konflik kelayakan dan jam belum terselesaikan. Halaman Dates gagal dibaca; tidak ada klarifikasi panitia yang diperoleh. Kebutuhan video 3–5 menit menjadi dasar naskah baru 4:30; tidak ada bobot numerik rubrik yang ditemukan. Ini pemeriksaan aturan dan persiapan materi lokal, bukan pendaftaran atau submission. Paragraf bertanggal 15 Oktober di bawah adalah riwayat akses, bukan status terbaru.
+**Latest check, 16 October 2026:** [Overview](https://ieee-climatechain-hack.devpost.com/) and [Rules](https://ieee-climatechain-hack.devpost.com/rules) were directly accessible. Overview still said students only and set the deadline to 25 October, 17:00 MSK (22:00 WITA). Rules still listed broader participant categories and a start time of 08:00 PT on the same date (23:00 WITA). The eligibility and time conflicts remained unresolved. The Dates page could not be read; no organizer clarification was obtained. The 3–5 minute video requirement was used to prepare a 4:30 script; no numerical rubric weights were found. This was a rules check and preparation of local materials, not registration or submission. The dated 15 October paragraphs below record access history, not the latest status.
 
-**Refresh lanjutan dari halaman resmi (15 Oktober 2026):** pembacaan overview melalui reader saat ini kembali menampilkan deadline **25 Oktober 2026 pukul 17.00 MSK** dan ringkasan peserta **“Students only”**. Bagian *About* pada halaman yang sama masih mengundang innovators, developers, researchers, dan climate enthusiasts, jadi ada ketidakselarasan internal di Overview. Pembukaan langsung Rules kali ini mengembalikan **403**; karena itu, aturan lebih luas yang sempat terbaca pada pass sebelumnya tetap bukti historis halaman, bukan konfirmasi aturan yang berlaku sekarang. Overview yang terbaca saat ini meminta deskripsi proyek, video demo 3–5 menit, repository publik, prototype/demo, dan menyebut lima kriteria kualitatif tanpa bobot numerik. Tidak ada klarifikasi panitia yang ditemukan atau dikirim. Detail tetap dicatat di bawah dan belum boleh dianggap menyelesaikan eligibility maupun konflik jam submission.
+**Further refresh from official pages (15 October 2026):** the current reader again showed the Overview deadline as **25 October 2026 at 17:00 MSK** and participant summary as **“Students only.”** The About section on the same page still invited innovators, developers, researchers, and climate enthusiasts, so the Overview was internally inconsistent. Direct access to Rules returned **403** this time; therefore, the broader categories read in an earlier pass remain historical evidence of what the page once displayed, not confirmation of the current rules. The currently readable Overview requested a project description, 3–5 minute demo video, public repository, prototype/demo, and listed five qualitative criteria without numerical weights. No organizer clarification was found or sent. Details remain below and must not be treated as resolving eligibility or the submission-time conflict.
 
-**Riset lanjutan:** [analisis afiliasi, konflik aturan, empat track, sumber domain, dan arah MVP](../research/research.md).
+**Further research:** [affiliation analysis, rule conflicts, four tracks, domain sources, and MVP direction](../research/research.md).
 
-> **Status pemeriksaan ulang 15 Oktober:** Overview Devpost masih menyebut deadline **25 Oktober 2026, 17.00 MSK (14.00 UTC / 22.00 WITA)** dan kelayakan “students only”. Pada pembacaan langsung terbaru, Rules berhasil dibuka dan menyebut kategori lebih luas (akademisi/fakultas, developer independen/startup, profesional lingkungan, serta mahasiswa), tetapi tetap bertentangan dengan Overview. Rules juga melarang submit sebelum **08.00 PT** pada 25 Oktober (15.00 UTC / 18.00 MSK / 23.00 WITA), satu jam setelah deadline Overview. Halaman Dates dan forum langsung masih **403**. Halaman Updates dapat dibuka dan menyatakan submission telah dibuka 5 Oktober serta mengarahkan pertanyaan ke Discussions; ini tidak menyelesaikan waktu penutupan atau eligibility. Hasil indeks forum menunjukkan pertanyaan peserta, belum jawaban panitia. Jadi eligibility dan waktu submission yang berlaku tetap **belum terkonfirmasi**.
+> **15 October recheck status:** Devpost Overview still showed the deadline as **25 October 2026, 17:00 MSK (14:00 UTC / 22:00 WITA)** and eligibility as “students only.” In the latest direct read, Rules opened successfully and listed broader categories (academics/faculty, independent developers/startups, environmental professionals, and students), but still contradicted Overview. Rules also prohibited submitting before **08:00 PT** on 25 October (15:00 UTC / 18:00 MSK / 23:00 WITA), one hour after the Overview deadline. Direct access to Dates and the forum still returned **403**. Updates was accessible and said submissions opened on 5 October, and directed questions to Discussions; this did not resolve the closing time or eligibility. Forum search results showed participant questions but no organizer answer. Thus, the applicable eligibility and submission time remained **unconfirmed**.
 
-**Follow-up pada pemeriksaan berikutnya 15 Oktober:** halaman Overview kembali dapat dibaca dan tetap menampilkan status di atas; direct reader kini mengembalikan **403** untuk Rules, Dates, dan forum. Halaman Updates menampilkan pengumuman sesi 9 Oktober sebagai posting teratas, bukan klarifikasi submission. Indeks diskusi menunjukkan satu komentar lanjutan dari peserta (bukan panitia) yang menanyakan jam submission, kewajiban blockchain, dan unggahan berkas; belum ada jawaban organizer yang tampak. Jadi isi Rules yang dicatat pada pembacaan langsung sebelumnya tetap merupakan bukti bahwa halaman pernah menampilkan aturan yang bertentangan, bukan konfirmasi bahwa aturan itu sudah diselaraskan. Tidak ada pesan yang dikirim kepada panitia.
+**Follow-up in the next 15 October check:** Overview was accessible again and still showed the status above; the direct reader now returned **403** for Rules, Dates, and the forum. Updates showed the 9 October session announcement as its top post, not a submission clarification. Discussion indexing showed one further comment from a participant (not an organizer) asking about submission time, blockchain requirements, and file upload; no organizer answer was visible. Therefore, the Rules content recorded during the previous direct read remains evidence that the page once showed conflicting rules, not confirmation that the rules have since been aligned. No message was sent to the organizer.
 
-**Pemeriksaan ulang tambahan 15 Oktober:** hasil pencarian Devpost saat ini masih menunjukkan Overview untuk rentang **5–25 Oktober 2026**, status **“students only”**, dan deadline **25 Oktober 2026 pukul 17.00 MSK**. Isi Overview yang dapat dibuka juga mencantumkan deskripsi proyek, video demo 3–5 menit, repository publik, prototype/demo, dan lima kriteria penilaian kualitatif tanpa bobot angka. Rules, Dates, dan forum gagal dibuka langsung dengan **403** pada pemeriksaan ini. Indeks forum memperlihatkan satu komentar peserta tambahan yang kembali meminta klarifikasi jendela submission, kebutuhan blockchain, track, dan file upload; tidak terlihat jawaban penyelenggara. Ini tidak mengubah konflik kelayakan/waktu yang tercatat dari pembacaan Rules sebelumnya dan bukan konfirmasi organizer. Tidak ada pihak yang dihubungi, tidak ada pendaftaran atau submission yang dilakukan. Sumber diperiksa: [Overview](https://ieee-climatechain-hack.devpost.com/), [Rules](https://ieee-climatechain-hack.devpost.com/rules), [Dates](https://ieee-climatechain-hack.devpost.com/details/dates), dan [forum clarification thread](https://ieee-climatechain-hack.devpost.com/forum_topics/45102-session-1-recording-and-clarification-on-submission-window).
+**Additional 15 October recheck:** Devpost search results still showed the Overview for **5–25 October 2026**, status **“students only,”** and deadline **25 October 2026 at 17:00 MSK**. The readable Overview also listed a project description, 3–5 minute demo video, public repository, prototype/demo, and five qualitative judging criteria without numerical weights. Rules, Dates, and the forum failed to open directly with **403** in this check. Forum indexing showed one additional participant comment again asking for clarification of the submission window, blockchain requirement, track, and file upload; no organizer reply was visible. This does not change the eligibility/time conflict recorded from the earlier Rules read and is not organizer confirmation. No one was contacted, and no registration or submission occurred. Sources checked: [Overview](https://ieee-climatechain-hack.devpost.com/), [Rules](https://ieee-climatechain-hack.devpost.com/rules), [Dates](https://ieee-climatechain-hack.devpost.com/details/dates), and [forum clarification thread](https://ieee-climatechain-hack.devpost.com/forum_topics/45102-session-1-recording-and-clarification-on-submission-window).
 
-## Ringkasan cepat
+## Quick summary
 
-- **Acara:** IEEE ClimateChain Global Hackathon — “AI and BLOCKCHAIN Innovate Today for a Sustainable Tomorrow.”
-- **Penyelenggara/host:** IEEE Blockchain Türkiye Group, bersama beberapa unit IEEE dan mitra yang tercantum di halaman acara.
-- **Format:** online, publik.
-- **Fokus:** solusi nyata untuk isu iklim melalui blockchain, AI, data, IoT, dan climate science; tema mengarah pada transparansi data iklim, pasar karbon, dan pengelolaan sumber daya berkelanjutan.
-- **Batas submission yang ditampilkan overview dan jadwal Devpost:** **25 Oktober 2026, 17.00 MSK = 22.00 WITA**.
-- **Status pendaftaran, tim, ide, dan submission:** belum diketahui.
+- **Event:** IEEE ClimateChain Global Hackathon — “AI and BLOCKCHAIN Innovate Today for a Sustainable Tomorrow.”
+- **Organizer/host:** IEEE Blockchain Türkiye Group, with several IEEE units and partners listed on the event page.
+- **Format:** online, public.
+- **Focus:** practical solutions for climate issues through blockchain, AI, data, IoT, and climate science; themes include climate-data transparency, carbon markets, and sustainable resource management.
+- **Submission deadline shown by Overview and Devpost schedule:** **25 October 2026, 17:00 MSK = 22:00 WITA**.
+- **Registration, team, idea, and submission status:** unknown.
 
-## Kredibilitas penyelenggara dan validasi silang
+## Organizer credibility and cross-checks
 
-- Kalender resmi [IEEE Blockchain Technical Community](https://blockchain.ieee.org/events/) mencantumkan hackathon ini pada 5–25 Oktober 2026 sebagai **“IEEE BCTC Local Group Initiative”** dan menautkan langsung ke halaman Devpost.
-- Situs IEEE [Blockchain Türkiye Group](https://cmte.ieee.org/turkiye-blockchain/) menyatakan grup tersebut dibentuk dan disetujui oleh IEEE Blockchain dan IEEE Türkiye Section. Ini mendukung bahwa acara tersebut berafiliasi dengan grup IEEE yang nyata.
-- **Mode/lokasi perlu dikonfirmasi:** kalender IEEE menyebut **Antalya, Türkiye**, sedangkan Devpost mengklasifikasikan acaranya **Online | Public**. Tanyakan apakah ada komponen tatap muka, kewajiban hadir finalis, atau kebutuhan perjalanan.
-- Afiliasi resmi merupakan sinyal kredibilitas yang kuat. Detail operasional, eligibility, jadwal, lokasi, dan pembayaran hadiah tetap perlu dipastikan lewat aturan final atau jawaban panitia.
+- The official [IEEE Blockchain Technical Community calendar](https://blockchain.ieee.org/events/) lists the hackathon for 5–25 October 2026 as an **“IEEE BCTC Local Group Initiative”** and links directly to Devpost.
+- The IEEE [Blockchain Türkiye Group site](https://cmte.ieee.org/turkiye-blockchain/) says the group was formed and approved by IEEE Blockchain and the IEEE Türkiye Section. This supports the event's affiliation with an actual IEEE group.
+- **Format/location need confirmation:** the IEEE calendar says **Antalya, Türkiye**, while Devpost classifies the event as **Online | Public**. Ask whether there is an in-person component, finalist attendance requirement, or travel need.
+- Official affiliation is a strong credibility signal. Operational details, eligibility, schedule, location, and prize payment still need confirmation from final rules or an organizer response.
 
-## Jadwal
+## Schedule
 
-MSK adalah UTC+3; WITA adalah UTC+8. Konversi di bawah menambahkan lima jam.
+MSK is UTC+3; WITA is UTC+8. The conversions below add five hours.
 
-| Tahap | Waktu Devpost (MSK) | Waktu WITA | Catatan |
+| Stage | Devpost time (MSK) | WITA time | Note |
 |---|---:|---:|---|
-| Submission dibuka | 5 Okt 2026, 07.00 | 5 Okt, 12.00 | Update panitia menyebut submission mulai 5 Oktober. |
-| Batas submission | 25 Okt 2026, 17.00 | **25 Okt, 22.00** | Ambil dari jadwal Devpost; jangan menunggu menit terakhir. |
-| Penjurian | 26 Okt, 09.00 – 8 Nov, 17.00 | 26 Okt, 14.00 – 8 Nov, 22.00 | — |
-| Pengumuman pemenang | 20 Nov 2026, 09.00 | 20 Nov, 14.00 | — |
+| Submission opens | 5 Oct 2026, 07:00 | 5 Oct, 12:00 | Organizer update says submissions opened on 5 October. |
+| Submission deadline | 25 Oct 2026, 17:00 | **25 Oct, 22:00** | Taken from the Devpost schedule; do not wait until the last minute. |
+| Judging | 26 Oct, 09:00 – 8 Nov, 17:00 | 26 Oct, 14:00 – 8 Nov, 22:00 | — |
+| Winner announcement | 20 Nov 2026, 09:00 | 20 Nov, 14:00 | — |
 
-**Catatan:** Rules yang berhasil dibuka langsung sekarang menyatakan “Dont submit before official start time which 8 AM PT on October 25.” Overview tetap menetapkan batas 25 Oktober 17.00 MSK, setara 14.00 UTC / 22.00 WITA. Pada tanggal itu 08.00 PT = 15.00 UTC / 23.00 WITA, sehingga waktu mulai yang disebut Rules berada satu jam setelah batas Overview. Schedule langsung mengembalikan 403; halaman Updates mengonfirmasi submission dibuka 5 Oktober, tetapi tidak menyelesaikan batas tutup. Minta klarifikasi tertulis atau periksa form pada akun peserta; jangan menebak aturan yang berlaku.
+**Note:** Rules that opened directly said, “Dont submit before official start time which 8 AM PT on October 25.” Overview still set the deadline to 25 October at 17:00 MSK, equivalent to 14:00 UTC / 22:00 WITA. On that date, 08:00 PT = 15:00 UTC / 23:00 WITA, so the start time in Rules was one hour after the Overview deadline. Direct access to Schedule returned 403; Updates confirmed submissions opened on 5 October but did not resolve the closing time. Request written clarification or check the form in the participant account; do not guess which rule applies.
 
-## Siapa yang boleh ikut — belum jelas
+## Who may participate — unclear
 
-Overview menyebut peserta harus melewati usia dewasa di negara domisili dan **hanya mahasiswa** yang dapat mengikuti. Rules yang berhasil dibuka langsung pada pembacaan terbaru menyebut mahasiswa, peneliti/fakultas, developer independen/startup, profesional lingkungan, dan peserta internasional dengan pembatasan negara. Dua halaman resmi itu bertentangan; kategori peserta Indonesia dan daftar negara yang dikecualikan tetap perlu dikonfirmasi kepada penyelenggara.
+Overview says participants must be above the age of majority in their country of residence and that **only students** may participate. Rules, which opened directly in the latest relevant reading, listed students, researchers/faculty, independent developers/startups, environmental professionals, and international participants subject to country restrictions. The two official pages conflict; Indonesian participant eligibility and the excluded-country list still need organizer confirmation.
 
-- Ringkasan/overview menyebut peserta harus sudah melewati usia dewasa menurut negara tempat tinggal, **hanya mahasiswa**, perusahaan/organisasi profesional tidak boleh ikut, serta ada negara/teritori yang dikecualikan (daftarnya tidak terlihat di ringkasan).
-- Pembacaan Rules sebelumnya mencantumkan kategori lebih luas; konfirmasi tertulis tetap diperlukan karena tidak sama dengan ringkasan overview dan halaman Rules tidak dapat dibuka ulang pada pemeriksaan terbaru.
-- Struktur tim yang tertulis di Rules: tim 2–5 orang, submission individu juga diizinkan; kolaborasi lintas institusi/negara dianjurkan; satu orang hanya boleh berada di satu tim.
-- Rules mengecualikan panitia dan keluarga dekat serta juri dan keluarga dekat. Pemenang grand prize sebelumnya boleh ikut untuk penghargaan yang lebih kecil.
+- The Overview summary says participants must be above the age of majority in their country of residence, **students only**, professional companies/organizations may not enter, and some countries/territories are excluded (the list is not visible in the summary).
+- An earlier Rules reading listed broader categories; written confirmation is still needed because it differs from the Overview summary and Rules could not be reopened in the latest check.
+- Team structure listed in Rules: teams of 2–5, with individual submissions also allowed; cross-institution/country collaboration is encouraged; each person may belong to only one team.
+- Rules exclude organizers and their immediate family, as well as judges and their immediate family. Previous grand-prize winners may participate for smaller awards.
 
-**Tindakan:** pastikan apakah mahasiswa Indonesia memenuhi syarat dan apa usia minimum/daftar negara yang dikecualikan. Jika peserta bukan mahasiswa, minta konfirmasi panitia apakah jalur Rules yang pernah ditampilkan tetap berlaku.
+**Action:** confirm whether students from Indonesia are eligible and obtain the minimum age/excluded-country list. If a participant is not a student, ask the organizer whether the broader Rules path previously displayed still applies.
 
-## Jalur tantangan
+## Challenge tracks
 
-Pilih satu jalur dan nyatakan dengan jelas di submission.
+Choose one track and state it clearly in the submission.
 
-| Track | Masalah yang disasar | Contoh arah solusi dari halaman acara |
+| Track | Problem addressed | Example solution directions from the event page |
 |---|---|---|
-| Carbon Markets & Emissions Transparency | Kredibilitas pasar karbon terdampak kurang transparansi, penghitungan ganda, dan verifikasi rumit. | Verifikasi kredit karbon di blockchain, pelacakan emisi, smart contract untuk mencegah penghitungan ganda, perdagangan karbon transparan. |
-| Renewable Energy & Energy Trading | Pasar energi masih tersentralisasi dan kurang efisien. | Perdagangan energi peer-to-peer, pelacakan sertifikat energi terbarukan, koordinasi microgrid, insentif energi bersih. |
-| Sustainable Supply Chains | Klaim asal-usul dan keberlanjutan produk sulit dibuktikan. | Pelacakan siklus hidup produk, digital product passport, jejak daur ulang, insentif ekonomi sirkular. |
-| Climate Data & Environmental Monitoring | Data lingkungan terpecah dan sulit diverifikasi. | Verifikasi data iklim, pemantauan IoT, marketplace data iklim, alat riset/insight. |
+| Carbon Markets & Emissions Transparency | Carbon-market credibility is affected by limited transparency, double counting, and complex verification. | Blockchain carbon-credit verification, emissions tracking, smart contracts to prevent double counting, transparent carbon trading. |
+| Renewable Energy & Energy Trading | Energy markets remain centralized and inefficient. | Peer-to-peer energy trading, renewable-energy certificate tracking, microgrid coordination, clean-energy incentives. |
+| Sustainable Supply Chains | Product origin and sustainability claims are difficult to prove. | Product lifecycle tracking, digital product passports, recycling traceability, circular-economy incentives. |
+| Climate Data & Environmental Monitoring | Environmental data is fragmented and difficult to verify. | Climate-data verification, IoT monitoring, climate-data marketplace, research/insight tools. |
 
-Tema menyebut AI dan blockchain, tetapi halaman yang diperiksa tidak menyebut provider, API, chain, atau platform tertentu yang wajib dipakai. Konfirmasi apakah keduanya wajib atau cukup relevan dengan solusi yang dipilih.
+The theme mentions AI and blockchain, but the checked page does not name a required provider, API, chain, or platform. Confirm whether both technologies are mandatory or whether a solution only needs to be relevant to the theme.
 
-## Yang harus disiapkan untuk submission
+## Submission materials
 
-Halaman acara meminta:
+The event page asks for:
 
-- Track yang dipilih dan penjelasan hubungan solusi dengan tantangan track.
-- Deskripsi proyek: masalah, solusi, pengguna sasaran, kemampuan untuk berkembang, dan kemudahan adopsi.
-- Video demo **3–5 menit** yang menunjukkan proyek berjalan dan fitur pentingnya.
-- Tautan repository kode publik (GitHub atau setara) beserta source code dan dokumentasi relevan.
-- Prototype, mockup, atau proof of concept yang dapat ditunjukkan.
-- Submission melalui Devpost sebelum batas waktu.
+- The selected track and an explanation of how the solution relates to its challenge.
+- Project description: problem, solution, target users, ability to scale, and ease of adoption.
+- A **3–5 minute** demo video showing the project running and its key features.
+- A public code-repository link (GitHub or equivalent) with source code and relevant documentation.
+- A prototype, mockup, or proof of concept that can be demonstrated.
+- Submission through Devpost before the deadline.
 
-Platform video yang diterima, pertanyaan/form submission khusus, ukuran/format file, dan apakah semua item wajib atau ada alternatif belum terinci pada informasi yang berhasil dibaca. Periksa form submission Devpost dan konfirmasi hal yang ambigu sebelum finalisasi.
+Accepted video platforms, special submission-form questions, file size/format, and whether every item is mandatory or alternatives exist were not detailed in the information available. Check the Devpost submission form and confirm ambiguous requirements before finalizing.
 
-## Kriteria penjurian
+## Judging criteria
 
-Halaman mencantumkan lima kriteria berikut tanpa bobot/angka nilai yang terlihat. Jangan mengasumsikan bobotnya sama.
+The page lists these five criteria without visible numerical weights/scores. Do not assume equal weights.
 
-1. **Climate Impact** — seberapa tepat dan efektif solusi mengatasi masalah iklim/lingkungan.
-2. **Innovation & Creativity** — kebaruan ide dan pendekatan teknologi pada track.
-3. **Technical Execution** — fungsi dan kualitas implementasi; penggunaan teknologi yang sesuai.
-4. **Practical Usefulness** — kemungkinan solusi digunakan secara realistis dan dapat diskalakan.
-5. **Presentation & Communication/Storytelling** — demo mudah dipahami dan menghubungkan masalah, cara kerja, serta dampak.
+1. **Climate Impact** — how well and effectively the solution addresses a climate/environment problem.
+2. **Innovation & Creativity** — novelty of the idea and technical approach for the track.
+3. **Technical Execution** — implementation function and quality; use of appropriate technology.
+4. **Practical Usefulness** — whether the solution can realistically be used and scaled.
+5. **Presentation & Communication/Storytelling** — whether the demo is clear and connects the problem, how it works, and the impact.
 
-**Saran persiapan (bukan aturan resmi):** demonstrasikan satu alur end-to-end; tampilkan bukti asal dan batas data; jelaskan mengapa blockchain/AI diperlukan; hindari klaim dampak yang tidak diukur; sisakan waktu untuk merekam, memeriksa akses repo/video, dan mengirim submission.
+**Preparation suggestion (not an official rule):** demonstrate one end-to-end workflow; show evidence origin and data limits; explain why blockchain/AI is needed; avoid unmeasured impact claims; leave time to record, check repository/video access, and submit.
 
-## Hadiah yang ditampilkan
+## Listed prizes
 
-Overview mencantumkan total **US$3.000 tunai**: juara pertama US$1.500, kedua US$1.000, ketiga US$500. Juga tercantum sertifikat merit IEEE bagi tiga tim teratas, sertifikat partisipasi (halaman menyebut 10 pemenang dan juga “all eligible participants”), serta kemungkinan nominasi IEEE Senior Member untuk pemenang yang memenuhi syarat dan merupakan anggota IEEE.
+Overview lists a total of **US$3,000 cash**: US$1,500 for first place, US$1,000 for second, and US$500 for third. It also lists IEEE certificates of merit for the top three teams, participation certificates (the page says both “10 winners” and “all eligible participants”), and possible IEEE Senior Member nominations for eligible winners who are IEEE members.
 
-**Belum final:** halaman Rules masih bertuliskan “Prizes TBD”, sementara overview merinci nominal. Konfirmasi hadiah, syarat penerimaan, dan jumlah penerima kepada panitia.
+**Not final:** Rules still said “Prizes TBD,” while Overview specified amounts. Confirm prizes, eligibility for receipt, and number of recipients with the organizer.
 
-## Sesi pembelajaran dan pengumuman
+## Learning sessions and announcements
 
-- Halaman Rules mencatat rangkaian sesi pada Agustus–Oktober: pengantar; AI dan keamanan siber; blockchain dan AI; etika/tanggung jawab; praktik baik untuk perubahan iklim.
-- Tanggal dan penomoran sesi tidak konsisten dengan update: halaman Rules menempatkan sesi pengantar pada 18 Agustus, sedangkan update menyebut 21 Agustus. Update 9 Oktober mempromosikan sesi etika/praktik baik pada tanggal itu; update lain menyebut sesi yang direncanakan tidak jadi terlaksana dan detail baru akan diumumkan.
-- Update menyebut rekaman sesi sebelumnya tersedia dan mengarahkan pertanyaan peserta ke tab **Discussions** di Devpost.
-- Karena tanggal sesi yang tercantum sudah lewat, cek tab Updates/Discussions untuk rekaman, jadwal pengganti, mentorship, atau perubahan terbaru.
-- Pada 11 Oktober, diskusi publik masih menanyakan jam submission resmi dan kewajiban blockchain. Seorang peserta juga melaporkan form submission tidak menyediakan pemilih track dan meminta unggahan berkas berukuran maksimum 35 MB. **Laporan tentang form tersebut berasal dari peserta dan belum dikonfirmasi panitia;** belum terlihat jawaban resmi pada thread yang diperiksa.
+- Rules lists sessions from August–October: introduction; AI and cybersecurity; blockchain and AI; ethics/responsibility; best practices for climate action.
+- Session dates and numbering are inconsistent with Updates: Rules places the introductory session on 18 August, while Updates says 21 August. The 9 October update promoted an ethics/best-practices session for that date; another update says a planned session did not take place and new details would be announced.
+- Updates says recordings of earlier sessions are available and directs participant questions to the Devpost **Discussions** tab.
+- Since the listed session dates have passed, check Updates/Discussions for recordings, replacement schedule, mentorship, or recent changes.
+- On 11 October, public discussion still asked for the official submission time and whether blockchain was required. A participant also reported that the submission form had no track selector and requested a maximum 35 MB file upload. **That form report came from a participant and was not confirmed by the organizer;** no official reply was visible in the thread checked.
 
-## Daftar kesiapan
+## Readiness checklist
 
-Status awal semua item adalah **belum ditinjau**; ubah hanya setelah ada bukti.
+Initial status for every item is **not reviewed**; change it only when evidence exists.
 
-| ID | Persyaratan/keputusan | Bukti yang perlu disimpan | Penanggung jawab | Status |
+| ID | Requirement/decision | Evidence to retain | Owner | Status |
 |---|---|---|---|---|
-| R1 | Pastikan kelayakan peserta dan negara | Klarifikasi panitia atau aturan resmi final | Peserta/tim | belum ditinjau |
-| R2 | Simpan deadline yang tampil pada overview + schedule; tanyakan jika submission form memberi waktu berbeda | Screenshot jadwal/konfirmasi tertulis untuk setiap perbedaan | Peserta/tim | belum ditinjau |
-| R3 | Daftar di Devpost dan pilih individu/tim | Status keikutsertaan pada akun Devpost | Peserta/tim | belum ditinjau |
-| R4 | Pilih satu track dan jelaskan kecocokannya | Nama track + ringkasan alignment di submission | Tim | belum ditinjau |
-| R5 | Siapkan prototype/mockup/PoC | Demo yang dapat dijalankan atau ditunjukkan | Tim | belum ditinjau |
-| R6 | Siapkan repository publik dan dokumentasi | URL repo yang dapat diakses juri | Tim | belum ditinjau |
-| R7 | Rekam demo 3–5 menit | URL video yang bisa ditonton tanpa login/izin khusus | Tim | belum ditinjau |
-| R8 | Lengkapi deskripsi dan form Devpost | Draft lengkap pada halaman submission | Tim | belum ditinjau |
-| R9 | Kirim sebelum deadline terkonfirmasi | Status submission “Submitted” di Devpost | Tim | belum ditinjau |
+| R1 | Confirm participant/country eligibility | Organizer clarification or final official rules | Participant/team | not reviewed |
+| R2 | Record the deadline shown by Overview + schedule; ask if the submission form shows a different time | Schedule screenshot/written confirmation for each discrepancy | Participant/team | not reviewed |
+| R3 | Register on Devpost and select individual/team | Participation status in the Devpost account | Participant/team | not reviewed |
+| R4 | Choose one track and explain its fit | Track name + alignment summary in submission | Team | not reviewed |
+| R5 | Prepare a prototype/mockup/PoC | Demo that can be run or shown | Team | not reviewed |
+| R6 | Prepare a public repository and documentation | Repository URL accessible to judges | Team | not reviewed |
+| R7 | Record a 3–5 minute demo | Video URL playable without login/special permission | Team | not reviewed |
+| R8 | Complete the Devpost description and form | Completed draft on submission page | Team | not reviewed |
+| R9 | Submit before the confirmed deadline | “Submitted” status in Devpost | Team | not reviewed |
 
-## Pertanyaan untuk panitia
+## Questions for the organizer
 
-Ajukan melalui tab Discussions Devpost (update panitia secara eksplisit menyarankan kanal ini), terutama:
+Ask through Devpost Discussions (organizer updates explicitly recommend this channel), especially:
 
-1. Apakah peserta dari Indonesia memenuhi syarat? Apa daftar lengkap negara/teritori yang dikecualikan dan batas usia tepatnya?
-2. Apakah syarat “students only” berlaku, atau pengajar, peneliti, startup, developer independen, dan profesional lingkungan juga boleh ikut?
-3. Berapa batas tim yang resmi, dan apakah submission individu memenuhi syarat untuk semua hadiah?
-4. Apakah deadline 25 Oktober 2026 pukul 17.00 MSK yang muncul pada overview dan schedule juga berlaku pada form submission? Mohon klarifikasi jika form menampilkan waktu yang berbeda.
-5. Apakah hadiah US$3.000 sudah final, dan apa syarat/ketentuan penerimaannya?
-6. Apakah AI dan blockchain wajib dipakai keduanya? Apakah ada kebijakan untuk kode/pekerjaan yang sudah ada, penggunaan AI, lisensi/IP, atribusi data/aset, serta publikasi repository?
-7. Apa persyaratan teknis submission lengkap: video/hosting, cara memilih/menyatakan track, form khusus, format/isi/ukuran file, dan akses juri? Ada laporan peserta tentang upload berkas maksimum 35 MB yang perlu diverifikasi.
-8. Mana jadwal sesi/rekaman/mentorship yang terbaru setelah perubahan yang diumumkan?
+1. Are participants from Indonesia eligible? What is the complete list of excluded countries/territories and the exact minimum age?
+2. Does “students only” apply, or may faculty, researchers, startups, independent developers, and environmental professionals also participate?
+3. What is the official team-size limit, and are individual submissions eligible for all prizes?
+4. Does the 25 October 2026 17:00 MSK deadline shown in Overview and Schedule also apply in the submission form? Please clarify if the form shows another time.
+5. Are the US$3,000 prizes final, and what are the acceptance terms?
+6. Are both AI and blockchain mandatory? Are there policies for existing code/work, AI use, licensing/IP, data/asset attribution, and repository publication?
+7. What are the complete technical submission requirements: video/hosting, how to select/state a track, special form, file format/content/size, and judge access? A participant reported a maximum 35 MB file upload that needs verification.
+8. What are the latest session/recording/mentorship details after announced changes?
 
-## Referensi resmi
+## Official references
 
-Daftar ini mencatat pemeriksaan sumber awal pada 11 Oktober 2026. Status buka ulang ada di paragraf terakhir.
+This list records the initial source checks on 11 October 2026. Reopen status is in the final paragraph.
 
-- [Overview hackathon di Devpost](https://ieee-climatechain-hack.devpost.com/) — tema, track, deliverable, kriteria, hadiah, dan ringkasan kelayakan.
-- [Rules](https://ieee-climatechain-hack.devpost.com/rules) — teks kelayakan, aturan tim, waktu mulai yang bertentangan, persyaratan submission, dan kriteria.
-- [Jadwal resmi](https://ieee-climatechain-hack.devpost.com/details/dates) — pembukaan, deadline, penjurian, dan pengumuman pemenang.
-- [Updates](https://ieee-climatechain-hack.devpost.com/updates) — perubahan, sesi, rekaman, dan arahan panitia.
-- [Update tentang submission dan Discussions](https://ieee-climatechain-hack.devpost.com/updates/46814-climatechain-hackathon-submissions-open-tomorrow-get-ready-to-submit) — submission dibuka 5 Oktober dan pertanyaan diarahkan ke Discussions.
-- [Diskusi tentang jendela submission dan form](https://ieee-climatechain-hack.devpost.com/forum_topics/45102-session-1-recording-and-clarification-on-submission-window) — pertanyaan peserta tentang waktu, track, blockchain, tim, dan unggahan; bukan klarifikasi resmi panitia.
+- [Hackathon Overview on Devpost](https://ieee-climatechain-hack.devpost.com/) — theme, tracks, deliverables, criteria, prizes, and eligibility summary.
+- [Rules](https://ieee-climatechain-hack.devpost.com/rules) — eligibility text, team rules, conflicting start time, submission requirements, and criteria.
+- [Official schedule](https://ieee-climatechain-hack.devpost.com/details/dates) — opening, deadline, judging, and winner announcement.
+- [Updates](https://ieee-climatechain-hack.devpost.com/updates) — changes, sessions, recordings, and organizer guidance.
+- [Update about submissions and Discussions](https://ieee-climatechain-hack.devpost.com/updates/46814-climatechain-hackathon-submissions-open-tomorrow-get-ready-to-submit) — submissions opened 5 October and questions were directed to Discussions.
+- [Discussion about the submission window and form](https://ieee-climatechain-hack.devpost.com/forum_topics/45102-session-1-recording-and-clarification-on-submission-window) — participant questions about timing, track, blockchain, teams, and upload; not official organizer clarification.
 
-**Pemeriksaan ulang terbaru (15 Oktober 2026):** [Overview](https://ieee-climatechain-hack.devpost.com/) langsung dapat dibaca: menyebut “students only”, deadline 25 Oktober 17.00 MSK, dan hadiah US$3.000. [Rules](https://ieee-climatechain-hack.devpost.com/rules) langsung dapat dibaca pada pemeriksaan ini: memperluas kategori peserta, menetapkan tim 2–5 orang dengan submission individu diizinkan, menyebut pembatasan negara, melarang submit sebelum 08.00 PT pada 25 Oktober, dan menampilkan “Prizes TBD”. Ini bertentangan dengan Overview pada eligibility, waktu, dan status hadiah. [Updates](https://ieee-climatechain-hack.devpost.com/updates) dapat dibaca dan mengumumkan submission dibuka 5 Oktober serta mengarahkan pertanyaan ke Discussions. [Schedule](https://ieee-climatechain-hack.devpost.com/details/dates) dan [thread klarifikasi](https://ieee-climatechain-hack.devpost.com/forum_topics/45102-session-1-recording-and-clarification-on-submission-window) mengembalikan 403 pada pembacaan langsung; hasil indeks thread memperlihatkan pertanyaan peserta tentang waktu tanpa jawaban panitia. Rubrik overview tetap memuat lima kriteria kualitatif tanpa bobot numerik. Tidak ada pesan kepada panitia, perubahan visibility, pendaftaran, atau submission yang dilakukan. Setelah pencatatan riset ini, source terbaru dipublikasikan dan diverifikasi pada GitHub `main` commit `e55663da9343a6e78c4c54bf1ca9aafefcd4254e`, dengan tiga job CI lulus pada run [38642092315](https://github.com/AndroLay/MethaneResponse/actions/runs/38642092315). Publikasi source tidak menyelesaikan konflik aturan maupun membuktikan submission.
+**Latest recheck (15 October 2026):** [Overview](https://ieee-climatechain-hack.devpost.com/) was directly readable: “students only,” deadline 25 October 17:00 MSK, and US$3,000 in prizes. [Rules](https://ieee-climatechain-hack.devpost.com/rules) was directly readable in this check: broader participant categories, teams of 2–5 with individual submissions allowed, country restrictions, no submission before 08:00 PT on 25 October, and “Prizes TBD.” This conflicts with Overview on eligibility, timing, and prize status. [Updates](https://ieee-climatechain-hack.devpost.com/updates) was accessible and announced submissions opened 5 October, directing questions to Discussions. [Schedule](https://ieee-climatechain-hack.devpost.com/details/dates) and the [clarification thread](https://ieee-climatechain-hack.devpost.com/forum_topics/45102-session-1-recording-and-clarification-on-submission-window) returned 403 on direct access; indexed thread results showed participant timing questions without organizer answers. Overview's rubric still listed five qualitative criteria without numerical weights. No message was sent to the organizer, and no visibility change, registration, or submission was made. After this research note, the latest source was published and verified on GitHub main at commit e55663da9343a6e78c4c54bf1ca9aafefcd4254e, with three CI jobs passing in run [38642092315](https://github.com/AndroLay/MethaneResponse/actions/runs/38642092315). Publishing source did not resolve the rules conflict or prove submission.

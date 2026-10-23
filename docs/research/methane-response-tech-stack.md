@@ -1,62 +1,62 @@
-# Tech Stack MethaneResponse
+# MethaneResponse Tech Stack
 
-> **Riset pilihan stack terdahulu.** Rekomendasi di bawah merekam opsi ketika riset dilakukan. Stack yang benar-benar dipakai dijelaskan di [peta repo](../repository-map.md) dan [arsitektur aktif](../architecture/overview.md); database bukan bagian prototype saat ini.
+> **Earlier stack-selection research.** The recommendations below record options considered at the time. The stack actually used is documented in the [repository map](../repository-map.md) and [active architecture](../architecture/overview.md); the current prototype does not include a database.
 
-**Tanggal keputusan:** 11 Oktober 2026  
-**Tahap:** rekomendasi arsitektur untuk MVP hackathon; belum diimplementasikan atau diuji.
+**Decision date:** 11 October 2026
+**Stage:** architecture recommendation for a hackathon MVP; not yet implemented or tested.
 
-## Keputusan
+## Decision
 
-Gunakan modular monolith dengan satu web UI, satu API/data service Python, satu kontrak EVM, serta penyimpanan lokal berbasis berkas untuk data analitik. Stack ini mendukung peta sumber, timeline plume dan feedback, model triage, dan verifikasi commitment on-chain.
+Use a modular monolith with one web UI, one Python API/data service, one EVM contract, and local file storage for analytical data. This stack supports a source map, plume/feedback timeline, triage model, and on-chain commitment verification.
 
-| Bagian | Pilihan |
+| Area | Choice |
 |---|---|
 | UI | Next.js App Router, TypeScript, Tailwind CSS |
-| Peta | MapLibre GL JS; tampilkan titik GeoJSON dan klaster sumber |
-| Wallet/EVM UI | wagmi + viem, hanya untuk mengirim atau membaca transaksi demo |
+| Map | MapLibre GL JS; show GeoJSON points and source clusters |
+| Wallet/EVM UI | wagmi + viem, only to send or read demo transactions |
 | API | Python + FastAPI + Pydantic |
-| Data ingestion | Python `httpx`; simpan respons CSV/GeoJSON asli sebagai snapshot sebelum normalisasi |
-| Analitik | Parquet + DuckDB |
-| State aplikasi | SQLite untuk case, user-entered evidence metadata, dan status demo |
-| AI | scikit-learn; baseline sederhana terlebih dahulu, model klasifikasi hanya jika label historis cukup |
-| Smart contract | Solidity + OpenZeppelin AccessControl, Foundry untuk build/deployment lokal, Sepolia untuk bukti publik |
-| Paket lokal | Docker Compose opsional untuk menjalankan UI dan API bersama |
+| Data ingestion | Python `httpx`; save original CSV/GeoJSON responses as snapshots before normalization |
+| Analytics | Parquet + DuckDB |
+| Application state | SQLite for cases, user-entered evidence metadata, and demo status |
+| AI | scikit-learn; simple baseline first, classification model only if historical labels are sufficient |
+| Smart contract | Solidity + OpenZeppelin AccessControl, Foundry for local build/deployment, Sepolia for public evidence |
+| Local packaging | Optional Docker Compose to run UI and API together |
 
-## Mengapa stack ini cocok
+## Why this stack fits
 
-- Python menjaga ingestion, pemrosesan tabular, dan evaluasi model dalam satu runtime. FastAPI menyediakan kontrak OpenAPI untuk integrasi UI/API.
-- MapLibre cocok untuk peta interaktif berbasis titik/GeoJSON. Dataset MARS yang menjadi MVP tidak memerlukan pemrosesan raster atau server GIS berat.
-- Parquet/DuckDB memudahkan analisis snapshot dan time-series dari data terbuka tanpa mengelola server database analitik. SQLite cukup untuk state aplikasi hackathon.
-- Next.js memberi jalur UI yang rapi untuk peta, filter, halaman detail sumber, timeline kasus, dan panel audit.
-- Kontrak hanya menjadi registry commitment dan perubahan status yang dapat diperiksa publik. Berkas mentah serta dokumen pendukung tetap off-chain.
+- Python keeps ingestion, tabular processing, and model evaluation in one runtime. FastAPI provides an OpenAPI contract for UI/API integration.
+- MapLibre suits interactive point/GeoJSON maps. The MARS dataset planned for the MVP does not require raster processing or a heavy GIS server.
+- Parquet/DuckDB simplify snapshot and time-series analysis of open data without an analytical database server. SQLite is sufficient for hackathon application state.
+- Next.js provides a clean UI path for maps, filters, source-detail pages, case timelines, and an audit panel.
+- The contract acts only as a public registry of commitments and status changes. Raw files and supporting documents remain off-chain.
 
-## Batas model AI
+## AI model limits
 
-Target yang masuk akal untuk MVP adalah **peluang adanya observasi plume publik berikutnya dalam jangka waktu yang ditentukan**, berdasarkan riwayat observasi yang tersedia sebelum tanggal prediksi. Target tersebut bukan prediksi kebocoran aktual atau keberhasilan mitigasi.
+A reasonable MVP target is the **chance of another public plume observation within a defined time horizon**, based on observation history available before the prediction date. This is not a prediction of an actual leak or successful mitigation.
 
-Bangun baseline transparan lebih dahulu. Jika ukuran data dan variasi label memadai, uji model scikit-learn dengan pemisahan waktu maju dan fitur yang dihitung hanya dari observasi sebelum cutoff. Jangan memakai `persistency` dari snapshot terbaru untuk merekonstruksi fitur historis jika nilainya mencakup observasi sesudah cutoff. Jika label terlalu sedikit atau hasil model tidak mengalahkan baseline, tampilkan prioritas berbasis aturan dan jelaskan metodenya; jangan menampilkan skor AI seolah-olah sudah tervalidasi.
+Build a transparent baseline first. If dataset size and label variation are adequate, test a scikit-learn model with forward-in-time splits and features computed only from observations before the cutoff. Do not use `persistency` from the latest snapshot to reconstruct historical features when that value includes post-cutoff observations. If labels are too sparse or the model does not beat the baseline, show rule-based prioritization and explain the method; do not display an AI score as if it were validated.
 
-## Batas ledger
+## Ledger limits
 
-Kontrak `EvidenceRegistry` cukup mencatat hash snapshot sumber, hash bundle kasus, hash record sebelumnya, tipe/status event, dan alamat wallet pengirim. Event log membentuk timeline append-only. Gunakan role terpisah untuk ingester dan auditor jika demo memang menunjukkan dua aktor.
+The `EvidenceRegistry` contract need only record the source-snapshot hash, case-bundle hash, previous-record hash, event type/status, and sender wallet address. The event log forms an append-only timeline. Use separate ingester and auditor roles if the demo actually shows two actors.
 
-Jangan simpan koordinat rinci, file, informasi pribadi, atau pesan operator di chain. Hash membuktikan kecocokan artefak terhadap commitment dan waktu transaksi; wallet address sendiri tidak membuktikan identitas organisasi, asal satelit, atau kebenaran laporan. Data masukan operator yang belum berasal dari UNEP harus diberi label simulasi.
+Do not store detailed coordinates, files, personal information, or operator messages on-chain. A hash proves that an artifact matches a commitment and transaction time; a wallet address alone does not prove organizational identity, satellite origin, or report truth. Operator input not sourced from UNEP must be labeled as simulated.
 
-## Batas data dan penyimpanan
+## Data and storage limits
 
-1. Simpan file UNEP yang diunduh tanpa mengubahnya, bersama URL sumber, waktu unduh UTC, lisensi, dan SHA-256.
-2. Normalisasi plume dan source ke Parquet; gunakan DuckDB untuk membentuk ringkasan, timeline, serta data fitur.
-3. Gunakan SQLite hanya untuk state demo: case, actor wallet, catatan evidence off-chain, dan referensi transaksi.
-4. Gunakan koordinat GeoJSON untuk peta. Tambahkan PostgreSQL/PostGIS hanya jika produk berkembang menjadi aplikasi multi-user dengan query spasial/volume yang membutuhkannya.
-5. UNEP menyatakan data MARS publik umumnya tertunda sekitar 30 hari dan menggunakan CC BY-NC-SA 4.0. Karena itu ingestion diperlakukan sebagai snapshot/replay, bukan alert real-time; cantumkan atribusi dan batas lisensi pada repo/demo.
+1. Store downloaded UNEP files unchanged, with source URL, UTC download time, license, and SHA-256.
+2. Normalize plume and source records to Parquet; use DuckDB to build summaries, timelines, and feature data.
+3. Use SQLite only for demo state: case, actor wallet, off-chain evidence notes, and transaction references.
+4. Use GeoJSON coordinates for the map. Add PostgreSQL/PostGIS only if the product grows into a multi-user application that needs spatial/volume queries.
+5. UNEP says public MARS data are generally delayed about 30 days and are licensed CC BY-NC-SA 4.0. Treat ingestion as snapshot/replay, not real-time alerting; include attribution and license limits in the repo/demo.
 
-## Satu alur demo end-to-end
+## One end-to-end demo flow
 
-`UNEP snapshot → hash dan validasi schema → source timeline + triage → peta/detail kasus → commit hash ke Sepolia → ubah satu byte pada salinan → verifier melaporkan mismatch`.
+`UNEP snapshot → hash and schema validation → source timeline + triage → map/case details → commit hash to Sepolia → change one byte in a copy → verifier reports mismatch`.
 
-UI harus membedakan observasi MARS, status feedback UNEP, informasi yang dimasukkan pengguna, dan data simulasi. Istilah `Potentially ceased` ditampilkan sebagai status sumber dari UNEP, bukan bukti bahwa tindakan tertentu menyebabkan emisi berhenti.
+The UI must distinguish MARS observations, UNEP feedback status, user-entered information, and simulated data. Display `Potentially ceased` as a UNEP source status, not proof that a particular action stopped emissions.
 
-## Struktur repository yang disarankan
+## Suggested repository structure
 
 ```text
 iEEE-Methane-response/
@@ -64,32 +64,31 @@ iEEE-Methane-response/
 ├── services/api/             # FastAPI, ingestion, query, triage
 ├── contracts/                # Solidity, Foundry, deployment metadata
 ├── data/
-│   ├── raw/                  # snapshot asli, read-only setelah dicatat
+│   ├── raw/                  # original snapshots, read-only after recording
 │   ├── processed/            # Parquet
 │   └── manifests/            # source URL, capture time, hash, license
-├── models/                   # model dan manifest versi
-└── docs/                     # metode, batas klaim, demo setup
+├── models/                   # model and version manifest
+└── docs/                     # methods, claim limits, demo setup
 ```
 
-## Risiko teknis utama
+## Main technical risks
 
-- **Data sebelum pembangunan UI:** belum diverifikasi jumlah baris dan distribusi label pada arsip CSV/GeoJSON UNEP yang akan dipakai. Ambil serta profilkan file aktual terlebih dahulu.
-- **AI:** label plume masa depan mengukur deteksi yang dipublikasikan, bukan emisi yang sungguh terjadi pada semua waktu. Observasi satelit memiliki batas deteksi dan kondisi pengamatan.
-- **Klaim produk:** MARS sudah menangani deteksi, atribusi, notifikasi, serta pemantauan. Diferensiasi MethaneResponse harus terlihat pada snapshot independen dan verifikasi perubahan bukti, bukan membuat ulang detector.
-- **Ledger:** jika hanya satu wallet milik tim yang menulis semua record, nilai multi-aktor terbatas. Uji demo harus menjelaskan aktor dan batas autentikasinya.
-- **Koneksi peta/RPC:** siapkan data contoh yang tersimpan lokal dan tampilan transaksi yang pernah dikomit untuk demo ketika jaringan tidak tersedia; beri label cache/demo dengan jelas.
+- **Data before UI development:** row counts and label distribution in the UNEP CSV/GeoJSON archive to be used have not been verified. Retrieve and profile the actual files first.
+- **AI:** future-plume labels measure published detections, not emissions that actually occurred at all times. Satellite observations have detection limits and depend on viewing conditions.
+- **Product claims:** MARS already handles detection, attribution, notification, and monitoring. MethaneResponse differentiation must come from independent snapshots and evidence-change verification, not recreating a detector.
+- **Ledger:** if a single team wallet writes every record, multi-actor value is limited. Demo testing must explain the actors and authentication limits.
+- **Map/RPC connection:** prepare locally stored example data and a previously committed transaction view for demos when the network is unavailable; label cached/demo content clearly.
 
-## Sumber dokumentasi teknis dan data
+## Technical and data documentation sources
 
 - [Next.js App Router](https://nextjs.org/docs/app)
 - [FastAPI OpenAPI](https://fastapi.tiangolo.com/tutorial/first-steps/)
 - [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/)
 - [DuckDB Python API](https://duckdb.org/docs/stable/clients/python/overview)
-- [scikit-learn TimeSeriesSplit](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html) — dokumentasi split temporal; gunakan pemisahan kalender khusus jika data observasinya tidak berjarak seragam.
+- [scikit-learn TimeSeriesSplit](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection/TimeSeriesSplit.html) — temporal split documentation; use a calendar-specific split if observations are irregularly spaced.
 - [Wagmi](https://wagmi.sh/core/getting-started)
 - [OpenZeppelin AccessControl](https://docs.openzeppelin.com/contracts/5.x/access-control)
 - [Ethereum: testing smart contracts](https://ethereum.org/developers/docs/smart-contracts/testing/)
 - [Ethereum networks: Sepolia](https://ethereum.org/developers/docs/networks/)
-- [Kamus data plume/source UNEP](https://methanedata.unep.org/dict-mars-plumes)
-- [Kebijakan berbagi data MARS](https://methanedata.unep.org/methane-alert-response-system)
-
+- [UNEP plume/source data dictionary](https://methanedata.unep.org/dict-mars-plumes)
+- [MARS data-sharing policy](https://methanedata.unep.org/methane-alert-response-system)

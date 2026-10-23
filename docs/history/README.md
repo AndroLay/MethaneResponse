@@ -1,25 +1,27 @@
-# Riwayat rekayasa
+# Engineering History
 
-[Pusat dokumentasi](../README.md) · [Status aktif](../release/current-implementation-status.md)
+[Documentation home](../README.md) · [Current status](../release/current-implementation-status.md)
 
-Dokumen berikut mempertahankan kondisi ketika pekerjaan dilakukan. Snapshot, jumlah tes, path, PR/commit, estimasi dan asumsi layanan dapat berbeda dari implementasi aktif. Gunakan tanggal/revisi asal ketika mengutip hasilnya.
+> Translation note: The original prose is available at Git revision `9d38ad2`; frozen manifests and run-bound artifacts are unchanged.
 
-| Catatan | Tanggal/cakupan |
+The documents below preserve the state of work when it was performed. Snapshots, test counts, paths, PRs/commits, estimates, and service assumptions may differ from the active implementation. Cite results with their original date/revision.
+
+| Record | Date/scope |
 |---|---|
-| [Checkpoint 15 Oktober](execution-checkpoint-2026-10-15.md) | CI, browser, data, performa dan status layanan pada checkpoint itu |
-| [Checkpoint 14 Oktober](execution-checkpoint-2026-10-14.md) | Full local gates, database eksperimen, browser dan UI |
-| [Master execution plan](master-execution-plan-2026-10-14.md) | Task, dependencies, acceptance criteria dan estimasi historis |
-| [Next steps](next-steps.md) | Follow-up MVP terdahulu; bukan backlog aktif |
-| [Delivery notes](delivery-notes.md) | Handoff dan checks source-package terdahulu |
-| [Workflow verification 13 Oktober](workflow-verification-2026-10-13.md) | Browser/integrasi pada checkout saat itu |
-| [Premium UI redesign](premium-ui-redesign-2026-10-13.md) | Keputusan visual/interaksi terdahulu |
-| [Indeks rencana implementasi](../plans/README.md) | Increment 17 Oktober dan arsip rencana 12–15 Oktober |
-| [Judge evidence matrix](../release/judge-evidence-matrix.md) · [score roadmap](../release/score-readiness-roadmap.md) | Target internal dan bukti penilaian pada revisi asal, bukan skor juri |
+| [15 October checkpoint](execution-checkpoint-2026-10-15.md) | CI, browser, data, performance, and service status at that checkpoint |
+| [14 October checkpoint](execution-checkpoint-2026-10-14.md) | Full local gates, experimental database, browser, and UI |
+| [Master execution plan](master-execution-plan-2026-10-14.md) | Historical tasks, dependencies, acceptance criteria, and estimates |
+| [Next steps](next-steps.md) | Earlier MVP follow-up; not the active backlog |
+| [Delivery notes](delivery-notes.md) | Earlier handoff and source-package checks |
+| [Workflow verification, 13 October](workflow-verification-2026-10-13.md) | Browser and integration checks on the checkout at that time |
+| [Premium UI redesign](premium-ui-redesign-2026-10-13.md) | Earlier visual/interaction decisions |
+| [Implementation plan index](../plans/README.md) | 17 October increment and archived plans from 12–15 October |
+| [Judge evidence matrix](../release/judge-evidence-matrix.md) · [score roadmap](../release/score-readiness-roadmap.md) | Internal targets and judging evidence at the source revision, not judge scores |
 
-Arsip desain lain: [AI/blockchain awal](../architecture/ai-blockchain-implementation.md), [Postgres anchor recovery](../architecture/grounded-evidence-and-anchor-recovery.md), dan [optimasi performa](../development/performance-optimization.md). Riset pemilihan kandidat ada di [indeks riset](../research/README.md). Bukti run terbaru maupun lama ada di [indeks evidence](../evidence/README.md).
+Other design archives: [early AI/blockchain](../architecture/ai-blockchain-implementation.md), [Postgres anchor recovery](../architecture/grounded-evidence-and-anchor-recovery.md), and [performance optimization](../development/performance-optimization.md). Candidate selection research is in the [research index](../research/README.md). Evidence from newer and older runs is in the [evidence index](../evidence/README.md).
 
-[ADR file lokal](../architecture/decisions/2026-10-15-local-prototype-no-database.md) menggantikan kebutuhan database pada rencana awal. Isi arsip tidak diubah untuk menyerupai hasil baru; perapian navigasi tidak memperbarui checksum/revisi test aslinya.
+The [local-file ADR](../architecture/decisions/2026-10-15-local-prototype-no-database.md) superseded the database requirement in the initial plan. Archive contents are not rewritten to resemble newer results; navigation cleanup does not update original checksums/test revisions.
 
-## Artefak sementara dalam arsip
+## Temporary artifacts in the archive
 
-Beberapa checkpoint menautkan hasil sesi di `/tmp`, yang tidak termasuk repository dan dapat sudah hilang. Pada checkpoint 14 Oktober, tiga tautan gambar mengarah ke `methane-final-ui-smoke-20261014.png` serta `landing-desktop-1280x800.png` / `landing-mobile-390x844.png` dalam direktori temporary visual review. Tautan itu dipertahankan sebagai catatan asal, bukan file yang disertakan. Screenshot yang benar-benar dilacak tersedia melalui [indeks evidence](../evidence/README.md); gambar versi lain tidak menggantikan bukti yang hilang.
+Some checkpoints link session results in `/tmp`, which is outside the repository and may no longer exist. In the 14 October checkpoint, three image links point to `methane-final-ui-smoke-20261014.png` and `landing-desktop-1280x800.png` / `landing-mobile-390x844.png` in a temporary visual-review directory. Those links are retained as source notes, not included files. Tracked screenshots are available through the [evidence index](../evidence/README.md); images from other versions do not replace missing evidence.

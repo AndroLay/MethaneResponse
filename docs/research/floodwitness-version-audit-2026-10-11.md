@@ -1,102 +1,102 @@
-# Audit FloodWitness: riwayat versi CEMS dan prior art
+# FloodWitness Audit: CEMS Version History and Prior Art
 
-**Tanggal:** 11 Oktober 2026 (WITA)  
-**Tujuan:** menguji klaim inti laporan FloodWitness dengan dokumentasi CEMS, probe API eksploratif, dan pencarian prior art. Ini bukan hasil eksperimen model dan bukan prediksi pemenang.
+**Date:** 11 October 2026 (WITA)
+**Purpose:** test FloodWitness's core claims against CEMS documentation, exploratory API probes, and prior-art research. This is not a model experiment or winner prediction.
 
-## Putusan singkat
+## Short verdict
 
-FloodWitness mempunyai masalah yang masuk akal untuk diteliti: produk pemetaan CEMS dapat memiliki versi yang lebih baru setelah QC menemukan kesalahan, sedangkan portal hanya menampilkan versi terbaru. Namun, laporan yang menyebutnya “black-box recorder” belum membuktikan bahwa produk v1 yang ditolak pernah terlihat secara publik sebelum diganti.
+FloodWitness addresses a plausible research problem: CEMS mapping products can receive newer versions after QC finds an error, while the portal displays only the latest version. However, a proposal describing a “black-box recorder” has not shown that a rejected v1 product was ever publicly visible before replacement.
 
-Temuan paling mengubah penilaian kebaruan adalah **CEMS Flood Archive Ledger dari OCHA-DAP**. Halaman publiknya mendeskripsikan arsip produk banjir CEMS dengan SHA-256, inventaris file, metadata untuk unduhan yang gagal/tidak tersedia, harmonisasi geospasial, dan jurnal transfer append-only. Itu sangat dekat dengan bagian “arsip + integritas + transparansi ketersediaan” FloodWitness. Halaman tersebut tidak memperlihatkan kontrak blockchain atau model prediksi revisi.
+The finding that most changes the novelty assessment is the **OCHA-DAP CEMS Flood Archive Ledger**. Its public page describes an archive of CEMS flood products with SHA-256, file inventory, metadata for failed/unavailable downloads, geospatial harmonization, and an append-only transfer journal. This is very close to FloodWitness's “archive + integrity + availability transparency” concept. The page does not show a blockchain contract or a model predicting revisions.
 
-**Kesimpulan saat ini:** FloodWitness layak mendapat proof sprint terbatas, tetapi bukan kandidat terbaik yang sudah terbukti. Posisikan ulang hanya bila dapat menunjukkan nilai tambahan yang spesifik: menangkap versi pertama saat pertama kali publik, menghubungkan revisi QC antarversi, menghitung diff spasial, dan memvalidasi triase revisi dengan fitur yang benar-benar tersedia sebelum revisi.
+**Current conclusion:** FloodWitness merits a limited proof sprint, but has not been proven the best candidate. Reposition it only if it demonstrates specific additional value: capture the first version when first public, connect QC revisions across versions, calculate spatial differences, and validate revision triage using features actually available before revision.
 
-## Fakta CEMS yang dapat didukung sumber primer
+## CEMS facts supported by primary sources
 
-1. **Versi produk dan monitoring bukan hal yang sama.** Manual CEMS menyatakan produk Rapid Mapping yang ditolak pada pemeriksaan QC mendapat versi baru untuk memperbaiki error; v2 dibuat bila v1 ditolak, dan v3 bila v2 juga ditolak. Manual juga menyatakan hanya versi terbaru yang tersedia pada website. [CEMS Quality Control](https://mapping.emergency.copernicus.eu/about/rapid-mapping-manual/quality-control/)
-2. **API terdokumentasi memuat status versi terkini.** Skema Rapid Mapping menjelaskan satu objek `version` per produk dengan `uuid`, `number`, `reason`, `deliveryTime`, dan `statusCode`, serta satu `downloadPath` untuk ZIP produk tersebut. Dokumentasi tidak menerangkan endpoint riwayat versi lengkap. [CEMS Emergency Response API](https://mapping.emergency.copernicus.eu/about/how-to-harvest-cems-mapping-data/emergency-response-data/)
-3. **Monitoring operasional memakai field tersendiri.** Skema API memuat `monitoring` dan `monitoringNumber`; manual menyebut produk post-event dapat menerima monitoring update sesuai dinamika kejadian. Jangan menganggap monitoring baru sebagai koreksi QC v2/v3. [CEMS What is a Product?](https://mapping.emergency.copernicus.eu/about/rapid-mapping-manual/product-overview/what-is-a-product/)
-4. **Publikasi terjadi setelah analisis produk selesai.** Dokumentasi menyatakan produk dikirim kepada pemohon dan dipublikasikan setelah analisis difinalkan, kecuali aktivasi sensitif. Sumber yang diperiksa tidak memastikan apakah versi yang kemudian ditolak QC pernah tersedia untuk publik lebih dahulu. [CEMS What is a Product?](https://mapping.emergency.copernicus.eu/about/rapid-mapping-manual/product-overview/what-is-a-product/)
+1. **Product version and monitoring are different.** The CEMS manual says a Rapid Mapping product rejected during QC gets a new version to correct the error; v2 is made if v1 is rejected and v3 if v2 is also rejected. The manual also says only the latest version is available on the website. [CEMS Quality Control](https://mapping.emergency.copernicus.eu/about/rapid-mapping-manual/quality-control/)
+2. **The documented API contains current-version metadata.** The Rapid Mapping schema describes one `version` object per product with `uuid`, `number`, `reason`, `deliveryTime`, and `statusCode`, plus a `downloadPath` for that product ZIP. Documentation does not describe a complete version-history endpoint. [CEMS Emergency Response API](https://mapping.emergency.copernicus.eu/about/how-to-harvest-cems-mapping-data/emergency-response-data/)
+3. **Operational monitoring has separate fields.** The API schema contains `monitoring` and `monitoringNumber`; the manual says a post-event product may receive monitoring updates as the event evolves. Do not treat a new monitoring product as a QC correction v2/v3. [CEMS What is a Product?](https://mapping.emergency.copernicus.eu/about/rapid-mapping-manual/product-overview/what-is-a-product/)
+4. **Publication follows product analysis.** Documentation says products are sent to requesters and published after analysis is finalized, except for sensitive activations. The sources checked do not establish whether a version later rejected by QC was previously public. [CEMS What is a Product?](https://mapping.emergency.copernicus.eu/about/rapid-mapping-manual/product-overview/what-is-a-product/)
 
-Karena itu, klaim yang akurat adalah: “API publik yang terdokumentasi memperlihatkan metadata versi terkini; CEMS menyatakan situs menampilkan versi terbaru.” Belum ada bukti bahwa seluruh byte versi lama dihapus atau bahwa setiap v1 sempat dapat diunduh publik.
+Therefore an accurate claim is: “The documented public API shows current-version metadata; CEMS says its site displays the latest version.” There is no evidence that all bytes of older versions are deleted or that every v1 was once publicly downloadable.
 
-## Probe API eksploratif
+## Exploratory API probe
 
-Seorang agen melakukan GET live pada daftar aktivasi dan detail 100 aktivasi pertama dalam urutan API, dengan jeda permintaan dan retry setelah 429. Daftar memberi 267 aktivasi. Pada 100 aktivasi itu, agen menghitung 1.135 produk yang tampil pada metadata terkini: 962 versi 1, 156 versi 2, dan 17 versi 3. Pada subset Flood terdapat 476 produk: 417 versi 1, 53 versi 2, dan 6 versi 3.
+An agent made live GET requests for the activation list and details of the first 100 activations in API order, with request delays and retries after 429. The list contained 267 activations. Across those 100 activations, the agent counted 1,135 products in current metadata: 962 version 1, 156 version 2, and 17 version 3. The Flood subset contained 476 products: 417 version 1, 53 version 2, and 6 version 3.
 
-Angka ini **probe eksploratif agen, bukan dataset beku atau hasil independen saya**. Respons mentah tidak disimpan; subset 100 aktivasi mengikuti urutan API, bukan sampel acak atau protokol preregistrasi. Jumlah versi >1 tidak sama dengan prevalensi revisi dalam populasi produk awal, karena endpoint menampilkan kondisi terkini, mencampur jenis produk/monitoring, dan tidak merekonstruksi fitur pada saat v1 pertama kali terlihat. Jangan pakai angka ini sebagai metrik submission sebelum kode probe dan respons mentah disimpan, skema unit ditetapkan, lalu hitungan direproduksi.
+These numbers are an **agent exploratory probe, not a frozen dataset or my independent result**. Raw responses were not saved; the 100 activations followed API order rather than a random sample or preregistered protocol. A count of versions >1 is not the revision prevalence for the original product population: the endpoint shows current state, mixes product types/monitoring, and does not reconstruct features as they appeared when v1 was first visible. Do not use these numbers as submission metrics until probe code and raw responses are saved, unit schema is defined, and counts are reproduced.
 
-Dalam probe yang sama, agen menguji satu produk yang sekarang v2: ranged GET ke URL ZIP kanonis v1 untuk `EMSR930_AOI02_GRA_PRODUCT` mengembalikan HTTP 404 setelah redirect, sedangkan v2 mengembalikan HTTP 206 dengan awal berkas ZIP. Ini **membuktikan hanya bahwa satu URL v1 yang diuji tidak lagi dapat diambil saat probe**; tidak membuktikan apakah berkas itu pernah terlihat publik sebelum revisi, dan tidak menggeneralisasi ke semua URL lama.
+In the same probe, an agent tested one product currently at v2: a ranged GET to the canonical v1 ZIP URL for `EMSR930_AOI02_GRA_PRODUCT` returned HTTP 404 after redirect, while v2 returned HTTP 206 with the beginning of the ZIP file. This **only proves that the one tested v1 URL could not be retrieved during the probe**; it does not show whether the file was once public before revision and does not generalize to all old URLs.
 
-Probe status live berikutnya menunjukkan bahwa dari 267 aktivasi pada indeks, hanya dua berstatus terbuka saat itu: satu gempa dan satu banjir. Produk banjir terbuka tersebut masih berstatus versi 1; tidak ada produk banjir `W` (menunggu data) pada respons yang diperiksa. Ini agent-run snapshot sekitar 11 Oktober 2026 pukul 04:20 WITA, tidak disimpan sebagai artefak mentah. Konsekuensinya, polling 48 jam dapat membuktikan uptime dan mekanisme tangkap/hash, tetapi tidak menjamin transisi produk banjir v1→v2. Banyak poll terhadap produk yang sama juga bukan banyak contoh model independen.
+A subsequent live-status probe showed that of 267 activations in the index, only two were open at the time: one earthquake and one flood. The open flood product was still version 1; no flood product marked `W` (waiting for data) appeared in the inspected response. This was an agent-run snapshot at about 04:20 WITA on 11 October 2026 and was not saved as a raw artifact. Consequently, 48-hour polling can prove recorder/hash behavior and uptime, but does not guarantee a flood-product v1→v2 transition. Many polls of the same product are also not many independent model examples.
 
-Pada 59 produk Flood dengan versi terkini >1, `reason` tidak membentuk satu label tematik yang bersih: 12 reason kosong; alasan lain mencakup koreksi layer/footprint, tetapi juga judul peta, legenda, SLD/visualisasi, nama AOI, dan metadata. Hitungan ini juga agent-run dan memakai subset yang sama. Artinya, “pernah mendapat v2/v3” lebih tepat mewakili **pekerjaan ulang/revisi QC** daripada kesalahan luasan banjir. Jika model menargetkan revisi tematik saja, reason perlu ditaksonomikan dan dianotasi secara konsisten; reason kosong/ambigu jangan dipaksa menjadi label negatif.
+Among 59 Flood products with latest version >1, `reason` did not form one clean thematic label: 12 reasons were empty; others included layer/footprint corrections, but also map title, legend, SLD/visualization, AOI name, and metadata. This count is also agent-run on the same subset. Thus “ever received v2/v3” better represents **QC rework/revision** than flood-area error. If the model targets thematic revision only, reasons need a consistent taxonomy and annotation; do not force empty/ambiguous reasons into the negative class.
 
-## Prior art yang terlewat dalam laporan FloodWitness
+## Prior art missed in the FloodWitness report
 
-Halaman **CEMS Flood Archive Ledger** di situs OCHA-DAP, bertanggal generasi 4 September 2026, melaporkan 302 aktivasi banjir, 3.611 baris ledger, 2.884 dari 2.888 ZIP yang diarsip, hash SHA-256 dan inventaris anggota ZIP, serta 2.963 upaya transfer dalam jurnal `transfers.jsonl` append-only. Halaman juga menunjukkan data harmonisasi poligon dan katalog label banjir. Repository publik menyebut pipeline `cems_flood`. [Halaman arsip](https://ocha-dap.github.io/ds-geospatial-impact-estimates/cems-flood-archive/) · [Repository OCHA-DAP](https://github.com/OCHA-DAP/ds-geospatial-impact-estimates) · [Viewer label banjir](https://ocha-dap.github.io/ds-geospatial-impact-estimates/cems-flood-labels/)
+The OCHA-DAP **CEMS Flood Archive Ledger** page, generated 4 September 2026, reports 302 flood activations, 3,611 ledger rows, 2,884 of 2,888 ZIPs archived, SHA-256 and ZIP-member inventories, and 2,963 transfer attempts in an append-only `transfers.jsonl` journal. The page also shows harmonized polygon data and a flood-label catalog. Its public repository names a `cems_flood` pipeline. [Archive page](https://ocha-dap.github.io/ds-geospatial-impact-estimates/cems-flood-archive/) · [OCHA-DAP repository](https://github.com/OCHA-DAP/ds-geospatial-impact-estimates) · [Flood-label viewer](https://ocha-dap.github.io/ds-geospatial-impact-estimates/cems-flood-labels/)
 
-Angka dan kelengkapan arsip di atas adalah **hasil yang dipublikasikan pemilik sistem**; audit ini tidak mengunduh arsip/parquet atau menghitung ulang hash dan jumlah. Halaman menandai lingkungan sebagai `dev`. Temuan tersebut membuktikan adanya prior art publik yang sangat dekat, bukan bahwa sistem itu sudah menjadi layanan produksi atau menyelesaikan seluruh kebutuhan FloodWitness.
+The archive counts/completeness above are **published by the system owner**; this audit did not download the archive/parquet or recompute hashes/counts. The page marks its environment as `dev`. This establishes very close public prior art, not that the system is a production service or satisfies every FloodWitness need.
 
-### Dampak pada diferensiasi
+### Effect on differentiation
 
-FloodWitness tidak seharusnya mengklaim kebaruan untuk:
+FloodWitness should not claim novelty for:
 
-- mengarsipkan produk banjir CEMS;
-- mencatat hash SHA-256 dan isi ZIP;
-- menunjukkan file yang gagal/tidak tersedia;
-- menyimpan jurnal transfer append-only;
-- menampilkan label atau geometri banjir CEMS sepanjang waktu.
+- archiving CEMS flood products;
+- recording SHA-256 hashes and ZIP contents;
+- showing unavailable/failed files;
+- maintaining an append-only transfer journal;
+- displaying CEMS flood labels or geometries over time.
 
-Kemungkinan diferensiasi yang belum dibuktikan sama dengan OCHA ialah: komitmen timestamp publik lintas organisasi, graf supersession yang secara khusus menghubungkan koreksi QC v1→v2/v3, diff geometri antarversi untuk produk yang sama, dan model triase sebelum koreksi terjadi. OCHA menyimpan file bernama dengan penanda versi dan memiliki log; audit ini belum memeriksa kode/data cukup untuk menyatakan OCHA tidak mempunyai graf versi atau perbandingan tertentu.
+Potential differentiation not proven to match OCHA includes public cross-organization timestamp commitments, a supersession graph specifically linking QC corrections v1→v2/v3, geospatial diffs between versions of the same product, and triage models before a correction occurs. OCHA stores version-marked filenames and has a log; this audit did not inspect enough code/data to claim OCHA lacks a version graph or particular comparisons.
 
-Selain itu, ESA telah menyelesaikan EO-Claim Ledger: MVP untuk klaim asuransi berbasis citra satelit dan blockchain. Jadi “citra bumi + banjir + hash/kontrak” juga bukan kebaruan. [ESA EO-Claim Ledger](https://business.esa.int/projects/eo-claim-ledger)
+Also, ESA has completed EO-Claim Ledger: an MVP for satellite-imagery-based insurance claims using blockchain. Therefore “earth imagery + flood + hash/contract” is not novel either. [ESA EO-Claim Ledger](https://business.esa.int/projects/eo-claim-ledger)
 
-## Masalah validasi AI
+## AI validation problem
 
-Target `revised later` masuk akal sebagai **proxy koreksi/penolakan QC**, bukan label “peta awal salah” atau “banjir terdeteksi keliru”. Tetapi model membutuhkan dua hal berbeda:
+`revised later` is plausible as a **proxy for QC correction/rejection**, not a label for “initial map was wrong” or “flood was misdetected.” A model needs two different things:
 
-1. outcome yang menunjukkan produk akhirnya mempunyai versi QC lebih tinggi; dan
-2. fitur yang benar-benar diketahui saat produk awal pertama kali diterbitkan.
+1. an outcome showing that the product eventually got a higher QC version; and
+2. features actually known when the initial product was first published.
 
-Metadata terkini dapat menunjukkan nomor versi akhir, tetapi tidak dengan sendirinya menyimpan snapshot lengkap fitur v1. Jika fitur yang dipakai berasal dari v2/v3, model mengalami kebocoran masa depan. Untuk tiap baris training, harus ada bukti waktu tangkap v1, metadata dan berkas versi awal, serta waktu revisi berikutnya. Jika itu tidak dapat direkonstruksi, jangan melaporkan backtest revision-risk.
+Current metadata may show the final version number, but does not by itself retain a complete v1 feature snapshot. If features come from v2/v3, the model leaks future data. Each training row needs evidence of v1 capture time, initial-version metadata/file, and time of the next revision. If that cannot be reconstructed, do not report a revision-risk backtest.
 
-Target juga perlu mengecualikan aktivasi sensitif, produk yang belum selesai, status `N`, produk baru yang ditambahkan setelah aktivasi, dan monitoring operasional. Produk tanpa revisi sampai waktu snapshot belum tentu negatif; sebagian masih dapat disensor karena belum cukup waktu untuk direvisi. Gunakan split berdasarkan waktu dan aktivasi, bukan pengacakan produk/poll.
+The target should also exclude sensitive activations, unfinished products, status `N`, products added after activation, and operational monitoring. Products with no revision by the snapshot time are not necessarily negative; some may be censored because not enough time has elapsed for revision. Split by time and activation, not by random product/poll.
 
-Gerbang data pada laporan awal belum cukup hanya dengan jumlah “produk berlabel”. Tambahkan syarat:
+The original report's data gate cannot rely only on a count of “labeled products.” Add these requirements:
 
-- dapat mengambil atau memulihkan versi awal beserta timestamp pertamakalinya terlihat;
-- tiap prediktor dibuktikan tersedia sebelum outcome;
-- label v2/v3 berasal dari revisi QC, bukan produk monitoring atau release parsial;
-- status belum selesai/sensitif dipisahkan atau disensor secara tepat;
-- baseline dan hasil diuji pada aktivasi yang tidak muncul di train.
+- retrieve or recover the initial version and timestamp of its first visibility;
+- prove each predictor was available before the outcome;
+- ensure v2/v3 labels come from QC revisions, not monitoring products or partial releases;
+- separate/censor unfinished or sensitive statuses appropriately;
+- test the baseline/result on activations absent from training.
 
-Polling 48 jam dapat menguji apakah recorder, hashing, dan verifier bekerja; ia tidak membuktikan prevalensi revisi atau mutu model, dan revisi nyata mungkin tidak terjadi selama periode itu.
+48-hour polling can test recorder, hashing, and verifier operation; it cannot establish revision prevalence or model quality, and an actual revision may not occur during that period.
 
-## Batas nilai blockchain
+## Blockchain value limits
 
-Kontrak Sepolia dapat membuktikan bahwa hash tertentu tercatat oleh suatu wallet sebelum waktu blok tertentu dan bahwa file yang diubah tidak lagi cocok dengan hash tersebut. Ia tidak membuktikan bahwa bytes berasal dari CEMS, bahwa timestamp tangkap benar, bahwa semua versi tercatat, atau bahwa peta menggambarkan banjir dengan benar. `INGESTER_ROLE` mengesahkan wallet menurut kontrak, bukan menurut Copernicus.
+A Sepolia contract can prove that a particular hash was recorded by a wallet before a block time and that a changed file no longer matches that hash. It cannot prove bytes came from CEMS, the capture timestamp is correct, all versions were captured, or the map correctly depicts a flood. `INGESTER_ROLE` authorizes a wallet under the contract, not on behalf of Copernicus.
 
-OCHA sudah menunjukkan hash SHA dan jurnal append-only di penyimpanan cloud. Untuk menjustifikasi blockchain, FloodWitness perlu menunjukkan siapa pihak independen yang akan memverifikasi atau menulis bukti dan mengapa tanda tangan/log transparansi biasa tidak cukup. Kalau seluruh collector, storage, wallet, dan model dikendalikan tim yang sama, klaim manfaat ledger harus dibatasi pada verifikasi publik independen atas timestamp/hash.
+OCHA already demonstrates SHA hashes and an append-only journal in cloud storage. To justify blockchain, FloodWitness needs to identify independent parties that would verify/write evidence and explain why ordinary signatures/transparency logs are insufficient. If one team controls the collector, storage, wallet, and model, ledger claims should be limited to independent public verification of timestamp/hash.
 
-## Rekomendasi keputusan
+## Decision recommendation
 
-**Belum GO untuk FloodWitness sebagai rekomendasi final.** Jalankan sprint falsifikasi hanya jika delapan jam pertama dapat:
+**Not GO for FloodWitness as the final recommendation yet.** Run a falsification sprint only if the first eight hours can:
 
-1. menghitung produk Flood terkini menurut jenis produk, status, `monitoringNumber`, dan versi;
-2. menguji langsung apakah ZIP v1 untuk contoh yang kini berstatus v2 dapat diunduh, tanpa mengasumsikan URL lama valid;
-3. mengukur berapa produk yang mempunyai bukti first-seen v1 dan revisi QC sesudahnya;
-4. membandingkan fitur pra-revisi yang dapat dipulihkan dengan fitur final untuk mendeteksi kebocoran;
-5. meminta atau memeriksa artefak OCHA-DAP yang relevan dan membandingkan cakupan/fitur secara eksplisit.
+1. count current Flood products by product type, status, `monitoringNumber`, and version;
+2. directly test whether a v1 ZIP for an example now at v2 can be downloaded, without assuming old URLs are valid;
+3. measure how many products have first-seen v1 evidence and later QC revisions;
+4. compare recoverable pre-revision features with final features to detect leakage;
+5. request or inspect relevant OCHA-DAP artifacts and explicitly compare scope/features.
 
-Jika versi awal dan prediktor pra-revisi tidak dapat direkonstruksi, hentikan klaim AI revision-risk. FloodWitness masih dapat menjadi demo provenance, tetapi harus bersaing langsung dengan arsip OCHA yang sudah ada; itu belum cukup membuktikan keunggulan di aspek Innovation atau Practical Usefulness. Bandingkan kembali dengan CoolingProof dan ShiftProof menggunakan bukti data aktual, bukan skor heuristik.
+If initial versions and pre-revision predictors cannot be reconstructed, stop the AI revision-risk claim. FloodWitness could still demo provenance, but would directly compete with an existing OCHA archive; that does not yet establish superiority in Innovation or Practical Usefulness. Recompare with CoolingProof and ShiftProof using actual data evidence, not heuristic scores.
 
-## Pemisahan status bukti
+## Evidence-status separation
 
-| Status | Pernyataan |
+| Status | Statement |
 |---|---|
-| Terverifikasi dari dokumentasi resmi | v2/v3 dibuat setelah penolakan QC; situs menampilkan versi terbaru; API mendokumentasikan satu objek versi terkini; monitoring operasional memiliki field terpisah. |
-| Terlihat pada halaman OCHA-DAP | Arsip mengklaim ZIP, hash, manifest/inventaris, jurnal append-only, dan harmonisasi data CEMS flood. Tidak diverifikasi ulang dari storage/parquet. |
-| Probe agen | Hitungan API untuk 100 aktivasi terpilih dan subhimpunan Flood; non-random, tidak disimpan sebagai snapshot mentah, bukan hasil model. |
-| Inferensi | FloodWitness dapat berbeda melalui first-seen public commitment, QC supersession graph, geospatial version diff, atau prediksi risiko revisi. Belum ada evaluasi/pengguna yang membuktikannya. |
-| Belum diketahui | Apakah v1 yang ditolak pernah dapat diakses publik; apakah URL lama lain masih hidup (satu URL EMSR930 v1 menghasilkan 404); jumlah seluruh produk Flood yang benar-benar direvisi; apakah ada fitur historis yang bebas kebocoran; serta apakah pengguna memerlukan blockchain. |
+| Verified from official documentation | v2/v3 follow QC rejection; site shows latest version; API documents one current-version object; operational monitoring has separate fields. |
+| Visible on OCHA-DAP page | Archive reports ZIPs, hashes, manifests/inventories, append-only journal, and harmonized CEMS flood data. Not recomputed from storage/parquet. |
+| Agent probe | API counts for selected 100 activations and Flood subset; non-random, raw snapshot not saved, not a model result. |
+| Inference | FloodWitness might differentiate through first-seen public commitment, QC supersession graph, geospatial version diff, or revision-risk prediction. No user/model evaluation proves this. |
+| Unknown | Whether rejected v1 was ever public; whether other old URLs still work (one EMSR930 v1 URL returned 404); total Flood products actually revised; whether historical features can be reconstructed without leakage; whether users need blockchain. |

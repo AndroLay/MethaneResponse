@@ -1,77 +1,74 @@
-# Render Free preview — 21 Oktober 2026
+# Render Free preview — 21 October 2026
 
-**Aplikasi:** https://methaneresponse-preview.onrender.com/dashboard
+**Application:** https://methaneresponse-preview.onrender.com/dashboard
 
-**Status yang diperiksa:** deployment `dep-dbbunbv4695c73eb958g` **live**, source
-`98b25ca0af1e3e2df7ca9084c1569db1b6712a1e`, satu layanan
-`methaneresponse-preview`, Andro's workspace, Singapore, plan **Free**,
-auto-deploy branch **off**. Tidak ada database, disk berbayar atau signer.
-Konfigurasi provider disimpan melalui environment backend privat.
+**State verified on this date:** live deployment `dep-dbbunbv4695c73eb958g`,
+source `98b25ca0af1e3e2df7ca9084c1569db1b6712a1e`; one service named
+`methaneresponse-preview` in Andro's workspace, Singapore, plan **Free**, branch
+auto-deploy **off**. No database, paid disk or signer. Provider configuration is
+stored in private backend environment variables. This dated record is not a claim
+about the latest deployed revision.
 
-[Ringkasan verifikasi](verification.json) ·
-[Dashboard Render](https://dashboard.render.com/web/srv-dbbumltg1s2s73e8cct0)
+[Verification](verification.json) ·
+[Render dashboard](https://dashboard.render.com/web/srv-dbbumltg1s2s73e8cct0)
 
-## Bukti pada target publik
+## Public-target evidence
 
-- `/api/health` HTTP 200, casebook tersedia dan single-writer launcher `flock`
-  berjalan. Preview secara eksplisit berstatus `auditState: ephemeral`.
-- `/dashboard` dan Evidence Auditor dibuka pada Chromium 156 aktual. Setelah
-  basemap selesai dimuat, globe menampilkan **4.218 sumber** dari snapshot
-  **30.414 plume records**, canvas tersedia dan tidak ada overflow horizontal
-  pada viewport desktop 1440 px. Ini bukan pengukuran FPS atau HP fisik.
-- `/api/intelligence/status`: document model aktif, mode
-  `server-side-document-assessment`.
-- Melalui formulir browser: satu excerpt DEMO milik proyek → provider nyata →
-  HTTP 201, `insufficient_evidence`, satu kutipan exact, model
-  `deepseek-v4.1-flash-1017`, hash/envelope bundle valid; sekitar **3.248 ms**
-  untuk assessment dan respons UI pada satu percobaan.
-- Assessment tanpa token: HTTP 401. Read laporan privat tanpa otorisasi: HTTP 404.
-- Pada deployment terakhir, token + body tidak valid menghasilkan HTTP 400
-  sebelum model dipanggil; konfigurasi benar-benar tersedia setelah rollout.
-- Tidak ada `pageerror` pada perjalanan browser tersebut. Ini bukan audit
-  seluruh console, cakupan semua layer eksternal atau jaminan bebas bug.
+- `/api/health` returned HTTP 200; the casebook and single-writer `flock` launcher
+  were available. The preview explicitly reported `auditState: ephemeral`.
+- Real Chromium 156 rendered Dashboard and Evidence Auditor. After basemap loading,
+  the globe showed **4,218 sources** from **30,414 plume records**. Canvas was present
+  and desktop viewport 1440 px had no horizontal overflow. This is not an FPS or
+  physical-phone measurement.
+- `/api/intelligence/status` reported the document model configured, in
+  `server-side-document-assessment` mode.
+- A project-authored DEMO excerpt submitted through the browser reached the real
+  provider: HTTP 201, `insufficient_evidence`, one exact quotation,
+  `deepseek-v4.1-flash-1017`, valid hash/envelope. One trial took approximately
+  **3,248 ms** for assessment and UI response.
+- Missing assessment token: HTTP 401. Unauthorized private-report read: HTTP 404.
+  A valid token with an invalid body returned HTTP 400 before any model call on
+  the final deployment. Configuration was available after rollout.
+- No `pageerror` occurred in that journey. This does not certify every console
+  message, external layer or application path.
 
-Screenshot aktual tersedia: [dashboard/globe selesai dimuat](dashboard-ready-public.png)
-dan [assessment DeepSeek DEMO](deepseek-public.png). SHA-256 dicatat pada ringkasan.
-Runner dan detail lokal ada di `delivery-output/render-2026-10-21/`.
-Token sesi dikosongkan sebelum screenshot assessment; trace berkredensial tidak
-direkam. Dokumen DEMO tidak dipublikasikan sebagai bukti mitigasi nyata.
+Screenshots: [loaded globe](dashboard-ready-public.png) and
+[DeepSeek DEMO assessment](deepseek-public.png). Their SHA-256 values are in the
+summary. Local runner details remain in `delivery-output/render-2026-10-21/`.
+The session token was cleared before capturing the assessment. Credential-bearing
+traces were not recorded. DEMO text is not published as real mitigation evidence.
 
-## Operasi dan batas
+## Operation and limits
 
-Ini preview yang dibatasi, bukan hosting workspace privat lengkap. Review manusia,
-publikasi laporan privat, signing dan chain write **tidak diaktifkan**. Jalur
-baseline anonim hanya untuk tiga curated sources; perencanaan preview mengikuti
-scope publik tersebut. Peta memakai snapshot historis yang dibundel.
+This is a restricted preview. Human review, private-report publication, signing
+and blockchain writes are **disabled**. Anonymous baseline operations support
+three curated sources; preview planning follows that scope. The map uses a bundled
+historical snapshot.
 
-File JSON `/tmp` dapat hilang saat tidur/restart/redeploy. Field health
-`storage.persistent: true` menyatakan backend file, bukan jaminan penyimpanan
-durabel Render; gunakan `preview.auditState` dan banner UI untuk konteks hosting.
-Unduh laporan yang perlu dipertahankan. Jangan mengunggah dokumen rahasia.
+JSON files under `/tmp` may disappear on sleep, restart or redeploy. Health field
+`storage.persistent: true` identifies a file backend, not durable Render storage;
+read `preview.auditState` and the UI banner. Download records that must survive.
+Do not upload confidential documents.
 
-Layanan dibuat lewat MCP dengan health check platform TCP default; tool create
-tidak menyediakan parameter HTTP health check. `/api/health` diperiksa langsung.
-`render.yaml` tetap menyediakan HTTP check untuk deployment Blueprint berikutnya.
-Mengubah environment lewat konektor dapat menjadwalkan deploy meskipun auto-deploy
-branch mati; periksa `list_deploys` sebelum memanggil trigger tambahan.
+MCP creation used the platform's default TCP health check because the creation
+tool lacked an HTTP-health-check parameter. `/api/health` was checked directly;
+`render.yaml` retains an HTTP check for future Blueprint deployment. Updating
+environment variables through the connector may schedule deployment even with
+branch auto-deploy off; inspect `list_deploys` before triggering another.
 
-Pengguna memberi persetujuan eksplisit pembuatan Free setelah diberi tahu bahwa
-kontrol billing workspace tidak dapat dibaca. Plan Free telah dikonfirmasi pada
-service; **bukan jaminan seluruh pemakaian workspace Rp0**. API AI memakai kredit/
-biaya provider terpisah. Detail [batas Render Free](https://render.com/docs/free).
+The user approved creating Free after being informed that workspace billing
+controls could not be read. The service plan was verified as Free; **this is not
+a workspace-wide zero-cost guarantee**. AI-provider usage has separate credit/cost.
+See [Render Free limits](https://render.com/docs/free).
 
-Rollback: suspend hanya layanan ini atau deploy ulang revisi kode yang disetujui;
-tidak mengubah layanan Evidrilo, plan workspace atau billing. Tidak ada Sepolia
-atau dana blockchain yang digunakan. Pilot manusia, HP fisik dan benchmark
-independen provider tetap belum diselesaikan.
+Rollback applies only to this service: suspend it or redeploy an approved revision.
+Do not change Evidrilo, workspace plans or billing. No Sepolia funds were used.
+Human pilots, physical-phone tests and independent model benchmarks remain pending.
 
-## Revisi source dan dokumentasi
+## Source and CI recorded at the time
 
-Runtime yang diverifikasi adalah `98b25ca`; pembaruan bukti/dokumentasi sesudahnya
-tidak mengubah runtime karena auto-deploy branch mati. Tidak diperlukan deploy
-tambahan untuk menerbitkan catatan ini.
-
-## CI pada source runtime
-
-[Run 39508503751](https://github.com/AndroLay/MethaneResponse/actions/runs/39508503751)
-pada `98b25ca`: job kontrak dan data pipeline lulus; job JavaScript masih berjalan saat catatan ini dibuat. Tidak ada klaim full CI hijau sebelum run selesai. Status dan waktu pengamatan dicatat dalam `verification.json`.
+The verified runtime was `98b25ca`. Later documentation updates did not change it
+because branch auto-deploy was off. Publishing this record needed no extra deploy.
+At [run 39508503751](https://github.com/AndroLay/MethaneResponse/actions/runs/39508503751),
+contracts and pipeline passed while JavaScript was still running when this record
+was written. `verification.json` records that observation; it is not a full-CI pass.

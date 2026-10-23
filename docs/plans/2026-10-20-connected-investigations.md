@@ -1,57 +1,57 @@
-# Investigasi terhubung dan berversi
+# Connected, Versioned Investigations
 
-## Keputusan produk yang disetujui
+## Approved product decision
 
-MethaneResponse membantu tim memilih investigasi sesuai kapasitas, memeriksa klaim terhadap bukti, meminta tindak lanjut yang spesifik, lalu mempertanggungjawabkan keputusan dan revisinya. Arah ini dibekukan untuk pengembangan berikutnya. Keunggulan dan kemenangan kompetisi harus dibuktikan; jumlah kode atau tes bukan ukuran manfaat lapangan.
+MethaneResponse helps teams select investigations within their capacity, check claims against evidence, request specific follow-up, and account for decisions and revisions. This direction is frozen for subsequent development. Competitive advantage and a competition win must be demonstrated; code or test counts do not measure field benefit.
 
-Alur inti: **pilih sumber → alasan alokasi → klaim dan periode → bukti → permintaan tindak lanjut → keputusan reviewer → pemeriksaan ulang bila data berubah → verifikasi integritas**.
+Core workflow: **select a source → allocation rationale → claim and period → evidence → follow-up request → reviewer decision → recheck if data changes → integrity verification**.
 
-- Adaptasi PLUME: penanggung jawab, tenggat dan persyaratan bukti yang jelas.
-- Adaptasi HourMatch: AI mengekstrak klaim menjadi bidang terstruktur; kode memeriksa tanggal, fasilitas, unit dan kutipan; reviewer memutuskan.
-- Adaptasi CanopyProof/CarbonTwin: hubungan bukti–keputusan dan pemeriksaan ulang akibat perubahan data yang relevan; riwayat lama dipertahankan.
-- Adaptasi Kanopy/CarbonTwin: kandidat klaim hasil yang berulang diperiksa manusia. Pemakaian satu dokumen untuk beberapa pertanyaan dapat sah.
-- Adaptasi Uncounted: ketidakpastian, cakupan observasi dan reproduksi diperlihatkan secara eksplisit.
+- PLUME adaptation: clear owners, deadlines, and evidence requirements.
+- HourMatch adaptation: AI extracts claims into structured fields; code checks dates, facilities, units, and citations; a reviewer decides.
+- CanopyProof/CarbonTwin adaptation: link evidence to decisions and recheck after relevant data changes; preserve prior history.
+- Kanopy/CarbonTwin adaptation: candidates for repeated outcome claims receive human review. One document may validly support multiple questions.
+- Uncounted adaptation: make uncertainty, observation coverage, and reproducibility explicit.
 
-Rujukan: [PLUME](https://github.com/KaavinB/PLUME), [HourMatch](https://devpost.com/software/hourmatch), [CanopyProof](https://github.com/Thanatos9404/canopyproof), [Kanopy](https://devpost.com/software/kanopy), [CarbonTwin](https://devpost.com/software/carbontwin-release-steward), [Uncounted](https://devpost.com/software/uncounted-verifiable-ledger-for-wildfire-war-emissions), [kerangka respons IEA–IMEO](https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system). Ini adaptasi desain, bukan klaim integrasi atau dukungan dari proyek/organisasi tersebut.
+References: [PLUME](https://github.com/KaavinB/PLUME), [HourMatch](https://devpost.com/software/hourmatch), [CanopyProof](https://github.com/Thanatos9404/canopyproof), [Kanopy](https://devpost.com/software/kanopy), [CarbonTwin](https://devpost.com/software/carbontwin-release-steward), [Uncounted](https://devpost.com/software/uncounted-verifiable-ledger-for-wildfire-war-emissions), [IEA–IMEO response framework](https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system). These are design adaptations, not claims of integration with or endorsement by those projects/organizations.
 
-## Batas dan baseline
+## Boundaries and baseline
 
-Pemilik implementasi: agen utama pada checkout aktif. Baseline HEAD `8e19c034e666a6b00d93b4cb3f5747f563c75aab`; 97 path telah berubah sebelum increment ini. Pertahankan semuanya dan seluruh paket evidence terdahulu. Tetap React/MapLibre, Bun/Hono/Zod, Python, EvidenceRegistry; file store satu writer, tanpa database/dependensi/deployment baru.
+Implementation owner: primary agent in the active checkout. Baseline HEAD `8e19c034e666a6b00d93b4cb3f5747f563c75aab`; 97 paths had changed before this increment. Preserve all of them and all earlier evidence packages. Retain React/MapLibre, Bun/Hono/Zod, Python, and EvidenceRegistry; single-writer file store, with no new database/dependency/deployment.
 
-Feedback bukan repair; absennya observasi bukan emisi nol; hash bukan kebenaran fisik. Persetujuan alokasi bukan konfirmasi mitigasi. AI berada di backend dan harus dibandingkan dengan baseline. Akses reviewer tetap signed token + current directory authority. Persetujuan historis harus ditampilkan sebagai historis, bukan mandat terkini.
+Feedback is not a repair; missing observations do not mean zero emissions; a hash is not physical truth. Allocation approval is not confirmation of mitigation. AI stays in the backend and must be compared with a baseline. Reviewer access remains a signed token plus current directory authority. Historical approvals must be shown as historical, not as current mandates.
 
-## Increment implementasi sekarang
+## Current implementation increment
 
-Satu investigasi memakai casework yang sudah ada, ditambah referensi opsional ke versi persetujuan rencana dan laporan perubahan snapshot. Kriteria penerimaan bukti dicatat bersama permintaan. Server memvalidasi semua hubungan; ekspor menyertakan riwayat pekerjaan, rencana terkait, laporan perubahan dan bundle assessment terkait. Verifier memeriksa hash terpisah, replay dan hubungan lintas artefak. API/audit/receipt lama tetap kompatibel.
+One investigation uses the existing casework, with optional references to an approved plan version and a snapshot-change report. Evidence acceptance criteria are recorded with the request. The server validates all relationships; the export includes work history, the related plan, the change report, and the related assessment bundle. The verifier checks separate hashes, replay, and cross-artifact relationships. Existing APIs/audits/receipts remain compatible.
 
-- [x] Regresi: tautan rencana yang salah, sumber di luar alokasi, snapshot berbeda, head/revisi palsu, assessment berbeda, perubahan+rehash, akses privat dan CAS.
-- [x] Shared: schema tautan, dossier canonical SHA-256, validasi hubungan dan verifier independen.
-- [x] Backend: validasi tautan sebelum save, ekspor bounded/no-store, pemeriksaan ulang otorisasi, tanpa URL/path input dari pengguna.
-- [x] UI: lampirkan versi rencana yang diterima, acceptance criteria, pemeriksaan perubahan yang eksplisit, ekspor dossier dari shared casework; loading/error/conflict/draft dipertahankan.
-- [x] Pembuktian: unit/integrasi/CLI/browser, screenshot desktop/mobile aktual, build/bundle/checks; catat lingkungan dan blocker secara tepat.
-- [x] Review akhir dan dokumentasi hasil pada paket evidence baru; jangan mengubah artefak beku sebelumnya.
+- [x] Regressions: wrong plan link, source outside the allocation, changed snapshot, forged head/revision, mismatched assessment, change plus rehash, private access, and CAS.
+- [x] Shared layer: link schema, canonical SHA-256 dossier, relationship validation, and independent verifier.
+- [x] Backend: validate links before save, bounded/no-store export, recheck authorization, accept no user-supplied URL/path.
+- [x] UI: attach the accepted plan version, acceptance criteria, explicit change review, and export dossier from shared casework; preserve loading/error/conflict/draft states.
+- [x] Evidence: unit/integration/CLI/browser checks, actual desktop/mobile screenshots, build/bundle/checks; record environment and blockers precisely.
+- [x] Final review and results documentation in a new evidence package; do not alter earlier frozen artifacts.
 
-File utama: `packages/shared/src/investigation-links.ts`, `investigation-dossier.ts`, `apps/api/src/investigation-dossier.ts`, casework routes, `apps/web/src/SharedCaseWorkPanel.tsx` dan panel tambahan yang lazy; `scripts/verify-investigation.ts` dan tes terkait. Pengujian memakai `bun run check`, `test:api`, `test:web`, `test:verifier`, `build:web`, `check:web-bundle`, serta E2E sesuai runner yang ada.
+Main files: `packages/shared/src/investigation-links.ts`, `investigation-dossier.ts`, `apps/api/src/investigation-dossier.ts`, casework routes, `apps/web/src/SharedCaseWorkPanel.tsx` and the lazy-loaded supplemental panel; `scripts/verify-investigation.ts` and related tests. Checks use `bun run check`, `test:api`, `test:web`, `test:verifier`, `build:web`, `check:web-bundle`, and E2E through the existing runner.
 
-## Tahap berikutnya yang tetap dicatat
+## Remaining follow-up work
 
-1. AI pada dokumen nyata berizin: ekstraksi terstruktur, exact citations, ketidaksesuaian tanggal/fasilitas, permintaan bukti; ukur terhadap baseline dan catat salah konfirmasi/abstention.
-2. Hubungkan perubahan bukti dengan review baru pada scope yang sama; jangan mengubah verdict historis otomatis. Duplikasi klaim memakai kesamaan kejadian/tindakan/periode dan konfirmasi manusia.
-3. Anchor dossier yang telah direview lewat integrasi yang kompatibel, transaksi lokal nyata dan verifier kontrak independen. Public-chain deployment/funds mengikuti izin yang berlaku dan ketersediaan layanan.
+1. Apply AI to authorized real documents: structured extraction, exact citations, date/facility mismatches, and evidence requests; measure against a baseline and record false confirmation/abstention.
+2. Connect evidence changes to a new review under the same scope; do not automatically change historical verdicts. Identify duplicate claims using event/action/period similarity and human confirmation.
+3. Anchor reviewed dossiers through a compatible integration, a real local transaction, and an independent contract verifier. Public-chain deployment/funds depend on applicable authorization and service availability.
 
-Lanjutan P1 di bawah menutup hubungan respons baru dengan revisit serta anchor lokal nyata. AI live, duplicate-action review lintas investigasi, pilot manusia, pengurangan emisi, chain publik dan manfaat operasional tetap memerlukan pekerjaan/bukti tersendiri.
+The P1 continuation below completes the link between new responses and revisit, plus a real local anchor. Live AI, cross-investigation duplicate-action review, human pilot, emissions reduction, public chain, and operational benefit still require separate work/evidence.
 
-## Lanjutan yang disetujui: seluruh coding P1
+## Approved continuation: all P1 coding
 
-Rujukan implementasi dibaca: `/home/andro/Downloads/MethaneResponse_3_Master_Prompt_Siap_Kirim.md`. P2 live AI/benchmark independen, pilot pakar dan publikasi tetap membutuhkan sumber berizin, layanan atau izin eksternal; jangan memalsukan hasilnya.
+Implementation reference reviewed: `/home/andro/Downloads/MethaneResponse_3_Master_Prompt_Siap_Kirim.md`. P2 live AI/independent benchmark, expert pilot, and publication still require authorized sources, services, or external approval; do not fabricate results.
 
-- [x] M1: tutup E2E dossier terhubung; Node ESM dan workflow browser tercakup kembali pada suite lengkap 12 pemeriksaan privat/tim. Batas impor runtime Playwright diselaraskan, tidak mengubah validasi produk.
-- [x] M2 implementasi: evidence events append-only (issued/response_received/response_reviewed), hash asli dan deklarasi hak, tanggal day/month/year/unknown tanpa membuat hari palsu. Penerimaan untuk assessment bukan konfirmasi mitigasi.
-- [x] M3 implementasi: keputusan membekukan dossier tepat dan digest yang telah diperiksa; scope/assessment wajib, reviewer signed/current, CAS head keputusan dan revisi pekerjaan. Snapshot berikutnya memicu alasan yang spesifik; metadata konteks tidak otomatis membatalkan verdict.
-- [x] M4 implementasi: namespace decision terpisah, EvidenceRegistry lama dipertahankan, receipt di luar payload; satu atomic file dan koordinator pending/nonce untuk audit serta keputusan. Envelope 3 baru hanya bila keputusan tersimpan; envelope lama tetap terbaca. Rollback harus ke versi yang memahami envelope 3 atau backup sebelum perubahan; jangan menulis dengan kode lama.
-- [x] M5: 842 tes gate utama, 28 main + 12 private/team E2E checks (39 browser + satu Node schema check), actual Anvil + CLI, dua operasi casework dan satu publication crash/restart lulus. Focused repeats tidak dihitung sebagai coverage baru.
-- [x] M6: temuan permission, normalization tamper, terminal reconciliation dan revisit ditutup dengan regresi; source/log/ekspor/screenshot aktual disimpan pada [paket bukti baru](../evidence/connected-investigations-2026-10-20/README.md). Sebanyak 98 artefak beku terdahulu tetap utuh.
+- [x] M1: completed connected-dossier E2E; Node ESM and browser workflow were restored to the full suite of 12 private/team checks. Aligned Playwright runtime import boundaries without changing product validation.
+- [x] M2 implementation: append-only evidence events (`issued`/`response_received`/`response_reviewed`), original hash and rights declaration, and day/month/year/unknown dates without inventing a day. Accepting evidence for assessment is not confirmation of mitigation.
+- [x] M3 implementation: freeze the exact dossier and reviewed digest for a decision; require scope/assessment and a current signed reviewer; use CAS for decision head and work revision. A later snapshot triggers a specific reason; contextual metadata does not automatically invalidate a verdict.
+- [x] M4 implementation: separate decision namespace, preserve existing EvidenceRegistry, keep receipt outside the payload; use one atomic file and pending/nonce coordinator for audits and decisions. New envelope 3 is written only when a decision is stored; old envelopes remain readable. Rollback requires a version that understands envelope 3 or a backup made before the change; do not write with old code.
+- [x] M5: 842 main-gate tests, 28 main + 12 private/team E2E checks (39 browser + one Node schema check), actual Anvil + CLI, two casework operations, and one publication crash/restart passed. Focused repeats do not count as new coverage.
+- [x] M6: permission, normalization-tamper, terminal-reconciliation, and revisit findings were closed with regressions; actual source/log/export/screenshots are in the [new evidence package](../evidence/connected-investigations-2026-10-20/README.md). All 98 earlier frozen artifacts remain unchanged.
 
-Reproduksi final juga menjalankan gate pada salinan source tanpa `node_modules` dengan frozen install dari cache. Seluruh 842 tes/build/budget lulus; 414 runtime/config files serta data pins cocok dengan source aktif. Percobaan unduhan cache baru yang dihentikan dicatat terpisah; bukan hasil lulus atau syarat layanan publik.
+Final reproduction also ran the gate on a source copy without `node_modules`, using a frozen install from cache. All 842 tests/build/budget checks passed; 414 runtime/config files and data pins matched the active source. The stopped attempt to download a new cache is recorded separately; it is not a passing result or a public-service requirement.
 
-Batas prototipe: file store satu writer, tanpa database/dependensi baru, API body casework 16 KiB / riwayat 100 revisi / 40 evidence events / decision store 100 keputusan / total state 64 MiB. Dokumen tidak otomatis diunduh atau dikirim ke AI. File hash/rights pada response adalah deklarasi sampai diperiksa. On-chain hanya key opaque dan digest; tidak ada publish/upload/deploy otomatis.
+Prototype limits: one-writer file store, no new database/dependencies, casework API body 16 KiB / history 100 revisions / 40 evidence events / decision store 100 decisions / total state 64 MiB. Documents are not automatically downloaded or sent to AI. Hash/rights values in a response are declarations until checked. Only opaque keys and digests go on-chain; no automatic publishing/upload/deployment.

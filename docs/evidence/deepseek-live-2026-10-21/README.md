@@ -1,49 +1,47 @@
-# DeepSeek live-provider smoke — 21 Oktober 2026
+# DeepSeek live-provider smoke test — 21 October 2026
 
-**Hasil:** 3/3 skenario DEMO lulus melalui route Hono dan provider nyata;
-5 panggilan HTTP 200, model respons `deepseek-v4.1-flash-1017` pada semuanya.
-Ringkasan mesin: [smoke-summary.json](smoke-summary.json).
+**Result:** all three DEMO scenarios passed through Hono and the real provider.
+Five provider calls returned HTTP 200 and `deepseek-v4.1-flash-1017`.
+See [smoke-summary.json](smoke-summary.json).
 
-| Skenario dokumen DEMO | Verdict tersimpan | Waktu total assessment |
+| Project-authored DEMO document | Stored verdict | Total assessment time |
 |---|---|---:|
-| Dokumen menyatakan deteksi sumber | `supported` | 7.420 ms |
-| Respons administratif tanpa verifikasi mitigasi | `insufficient_evidence` | 3.538 ms |
-| Ledger secara eksplisit menyangkal notifikasi pada tanggal klaim | `contradicted` | 4.268 ms |
+| Explicit source detection | `supported` | 7,420 ms |
+| Administrative response without mitigation verification | `insufficient_evidence` | 3,538 ms |
+| Ledger explicitly contradicting notification on the claimed date | `contradicted` | 4,268 ms |
 
-Ketiga respons API HTTP 201 memiliki bundle dengan hash dan envelope valid.
-Strong verdict melewati pemeriksaan kedua oleh provider yang sama dan validasi
-kutipan exact; ini bukan validasi independen. Laporan penuh disimpan privat di
-`delivery-output/deepseek-live-2026-10-21/live-smoke.json`, dengan checksum pada
-ringkasan. Hasil direkam pada working tree berdasarkan `b3f96a0` yang sudah
-dimodifikasi; jangan mengatribusikannya ke source `b3f96a0` yang belum berubah.
-Reproduksi melalui [panduan integrasi](../../development/deepseek-integration.md).
+All three API responses returned HTTP 201 with valid bundle hashes and envelopes.
+Strong verdicts passed a second assessment by the same provider and exact-quotation
+validation. This is not independent validation. The private report is
+`delivery-output/deepseek-live-2026-10-21/live-smoke.json`; its checksum is recorded
+in the summary. The run used a modified working tree based on `b3f96a0`, not the
+unchanged commit. Reproduction: [integration guide](../../development/deepseek-integration.md).
 
-## Pemeriksaan software baru
+## Software verification recorded for this run
 
-- `bun run check`: lulus (API, web, browser/evaluation tooling typecheck).
-- `bun run test:api`: 301 lulus, 0 gagal.
-- `bun run test:verifier`: 66 lulus, 0 gagal, termasuk 3 guard live probe.
-- Regresi provider/profile: 11 lulus, sudah termasuk dalam 301 tes API;
-  termasuk penolakan respons yang terpotong setelah batas output ditambahkan.
-- Konfigurasi deployment: 2 lulus, sudah termasuk dalam 66 tooling tests.
-- Workflow browser/schema: 12 lulus (11 perjalanan browser + 1 schema check)
-  pada Chromium headless shell 156 / Playwright 1.64.1, tanpa perubahan assertion,
-  timeout atau sandbox. Menggunakan provider mock terisolasi, bukan 12 evaluasi
-  provider nyata. Build Vite ikut lulus pada runner ini.
-- Percobaan pertama terhenti karena browser default belum terpasang. Chromium
-  sistem 153 menghasilkan 7 pass/5 fail (termasuk protocol response-body error).
-  Unduhan ke /tmp terkena quota tulis; cache browser dipindahkan ke direktori
-  `.playwright-cli/` yang diabaikan Git. Pin Chromium 156 kemudian lulus 12/12.
+- `bun run check`: API, web, browser and evaluation TypeScript checks passed.
+- API: 301 passed, zero failed; verifier: 66 passed, zero failed.
+- The API count includes 11 provider/profile regressions, including rejection of
+  truncated responses after adding an output limit. The verifier count includes
+  three live-probe guards and two deployment-configuration checks.
+- The browser/schema workflow passed 12 checks: 11 browser journeys and one
+  schema check, using Chromium headless shell 156 and Playwright 1.64.1. Assertions,
+  timeouts and sandboxing were unchanged. These used an isolated mock provider;
+  they were not 12 live-provider evaluations. The runner also built Vite.
+- The first attempt lacked the default browser executable. System Chromium 153
+  produced seven passes and five failures, including a response-body protocol
+  error. Downloading into `/tmp` hit its write quota; the ignored `.playwright-cli/`
+  cache then supplied pinned Chromium 156, which passed all 12 checks.
 
-## Interpretasi dan biaya
+## Interpretation and cost
 
-Provider melaporkan total 2.407 token dan biaya USD 0,001001436 untuk lima
-panggilan. Ini metadata respons, bukan audit invoice/pembayaran atau jaminan
-panggilan berikutnya gratis. Deployment Render belum dilakukan karena batas Rp0
-workspace belum terverifikasi; tidak ada biaya Render yang dipicu oleh pekerjaan ini.
+The provider reported 2,407 tokens and USD 0.001001436 for five calls. These are
+response metadata, not an invoice audit or a promise of future free calls.
+Render had not been deployed during this work because its workspace-wide zero-cost
+limit could not be verified. This work triggered no Render charge.
 
-Dokumen uji dikarang proyek, diberi label DEMO, dan hanya berada dalam in-memory
-store sementara. Identifier KAZ_S_159 mengikat route/provenance nyata; kalimat
-DEMO tidak menjadi bukti observasi atau notifikasi nyata. Hasil ini menunjukkan
-kompatibilitas transport dan workflow pada tiga contoh, bukan benchmark akurasi,
-peningkatan atas rules, pilot manusia, atau bukti repair/pengurangan emisi.
+The documents were authored by this project, labeled DEMO and held in a temporary
+in-memory store. KAZ_S_159 binds the real route and historical provenance; DEMO
+sentences do not become observational or notification evidence. This demonstrates
+transport and workflow compatibility on three examples, not accuracy, superiority
+over rules, human usefulness, equipment repair or emissions reduction.

@@ -1,29 +1,29 @@
-# Shared casework untuk tim kecil melalui satu writer
+# Shared casework for a small team with one writer
 
-- **Status:** Accepted untuk implementasi lokal P1 yang diminta pemilik pada 17 Oktober 2026.
-- **Melanjutkan:** [ADR tanpa database](2026-10-15-local-prototype-no-database.md).
-- **Scope:** satu proyek tim, satu proses API, penyimpanan file privat; tanpa layanan database atau deployment baru.
+- **Status:** Accepted for the local P1 implementation requested by the project owner on 17 October 2026.
+- **Continues:** [No-database ADR](2026-10-15-local-prototype-no-database.md).
+- **Scope:** one team project, one API process, private file storage; no database service or new deployment.
 
-## Keputusan
+## Decision
 
-Casework bersama disimpan terpisah dari bundle audit immutable. Setiap perubahan menggunakan expected revision, menyimpan aktor dari signed reviewer token, dan menambahkan versi riwayat. Token `private_read` diperlukan untuk membaca; penulisan memerlukan `private_read` dan `review`. Otoritas claim type di direktori harus masih `operator_attested` pada setiap operasi. Token reviewer legacy tidak memberi akses ke casework bersama.
+Shared casework is stored separately from immutable audit bundles. Each change uses an expected revision, records the actor from the signed reviewer token, and appends a history version. The `private_read` token is required for reading; writes require both `private_read` and `review`. The directory must still grant `operator_attested` authority for the claim type on every operation. Legacy reviewer tokens do not grant access to shared casework.
 
-File casework berada di samping `AUDIT_STORE_PATH`. Launcher API memegang kernel `flock` pada path stabil untuk seluruh masa hidup API, sehingga proses API kedua yang memakai state sama ditolak. File lock tidak dihapus/di-rename. Mutasi dalam proses diserialisasi; snapshot ditulis ke file sementara privat, di-flush, kemudian di-rename dan direktori di-flush. Read/parse gagal tidak diperlakukan sebagai state kosong.
+The casework file is stored beside `AUDIT_STORE_PATH`. The API launcher holds a kernel `flock` on a stable path for the API's entire lifetime, so a second API process using the same state is rejected. The lock file is not deleted or renamed. In-process mutations are serialized; snapshots are written to a private temporary file, flushed, renamed, and followed by a directory flush. Read/parse failures are not treated as empty state.
 
-Browser tetap mendukung casework lokal. Impor ke workspace bersama adalah create eksplisit dengan preview, tidak menghapus sumber lokal atau menimpa investigasi server. Token hanya berada di memori; draft recovery tidak menyimpan token. Konflik server mempertahankan draft dan memerlukan pengguna meninjau versi terkini sebelum menerapkan perubahan.
+The browser continues to support local casework. Importing into the shared workspace is an explicit create action with a preview; it does not delete the local source or overwrite a server investigation. Tokens remain in memory only; recovery drafts do not store tokens. A server conflict preserves the draft and requires the user to review the latest version before applying changes.
 
-Save pertama juga menyimpan marker inisialisasi durabel sebelum ACK. State yang hilang sesudah itu ditolak, termasuk setelah restart, sampai restore yang eksplisit. Hilangnya seluruh volume beserta marker tetap tidak dapat dibedakan dari instalasi baru. Refresh UI yang gagal menyembunyikan data server lama dan menonaktifkan save sambil mempertahankan draft tab.
+The first save also persists a durable initialization marker before ACK. Missing state after that is rejected, including after a restart, until an explicit restore. Loss of the entire volume, including the marker, remains indistinguishable from a new installation. A failed UI refresh hides stale server data and disables save while preserving the tab draft.
 
-## Ancaman dan batas
+## Threats and limits
 
-- Anggota tanpa otoritas, token expired/revoked, dan penulis yang mengirim identitas aktor sendiri harus ditolak oleh server. List/detail/history tidak boleh membocorkan claim type di luar otoritas.
-- Lost update dicegah CAS di satu writer. Proses yang melewati launcher, filesystem jaringan, multi-instance, dan operator yang mengedit state langsung berada di luar kontrak ini.
-- Catatan disimpan privat dengan izin OS; bukan enkripsi at rest. HTTPS dan volume yang benar-benar persisten diperlukan sebelum penggunaan remote. Keberhasilan localhost tidak membuktikan deployment atau ketahanan volume host.
-- Backup/restore dilakukan ketika API berhenti dan di bawah lock yang sama. Restore memvalidasi schema/riwayat; tidak menghapus audit atau mengubah dataset MARS.
-- P1 tidak mengaktifkan anchor atau publikasi baru. Infrastruktur/biaya/deployment baru tetap membutuhkan otorisasi terpisah.
+- Members without authority, expired/revoked tokens, and writers that supply their own actor identity must be rejected by the server. List/detail/history endpoints must not reveal claim types outside the caller's authority.
+- CAS prevents lost updates with one writer. Processes that bypass the launcher, network filesystems, multiple instances, and operators directly editing state are outside this contract.
+- Notes are stored privately with OS permissions; they are not encrypted at rest. HTTPS and a truly persistent volume are required before remote use. Localhost success does not prove a deployment or host-volume durability.
+- Backups/restores run with the API stopped and under the same lock. Restore validates the schema/history; it does not delete audits or change the MARS dataset.
+- P1 does not enable anchoring or new publication. New infrastructure/costs/deployments still require separate authorization.
 
-## Kompatibilitas
+## Compatibility
 
-Audit JSON dan semua bundle/hash lama tetap utuh. Data browser v1/v2 tetap dapat dibaca. State bersama baru mempunyai schema tersendiri; rollback dapat kembali memakai mode browser setelah backup state bersama, tanpa mengubah data browser lama.
+Audit JSON and all older bundles/hashes remain intact. Browser data v1/v2 remains readable. New shared state has its own schema; after backing it up, rollback can return to browser mode without changing older browser data.
 
-[Runbook](../../development/shared-casework.md) · [Bukti lokal P1](../../evidence/shared-casework-2026-10-17/README.md).
+[Runbook](../../development/shared-casework.md) · [Local P1 evidence](../../evidence/shared-casework-2026-10-17/README.md).

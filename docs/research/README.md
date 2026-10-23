@@ -6,10 +6,10 @@ This folder contains both current scientific references and earlier project-sele
 
 | Topic | Source note | Use it for |
 |---|---|---|
-| Tiga keputusan historis | [Kazakhstan, Libya, Kanada](three-historical-decision-cases-2026-10-18.md) | Fakta snapshot, celah bukti, keputusan dan permintaan tindak lanjut; tiga laporan JSON dapat diperiksa |
-| P4 research remediation | [Disposition F01–F13](p4-research-remediation-2026-10-18.md) | Perbaikan engineering, kompatibilitas, replay 30 variasi dan pertanyaan domain yang masih membutuhkan manusia/sumber primer |
+| Three historical decisions | [Kazakhstan, Libya, Canada](three-historical-decision-cases-2026-10-18.md) | Snapshot facts, evidence gaps, decisions, and follow-up requests; three JSON reports are inspectable |
+| P4 research remediation | [F01–F13 dispositions](p4-research-remediation-2026-10-18.md) | Engineering and compatibility fixes, 30-variant replay, and domain questions still requiring people/primary sources |
 | Methane methods and evaluation | [MethaneResponse evidence and evaluation](methane-response-evidence-and-evaluation-2026-10-13.md) | MARS, satellite quantification limits, controlled-release evidence, AI citations, and product safeguards |
-| Domain expert review preparation | [Paket P4](../evidence/domain-review-preparation-2026-10-18/README.md) | Metode/kasus versi tetap dan formulir review; belum ada hasil pakar manusia |
+| Domain expert review preparation | [P4 package](../evidence/domain-review-preparation-2026-10-18/README.md) | Frozen method/cases and review form; no human expert results yet |
 | Active source snapshot and casebook | [`data/real/README.md`](../../data/real/README.md) | Snapshot ID/hash, counts, attribution, selection, and source-specific limitations |
 | IEEE ClimateChain 2026 | [Event notes](../release/event-requirements.md) | Published submission checklist, criteria, and unresolved schedule/eligibility conflicts |
 | Public competition landscape | [Ten public projects and MethaneResponse comparison](competitive-landscape-2026-10-16.md) | Dated Devpost associations, creator-reported evidence, research gaps, and bounded next priorities; not a ranking |

@@ -1,21 +1,21 @@
-# ADR: koreksi dan penarikan ringkasan publik
+# ADR: correction and withdrawal of public summaries
 
-**Tanggal:** 18 Oktober 2026 · **Status:** diterima untuk prototipe lokal satu writer · **Paket:** P3
+**Date:** 18 October 2026 · **Status:** accepted for a local single-writer prototype · **Package:** P3
 
-## Keputusan
+## Decision
 
-Consent dalam private bundle schema 4 tetap immutable. Envelope audit versi 2 menambah `publicationEvents` wajib di samping `audits` dan `anchorIntents`. Pembuatan revisi berconsent dan supersession publikasi aktif sebelumnya pada scoped case/claim disimpan atomik. Revisi privat tidak mengubah state publik atau memperlihatkan ID-nya.
+Consent in the private schema 4 bundle remains immutable. Audit envelope version 2 adds required `publicationEvents` alongside `audits` and `anchorIntents`. Creation of a consented revision and supersession of the previous active publication for a scoped case/claim are saved atomically. Private revisions do not change public state or expose their IDs.
 
-Event publikasi mencatat versi, waktu, alasan enum serta aktor privat dari autentikasi server. Withdrawal membandingkan expected version dan memeriksa ulang operator attestation claim di dalam antrean writer. Pembaca memakai satu snapshot audit/event. Daftar current memilih revisi publik terakhir sebelum pagination, termasuk withdrawn tombstone; history dan direct URL mempertahankan versi lama.
+Publication events record the version, time, enum reason, and private actor derived from server authentication. Withdrawal compares the expected version and rechecks the claim's operator attestation inside the writer queue. Readers use one audit/event snapshot. The current list selects the latest public revision before pagination, including withdrawn tombstones; history and direct URLs retain older versions.
 
-Summary hash hanya meliputi immutable summary. Status publikasi berasal dari server saat dibaca, tidak ditandatangani dan tidak disahkan oleh checksum offline. Penarikan tidak menghapus salinan yang sudah diunduh atau receipt/hash blockchain. Full schema 4 tetap privat dan tidak dapat di-anchor.
+The summary hash covers only the immutable summary. Publication status comes from the server at read time; it is unsigned and not authenticated by an offline checksum. Withdrawal does not delete downloaded copies or blockchain receipts/hashes. The full schema 4 bundle remains private and cannot be anchored.
 
-## Kompatibilitas dan batas
+## Compatibility and limits
 
-Array audit lama dan envelope versi 1 dibaca dengan migrasi deterministik dari consent historis; origin migrasi disimpan privat. Write berikutnya menyimpan versi 2. Metadata event tidak lengkap/rusak atau dua publikasi aktif pada scope sama ditolak. Tidak ada pengubahan hash/bundle historis.
+Legacy audit arrays and version 1 envelopes are read using a deterministic migration from historical consent; migration provenance is stored privately. The next write stores version 2. Incomplete/corrupt event metadata or two active publications for the same scope are rejected. Historical hashes/bundles are not changed.
 
-Keputusan envelope versi 1 pada [ADR P2](2026-10-17-durable-anchor-intents.md) digantikan pada bagian format penyimpanan saja. Binary P2 lama tidak dapat membaca versi 2. Backup lengkap harus mencakup envelope, marker serta casework; gunakan roll-forward. Menghapus event, menurunkan skema, atau restore backup lama dapat menghilangkan penarikan/intent.
+The version 1 envelope decision in the [P2 ADR](2026-10-17-durable-anchor-intents.md) is superseded only for the storage format. Older P2 binaries cannot read version 2. A complete backup must include the envelope, marker, and casework; use roll-forward. Deleting events, downgrading the schema, or restoring an old backup may lose withdrawals/intents.
 
-Satu proses resmi melalui Linux writer lock tetap menjadi batas operasi. Pagination lintas request bukan snapshot beku. Operator yang mengganti seluruh state masih dapat mengubah kronologi. Ini bukan sertifikasi identitas, dokumen atau hasil methane fisik.
+One supported process using the Linux writer lock remains the operational boundary. Pagination across requests is not a frozen snapshot. An operator replacing all state can still change chronology. This does not certify identity, documents, or physical methane outcomes.
 
-[Runbook pengguna/operator](../../development/publication-lifecycle.md) · [Bukti P3](../../evidence/publication-lifecycle-2026-10-18/README.md)
+[User/operator runbook](../../development/publication-lifecycle.md) · [P3 evidence](../../evidence/publication-lifecycle-2026-10-18/README.md)

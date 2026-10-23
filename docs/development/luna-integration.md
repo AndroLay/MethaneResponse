@@ -1,59 +1,60 @@
-# Integrasi Luna — keputusan historis yang sudah diganti
+# Luna integration — superseded historical decision
 
-**21 Oktober 2026:** pengguna mengganti model dengan DeepSeek V4.1 Flash 1017.
-Gunakan [panduan DeepSeek](deepseek-integration.md) untuk konfigurasi aktif.
-Isi berikut dipertahankan sebagai catatan keputusan sebelumnya, bukan status aktif.
+**21 October 2026:** the user replaced this model with DeepSeek V4.1 Flash 1017.
+Use the [DeepSeek guide](deepseek-integration.md) for active configuration.
+The following is retained as a record of the earlier decision, not current status.
 
-[Konfigurasi backend](configuration.md#document-ai-opsional) · [Protokol evaluasi](../testing/ai-benchmark-annotation.md)
+[Backend configuration](configuration.md#optional-document-ai) · [Evaluation protocol](../testing/ai-benchmark-annotation.md)
 
-Pengguna memilih model **Luna** dari lab yang disebut pengguna pada 20 Oktober
-2026. Endpoint, identifier model, dokumentasi API dan kredensial akan disediakan
-kemudian. Belum ada panggilan ke model itu dan belum ada bukti kompatibilitas atau
-akurasi. Model ini tidak sama dengan agent pengembangan yang kebetulan bernama
-Luna. Tidak ada model pengganti yang diunduh atau dijalankan.
+On 20 October 2026, the user selected **Luna** from a lab named by the user.
+The endpoint, model identifier, API documentation, and credentials were to be
+provided later. No call was made to that model, and there was no evidence of
+compatibility or accuracy. This model is not the same as the development agent
+that happens to be named Luna. No replacement model was downloaded or run.
 
-## Kontrak backend yang tersedia
+## Available backend contract
 
-Implementasi saat ini memakai `POST {AI_BASE_URL}/chat/completions` dengan Bearer
-authentication, `model`, `temperature: 0`, `response_format: {type: "json_object"}`
-dan `messages`. Isi respons dibaca dari `choices[0].message.content`, sebagai JSON
-berisi `verdict`, `reason`, dan `citations[{documentId, quote}]`.
+The current implementation uses `POST {AI_BASE_URL}/chat/completions` with Bearer
+authentication, `model`, `temperature: 0`, `response_format: {type: "json_object"}`,
+and `messages`. It reads the response from `choices[0].message.content` as JSON
+containing `verdict`, `reason`, and `citations[{documentId, quote}]`.
 
-**Jangan mengasumsikan bahwa provider Luna mendukung kontrak ini.** Setelah
-dokumentasinya tersedia, cocokkan terlebih dahulu endpoint, autentikasi, structured
-output, batas konteks, kebijakan penyimpanan data dan biaya. Bila kontraknya
-berbeda, tambahkan adapter backend beserta tes; jangan mengubah model atau
-membawa key ke frontend untuk melewati ketidakcocokan.
+**Do not assume that the Luna provider supports this contract.** Once its
+documentation is available, first check the endpoint, authentication, structured
+output, context limits, data-retention policy, and cost. If the contract differs,
+add a backend adapter and tests; do not change the model or move the key to the
+frontend to work around the incompatibility.
 
-| Konfigurasi privat | Nilai yang diperlukan |
+| Private configuration | Required value |
 |---|---|
-| `AI_BASE_URL` | URL HTTPS base API sesuai dokumentasi provider; tanpa embedded credential |
-| `AI_MODEL` | Identifier model persis dari provider, bukan tebakan nama display |
-| `AI_API_KEY` | Credential provider, disimpan privat di backend |
-| `AI_REVIEW_TOKEN` | Token assessment terpisah, minimal 32 karakter |
+| `AI_BASE_URL` | HTTPS API base URL from provider documentation; no embedded credential |
+| `AI_MODEL` | Exact provider model identifier, not a guessed display name |
+| `AI_API_KEY` | Provider credential, stored privately on the backend |
+| `AI_REVIEW_TOKEN` | Separate assessment token, at least 32 characters |
 
-Jangan mengisi nilai tersebut dengan placeholder aktif atau memasukkannya ke
-`VITE_*`, Git, ZIP, screenshot maupun log. Baseline rules dan review manual tetap
-dapat digunakan tanpa provider. Uji mock yang sudah ada membuktikan workflow
-software, bukan keberhasilan integrasi Luna.
+Do not fill these with active placeholders or include them in `VITE_*`, Git, ZIPs,
+screenshots, or logs. The rules baseline and manual review remain available
+without a provider. Existing mock tests demonstrate the software workflow, not a
+successful Luna integration.
 
-## Urutan penerimaan setelah akses tersedia
+## Acceptance sequence once access is available
 
-1. Pastikan hak pemrosesan excerpt dan consent; tentukan batas biaya/jumlah
-   request sebelum menghubungi provider. Satu assessment dapat memakai dua
-   panggilan karena pemeriksaan kedua.
-2. Periksa respons schema, batas ukuran dan timeout menggunakan excerpt uji
-   milik proyek yang diberi label DEMO. Catat identifier versi model aktual dan
-   hasil; jangan menganggap smoke test sebagai benchmark akurasi.
-3. Pastikan kutipan cocok persis dengan dokumen, kutipan palsu/tanpa kutipan
-   menghasilkan abstention, dan hasil dua pemeriksaan yang tidak konsisten
-   menghasilkan `insufficient_evidence`.
-4. Uji review berwenang, revisi/ekspor dan verifier. AI tidak mengotorisasi
-   anchoring atau membuktikan hasil fisik perbaikan.
-5. Untuk klaim kualitas, gunakan benchmark held-out berizin dan adjudikasi
-   independen, dibandingkan dengan rules pada input yang sama. Tool
-   `scripts/run-ai-benchmark.ts` tetap meminta persetujuan panggilan provider;
-   label manusia dan izin tidak boleh diisi oleh agent sebagai pengganti manusia.
+1. Confirm excerpt processing rights and consent; set call count/cost limits
+   before contacting the provider. One assessment may use two calls because it
+   includes a second check.
+2. Check the response schema, size limits, and timeout using the project's DEMO
+   test excerpts. Record the actual model version identifier and result; do not
+   treat a smoke test as an accuracy benchmark.
+3. Confirm quotations match the document exactly, fabricated/missing quotations
+   produce abstention, and inconsistent results from two checks produce
+   `insufficient_evidence`.
+4. Test authorized review, revision/export, and the verifier. AI does not
+   authorize anchoring or prove a physical outcome.
+5. To make quality claims, use a licensed held-out benchmark and independent
+   adjudication, compared with the rules on the same input. The
+   `scripts/run-ai-benchmark.ts` tool still requires approval for provider calls;
+   human labels and permissions must not be supplied by an agent in place of a
+   human.
 
-Catat status secara terpisah: **configured → transport tested → grounding tested
-→ independently evaluated**. Saat ini seluruh tahap live Luna masih pending.
+Track status separately: **configured → transport tested → grounding tested →
+independently evaluated**. All live Luna stages remain pending.

@@ -1,4 +1,4 @@
-# Referensi API
+# API reference
 
 ## Investigation capacity portfolios
 
@@ -24,47 +24,47 @@ PUT accepts strict `{ request: { datasetSnapshotId, inputFileSha256, parameters 
 
 Bounds: request 8 KiB; 20 decisions/reviewer/client/minute per process; at most 20 journals, 20 unique reports/journal, 100 revisions/journal and 32 MiB file. Reports are deduplicated by digest; old revisions are retained. `400`: invalid ID/body; `401`: no signed access; `403`: unauthorized; `404`: absent GET; `409`: stale report/dataset or CAS conflict; `413`: body/history capacity; `429`: limit; `503`: unavailable or inconsistent state. Existing audit schemas/receipts are unchanged.
 
-Runtime stores a companion `${AUDIT_STORE_PATH}.plans.json` and `.initialized` marker with private permissions, atomic writes/fsync and the existing API single-writer lock. Back up both offline; test factory defaults to memory. Lost state is rejected after an initialization marker has been observed; loss of the entire volume and marker is not detectable. No database or multi-instance guarantees are introduced. Exported journals require an independently trusted expected head for meaningful offline verification; they are not independently signed reviewer identities or blockchain receipts. [User workflow](../product/user-workflow.md#operasikan-dan-tinjau-rencana) and [schema](../../packages/shared/src/plan-journal.ts).
+Runtime stores a companion `${AUDIT_STORE_PATH}.plans.json` and `.initialized` marker with private permissions, atomic writes/fsync, and the existing API single-writer lock. Back up both offline; the test factory defaults to memory. Lost state is rejected after an initialization marker has been observed; loss of the entire volume and marker is not detectable. No database or multi-instance guarantees are introduced. Exported journals require an independently trusted expected head for meaningful offline verification; they are not independently signed reviewer identities or blockchain receipts. [User workflow](../product/user-workflow.md#operate-and-review-a-plan) and [schema](../../packages/shared/src/plan-journal.ts).
 
-[Arsitektur](overview.md) · [Konfigurasi](../development/configuration.md) · [Alur data](data-flow.md)
+[Architecture](overview.md) · [Configuration](../development/configuration.md) · [Data flow](data-flow.md)
 
-**Kontrak aktif: 20 Oktober 2026.** Implementasi route ada di [app.ts](../../apps/api/src/app.ts); input baseline/manual ada di [packages/shared](../../packages/shared/src/index.ts), sedangkan input document assessment/review ada di [ai-review.ts](../../apps/api/src/ai-review.ts). Base URL lokal: `http://localhost:3001`. Web development mengakses `/api` melalui proxy Vite.
+**Active contract: 20 October 2026.** Route implementations are in [app.ts](../../apps/api/src/app.ts); baseline/manual inputs are in [packages/shared](../../packages/shared/src/index.ts), while document-assessment/review inputs are in [ai-review.ts](../../apps/api/src/ai-review.ts). Local base URL: `http://localhost:3001`. The web development server accesses `/api` through the Vite proxy.
 
-## Akses dan istilah
+## Access and terminology
 
-- **Publik:** tidak memerlukan bearer token, tetapi data tetap tunduk pada visibility dan rate limit yang relevan.
-- **Private read:** reviewer token dengan scope `private_read`, disertai kebijakan direktori per claim category.
-- **Review:** reviewer token dengan scope `review`, disertai kebijakan direktori. Token ini sendiri bukan bukti identitas reviewer.
-- **Assessment:** token terpisah `AI_REVIEW_TOKEN`; tidak memberi akses baca private history.
-- **Admin:** `ADMIN_API_TOKEN` untuk operasi yang didukung; bukan pengganti semua reviewer scopes.
-- Token berscope dimasukkan melalui header `Authorization: Bearer …`. Jangan menaruhnya dalam URL, commit, contoh hasil publik atau log.
+- **Public:** no bearer token is required, but data remains subject to relevant visibility and rate limits.
+- **Private read:** reviewer token with `private_read` scope, subject to the directory policy for each claim category.
+- **Review:** reviewer token with `review` scope, subject to the directory policy. The token alone is not proof of reviewer identity.
+- **Assessment:** separate `AI_REVIEW_TOKEN`; it does not grant access to private history.
+- **Admin:** `ADMIN_API_TOKEN` for supported operations; it does not replace all reviewer scopes.
+- Scoped tokens are supplied in the `Authorization: Bearer …` header. Do not put them in URLs, commits, public examples, or logs.
 
-## Dataset dan analisis
+## Dataset and analysis
 
-| Method/path | Input utama | Hasil | Akses |
+| Method/path | Primary input | Result | Access |
 |---|---|---|---|
-| `GET /api/health` | — | Kesiapan storage/casebook/rate limiter dan konfigurasi chain | Publik; `200` atau `503` |
-| `GET /api/cases` | — | Casebook terkurasi, provenance, limitations | Publik |
-| `GET /api/cases/:id` | Case ID | Satu kasus terkurasi | Publik |
-| `GET /api/sources` | `mode=demo` opsional | Sumber casebook; DEMO bila diminta | Publik; bukan seluruh source browser |
-| `GET /api/sources/:id` | Source ID; optional `mode=demo` | Sumber casebook/DEMO | Publik |
-| `GET /api/intelligence/status` | — | Mode/configuration AI, human review dan chain | Publik; tidak berisi secret |
-| `GET /api/intelligence/insights` | `sourceId` wajib | Analisis sumber dan metadata snapshot yang dipin | Publik |
-| `GET /api/intelligence/rankings` | — | Ranking heuristic dan batas forecast/recurrence | Publik |
+| `GET /api/health` | — | Storage/casebook/rate-limiter readiness and chain configuration | Public; `200` or `503` |
+| `GET /api/cases` | — | Curated casebook, provenance, limitations | Public |
+| `GET /api/cases/:id` | Case ID | One curated case | Public |
+| `GET /api/sources` | Optional `mode=demo` | Casebook sources; DEMO when requested | Public; not all browser sources |
+| `GET /api/sources/:id` | Source ID; optional `mode=demo` | Casebook/DEMO source | Public |
+| `GET /api/intelligence/status` | — | AI mode/configuration, human review, and chain | Public; contains no secrets |
+| `GET /api/intelligence/insights` | Required `sourceId` | Source analysis and pinned-snapshot metadata | Public |
+| `GET /api/intelligence/rankings` | — | Heuristic ranking and forecast/recurrence limits | Public |
 
-Data peta penuh, progressive shards, geometri dan publisher indicators berasal dari aset statis web. Dataset tersebut tidak diambil melalui `/api/sources`. Input intelligence hilang/rusak/tidak cocok menghasilkan `503`.
+Full map data, progressive shards, geometry, and publisher indicators come from static web assets. They are not fetched through `/api/sources`. Missing/corrupt/mismatched intelligence inputs produce `503`.
 
-## Decision Lab: analisis tanpa menulis audit
+## Decision Lab: analysis without writing an audit
 
-| Method/path | Input | Hasil | Akses |
+| Method/path | Input | Result | Access |
 |---|---|---|---|
-| `POST /api/investigations/plan` | Source ID, claim type, optional scope/snapshot | Eligibility trace, reference-removal sensitivity, next checks dan digest DecisionPlan | Publik, preview dibatasi |
-| `GET /api/investigations/challenges` | — | Lima authored reference challenges berlabel SYNTHETIC DEMO | Publik; tidak mewakili operator nyata |
-| `POST /api/investigations/observation-check` | Source ID, snapshot ID, optional normalized input SHA-256, query | Exact-linked records, counterexamples, original values/SD, excluded dates, status dan digest ObservationCheck | Publik, preview dibatasi; limiter terpisah 20/menit |
+| `POST /api/investigations/plan` | Source ID, claim type, optional scope/snapshot | Eligibility trace, reference-removal sensitivity, next checks, and DecisionPlan digest | Public, preview restricted |
+| `GET /api/investigations/challenges` | — | Five authored reference challenges labeled SYNTHETIC DEMO | Public; do not represent real operators |
+| `POST /api/investigations/observation-check` | Source ID, snapshot ID, optional normalized input SHA-256, query | Exact-linked records, counterexamples, original values/SD, excluded dates, status, and ObservationCheck digest | Public, preview restricted; separate 20/minute limiter |
 
-Kedua POST dibatasi JSON 16 KiB, strict schema dan no-store. Data observasi/referensi diambil dari snapshot server; request tidak boleh menyuntikkan evidence/observations. Analisis tidak menyimpan, meninjau, mengirim atau meng-anchor audit. Public preview tetap memakai source allowlist yang sama.
+Both POST routes are limited to 16 KiB JSON, use a strict schema, and return `no-store`. Observation/reference data comes from the server snapshot; requests cannot inject evidence/observations. Analysis does not save, review, send, or anchor audits. The public preview uses the same source allowlist.
 
-Contoh query observasi:
+Example observation query:
 
 ```json
 {
@@ -80,40 +80,40 @@ Contoh query observasi:
 }
 ```
 
-`query.kind` juga menerima `no_linked_detections` dan `physical_mitigation`; threshold hanya boleh/harus hadir pada `reported_flux_at_most`. Dates memakai hari UTC inklusif. ID snapshot/hash input berbeda → `409`; source tidak dikenal → `404`; body terlalu besar → `413`; batas request → `429`/Retry-After; provenance/input tidak valid → `503` generik tanpa file path server.
+`query.kind` also accepts `no_linked_detections` and `physical_mitigation`; `thresholdKgHr` is allowed only with `reported_flux_at_most`. Dates use inclusive UTC days. Different snapshot ID/input hash → `409`; unknown source → `404`; oversized body → `413`; request limit → `429`/Retry-After; invalid provenance/input → generic `503` without a server file path.
 
-Hasil `counterexample_found` hanya menyangkal pernyataan arsip buatan analis. `no_counterexample_in_archive`, `no_observations`, `incomplete_flux`, `incomplete_window` bukan konfirmasi repair; `physical_mitigation` selalu `requires_document_review`. Browser baru memerlukan kecocokan normalized input SHA-256, replay policy dan checksum sebelum menampilkan hasil. [Skema](../../packages/shared/src/observation-claims.ts) dan [bukti reproduksi](../evidence/observation-crosscheck-2026-10-19/README.md) memuat format lengkap. Digest unsigned bukan autentikasi penerbit atau blockchain receipt.
+`counterexample_found` only contradicts an analyst-authored archive statement. `no_counterexample_in_archive`, `no_observations`, `incomplete_flux`, and `incomplete_window` are not repair confirmations; `physical_mitigation` always returns `requires_document_review`. The browser requires a matching normalized input SHA-256, policy replay, and checksum before displaying results. The [schema](../../packages/shared/src/observation-claims.ts) and [reproduction evidence](../evidence/observation-crosscheck-2026-10-19/README.md) contain the full format. An unsigned digest is not publisher authentication or a blockchain receipt.
 
-## Investigasi bersama (P1)
+## Shared investigations (P1)
 
-| Method/path | Input | Hasil | Akses |
+| Method/path | Input | Result | Access |
 |---|---|---|---|
-| `GET /api/case-work/session` | — | `reviewerId`, authorized `claimTypes`, `canWrite`, `storage` | Signed `private_read`, minimal satu claim authority aktif |
-| `GET /api/case-work` | Query snapshot/mode/archive; optional `sourceId` | `{ works }`, revisi terbaru per investigasi yang diizinkan | Signed `private_read`, difilter current claim authority |
-| `GET /api/case-work/:id` | Query yang sama, `sourceId` wajib | `{ work, history }`, seluruh revisi urut | Signed `private_read`; tanpa claim authority hasil `404` |
-| `PUT /api/case-work/:id` | `SharedWorkInput`: `{ context, expectedRevision, draft }` | `{ work }`; `201` create, `200` update | Signed **`private_read` dan `review`**, current claim authority; assignee juga harus berwenang |
+| `GET /api/case-work/session` | — | `reviewerId`, authorized `claimTypes`, `canWrite`, `storage` | Signed `private_read`, at least one active claim authority |
+| `GET /api/case-work` | Snapshot/mode/archive query; optional `sourceId` | `{ works }`, latest revision per authorized investigation | Signed `private_read`, filtered by current claim authority |
+| `GET /api/case-work/:id` | Same query, required `sourceId` | `{ work, history }`, all revisions in order | Signed `private_read`; returns `404` without claim authority |
+| `PUT /api/case-work/:id` | `SharedWorkInput`: `{ context, expectedRevision, draft }` | `{ work }`; `201` create, `200` update | Signed **`private_read` and `review`**, current claim authority; assignee must also be authorized |
 
-P1 **selalu** memerlukan directory assurance `operator_attested`; legacy shared token, admin token sendiri, dan flag compatibility audit tidak memberi akses. Seluruh respons memakai `Cache-Control: no-store` dan `Vary: Authorization`. Session tanpa authority `403`; list menyaring record yang tidak diizinkan. Akses diperiksa ulang sebelum commit.
+P1 **always** requires directory assurance `operator_attested`; a legacy shared token, admin token alone, or audit compatibility flag does not grant access. All responses use `Cache-Control: no-store` and `Vary: Authorization`. A session without authority returns `403`; lists filter unauthorized records. Access is rechecked before commit.
 
-`context` berisi `sourceId`, `synthetic`, `datasetSnapshotId`, dan `archiveSha256` untuk data nyata. Query menggunakan `synthetic=true|false`; archive berupa lower-case SHA-256 tanpa `0x`. Write DEMO tidak boleh membawa archive. Source, snapshot, scope/event dan assessment link diverifikasi terhadap data server. ID hanya alnum/underscore/hyphen, 1–128 karakter.
+`context` contains `sourceId`, `synthetic`, `datasetSnapshotId`, and `archiveSha256` for real data. Queries use `synthetic=true|false`; the archive value is lower-case SHA-256 without `0x`. DEMO writes must not include an archive. Source, snapshot, scope/event, and assessment links are checked against server data. IDs allow only alphanumeric/underscore/hyphen characters and are 1–128 characters long.
 
-`draft` memakai `CaseWorkDraft`: `claimType`, optional `scope`, `status`, `question`, `notes`, `evidenceRequest`, `nextAction`, optional `assessmentLink`, `assignee` dan `dueDate` (`YYYY-MM-DD`). Claim/scope satu work ID tidak berubah; gunakan ID baru untuk konteks lain. Server menetapkan owner pertama, `updatedBy`, waktu dan revision. Field actor/metadata server dari request ditolak.
+`draft` uses `CaseWorkDraft`: `claimType`, optional `scope`, `status`, `question`, `notes`, `evidenceRequest`, `nextAction`, optional `assessmentLink`, `assignee`, and `dueDate` (`YYYY-MM-DD`). A work ID's claim/scope cannot change; use a new ID for another context. The server sets the first owner, `updatedBy`, time, and revision. Actor/server-metadata fields in the request are rejected.
 
-Create memakai `expectedRevision: 0`; update harus memakai revision terkini. Konflik `409` tidak menimpa history. Batas: 16 KiB request, 500 investigasi, 100 revisi per investigasi, 16 MiB file. Body/kapasitas penuh `413`; storage/izin/schema gagal `503`. Setelah respons tidak pasti, baca revisi terkini sebelum retry. Write berhasil hanya setelah flush state dan marker inisialisasi; state hilang setelah pernah disimpan ditolak sampai restore.
+Create uses `expectedRevision: 0`; updates must use the latest revision. A `409` conflict does not overwrite history. Limits: 16 KiB request, 500 investigations, 100 revisions per investigation, 16 MiB file. A full body/capacity returns `413`; storage/permission/schema failures return `503`. After an uncertain response, read the latest revision before retrying. A write succeeds only after the state and initialization marker are flushed; previously saved state that is now missing is rejected until restored.
 
-Launcher resmi memegang kernel lock sepanjang hidup API. Health menambahkan `caseWorkStorage: { backend, persistent, ready }`; field persistent menunjukkan backend file, bukan sertifikasi volume remote. API test factory dapat memakai memory store, sedangkan entry point runtime memakai file store. Panduan [penggunaan dan recovery](../development/shared-casework.md) menjelaskan setup, impor eksplisit, backup/restore dan batas single-writer.
+The official launcher holds the kernel lock for the API's lifetime. Health adds `caseWorkStorage: { backend, persistent, ready }`; `persistent` indicates a file backend, not certification of a remote volume. The API test factory may use a memory store, while the runtime entry point uses a file store. The [usage and recovery guide](../development/shared-casework.md) explains setup, explicit import, backup/restore, and single-writer limits.
 
-## Menulis penilaian audit
+## Writing audit assessments
 
-| Method/path | Skema/input | Hasil | Akses |
+| Method/path | Schema/input | Result | Access |
 |---|---|---|---|
-| `POST /api/audits` | `AuditInput`: source ID, claim, optional scope/snapshot | Schema 2 tersimpan (`201`) | Lokal terbuka dengan rate limit; production memerlukan admin kecuali public baseline diaktifkan eksplisit |
-| `POST /api/human-assessments` | `HumanAssessmentInput`: snapshot/scope, exact claim, references, rationale, inspection, optional parent/trust/consent | `{ audit }` schema 4 privat (`201`) | Review |
-| `POST /api/intelligence/assessments` | `DocumentAssessmentInput`: source/claim, excerpt/metadata/consent | `{ audit }` schema 3 (`201`) | Assessment dan provider terkonfigurasi |
-| `POST /api/audits/:id/review` | `HumanReviewInput`: keputusan, catatan, inspection dan consent yang relevan | Revisi review schema 3 | Review; khusus document assessment |
-| `GET /api/reviewers/me` | `claimType` wajib | Reviewer subject, assurance kategori, publisher hosts dan strict-mode flag | Review |
+| `POST /api/audits` | `AuditInput`: source ID, claim, optional scope/snapshot | Saved schema 2 (`201`) | Open locally with rate limit; production requires admin unless public baseline is explicitly enabled |
+| `POST /api/human-assessments` | `HumanAssessmentInput`: snapshot/scope, exact claim, references, rationale, inspection, optional parent/trust/consent | `{ audit }` private schema 4 (`201`) | Review |
+| `POST /api/intelligence/assessments` | `DocumentAssessmentInput`: source/claim, excerpt/metadata/consent | `{ audit }` schema 3 (`201`) | Assessment token and configured provider |
+| `POST /api/audits/:id/review` | `HumanReviewInput`: decision, notes, relevant inspection and consent | Schema 3 review revision | Review; document assessment only |
+| `GET /api/reviewers/me` | Required `claimType` | Reviewer subject, category assurance, publisher hosts, and strict-mode flag | Review |
 
-Contoh body baseline yang tidak berisi data privat:
+Example baseline body that contains no private data:
 
 ```json
 {
@@ -122,79 +122,79 @@ Contoh body baseline yang tidak berisi data privat:
 }
 ```
 
-Kategori claim: `source_detected`, `operator_notified`, `mitigation_confirmed`. Scope menggunakan `startDate`, `endDate`, optional `observationId` dan `recipient`. Human assessment mewajibkan scope dan `datasetSnapshotId`; notification mewajibkan penerima. Format/rentang field lengkap mengikuti skema, bukan contoh JSON minimal di atas.
+Claim categories: `source_detected`, `operator_notified`, `mitigation_confirmed`. Scope uses `startDate`, `endDate`, optional `observationId`, and `recipient`. Human assessment requires scope and `datasetSnapshotId`; notification requires a recipient. Full field formats/ranges follow the schema, not the minimal JSON example above.
 
-Batas JSON request: baseline 16 KiB, human assessment 64 KiB, document assessment 40 KiB. Scope/snapshot/parent tidak cocok ditolak. Retrieval referensi hanya dilakukan bila `checkPublicReferences` disetujui pada request; mismatch digest menghalangi determination supported/contradicted.
+JSON request limits: baseline 16 KiB, human assessment 64 KiB, document assessment 40 KiB. Mismatched scope/snapshot/parent is rejected. Reference retrieval occurs only if `checkPublicReferences` is enabled on the request; a digest mismatch blocks a `supported`/`contradicted` determination.
 
-## History, verifikasi dan transparansi
+## History, verification, and transparency
 
-| Method/path | Filter/input | Hasil | Akses |
+| Method/path | Filter/input | Result | Access |
 |---|---|---|---|
-| `GET /api/audits` | Optional `sourceId`, `claimType`, `limit`, `cursor` | Audit yang boleh dibaca publik | Publik; private bundle tidak masuk list |
-| `GET /api/audits/history` | Filter sama | History kategori yang diizinkan | Private read |
-| `GET /api/audits/:id` | Audit ID | Full audit, bila diizinkan | Publik atau private read sesuai visibility |
-| `GET /api/audits/:id/verify` | Audit ID | Local digest dan optional receipt status | Visibility sama dengan full audit |
-| `GET /api/transparency` | Optional `sourceId`, `limit`, `cursor`, `view=current\|history` | `{ summaries, hasMore, nextCursor }`; default latest public revision per scope/claim, termasuk withdrawn | Publik; hanya ringkasan ber-consent |
-| `GET /api/transparency/:id` | Audit ID | `{ summary, summaryHash, publication }` dengan status/history redaksi dan optional replacement ID | Publik; `404` bila tidak tersedia, `503` bila store gagal |
-| `GET /api/transparency/:id/verify` | Audit ID | `summaryHash`, `publication`, `checkedAt`, `limitation`; status menurut server saat check | Publik; checksum historis terpisah dari status live |
-| `POST /api/transparency/:id/withdraw` | `{ expectedVersion, reason }`; alasan enum `consent_withdrawn`, `published_in_error`, `evidence_under_review`; batas 4 KiB | Record publik diperbarui; `409` stale/sudah withdrawn, `400` invalid, `401/403` akses, `429` rate limit, `503` hasil belum terkonfirmasi | Scope `review` dan current `operator_attested` untuk claim; recheck di antrean writer |
+| `GET /api/audits` | Optional `sourceId`, `claimType`, `limit`, `cursor` | Audits readable by the public | Public; private bundles are not listed |
+| `GET /api/audits/history` | Same filters | History for authorized categories | Private read |
+| `GET /api/audits/:id` | Audit ID | Full audit, if authorized | Public or private read according to visibility |
+| `GET /api/audits/:id/verify` | Audit ID | Local digest and optional receipt status | Same visibility as the full audit |
+| `GET /api/transparency` | Optional `sourceId`, `limit`, `cursor`, `view=current\|history` | `{ summaries, hasMore, nextCursor }`; defaults to latest public revision per scope/claim, including withdrawn | Public; consented summaries only |
+| `GET /api/transparency/:id` | Audit ID | `{ summary, summaryHash, publication }` with redacted status/history and optional replacement ID | Public; `404` if unavailable, `503` if store fails |
+| `GET /api/transparency/:id/verify` | Audit ID | `summaryHash`, `publication`, `checkedAt`, `limitation`; server-reported status at check time | Public; historical checksum is separate from live status |
+| `POST /api/transparency/:id/withdraw` | `{ expectedVersion, reason }`; enum reason `consent_withdrawn`, `published_in_error`, `evidence_under_review`; 4 KiB limit | Updates public record; `409` stale/already withdrawn, `400` invalid, `401/403` access, `429` rate limit, `503` outcome unconfirmed | `review` scope and current `operator_attested` for the claim; rechecked in the writer queue |
 
-Audit list/history tanpa parameter pagination mempertahankan respons legacy `{ audits }`. Jika pagination diminta, respons menyertakan `hasMore` dan `nextCursor`. `limit` valid adalah integer 1–100. Perlakukan cursor sebagai opaque string; kirim nilainya kembali tanpa mengubah format. List transparency selalu paginated.
+Audit list/history without pagination parameters preserves the legacy `{ audits }` response. When pagination is requested, the response includes `hasMore` and `nextCursor`. A valid `limit` is an integer from 1–100. Treat the cursor as an opaque string; return it unchanged. Transparency lists are always paginated.
 
-Untuk koreksi publik schema 4, kirim `parentAuditId` revisi **manusia** terbaru saat save `POST /api/human-assessments` beserta consent baru. Pemeriksaan versi, pembuatan audit, dan supersession publikasi lama dilakukan dalam antrean writer yang sama. Baseline pada scope sama tetap punya nomor revisi sendiri tanpa menghalangi parent manusia. Revisi privat tanpa consent tidak mengubah status publik. Publication event menahan actor privat; respons publik tidak memuat identitas atau alasan free text. Detail [lifecycle dan kompatibilitas envelope](../development/publication-lifecycle.md).
+For a public schema 4 correction, send the latest **human** revision's `parentAuditId` when saving `POST /api/human-assessments`, with new consent. Version checking, audit creation, and supersession of the old publication occur in the same writer queue. The baseline for the same scope retains its own revision number and does not block the human parent. A private revision without consent does not change public status. Publication events retain the private actor; public responses contain no identity or free-text rationale. See [lifecycle and envelope compatibility](../development/publication-lifecycle.md).
 
-Detail/verifikasi audit privat tidak membuka keberadaan record kepada pembaca tanpa izin: hasilnya `404`. Respons privat memakai `Cache-Control: no-store` dan `Vary: Authorization`. Public summaries juga memakai `no-store`. Approval direktori diperiksa pada private read; summary publik menyimpan status historis dan bukan proof approval terkini.
+Private audit detail/verification does not reveal whether a record exists to an unauthorized reader; it returns `404`. Private responses use `Cache-Control: no-store` and `Vary: Authorization`. Public summaries also use `no-store`. Directory approval is checked on private reads; a public summary stores historical status and is not proof of current approval.
 
-## Receipt: route ada, write lokal tidak aktif
+## Receipts: routes exist, local writes are disabled
 
-| Endpoint | Perilaku |
+| Endpoint | Behavior |
 |---|---|
-| `GET /api/audits/:id/anchor-status` | Intent tersimpan dan target konfigurasi yang diperiksa read-only (chain/registry/issuer/confirmation policy/writeEnabled), tanpa signer/RPC credential. Target `null` bila tidak tersedia; intent tetap terbaca. |
-| `POST /api/audits/:id/anchor` | Preflight, sign lokal, fsync intent dengan tx hash/nonce, broadcast sekali, lalu periksa receipt. `200` anchored, `202` pending, `409` intent/nonce/version/target stale, `422` revert, `502` hasil tidak pasti; `503` preflight/storage/signing tidak tersedia. Body opsional `{chainId,registryAddress,issuer}` mengikat target yang disetujui UI; mismatch ditolak sebelum reservasi. |
-| `POST /api/audits/:id/reconcile` | Body boleh kosong: periksa hash intent yang sama tanpa mengirim transaksi. `200` reconciled/already_reconciled/reverted, `202` pending. Receipt manual opsional harus cocok exact intent dan block hasil pemeriksaan; tidak mengimpor receipt tanpa intent. |
+| `GET /api/audits/:id/anchor-status` | Stored intent and read-only configured target (chain/registry/issuer/confirmation policy/writeEnabled), without signer/RPC credentials. Target is `null` if unavailable; intent remains readable. |
+| `POST /api/audits/:id/anchor` | Preflight, local signing, fsync intent with tx hash/nonce, one broadcast, then receipt check. `200` anchored, `202` pending, `409` stale intent/nonce/version/target, `422` revert, `502` uncertain outcome; `503` unavailable preflight/storage/signing. Optional body `{chainId,registryAddress,issuer}` binds the UI-approved target; mismatch is rejected before reservation. |
+| `POST /api/audits/:id/reconcile` | Body may be empty: check the same intent hash without submitting a transaction. `200` reconciled/already_reconciled/reverted, `202` pending. An optional manual receipt must match the exact intent and checked block; a receipt without an intent is not imported. |
 
-Ketiganya memerlukan admin atau scope `anchor`. Reviewer juga harus memiliki attestation direktori **operator_attested yang masih berlaku untuk claim**; compatibility unverified/expired tidak memberikan izin chain. Baseline hanya admin; reviewer terbatas schema 3 reviewed. Schema 4 privat dan AI unreviewed selalu ditolak. Full audit hanya dikembalikan bila hak baca privat masih berlaku; selain itu receipt metadata saja. Respons privat `no-store`. Write perlu opt-in `ENABLE_CHAIN_WRITES=true`; rekonsiliasi tidak perlu signing key. Lihat [runbook P2](../development/blockchain-recovery.md).
+All three require admin or `anchor` scope. Reviewers must also have a current directory attestation of **`operator_attested` for the claim**; compatibility-mode unverified/expired status does not grant chain permission. Baseline is admin-only; reviewers are limited to reviewed schema 3. Private schema 4 and unreviewed AI are always rejected. The full audit is returned only when private-read permission remains valid; otherwise, only receipt metadata is returned. Private responses use `no-store`. Writes require opt-in `ENABLE_CHAIN_WRITES=true`; reconciliation does not require a signing key. See the [P2 runbook](../development/blockchain-recovery.md).
 
-`GET /api/audits/:id/verify` dapat melaporkan validitas hash lokal walaupun receipt tidak ada atau chain belum terkonfigurasi. Jangan menyamakan `localDigestValid` dengan `integrityVerified` untuk receipt.
+`GET /api/audits/:id/verify` may report a valid local hash even when no receipt exists or the chain is not configured. Do not equate `localDigestValid` with receipt `integrityVerified`.
 
-## Respons kegagalan yang perlu ditangani UI
+## Failure responses the UI must handle
 
-| Status | Makna umum |
+| Status | General meaning |
 |---|---|
-| `400` | Input/filter/scope tidak valid |
-| `401` / `403` | Token tidak sah/tidak cukup atau kebijakan direktori menolak |
-| `404` | Source/audit tidak tersedia atau private record tidak boleh dibaca |
-| `409` | Parent/revisi berubah atau state operasi tidak sesuai |
-| `413` | Body melampaui batas |
-| `422` | Input semantis/bukti/digest tidak memenuhi syarat jalur |
-| `429` | Rate limit; ikuti `Retry-After` bila disediakan |
-| `502` / `503` | Provider/transport, data, storage atau konfigurasi tidak tersedia |
+| `400` | Invalid input/filter/scope |
+| `401` / `403` | Invalid/insufficient token or directory policy denial |
+| `404` | Source/audit unavailable or private record cannot be read |
+| `409` | Parent/revision changed or operation state mismatch |
+| `413` | Body exceeds limit |
+| `422` | Semantic input/evidence/digest does not meet the path requirements |
+| `429` | Rate limit; follow `Retry-After` when provided |
+| `502` / `503` | Provider/transport, data, storage, or configuration unavailable |
 
-Tidak semua route mengeluarkan seluruh status di tabel. Pesan error bukan schema domain yang stabil untuk menentukan kebenaran klaim; UI harus mempertahankan draft dan menampilkan kegagalan save secara jelas.
+Not every route returns every status in the table. Error messages are not a stable domain schema for determining claim truth; the UI should preserve drafts and clearly show save failures.
 
 
-## Connected investigations dan frozen decisions
+## Connected investigations and frozen decisions
 
-Pemeriksaan terkait: `GET /api/case-work/:id/evidence-overlap` memakai context
-dan `expectedRevision`, signed `private_read` serta current claim authority.
-Public preview menolak akses; hasil `no-store`, maksimal 500 current work items
-pada snapshot yang sama, tanpa private notes atau raw URL. Ini kandidat reuse
-untuk review, bukan temuan duplicate mitigation. [Workflow dan batas](../development/evidence-overlap-and-snapshot-intake.md).
+Related check: `GET /api/case-work/:id/evidence-overlap` uses context
+and `expectedRevision`, signed `private_read`, and current claim authority.
+The public preview denies access; results are `no-store`, with up to 500 current work items
+on the same snapshot and no private notes or raw URLs. This is a candidate-reuse check
+for review, not a duplicate-mitigation finding. See [workflow and limits](../development/evidence-overlap-and-snapshot-intake.md).
 
-[Workflow, konfigurasi dan rollback](../development/connected-investigations.md). Semua endpoint berikut privat, `no-store`, signed `private_read` dan current directory authority. Public preview menolak akses. Query context wajib: `sourceId`, `synthetic`, `datasetSnapshotId`, `archiveSha256` untuk data real. Tidak menerima path/URL material dossier dari caller.
+[Workflow, configuration, and rollback](../development/connected-investigations.md). All endpoints below are private, `no-store`, and require signed `private_read` plus current directory authority. The public preview denies access. Required context query: `sourceId`, `synthetic`, `datasetSnapshotId`, and `archiveSha256` for real data. Dossier material paths/URLs are not accepted from the caller.
 
-| Method / route setelah `/api/case-work/:id` | Fungsi dan tambahan permission |
+| Method / route after `/api/case-work/:id` | Function and additional permission |
 |---|---|
-| `GET /dossier` | Dossier riwayat dan material exact; header CORS-exposed `X-Investigation-Digest` |
-| `POST /change-check` | Body `{ expectedRevision }`; perbandingan arsip historis yang dipin; tidak mengubah verdict |
-| `GET /decisions` | Ringkasan keputusan beku dan configured chain target; tanpa dokumen penuh |
-| `POST /decisions` | Freeze; tambahan `review`. Body strict: `expectedRevision`, `expectedDossierDigest`, `expectedDecisionDigest` (null untuk pertama), `disposition`, `rationale`, `sourceInspected: true` |
-| `POST /decisions/:digest/verify` | Keputusan beku dan wrapper receipt/revisit; chain receipt harus diperiksa sebelum status verified |
-| `POST /decisions/:digest/anchor` | Tambahan `review`+`anchor`, signer backend opt-in. Body strict `{ chainId, registryAddress, issuer }` untuk menyetujui target yang diperiksa |
-| `POST /decisions/:digest/reconcile` | Tambahan `review`+`anchor`; inspeksi intent durabel tanpa broadcast baru |
+| `GET /dossier` | Dossier history and exact material; CORS-exposed `X-Investigation-Digest` header |
+| `POST /change-check` | Body `{ expectedRevision }`; comparison against the pinned historical archive; does not change the verdict |
+| `GET /decisions` | Frozen-decision summaries and configured chain target; no full documents |
+| `POST /decisions` | Freeze; additional `review`. Strict body: `expectedRevision`, `expectedDossierDigest`, `expectedDecisionDigest` (null for the first), `disposition`, `rationale`, `sourceInspected: true` |
+| `POST /decisions/:digest/verify` | Frozen decision and receipt/revisit wrapper; chain receipt must be checked before setting verified status |
+| `POST /decisions/:digest/anchor` | Additional `review`+`anchor`, backend signer opt-in. Strict body `{ chainId, registryAddress, issuer }` to approve the checked target |
+| `POST /decisions/:digest/reconcile` | Additional `review`+`anchor`; inspect durable intent without a new broadcast |
 
-`disposition` adalah `accept_assessment`, `request_more_evidence`, atau `reject_assessment`; bukan verdict fisik. Scope dan assessment tersimpan wajib sebelum freeze. Model yang belum direview ditolak. Receipt berada di luar hashed payload. Plan yang pernah dilampirkan memerlukan authority `source_detected` sepanjang akses riwayat/materialnya. Authority diperiksa lagi setelah pekerjaan async dan sebelum respons/commit.
+`disposition` is `accept_assessment`, `request_more_evidence`, or `reject_assessment`; it is not a physical verdict. Scope and a saved assessment are required before freezing. Unreviewed model output is rejected. Receipts are outside the hashed payload. A previously attached plan requires `source_detected` authority throughout history/material access. Authority is rechecked after asynchronous work and before the response/commit.
 
-Body freeze maksimal 4 KiB, target 1 KiB. Ekspor maksimal 16 MiB; dua pembuatan dossier/keputusan serentak dan quota bersama 20 operasi/menit/actor+client. Konflik revisi/head/dossier `409`, akses `401/403`, input `400`, kapasitas `413`, pembatasan `429`, layanan/storage belum tersedia `503`. Anchor dengan outcome tidak pasti `502` harus direkonsiliasi; pending `202`; revert definitif `422`. Terminal reconcile idempotent. Tidak melepas nonce pending hanya karena receipt belum ditemukan.
+Freeze body is limited to 4 KiB, target 1 KiB. Exports are limited to 16 MiB; two concurrent dossier/decision builds and a shared quota of 20 operations/minute per actor+client. Revision/head/dossier conflict `409`, access `401/403`, invalid input `400`, capacity `413`, rate limit `429`, unavailable service/storage `503`. An anchor with an uncertain `502` outcome must be reconciled; pending is `202`; a definitive revert is `422`. Terminal reconciliation is idempotent. A pending nonce is not released merely because no receipt was found.
 
-Field casework baru bersifat opsional: `planLink`, `changeReportDigest`, `acceptanceCriteria`, `requestEvents`. Event request/response/review tidak dapat dihapus atau diganti pada revisi berikutnya. Body casework tetap 16 KiB. Audit store memakai envelope 3 sesudah keputusan pertama; reader tetap menerima array legacy serta envelope 1/2.
+New casework fields are optional: `planLink`, `changeReportDigest`, `acceptanceCriteria`, `requestEvents`. Request/response/review events cannot be deleted or replaced in later revisions. Casework body remains 16 KiB. The audit store uses envelope 3 after the first decision; readers still accept legacy arrays and envelopes 1/2.

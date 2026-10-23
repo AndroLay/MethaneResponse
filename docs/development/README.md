@@ -1,27 +1,26 @@
-# Pengembangan
+# Development
 
-[Pusat dokumentasi](../README.md) · [Peta repository](../repository-map.md)
+[Documentation home](../README.md) · [Repository map](../repository-map.md)
 
-## Mulai bekerja
+## Getting started
 
-1. [Setup lokal](local-setup.md): prasyarat, install, run, contoh alur dan penanganan masalah.
-2. [Konfigurasi](configuration.md): environment API/web, reviewer, AI, storage dan receipt.
-3. [Panduan perubahan](contributing.md): lokasi perubahan, kompatibilitas, pemeriksaan dan pemeliharaan docs.
-4. [Pengujian](../testing/README.md): matriks command serta batas hasil.
-5. [Investigasi bersama](shared-casework.md): akses tim, konflik revisi, import browser, lock, backup dan restore.
-6. [Anchor dan pemulihan](blockchain-recovery.md): target, intent, pending, rekonsiliasi dan verifier independen.
+1. [Local setup](local-setup.md): prerequisites, installation, running the app, example workflows, and troubleshooting.
+2. [Configuration](configuration.md): API/web environment, reviewers, AI, storage, and receipts.
+3. [Contribution guide](contributing.md): change locations, compatibility, checks, and documentation maintenance.
+4. [Testing](../testing/README.md): command matrix and result limitations.
+5. [Shared casework](shared-casework.md): team access, revision conflicts, browser import, locks, backup, and restore.
+6. [Anchoring and recovery](blockchain-recovery.md): targets, intents, pending transactions, reconciliation, and independent verification.
+7. [Publication corrections and withdrawal](publication-lifecycle.md): revision consent, status/history, offline checksums, migration, and rollback limits.
+8. [DeepSeek V4.1 Flash 1017](deepseek-integration.md): private backend configuration, a live-provider smoke check, and benchmark limits.
 
-7. [Koreksi dan penarikan publikasi](publication-lifecycle.md): consent revisi, status/history, checksum offline, migrasi dan batas rollback.
-8. [DeepSeek V4.1 Flash 1017](deepseek-integration.md): konfigurasi backend privat, smoke provider nyata dan batas benchmark.
+## UI implementation
 
-## Implementasi antarmuka
-
-| Catatan | Pemakaian |
+| Guide | Use |
 |---|---|
-| [UI/workspaces](ui-implementation.md) | Hubungan route, state, pemuatan fitur dan pemilik modul saat ini |
-| [Landing page](landing-page.md) | Catatan implementasi pengantar produk dan binding data; hasil bertanggal mengikuti revisi asal |
-| [Optimasi performa](performance-optimization.md) | Arsip perubahan/measurement 13–14 Oktober; bukan ukuran build saat ini |
+| [UI/workspaces](ui-implementation.md) | Current relationship between routes, state, feature loading, and module ownership |
+| [Landing page](landing-page.md) | Implementation notes for the product introduction and data binding; dated results remain tied to their source revisions |
+| [Performance optimization](performance-optimization.md) | Archive of changes and measurements from 13–14 October; not a current build-size measurement |
 
-Untuk service boundaries dan kontrak HTTP, baca [arsitektur](../architecture/README.md). Untuk data generation gunakan [provenance/rebuild](../../data/real/README.md), agar input, output, lisensi dan hash tetap satu acuan.
+For service boundaries and HTTP contracts, read the [architecture guide](../architecture/README.md). For data generation, use [provenance/rebuild](../../data/real/README.md) so inputs, outputs, licenses, and hashes remain governed by one reference.
 
-- [Connected investigations](connected-investigations.md): evidence requests, dossier beku, decision receipts, verifier dan recovery.
+- [Connected investigations](connected-investigations.md): evidence requests, frozen dossiers, decision receipts, verification, and recovery.

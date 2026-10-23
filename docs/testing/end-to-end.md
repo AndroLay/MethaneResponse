@@ -1,8 +1,8 @@
-# Pengujian browser E2E
+# E2E browser testing
 
-[Pengujian](README.md) · [Setup lokal](../development/local-setup.md) · [Bukti run](../evidence/README.md)
+[Testing](README.md) · [Local setup](../development/local-setup.md) · [Run evidence](../evidence/README.md)
 
-Runner [scripts/run-e2e.sh](../../scripts/run-e2e.sh) mengoordinasikan dua proses Playwright terisolasi: main workflow dan private/manual/mock-AI workflow. Gunakan dari root repo:
+The [scripts/run-e2e.sh](../../scripts/run-e2e.sh) runner coordinates two isolated Playwright processes: the main workflow and the private/manual/mock-AI workflow. Run it from the repository root:
 
 ```bash
 bun install --frozen-lockfile
@@ -11,52 +11,52 @@ bun run playwright install chromium
 bun run test:e2e
 ```
 
-Instalasi Chromium diperlukan sekali jika managed browser belum tersedia. Pada host yang mempunyai Chromium, executable dapat dipilih tanpa download:
+Chromium needs to be installed once if a managed browser is unavailable. On a host with Chromium, select its executable without downloading a browser:
 
 ```bash
 PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium bun run test:e2e
 ```
 
-Path executable harus benar pada host yang dipakai; contoh bukan pernyataan browser tersebut selalu terpasang.
+The executable path must be correct for the host being used; the example does not mean that browser is always installed.
 
-## Menjalankan satu phase
+## Run one phase
 
 ```bash
 bun run test:e2e -- e2e/audit-workflow.spec.ts
 bun run test:e2e -- e2e/ai-review-workflow.spec.ts
 ```
 
-Runner meneruskan file ke phase yang sesuai. Masing-masing phase menjalankan regression checks untuk filter environment/argument routing sebelum browser. Focused repeat tidak dihitung sebagai skenario baru pada ringkasan coverage.
+The runner routes each file to its corresponding phase. Each phase runs regression checks for environment filtering/argument routing before opening the browser. A focused repeat is not counted as a new scenario in the coverage summary.
 
-## Isolasi runtime
+## Runtime isolation
 
-- API dan preview Vite khusus berjalan di loopback, dengan file audit serta direktori environment Vite sementara. Setiap phase memaksa `NODE_ENV=production` untuk membangun ulang frontend production sebelum membuka browser, sehingga aset yang diperiksa sesuai source saat run. Server development milik pengguna tidak digunakan ulang. Build memperbarui `apps/web/dist/`; jalankan phase secara berurutan.
-- Coordinator, workers dan subprocess menerima allowlist environment eksplisit; Bun dotenv autoload dimatikan. Credential dari environment pemanggil tidak diwariskan.
-- Phase private/manual/mock-AI memakai token tes berumur pendek yang dibuat runner; provider deterministik juga berada di loopback.
-- API memakai launcher dengan kernel writer lock. Chromium sandbox tetap aktif lokal dan pada CI yang tidak dikenal; exception hanya berlaku bila `CI=true`, `GITHUB_ACTIONS=true` dan `RUNNER_ENVIRONMENT=github-hosted` sekaligus. Host lokal harus mengizinkan sandbox browser serta socket lokal.
-- Workers memastikan credential pemanggil dan `VITE_*` tidak ikut masuk. Request HTTP eksternal, termasuk tile/imagery, diblokir.
-- Software WebGL dipakai untuk pemeriksaan alur. Hasil ini tidak mengukur GPU/perangkat fisik atau kualitas imagery live.
-- Jika kuota `/tmp` host habis dan `/dev/shm` dapat ditulis, runner mempunyai fallback temporary cache/store di sana. Data audit development tidak dipakai sebagai fixture.
+- A dedicated API and Vite preview run on loopback, with a temporary audit file and Vite environment directory. Each phase sets `NODE_ENV=production` and rebuilds the frontend before opening the browser, so checked assets match the source at run time. The user's development server is not reused. The build updates `apps/web/dist/`; run phases sequentially.
+- The coordinator, workers, and subprocesses receive an explicit environment allowlist; Bun dotenv autoload is disabled. Credentials from the caller's environment are not inherited.
+- The private/manual/mock-AI phase uses a short-lived test token created by the runner; the deterministic provider also runs on loopback.
+- The API uses the launcher with a kernel writer lock. The Chromium sandbox remains active locally and in CI that is not identified as GitHub-hosted; an exception applies only when `CI=true`, `GITHUB_ACTIONS=true`, and `RUNNER_ENVIRONMENT=github-hosted` are all set. The local host must permit the browser sandbox and local sockets.
+- Workers confirm that caller credentials and `VITE_*` are not passed through. External HTTP requests, including tile/imagery requests, are blocked.
+- Software WebGL is used for workflow checks. This does not measure a physical GPU/device or live imagery quality.
+- If the host's `/tmp` quota is exhausted and `/dev/shm` is writable, the runner has a fallback temporary cache/store there. Development audit data is not used as a fixture.
 
-## Cakupan perjalanan
+## Journey coverage
 
-| Phase | Yang diperiksa |
+| Phase | What it checks |
 |---|---|
-| Main historical workflow | Snapshot/source historis, navigasi map/case/auditor, publisher indicators, baseline, history/report, checksum/tamper detection dan interaksi responsive/keyboard yang didefinisikan spec |
-| Investigation planner | Empat alokasi pada batas yang sama, replay/export, pagination dan kuota tak terpenuhi, pembatalan respons lama, error/retry serta handoff source ID yang membersihkan filter tersembunyi dan menghormati draft |
-| Investigation operations | Exact ordered queue 10→20, handoff ring peta/auditor, delayed activation strategy guard, scope restore, expected digest untuk impor dan perbandingan parameter/snapshot |
-| Snapshot Change Watch | Dua rilis nyata, tiga selected source IDs terdampak, original field values, unduhan diff lengkap, halaman sumber disjoint, evidence handoff, stale strategy response dan explicit error/retry; capture desktop/mobile dengan batas lebar panel |
-| Plan reviewer history | Signed memory-only access, append/export/replay, konflik CAS yang mempertahankan draft, load latest eksplisit, serta recovery draft terpisah menurut reviewer; keputusan memakai fixture DEMO |
-| Connected investigation | Accepted allocation → exact source/scope → evidence request → authorized response with month precision → human assessment → immutable decision → new-response revisit; separate digest, private cross-origin header, desktop/mobile layout dan stale response guard |
-| Private/manual workflow | Scope, human determination tanpa AI, private access, revised assessment, browser work/draft continuity, trust controls dan redacted public summary sesuai spec |
-| Shared team workflow | Dua browser context terpisah, signed reviewer per anggota, preview/import tanpa menghapus notes lokal, assignee/due date, konflik CAS, compare/rebase eksplisit, penolakan response history lama setelah review terbaru, Cases queue, reconnect dan draft retained saat refresh gagal |
-| Public publication lifecycle | Koreksi/penarikan, consent ulang, keyboard/cancel, reload/503, history pagination, parent manusia setelah baseline, dan daftar terbaru setelah koreksi bersamaan |
-| Mock document AI | Authorized synthetic excerpt, exact quote forwarding, skeptical provider pass, abstention, review revision, privacy dan exported bundle digest |
+| Main historical workflow | Historical snapshot/source, map/case/auditor navigation, publisher indicators, baseline, history/report, checksum/tamper detection, and responsive/keyboard interactions defined by the spec |
+| Investigation planner | Four allocations under the same limits, replay/export, pagination and unmet quotas, cancellation of stale responses, error/retry, and source-ID handoff that clears hidden filters and respects drafts |
+| Investigation operations | Exact ordered queue 10→20, map/auditor ring handoff, delayed activation strategy guard, scope restore, expected digest for import, and parameter/snapshot comparison |
+| Snapshot Change Watch | Two real releases, three affected selected source IDs, original field values, complete diff download, disjoint source pages, evidence handoff, stale strategy response and explicit error/retry; desktop/mobile captures with a panel-width limit |
+| Plan reviewer history | Signed memory-only access, append/export/replay, CAS conflict preserving the draft, explicit load latest, and recovery draft separation by reviewer; decisions use DEMO fixtures |
+| Connected investigation | Accepted allocation → exact source/scope → evidence request → authorized response with month precision → human assessment → immutable decision → revisit on new response; separate digest, private cross-origin header, desktop/mobile layout, and stale-response guard |
+| Private/manual workflow | Scope, human determination without AI, private access, revised assessment, browser work/draft continuity, trust controls, and redacted public summary as defined in the spec |
+| Shared team workflow | Two separate browser contexts, signed reviewer token per member, preview/import without deleting local notes, assignee/due date, CAS conflicts, explicit compare/rebase, rejection of old response history after latest review, Cases queue, reconnect, and retained draft when refresh fails |
+| Public publication lifecycle | Correction/withdrawal, renewed consent, keyboard/cancel, reload/503, history pagination, human parent after baseline, and latest list after concurrent corrections |
+| Mock document AI | Authorized synthetic excerpt, exact quote forwarding, skeptical provider pass, abstention, review revision, privacy, and exported bundle digest |
 
-Spec dan assertions merupakan acuan coverage yang tepat; jumlah skenario dapat berubah. [Status aktif](../release/current-implementation-status.md) merujuk run terakhir yang dicatat, sedangkan evidence mencatat run gagal/rerun, snapshot, working tree dan batasnya.
+Specs and assertions are the exact coverage reference; scenario counts may change. [Active status](../release/current-implementation-status.md) points to the latest recorded run, while evidence records failures/reruns, snapshot, working tree, and limits.
 
-Contoh baseline memakai real source `KAZ_S_159` pada snapshot `unep-mars-675417694883`. Data bawaan tidak membuktikan mitigasi; laporan yang diubah harus ditolak verifier. Mock-AI excerpt diberi label sintetis dan tidak menjadi bukti untuk sumber nyata. Tidak ada excerpt tes yang dikirim ke provider eksternal.
+The baseline example uses real source `KAZ_S_159` on snapshot `unep-mars-675417694883`. Bundled data does not prove mitigation; a modified report must be rejected by the verifier. The mock-AI excerpt is labeled synthetic and is not evidence for a real source. No test excerpt is sent to an external provider.
 
-## Batas hasil
+## Result limits
 
-Kelulusan membuktikan perilaku software pada lingkungan tes. Ia tidak mengukur kualitas model nyata, mengautentikasi dokumen/reviewer nyata, membuktikan repair/zero emissions, menguji cloud durability, membuat transaksi Sepolia, atau memverifikasi tile publik. Tes transport TLS lokal terpisah dari E2E, sebagaimana dicatat di [matriks command](README.md).
+Passing tests demonstrate software behavior in the test environment. They do not measure real-model quality, authenticate real documents/reviewers, prove repair/zero emissions, test cloud durability, create a Sepolia transaction, or verify public tiles. Local TLS transport tests are separate from E2E, as recorded in the [command matrix](README.md).

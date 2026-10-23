@@ -78,7 +78,49 @@ async function prepare(directory: string) {
   rubric.push({ id: 'DEMO:utc', answer: { startDate: '2026-10-01', endDate: '2026-10-02', count: 2 } });
   await save(join(directory, 'inputs.json'), { schemaVersion: 1, comparisonId: 'product-value-functional-v1', provenance: book.provenance, cases, tasks });
   await save(join(directory, 'rubric.json'), rubric);
-  await writeFile(join(directory, 'protocol.md'), `# Protokol beku perbandingan fungsional\n\nDibekukan sebelum penilaian. ${tasks.length} sel terjadwal: 9 cakupan metadata dari 3 kasus historis dan 7 tantangan DEMO (5 integritas, 1 revisi, 1 UTC). Satu jawaban benar memerlukan seluruh field cocok; jawaban hilang dihitung gagal. Duplikat/ID tambahan ditolak.\n\n## Baseline manual yang dilengkapi alat\n\nSatu operator AI independen membaca inputs.json, kebijakan metadata packages/shared/src/evidence-policy.ts dan assessment-semantics.ts, serta skema sumber/claim di packages/shared/src/index.ts. Mendapat data dan provenance identik, lembar jawaban terstruktur, log revisi asli, alat SHA-256/JSON umum, dan boleh memakai CLI verifier yang sama (scripts/verify-audit.ts --require-context) untuk memeriksa file. Ini menguji rangkaian kemampuan, bukan larangan terhadap hashing atau otomasi manual. Jangan membaca rubric.json, hasil aplikasi, scorer, atau implementasi harness sebelum mengirim jawaban. Semua alat/penyimpangan dicatat. Tidak ada coaching jawaban.\n\n## Aplikasi\n\nReplay input sama memakai createAudit, verifier browser yang sebenarnya dengan requireExportContext:true, compareAuditRevisions dan preset UTC. Ini pengujian fungsi produksi; hasil interaksi browser dilaporkan terpisah. Tidak mengklaim seluruh portal MARS dibandingkan atau semua input end-to-end melalui UI.\n\n## Ukuran dan batas\n\nLaporan memuat seluruh sel, ketepatan, missing, dan overclaim fisik/autentisitas. Tidak ada pengukuran waktu manusia, biaya, produktivitas atau superioritas ilmiah. Jika kedua alur benar, laporkan paritas; nilai tambahan produk adalah integrasi yang dapat diperiksa, bukan ketidakmampuan baseline. Agen bukan partisipan manusia. Skenario DEMO bukan kejadian methane baru. Hasil P5 lama (15/24 pasangan layak; median manual-minus-app -33.914 detik) tetap terpisah dan tidak ditimpa. Tidak ada target skor18 yang menentukan hasil.\n\n## Format jawaban\n\nJSON {operator,toolsUsed,deviations,responses:[{id,answer:{...field yang diminta}}]}. Field di dalam answer harus persis yang diminta. Catatan bebas di luar answer diperbolehkan.\n`, { flag: 'wx' });
+  await writeFile(join(directory, 'protocol.md'), `# Frozen functional-comparison protocol
+
+English documentation edition for newly prepared packets. Existing frozen packets,
+answers, rubrics and results must not be overwritten or rescored by this translation.
+
+Frozen before assessment. ${tasks.length} scheduled cells: nine metadata-coverage
+checks from three historical cases and seven DEMO challenges (five integrity, one
+revision, one UTC). Every required field must match for a correct answer. Missing
+answers fail; duplicate or unscheduled IDs are rejected.
+
+## Tool-assisted manual baseline
+
+One independent AI operator reads inputs.json, the metadata policies in
+packages/shared/src/evidence-policy.ts and assessment-semantics.ts, and the source/
+claim schemas in packages/shared/src/index.ts. Supply identical data/provenance,
+structured answer sheets, original revision logs and general SHA-256/JSON tools.
+The same CLI verifier (scripts/verify-audit.ts --require-context) is permitted.
+This compares workflows, not a prohibition on manual hashing or automation.
+Do not inspect rubric.json, application outputs, scorer or harness implementation
+before submission. Record tools and deviations; do not coach answers.
+
+## Application
+
+Replay the same inputs using createAudit, the real browser verifier with
+requireExportContext:true, compareAuditRevisions and UTC presets. This tests
+production functions; browser interaction results are separate. It does not compare
+the entire MARS portal or claim every input passed end to end through the UI.
+
+## Measures and limits
+
+Report every cell, correctness, missing answers and physical/authenticity overclaims.
+Do not infer human time, cost, productivity or scientific superiority. If both
+workflows are correct, report parity: integration does not imply baseline incapacity.
+Agents are not human participants; DEMO scenarios are not new methane events.
+Earlier P5 results remain separate: 15/24 eligible pairs, median manual-minus-app
+-33.914 seconds. Do not overwrite them. An internal score target cannot set results.
+
+## Answer format
+
+JSON {operator,toolsUsed,deviations,responses:[{id,answer:{...requestedFields}}]}.
+Fields inside answer must match the requested fields exactly. Free-text notes
+outside answer are allowed.
+`, { flag: 'wx' });
   const files = ['inputs.json', 'rubric.json', 'protocol.md'];
   const bindings = Object.fromEntries(await Promise.all(files.map(async name => [name, hash(await readFile(join(directory, name)))])));
   const base = JSON.parse(await readFile(join(root, 'docs/evidence/integration-role-simulation-2026-10-18/manifest.json'), 'utf8'));

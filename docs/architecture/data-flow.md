@@ -1,109 +1,109 @@
-# Aliran data dan siklus audit
+# Data flow and audit lifecycle
 
-[Arsitektur](overview.md) · [Peta repo](../repository-map.md) · [Data dan claims](../product/data-and-claims.md)
+[Architecture](overview.md) · [Repository map](../repository-map.md) · [Data and claims](../product/data-and-claims.md)
 
-Panduan ini mengikuti perjalanan data dari arsip penerbit hingga laporan. Pipeline offline, state investigasi lokal/bersama, dan audit server mempunyai siklus hidup yang berbeda.
+This guide follows data from publisher archive to report. The offline pipeline, local/shared investigation state, and server audits have different lifecycles.
 
-## 1. Arsip → snapshot → tampilan
+## 1. Archive → snapshot → display
 
 ```mermaid
 flowchart LR
-  A[Arsip publisher dan lisensi] --> B[Validasi dan normalisasi Python]
-  B --> C[Snapshot browser dan progressive shards]
-  B --> D[Casebook terkurasi]
+  A[Publisher archive and license] --> B[Python validation and normalization]
+  B --> C[Browser snapshot and progressive shards]
+  B --> D[Curated casebook]
   C --> E[Intelligence snapshot offline]
-  C --> F[Browser: peta, tabel, observasi]
+  C --> F[Browser: map, tables, observations]
   D --> G[API]
   E --> G
-  F --> H[Source dan scope yang dipilih]
+  F --> H[Selected source and scope]
   H --> G
 ```
 
-1. Simpan identitas arsip, waktu retrieval, lisensi dan archive SHA-256. Input historis tetap dapat ditelusuri.
-2. Builder menormalisasi source/plume dan mempertahankan ID, tanggal, unit, nilai kosong serta ketidakpastian. Record plume tanpa source ID tidak dijoin melalui tebakan lokasi.
-3. Browser menggunakan manifest/progressive shards untuk memuat data tanpa merender semua observasi sekaligus. Geometri bulanan dan indikator publisher dimuat sesuai kebutuhan.
-4. Casebook menyediakan subset sumber dengan konteks referensi. Seluruh sumber pada peta tidak otomatis mempunyai kumpulan bukti dokumen terkurasi.
-5. Intelligence dibangun offline dari snapshot yang dipin. API memeriksa input digest, identitas upstream dan struktur artefak sebelum menyajikan insight/ranking.
-6. Import browser hanya mengganti konteks data lokal browser; tidak mengunggah arsip atau memperbarui snapshot server. Audit terhadap data yang tidak cocok tidak boleh diasumsikan tersedia.
+1. Store archive identity, retrieval time, license, and archive SHA-256. Historical inputs remain traceable.
+2. The builder normalizes sources/plumes while preserving IDs, dates, units, missing values, and uncertainty. Plume records without a source ID are not joined by guessing location.
+3. The browser uses manifests/progressive shards to load data without rendering every observation at once. Monthly geometries and publisher indicators load as needed.
+4. The casebook provides a subset of sources with reference context. Not every source on the map automatically has a curated document-evidence set.
+5. Intelligence is built offline from the pinned snapshot. The API checks the input digest, upstream identity, and artifact structure before serving insights/rankings.
+6. Browser import changes only the browser's local data context; it does not upload an archive or update the server snapshot. Do not assume audits are available for mismatched data.
 
-Sumber reproduksi utama: [casebook/snapshot/intelligence](../../data/real/README.md), [indikator publisher](../../data/real/mars_publisher_archives/README.md), [geometri](mars-publisher-geometry.md), dan [ledger recurrence](../product/prospective-recurrence.md). Gunakan perintah di sumber tersebut agar path/hash tidak mempunyai salinan instruksi yang berbeda.
+Primary reproduction sources: [casebook/snapshot/intelligence](../../data/real/README.md), [publisher indicators](../../data/real/mars_publisher_archives/README.md), [geometry](mars-publisher-geometry.md), and the [recurrence ledger](../product/prospective-recurrence.md). Use the commands in those sources so paths/hashes are not duplicated inconsistently.
 
 ## 2. Source → investigation → scope
 
-Investigasi browser menyimpan claim, periode/kejadian, pertanyaan, status, next action dan permintaan bukti. Kuncinya mencakup real/DEMO mode, source, snapshot/archive dan work ID. Beberapa work ID dapat memakai sumber yang sama. Scope dan claim tersimpan dapat dipulihkan tanpa menyimpulkan bahwa ada audit server baru.
+Browser investigations store the claim, period/event, question, status, next action, and evidence request. Their key includes real/DEMO mode, source, snapshot/archive, and work ID. Multiple work IDs can use the same source. Saved scope and claims can be restored without implying that a new server audit exists.
 
-Draft per tab membantu pemulihan edit. Token, konfirmasi inspeksi, pilihan retrieval dan consent publikasi memerlukan tindakan baru. Save catatan tidak membuat audit, tidak mengubah verdict, dan tidak mengirim pesan ke operator.
+Per-tab drafts help recover edits. Tokens, inspection confirmations, retrieval choices, and publication consent require a new action. Saving notes does not create an audit, change a verdict, or send a message to an operator.
 
-### Workspace tim opsional
+### Optional team workspace
 
-Signed reviewer terhubung ke `/api/case-work/session`; server memeriksa directory authority aktif. List/detail terikat snapshot/archive dan disaring berdasarkan claim type. Save mengirim context, draft, serta expected revision; server memvalidasi source/scope/assignee/link audit, memeriksa ulang akses, lalu menambah riwayat dengan aktor dari token. Satu writer memegang lock OS, menulis state privat dengan flush atomik sebelum ACK. File work terpisah dari bundle audit dan tidak mengubah hash penilaian.
+The signed reviewer connects to `/api/case-work/session`; the server checks current directory authority. List/detail are bound to the snapshot/archive and filtered by claim type. Save sends context, draft, and expected revision; the server validates the source/scope/assignee/audit link, rechecks access, then appends history with the actor from the token. One writer holds the OS lock and writes private state with an atomic flush before ACK. The work file is separate from the audit bundle and does not change the assessment hash.
 
-Dua penulis pada revisi yang sama menghasilkan satu save dan satu konflik. Draft tab dipertahankan; pengguna membandingkan versi terbaru sebelum rebase atau reload. Import browser memakai preview dan ID server baru tanpa menghapus catatan lokal. Queue perlu refresh eksplisit; refresh gagal menyembunyikan data lama dan menonaktifkan save. Lihat [runbook](../development/shared-casework.md) untuk restart, marker, backup/restore dan batas satu instance lokal.
+Two writers on the same revision produce one save and one conflict. The tab draft is retained; the user compares the latest version before rebasing or reloading. Browser import uses a preview and a new server ID without deleting local notes. The queue requires an explicit refresh; a failed refresh hides stale data and disables save. See the [runbook](../development/shared-casework.md) for restart, markers, backup/restore, and single-local-instance limits.
 
-## 3. Scope → penilaian → revisi
+## 3. Scope → assessment → revision
 
 ### Rules baseline
 
-`POST /api/audits` memvalidasi source/claim dan optional scope, meresolusi data yang dipin, lalu menyeleksi bukti. Coverage di UI memakai selector yang sama. Scope menyingkirkan tanggal di luar periode, record tanpa tanggal, event yang tidak cocok, penerima yang berbeda, dan metadata tindakan/follow-up yang belum lengkap.
+`POST /api/audits` validates the source/claim and optional scope, resolves pinned data, then selects evidence. UI coverage uses the same selector. Scope excludes dates outside the period, records without dates, mismatched events, different recipients, and incomplete action/follow-up metadata.
 
-Hasil hanya menjelaskan hubungan bukti terdaftar dengan claim. Notifikasi/mitigasi dari data bawaan tetap insufficient bila hanya tersedia flag publisher atau tautan laporan.
+The result describes only how registered evidence relates to the claim. Notification/mitigation claims from bundled data remain insufficient when only a publisher flag or report link is available.
 
-### Human assessment tanpa AI
+### Human assessment without AI
 
 ```mermaid
 sequenceDiagram
-  participant U as Reviewer di web
+  participant U as Web reviewer
   participant A as API
-  participant D as Direktori reviewer
-  participant R as Referensi publisher
-  participant S as File audit
-  U->>A: Scope, claim, referensi, determination dan consent
-  A->>D: Periksa token dan approval kategori
-  A->>A: Validasi snapshot, scope dan parent
-  opt Retrieval disetujui pada request ini
-    A->>R: HTTPS terbatas, tanpa credential/redirect
-    R-->>A: Bytes untuk content digest
+  participant D as Reviewer directory
+  participant R as Publisher reference
+  participant S as Audit file
+  U->>A: Scope, claim, references, determination, and consent
+  A->>D: Check token and category approval
+  A->>A: Validate snapshot, scope, and parent
+  opt Retrieval enabled for this request
+    A->>R: Restricted HTTPS, no credentials/redirects
+    R-->>A: Bytes for content digest
   end
-  A->>D: Periksa kembali approval
-  A->>A: Coverage terpisah, trust record, canonical bundle
-  A->>S: Tambahkan revisi privat dan parent hash
-  S-->>U: Audit schema 4 tersimpan
+  A->>D: Recheck approval
+  A->>A: Separate coverage, trust record, canonical bundle
+  A->>S: Append private revision and parent hash
+  S-->>U: Schema 4 audit saved
 ```
 
-Reviewer dapat menentukan insufficient tanpa referensi; supported memerlukan tipe referensi yang sesuai dan contradicted memerlukan contrary record yang sesuai. Pemeriksaan metadata tidak mengautentikasi isi. Maksimal 12 referensi. Retrieval menyimpan status/hash, tidak menyimpan isi laporan. Parent yang stale ditolak agar revisi baru tidak diam-diam berdasar pada versi lama.
+The reviewer can choose insufficient without references; supported requires an appropriate reference type, and contradicted requires an appropriate contrary record. Metadata checks do not authenticate contents. Up to 12 references are allowed. Retrieval saves status/hash, not report contents. A stale parent is rejected so a new revision cannot silently rely on an older version.
 
-### Document AI opsional
+### Optional Document AI
 
-Manifest PDF/TXT dan hash file diperiksa lokal. Excerpt yang diizinkan dikirim hanya setelah consent dan konfigurasi provider/token. API mencocokkan kutipan persis terhadap excerpt dan menyimpan schema 3 tanpa full excerpt. Review manusia berikutnya menjadi revisi terpisah. Jalur ini tetap source-level dan memiliki aturan publikasi tersendiri; tidak memakai consent ringkasan schema 4 sebagai penggantinya.
+The PDF/TXT manifest and file hash are checked locally. An authorized excerpt is sent only after consent and provider/token configuration. The API matches exact quotes against the excerpt and saves schema 3 without the full excerpt. Subsequent human review is a separate revision. This path remains source-level and has its own publication rules; schema 4 summary consent cannot replace them.
 
-## 4. Revisi → akses → ekspor
+## 4. Revision → access → export
 
-| Keluaran | Dibaca oleh | Isi dan batas |
+| Output | Read by | Contents and limits |
 |---|---|---|
-| Full schema 2 | Publik jika kebijakan visibility mengizinkan | Baseline; scope berisi penerima tetap privat |
-| Full schema 3 | Reviewer; publik hanya jika syarat approval/consent lengkap | Kutipan/metadata terpilih dapat sensitif; full excerpt tidak disimpan |
-| Full schema 4 / JSON `PRIVATE-…` | Pembaca berwenang | Claim, rationale, identitas dan metadata referensi tetap privat |
-| Markdown investigation brief | Pengguna yang menyiapkan brief | Menghilangkan detail penilaian privat dan isi kutipan; bukan pengganti JSON verifier |
-| Public transparency summary | Publik, bila consent revisi diberikan | Hanya field allowlist dan hash; tidak memberi akses bukti privat |
+| Full schema 2 | Public if visibility policy allows | Baseline; recipient scope remains private |
+| Full schema 3 | Reviewer; public only if approval/consent requirements are met | Selected quotes/metadata may be sensitive; the full excerpt is not stored |
+| Full schema 4 / JSON `PRIVATE-…` | Authorized reader | Claim, rationale, identity, and reference metadata remain private |
+| Markdown investigation brief | User preparing the brief | Omits private assessment details and quoted content; not a replacement for the JSON verifier |
+| Public transparency summary | Public, when revision consent is given | Allowlisted fields and hashes only; no access to private evidence |
 
-Pengambilan history privat memfilter kategori yang diizinkan sebelum pagination. Ringkasan publik hanya dibuat dari bundle dengan integritas valid. Summary merekam hasil/assurance historis saat save; tidak menyatakan reviewer masih berwenang. Event publikasi terpisah dalam envelope audit versi 2 mencatat `published`, `superseded` dan `withdrawn` tanpa mengubah bundle/hash. Revisi berconsent baru menggantikan publikasi aktif pada scope/claim sama; revisi privat tidak mengubah status publik. Reader memakai satu snapshot audit+event, lalu memilih versi publik terakhir sebelum pagination. Status live tidak tercakup oleh checksum historis; [runbook lifecycle](../development/publication-lifecycle.md) menjelaskan migrasi, CAS dan batas rollback.
+Private history retrieval filters allowed categories before pagination. Public summaries are created only from bundles with valid integrity. The summary records historical results/assurance at save time; it does not state that a reviewer remains authorized. Separate publication events in audit envelope version 2 record `published`, `superseded`, and `withdrawn` without changing the bundle/hash. A newly consented revision replaces the active publication for the same scope/claim; private revisions do not change public status. The reader uses one audit+event snapshot, then selects the latest public version before pagination. Live status is not covered by the historical checksum; the [lifecycle runbook](../development/publication-lifecycle.md) explains migration, CAS, and rollback limits.
 
-Ekspor membedakan observasi yang benar-benar dikutip audit dari `historicalContext`. Baris hanya disertakan bila source dan binding snapshot yang diperlukan cocok. Data sumber dari snapshot lain tidak dimasukkan seolah-olah menjadi bukti audit tersimpan.
+Exports distinguish observations actually cited by the audit from `historicalContext`. Rows are included only when the source and required snapshot binding match. Source data from another snapshot is not presented as evidence in the saved audit.
 
-## Lapisan integritas
+## Integrity layers
 
-| Lapisan | Objek yang di-hash | Apa yang dapat diperiksa |
+| Layer | Hashed object | What can be checked |
 |---|---|---|
-| Archive/file digest | Bytes arsip atau artefak | Konsistensi file terhadap manifest/provenance |
-| Bundle hash | Canonical evidence bundle | Integritas isi satu revisi audit |
-| Export checksum | Amplop JSON laporan | Integritas konteks ekspor beserta audit yang dibawa |
-| Summary hash | Canonical objek `summary` | Konsistensi field publik yang terlihat |
-| Receipt blockchain | Komitmen hash dalam event registry | Hash/issuer/versi/transaksi yang sesuai, bila receipt benar-benar ada |
+| Archive/file digest | Archive or artifact bytes | File consistency with the manifest/provenance |
+| Bundle hash | Canonical evidence bundle | Integrity of one audit revision's contents |
+| Export checksum | JSON report envelope | Integrity of the export context and included audit |
+| Summary hash | Canonical `summary` object | Consistency of visible public fields |
+| Blockchain receipt | Hash commitment in a registry event | Matching hash/issuer/version/transaction, if a receipt actually exists |
 
-Checksum lokal tidak ditandatangani: pihak yang mengubah isi dan menghitung checksum baru dapat membuat artefak lain yang konsisten. Hash bukan bukti identitas penerbit, waktu publikasi independen, keakuratan isi, atau hasil mitigasi. Write/reconcile memakai intent durabel dalam envelope audit yang sama. Hash transaksi tersimpan sebelum broadcast; status tidak pasti tetap pending. Lihat [pemulihan P2](../development/blockchain-recovery.md).
+Local checksums are unsigned: anyone who changes the content and recalculates the checksum can create another internally consistent artifact. A hash is not proof of publisher identity, independent publication time, content accuracy, or mitigation outcome. Writes/reconciliation use durable intents in the same audit envelope. The transaction hash is saved before broadcast; uncertain status remains pending. See [P2 recovery](../development/blockchain-recovery.md).
 
-## 5. Tindak lanjut
+## 5. Follow-up
 
-**Add saved request to follow-up** menyalin permintaan bukti secara eksplisit ke draft investigasi yang cocok, membawa audit ID/hash. Status kerja tidak berubah dan pengguna tetap harus save. Bukti baru dapat menjadi revisi penilaian berikutnya. Perubahan notes tidak mengubah bundle lama.
+**Add saved request to follow-up** explicitly copies an evidence request into a matching investigation draft, along with the audit ID/hash. Work status does not change, and the user must still save. New evidence can be used in a later assessment revision. Changes to notes do not alter an older bundle.
 
-Untuk batas storage, revocation dan publikasi lengkap, baca [trust dan transparansi](../product/trust-and-transparency.md) serta [alur penggunaan](../product/user-workflow.md).
+For storage, revocation, and full publication limits, see [trust and transparency](../product/trust-and-transparency.md) and the [user workflow](../product/user-workflow.md).

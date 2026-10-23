@@ -1,109 +1,111 @@
-# Pembanding publik IEEE ClimateChain dan posisi MethaneResponse
+# Public IEEE ClimateChain Comparison and MethaneResponse Position
 
-**Tanggal pemeriksaan:** 16 Oktober 2026, WITA.  
-**Baseline repo:** `a82e2eee99bb79327f859f304f2f5d5939f07041`, dengan perubahan dokumentasi lokal yang belum di-commit.  
-**Kesimpulan:** implementasi inti prototype lokal sudah tersedia, tetapi belum ada bukti bahwa fitur, penelitian, atau manfaat MethaneResponse paling unggul di antara seluruh peserta.
+**Checked:** 16 October 2026, WITA.
 
-## Cakupan dan cara membaca hasil
+**Repository baseline:** `a82e2eee99bb79327f859f304f2f5d5939f07041`, with local uncommitted documentation changes.
 
-- Sepuluh halaman proyek di bawah dapat ditelusuri secara publik dan pada pemeriksaan ini menampilkan **Submitted to → IEEE ClimateChain Global Hackathon**, dengan tautan ke domain acara yang benar.
-- [Galeri resmi](https://ieee-climatechain-hack.devpost.com/project-gallery) masih menampilkan pemberitahuan bahwa penyelenggara belum memublikasikannya. Ini bukan inventaris seluruh submission, daftar final yang memenuhi syarat, atau hasil penjurian.
-- Pemeriksaan dibagi kepada dua penelaah independen, lalu digabungkan dengan pemeriksaan PLUME, Kanopy, sumber domain, dan status repo oleh koordinator. Ini bukan penilaian oleh juri kompetisi.
-- Deskripsi pesaing dan hasil eksperimennya berasal dari halaman atau repo yang dikelola pembuat. Tautan repo/demo yang tercantum tidak berarti kodenya sudah dijalankan atau hasilnya direproduksi. Akses beberapa preview gagal melalui reader; kegagalan reader tidak membuktikan situs mati.
-- Tidak ada pengujian produk, transaksi, deployment, kontak peserta/panitia, atau submission yang dilakukan dalam riset ini. Bukti pemeriksaan lokal MethaneResponse tetap mengikuti tanggal dan revisi pada [status implementasi](../release/current-implementation-status.md).
+**Conclusion:** the core local prototype is available, but there is no evidence that MethaneResponse's features, research, or benefits are best among all participants.
 
-## Sepuluh proyek publik yang terkonfirmasi
+## Scope and how to read these findings
 
-| No. | Proyek / sumber Devpost | Fokus yang dipublikasikan | Artefak yang ditautkan | Batas bukti penting |
+- Ten project pages below were publicly traceable and displayed **Submitted to → IEEE ClimateChain Global Hackathon**, linking to the correct event domain when checked.
+- The [official gallery](https://ieee-climatechain-hack.devpost.com/project-gallery) still showed a notice that organizers had not published it. This is not a full inventory of submissions, a final eligibility list, or judging results.
+- Two independent reviewers split the research, then a coordinator combined it with checks of PLUME, Kanopy, domain sources, and repository status. This is not judging by competition judges.
+- Competitor descriptions and experimental results come from creator-maintained pages/repos. A linked repo/demo does not mean its code was run or results reproduced. Some previews failed through the reader; that failure does not prove the site is down.
+- No product test, transaction, deployment, participant/organizer contact, or submission occurred during this research. Local MethaneResponse evidence remains bound to the dates/revisions in [implementation status](../release/current-implementation-status.md).
+
+## Ten confirmed public projects
+
+| No. | Project / Devpost source | Published focus | Linked artifacts | Important evidence limits |
 |---|---|---|---|---|
-| 1 | [Kanopy](https://devpost.com/software/kanopy) | Pengukuran hutan dan stok karbon dari data satelit, ketidakpastian, serta registrasi hasil di blockchain. | [Verifier](https://kamhq.com/kanopy/verify/). Repo terpisah tidak terlihat pada halaman yang diperiksa. | Hash memeriksa integritas hasil; akurasi pengukuran tetap membutuhkan validasi. Klaim transaksi dan pengujian belum direproduksi. |
-| 2 | [PLUME: Earth's First Climate Bug-Bounty Network](https://devpost.com/software/plume-earth-s-first-climate-bug-bounty-network) | Data metana historis, investigasi, pendanaan escrow, bukti perbaikan, keputusan verifier, dan settlement. | [GitHub](https://github.com/KaavinB/PLUME); halaman/repo juga menautkan preview. | Intervensi, peserta dan dana demo disimulasikan. README membatasi preview sebagai snapshot tanpa backend aktif dan AI sebagai pengujian provider palsu. |
-| 3 | [CarbonTwin](https://devpost.com/software/carbontwin) | Pencarian overlap lintas registry dan release steward: pembaruan versi data, rescreening, adjudikasi AI, validasi, serta Merkle anchor. | [Demo](https://hyunsikparker.github.io/carbontwin/), [GitHub proyek asli](https://github.com/HyunsikParker/carbontwin), video; halaman menyebut pengembangan rilis baru di GitLab. | Shared vintage tanpa serial number belum membuktikan double counting. Cakupan rilis baru belum diaudit dari kode/eksekusi. |
-| 4 | [CarbonShield](https://devpost.com/software/carbonshield) | Stress test asumsi verifikasi kredit REDD+ pada enam dimensi. | [GitHub](https://github.com/saideeksha19/carbonshield), video. | README masih menyebut fase riset/data sedang berjalan; klaim implementasi Devpost belum direproduksi. Keluaran bukan label fraud. |
-| 5 | [Mizan — the carbon passport for EU-bound exports](https://devpost.com/software/mizan-the-carbon-passport-for-eu-bound-exports) | Paspor emisi per pengiriman: ekstraksi dokumen dengan sitasi, perhitungan, review manusia, dan pencatatan Merkle di Hedera. | [Demo](https://mizan-cbam.vercel.app/), [GitHub](https://github.com/abubokkor-cse/Mizan), video. | Evaluasi yang dilaporkan memakai tujuh dokumen; belum independen. Mode demo memakai chain simulasi. Klaim live/testnet tidak diverifikasi dalam riset ini. |
-| 6 | [Uncounted: Verifiable Ledger for Wildfire & War Emissions](https://devpost.com/software/uncounted-verifiable-ledger-for-wildfire-war-emissions) | Estimasi emisi kebakaran dan atribusi konflik dari data NASA FIRMS, model, ketidakpastian, dan ledger. | [GitHub](https://github.com/mlkmas/uncounted), video. | Atribusi konflik merupakan hasil model, bukan pengukuran langsung. Public testnet dan tambahan cuaca disebut sebagai pengembangan berikutnya. |
-| 7 | [Grounded — Test Tomorrow Before It Arrives](https://devpost.com/software/grounded-test-tomorrow-before-it-arrives) | Digital twin untuk menguji ketahanan microgrid rumah sakit dan komunitas Jaipur pada skenario iklim/gangguan listrik. | [Demo](https://grounded-peach.vercel.app/), [GitHub](https://github.com/codewithanshuman/grounded). | Eksperimen 500 skenario dan konsekuensi cadangan baterai adalah simulasi yang dilaporkan pembuat; belum validasi rumah sakit nyata. |
-| 8 | [AquaQuest](https://devpost.com/software/aquaquest) | Citizen science perairan: penjelajahan lokasi, observasi/foto, informasi One Health, dan kontribusi komunitas. | [Demo](https://luzaynarahman-dot.github.io/AquaQuest/), [GitHub](https://github.com/luzaynarahman-dot/AquaQuest). | Versi yang dijelaskan memakai konten demo, mock API, dan penyimpanan lokal. Observasi visual bukan pengganti uji laboratorium. |
-| 9 | [AION V3 — Sovereign Value OS](https://devpost.com/software/aion-v3-sovereign-value-os) | Memisahkan nilai peluang yang diperkirakan dari nilai yang dibuktikan setelah tindakan. | Video tersemat; repo/demo terpisah tidak terlihat pada halaman yang diperiksa. | Verifikasi dampak lingkungan masih arah pengembangan. Implementasi sulit dinilai dari deskripsi dan video saja. |
-| 10 | [CarbonLens](https://devpost.com/software/carbonlens-vo3hut) | Memeriksa klaim kredit hutan dengan citra multispektral, membatasi penerbitan, dan mencatat hasil di blockchain. | Label GitHub terlihat; URL repo tidak berhasil diuraikan oleh penelaah. | Halaman menyatakan citra satelit disimulasikan dan proyeknya fiktif. Ini belum validasi kredit karbon nyata. |
+| 1 | [Kanopy](https://devpost.com/software/kanopy) | Measure forest/carbon stocks from satellite data, show uncertainty, and register results on blockchain. | [Verifier](https://kamhq.com/kanopy/verify/). No separate repository was visible on the inspected page. | Hashes check result integrity; measurement accuracy still needs validation. Transaction/testing claims were not reproduced. |
+| 2 | [PLUME: Earth's First Climate Bug-Bounty Network](https://devpost.com/software/plume-earth-s-first-climate-bug-bounty-network) | Historical methane data, investigation, escrow funding, repair evidence, verifier decisions, and settlement. | [GitHub](https://github.com/KaavinB/PLUME); page/repo also link a preview. | Interventions, participants, and demo funds are simulated. README limits preview to a snapshot without an active backend and describes AI as a fake-provider test. |
+| 3 | [CarbonTwin](https://devpost.com/software/carbontwin) | Cross-registry overlap search and release stewardship: data-version updates, rescreening, AI adjudication, validation, and Merkle anchoring. | [Demo](https://hyunsikparker.github.io/carbontwin/), [original project GitHub](https://github.com/HyunsikParker/carbontwin), video; page mentions new release development on GitLab. | A shared vintage without a serial number does not prove double counting. New-release scope was not audited from code/execution. |
+| 4 | [CarbonShield](https://devpost.com/software/carbonshield) | Stress-test REDD+ credit verification assumptions across six dimensions. | [GitHub](https://github.com/saideeksha19/carbonshield), video. | README still says research/data work is in progress; Devpost implementation claims were not reproduced. Output is not a fraud label. |
+| 5 | [Mizan — the carbon passport for EU-bound exports](https://devpost.com/software/mizan-the-carbon-passport-for-eu-bound-exports) | Shipment-level emissions passport: document extraction with citations, calculation, human review, and a Merkle record on Hedera. | [Demo](https://mizan-cbam.vercel.app/), [GitHub](https://github.com/abubokkor-cse/Mizan), video. | Reported evaluation uses seven documents and is not independent. Demo uses a simulated chain. Live/testnet claims were not verified in this research. |
+| 6 | [Uncounted: Verifiable Ledger for Wildfire & War Emissions](https://devpost.com/software/uncounted-verifiable-ledger-for-wildfire-war-emissions) | Estimate wildfire emissions and conflict attribution from NASA FIRMS data, models, uncertainty, and a ledger. | [GitHub](https://github.com/mlkmas/uncounted), video. | Conflict attribution is a model result, not a direct measurement. Public testnet and added weather data are described as future work. |
+| 7 | [Grounded — Test Tomorrow Before It Arrives](https://devpost.com/software/grounded-test-tomorrow-before-it-arrives) | Digital twin for testing Jaipur hospital/community microgrid resilience under climate/power-failure scenarios. | [Demo](https://grounded-peach.vercel.app/), [GitHub](https://github.com/codewithanshuman/grounded). | The 500-scenario experiment and battery-backup consequences are creator-reported simulations, not validation at a real hospital. |
+| 8 | [AquaQuest](https://devpost.com/software/aquaquest) | Citizen science for water: explore locations, submit observations/photos, view One Health information, and contribute as a community. | [Demo](https://luzaynarahman-dot.github.io/AquaQuest/), [GitHub](https://github.com/luzaynarahman-dot/AquaQuest). | Described version uses demo content, mock API, and local storage. Visual observations do not replace laboratory testing. |
+| 9 | [AION V3 — Sovereign Value OS](https://devpost.com/software/aion-v3-sovereign-value-os) | Separate estimated opportunity value from value proven after action. | Embedded video; no separate repo/demo was visible on the inspected page. | Environmental-impact verification remains future direction. Implementation is hard to assess from description/video alone. |
+| 10 | [CarbonLens](https://devpost.com/software/carbonlens-vo3hut) | Inspect forest-credit claims with multispectral imagery, limit issuance, and record results on blockchain. | GitHub label visible; reviewer could not resolve the repository URL. | Page says satellite imagery is simulated and the project is fictional. This is not validation of real carbon credits. |
 
-### Koreksi terhadap daftar awal
+### Corrections to the initial list
 
-- **PLUME:** `/software/plume` adalah proyek lain. Gunakan alamat lengkap pada tabel.
-- **Cloud, Climate, Chain / RANTAI 3C:** tidak dihitung dalam sepuluh terkonfirmasi. Indeks pencarian mengaitkannya dengan ClimateChain, tetapi bagian Submitted to pada [halaman Cloud, Climate, Chain](https://devpost.com/software/cloud-climate-chain) yang dibuka langsung hanya menampilkan Dev Season of Code; [halaman RANTAI 3C lainnya](https://devpost.com/software/3c-cloud-climate-chain) menampilkan Hack-Earth dan Snow Fest. Ini ketidakcocokan yang belum terselesaikan, bukan bukti bahwa pembuat tidak pernah mendaftar.
-- **CarbonTwin release steward:** [halaman terpisah ini](https://devpost.com/software/carbontwin-release-steward) menautkan Life After Code; jangan menghitungnya sebagai submission ClimateChain kedua.
+- **PLUME:** `/software/plume` is a different project. Use the full URL shown above.
+- **Cloud, Climate, Chain / RANTAI 3C:** not counted among the ten confirmed projects. Search results associated it with ClimateChain, but the directly opened [Cloud, Climate, Chain page](https://devpost.com/software/cloud-climate-chain) only showed Dev Season of Code under Submitted to; [another RANTAI 3C page](https://devpost.com/software/3c-cloud-climate-chain) showed Hack-Earth and Snow Fest. This is an unresolved mismatch, not proof the creators never registered.
+- **CarbonTwin release steward:** [this separate page](https://devpost.com/software/carbontwin-release-steward) links Life After Code; do not count it as a second ClimateChain submission.
 
-## Pembanding yang paling relevan
+## Most relevant comparisons
 
-Ini pilihan untuk belajar, bukan urutan peringkat.
+These are learning references, not a ranked list.
 
-1. **PLUME — pembanding masalah paling dekat.** Ceritanya menghubungkan penemuan emisi dengan pendanaan dan keputusan tindakan. Dari deskripsi dan struktur repo, cakupan workflow tindakannya lebih luas daripada MethaneResponse. Itu belum membuktikan manfaat lapangan; demo lokal dan perbaikannya tetap simulasi. Jangan menyimpulkan bahwa PLUME telah membuktikan AI live atau mitigasi nyata.
-2. **Kanopy — pembanding penjelasan metode.** Ketidakpastian pengukuran, hasil komputasi, dan integritas registrasi memberi bahan demo yang dapat diperiksa. Pelajarannya untuk kita: tunjukkan asal angka dan batas maknanya sebelum menjelaskan hash.
-3. **Mizan dan CarbonTwin — pembanding audit dan revisi.** Sitasi sumber/review manusia pada Mizan serta pembaruan versi, adjudikasi, dan anchor pada CarbonTwin beririsan dengan rancangan MethaneResponse. Kombinasi AI, sitasi, manusia, snapshot, dan blockchain belum cukup sebagai klaim kebaruan. Pemeriksaan klaim respons metana dalam konteks record MARS adalah hipotesis pembeda yang perlu diuji, bukan keunikan yang sudah terbukti.
-4. **Grounded — pembanding demonstrasi keputusan.** Pilihan cadangan baterai dihubungkan dengan kegagalan layanan kritis dan beban lain yang dikorbankan. Kita membutuhkan hasil tugas pengguna yang sama konkretnya, dengan label yang jelas apakah hasil berasal dari simulasi, evaluasi tugas, atau pengukuran lapangan.
+1. **PLUME — closest problem comparison.** It connects emissions discovery to funding and action decisions. Its described workflow covers more action steps than MethaneResponse. That does not prove field benefit; local demos/interventions remain simulated. Do not infer live AI or real mitigation from PLUME's description.
+2. **Kanopy — method-explanation comparison.** Measurement uncertainty, computed output, and registration integrity support an inspectable demo. Lesson: explain where a number came from and what it means before discussing hashes.
+3. **Mizan and CarbonTwin — audit/revision comparisons.** Mizan's source citations/human review and CarbonTwin's version updates/adjudication/anchoring overlap with MethaneResponse design. AI, citations, humans, snapshots, and blockchain together are not enough to establish novelty. Auditing methane-response claims in MARS records is a differentiation hypothesis to test, not proven uniqueness.
+4. **Grounded — decision-demonstration comparison.** Battery-backup choices are connected to critical-service failures and loads that must be sacrificed. We need equally concrete task outcomes and clear labels for simulation, task evaluation, and field measurement.
 
-## Urgensi dan landasan penelitian
+## Urgency and research basis
 
-### Masalahnya kuat; manfaat aplikasi masih hipotesis yang harus diukur
+### The problem is important; app benefit remains a hypothesis
 
-[IEA Global Methane Tracker 2026](https://www.iea.org/reports/global-methane-tracker-2026/key-findings) memperkirakan emisi metana operasi bahan bakar fosil pada 2025 sebesar **124 juta ton per tahun**. Sekitar **70% dari emisi metana bahan bakar fosil tersebut** dapat dikurangi dengan teknologi yang tersedia. Angka ini menjelaskan skala masalah dan peluang mitigasi sektor; angka tersebut bukan pengurangan emisi yang disebabkan aplikasi.
+[IEA Global Methane Tracker 2026](https://www.iea.org/reports/global-methane-tracker-2026/key-findings) estimates fossil-fuel-operation methane emissions at **124 million tonnes per year** in 2025. About **70% of those fossil-fuel methane emissions** could be reduced with available technology. This shows sector scale/opportunity; it is not emissions reduction caused by an application.
 
-Panduan [IEA–IMEO tentang respons notifikasi MARS](https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system), diterbitkan 4 Mei 2026, melaporkan sekitar **12% notifikasi pada 2025 menerima respons** dan menguraikan lima tahap dari penerimaan alert, notifikasi operator, respons, verifikasi, hingga dokumentasi. Angka respons itu bukan persentase perbaikan, bukan respons periode dataset negara di aplikasi, dan tidak boleh dipindahkan ke denominator lain.
+The [IEA–IMEO guide to MARS notification response](https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system), published 4 May 2026, reports that about **12% of 2025 notifications received a response** and describes five stages from receiving an alert to operator notification, response, verification, and documentation. That response figure is not a repair percentage, not the response rate for a country dataset in the app, and must not be transferred to a different denominator.
 
-**Inferensi untuk produk:** dokumentasi dan pemeriksaan bukti respons adalah masalah yang layak diuji. Rendahnya respons global belum membuktikan bahwa kurangnya dashboard/audit tool merupakan penyebabnya, atau bahwa MethaneResponse akan menaikkan respons. Wewenang, biaya, organisasi, dan tindakan lapangan juga memengaruhi hasil.
+**Product inference:** response documentation and evidence checking are worth testing. The low global response rate does not prove that missing dashboards/audit tools caused it or that MethaneResponse will raise response rates. Authority, cost, organization, and field action also affect outcomes.
 
-### Akui sistem yang sudah ada
+### Acknowledge existing systems
 
-[UNEP MARS](https://www.unep.org/en/what-we-do/energy/methane/methane-alert-and-response-system-mars) sudah menggabungkan data satelit, keahlian ilmiah, AI, notifikasi, dan tindak lanjut. [FAQ MARS](https://www.unep.org/en/what-we-do/energy/methane/international-methane-emissions-observatory/mars-frequently-asked) menjelaskan batas observasi, termasuk awan dan cahaya. Klaim “pertama menggunakan satelit + AI untuk respons metana” tidak tepat bagi MethaneResponse. Tidak adanya record berikutnya juga tidak membuktikan emisi nol.
+[UNEP MARS](https://www.unep.org/en/what-we-do/energy/methane/methane-alert-and-response-system-mars) already combines satellite data, scientific expertise, AI, notifications, and follow-up. The [MARS FAQ](https://www.unep.org/en/what-we-do/energy/methane/international-methane-emissions-observatory/mars-frequently-asked) describes observation limits including cloud and light. It would be inaccurate for MethaneResponse to claim to be “the first to use satellites + AI for methane response.” No later record also does not prove zero emissions.
 
-[Catatan metode repo](methane-response-evidence-and-evaluation-2026-10-13.md) sudah menghubungkan studi controlled release dan evaluasi sitasi AI ke keputusan produk. Catatan itu bertanggal lebih lama: jumlah record di dalamnya bukan jumlah snapshot aktif. Sumber ilmiah eksternal mendukung desain pengujian, bukan otomatis memvalidasi produk kita.
+The [repository methods note](methane-response-evidence-and-evaluation-2026-10-13.md) connects controlled-release and AI-citation research to product decisions. It is dated earlier; counts in it are not active-snapshot counts. External scientific sources support test design, not automatic product validation.
 
-### Bedakan tiga evaluasi
+### Keep three evaluations separate
 
-| Evaluasi | Bukti yang sudah ada pada repo | Kekurangan saat ini |
+| Evaluation | Evidence already in the repo | Current gap |
 |---|---|---|
-| Ketepatan rekayasa | Baseline deterministik, regresi, build/browser dan CI bertanggal, manifest/hash, exact source IDs. | Pemeriksaan tersebut tidak mengukur kegunaan bagi orang independen atau kebenaran setiap kasus fisik. Tidak diulang pada pass riset ini. |
-| Model dan penilaian bukti | Model archive recurrence dibanding baseline; protocol anotasi dan pemeriksaan kutipan tersedia. | ROC AUC sekitar 0,808 adalah hasil retrospektif kemunculan record arsip; window telah diperiksa saat development. AI dokumen belum memiliki benchmark independen/provider live. |
-| Manfaat dan dampak | [Protokol pilot](../evidence/target-user-pilot-protocol.md) siap digunakan. | Belum ada peserta, hasil tugas, penghematan waktu terukur, atau dampak pengurangan emisi yang diatribusikan kepada aplikasi. |
+| Engineering correctness | Deterministic baseline, regressions, dated build/browser/CI evidence, manifest/hash, exact source IDs. | These checks do not measure usefulness to an independent person or the truth of every physical case. They were not rerun in this research pass. |
+| Model and evidence assessment | Archive-recurrence model compared with a baseline; annotation protocol and citation checks exist. | ROC AUC about 0.808 is a retrospective result for appearance of archive records; the window was examined during development. Document AI has no independent benchmark/live provider yet. |
+| User benefit and impact | [Pilot protocol](../evidence/target-user-pilot-protocol.md) is ready. | No participants, task results, measured time savings, or emissions reductions attributed to the application. |
 
-Metrik dari tugas yang berbeda—misalnya atribusi kebakaran, ekstraksi dokumen, simulasi microgrid, dan archive recurrence—tidak dapat dipakai membuat satu peringkat akurasi.
+Metrics from different tasks—such as fire attribution, document extraction, microgrid simulation, and archive recurrence—cannot be combined into one accuracy ranking.
 
-## Posisi MethaneResponse terhadap kriteria kompetisi
+## MethaneResponse position against competition criteria
 
-Kriteria mengacu pada [overview resmi](https://ieee-climatechain-hack.devpost.com/); tidak ditemukan bobot numerik. Penilaian di bawah adalah analisis kerja, bukan skor juri atau prediksi kemenangan.
+Criteria refer to the [official overview](https://ieee-climatechain-hack.devpost.com/); no numeric weights were found. The analysis below is a working assessment, not judge scoring or a win prediction.
 
-| Kriteria | Kekuatan yang bisa ditunjukkan sekarang | Yang menahan klaim keunggulan |
+| Criterion | Current demonstrable strength | What limits superiority claims |
 |---|---|---|
-| Climate Impact | Masalah metana dan kesenjangan respons didukung sumber primer; histori sumber, notifikasi, feedback, dan klaim mitigasi dibedakan. | Belum ada bukti aplikasi menyebabkan tindakan lebih baik atau pengurangan emisi. |
-| Innovation & Creativity | Pemeriksaan klaim tertentu terhadap bukti, abstention, snapshot, review dan revisi yang dapat ditelusuri. | Komponen audit/AI/blockchain juga muncul pada pembanding. Nilai tambah terhadap workflow publisher/manual belum diukur. |
-| Technical Execution | Explorer 4.218 source/30.414 plume, indikator publisher, penyimpanan file atomik, audit aturan, laporan dan verifier lokal. | Tidak ada layanan publik yang diklaim; provider AI belum dievaluasi; anchoring API tidak aktif dengan file store. Kode kontrak saja belum menjadi alur on-chain aktif. |
-| Practical Usefulness | Tugas peneliti/auditor jelas; alur lokal dan protokol pilot tersedia. | Belum ada penggunaan independen, hasil pilot, atau bukti adopsi. |
-| Presentation & Communication | Satu kasus dapat memperlihatkan record, keputusan yang menahan klaim, revisi, dan pemeriksaan export. | Paket Notion lokal belum membuktikan video final atau halaman presentasi terbit. Terlalu banyak workspace dapat mengaburkan keputusan utama. |
+| Climate Impact | Primary sources support the methane problem/response gap; source history, notification, feedback, and mitigation claims are distinguished. | No evidence that the app caused better action or emissions reductions. |
+| Innovation & Creativity | Check a defined claim against evidence, allow abstention, and trace snapshots/review/revisions. | Competitors also use audit/AI/blockchain components. Added value over publisher/manual workflow is unmeasured. |
+| Technical Execution | Explorer for 4,218 sources/30,414 plumes, publisher indicators, atomic file storage, rules audit, report, and local verifier. | No public service is claimed; AI provider is unevaluated; anchoring API is inactive with file storage. Contract code alone is not an active on-chain flow. |
+| Practical Usefulness | Researcher/auditor task is clear; local workflow and pilot protocol exist. | No independent use, pilot result, or adoption evidence. |
+| Presentation & Communication | One case can show a record, a decision withholding a claim, a revision, and export verification. | Local Notion package does not prove a final video or published presentation page. Too many workspaces could obscure the main decision. |
 
-Dasar status: [status implementasi aktif](../release/current-implementation-status.md), [data dan klaim](../product/data-and-claims.md), [registrasi prospektif](../product/prospective-recurrence.md), serta [keputusan tanpa database](../architecture/decisions/2026-10-15-local-prototype-no-database.md). Pemeriksaan kode pada `apps/api/src/app.ts` menegaskan API membutuhkan operasi reservation/completion yang tidak tersedia pada local file store untuk anchoring.
+Status basis: [active implementation status](../release/current-implementation-status.md), [data and claims](../product/data-and-claims.md), [prospective recurrence](../product/prospective-recurrence.md), and the [no-database decision](../architecture/decisions/2026-10-15-local-prototype-no-database.md). Code inspection in `apps/api/src/app.ts` confirms the API needs reservation/completion operations unavailable with the local file store for anchoring.
 
-**Kesimpulan komparatif:** MethaneResponse memiliki fondasi audit lokal dan provenance yang dapat diperiksa. Bukti yang tersedia belum cukup untuk menyebutnya terbaik pada salah satu kriteria di antara seluruh peserta. Menambah jumlah fitur bukan ukuran langsung kualitas penelitian atau manfaat.
+**Comparative conclusion:** MethaneResponse has inspectable local audit/provenance foundations. Available evidence is insufficient to call it best in any criterion among all participants. More features are not a direct measure of research quality or benefit.
 
-## Prioritas pengembangan dan validasi berikutnya
+## Next development and validation priorities
 
-Urutan ini adalah rekomendasi dari riset; belum berarti implementasi baru atau kegiatan eksternal sudah dijalankan.
+These are research recommendations, not evidence that new implementation or external activity has occurred.
 
-1. **Siapkan paket bukti kasus yang sah dan dapat dinilai orang lain.** Gunakan klaim dan sumber yang tetap, izin pemrosesan yang jelas, label detection/notification/mitigation terpisah, dan contoh ketika bukti memang tidak cukup. Untuk kasus nyata, bedakan “bukti belum dimasukkan ke audit” dari “kejadian fisik tidak terjadi”. Jangan menyalin laporan pihak ketiga yang haknya belum jelas.
-2. **Jalankan evaluasi tugas pengguna sesuai protokol yang ada.** Rekrut 5–8 peneliti/auditor/analyst dengan persetujuan; bandingkan workflow publisher/manual dan MethaneResponse secara counterbalanced. Catat waktu, penyelesaian, bantuan, dan salah pengertian. Ini studi formatif kecil; belum membuktikan penghematan waktu populasi atau dampak iklim.
-3. **Buktikan tambahan manfaat AI sebelum mempromosikannya.** Ikuti [protokol benchmark](../testing/ai-benchmark-annotation.md): setidaknya 40 klaim held-out dari 10 source, label independen, hak pemrosesan, dan baseline aturan pada input yang sama. Target internal macro-F1 ≥0,80, citation precision ≥0,90, serta nol false-supported adalah gerbang proyek, bukan hasil yang sudah dicapai. Bila korpus/provider belum siap, tampilkan baseline aturan yang benar-benar tersedia.
-4. **Perkuat satu alur demo yang dapat diperiksa juri.** Source historis → klaim tepat → bukti/sitasi atau alasan abstain → keputusan reviewer → export → verifikasi versi/integritas. Tampilkan batas data dan integrasi. Klaim integritas harus menjelaskan keterbatasan hash tanpa tanda tangan terhadap penggantian seluruh paket.
-5. **Jaga batas integrasi yang sudah diputuskan.** Sesuai ADR aktif, anchoring API tidak tersedia pada file store. Kontrak, pemeriksaan receipt, dan verifikasi digest lokal adalah komponen terpisah. Jika pemilik meminta alur blockchain baru, perlukan keputusan scope yang eksplisit sebelum implementasi dan otorisasi sebelum transaksi. Jangan mengaktifkan kembali database untuk menyamai pesaing. Hosting dibahas hanya bila ada kebutuhan demo remote konkret, dengan sifat persistensi ephemeral dijelaskan.
+1. **Prepare a case evidence package that others can assess.** Use fixed claims/sources, clear processing rights, separate detection/notification/mitigation labels, and an insufficient-evidence example. For real cases, distinguish “evidence not entered into the audit” from “physical event did not occur.” Do not reproduce third-party reports whose rights are unclear.
+2. **Run user-task evaluation under the existing protocol.** Recruit 5–8 researchers/auditors/analysts with consent; counterbalance publisher/manual and MethaneResponse workflows. Record time, completion, assistance, and misunderstandings. This is a small formative study, not proof of population-wide time savings or climate impact.
+3. **Prove added AI value before promoting it.** Follow the [benchmark protocol](../testing/ai-benchmark-annotation.md): at least 40 held-out claims from 10 sources, independent labels, processing rights, and a rules baseline on the same inputs. Internal targets of macro-F1 ≥0.80, citation precision ≥0.90, and zero false-supported cases are project gates, not achieved results. If the corpus/provider is unavailable, show the actual rules baseline.
+4. **Strengthen one judge-inspectable demo flow.** Historical source → precise claim → evidence/citation or abstention reason → reviewer decision → export → version/integrity verification. Show data/integration limits. Explain that an unsigned hash can be recomputed if the whole package is replaced.
+5. **Respect current integration decisions.** Under the active ADR, the anchoring API is unavailable with the file store. Contract, receipt checking, and local digest verification are separate components. If the owner requests a new blockchain flow, obtain an explicit scope decision before implementation and authorization before any transaction. Do not re-enable a database to match competitors. Discuss hosting only for a concrete remote-demo need, clearly stating ephemeral persistence.
 
-Posisi yang layak diuji dalam presentasi: **“MethaneResponse membantu peneliti menelusuri apakah klaim respons metana didukung bukti yang cukup, dengan sumber, keputusan, dan revisi yang dapat diperiksa.”** Ini deskripsi tujuan dan kemampuan lokal; klaim manfaat terukur menunggu evaluasi.
+A presentation position worth testing: **“MethaneResponse helps researchers trace whether methane-response claims have sufficient evidence, with sources, decisions, and revisions that can be inspected.”** This describes the goal and local capability; measured benefit awaits evaluation.
 
-## Pemantauan galeri
+## Gallery monitoring
 
-- Permintaan pengguna: beri tahu ketika galeri resmi dipublikasikan.
-- Otomasi **IEEE ClimateChain: pantau galeri publik** dibuat dan diaktifkan untuk **09.00 dan 21.00 Asia/Makassar** setiap hari, memakai workspace ini dan sesi Codex baru.
-- Instruksi membedakan belum terbit, sudah terbit, dan akses tidak dapat diverifikasi. Otomasi diminta menonaktifkan dirinya setelah pembukaan benar-benar terkonfirmasi.
-- Hasil tersedia dalam otomasi Orca. Ketersediaan host/runtime dan provider tetap diperlukan; ini bukan janji notifikasi ChatGPT, email, atau push perangkat.
-- Status konfigurasi dibaca ulang dari runtime setelah diaktifkan. Eksekusi manual pertama juga diverifikasi melalui layar terminal khusus otomasi: tugas benar-benar membuka URL galeri dan pada **16 Oktober 2026, 13.19 WITA** melaporkan **BELUM DIPUBLIKASIKAN**; jadwal dipertahankan. Bukti ini melampaui status dispatch, tetapi belum membuktikan bahwa eksekusi terjadwal berikutnya atau notifikasi perangkat telah terjadi.
+- User request: notify when the official gallery is published.
+- Automation **IEEE ClimateChain: monitor the public gallery** was created and enabled for **09:00 and 21:00 Asia/Makassar** daily, using this workspace and a new Codex session.
+- Instructions distinguish not-yet-published, published, and unverifiable access. The automation was asked to disable itself after publication is confirmed.
+- Results are available in Orca automation. Host/runtime and provider availability are still required; this is not a promise of ChatGPT, email, or device-push notification.
+- Configuration was reread from the runtime after enabling. The first manual execution was verified in the automation-specific terminal: it opened the gallery URL and reported **NOT PUBLISHED** on **16 October 2026, 13:19 WITA**; schedule was retained. This goes beyond dispatch status but does not prove later scheduled executions or device notification.
 
-## Batas penggunaan laporan
+## Report-use limits
 
-Halaman publik bisa berubah sebelum batas submission. Segarkan bukti bila galeri terbit atau materi pesaing berubah. Jangan menggunakan daftar ini sebagai audit keamanan, sertifikasi ilmiah, peringkat final, atau alasan untuk menyebut seluruh pengembangan selesai.
+Public pages may change before the submission deadline. Refresh evidence if the gallery is published or competitor materials change. Do not use this list as a security audit, scientific certification, final ranking, or basis for saying all development is complete.

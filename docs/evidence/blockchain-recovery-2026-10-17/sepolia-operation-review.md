@@ -1,25 +1,38 @@
-# Kandidat operasi Sepolia — belum diotorisasi/dikirim
+# Candidate Sepolia operation — not authorized or broadcast in this record
 
-**Status:** menunggu target dan otorisasi; tidak ada transaksi publik dari pekerjaan ini.
+**Historical status:** awaiting target and authorization; no public transaction
+resulted from this work. Later preparation is recorded separately.
 
-| Bidang | Nilai / kondisi |
+| Field | Value / condition |
 |---|---|
-| Operasi yang disiapkan | Satu pemanggilan `EvidenceRegistry.anchor(bytes32 caseId, bytes32 bundleHash)` pada registry yang disetujui |
-| Jaringan | Sepolia, chain ID `11155111`; bukan local Anvil 31337 |
-| Audit kandidat | `e789857f-0118-48cb-915b-76f69ff58131` |
-| Source/case | `KAZ_S_159` / `MARS-REPORT-KAZ-S-159`, metadata historis UNEP MARS |
-| Claim | `source_detected`; bukan `mitigation_confirmed` |
+| Proposed operation | One `EvidenceRegistry.anchor(bytes32 caseId, bytes32 bundleHash)` call on an approved registry |
+| Network | Sepolia `11155111`; not Anvil `31337` |
+| Candidate audit | `e789857f-0118-48cb-915b-76f69ff58131` |
+| Source / case | `KAZ_S_159` / `MARS-REPORT-KAZ-S-159`, historical UNEP MARS metadata |
+| Claim | `source_detected`, not `mitigation_confirmed` |
 | Bundle SHA-256 | `0xcde93cec8864aac5a9f190e19153388ec4a6024ed885afd165720ac84eb9ae20` |
-| File | [public-baseline-candidate.json](public-baseline-candidate.json); checksum offline VALID, receipt ABSENT |
-| Registry / public issuer | Belum diberikan atau dikonfigurasi |
-| RPC read/write target | Belum diberikan atau dikonfigurasi; credential RPC tetap server-only |
-| Signer | Belum dikonfigurasi; jangan mengirim private key melalui chat/repo |
-| Konfirmasi | Default minimum 2 block, diperiksa lagi terhadap canonical block saat verifikasi; bukan jaminan finalitas |
-| Biaya | Test ETH, estimasi belum dapat diambil tanpa target/RPC/signer yang cocok |
-| Deploy | Tidak termasuk dalam satu operasi anchor. Registry baru memerlukan persetujuan deployment tersendiri. |
+| File | [public-baseline-candidate.json](public-baseline-candidate.json): offline checksum VALID; receipt ABSENT |
+| Registry / public issuer | Not supplied or configured |
+| RPC read/write target | Not supplied or configured; RPC credentials remain server-only |
+| Signer | Not configured; never send private keys through chat or source control |
+| Confirmations | Minimum two blocks by default; canonical block rechecked on verification, without a finality guarantee |
+| Cost | Test ETH; estimation requires matching target, RPC and signer |
+| Deployment | Separate from this anchor operation; a new registry requires deployment authorization |
 
-Kandidat belum dipersist dalam operational audit store; API tidak menerima import bebas yang mengganti record/hash. Setelah target diberikan, operator harus menyiapkan audit operasional yang sesuai menggunakan sumber/claim yang ditinjau, lalu membekukan ID/hash aktual dan estimasi gas untuk persetujuan sebelum broadcast. Bila hash berubah, kandidat lama tidak menjadi izin untuk isi baru.
+The candidate was not persisted to the operational audit store. The API does not
+accept arbitrary imports that replace stored records or hashes. Once a target is
+available, prepare the operational audit with reviewed source and claim, then pin
+its actual ID/hash and gas estimate before approval and broadcast. A changed hash
+is not covered by authorization for the earlier candidate.
 
-Urutan penutupan: verifikasi read-only target/issuer/bytecode dan gas → persetujuan target serta audit/hash aktual → satu anchor melalui jalur intent durabel → verifier CLI dari proses lain `--require-chain` → simpan receipt dan hasil tamper check bertanggal. Simpan tx hash, chain, registry, issuer publik, bundle hash, expected/actual version, block/hash dan policy konfirmasi. Jangan menandai P2 integrasi selesai hanya dari konfigurasi atau receipt Anvil.
+Sequence: inspect target, issuer, bytecode and gas read-only → approve exact
+operation and audit/hash → anchor once through durable intent → run CLI
+`--require-chain` in another process → retain dated receipt and tamper checks.
+Record transaction hash, chain, registry, public issuer, bundle hash, expected and
+actual versions, block/hash and confirmation policy. Configuration or Anvil
+receipts do not complete public Sepolia integration.
 
-Keperluan persetujuan berasal dari **AGENTS.md** (deploy/mutasi eksternal memerlukan approval) dan [rencana P2](../../plans/2026-10-17-six-package-completion.md#6-p2--blockchain-aktif-pemulihan-dan-verifikasi) (target/operasi harus diotorisasi). Kode dan pemeriksaan lokal sudah dapat ditinjau; public target belum ditentukan.
+Approval follows **AGENTS.md** for deployment/external mutations and the
+[P2 plan](../../plans/2026-10-17-six-package-completion.md), which requires an
+approved target and operation. At this point local implementation was reviewable,
+but the public target was not determined.

@@ -1,6 +1,6 @@
 # MethaneResponse — IEEE ClimateChain delivery pack
 
-**Version:** 19 October 2026 · **Demo length:** exactly 4:00 · **Presentation and narration:** English · **Operator notes:** Indonesian
+**Version:** 19 October 2026 · **Demo length:** exactly 4:00 · **Presentation and narration:** English · **Operator notes:** English
 
 This package is grounded in the current repository and the local production-build capture. It is prepared for Notion ZIP import; it is **not** a Notion page that has already been imported or published. The MP4 is a separate local artifact and has not been uploaded.
 
@@ -14,7 +14,7 @@ The ZIP contains the pages below plus current browser screenshots. In Notion, us
 - [02 — Judge Q&A](02-Judge-QA.md): evidence-backed answers and explicit limits.
 - [03 — Sources and claim ledger](03-Sources-and-Claims.md): approved wording, primary sources and license notes.
 - [04 — Four-minute storyboard](04-Storyboard.md): timestamped scenes and on-screen messages.
-- [05 — Operator runbook](05-Runbook-ID.md): local setup, reset and manual fallback in Indonesian.
+- [05 — Operator runbook](05-Runbook-ID.md): local setup, reset and manual fallback in English.
 - `assets/`: new screenshots captured from the built app with local API state, including the searchable case table, source observations, scoped assessment and report verification.
 
 Video production files are outside the Notion import ZIP:

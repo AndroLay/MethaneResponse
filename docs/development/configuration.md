@@ -1,75 +1,75 @@
-# Konfigurasi
+# Configuration
 
-[Setup lokal](local-setup.md) · [API](../architecture/api-reference.md) · [Trust dan transparansi](../product/trust-and-transparency.md)
+[Local setup](local-setup.md) · [API](../architecture/api-reference.md) · [Trust and transparency](../product/trust-and-transparency.md)
 
-Acuan contoh: [.env.example](../../.env.example) untuk API dan [apps/web/.env.example](../../apps/web/.env.example) untuk web. Nilai rahasia tidak dicantumkan di dokumentasi. Baseline lokal berjalan tanpa membuat `.env`.
+Example references: [.env.example](../../.env.example) for the API and [apps/web/.env.example](../../apps/web/.env.example) for the web app. Secret values are not included in documentation. The local baseline runs without creating a `.env` file.
 
-## Runtime dan dataset API
+## API runtime and datasets
 
-| Variabel | Default/peran |
+| Variable | Default/role |
 |---|---|
-| `HOST` | `0.0.0.0`; gunakan `127.0.0.1` untuk bind lokal bila diinginkan |
+| `HOST` | `0.0.0.0`; use `127.0.0.1` for a local-only bind if desired |
 | `PORT` | `3001` |
-| `WEB_ORIGIN` | `http://localhost:5173`, origin yang diizinkan oleh CORS |
-| `AUDIT_STORE_PATH` | Default kode: `data/state/audits.json` dari root repo; path eksplisit relatif mengikuti working directory proses |
-| `MARS_CASEBOOK_PATH` | Default kode: `data/real/mars_casebook_2026-10-15.json` |
-| `INTELLIGENCE_SNAPSHOT_PATH` | Default kode: `data/processed/intelligence-snapshot.json` |
-| `INTELLIGENCE_INPUT_PATH` | Default kode: `apps/web/public/data/mars-snapshot.json.gz`; diperiksa kecocokannya dengan intelligence |
-| `NODE_ENV` | `production` mengaktifkan pembatasan tambahan untuk baseline/legacy credentials |
-| `ADMIN_API_TOKEN` | Token admin terpisah; diperlukan untuk write baseline production secara default |
-| `ENABLE_PUBLIC_BASELINE_AUDITS` | Hanya `true` membuka write baseline tanpa admin dalam production; rate limit tetap berlaku |
+| `WEB_ORIGIN` | `http://localhost:5173`, the origin allowed by CORS |
+| `AUDIT_STORE_PATH` | Code default: `data/state/audits.json` from the repository root; an explicit relative path is resolved from the process working directory |
+| `MARS_CASEBOOK_PATH` | Code default: `data/real/mars_casebook_2026-10-15.json` |
+| `INTELLIGENCE_SNAPSHOT_PATH` | Code default: `data/processed/intelligence-snapshot.json` |
+| `INTELLIGENCE_INPUT_PATH` | Code default: `apps/web/public/data/mars-snapshot.json.gz`; its match to the intelligence data is checked |
+| `NODE_ENV` | `production` enables additional restrictions for baseline/legacy credentials |
+| `ADMIN_API_TOKEN` | Separate admin token; required by default for production baseline writes |
+| `ENABLE_PUBLIC_BASELINE_AUDITS` | Only `true` allows baseline writes without an admin in production; rate limits still apply |
 
-Path pada root `.env.example` memakai konteks `apps/api` karena `bun run dev:api` berpindah ke direktori tersebut. Absolute path dapat dipakai untuk menghindari ambiguitas. CORS bukan pengganti otorisasi. Launcher API memerlukan Linux `flock` dan menghasilkan lock stabil serta state/marker casework di samping path audit. Gunakan [runbook tim](shared-casework.md) untuk permission, backup dan restore; jangan menjalankan entry point `index.ts` langsung.
+Paths in the root `.env.example` use the `apps/api` context because `bun run dev:api` changes to that directory. Absolute paths can avoid ambiguity. CORS does not replace authorization. The API launcher requires Linux `flock` and creates a stable lock plus casework state/marker files beside the audit path. Use the [team runbook](shared-casework.md) for permissions, backup, and restore; do not run the `index.ts` entry point directly.
 
-## Reviewer dan penilaian manusia
+## Reviewers and human assessment
 
-| Variabel | Peran |
+| Variable | Role |
 |---|---|
-| `REVIEWER_AUTH_SECRET` | Secret server untuk menerbitkan/memverifikasi capability reviewer berumur pendek; minimal 32 bytes UTF-8 |
-| `REVIEWER_DIRECTORY_PATH` | JSON directory privat milik operator; tidak diletakkan di `apps/web/public` atau data publik |
-| `REQUIRE_ATTESTED_HUMAN_REVIEWERS` | `true` mewajibkan current operator attestation untuk kategori klaim pada human read/decision yang dilindungi |
-| `HUMAN_REVIEW_TOKEN` + `HUMAN_REVIEWER_ID` | Shared-token compatibility untuk development; token terpisah, minimal 32 karakter dan ID server |
-| `ALLOW_LEGACY_SHARED_REVIEWER_TOKEN` | Opt-in compatibility production; tidak memberikan scope anchor |
+| `REVIEWER_AUTH_SECRET` | Server secret for issuing/verifying short-lived reviewer capabilities; at least 32 UTF-8 bytes |
+| `REVIEWER_DIRECTORY_PATH` | Private operator-owned JSON directory; do not place it in `apps/web/public` or public data |
+| `REQUIRE_ATTESTED_HUMAN_REVIEWERS` | `true` requires a current operator attestation for the claim category during protected human reads/decisions |
+| `HUMAN_REVIEW_TOKEN` + `HUMAN_REVIEWER_ID` | Shared-token compatibility for development; separate token of at least 32 characters and a server-side ID |
+| `ALLOW_LEGACY_SHARED_REVIEWER_TOKEN` | Production compatibility opt-in; does not grant the `anchor` scope |
 
-Scope token: `private_read`, `review`, dan `anchor`. Tool lokal [issue-reviewer-token.ts](../../scripts/issue-reviewer-token.ts) memakai secret server yang sama. Contoh berikut **menerbitkan credential sensitif ke stdout**; jalankan hanya di terminal privat yang sesuai, bukan log CI:
+Token scopes: `private_read`, `review`, and `anchor`. The local [issue-reviewer-token.ts](../../scripts/issue-reviewer-token.ts) tool uses the same server secret. The following example **writes a sensitive credential to stdout**; run it only in an appropriate private terminal, not in CI logs:
 
 ```bash
 bun --env-file=apps/api/.env scripts/issue-reviewer-token.ts DEMO-reviewer private_read,review 3600
 ```
 
-`DEMO-reviewer` adalah identifier contoh, bukan reviewer nyata yang sudah didaftarkan. Token tidak membuktikan identitas atau kompetensi. **P1 shared casework selalu menolak legacy token dan approval directory yang bukan current `operator_attested`, sekalipun strict-mode audit tidak diaktifkan.** Baca memerlukan `private_read`, tulis memerlukan kedua scope `private_read,review`. Format directory, status, revocation, dan conflict declarations dijelaskan di [trust dan transparansi](../product/trust-and-transparency.md).
+`DEMO-reviewer` is an example identifier, not an actually registered reviewer. A token does not prove identity or competence. **P1 shared casework always rejects legacy tokens and directory approvals that are not currently `operator_attested`, even if audit strict mode is disabled.** Reading requires `private_read`; writing requires both `private_read,review` scopes. The directory format, status, revocation, and conflict declarations are described in [trust and transparency](../product/trust-and-transparency.md).
 
-Secara default compatibility mode dapat menerima subject unverified/expired dengan label assurance yang sesuai. Untuk mencabut approval token yang masih valid, pertahankan entry dengan `disabled: true`; menghapus entry atau mengosongkan path bukan revocation dalam compatibility mode. Directory configured tetapi tidak valid/tidak terbaca menolak akses human yang dilindungi.
+By default, compatibility mode can accept unverified/expired subjects with the corresponding assurance label. To revoke an approval for a token that is still valid, keep the entry and set `disabled: true`; removing the entry or emptying the path is not revocation in compatibility mode. If a configured directory is invalid/unreadable, protected human access is denied.
 
-## Document AI opsional
+## Optional document AI
 
-`AI_BASE_URL`, `AI_MODEL`, `AI_API_KEY`, dan `AI_REVIEW_TOKEN` diperlukan agar jalur assessment dapat dipakai. Provider remote memakai HTTPS; kode mengizinkan HTTP hanya untuk `localhost`, `127.0.0.1`, atau `[::1]` sebagai provider lokal/test. `AI_REVIEW_TOKEN` minimal 32 karakter dan harus berbeda dari token admin/shared reviewer. API menambahkan `/chat/completions` ke base URL. Kode menggunakan interface provider yang kompatibel, bukan akun/provider yang sudah diaktifkan di repo.
+`AI_BASE_URL`, `AI_MODEL`, `AI_API_KEY`, and `AI_REVIEW_TOKEN` are required to use the assessment path. Remote providers use HTTPS; the code permits HTTP only for `localhost`, `127.0.0.1`, or `[::1]` as a local/test provider. `AI_REVIEW_TOKEN` must be at least 32 characters and differ from the admin/shared-reviewer token. The API appends `/chat/completions` to the base URL. The code uses a compatible provider interface; no account/provider is enabled in the repository.
 
-Provider menerima excerpt hanya setelah declaration hak pemrosesan dan consent. Secret provider tetap di server. Token assessment yang dimasukkan pengguna di UI tidak membuka history privat. API tidak menyimpan full excerpt, tetapi kutipan dan metadata terpilih pada audit privat tetap dapat sensitif. Lihat [alur dokumen](../product/user-workflow.md#optional-document-ai).
+The provider receives excerpts only after a declaration of processing rights and consent. The provider secret remains on the server. An assessment token entered by a user in the UI does not open private history. The API does not store full excerpts, but selected quotations and metadata in a private audit may still be sensitive. See the [document workflow](../product/user-workflow.md#optional-document-ai).
 
-Pada 21 Oktober 2026 pengguna mengganti Luna dengan
-`deepseek-v4.1-flash-1017` melalui ExperientialLabs. Ikuti
-[integrasi DeepSeek](deepseek-integration.md). Jalur rules/manual tetap tersedia.
-`AI_MAX_OUTPUT_TOKENS` membatasi output tiap panggilan: default 2048, rentang
-128–4096. `AI_REASONING_EFFORT` opsional dan hanya boleh diisi dengan kemampuan
-yang didukung provider; profil DeepSeek memakai `none` untuk assessment singkat.
-Satu assessment dapat memakai dua panggilan; batas token bukan batas biaya akun.
+On 21 October 2026, the user replaced Luna with
+`deepseek-v4.1-flash-1017` through ExperientialLabs. Follow the
+[DeepSeek integration guide](deepseek-integration.md). The rules/manual path remains available.
+`AI_MAX_OUTPUT_TOKENS` limits output per call: default 2048, range
+128–4096. `AI_REASONING_EFFORT` is optional and may contain only a capability
+supported by the provider; the DeepSeek profile uses `none` for short assessments.
+One assessment may use two calls; the token limit is not an account cost limit.
 
-## Web dan proxy
+## Web and proxy
 
-| Variabel | Peran |
+| Variable | Role |
 |---|---|
-| `VITE_API_BASE_URL` | Origin API publik untuk build web terpisah; kosong berarti request relatif `/api` |
-| `METHANE_API_PROXY_TARGET` | Origin HTTP(S) API untuk development Vite; default `http://localhost:3001`; tanpa path/credential/query |
+| `VITE_API_BASE_URL` | Public API origin for a separate web build; empty means relative `/api` requests |
+| `METHANE_API_PROXY_TARGET` | HTTP(S) API origin for Vite development; default `http://localhost:3001`; no path/credential/query |
 
-Setiap nilai `VITE_*` dapat masuk bundle browser. Gunakan hanya informasi publik; provider key, signing key, token admin/reviewer, dan RPC bercredential tidak boleh ditempatkan di sana. Variabel isolasi E2E dikelola runner dan bukan pengaturan aplikasi sehari-hari.
+Every `VITE_*` value can end up in the browser bundle. Use public information only; provider keys, signing keys, admin/reviewer tokens, and credentialed RPC URLs must not be placed there. E2E isolation variables are managed by the runner and are not everyday application settings.
 
-## Receipt blockchain dan hosting
+## Blockchain receipts and hosting
 
-`SEPOLIA_RPC_URL` dan `AUDIT_REGISTRY_ADDRESS` mengonfigurasi pembacaan Sepolia (chain 11155111). Signing hanya aktif bila `ENABLE_CHAIN_WRITES=true` serta `SEPOLIA_PRIVATE_KEY` valid; default mati. `CHAIN_CONFIRMATIONS` default 2, rentang 1–64. RPC/key tidak dibutuhkan untuk baseline/checksum. Aktivasi tidak menggantikan persetujuan target/operasi publik.
+`SEPOLIA_RPC_URL` and `AUDIT_REGISTRY_ADDRESS` configure Sepolia reads (chain 11155111). Signing is enabled only when `ENABLE_CHAIN_WRITES=true` and `SEPOLIA_PRIVATE_KEY` is valid; it is off by default. `CHAIN_CONFIRMATIONS` defaults to 2, with a range of 1–64. RPC/key values are not needed for baseline/checksum verification. Enabling signing does not replace approval of the public target/operation.
 
-`CHAIN_NETWORK=local` memilih Anvil chain 31337 dengan variabel terpisah: `LOCAL_CHAIN_RPC_URL` (hanya loopback), `LOCAL_REGISTRY_ADDRESS`, `LOCAL_CHAIN_PRIVATE_KEY`. Mode ini ditolak dalam production; tidak memakai fallback signer Sepolia. Default `CHAIN_NETWORK` adalah Sepolia.
+`CHAIN_NETWORK=local` selects Anvil chain 31337 with separate variables: `LOCAL_CHAIN_RPC_URL` (loopback only), `LOCAL_REGISTRY_ADDRESS`, and `LOCAL_CHAIN_PRIVATE_KEY`. This mode is rejected in production; it does not fall back to the Sepolia signer. The default `CHAIN_NETWORK` is Sepolia.
 
-File store menyediakan intent durabel dan completion atomik, di bawah launcher satu writer. Status target menampilkan chain/registry/issuer dan kesiapan signing sebelum submit; pending hanya direkonsiliasi read-only. Detail, batas crash dan backup ada di [runbook blockchain](blockchain-recovery.md).
+The file store provides durable intents and atomic completion under a single-writer launcher. Before submission, target status shows the chain/registry/issuer and signing readiness; pending transactions are reconciled read-only. Details, crash limits, and backup are in the [blockchain runbook](blockchain-recovery.md).
 
-Root `render.yaml` menyediakan opsi preview dengan file audit di `/tmp`; filesystem dapat hilang saat restart/redeploy. Panduan ini tidak mengubah credential, directory, deployment, atau service eksternal. Lihat [status deployment](../release/deployment.md).
+The root `render.yaml` provides a preview option with the audit file in `/tmp`; the filesystem may be lost on restart/redeploy. This guide does not change credentials, directories, deployment, or external services. See [deployment status](../release/deployment.md).

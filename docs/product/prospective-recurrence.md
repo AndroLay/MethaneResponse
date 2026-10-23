@@ -1,28 +1,28 @@
-# Pendaftaran evaluasi prospektif recurrence MARS
+# MARS prospective recurrence evaluation registration
 
-## Apa yang didaftarkan
+## What is registered
 
-Ledger membekukan prediksi untuk **apakah source yang sudah dikenal akan memiliki setidaknya satu tanggal deteksi MARS tertaut berikutnya dalam arsip**. Targetnya bukan keberadaan metana, laju emisi masa depan, kebocoran fisik, perbaikan, atau pengurangan emisi. Backtest temporal historis melewati gate internal, tetapi periode uji pernah dilihat selama pengembangan; ledger ini belum membuktikan kinerja prospektif.
+The ledger freezes predictions about **whether a source already known to the archive will have at least one additional linked MARS detection date**. The target is not methane presence, future emission rates, physical leaks, repairs, or emissions reductions. The historical temporal backtest passed internal gates, but the test period was inspected during development; this ledger does not establish prospective performance.
 
-Snapshot dasar aktif adalah rilis UNEP yang diunduh dan diverifikasi pada 14 Oktober 2026:
+The active baseline snapshot is the UNEP release downloaded and verified on 14 October 2026:
 
-| Properti | Nilai |
+| Property | Value |
 |---|---|
 | Dataset snapshot | `unep-mars-675417694883` |
-| Arsip CSV penerbit SHA-256 | `675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43` |
-| File input browser SHA-256 | `f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7` |
-| Tanggal observasi terakhir pada cutoff | `2026-09-13` |
-| Jumlah prediksi source | 4.218 |
-| Jendela outcome | `(2026-09-13, 2027-09-13]` |
-| Snapshot lanjutan paling awal untuk dievaluasi | retrieval pada/selepas `2027-10-13`, dengan observasi tertaut setidaknya sampai `2027-09-13` |
+| Publisher CSV archive SHA-256 | `675417694883cfe1a3f0539c8337b0428f8409c2139c36e824b40415698b4a43` |
+| Browser input file SHA-256 | `f27c21ab0932de3768a57029410c90677944e732f8be341e1d3abf4f36a91ae7` |
+| Last observation date at cutoff | `2026-09-13` |
+| Number of source predictions | 4,218 |
+| Outcome window | `(2026-09-13, 2027-09-13]` |
+| Earliest follow-up snapshot eligible for evaluation | Retrieved on/after `2027-10-13`, with linked observations through at least `2027-09-13` |
 
-Ledger kanonis adalah [`record-recurrence-ledger-2026-10-14-v6.json`](../../data/processed/prospective/record-recurrence-ledger-2026-10-14-v6.json). SHA-256 file: `f6038d156bfa408af568cf76df449c864069f454995edef5fb9ec2d262d825ff`. Hash daftar prediksi: `696aa3af6dc8ce9b235ec454853b72253eed0820e3bc469b4660d760b95cbb7b`. Ledger mengikat input browser, archive CSV, cutoff, model/kalibrator, source ID, probabilitas, baseline sederhana, versi kode, dan waktu registrasi `2026-10-14T06:10:12Z`. Ledger v5 dan versi yang lebih lama tetap disimpan sebagai sejarah; v5 memakai snapshot 13 Oktober dengan cutoff 12 September.
+The canonical ledger is [`record-recurrence-ledger-2026-10-14-v6.json`](../../data/processed/prospective/record-recurrence-ledger-2026-10-14-v6.json). File SHA-256: `f6038d156bfa408af568cf76df449c864069f454995edef5fb9ec2d262d825ff`. Prediction-list hash: `696aa3af6dc8ce9b235ec454853b72253eed0820e3bc469b4660d760b95cbb7b`. The ledger binds the browser input, CSV archive, cutoff, model/calibrator, source IDs, probabilities, simple baseline, code version, and registration time `2026-10-14T06:10:12Z`. Ledger v5 and earlier versions remain as history; v5 uses the 13 October snapshot with a 12 September cutoff.
 
-Pendaftaran cohort berikutnya wajib memakai waktu registrasi UTC yang tetap dan path output versi baru yang belum ada. Opsi `--output` sengaja tidak memiliki path default: ledger lama bersifat immutable dan bukan target penulisan untuk snapshot aktif. Contoh nama versi: `data/processed/prospective/record-recurrence-ledger-2027-10-14-v1.json`. Jangan menimpa v6 atau membuat ledger baru hanya untuk mengulang evaluasi yang sama.
+The next cohort must be registered using a fixed UTC registration time and a new, unused versioned output path. The `--output` option intentionally has no default path: old ledgers are immutable and must not be write targets for the active snapshot. Example versioned name: `data/processed/prospective/record-recurrence-ledger-2027-10-14-v1.json`. Do not overwrite v6 or create a new ledger just to repeat the same evaluation.
 
-## Cara memeriksa hasil ketika snapshot masa depan tersedia
+## How to check results when a future snapshot is available
 
-Jalankan dari root repository setelah satu snapshot UNEP MARS baru memenuhi horizon 365 hari dan buffer publikasi minimum 30 hari:
+Run from the repository root after a new UNEP MARS snapshot covers the 365-day horizon and the minimum 30-day publication buffer:
 
 ```bash
 UV_CACHE_DIR=/tmp/methane-response-uv-cache uv run \
@@ -33,14 +33,14 @@ UV_CACHE_DIR=/tmp/methane-response-uv-cache uv run \
   --evaluation-output data/processed/prospective/record-recurrence-evaluation-2027-10-13.json
 ```
 
-Evaluator menolak snapshot terpotong, snapshot yang sama, publisher/dataset berbeda, jendela yang belum lengkap, atau retrieval sebelum buffer 30 hari. Source ID yang tidak muncul lagi diberi status **unknown** dan tidak dihitung negatif. Tanggal backfill pada atau sebelum cutoff dikeluarkan dari label. Evaluasi hanya memakai tanggal observasi tertaut dalam jendela yang dibekukan.
+The evaluator rejects a truncated snapshot, the same snapshot, a different publisher/dataset, an incomplete window, or retrieval before the 30-day buffer. A source ID that no longer appears is marked **unknown** and is not counted as negative. Backfill dates on or before the cutoff are excluded from labels. Evaluation uses only linked observation dates within the frozen window.
 
-Hasil `prospective_snapshot_gates_passed` berarti gate evaluasi internal pada satu cohort temporal terpenuhi; hasil itu belum menjadikan sistem sebagai prediktor kebocoran atau dasar keputusan operasional. Tidak adanya record lanjutan dalam arsip bukan bukti emisi nol atau bahwa sumber berhenti bocor. Evaluasi mencatat hash snapshot tindak lanjut, hash kode evaluator, metrik, interval cluster-bootstrap, pembanding aturan, dan keterbatasan.
+`prospective_snapshot_gates_passed` means the internal evaluation gates were met for one temporal cohort; it does not make the system a leak predictor or an operational decision basis. The absence of a later record in the archive is not proof of zero emissions or that a source stopped leaking. The evaluation records the follow-up snapshot hash, evaluator code hash, metrics, cluster-bootstrap intervals, rule baseline, and limitations.
 
-## Bukti yang tersedia sekarang
+## Evidence currently available
 
-- Ledger v6 mencakup **4.218** source dan berstatus terikat ke snapshot 14 Oktober. SHA-256 file `f6038d…`; hash prediksi `696aa3…`. Snapshot yang sama direplay secara sengaja sebagai uji abstention: [`record-recurrence-evaluation-2026-10-14-v6-baseline.json`](../../data/processed/prospective/record-recurrence-evaluation-2026-10-14-v6-baseline.json), SHA-256 `39e79be1f3316079674ea4c788ab0e09a62554ae014cbe79dc8e141a894c7158`, status `not_available`, 0 label karena perlu rilis penerbit yang berbeda dan lebih baru. Itu membuktikan fail-closed behavior, bukan akurasi prospektif.
-- Backtest historis pada snapshot aktif berisi 3.131 source uji dan 1.251 record positif: ROC AUC `0.80810118` (95% CI cluster-bootstrap `0.78665772–0.82756648`), Brier skill `0.27676816` (95% lower bound `0.23888887`), ECE10 `0.08817986` (95% upper bound `0.14075545`), dan AUC delta terhadap baseline `0.02028538–0.04053327`. Bootstrap memakai 79 country clusters, 400 replikasi, seed 177. Angka ini untuk record MARS dalam retrospective holdout yang pernah ditinjau selama development; bukan evaluasi independen, probabilitas kebocoran, atau hasil mitigasi.
-- Pemeriksaan pembekuan menolak data provenance/relasi yang tidak cocok, probability yang tidak dapat direproduksi, model/calibrator yang cacat, dan metadata bootstrap/gate yang tidak valid. Tes tersebut tidak mengubah sumber observasi menjadi label emisi fisik.
+- Ledger v6 covers **4,218** sources and is bound to the 14 October snapshot. File SHA-256 `f6038d…`; prediction hash `696aa3…`. The same snapshot was deliberately replayed as an abstention test: [`record-recurrence-evaluation-2026-10-14-v6-baseline.json`](../../data/processed/prospective/record-recurrence-evaluation-2026-10-14-v6-baseline.json), SHA-256 `39e79be1f3316079674ea4c788ab0e09a62554ae014cbe79dc8e141a894c7158`, status `not_available`, 0 labels because a different, newer publisher release is required. This demonstrates fail-closed behavior, not prospective accuracy.
+- The historical backtest on the active snapshot contains 3,131 test sources and 1,251 positive records: ROC AUC `0.80810118` (95% cluster-bootstrap CI `0.78665772–0.82756648`), Brier skill `0.27676816` (95% lower bound `0.23888887`), ECE10 `0.08817986` (95% upper bound `0.14075545`), and AUC delta over the baseline `0.02028538–0.04053327`. The bootstrap uses 79 country clusters, 400 replicates, and seed 177. These figures concern MARS records in a retrospective holdout inspected during development; they are not an independent evaluation, leak probabilities, or mitigation outcomes.
+- Freeze checks reject mismatched provenance/relationships, unreproducible probabilities, malformed model/calibrator data, and invalid bootstrap/gate metadata. These tests do not turn observation sources into physical-emissions labels.
 
-Ledger dan baseline tidak ditandatangani ataupun di-anchor ke blockchain. Hash lokal membuktikan konsistensi bytes yang diperiksa, bukan identitas penerbit, kepemilikan, atau kondisi fisik sumber. Publikasi commit atau transaksi yang kelak diotorisasi dapat menambah bukti kronologi/integritas, tetapi tidak membuktikan perbaikan metana.
+The ledger and baseline are not signed or anchored to a blockchain. A local hash proves consistency of the checked bytes, not publisher identity, ownership, or a source's physical condition. Publishing a commit or an authorized future transaction may add chronology/integrity evidence, but does not prove methane repair.

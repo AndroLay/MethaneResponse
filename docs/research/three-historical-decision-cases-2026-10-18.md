@@ -1,81 +1,83 @@
-# Tiga studi kasus: dari informasi methane menuju keputusan yang dapat ditelusuri
+# Three Case Studies: From Methane Information to Traceable Decisions
 
-**18 Oktober 2026 · analisis metadata historis, bukan validasi lapangan.**
+**18 October 2026 · historical metadata analysis, not field validation.**
 
-Tujuan MethaneResponse adalah membantu analis menyatakan dengan jelas apa yang diketahui, apa yang belum terbukti, dan bukti apa yang perlu diminta. Pengguna utama: analis lingkungan, penelaah bukti, dan koordinator tindak lanjut. Hasil kerja yang dituju adalah keputusan beserta alasan, periode, referensi, pemilik tindak lanjut, dan versi yang dapat diperiksa.
+> Translation note: The original prose is available at Git revision `9d38ad2`; frozen manifests and run-bound artifacts are unchanged.
 
-## Dasar data dan cara membaca
+MethaneResponse aims to help analysts state clearly what is known, what is unproven, and what evidence should be requested. Primary users: environmental analysts, evidence reviewers, and follow-up coordinators. The intended work product is a decision with its rationale, period, references, follow-up owner, and inspectable version.
 
-Ketiga kasus berasal dari [casebook tetap](../../data/real/mars_casebook_2026-10-15.json), snapshot `unep-mars-675417694883`, diambil 14 Oktober 2026. Atribusi dan lisensi dataset CC BY-NC-SA 4.0 dipertahankan; normalisasi dan pemilihan kasus dijelaskan dalam [README data](../../data/real/README.md). Ketiganya sektor minyak dan gas, bukan sampel representatif seluruh sumber emisi.
+## Data basis and interpretation
 
-Satu plume adalah satu observasi dari lintasan satelit; source adalah lokasi yang dapat memiliki beberapa plume. `notified` tingkat sumber dan `feedback` tidak mengikat penerima, waktu pengiriman, atau hasil fisik pada setiap event. Nilai flux adalah kg/h saat observasi; `±` di bawah menampilkan simpangan baku yang tercatat, bukan interval kepercayaan 95%. Rujukan: [kamus data UNEP MARS](https://methanedata.unep.org/dict-mars-plumes).
+All three cases come from the [frozen casebook](../../data/real/mars_casebook_2026-10-15.json), snapshot `unep-mars-675417694883`, captured 14 October 2026. UNEP attribution and CC BY-NC-SA 4.0 dataset license are retained; normalization and case selection are described in the [data README](../../data/real/README.md). All three are oil and gas cases, not a representative sample of all emission sources.
 
-Timestamp upstream tanpa zona disimpan apa adanya. Aplikasi memperlakukannya sebagai UTC untuk batas hari, sebagai **konvensi parser aplikasi**; dokumentasi upstream yang diperiksa menyebut ISO 8601 untuk `tile_date`, tanpa menegaskan zona pada field tersebut. Tidak mengklaim jam upstream telah diverifikasi sebagai UTC.
+One plume is one observation from a satellite pass; a source is a location that may have multiple plumes. Source-level `notified` and `feedback` do not bind a recipient, delivery time, or physical outcome to each event. Flux values are kg/h at observation time; `±` below is the recorded standard deviation, not a 95% confidence interval. Reference: [UNEP MARS data dictionary](https://methanedata.unep.org/dict-mars-plumes).
 
-Halaman katalog UNEP diperiksa 18 Oktober 2026 untuk ringkasan/tanggal/lisensi. Item laporan mencantumkan CC BY-NC-ND 3.0 IGO. Di sini hanya diparafrasekan fakta katalog secara singkat dan ditautkan; PDF, gambar, serta isi laporan tidak direproduksi. Keputusan aplikasi di bawah hanya memakai metadata casebook. Pernyataan UNEP tentang mitigasi tetap diatribusikan kepada UNEP; hasil metadata aplikasi tidak menyangkalnya.
+Upstream timestamps without a timezone are stored as supplied. For day boundaries, the application treats them as UTC as an **application parser convention**; the inspected upstream documentation says `tile_date` uses ISO 8601 but does not confirm a timezone for that field. We do not claim the upstream hour has been verified as UTC.
 
-## 1. Kazakhstan — jangan menebak urutan tindakan dan observasi
+The UNEP catalog page was checked on 18 October 2026 for summary/date/license. Linked report items list CC BY-NC-ND 3.0 IGO. This note briefly paraphrases catalog facts and links to them; it does not reproduce PDFs, images, or report text. Application decisions below use only casebook metadata. UNEP statements about mitigation remain attributed to UNEP; the app's metadata-only result does not refute them.
 
-**Kasus:** `KAZ_S_159`, Uzen Field menurut [katalog UNEP](https://wedocs.unep.org/handle/20.500.11822/49949). Katalog bertanggal 23 September 2026 menyatakan IMEO mengonfirmasi tindakan mitigasi pada Juli 2026.
+## 1. Kazakhstan — do not guess the order of action and observation
 
-| Tanggal raw observasi | Satelit | Flux ± simpangan baku, kg/h | Plume notified |
+**Case:** `KAZ_S_159`, Uzen Field according to the [UNEP catalog](https://wedocs.unep.org/handle/20.500.11822/49949). The catalog, dated 23 September 2026, says IMEO confirmed a mitigation action in July 2026.
+
+| Raw observation date | Satellite | Flux ± standard deviation, kg/h | Plume notified |
 |---|---|---|---|
 | 2024-06-07T08:05:04 | EnMAP | 591 ± 335 | false |
 | 2026-06-05T07:40:02 | EnMAP | 307 ± 66 | true |
 | 2026-07-11T08:12:14 | EnMAP | 496 ± 226 | true |
 
-**Masalah keputusan:** bolehkah observasi 11 Juli disebut sebagai pengukuran setelah perbaikan? Bulan tindakan saja tidak menentukan apakah tindakan terjadi sebelum atau sesudah tanggal 11. Pengamatan 2024 tidak boleh dipindahkan ke event 2026 hanya karena source ID sama.
+**Decision question:** may the 11 July observation be described as a post-repair measurement? The action month alone does not show whether it happened before or after 11 July. Do not transfer the 2024 observation to the 2026 event merely because the source ID is the same.
 
-**Yang tersedia:** tiga rekaman plume bertanggal, provenance snapshot, flag sumber notified/feedback Yes, serta tautan katalog. **Yang belum tersedia dalam casebook:** tanggal/jam tindakan, catatan tindakan, bukti pengiriman kepada penerima tertentu, dan pengukuran lanjutan yang terhubung ke tindakan tersebut.
+**Available:** three dated plume records, snapshot provenance, source `notified`/`feedback Yes` flags, and catalog link. **Not in the casebook:** action date/time, action record, evidence of delivery to a particular recipient, and follow-up measurement linked to that action.
 
-**Keputusan yang dapat dibuat:** simpan kronologi tiga observasi dan pertahankan status mitigasi sebagai pertanyaan terbuka dalam penilaian metadata. Jangan mengklasifikasikan plume 11 Juli sebagai kegagalan perbaikan atau keberhasilan verifikasi setelah perbaikan. Untuk cakupan mitigasi `2024-06-07 → 2026-10-14`, aturan aplikasi menghasilkan `insufficient_evidence`, bukan `contradicted`.
+**Decision supported:** preserve the timeline of three observations and leave mitigation status as an open question in metadata assessment. Do not classify the 11 July plume as either repair failure or post-repair verification success. For mitigation scope `2024-06-07 → 2026-10-14`, the application rules return `insufficient_evidence`, not `contradicted`.
 
-**Tindak lanjut siap dipindahkan ke Case work:**
+**Follow-up ready to move into Casework:**
 
-- Pemilik yang disarankan: koordinator bukti/operator liaison; ini saran peran, belum penugasan kepada pihak eksternal.
-- Pertanyaan: kapan tindakan dilakukan dan observasi mana yang benar-benar setelah tindakan?
-- Permintaan: log tindakan dengan tanggal/jam dan identitas sumber; referensi bukti pengiriman; pengukuran setelah tindakan dengan metode, kondisi observasi, ketidakpastian dan cakupan fasilitas yang sama.
-- Kriteria penutupan pertanyaan: urutan waktu dapat diperiksa dan bukti lanjutan terikat ke tindakan. Ini belum berarti aplikasi mengesahkan pengurangan emisi.
+- Suggested owner: evidence coordinator/operator liaison; this is a role suggestion, not an assignment to an external party.
+- Question: when did the action occur, and which observations were actually made afterward?
+- Request: action log with date/time and source identity; reference for evidence delivery; post-action measurement with method, observation conditions, uncertainty, and coverage of the same facility.
+- Closure criterion: chronology is inspectable and follow-up evidence is linked to the action. This does not mean the application certifies emissions reduction.
 
-[Laporan JSON yang dapat diperiksa](../evidence/product-value-2026-10-18/kaz_s_159-mitigation-report.json)
+[Inspectable JSON report](../evidence/product-value-2026-10-18/kaz_s_159-mitigation-report.json)
 
-## 2. Libya — satu observasi tidak menetapkan keadaan setelah tindakan
+## 2. Libya — one observation does not establish the post-action state
 
-**Kasus:** `LBY_S_143`. Casebook memuat satu observasi EnMAP `2025-12-23T10:08:43`, **537 ± 240 kg/h**. Plume notified true dan sumber feedback Yes. [Katalog UNEP April 2026](https://wedocs.unep.org/handle/20.500.11822/49430) menyatakan IMEO mengonfirmasi tindakan mitigasi di Intisar A pada Januari 2026.
+**Case:** `LBY_S_143`. The casebook contains one EnMAP observation, `2025-12-23T10:08:43`, **537 ± 240 kg/h**. The plume is notified true and source feedback is Yes. The [UNEP April 2026 catalog](https://wedocs.unep.org/handle/20.500.11822/49430) says IMEO confirmed a mitigation action at Intisar A in January 2026.
 
-**Masalah keputusan:** dapatkah analis menyatakan emisi sudah nol karena tidak ada plume berikutnya dalam casebook? Tidak. Casebook ini tidak mencantumkan pengukuran setelah tindakan ataupun daftar lengkap kesempatan pengamatan yang berhasil/tidak berhasil mendeteksi emisi.
+**Decision question:** can an analyst state that emissions are now zero because no later plume appears in the casebook? No. This casebook does not list a post-action measurement or all successful/unsuccessful observation opportunities.
 
-**Yang tersedia:** satu pengukuran historis beserta ketidakpastian, flag administratif, provenance dan tautan laporan. **Yang belum tersedia:** waktu tindakan yang rinci, hasil pengukuran lanjutan, batas deteksi, kondisi angin/awan atau alasan tidak tersedianya pengamatan.
+**Available:** one historical measurement with uncertainty, administrative flags, provenance, and report link. **Unavailable:** exact action time, follow-up measurement result, detection limit, wind/cloud conditions, or reason no observation is available.
 
-**Keputusan yang dapat dibuat:** beri status pertanyaan *awaiting evidence* dan minta bukti pengukuran setelah tindakan; jangan menggunakan status ini sebagai penilaian kepatuhan operator. Cakupan mitigasi `2025-12-23 → 2026-10-14` menghasilkan `insufficient_evidence` pada pemeriksaan metadata lokal.
+**Decision supported:** set the question to *awaiting evidence* and request post-action measurement evidence; do not treat this as an operator-compliance assessment. The `2025-12-23 → 2026-10-14` mitigation scope returns `insufficient_evidence` in the local metadata check.
 
-**Tindak lanjut:** koordinator bukti meminta log tindakan, pengukuran methane setelah tindakan pada lokasi yang sama, metode/batas deteksi/ketidakpastian, dan daftar kesempatan pengamatan. Pertanyaan dapat ditinjau lagi ketika data tersebut tersedia. Tidak mengekstrapolasi 537 kg/h sepanjang periode yang tidak diamati.
+**Follow-up:** an evidence coordinator requests the action log, post-action methane measurement at the same location, method/detection limit/uncertainty, and observation opportunities. Revisit the question when that data becomes available. Do not extrapolate 537 kg/h across an unobserved period.
 
-[Laporan JSON yang dapat diperiksa](../evidence/product-value-2026-10-18/lby_s_143-mitigation-report.json)
+[Inspectable JSON report](../evidence/product-value-2026-10-18/lby_s_143-mitigation-report.json)
 
-## 3. Kanada — pertahankan ketidakpastian dan batasi klaim manfaat
+## 3. Canada — preserve uncertainty and limit benefit claims
 
-**Kasus:** `CAN_S_002`. Casebook memuat satu observasi EMIT `2026-04-10T19:07:29`, **1.044 ± 370 kg/h**. Plume notified true dan sumber feedback Yes. [Katalog UNEP Juli 2026](https://wedocs.unep.org/handle/20.500.11822/49811) menyatakan IMEO mengonfirmasi tindakan mitigasi di southeastern Alberta pada Juli 2026.
+**Case:** `CAN_S_002`. The casebook contains one EMIT observation, `2026-04-10T19:07:29`, **1,044 ± 370 kg/h**. The plume is notified true and source feedback is Yes. The [UNEP July 2026 catalog](https://wedocs.unep.org/handle/20.500.11822/49811) says IMEO confirmed a mitigation action in southeastern Alberta in July 2026.
 
-**Masalah keputusan:** dapatkah angka observasi ini dijadikan ton methane yang berhasil dicegah oleh MethaneResponse? Belum. Pengukuran saat lintasan tidak menyediakan durasi emisi, counterfactual tanpa tindakan, atau besaran hasil setelah tindakan. Aplikasi ini juga tidak melakukan tindakan lapangan.
+**Decision question:** can this observation value be turned into tonnes of methane avoided by MethaneResponse? Not yet. A pass-time measurement does not give emission duration, a no-action counterfactual, or a post-action outcome. The app also takes no field action.
 
-**Yang tersedia:** satu estimasi flux dan simpangan bakunya, ID observasi/sumber, provenance dan tautan katalog. **Yang belum tersedia dalam casebook:** waktu tindakan rinci, pengukuran setelah tindakan, durasi dan baseline pembanding yang diperlukan untuk menghitung avoided emissions.
+**Available:** one flux estimate and its standard deviation, observation/source IDs, provenance, and catalog link. **Not in the casebook:** exact action time, post-action measurement, duration, and comparison baseline needed to calculate avoided emissions.
 
-**Keputusan yang dapat dibuat:** mempertahankan ketidakpastian dalam brief; menolak penghitungan ton emisi yang dicegah dari satu angka kg/h; meminta data lanjutan. Cakupan mitigasi `2026-04-10 → 2026-10-14` menghasilkan `insufficient_evidence` dalam aplikasi.
+**Decision supported:** retain uncertainty in the brief; reject calculating tonnes avoided from one kg/h value; request follow-up data. The `2026-04-10 → 2026-10-14` mitigation scope returns `insufficient_evidence` in the application.
 
-**Tindak lanjut:** penelaah pengukuran meminta metode kuantifikasi, cakupan temporal, log tindakan, serta pengukuran berulang setelah tindakan. Hasilnya dapat menjadi bahan review domain; tidak otomatis menjadi kredit karbon atau dampak yang diklaim tim.
+**Follow-up:** a measurement reviewer requests the quantification method, temporal coverage, action log, and repeated post-action measurement. Results could inform domain review; they do not automatically become carbon credits or team-attributed impact.
 
-[Laporan JSON yang dapat diperiksa](../evidence/product-value-2026-10-18/can_s_002-mitigation-report.json)
+[Inspectable JSON report](../evidence/product-value-2026-10-18/can_s_002-mitigation-report.json)
 
-## Apa manfaat dan kontribusi produk yang ditunjukkan?
+## What product value and contribution are demonstrated?
 
-| Kebutuhan analis | Keluaran MethaneResponse | Bukti yang tersedia |
+| Analyst need | MethaneResponse output | Available evidence |
 |---|---|---|
-| Menghubungkan klaim ke event dan periode | Scope eksplisit, tanggal UTC, referensi yang diterima/dikecualikan | Tes scope dan replay 9 tugas historis |
-| Menjaga informasi yang belum diketahui | Abstention dan permintaan bukti berikutnya | Ketiga laporan mitigasi di atas |
-| Menelaah perubahan keputusan | Revisi tetap, hash induk, alasan dan perbandingan | Skenario revisi **DEMO**, terpisah dari kasus nyata |
-| Membagikan laporan yang dapat diperiksa | Ekspor JSON dengan checksum konteks, verifier browser di Reports | Browser desktop/mobile dan tantangan perubahan file |
+| Link a claim to an event and period | Explicit scope, UTC dates, included/excluded references | Scope tests and replay of 9 historical tasks |
+| Preserve what is unknown | Abstention and next evidence request | The three mitigation reports above |
+| Review a decision change | Immutable revision, parent hash, reason, and comparison | **DEMO** revision scenario, separate from real cases |
+| Share an inspectable report | JSON export with context checksum, browser verifier in Reports | Desktop/mobile browser and file-tampering challenge |
 
-Kontribusi yang diperlihatkan adalah penggabungan scope, alasan, tindak lanjut, revisi dan pemeriksaan integritas dalam satu alur. Pembanding manual yang dilengkapi alat juga dapat melakukan pekerjaan tersebut. Lihat [perbandingan fungsional dan batasnya](../evidence/product-value-2026-10-18/README.md); tidak mengklaim kebaruan ilmiah global, keunggulan waktu manusia, atau hasil fisik methane.
+The demonstrated contribution is combining scope, rationale, follow-up, revision, and integrity checking in one workflow. A tool-assisted manual comparison can also do this work. See the [functional comparison and limits](../evidence/product-value-2026-10-18/README.md); no claim is made of global scientific novelty, human time advantage, or physical methane outcome.
 
-**Batas dampak:** yang telah diperagakan ialah transparansi keputusan dan kemampuan memeriksa hasil. Belum ada bukti bahwa penggunaan aplikasi mengubah tindakan operator, mengurangi durasi kebocoran, atau mengurangi ton emisi. Studi kasus ini melengkapi, bukan menggantikan, review pakar dan pilot manusia.
+**Impact limit:** demonstrated so far is decision transparency and result inspectability. There is no evidence that using the app changes operator action, shortens leak duration, or reduces tonnes of emissions. These case studies complement, but do not replace, expert review or a human pilot.

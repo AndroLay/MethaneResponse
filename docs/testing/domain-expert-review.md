@@ -1,23 +1,22 @@
-# Review pakar domain P4
+# P4 domain-expert review
 
-[Rencana enam paket](../plans/2026-10-17-six-package-completion.md#7-p4--review-pakar-domain-dan-penutupan-temuan) · [Paket siap kirim](../evidence/domain-review-remediation-2026-10-18/README.md)
+[Six-package plan](../plans/2026-10-17-six-package-completion.md#7-p4--review-pakar-domain-dan-penutupan-temuan) · [Ready-to-send package](../evidence/domain-review-remediation-2026-10-18/README.md)
 
-P4 menilai kesesuaian metode, interpretasi bukti dan batas klaim bersama pakar manusia independen. Reviewer kode, pendapat AI dan checksums tidak memenuhi syarat itu.
+P4 evaluates the suitability of the method, evidence interpretation, and claim limits together with an independent human expert. Code review, AI opinion, and checksums do not satisfy this requirement.
 
-## Materi siap pakai
+## Materials ready to use
 
-[Reviewer ZIP](../evidence/domain-review-remediation-2026-10-18/MethaneResponse-P4-reviewer-v2.zip) memuat ringkasan metode, protokol, kasus nyata/DEMO, formulir kosong dan sumber primer. [Paket perbandingan](../evidence/domain-review-remediation-2026-10-18/MethaneResponse-P4-comparison-v2.zip) diberikan setelah jawaban awal. [Handoff fasilitator](../evidence/domain-review-remediation-2026-10-18/maintainer/handoff.md) mengatur verifikasi kompetensi, consent privat dan tindak lanjut. [Draf undangan](../evidence/domain-review-remediation-2026-10-18/maintainer/invitation.md) belum dikirim.
+The [reviewer ZIP](../evidence/domain-review-remediation-2026-10-18/MethaneResponse-P4-reviewer-v2.zip) contains a method summary, protocol, real/DEMO cases, blank form, and primary sources. The [comparison package](../evidence/domain-review-remediation-2026-10-18/MethaneResponse-P4-comparison-v2.zip) is provided after the initial answers. The [facilitator handoff](../evidence/domain-review-remediation-2026-10-18/maintainer/handoff.md) governs competence verification, private consent, and follow-up. The [invitation draft](../evidence/domain-review-remediation-2026-10-18/maintainer/invitation.md) has not been sent.
 
-## Gerbang selesai
+## Completion gates
 
-1. Minimal satu pakar relevan dikonfirmasi; kompetensi, independensi, relasi/konflik dan lingkupnya dicatat privat.
-2. Pakar menilai metode dan kasus, termasuk insufficient evidence dan pembanding interpretasi publisher, dengan versi paket yang diketahui.
-3. Temuan, dampak, keputusan tim dan perbaikannya dicatat; masalah material diperiksa ulang oleh pakar setelah perubahan.
-4. Ringkasan akhir memuat versi/tanggal/batas serta temuan unresolved. Teks publik dan atribusi memperoleh izin terpisah.
+1. At least one relevant expert is confirmed; competence, independence, relationships/conflicts, and scope are recorded privately.
+2. The expert evaluates the method and cases, including insufficient evidence and comparison with the publisher's interpretation, using a known package version.
+3. Findings, impact, team decisions, and fixes are recorded; material issues are rechecked by the expert after changes.
+4. The final summary includes version/date/limits and unresolved findings. Public text and attribution require separate permission.
 
-Status **verified** hanya diberikan setelah hasil manusia tersedia dan temuan material tertutup. Hasil negatif atau ketidakmampuan menilai tetap dilaporkan. Review dokumenter tidak membuktikan autentisitas dokumen yang belum diperiksa, mitigasi fisik, manfaat pengguna atau kualitas AI.
+Status becomes **verified** only after human results are available and material findings are closed. Negative results or inability to assess are still reported. Documentary review does not prove the authenticity of unchecked documents, physical mitigation, user benefit, or AI quality.
 
-**Kondisi 18 Oktober 2026:** persiapan siap; belum ada pakar, sesi atau hasil review. P4 tetap in progress.
+**As of 18 October 2026:** preparation is ready; no expert, session, or review result is available. P4 remains in progress.
 
-
-**Perbaikan 18 Oktober:** [ledger F01–F13](../research/p4-research-remediation-2026-10-18.md) dan paket v2 mencerminkan penguatan aplikasi. Perbaikan engineering diuji terpisah; formulir hasil manusia tetap kosong. Paket v1 tetap historis dan tidak boleh ditimpa.
+**18 October remediation:** the [F01–F13 ledger](../research/p4-research-remediation-2026-10-18.md) and v2 package reflect application hardening. Engineering fixes were tested separately; the human-results form remains blank. Package v1 remains historical and must not be overwritten.

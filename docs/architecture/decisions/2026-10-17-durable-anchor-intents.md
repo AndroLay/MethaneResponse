@@ -1,30 +1,30 @@
-# ADR: intent anchor durabel pada file store
+# ADR: durable anchor intents in the file store
 
-**Tanggal:** 17 Oktober 2026 · **Status:** diterima untuk prototipe satu writer lokal · **Paket:** P2
+**Date:** 17 October 2026 · **Status:** accepted for a local single-writer prototype · **Package:** P2
 
 ## Konteks
 
-File store awal menyimpan array audit dengan rename tanpa flush. Jalur chain menyiarkan sebelum menyimpan hash transaksi. Tidak ada implementasi reservation/finalization durabel; write dinonaktifkan. P1 telah menyediakan launcher Linux flock, sehingga P2 dapat memakai batas satu writer tanpa mengembalikan database.
+The initial file store saved the audit array with a rename but no flush. The chain path broadcast before saving the transaction hash. There was no durable reservation/finalization implementation; writes were disabled. P1 provided a Linux `flock` launcher, allowing P2 to use a single-writer boundary without bringing back a database.
 
-## Keputusan
+## Decision
 
-Gunakan envelope `{ schemaVersion: 1, audits, anchorIntents }` pada path audit yang sama. Baca array legacy, pertahankan bundle/hash, migrasikan saat write. Flush file dan parent directory sebelum acknowledgement; gunakan marker untuk deteksi state hilang. Satu mutex store dan launcher flock melindungi proses resmi. Pemakaian langsung beberapa instance store yang menulis bersamaan tidak didukung.
+Use the `{ schemaVersion: 1, audits, anchorIntents }` envelope at the same audit path. Read legacy arrays, preserve bundles/hashes, and migrate on write. Flush the file and parent directory before acknowledging; use a marker to detect missing state. One store mutex and the `flock` launcher protect the supported process. Concurrent writes from multiple directly instantiated stores are unsupported.
 
-Persiapkan dan tandatangani EIP-1559 di memori, hitung tx hash, simpan intent pending dengan nonce, target dan expected version, lalu broadcast sekali tanpa retry transport. Signed bytes tidak dipersist. Pending mengunci semua operasi issuer; reservasi juga menolak nonce bekas dan versi case yang stale. Completion hanya menerima receipt yang cocok dengan intent dan menulis receipt + state confirmed secara atomik.
+Prepare and sign EIP-1559 in memory, calculate the transaction hash, save a pending intent with the nonce, target, and expected version, then broadcast once without a transport retry. Signed bytes are not persisted. Pending intents lock all issuer operations; reservation also rejects a reused nonce and a stale case version. Completion accepts only a receipt matching the intent and atomically writes the receipt and confirmed state.
 
-Rekonsiliasi read-only memeriksa exact tx hash, from/to/calldata/nonce, chain, registry event/case/bundle/issuer/version, status, block canonical dan minimum konfirmasi. Receipt manual tidak dapat menggantikan identitas intent. Receipt dari jaringan lokal memakai konfigurasi tersendiri dan chain 31337; default publik tetap Sepolia 11155111. Signing default mati sampai `ENABLE_CHAIN_WRITES=true`.
+Read-only reconciliation checks the exact transaction hash, from/to/calldata/nonce, chain, registry event/case/bundle/issuer/version, status, canonical block, and minimum confirmations. A manually supplied receipt cannot replace the intent identity. Receipts from the local network use a separate configuration and chain 31337; the public default remains Sepolia 11155111. Signing is disabled by default until `ENABLE_CHAIN_WRITES=true`.
 
-## Aset dan batas kepercayaan
+## Assets and trust boundaries
 
-- Signer, admin/reviewer credential dan credential RPC hanya berada pada server. Input receipt/browser tidak dipercaya. Raw signed bytes dianggap replayable dan tidak diberikan kepada client.
-- Penyerang tanpa credential tidak dapat reserve/reconcile/status. Reviewer anchor dibatasi schema 3 reviewed dan attestation direktori operator_attested yang masih berlaku untuk claim; batas waktu kecil antara check terakhir dan broadcast tidak atomik. Schema 4 privat dan schema 3 unreviewed ditolak pada write maupun recovery.
-- Node RPC tetap sumber kepercayaan jaringan. Verifier terpisah membebaskan pemeriksaan dari API pembuat audit, tetapi memakai implementasi chain yang sama; bukan dua implementasi kriptografi independen.
-- Issuer khusus dan writer lock adalah batas operasi. Penggunaan key di luar app, pemulihan backup lama, chain fork atau volume remote bisa melanggar asumsi; ini bukan multi-writer consensus.
+- Signer, admin/reviewer credentials, and RPC credentials remain on the server. Receipt/browser input is untrusted. Raw signed bytes are treated as replayable and are not returned to the client.
+- An attacker without credentials cannot reserve/reconcile/check status. Anchor reviewers are limited to reviewed schema 3 and a current `operator_attested` directory attestation for the claim; the short interval between the last check and broadcast is not atomic. Private schema 4 and unreviewed schema 3 are rejected for both writes and recovery.
+- The RPC node remains a network trust dependency. A separate verifier removes the audit-writing API from the verification path, but uses the same chain implementation; it is not a second independent cryptographic implementation.
+- The dedicated issuer and writer lock are operational boundaries. Using keys outside the app, restoring old backups, chain forks, or remote volumes can violate assumptions; this is not multi-writer consensus.
 
-## Konsekuensi
+## Consequences
 
-Crash sebelum broadcast bisa menyisakan pending yang tidak dapat dipulihkan otomatis; tidak ditemukan di RPC bukan izin mengirim ulang. Revert terkonfirmasi membuka attempt baru eksplisit. Receipt yang pernah confirmed tetap historis bila reorg terdeteksi kemudian; verifikasi terkini dapat gagal. Tidak ada cancel/replacement, watcher reorg, public deploy atau finality guarantee otomatis.
+ A crash before broadcast may leave a pending intent that cannot be recovered automatically; not finding it through RPC is not permission to resend. A confirmed revert allows an explicit new attempt. A previously confirmed receipt remains historical if a later reorg is detected; current verification may fail. There is no automatic cancellation/replacement, reorg watcher, public deployment, or finality guarantee.
 
-Jaminan lokal diuji menggunakan FileAuditStore nyata, Anvil disposable, SIGKILL proses dan verifier CLI dari proses lain. Bukti tersebut tidak menyelesaikan integrasi Sepolia publik. Instruksi operasi ada di [runbook P2](../../development/blockchain-recovery.md).
+Local guarantees were tested with the real FileAuditStore, disposable Anvil, process SIGKILL, and CLI verifier in a separate process. This evidence does not establish public Sepolia integration. Operating instructions are in the [P2 runbook](../../development/blockchain-recovery.md).
 
-**Lanjutan 18 Oktober (P3):** [ADR lifecycle publikasi](2026-10-18-publication-lifecycle.md) menaikkan envelope menjadi versi 2 dengan event wajib, tanpa mengubah bundle/intent. Binary P2 lama tidak membaca envelope baru; gunakan roll-forward dan backup lengkap.
+**Follow-up 18 October (P3):** the [publication-lifecycle ADR](2026-10-18-publication-lifecycle.md) upgrades the envelope to version 2 with required events, without changing bundles/intents. Older P2 binaries cannot read the new envelope; use roll-forward and a complete backup.

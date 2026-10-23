@@ -1,167 +1,167 @@
-# Checklist pemeriksaan pakar P4
+# P4 domain-expert review checklist
 
-**Versi:** P4-checklist-2026-10-18-v1. **Tanggal:** 18 Oktober 2026. Pendamping [paket P4-2026-10-18-v1](../evidence/domain-review-remediation-2026-10-18/README.md). Catat kedua versi jika checklist ini dipakai dalam sesi.
+**Version:** P4-checklist-2026-10-18-v1. **Date:** 18 October 2026. Companion to [P4-2026-10-18-v1 package](../evidence/domain-review-remediation-2026-10-18/README.md). Record both versions if this checklist is used in a session.
 
-Tujuan pemeriksaan: menilai apakah metode, interpretasi data dan bahasa MethaneResponse layak untuk prototipe investigasi bukti historis. Pemeriksaan dilakukan oleh pakar manusia sesuai kompetensinya; tim menyiapkan bahan dan menangani temuan.
+Review objective: assess whether MethaneResponse's method, data interpretation, and language are suitable for a historical-evidence investigation prototype. A human expert conducts the review within their competence; the team prepares the materials and handles findings.
 
-## Cara memakai
+## How to use this checklist
 
-1. Fasilitator memeriksa prasyarat dan menyerahkan reviewer ZIP.
-2. Pakar membaca brief, menilai kasus dan mengisi formulir **sebelum melihat baseline per kasus**.
-3. Fasilitator memberikan comparison ZIP; pakar mencatat perbedaan beserta alasannya.
-4. Tim memperbaiki temuan material; pakar memeriksa ulang perubahan.
-5. Ringkasan akhir mencatat hasil, bagian yang belum dinilai dan izin publikasi.
+1. The facilitator checks prerequisites and provides the reviewer ZIP.
+2. The expert reads the brief, evaluates the cases, and fills out the form **before seeing the case-specific baseline**.
+3. The facilitator provides the comparison ZIP; the expert records differences and reasons.
+4. The team fixes material findings; the expert rechecks the changes.
+5. The final summary records results, unassessed areas, and publication permission.
 
-Gunakan status **memadai untuk scope / perlu perbaikan / belum dapat dinilai** disertai alasan. Jika bagian di luar kompetensi atau bahan tidak tersedia, catat batas dan pemeriksa/bukti tambahan yang dibutuhkan. Centang berarti butir sudah diperiksa, bukan otomatis benar atau lulus. Semua kotak di bawah masih kosong; ini belum merupakan hasil review.
+Use the statuses **adequate for scope / needs improvement / cannot yet be assessed**, with reasons. If a section is outside the expert's competence or materials are unavailable, record the limit and the additional reviewer/evidence needed. A checkmark means an item was reviewed, not that it is automatically correct or passed. All boxes below remain unchecked; this is not a review result.
 
-## 1. Kualifikasi, independensi dan versi
+## 1. Qualifications, independence, and version
 
-**Penanggung jawab:** fasilitator bersama pakar.
+**Owner:** facilitator with the expert.
 
-- [ ] Pengalaman yang relevan pada metana/MRV, remote sensing atau audit bukti dapat ditunjukkan; scope keahlian dan bagian di luar kompetensi dicatat.
-- [ ] Hubungan dengan tim, peran dalam pengembangan dan konflik kepentingan dinyatakan. Pakar independen bukan penulis produk atau agent AI.
-- [ ] Versi paket, snapshot data, checksum, tanggal dan bahan yang benar-benar diperiksa dicatat.
-- [ ] Kesediaan berpartisipasi diperoleh sebelum review; identitas, kontak dan consent disimpan privat.
+- [ ] Relevant experience in methane/MRV, remote sensing, or evidence auditing can be demonstrated; expertise scope and areas outside competence are recorded.
+- [ ] Relationships with the team, development roles, and conflicts of interest are disclosed. The independent expert is not a product author or AI agent.
+- [ ] Package version, data snapshot, checksum, date, and materials actually reviewed are recorded.
+- [ ] Willingness to participate is obtained before the review; identity, contact, and consent are stored privately.
 
-**Keluaran:** catatan kualifikasi/scope privat dan identitas versi review. Nama/afiliasi publik mengikuti izin tersendiri.
+**Output:** private qualification/scope record and review-version identity. Public name/affiliation require separate permission.
 
-## 2. Asal data dan keterlacakan
+## 2. Data origin and traceability
 
-**Pertanyaan:** dapatkah setiap informasi ditelusuri ke sumber dan record asalnya?
+**Question:** Can each piece of information be traced to its original source and record?
 
-- [ ] Metadata historis UNEP IMEO/MARS terpisah jelas dari enam kasus rekaan berlabel DEMO.
-- [ ] Source ID, plume/observation ID, timestamp, satuan dan nilai pada kasus cocok dengan data asal yang dirujuk.
-- [ ] Snapshot historis dan tanggal pemeriksaan halaman referensi dibedakan; pembacaan halaman baru tidak dianggap pembaruan dataset.
-- [ ] Atribusi, lisensi dataset dan batas hak laporan publisher dicatat. Tautan laporan tidak diperlakukan sebagai izin menyalin isinya.
+- [ ] Historical UNEP IMEO/MARS metadata is clearly separated from six fabricated cases labeled DEMO.
+- [ ] Source ID, plume/observation ID, timestamp, unit, and case value match the referenced source data.
+- [ ] Historical snapshot and reference-page check date are distinguished; a newly read page is not treated as a dataset update.
+- [ ] Dataset attribution/license and limits on publisher-report rights are recorded. A report link is not treated as permission to copy its contents.
 
-**Bahan:** [kasus](../evidence/domain-review-remediation-2026-10-18/reviewer/03-cases.md), [JSON](../evidence/domain-review-remediation-2026-10-18/reviewer/cases.json), [register sumber](../evidence/domain-review-remediation-2026-10-18/reviewer/05-source-register.md).
+**Materials:** [cases](../evidence/domain-review-remediation-2026-10-18/reviewer/03-cases.md), [JSON](../evidence/domain-review-remediation-2026-10-18/reviewer/cases.json), [source register](../evidence/domain-review-remediation-2026-10-18/reviewer/05-source-register.md).
 
-## 3. Pemisahan tahap respons
+## 3. Separation of response stages
 
-**Pertanyaan:** apakah kesimpulan tetap sesuai tahap bukti yang tersedia?
+**Question:** Does each conclusion remain within the response stage supported by the available evidence?
 
-- [ ] Deteksi, atribusi sumber, notifikasi, respons stakeholder, tindakan mitigasi dan follow-up dibedakan.
-- [ ] Flag `feedback` tidak dipakai sendirian untuk menyatakan perbaikan peralatan atau pengurangan emisi.
-- [ ] Flag notifikasi agregat tidak berubah menjadi klaim bahwa penerima tertentu menerima notifikasi kejadian tertentu.
-- [ ] Fungsi produk dijelaskan sesuai pekerjaan yang benar-benar dilakukan: pengorganisasian dan penilaian bukti historis.
+- [ ] Detection, source attribution, notification, stakeholder response, mitigation action, and follow-up are distinguished.
+- [ ] A `feedback` flag is not used alone to claim equipment repair or emissions reduction.
+- [ ] An aggregate notification flag is not converted into a claim that a specific recipient received a notification about a specific event.
+- [ ] Product function is described according to the work actually performed: organizing and assessing historical evidence.
 
-**Keluaran:** bagian alur/kalimat yang memadai atau perlu diperbaiki, beserta alasan domain.
+**Output:** workflow sections/statements that are adequate or need correction, with domain rationale.
 
-## 4. Scope sumber, kejadian, periode dan penerima
+## 4. Source, event, period, and recipient scope
 
-- [ ] Bukti merujuk sumber dan, bila ditentukan, observation ID yang sama dengan klaim.
-- [ ] Tanggal observasi, notifikasi, tindakan, follow-up dan terbit laporan tidak dipertukarkan.
-- [ ] Bukti di luar periode dinyatakan dengan tepat; batas hari kalender pada aturan diperiksa dampaknya.
-- [ ] Penerima notifikasi dan tingkat spesifikasi klaim sesuai bukti yang tersedia.
-- [ ] Setiap kalimat pada exact claim diperiksa secara substantif. Jenis referensi dan scope yang cocok saja tidak membuktikan seluruh kalimat bebas.
+- [ ] Evidence refers to the same source and, when specified, observation ID as the claim.
+- [ ] Observation, notification, action, follow-up, and report publication dates are not conflated.
+- [ ] Evidence outside the period is described accurately; the effect of calendar-day boundaries in the rules is checked.
+- [ ] Notification recipient and claim specificity match the available evidence.
+- [ ] Every sentence in the exact claim is assessed substantively. A matching reference type and scope alone do not prove the whole sentence is fully supported.
 
-**Keluaran:** scope yang benar, bukti yang tidak cocok dan usulan pemisahan klaim jika diperlukan.
+**Output:** correct scope, mismatched evidence, and suggested claim separation if needed.
 
-## 5. Arti label keputusan
+## 5. Meaning of decision labels
 
-**Pertanyaan:** apakah `supported`, `contradicted` dan `insufficient_evidence` sesuai bahan dan cukup jelas bagi pembaca?
+**Question:** Are `supported`, `contradicted`, and `insufficient_evidence` appropriate to the materials and clear enough for readers?
 
-- [ ] `supported` tidak menimbulkan keyakinan fisik yang melebihi bahan yang diperiksa.
-- [ ] `contradicted` mempunyai dasar yang relevan dan dapat diperiksa; ketiadaan bukti bukan bukti bantahan.
-- [ ] Konflik dukungan/bantahan ditangani dengan alasan yang jelas, tanpa memilih hasil yang menguntungkan proyek.
-- [ ] Bukti tidak cukup dan ketidakmampuan menilai dapat dilaporkan tanpa dipaksa menjadi ya/tidak.
-- [ ] Nama `mitigation_confirmed` dan risiko kasus D05 dinilai secara kritis. Pakar boleh meminta perubahan label atau gerbang bukti substantif.
+- [ ] `supported` does not imply greater physical certainty than the material reviewed warrants.
+- [ ] `contradicted` has a relevant, checkable basis; absence of evidence is not evidence of contradiction.
+- [ ] Conflicting support/contradiction is handled with a clear rationale, without selecting the outcome most favorable to the project.
+- [ ] Insufficient evidence and inability to assess can be reported without forcing a yes/no result.
+- [ ] The name `mitigation_confirmed` and the risk of case D05 are critically assessed. The expert may request a different label or a substantive evidence gate.
 
-**Bahan:** brief dan potongan metode dalam reviewer ZIP. Keluaran baseline dibaca setelah penilaian awal.
+**Materials:** brief and method excerpts in the reviewer ZIP. Baseline output is read after the initial assessment.
 
-## 6. Kecukupan bukti tindakan dan follow-up
+## 6. Adequacy of action and follow-up evidence
 
-- [ ] Hubungan klaim, tindakan, waktu, lokasi/sumber, dokumen rujukan dan pengamatan setelah tindakan diperiksa.
-- [ ] Field metadata yang lengkap dibedakan dari autentisitas dokumen, isi yang relevan dan kualitas pengukuran.
-- [ ] D02/D03/D05 dipakai untuk menilai risiko bukti rekaan, konflik dan kelengkapan administratif.
-- [ ] Jika pemeriksaan fisik memerlukan isi laporan, data sensor atau inspeksi yang tidak disertakan, kebutuhan itu dicatat tanpa membuat kesimpulan pengganti.
+- [ ] The relationship between the claim, action, time, location/source, reference document, and post-action observation is checked.
+- [ ] Complete metadata fields are distinguished from document authenticity, content relevance, and measurement quality.
+- [ ] D02/D03/D05 are used to assess fabricated-evidence risk, conflicting evidence, and administrative completeness.
+- [ ] If a physical check requires report contents, sensor data, or inspection materials not included, that need is recorded without substituting a conclusion.
 
-**Keluaran:** bukti minimum yang diperlukan untuk kesimpulan lebih kuat dan kontrol yang harus diperbaiki.
+**Output:** minimum evidence needed for a stronger conclusion and controls that should be improved.
 
-## 7. Ketidakpastian dan pengamatan yang hilang
+## 7. Uncertainty and missing observations
 
-- [ ] Flux kg/h dan standard deviation dibaca sesuai satuannya; standard deviation tidak otomatis disebut confidence interval.
-- [ ] Keterbatasan coverage, kesempatan pengamatan dan atribusi dipertimbangkan sesuai kompetensi pakar dan bahan yang tersedia.
-- [ ] Ketiadaan plume/record berikutnya tidak diperlakukan sebagai emisi nol atau bukti keberhasilan mitigasi.
-- [ ] Sampel observasi historis tidak dipakai untuk menghitung penurunan emisi kumulatif tanpa metode dan data yang memadai.
+- [ ] Flux in kg/h and standard deviation are read in the correct units; standard deviation is not automatically described as a confidence interval.
+- [ ] Coverage, observation opportunities, and attribution limits are considered within the expert's competence and the available materials.
+- [ ] Absence of a later plume/record is not treated as zero emissions or proof of successful mitigation.
+- [ ] Historical observation samples are not used to calculate cumulative emissions reductions without adequate method and data.
 
-**Keluaran:** pernyataan uncertainty yang layak dan inferensi yang harus dibatasi.
+**Output:** suitable uncertainty language and inferences that need limits.
 
-## 8. Perbandingan dengan interpretasi publisher
+## 8. Comparison with publisher interpretation
 
-- [ ] Judul/metadata item publisher dibedakan dari pemeriksaan isi laporan dan assessment independen.
-- [ ] Kesimpulan dibatasi pada bahan yang benar-benar dibaca. Ketidakcukupan paket tidak otomatis membantah kesimpulan publisher.
-- [ ] Perbedaan interpretasi dijelaskan dengan URL/locator, scope dan dasar domain yang dapat ditelusuri.
-- [ ] Laporan yang belum tersedia atau hak penggunaannya belum jelas dicatat sebagai batas pemeriksaan.
+- [ ] Publisher item title/metadata is distinguished from reviewing the report contents and from an independent assessment.
+- [ ] Conclusions are limited to materials actually read. An incomplete package does not automatically contradict the publisher's conclusion.
+- [ ] Interpretation differences are explained with a traceable URL/locator, scope, and domain basis.
+- [ ] An unavailable report or unclear usage rights are recorded as review limits.
 
-**Kasus utama:** R03–R06.
+**Main cases:** R03–R06.
 
-## 9. Tindak lanjut yang dapat dilakukan
+## 9. Actionable follow-up
 
-- [ ] Next evidence request menyebut bukti yang diminta, pihak/peran yang relevan dan hubungannya dengan kekurangan bukti.
-- [ ] Permintaan membedakan kebutuhan bukti tindakan, bukti notifikasi dan pengukuran follow-up.
-- [ ] Saran tidak melampaui mandat pengguna atau mengesankan aplikasi sudah mengirim notifikasi resmi.
-- [ ] Prioritas dan keterbatasan tindakan dinyatakan, termasuk hal yang belum dapat ditentukan dari metadata.
+- [ ] The next evidence request identifies the requested evidence, relevant party/role, and connection to the evidence gap.
+- [ ] The request distinguishes evidence of action, notification evidence, and follow-up measurements.
+- [ ] Suggestions do not exceed the user's mandate or imply that the application has sent an official notification.
+- [ ] Priorities and action limits are stated, including what cannot be determined from metadata.
 
-**Keluaran:** next evidence request yang diperbaiki per kasus bila diperlukan. Kegunaan praktis bagi pengguna tetap memerlukan pilot P5.
+**Output:** revised next evidence requests by case if needed. Practical usefulness to users still requires a P5 pilot.
 
-## 10. Arti trust, identitas reviewer dan integritas
+## 10. Meaning of trust, reviewer identity, and integrity
 
-- [ ] Kewenangan reviewer di direktori dibedakan dari verifikasi kompetensi, independensi dan kebenaran penilaiannya.
-- [ ] Hash, digest dan receipt dijelaskan sebagai bukti integritas/versi; tidak mengesahkan kondisi fisik atau isi klaim.
-- [ ] Receipt lokal Anvil dibedakan dari transaksi Sepolia publik yang belum tersedia.
-- [ ] Status publikasi/koreksi/withdrawal dibedakan dari pemeriksaan checksum file offline.
+- [ ] Reviewer authority in the directory is distinguished from verification of competence, independence, and correctness of the review.
+- [ ] Hashes, digests, and receipts are described as integrity/version evidence; they do not certify physical conditions or claim content.
+- [ ] A local Anvil receipt is distinguished from an unavailable public Sepolia transaction.
+- [ ] Publication/correction/withdrawal status is distinguished from an offline file-checksum check.
 
-**Pembagian tugas:** pakar menilai kecukupan makna dan risiko salah tafsir. Tim teknis menyediakan bukti operasi yang relevan. Review dokumenter P4 tidak mencakup seluruh pengujian keamanan atau deployment.
+**Division of work:** the expert assesses adequacy of meaning and risk of misinterpretation. The technical team provides relevant operational evidence. P4 documentary review does not cover all security or deployment testing.
 
-## 11. Privasi, izin publikasi dan batas manfaat
+## 11. Privacy, publication permission, and benefit limits
 
-- [ ] Bahan privat, identitas reviewer dan dokumen terbatas ditangani melalui kanal yang disepakati.
-- [ ] Consent partisipasi dipisahkan dari izin ringkasan, kutipan, nama dan afiliasi; teks publik disetujui tersendiri.
-- [ ] Output publik menyatakan batas metadata historis, DEMO, ketidakpastian dan hal yang belum diperiksa secara konsisten.
-- [ ] Klaim manfaat pengguna, akurasi AI atau pengurangan emisi tidak melebihi hasil yang tersedia. P5/P6 mempunyai pemeriksaan tersendiri.
+- [ ] Private materials, reviewer identity, and restricted documents are handled through agreed channels.
+- [ ] Participation consent is separate from permission for summaries, quotations, names, and affiliations; public text is approved separately.
+- [ ] Public output consistently states limits on historical metadata, DEMO, uncertainty, and unchecked material.
+- [ ] Claims about user benefit, AI accuracy, or emissions reductions do not exceed available results. P5/P6 have separate checks.
 
-**Keluaran:** koreksi bahasa yang diperlukan serta ruang lingkup publikasi yang diizinkan.
+**Output:** required language corrections and permitted publication scope.
 
-## 12. Temuan, perbaikan dan pemeriksaan ulang
+## 12. Findings, fixes, and recheck
 
-- [ ] Setiap temuan mempunyai ID, kasus/domain, versi, dasar, konsekuensi dan usulan perubahan/bukti.
-- [ ] Severity dicatat: critical untuk risiko kesimpulan fisik serius/pengungkapan privat; major untuk perubahan penting pada penilaian/scope/bukti; minor untuk kejelasan yang tidak mengubah kesimpulan.
-- [ ] Tim mencatat menerima, menolak dengan alasan, atau menunda; temuan material yang belum terselesaikan tetap terlihat.
-- [ ] Perubahan material diperiksa ulang oleh pakar pada versi yang diketahui. Penambahan disclaimer saja tidak menutup keberatan substantif.
-- [ ] Ringkasan mencantumkan kasus diperiksa/dilewati, bantuan/bahan tambahan, perbaikan, status recheck dan keterbatasan.
+- [ ] Each finding has an ID, case/domain, version, basis, consequence, and proposed change/evidence.
+- [ ] Severity is recorded: critical for serious physical-conclusion risk/private disclosure; major for important changes to assessment/scope/evidence; minor for clarity that does not change the conclusion.
+- [ ] The team records whether it accepts, rejects with a reason, or defers; unresolved material findings remain visible.
+- [ ] Material changes are rechecked by the expert against a known version. Adding a disclaimer alone does not resolve a substantive concern.
+- [ ] The summary lists cases reviewed/skipped, assistance/additional materials, fixes, recheck status, and limitations.
 
-**Keluaran:** ledger temuan, rujukan perbaikan, hasil recheck dan ringkasan yang disetujui. P4 selesai setelah review nyata dan temuan material ditutup serta diperiksa ulang sesuai [protokol](domain-expert-review.md).
+**Output:** findings ledger, fix references, recheck results, and approved summary. P4 is complete after an actual review, material findings are closed, and the fixes are rechecked as required by the [protocol](domain-expert-review.md).
 
-## Peta pemeriksaan 12 kasus
+## Review map for 12 cases
 
-Tabel ini mengarahkan perhatian; tidak menetapkan jawaban benar atau label pakar.
+This table directs attention; it does not set the correct answer or expert label.
 
-| ID | Fokus pemeriksaan |
+| ID | Review focus |
 |---|---|
-| R01 | Apa yang dapat disimpulkan dari record deteksi pada event tertentu; batas atribusi dan uncertainty |
-| R02 | Apakah metadata notifikasi cukup untuk klaim penerima dan kejadian yang spesifik |
-| R03 | Hubungan metadata historis KAZ_S_159 dengan item publisher; bahan tambahan untuk menilai tindakan/follow-up |
-| R04 | Kronologi observasi April dan item publisher Juli pada CAN_S_002 |
-| R05 | Keterbatasan satu observasi terkait LBY_S_143 dan tautan publisher |
-| R06 | Batas penilaian ARG_S_055 ketika isi laporan dan hak penggunaannya belum tersedia |
-| D01 DEMO | Kesesuaian referensi notifikasi, tanggal, event dan penerima |
-| D02 DEMO | Kecukupan referensi bantahan eksplisit serta risiko metadata rekaan |
-| D03 DEMO | Penanganan bukti dukungan dan bantahan yang berkonflik |
-| D04 DEMO | Dampak follow-up di luar periode klaim |
-| D05 DEMO | Apakah field lengkap cukup untuk label yang dipakai; kontrol autentisitas/isi yang diperlukan |
-| D06 DEMO | Kesimpulan yang layak ketika bukti dan observasi follow-up kosong |
+| R01 | What can be inferred from a detection record for a specific event; attribution and uncertainty limits |
+| R02 | Whether notification metadata supports a claim about a specific recipient and event |
+| R03 | Relationship between historical KAZ_S_159 metadata and the publisher item; additional materials needed to assess action/follow-up |
+| R04 | Chronology of April observations and the July publisher item for CAN_S_002 |
+| R05 | Limits of one observation for LBY_S_143 and the publisher link |
+| R06 | Limits of assessing ARG_S_055 when report contents and usage rights are unavailable |
+| D01 DEMO | Matching notification reference, date, event, and recipient |
+| D02 DEMO | Adequacy of an explicit contrary reference and risk of fabricated metadata |
+| D03 DEMO | Handling conflicting supporting and contrary evidence |
+| D04 DEMO | Effect of follow-up outside the claim period |
+| D05 DEMO | Whether complete fields are enough for the label used; required authenticity/content controls |
+| D06 DEMO | Suitable conclusion when evidence and follow-up observations are empty |
 
-## Format jawaban dan hasil minimum
+## Response format and minimum result
 
-Isi [formulir pakar](../evidence/domain-review-remediation-2026-10-18/reviewer/04-response-form.md) pada salinan privat. Untuk setiap kasus, catat:
+Fill in the [expert form](../evidence/domain-review-remediation-2026-10-18/reviewer/04-response-form.md) on a private copy. For each case, record:
 
-1. Kesimpulan awal dan scope/batasnya.
-2. Alasan serta referensi/locator yang benar-benar diperiksa.
-3. Bukti berikutnya yang dibutuhkan.
-4. Ketidakpastian atau bagian yang belum dapat dinilai.
-5. Setelah baseline diberikan: perbedaan pendapat dan penyebabnya.
+1. Initial conclusion and its scope/limits.
+2. Rationale and reference/locator actually reviewed.
+3. Next evidence needed.
+4. Uncertainty or areas that cannot yet be assessed.
+5. After the baseline is provided: differences of opinion and their causes.
 
-Untuk setiap temuan, catat **ID → risiko → perubahan/bukti yang diperlukan → tindakan tim → versi perbaikan → recheck pakar**. Template [ledger](../evidence/domain-review-remediation-2026-10-18/maintainer/findings-template.csv) dan [ringkasan](../evidence/domain-review-remediation-2026-10-18/maintainer/review-summary-template.md) tersedia.
+For each finding, record **ID → risk → required change/evidence → team action → fix version → expert recheck**. The [ledger template](../evidence/domain-review-remediation-2026-10-18/maintainer/findings-template.csv) and [summary template](../evidence/domain-review-remediation-2026-10-18/maintainer/review-summary-template.md) are available.
 
-Hasil minimum adalah penilaian yang dapat ditelusuri, daftar temuan/perbaikan, recheck material dan ringkasan dengan batas/izin yang jelas. Tidak ada target skor atau kewajiban setuju dengan baseline. Kasus yang dilewati tetap dilaporkan.
+Minimum results are a traceable assessment, findings/fixes list, material recheck, and summary with clear limits/permissions. There is no target score or requirement to agree with the baseline. Skipped cases must still be reported.

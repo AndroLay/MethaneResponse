@@ -1,63 +1,63 @@
-# Peta historis MARS
+# Historical MARS map
 
-[Arsitektur](overview.md) · [Peta repository](../repository-map.md) · [Alur data](data-flow.md)
+[Architecture](overview.md) · [Repository map](../repository-map.md) · [Data flow](data-flow.md)
 
-**Panduan aktif — 17 Oktober 2026.** MapLibre GL menampilkan data historis yang dipin, dengan basemap/geometri beratribusi. Peta tidak menjadi sensor metana, concentration surface, atau penentu kondisi emisi saat ini.
+**Active guide — 17 October 2026.** MapLibre GL displays pinned historical data with attributed basemaps/geometries. The map is not a methane sensor, concentration surface, or indicator of current emissions.
 
-## Data yang tampil
+## Displayed data
 
-- Snapshot aktif: `unep-mars-675417694883`, 4.218 source rows dan 30.414 plume rows sampai 13 September 2026 UTC.
-- Source dan plume memakai identifier, koordinat, tanggal, flux/uncertainty serta nilai kosong dari penerbit.
-- Plume tanpa source ID tetap tidak tertaut; tidak dihubungkan dengan tebakan kedekatan lokasi.
-- Casebook empat sumber adalah subset terkurasi. Source di peta dapat diperiksa baseline bila tersedia pada snapshot server yang sesuai; source non-curated tidak otomatis mempunyai dokumen bukti.
-- Mode sintetis **DEMO** tetap terpisah dan tidak dipresentasikan sebagai observasi nyata.
+- Active snapshot: `unep-mars-675417694883`, with 4,218 source rows and 30,414 plume rows through 13 September 2026 UTC.
+- Sources and plumes use the publisher's identifiers, coordinates, dates, flux/uncertainty, and missing values.
+- Plumes without a source ID remain unlinked; they are not linked by guessed geographic proximity.
+- The four-source casebook is a curated subset. Sources on the map can be checked by the baseline if available in the matching server snapshot; non-curated sources do not automatically have supporting documents.
+- **DEMO** synthetic mode remains separate and is not presented as real observations.
 
-Acuan rilis, lisensi, hash dan rebuild: [data/real/README.md](../../data/real/README.md).
+Release references, license, hashes, and rebuild instructions: [data/real/README.md](../../data/real/README.md).
 
-## Pemuatan browser
+## Browser loading
 
 ```mermaid
 flowchart LR
-  M[Manifest terikat snapshot] --> C[Catalog sumber]
-  C --> P[Peta dan tabel]
-  P --> S[Source dipilih]
-  S --> H[History bucket yang diperlukan]
-  P --> L[Layer historis dipilih]
-  L --> B[History tambahan / shard bulan]
+  M[Snapshot-bound manifest] --> C[Source catalog]
+  C --> P[Map and table]
+  P --> S[Selected source]
+  S --> H[Required history bucket]
+  P --> L[Selected historical layer]
+  L --> B[Additional history / monthly shard]
 ```
 
-Progressive loader memuat catalog lebih dahulu, lalu history buckets sesuai kebutuhan. Hash, ukuran/representasi, snapshot ID dan archive binding diperiksa. Full compressed snapshot tetap tersedia untuk jalur yang memerlukannya/fallback yang sesuai. Worker membantu verifikasi/parsing full snapshot; kegagalan worker tidak melewati pemeriksaan integritas.
+The progressive loader fetches the catalog first, then history buckets as needed. Hashes, size/representation, snapshot ID, and archive binding are checked. The full compressed snapshot remains available for paths that require it and for appropriate fallbacks. A worker assists with full-snapshot verification/parsing; worker failure does not bypass integrity checks.
 
-Geometri publisher memakai index dan shard bulanan yang juga diperiksa. Hanya bulan dipilih dimuat untuk layer polygon pada tier yang mendukung. Detail kasus/Auditor memakai shard bersama, bukan file imagery yang dibuat per sumber. [Dokumen geometri](mars-publisher-geometry.md) menyimpan jumlah, hash, matching dan batas ilmiahnya.
+Publisher geometry uses a checked index and monthly shards. Only the selected month is loaded for the polygon layer on supported tiers. Case details/Auditor use the shared shard, not an imagery file created per source. The [geometry document](mars-publisher-geometry.md) records counts, hashes, matching, and scientific limitations.
 
-## Layer dan maknanya
+## Layers and their meaning
 
-| Tampilan | Makna | Batas |
+| Display | Meaning | Limit |
 |---|---|---|
-| Source markers / clusters | Lokasi dan jumlah source records | Bukan concentration atau jumlah kebocoran aktif |
-| Source density | Kepadatan lokasi sumber pada snapshot | Bukan concentration methane |
-| Reported flux overlay | Nilai historis record atau agregasi rendering yang dijelaskan legend | Bukan continuous sensor field atau flux saat ini |
-| Publisher geometry bulan dipilih | Bentuk dari GeoJSON penerbit untuk record yang cocok | Tidak didefinisikan sebagai batas fisik plume yang diverifikasi proyek |
-| Investigation priority | Heuristic dari analisis snapshot yang cocok | Bukan probabilitas kebenaran klaim atau emisi fisik |
-| Esri / OpenFreeMap | Konteks geografis dan navigasi | Capture date/resolusi berbeda; bukan citra MARS overpass |
-| NASA GIBS / terrain / day-night | Konteks visual bertanggal dan rendering Earth | Bukan bukti kasus, cuaca live, atau methane permukaan |
+| Source markers / clusters | Location and count of source records | Not concentration or count of active leaks |
+| Source density | Density of source locations in the snapshot | Not methane concentration |
+| Reported flux overlay | Historical record values or rendering aggregation described in the legend | Not a continuous sensor field or current flux |
+| Selected-month publisher geometry | Publisher GeoJSON shapes for matching records | Not defined as a project-verified physical plume boundary |
+| Investigation priority | Heuristic from analysis of a matching snapshot | Not a claim-truth or physical-emissions probability |
+| Esri / OpenFreeMap | Geographic context and navigation | Capture dates/resolutions vary; not imagery from a MARS overpass |
+| NASA GIBS / terrain / day-night | Dated visual context and Earth rendering | Not case evidence, live weather, or surface methane |
 
-Nilai flux kosong diberi status/warna missing, tidak diubah menjadi nol. Label DEMO, provenance dan attribution tetap terlihat. Layer tidak mengubah isi observasi atau keputusan audit.
+Missing flux values are labeled/colored as missing, not converted to zero. DEMO labels, provenance, and attribution remain visible. Layers do not change observation contents or audit decisions.
 
-## Interaksi dan kegagalan
+## Interactions and failures
 
-Source markers dapat dipilih, cluster dibuka dan kamera difokuskan. **View full case** membuka detail di atas peta; **Open in Map Explorer** dari Cases memakai koordinat yang tersimpan. Period/history controls tidak mengubah periode kosong menjadi bukti emisi nol.
+Source markers can be selected, clusters expanded, and the camera focused. **View full case** opens details over the map; **Open in Map Explorer** from Cases uses the stored coordinates. Period/history controls do not turn an empty period into evidence of zero emissions.
 
-MapPanel dimuat terpisah dari entry dashboard. Kualitas rendering dapat menyesuaikan perangkat; low-power mode memakai representasi lebih ringan. Tile outage, WebGL/context loss dan geometri mismatch ditampilkan dengan fallback/status, bukan imagery atau polygon buatan. Detail dated rendering ada di [Earth rendering](earth-rendering.md). Pernyataan FPS/performa memerlukan pengukuran perangkat yang sesuai.
+MapPanel is loaded separately from the dashboard entry. Rendering quality can adapt to the device; low-power mode uses a lighter representation. Tile outages, WebGL/context loss, and geometry mismatches are shown with a fallback/status, not fabricated imagery or polygons. See [Earth rendering](earth-rendering.md) for dated rendering details. FPS/performance claims require measurements on an appropriate device.
 
-## Import dan pembaruan
+## Import and updates
 
-Import GeoJSON adalah operasi lokal browser: arsip tidak diunggah ke API dan server snapshot tidak diganti. Baseline/manual/AI hanya dapat memakai sumber serta binding yang diterima server. File yang berhasil tampil di peta belum berarti dataset sudah dipromosikan untuk audit.
+GeoJSON import is a local browser operation: the archive is not uploaded to the API, and the server snapshot is not replaced. Baseline/manual/AI paths can use only sources and bindings accepted by the server. A file appearing on the map does not mean the dataset has been promoted for audit use.
 
-Untuk rilis baru, ikuti proses provenance → import/validation → builder → manifest/hash → pemeriksaan binding → review rilis di [panduan data](../../data/real/README.md). `import_mars_map.py` tetap alat impor terpisah; membuat file JSON melalui alat itu tidak mengganti seluruh progressive assets, intelligence dan manifest aktif secara otomatis. Tidak ada refresh data terjadwal.
+For a new release, follow the provenance → import/validation → builder → manifest/hash → binding check → release review process in the [data guide](../../data/real/README.md). `import_mars_map.py` remains a separate import tool; creating a JSON file with it does not automatically replace all progressive assets, intelligence, and active manifests. There is no scheduled data refresh.
 
-## Hak dan bukti
+## Rights and evidence
 
-Dataset MARS mempunyai ketentuan CC BY-NC-SA 4.0; tile/imagery serta laporan tertaut mengikuti hak terpisah. Pertahankan attribution sesuai [NOTICE](../../NOTICE).
+The MARS dataset is subject to CC BY-NC-SA 4.0; tiles/imagery and linked reports have separate rights. Preserve attribution as described in [NOTICE](../../NOTICE).
 
-[Bukti browser](../evidence/README.md) dan [catatan performa bertanggal](../development/performance-optimization.md) menunjukkan hasil pada dataset/revisi asal. Screenshot lama tidak membuktikan UI terbaru, hosting live, atau performa telepon fisik.
+[Browser evidence](../evidence/README.md) and [dated performance notes](../development/performance-optimization.md) show results for their original dataset/revision. Older screenshots do not prove the current UI, live hosting, or performance on a physical phone.

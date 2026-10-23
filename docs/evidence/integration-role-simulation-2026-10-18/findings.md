@@ -1,16 +1,16 @@
-# Temuan dan tindak lanjut
+# Findings and follow-up
 
-| ID | Temuan | Tindakan dan bukti |
+| ID | Finding | Action and evidence |
 |---|---|---|
-| R01 | Panduan deployment menyatakan anchor intent belum ada | Perbaiki panduan sesuai P2; tidak mengubah runtime aplikasi |
-| R02 | Tes crash setelah broadcast tidak membuktikan kehilangan acknowledgment RPC | Proxy loopback meneruskan transaksi ke Anvil, lalu menjawab 502. Intent/hash dipertahankan, retry 409, recovery exact hash dan nonce +1 lulus |
-| R03 | Fixture direktori reviewer awal memakai spasi pada `checkedBy` | Sesuaikan identifier fixture dengan schema. Penolakan 401 adalah kontrol aplikasi yang bekerja, bukan defect autentikasi |
-| R04 | Provider fixture mula-mula berhenti pada idle timeout server 10 detik | Atur fixture 60 detik dan assert elapsed 39–48 detik. Run final mencapai 40.198 ms; run sebelumnya tidak dipakai sebagai bukti deadline |
-| R05 | Payload test dapat menerima full documents pada kedua pass; anchor 409 belum memeriksa alasan | Review agent meminta pemeriksaan sesuai urutan pass dan error body tepat. Run final 13 skenario/116 assertions lulus |
-| R06 | Helper preview awal menerima environment proxy pada fetch induk dan salah mengeja nama manifest | Saring proxy transient pada proses helper dan pakai `mars-snapshot-manifest.json`. Empat byte/status checks final lulus; tidak mengubah environment pengguna atau aplikasi |
-| R07 | Kedua pass provider dapat keliru mendukung klaim hasil fisik tanpa bukti, walau quote exact | Dipertahankan sebagai keterbatasan semantik, bukan klaim resolved. Fixture membuktikan label unreviewed/private/physical-not-established dan larangan anchor sebelum review; tidak menentukan apakah repair benar terjadi di dunia nyata |
-| R08 | `modelVersion` menyimpan alias konfigurasi | Nyatakan batas provenance; tidak mengklaim versi model yang benar-benar disajikan provider telah diverifikasi |
-| R09 | Mematikan launcher dapat memberi bukti restart yang ambigu | Fixture final memakai `flock -F` langsung pada API, path canonical dan health-down setelah SIGKILL sebelum restart; readiness mengecek child exit sebelum/sesudah health. Tidak mengandalkan wrapper yang mungkin menyisakan listener |
-| R10 | Claim awal hanya menyatakan investigation, sehingga hasil `supported` tidak membuktikan false support atas klaim fisik | Claim final secara eksplisit menyatakan repair, pengukuran independen pascatindakan dan penurunan berkelanjutan; excerpt hanya investigation/tanpa pengukuran. Run final memakai input itu; bukan klaim bahwa repair dunia nyata mustahil terjadi |
+| R01 | Deployment guidance said anchor intent was not implemented | Updated the guidance to match P2; application runtime was not changed |
+| R02 | A crash test after broadcast did not prove RPC acknowledgment loss | Loopback proxy forwarded the transaction to Anvil, then returned 502. Intent/hash were retained, retry returned 409, and exact-hash recovery with nonce +1 passed |
+| R03 | Initial reviewer-directory fixture had a space in `checkedBy` | Matched the fixture identifier to the schema. The 401 rejection is a working application control, not an authentication defect |
+| R04 | Provider fixture initially stopped at the server's 10-second idle timeout | Set fixture to 60 seconds and asserted 39–48 seconds elapsed. Final run reached 40,198 ms; the earlier run is not used as deadline evidence |
+| R05 | Test payload could accept full documents on both passes; anchor 409 did not check its reason | Reviewer requested checks based on pass order and the exact error body. Final run passed 13 scenarios/116 assertions |
+| R06 | Initial preview helper inherited a proxy for parent fetch and misspelled the manifest name | Filtered proxy settings in the transient helper process and used `mars-snapshot-manifest.json`. Four final byte/status checks passed; user/app environment was not changed |
+| R07 | Both provider passes can wrongly support a physical outcome claim without evidence, despite an exact quote | Retained as a semantic limitation, not claimed as resolved. Fixture demonstrates unreviewed/private/physical-not-established labels and blocks anchoring before review; it does not establish whether repair actually occurred in the world |
+| R08 | `modelVersion` stores a configuration alias | State the provenance limit; do not claim that the provider-served model version was verified |
+| R09 | Stopping the launcher could make restart evidence ambiguous | Final fixture used `flock -F` directly on the API, a canonical path, and health-down after SIGKILL before restart; readiness checked child exit before/after health. It does not rely on a wrapper that may leave a listener behind |
+| R10 | Initial claim only described investigation, so `supported` did not prove false support for a physical claim | Final claim explicitly requires repair, independent post-action measurement, and sustained reduction; the excerpt contains investigation/no measurement only. Final run used that input; it does not claim real-world repair is impossible |
 
-Tidak ditemukan defect runtime aplikasi baru dalam pemeriksaan ini. Perubahan kode menambah tes/runner, sementara sumber API, web dan shared cocok dengan source freeze P5/P6. Hasil fixture yang dibuat sengaja salah tidak menjadi gold/benchmark manusia atau ukuran kualitas AI.
+No new application runtime defect was found in this review. Code changes added tests/runner, while API, web, and shared sources match the P5/P6 source freeze. Intentionally faulty fixture results are not a human gold set/benchmark or a measure of AI quality.

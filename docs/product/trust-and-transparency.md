@@ -1,14 +1,14 @@
 # Evidence, reviewer assurance and public transparency
 
-[Pusat dokumentasi](../README.md) · [Alur penggunaan](user-workflow.md) · [Konfigurasi server](../development/configuration.md) · [API](../architecture/api-reference.md)
+[Documentation index](../README.md) · [User workflow](user-workflow.md) · [Server configuration](../development/configuration.md) · [API](../architecture/api-reference.md)
 
-Panduan aktif ini merinci tiga kontrol: asal/bytes referensi yang diperiksa, kewenangan reviewer menurut direktori operator, dan field yang dapat dibuka ke publik. Full penilaian manual tetap privat. Keberhasilan satu kontrol tidak membuktikan kebenaran fisik, keaslian dokumen, atau independensi reviewer.
+This active guide details three controls: the origin/bytes of checked references, reviewer authority according to the operator directory, and fields that may be made public. Full manual assessments remain private. Passing one control does not prove physical truth, document authenticity, or reviewer independence.
 
 MethaneResponse records what was checked, who was authorized to assess it, and what can be disclosed. It does not certify physical mitigation. All three additions work without an AI provider or database. No new dependency is required.
 
-## Shared casework: akses lebih ketat
+## Shared casework: stricter access
 
-P1 menggunakan signed `private_read` untuk baca dan tambahan `review` untuk write, selalu dengan current directory authority `operator_attested` per claim type. Legacy shared token dan compatibility flag audit tidak membuka workspace tim. Anggota dengan kategori sama dapat membaca catatan kategori itu; assignee bukan pembatas akses. Token hanya di memori, sedangkan draft tab tidak terenkripsi. Server memeriksa ulang akses sebelum menulis dan memakai `no-store` pada respons. Penarikan akses tidak dapat menghapus copy yang sudah diunduh. Detail batas dan pemulihan ada di [runbook](../development/shared-casework.md).
+P1 uses signed `private_read` for reads and an additional `review` scope for writes, always requiring current directory authority `operator_attested` for each claim type. Legacy shared tokens and audit compatibility flags do not grant access to the team workspace. Members with the same category can read that category's notes; assignment does not restrict access. Tokens are held only in memory, while tab drafts are not encrypted. The server rechecks access before writing and uses `no-store` responses. Revoking access cannot delete copies that were already downloaded. See the [runbook](../development/shared-casework.md) for limits and recovery details.
 
 ## 1. Check public reference provenance
 

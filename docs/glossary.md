@@ -1,34 +1,34 @@
-# Glosarium
+# Glossary
 
-[Pusat dokumentasi](README.md) · [Data dan claims](product/data-and-claims.md)
+[Documentation index](README.md) · [Data and claims](product/data-and-claims.md)
 
-| Istilah | Arti dalam repo |
+| Term | Meaning in this repository |
 |---|---|
-| MARS / IMEO | Methane Alert and Response System dari UNEP International Methane Emissions Observatory; sumber data historis proyek |
-| Source | Identifier sumber menurut penerbit; tidak otomatis setara satu fasilitas yang telah diaudit |
-| Plume / observation | Record observasi bertanggal; pengukuran diskret dengan cakupan dan ketidakpastian |
-| Snapshot | Salinan dataset pada retrieval tertentu dengan ID/hash; tidak memperbarui diri |
-| Provenance | Asal data, retrieval, lisensi, transformasi, dan hash untuk menelusuri artefak |
-| Casebook | Subset sumber nyata yang dikurasi bersama konteks referensi |
-| DEMO / synthetic | Fixture buatan untuk demonstrasi/tes; bukan bukti kejadian nyata |
-| Claim | Kategori pernyataan: `source_detected`, `operator_notified`, atau `mitigation_confirmed` |
-| Scope | Periode, kejadian, dan bila relevan penerima yang membatasi pemeriksaan |
-| Rules baseline / coverage | Pemeriksaan deterministik hubungan metadata bukti terhadap claim/scope |
-| Determination | Keputusan manusia dengan alasan; terpisah dari hasil coverage |
-| `insufficient_evidence` | Bukti belum mendukung kesimpulan lebih kuat; tidak berarti klaim salah atau emisi nol |
-| Reference metadata | URL, locator, tanggal dan hubungan bukti; berbeda dari isi dokumen yang telah diautentikasi |
-| Investigation / case work | Pertanyaan, catatan, next action, permintaan bukti, dan status kerja yang dapat diubah; mode browser-local atau shared workspace berotorisasi dengan CAS/history server |
-| Audit revision / bundle | Penilaian tersimpan dengan isi dan versi tetap; revisi baru tidak menimpa bundle lama |
-| Schema 2 / 3 / 4 | Format bundle: rules baseline / document AI beserta review / penilaian manual privat |
-| Parent hash | Referensi digest revisi asal untuk menelusuri perubahan penilaian |
-| Canonical JSON | Penyusunan JSON konsisten sebelum menghitung digest |
-| SHA-256 / digest / checksum | Ringkasan kriptografis isi; memeriksa perubahan yang di-hash, bukan kebenaran dokumen |
-| Reviewer scope | Capability token `private_read`, `review`, atau `anchor`; berbeda dari scope periode audit |
-| Operator attestation | Catatan pemeriksaan reviewer oleh pengelola layanan; bukan verifikasi eksternal atas identitas/independensi |
-| Public transparency summary | Ringkasan field terbatas satu revisi dengan persetujuan; bundle lengkap tetap privat |
-| Export checksum | Checksum amplop laporan JSON termasuk konteks ekspor; berbeda dari hash bundle di dalamnya |
-| Receipt / anchor | Bukti transaksi yang mengikat hash pada registry; write opt-in memakai intent durabel, pending direkonsiliasi; uji lokal bukan receipt Sepolia publik |
-| Recurrence | Estimasi record MARS tertaut berikutnya; tidak mengukur kebocoran fisik atau hasil mitigasi |
-| Priority heuristic | Aturan mengurutkan investigasi; bukan skor kebenaran klaim atau prediksi emisi |
-| LocalStorage / sessionStorage | Penyimpanan browser untuk catatan/preferensi dan draft per tab; tidak terenkripsi atau dibagikan otomatis |
-| Atomic file store | Penggantian file atomik dan antrean satu proses; tidak menyediakan transaksi lintas replika |
+| MARS / IMEO | UNEP's Methane Alert and Response System, managed by the International Methane Emissions Observatory; the project's source of historical data |
+| Source | Publisher-assigned source identifier; it does not necessarily correspond to one audited facility |
+| Plume / observation | A dated observation record; a discrete measurement with its own coverage and uncertainty |
+| Snapshot | A dataset copy from a specific retrieval, identified by ID/hash; it does not update itself |
+| Provenance | Data origin, retrieval, license, transformation, and hashes used to trace an artifact |
+| Casebook | A curated subset of real sources with reference context |
+| DEMO / synthetic | A fabricated fixture for demonstration/testing; not evidence of a real event |
+| Claim | A statement category: `source_detected`, `operator_notified`, or `mitigation_confirmed` |
+| Scope | The period, event, and, where relevant, recipient that bound an assessment |
+| Rules baseline / coverage | A deterministic check of how evidence metadata relates to a claim/scope |
+| Determination | A reasoned human decision, separate from the coverage result |
+| `insufficient_evidence` | The evidence does not support a stronger conclusion; this does not mean the claim is false or emissions are zero |
+| Reference metadata | URL, locator, date, and evidence relationship; distinct from authenticated document contents |
+| Investigation / case work | Questions, notes, next actions, evidence requests, and mutable work status; browser-local mode or an authorized shared workspace with server-side CAS/history |
+| Audit revision / bundle | A stored assessment with fixed contents and version; a new revision does not overwrite an older bundle |
+| Schema 2 / 3 / 4 | Bundle formats: rules baseline / document AI with review / private manual assessment |
+| Parent hash | Digest reference to the original revision, used to trace assessment changes |
+| Canonical JSON | Consistent JSON serialization before computing a digest |
+| SHA-256 / digest / checksum | A cryptographic summary of content; checks for changes to the hashed data, not document truth |
+| Reviewer scope | Capability token `private_read`, `review`, or `anchor`; distinct from the audit-period scope |
+| Operator attestation | A service operator's reviewer-check record; not external verification of identity or independence |
+| Public transparency summary | An approved summary with fields limited to one revision; the full bundle remains private |
+| Export checksum | Checksum for the JSON report envelope, including export context; distinct from the bundle hash inside it |
+| Receipt / anchor | Transaction evidence binding a hash to a registry; opt-in writes use durable intents and reconcile pending states; a local test is not a public Sepolia receipt |
+| Recurrence | Estimate of the next linked MARS record; it does not measure physical leakage or mitigation outcomes |
+| Priority heuristic | A rule for ordering investigations; not a claim-truth score or emissions forecast |
+| LocalStorage / sessionStorage | Browser storage for notes/preferences and per-tab drafts; not encrypted or automatically shared |
+| Atomic file store | Atomic file replacement and a single-process queue; it does not provide transactions across replicas |

@@ -1,30 +1,30 @@
-# P2 dan delivery — lanjutan 20 Oktober
+# P2 and Delivery — Continuation on 20 October
 
-Permintaan: lanjutkan daftar pekerjaan setelah Connected Investigations sampai hasil yang diizinkan selesai. Source aktif dan bukti beku dipertahankan. Baseline `8e19c03`; 137 path sudah berubah sebelum increment ini. Pemilik edit: agen utama, checkout yang sama.
+Request: continue the work list after Connected Investigations until authorized results are complete. Preserve the active source and frozen evidence. Baseline `8e19c03`; 137 paths had already changed before this increment. Edit owner: primary agent, same checkout.
 
-## Urutan dan acceptance
+## Sequence and acceptance
 
-- [x] Pemeriksaan bukti berulang: kandidat deterministik lintas investigasi yang diizinkan, scope/snapshot eksplisit, tidak menyatakan double counting atau mengubah verdict. UI dapat merekam tindak lanjut dalam riwayat pekerjaan yang sudah ada. Unit/API/browser dan permission revocation wajib.
-- [x] Intake snapshot opt-in: stage input lokal dengan hash terpisah, replay perubahan lengkap dan manifest; tidak menimpa snapshot aktif atau paket beku. Uji hash, sumber tidak kompatibel, output existing dan dry run.
-- [x] Delivery revisi terbaru: judging guide/story/paket bukti mencerminkan workflow terbaru; source ZIP allowlisted, tanpa secrets/state/cache, checksum dan batas ukuran. Materi v12 dipertahankan sebagai versi historis.
-- [x] Gate final: frozen install, check/typecheck, API/web/verifier, Python/Foundry, build/budget, browser aktual dan Anvil bila tersedia. Bukti baru pada direktori baru, hitungan tidak menjumlahkan pengulangan.
-- [ ] Publik: periksa source/CI dan preview khusus MethaneResponse. Workspace Render disetujui, free dahulu; jangan mengubah Evidrilo. Publikasi/deployment baru hanya sesudah hasil lokal konkret dan izin yang berlaku mencakup target.
-- [ ] Tutup dengan status per deliverable, artefak yang dapat dibuka, blocker layanan/izin, dan pekerjaan eksternal yang memang belum terverifikasi.
+- [x] Repeated-evidence check: deterministic candidates across authorized investigations, with explicit scope/snapshot; make no double-counting claims or verdict changes. The UI can record follow-up in existing work history. Unit/API/browser tests and permission revocation are required.
+- [x] Opt-in snapshot intake: stage local inputs with a separate hash, replay the full changes and manifest; do not overwrite the active snapshot or frozen package. Test hashes, incompatible sources, existing outputs, and dry run.
+- [x] Latest-revision delivery: judging guide/story/evidence package reflect the latest workflow; allowlisted source ZIP without secrets/state/cache, with checksum and size limit. Preserve v12 materials as a historical version.
+- [x] Final gate: frozen install, check/typecheck, API/web/verifier, Python/Foundry, build/budget, actual browser, and Anvil if available. Put new evidence in a new directory; do not count repeated checks twice.
+- [ ] Public: inspect source/CI and a MethaneResponse-only preview. Render workspace is approved, Free first; do not change Evidrilo. New publication/deployment only after concrete local results and applicable authorization cover the target.
+- [ ] Close with status per deliverable, openable artifacts, service/permission blockers, and external work that remains unverified.
 
-## Batas eksternal
+## External limits
 
-Pakar/pilot manusia tetap ditunda. Tidak ada klaim benefit manusia, akurasi AI atau emisi yang dihemat dari simulasi. Provider AI dan dokumen berizin diperlukan untuk benchmark nyata. Faucet/funding Sepolia belum terbukti tersedia. Public preview tidak membuka dossier privat dan filesystem free bersifat sementara. Notion bukan target.
+Expert/human pilot remains deferred. Simulations do not support claims of human benefit, AI accuracy, or saved emissions. A real benchmark requires an AI provider and authorized documents. Sepolia faucet/funding availability has not been established. The public preview does not expose private dossiers, and its Free filesystem is temporary. Notion is not a target.
 
-## Pemeriksaan awal
+## Initial checks
 
-GitHub connector mengonfirmasi repository `AndroLay/MethaneResponse` publik. Render workspace yang sama tersedia; daftar layanan hanya berisi dua layanan Evidrilo, tidak disentuh. Shell GitHub diblokir allowlist jaringan; connector read-only berfungsi. Belum ada mutasi eksternal pada pemeriksaan awal.
+The GitHub connector confirmed that repository `AndroLay/MethaneResponse` is public. The same Render workspace was available; its service list contained only two Evidrilo services, which were left untouched. GitHub shell access was blocked by the network allowlist; the read-only connector worked. No external mutation occurred during the initial checks.
 
-## Hasil aktual sebelum publikasi
+## Actual results before publication
 
-Bukti P2: `docs/evidence/p2-delivery-2026-10-20/`. Gate 876 tes utama, 40 unique browser/Node checks, actual Anvil, operations, source pin dan replay lokal. Rilis UNEP 20 Oktober diunduh resmi, dinormalisasi dan dibandingkan tanpa aktivasi: 4.197 sumber/30.529 plume; dua implementasi cocok pada seluruh 8.415 source/60.943 plume records. Empat overlap CLI scenarios sesuai expected exits. Video teknis aktual 65,4 detik melengkapi presentasi historis v12; tidak mengganti narasi utamanya.
+P2 evidence: `docs/evidence/p2-delivery-2026-10-20/`. The gate includes 876 main tests, 40 unique browser/Node checks, actual Anvil, operations, source pinning, and local replay. The 20 October UNEP release was officially downloaded, normalized, and compared without activation: 4,197 sources/30,529 plumes; two implementations matched across all 8,415 source/60,943 plume records. Four overlapping CLI scenarios returned the expected exit codes. An actual 65.4-second technical video supplements historical v12 presentation; it does not replace its main narrative.
 
-User menyetujui push main dan deploy hanya jika Rp0 terverifikasi. Konektor Render tidak menyediakan billing/spend cap; bukti dashboard diminta, belum ada resource baru. Matching lintas provider, AI quality, Sepolia, manusia/perangkat fisik dan submission publik tetap perlu input/layanan eksternal. Tidak dilabel selesai 100%.
+The user approved pushing to main and deploying only if Rp0 is verified. The Render connector does not provide billing/spend caps; dashboard evidence was requested and no new resource was created. Cross-provider matching, AI quality, Sepolia, human/physical-device work, and public submission still require external input/services. Do not label the work 100% complete.
 
-## Delivery lokal final
+## Final local delivery
 
-Source ZIP dan judging attachment sudah dibuat serta lolos CRC/checksum. Attachment 14.431.613 bytes, di bawah batas konservatif 35 MB; source lengkap dikirim terpisah. Clean extracted-source gate exit 0 (876 tes), 602 runtime/input bindings identik. Video teknis aktual dan seluruh metadata source tersedia lokal. Push main telah disetujui; verifikasi CI dan preview publik dicatat sebagai status terpisah. Render belum dibuat karena Rp0 workspace belum terverifikasi.
+The source ZIP and judging attachment were created and passed CRC/checksum checks. The attachment is 14,431,613 bytes, below the conservative 35 MB limit; full source is delivered separately. The clean extracted-source gate exited 0 (876 tests), with 602 runtime/input bindings identical. The actual technical video and all source metadata are available locally. A main push was approved; CI verification and public preview are recorded as separate statuses. Render was not created because Rp0 for the workspace was not verified.

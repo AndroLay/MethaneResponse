@@ -1,74 +1,76 @@
-# Audit Kandidat MethaneResponse
+# MethaneResponse Candidate Audit
 
-**Diperiksa:** 11 Oktober 2026 (WITA)  
-**Metode:** dua audit agen independen (MARS/IEA dan Carbon Mapper), lalu pemeriksaan silang ke sumber resmi.  
-**Tujuan:** menguji klaim bahwa MethaneResponse adalah pilihan terbaik dan cukup berbeda untuk IEEE ClimateChain.
+**Reviewed:** 11 October 2026 (WITA)
 
-## Putusan singkat
+**Method:** two independent agent audits (MARS/IEA and Carbon Mapper), followed by cross-checks against official sources.
 
-**Masalahnya nyata dan datanya menjanjikan; klaim bahwa konsep ini paling baru atau pilihan terbaik belum terbukti.** Versi proposal yang berfokus pada deteksi AI, atribusi, alert-to-action, pelacakan respons, dan verifikasi satelit mengulang banyak fungsi yang sudah dijalankan MARS/Eye on Methane dan Carbon Mapper. Jangan mengunci MethaneResponse sebagai pilihan utama hanya berdasarkan skor heuristik seperti 9,18/10; skor itu bukan rubrik resmi, bukan hasil uji, dan tidak membuktikan peluang menang.
+**Purpose:** test the claim that MethaneResponse is the best and sufficiently differentiated choice for IEEE ClimateChain.
 
-MethaneResponse masih layak menjadi **kandidat bersyarat** jika dipersempit ke kebutuhan yang benar-benar belum terlayani dan dibuktikan dalam dua hari pertama. Saat ini belum ada bukti bahwa ledger blockchain atau AI tambahan akan meningkatkan respons atau mitigasi.
+## Short verdict
 
-## Fakta yang terverifikasi
+**The problem is real and the data are promising; the claim that this concept is the newest or best choice has not been established.** The proposal's focus on AI detection, attribution, alert-to-action, response tracking, and satellite verification overlaps with functions already carried out by MARS/Eye on Methane and Carbon Mapper. Do not make MethaneResponse the primary choice solely on a heuristic score such as 9.18/10: that is not the official rubric, a test result, or evidence of winning potential.
 
-### 1. Angka 12% bukan angka mitigasi
+MethaneResponse remains a **conditional candidate** if it narrows to an unmet need and demonstrates that need in the first two days. There is currently no evidence that a blockchain ledger or additional AI would improve response or mitigation.
 
-IEA menyatakan sekitar 12% notifikasi MARS pada 2025 menerima respons. Angka ini menggambarkan *feedback/response*, bukan 12% mitigasi berhasil atau 88% kasus yang dibiarkan tanpa mitigasi. Dalam metrik publik UNEP, respons dihitung dari sumber emisi yang menerima respons dibanding sumber yang diberi alert pada periode bergulir 12 bulan; data dirilis dengan jeda sekitar dua bulan. Respons dapat memuat investigasi, penyebab emisi, status, dan tindakan mitigasi yang dilakukan, sedang berlangsung, atau direncanakan. **Respons tidak otomatis berarti tindakan telah selesai dan diverifikasi.**
+## Verified facts
 
-Laporan resmi MARS Agustus 2026 secara terpisah menyebut lebih dari 40 sumber besar telah mengalami mitigasi yang dikonfirmasi. UNEP mengatakan kasus tersebut melibatkan penilaian teknis atas respons dan pengamatan satelit sesudahnya yang tidak lagi mendeteksi emisi. Jadi narasi yang akurat adalah “tingkat respons masih rendah, sementara ada pula kasus mitigasi yang telah dikonfirmasi,” bukan “MARS tidak mengubah alert menjadi tindakan.”
+### 1. The 12% figure is not a mitigation rate
 
-Sumber: [IEA, panduan respons MARS (4 Mei 2026)](https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system), [metrik respons UNEP](https://methanedata.unep.org/story-MARS-snapshot), [snapshot MARS Agustus 2026](https://methanedata.unep.org/downloads/top50_emitters/latest/mars_snapshot_latest.pdf), [kamus data MARS](https://methanedata.unep.org/dict-mars-plumes).
+The IEA says about 12% of MARS notifications in 2025 received a response. This measures *feedback/response*, not 12% successful mitigation or 88% of cases left without mitigation. In UNEP's public metric, response is counted as emission sources receiving a response relative to sources alerted in a rolling 12-month period; data are released with roughly a two-month delay. A response may include an investigation, emission cause, status, and mitigation action that is completed, underway, or planned. **A response does not automatically mean the action was completed and verified.**
 
-### 2. Alur inti yang diusulkan sudah menjadi bagian dari sistem dan panduan yang ada
+The official August 2026 MARS report separately says that more than 40 large sources had undergone confirmed mitigation. UNEP says these cases involved technical assessment of the response and follow-up satellite observations that no longer detected emissions. The accurate framing is therefore “the response rate remains low, while some mitigation cases have also been confirmed,” not “MARS does not turn alerts into action.”
 
-MARS sudah mendeteksi dan menguantifikasi emisi, menggunakan model AI bersama analisis pakar, mengaitkan sumber dengan fasilitas/operator, memberi notifikasi kepada pemerintah/perusahaan, meminta umpan balik, memantau lokasi setelah notifikasi, dan menerbitkan status respons melalui Eye on Methane. Data publik umumnya baru muncul setelah 30 hari. Portal Eye on Methane // INSIGHTS juga memberi pengguna pemerintah yang berwenang akses ke riwayat notifikasi dan status umpan balik yang lebih rinci.
+Sources: [IEA, responding to MARS notifications (4 May 2026)](https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system), [UNEP response metrics](https://methanedata.unep.org/story-MARS-snapshot), [August 2026 MARS snapshot](https://methanedata.unep.org/downloads/top50_emitters/latest/mars_snapshot_latest.pdf), [MARS data dictionary](https://methanedata.unep.org/dict-mars-plumes).
 
-Panduan IEA–IMEO tanggal 4 Mei 2026 sudah mengusulkan lima langkah yang hampir sama dengan alur MethaneResponse: menerima/menugaskan/mengklasifikasikan alert; menghubungi operator; menerima respons; memverifikasi tindak lanjut; lalu mendokumentasikan kasus. Panduan itu bersifat non-mengikat dan menegaskan kebutuhan kewenangan serta sumber daya pemerintah.
+### 2. The proposed core workflow is already part of existing systems and guidance
 
-Carbon Mapper juga sudah memiliki deteksi, triase mutu, pengelompokan sumber berulang/persistensi, atribusi sektor/sumber, API, dan STAC. API-nya mencantumkan *limited beta* untuk laporan operator, termasuk investigasi, perbaikan, dan status verifikasi. Carbon Mapper secara eksplisit menyatakan laporan operator itu sukarela, tidak diverifikasi atau disahkan olehnya, dan mungkin bukan data emisi tervalidasi. Pada 2025, Carbon Mapper melaporkan 60 notifikasi untuk lebih dari 50 sumber dan mitigasi 10 sumber yang dikonfirmasi dengan verifikasi lembaga negara, operator, dan pengamatan lanjutan. Carbon Mapper juga mengumumkan kemitraan dengan IMEO/MARS pada Juni 2026.
+MARS already detects and quantifies emissions, uses AI models alongside expert analysis, attributes sources to facilities/operators, notifies governments/companies, requests feedback, monitors sites after notification, and publishes response status through Eye on Methane. Public data generally appear after 30 days. The Eye on Methane // INSIGHTS portal also gives authorized government users more detailed notification history and feedback status.
 
-Sumber: [cara kerja MARS](https://methanedata.unep.org/methane-alert-response-system), [FAQ MARS](https://www.unep.org/topics/energy/methane/international-methane-emissions-observatory/mars-frequently-asked-questions), [panduan IEA–IMEO](https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system), [Carbon Mapper Product Guide](https://carbonmapper.org/articles/product-guide), [API Carbon Mapper](https://api.carbonmapper.org/api/v1/docs), [riwayat program Carbon Mapper](https://carbonmapper.org/articles/tanager-1-two-years-of-turning-satellite-data-into-methane-action).
+The IEA–IMEO guidance dated 4 May 2026 already proposes five steps very similar to the MethaneResponse workflow: receive/assign/classify an alert; contact the operator; receive a response; verify follow-up; then document the case. The guidance is non-binding and emphasizes the need for government authority and resources.
 
-### 3. Data nyata tersedia, tetapi API bukan integrasi tanpa gesekan
+Carbon Mapper also provides detection, quality triage, repeat-source/persistence grouping, sector/source attribution, an API, and STAC. Its API lists a *limited beta* for operator reports, including investigation, repair, and verification status. Carbon Mapper explicitly says operator reports are voluntary, are not verified or endorsed by Carbon Mapper, and may not be validated emissions data. In 2025, Carbon Mapper reported 60 notifications for more than 50 sources and confirmed mitigation at 10 sources through verification by government agencies, operators, and follow-up observations. Carbon Mapper also announced a partnership with IMEO/MARS in June 2026.
 
-Carbon Mapper menyediakan observasi plume dan sumber dengan waktu, koordinat, sektor, estimasi emisi, ketidakpastian, serta metrik pengulangan/persistensi. Product Guide menyatakan produk plume/source biasa dipublikasikan sekitar 30 hari setelah akuisisi; produk PHME yang lebih cepat bersifat eksperimental dan rilisnya berdasarkan upaya terbaik. Ini cocok untuk replay historis, tetapi tidak menjamin alert real-time.
+Sources: [how MARS works](https://methanedata.unep.org/methane-alert-response-system), [MARS FAQ](https://www.unep.org/topics/energy/methane/international-methane-emissions-observatory/mars-frequently-asked-questions), [IEA–IMEO guidance](https://www.iea.org/reports/responding-to-satellite-notifications-from-the-methane-alert-and-response-system), [Carbon Mapper Product Guide](https://carbonmapper.org/articles/product-guide), [Carbon Mapper API](https://api.carbonmapper.org/api/v1/docs), [Carbon Mapper program history](https://carbonmapper.org/articles/tanager-1-two-years-of-turning-satellite-data-into-methane-action).
 
-Carbon Mapper meminta developer mendaftar untuk memulai akses API; dokumentasi tutorialnya menyebut banyak endpoint membutuhkan autentikasi/token, sementara beberapa endpoint STAC mempunyai konfigurasi autentikasi opsional. Dengan demikian akses katalog bukan bukti bahwa seluruh query/item dapat diambil tanpa akun. Dalam audit ini belum dilakukan pengambilan data terautentikasi dan **belum diverifikasi angka 200+ record yang dapat dipakai**.
+### 3. Real data are available, but API access is not frictionless
 
-Syarat penggunaan Carbon Mapper membatasi penggunaan data ke tujuan nonkomersial yang selaras dengan pengurangan emisi, meminta atribusi, dan membatasi redistribusi/produk turunan. Data MARS berlisensi CC BY-NC-SA 4.0. Lisensi dan waktu publikasi perlu dimasukkan ke desain demo/repo.
+Carbon Mapper provides plume and source observations with time, coordinates, sector, emission estimates, uncertainty, and recurrence/persistence metrics. Its Product Guide says standard plume/source products are generally published about 30 days after acquisition; faster PHME products are experimental and released on a best-effort basis. This supports historical replay, not a guarantee of real-time alerts.
 
-Sumber: [Carbon Mapper Data](https://carbonmapper.org/data), [tutorial autentikasi API resmi](https://github.com/carbon-mapper/platform-public/blob/main/tutorials/README.md), [Product Guide](https://carbonmapper.org/articles/product-guide), [Terms of Use](https://carbonmapper.org/terms), [lisensi/data MARS](https://methanedata.unep.org/dict-mars-plumes).
+Carbon Mapper asks developers to register to begin API access. Its tutorial documentation says many endpoints require authentication/token, while some STAC endpoints have optional authentication. A visible catalog therefore does not prove that every query/item can be retrieved without an account. This audit did not make an authenticated data pull and **did not verify that 200+ usable records were available**.
 
-## Koreksi terhadap klaim proposal
+Carbon Mapper's terms limit data use to noncommercial purposes aligned with emissions reduction, require attribution, and restrict redistribution/derivative products. MARS data are licensed CC BY-NC-SA 4.0. License and publication timing must be part of the demo/repository design.
 
-| Klaim/komponen proposal | Hasil audit |
+Sources: [Carbon Mapper Data](https://carbonmapper.org/data), [official API authentication tutorial](https://github.com/carbon-mapper/platform-public/blob/main/tutorials/README.md), [Product Guide](https://carbonmapper.org/articles/product-guide), [Terms of Use](https://carbonmapper.org/terms), [MARS data/license](https://methanedata.unep.org/dict-mars-plumes).
+
+## Corrections to proposal claims
+
+| Proposal claim/component | Audit result |
 |---|---|
-| “Hanya 12% respons” membuktikan sistem tidak menghasilkan mitigasi | Tidak tepat. Itu metrik feedback; MARS juga melaporkan kasus mitigasi yang dikonfirmasi. |
-| Alur alert → penugasan → respons → verifikasi adalah inovasi baru | Tidak terbukti. Itu sudah ada pada MARS dan menjadi lima langkah panduan IEA–IMEO. |
-| AI akan mengidentifikasi sumber dan pengulangan | Tidak cukup sebagai pembeda. MARS dan Carbon Mapper sudah menjalankan atribusi dan analisis pengulangan. Model baru memerlukan label dan evaluasi melawan baseline. |
-| Blockchain membuat mitigasi dapat dipercaya | Terlalu luas. Hash dapat membantu membuktikan berkas/riwayat tidak berubah setelah dikomit; ia tidak membuktikan kebenaran laporan operator, identitas pengirim, atau mitigasi fisik. |
-| Data Carbon Mapper dapat dipakai untuk demo langsung dan bebas hambatan | Belum terbukti. Ada panduan pendaftaran/token, keterbatasan rilis data, rate limiting, dan pembatasan lisensi. |
-| Prototype tanpa survei dapat membuktikan pengurangan metana | Tidak. Replay satelit dapat menunjukkan pola observasi; klaim mitigasi butuh respons lapangan dan verifikasi yang sesuai. Respons yang disimulasikan wajib diberi label simulasi. |
+| “Only 12% responded” proves the system produces no mitigation | Incorrect. This is a feedback metric; MARS also reports confirmed mitigation cases. |
+| Alert → assignment → response → verification is a new innovation | Not established. It is already part of MARS and the five-step IEA–IMEO guidance. |
+| AI will identify sources and recurrence | Not enough differentiation. MARS and Carbon Mapper already perform attribution and recurrence analysis. A new model needs labels and evaluation against a baseline. |
+| Blockchain makes mitigation trustworthy | Too broad. A hash can help show that a file/history has not changed after commitment; it does not establish the truth of an operator report, sender identity, or physical mitigation. |
+| Carbon Mapper data are ready for a frictionless live demo | Not established. Registration/token guidance, release constraints, rate limits, and license restrictions apply. |
+| A prototype without a field survey can prove methane reduction | No. Satellite replay can show observation patterns; mitigation claims need a field response and appropriate verification. Simulated responses must be labeled as simulations. |
 
-## Ruang pembeda yang mungkin, tetapi masih hipotesis
+## Possible differentiation, still a hypothesis
 
-Jika ingin mempertahankan tema ini, jangan membangun “detektor MARS baru”. Uji versi yang lebih sempit: **paket bukti lintas sumber untuk audit perubahan kasus**. Sistem mengambil satu observasi nyata, menyimpan referensi sumber dan versi, membentuk satu timeline peristiwa, mencatat respons/berkas sebagai masukan pihak terkait, lalu menunjukkan apakah bukti berubah setelah komit.
+If this theme continues, do not build “a new MARS detector.” Test a narrower version: **a cross-source evidence package for auditing case changes**. The system would take one real observation, store source references and versions, create an event timeline, record responses/files as stakeholder-provided input, then show whether evidence changed after commitment.
 
-Nilai tambahnya baru masuk akal jika pengguna tertentu perlu menggabungkan catatan dari beberapa penyedia/otoritas yang belum tersambung, atau memeriksa perubahan bukti tanpa akses ke portal pemerintah tertutup. Kedua kebutuhan ini belum divalidasi lewat wawancara atau penggunaan nyata. Blockchain harus dibatasi pada integritas urutan dan isi artefak; AI harus punya tugas yang terukur. Bila data publik sudah terstruktur, AI mungkin tidak dibutuhkan. Bila hanya satu organisasi yang memperbarui catatan, ledger biasa bisa cukup.
+Added value is plausible only if a specific user needs to combine records from multiple providers/authorities that are not connected, or to inspect evidence changes without access to a restricted government portal. Neither need has been validated through interviews or real use. Limit blockchain to artifact content/order integrity and give AI a measurable task. If public data are already structured, AI may be unnecessary. If only one organization updates records, an ordinary ledger may be enough.
 
-## Gerbang lanjut/tidak lanjut 48 jam
+## 48-hour go/no-go gate
 
-Lanjutkan hanya jika tim bisa menunjukkan bukti untuk semua pertanyaan berikut:
+Continue only if the team can show evidence for all of these questions:
 
-1. **Akses:** satu skrip dapat mengambil/membaca data yang akan dipakai; jumlah, rentang waktu, field, keterlambatan, dan lisensinya dicatat. Jangan mengandalkan hitungan katalog atau klaim “200+” sebelum diekstrak.
-2. **Pembeda:** ada satu tindakan pengguna yang tidak sudah disediakan Eye on Methane/MARS atau Carbon Mapper, dengan alasan pengguna yang spesifik. Jika belum ada, hentikan klaim “alert-to-action gap” sebagai inovasi.
-3. **AI:** tentukan satu target yang punya label/ground truth dan bandingkan AI dengan baseline sederhana. Jika tidak ada manfaat terukur, hilangkan klaim AI atau gunakan hanya sebagai alat bantu yang dijelaskan batasnya.
-4. **Ledger:** demonstrasikan dua pihak/aktor yang menambahkan bukti, urutan waktu yang dapat diaudit, dan kegagalan verifikasi setelah artefak diubah. Tampilkan bahwa mekanisme ini membuktikan integritas rekaman, bukan kebenaran emisi.
-5. **Demo jujur:** tampilkan observasi satelit nyata dan bedakan tegas data nyata, input operator yang disimulasikan, serta hasil verifikasi. Jangan klaim pengurangan emisi dari demo.
+1. **Access:** one script can retrieve/read the intended data; record count, time range, fields, delay, and license are documented. Do not rely on catalog counts or a “200+” claim before extraction.
+2. **Differentiation:** one user action is not already supported by Eye on Methane/MARS or Carbon Mapper, with a specific user rationale. If not, stop claiming an “alert-to-action gap” as the innovation.
+3. **AI:** define one target with labels/ground truth and compare AI against a simple baseline. If there is no measurable benefit, remove the AI claim or describe AI only as a bounded aid.
+4. **Ledger:** demonstrate two parties/actors adding evidence, auditable ordering, and failed verification after an artifact is changed. Explain that this proves record integrity, not emission truth.
+5. **Honest demo:** show real satellite observations and clearly distinguish real data, simulated operator input, and verification results. Do not claim emissions reduction from the demo.
 
-## Rekomendasi keputusan
+## Decision recommendation
 
-**Status: kandidat bersyarat, belum terpilih.** Bukti yang tersedia mendukung urgensi problem dan ketersediaan data, tetapi membantah bahwa komponen utama proposal—deteksi/atribusi AI, alur respons, dan verifikasi—merupakan ruang kosong. Sebelum membangun UI, lakukan gerbang 48 jam di atas. Bila pembeda pengguna atau akses data tidak terbukti, pivot ke ide lain yang sudah diteliti; jangan mempertahankan MethaneResponse karena skor subjektif atau sunk cost.
+**Status: conditional candidate, not selected.** Available evidence supports the problem's urgency and data availability, but contradicts the idea that the proposal's main components—AI detection/attribution, response workflow, and verification—are an empty space. Run the 48-hour gate before building UI. If user differentiation or data access is not established, pivot to another researched idea; do not retain MethaneResponse based on a subjective score or sunk cost.
 
-Jangan menyatakan peluang Top 3 lebih tinggi daripada kandidat lain. Tidak ada data kompetitor submission yang lengkap atau bobot juri yang terpublikasi untuk membuktikannya. Penilaian pemenang tetap belum dapat diprediksi.
+Do not claim better Top 3 odds than other candidates. There is no complete competitor-submission data or published judge weighting to support that claim. Winner assessment remains unpredictable.

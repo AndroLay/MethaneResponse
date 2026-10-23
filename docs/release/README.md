@@ -1,20 +1,20 @@
-# Status, deployment dan kompetisi
+# Status, deployment, and competition
 
-[Pusat dokumentasi](../README.md)
+[Documentation home](../README.md)
 
-## Acuan aktif
+## Active references
 
-| Panduan | Isi |
+| Guide | Contents |
 |---|---|
-| [Status implementasi](current-implementation-status.md) | Kemampuan lokal, data aktif, pemeriksaan terakhir dan batas bukti |
-| [Runtime/deployment](deployment.md) | File store, proses tunggal dan konsekuensi preview filesystem sementara |
-| [Catatan IEEE ClimateChain](event-requirements.md) | Persyaratan dari sumber resmi pada tanggal pemeriksaan; konflik eligibility/jadwal yang perlu diselesaikan |
-| [Isi submission Devpost](devpost-submission/README.md) | Nama, pitch, cerita Inggris, tag, panduan juri dan lampiran lokal sesuai form |
-| [Materi demo](../demo/README.md) | Artefak lokal, tanggal script/caption dan status publikasi |
+| [Implementation status](current-implementation-status.md) | Local capabilities, active data, latest checks, and evidence limits |
+| [Runtime/deployment](deployment.md) | File store, single process, and effects of a temporary preview filesystem |
+| [IEEE ClimateChain notes](event-requirements.md) | Requirements from official sources on the check date; eligibility/schedule conflicts to resolve |
+| [Devpost submission contents](devpost-submission/README.md) | Name, pitch, English story, tags, judges' guide, and local attachments matching the form |
+| [Demo materials](../demo/README.md) | Local artifacts, script/caption dates, and publication status |
 
-## Arsip perencanaan penilaian
+## Archived scoring plans
 
-[Judge evidence matrix](judge-evidence-matrix.md) dan [score-readiness roadmap](score-readiness-roadmap.md) menyimpan asumsi, bukti, serta target internal dari revisi terdahulu. Keduanya bukan status aktif atau hasil penjurian. Angka tes dan asumsi PostGIS di dalamnya tidak menjadi syarat database prototype saat ini.
+The [judge evidence matrix](judge-evidence-matrix.md) and [score-readiness roadmap](score-readiness-roadmap.md) retain assumptions, evidence, and internal targets from earlier revisions. They are not current status or judging results. Test counts and PostGIS assumptions in those pages are not database requirements for the current prototype.
 
-Pada 21 Oktober, [smoke provider DeepSeek nyata](../evidence/deepseek-live-2026-10-21/README.md)
-lulus pada tiga dokumen DEMO. [Preview Render dan AI melalui browser publik](../evidence/render-preview-2026-10-21/README.md) juga terverifikasi. Benchmark kualitas AI independen, transaksi Sepolia dan manfaat iklim terukur belum tersedia. Local run dan hosted preview mempunyai batas berbeda.
+On 21 October, the [live DeepSeek provider smoke check](../evidence/deepseek-live-2026-10-21/README.md)
+passed on three DEMO documents. The [Render preview and AI through a public browser](../evidence/render-preview-2026-10-21/README.md) were also verified. An independent AI quality benchmark, Sepolia transaction, and measured climate benefit are not available. Local runs and the hosted preview have different limits.

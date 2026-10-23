@@ -1,39 +1,39 @@
-# P4 — perbaikan temuan riset dan pembekuan ulang
+# P4 — Research Finding Remediation and Refreezing
 
-**Otorisasi:** pengguna meminta seluruh masalah ditangani, termasuk tes yang telah diizinkan. **Pemilik kode:** agent utama; satu reviewer agent read-only untuk risiko kompatibilitas. Mengikuti adapter persistent-plans; bekerja pada checkout aktif tanpa commit/reset/worktree baru.
+**Authorization:** the user asked to address all issues, including tests already authorized. **Code owner:** primary agent; one read-only agent reviewer for compatibility risks. Follow the persistent-plans adapter; work in the active checkout without a new commit/reset/worktree.
 
-**Acuan:** [triase F01–F13](../research/p4-research-bundle-assessment-2026-10-18.md), [checklist](../testing/p4-review-checklist.md), [rencana enam paket](2026-10-17-six-package-completion.md). Baseline HEAD `a82e2eee99bb79327f859f304f2f5d5939f07041` dengan 163 path lokal berubah/baru sebelum pekerjaan ini. Perubahan pengguna dipertahankan.
+**References:** [F01–F13 triage](../research/p4-research-bundle-assessment-2026-10-18.md), [checklist](../testing/p4-review-checklist.md), [six-package plan](2026-10-17-six-package-completion.md). Baseline HEAD `a82e2eee99bb79327f859f304f2f5d5939f07041` had 163 locally changed/new paths before this work. Preserve user changes.
 
-## Desain dan batas
+## Design and boundaries
 
-- Perbaiki validasi URL agar input invalid menghasilkan 400, bukan exception/500; HTTPS dan larangan credentials dipertahankan.
-- Aturan coverage baru memeriksa pointer, tanggal dan follow-up secara konsisten. Klaim notification/mitigation memerlukan scope; request baseline lama tetap diterima dengan hasil konservatif dan reason yang menjelaskan scope yang kurang. Bundle tersimpan tidak dihitung ulang.
-- Satu helper mengartikan tanggal kalender secara ketat; timestamp dengan offset menjadi hari UTC, timestamp MARS tanpa offset diperlakukan UTC. Resolver dan penilaian memakai helper sama.
-- Tambahkan semantics di dalam bundle baru sebelum hash: basis metadata/manusia/model dan physical verification yang tidak ditetapkan oleh aplikasi. Field boleh absen pada bundle lama. Reviewer atas hasil model tidak mengubah basisnya menjadi penilaian manusia mandiri.
-- UI, riwayat dan brief menampilkan arti hasil sesuai basis, tanpa klaim independensi reviewer yang tidak dibuktikan. Proyeksi ringkasan publik schema 1 dan hash historisnya tetap byte-identik; penjelasan tambahan berada pada tampilan.
-- Data DEMO tetap rekaan; referensi `fixture://` hanya boleh untuk evidence DEMO. Dataset, lisensi dan publisher claims tetap terpisah. Tidak menambah notifikasi eksternal, provider, estimasi pengurangan emisi atau deployment.
-- Paket P4 v1 menjadi snapshot historis. Buat paket v2 terikat kode/data baru; hasil manusia tetap 0 sampai reviewer nyata tersedia. Tidak mengubah checklist hasil manusia menjadi selesai.
+- Fix URL validation so invalid input returns 400 rather than an exception/500; retain HTTPS and the prohibition on credentials.
+- New coverage rules consistently check pointers, dates, and follow-up. Notification/mitigation claims require scope; older baseline requests remain accepted with a conservative result and a reason explaining the missing scope. Do not recompute saved bundles.
+- Use one helper to interpret calendar dates strictly; timestamps with offsets map to their UTC day, and MARS timestamps without offsets are treated as UTC. The resolver and assessment use the same helper.
+- Add semantics to new bundles before hashing: whether the basis is metadata, human, or model, and that physical verification is not established by the application. The field may be absent in older bundles. A reviewer of a model result does not change its basis to an independent human assessment.
+- UI, history, and brief show the meaning of results according to their basis, without unsupported claims of reviewer independence. Keep the public summary schema 1 projection and its historical hashes byte-identical; put added explanations in the display.
+- DEMO data remains fictional; `fixture://` references are allowed only for DEMO evidence. Keep dataset, license, and publisher claims separate. Add no external notifications, provider, estimated emissions reductions, or deployment.
+- P4 v1 becomes a historical snapshot. Create a v2 package bound to the new code/data; human results remain 0 until real reviewers are available. Do not mark the human-results checklist complete.
 
-## Tahap dan bukti penerimaan
+## Milestones and acceptance evidence
 
-1. **Done — input URL.** Tambah regresi schema dan handler untuk reference utama/follow-up: malformed/blank, HTTP, credentials, HTTPS valid. Jalankan merah, perbaiki, lalu hijau. File: shared index, API human-assessment tests.
-2. **Done — coverage dan waktu.** Tambah regresi M01–M18 yang relevan: pointer hilang/spasi, scope hilang, recipient trim, UTC tengah malam, kalender invalid, follow-up/konflik. File: shared evidence policy, audit/scoped-source, fixture DEMO dan tes conformance. Kunci label benchmark tetap; pemanggilan tes memakai scope fixture yang eksplisit.
-3. **Done — semantics dan kompatibilitas.** Shared semantics helper; pembuat bundle API, verifier API/browser/CLI. Uji hash lama yang tetap valid, field baru terikat hash dan penolakan physical verification palsu. Jangan mengubah proyeksi ringkasan publik schema 1.
-4. **Done — tampilan dan ekspor.** Terapkan helper pada verdict/report/history/brief/public view, jelaskan penilaian reviewer dan physical verification secara terpisah. Tes komponen/export dan pemeriksaan browser terfokus termasuk mobile.
-5. **Done — disposition dan paket v2.** Ledger setiap F01–F13: diperbaiki secara teknis, sudah dikendalikan, keputusan scope, atau membutuhkan pakar/bukti primer. Paket kasus, baseline dan hashes baru; v1 dan evidence lama dipertahankan. Perbarui status aktif dan indeks.
-6. **Done — review dan verifikasi engineering.** Jalankan suite API/web/verifier/typecheck/build yang terdampak, full gate bila perubahan lintas lapisan membutuhkannya, serta E2E relevan. Reviewer read-only memeriksa risiko nyata; catat hasil aktual dan source manifest pada evidence baru.
+1. **Done — URL input.** Added schema and handler regressions for primary/follow-up references: malformed/blank, HTTP, credentials, and valid HTTPS. Ran red, fixed, then green. Files: shared index and API human-assessment tests.
+2. **Done — coverage and time.** Added relevant M01–M18 regressions: missing/space-only pointer, missing scope, recipient trimming, UTC midnight, invalid calendar, follow-up/conflict. Files: shared evidence policy, audit/scoped-source, DEMO fixture, and conformance tests. Kept benchmark labels fixed; test calls use an explicit fixture scope.
+3. **Done — semantics and compatibility.** Added a shared semantics helper for the API bundle builder and API/browser/CLI verifiers. Tested that old hashes remain valid, new fields are hash-bound, and false physical-verification claims are rejected. Do not change the schema 1 public-summary projection.
+4. **Done — views and exports.** Applied the helper to verdict/report/history/brief/public views, separating reviewer assessment from physical verification. Ran component/export tests and focused browser checks, including mobile.
+5. **Done — dispositions and v2 package.** Added a ledger disposition for every F01–F13: technically fixed, controlled, scope decision, or requiring an expert/primary evidence. Created a new case package, baseline, and hashes; preserved v1 and earlier evidence. Updated active status and the index.
+6. **Done — engineering review and verification.** Ran affected API/web/verifier/typecheck/build suites, the full gate where cross-layer changes required it, and relevant E2E checks. A read-only reviewer checked concrete risks; recorded actual results and the source manifest in new evidence.
 
-## Gerbang selesai
+## Completion gate
 
-Pekerjaan teknis selesai setelah regresi dan pemeriksaan integrasi relevan lulus, seluruh temuan mempunyai disposition yang beralasan, serta paket v2 dapat direproduksi. P4 keseluruhan masih memerlukan pakar independen, hasil penilaian, recheck temuan material dan izin ringkasan. Ketidaktersediaan pakar tidak menghalangi perbaikan teknis yang dapat dikerjakan sekarang.
+Technical work is complete once relevant regression and integration checks pass, every finding has a reasoned disposition, and the v2 package is reproducible. P4 as a whole still requires independent experts, assessment results, rechecking material findings, and summary permission. Expert availability does not block technical fixes that can be made now.
 
 
-## Hasil pelaksanaan
+## Execution results
 
-- Full gate lokal lulus: 193 API, 247 web, 37 verifier, 160 Python, 4 kontrak; typecheck/build dan entry budget 71.689/75.000 gzip bytes lulus. Brief Markdown dimuat dinamis pada ekspor agar entry tetap dalam budget.
-- Invocation browser lengkap lulus 14 + 9 skenario aplikasi; empat pemeriksaan tambahan lulus, termasuk pembaca paket v2, hasil assessment, comparison, export/verifier. Viewport desktop/mobile dan lima screenshot P4 diperiksa.
-- Tes publikasi SIGKILL/restart dan integrasi Anvil lokal masing-masing lulus. Tidak ada deploy/transaksi publik atau provider nyata.
-- Reviewer kode read-only menemukan empat pemanggil/kompatibilitas yang kemudian diperbaiki dengan regresi. Final recheck agent tidak selesai karena batas pemakaian; agent utama memeriksa perubahan serta menjalankan gerbang. Ini bukan hasil pakar.
-- [Ledger F01–F13](../research/p4-research-remediation-2026-10-18.md) dan [paket/bukti v2](../evidence/domain-review-remediation-2026-10-18/README.md) adalah keluaran teknis. V1 mempertahankan 31 hash artefak; proyeksi publik schema 1 byte-identik dengan sumber P3.
+- The full local gate passed: 193 API, 247 web, 37 verifier, 160 Python, and 4 contract tests; typecheck/build and the entry budget of 71,689/75,000 gzip bytes passed. Markdown briefs load dynamically during export to keep the entry within budget.
+- Full browser invocations passed 14 + 9 application scenarios; four additional checks passed, including the v2 package reader, assessment results, comparison, and export/verifier. Desktop/mobile viewports and five P4 screenshots were inspected.
+- Publication SIGKILL/restart tests and local Anvil integration each passed. No public deployment/transaction or real provider was used.
+- The read-only code reviewer found four callers/compatibility issues, which were then fixed with regressions. The agent's final recheck was not completed because of usage limits; the primary agent inspected the changes and ran the gates. This is not expert review.
+- The [F01–F13 ledger](../research/p4-research-remediation-2026-10-18.md) and [v2 package/evidence](../evidence/domain-review-remediation-2026-10-18/README.md) are the technical outputs. V1 retains 31 artifact hashes; the public summary schema 1 projection is byte-identical to the P3 source.
 
-**Pekerjaan engineering pada rencana ini selesai lokal.** Review domain manusia dan pertanyaan sumber ARG tetap terbuka sesuai ledger; lima checklist hasil manusia P4 tidak dicentang.
+**The engineering work in this plan is complete locally.** Human domain review and ARG source questions remain open as recorded in the ledger; the five P4 human-results checklist items remain unchecked.
