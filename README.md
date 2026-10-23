@@ -1,175 +1,264 @@
-# MethaneResponse
+<p align="center">
+  <img src="apps/web/public/favicon.svg" width="76" alt="MethaneResponse logo">
+</p>
+<h1 align="center">MethaneResponse</h1>
+<p align="center"><strong>One explainable investigation plan. One actionable evidence request. One verifiable decision.</strong></p>
+<p align="center">
+  Turn historical methane observations and scattered evidence into investigations your team can explain and review.
+</p>
+<p align="center">
+  <a href="https://github.com/AndroLay/MethaneResponse/actions/workflows/ci.yml"><img src="https://github.com/AndroLay/MethaneResponse/actions/workflows/ci.yml/badge.svg" alt="CI: application, browser, pipeline and contract checks"></a>
+  <img src="https://img.shields.io/badge/React-TypeScript-61DAFB?logo=react&amp;logoColor=white" alt="React and TypeScript">
+  <img src="https://img.shields.io/badge/Bun-Hono-f9f1e1" alt="Bun and Hono">
+  <img src="https://img.shields.io/badge/MapLibre-Geospatial-396CB2" alt="MapLibre geospatial interface">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Original_software-MIT-19b99a" alt="Original software: MIT"></a>
+</p>
+<p align="center">
+  <a href="https://methaneresponse-preview.onrender.com/dashboard">Open preview</a> ·
+  <a href="#quick-start">Run locally</a> ·
+  <a href="docs/product/organization-walkthrough.md">Try an investigation</a> ·
+  <a href="docs/demo/delivery-2026-10-22-final-v18/README.md">Demo video &amp; production evidence</a> ·
+  <a href="docs/README.md">Documentation</a>
+</p>
 
-**Select methane investigations, trace evidence, and account for decisions.**
+<a href="docs/assets/screenshots/dashboard.webp"><img src="docs/assets/screenshots/dashboard.webp" width="1440" alt="Actual MethaneResponse web dashboard showing historical source counts, a satellite-basemap globe and dated observations"></a>
 
-MethaneResponse helps teams prioritize methane sources based on investigation capacity, check claims against historical UNEP MARS data and documents, and record evidence requests and reviewer decisions. When evidence changes, the system identifies which decisions may need review; versioned reports can be checked independently for integrity.
+*Actual public-preview browser capture, 21 October 2026. Basemap imagery provides geographic context, not methane measurement. All screenshot dates, sources and capture environments are recorded in the [screenshot manifest](docs/assets/screenshots/manifest.json).*
 
-**Status:** Local proof of concept for IEEE ClimateChain 2026. The web app and API use a historical snapshot and local JSON files. AI is optional. Blockchain writes through the API are available with server-side opt-in and durable intents. Recovery has been tested on local Anvil; no public Sepolia receipt is available. See [implementation status](docs/release/current-implementation-status.md) for capabilities and the latest evidence.
+> **IEEE ClimateChain 2026 · Climate Data & Environmental Monitoring.** This is a working proof of concept. The public preview has temporary state, three curated baseline sources, and no private reviewer or blockchain writes. The full local workflow is demonstrated separately. [Preview scope](#choose-your-environment).
 
-[P5/P6 agent-scoped work is complete](docs/evidence/p5-p6-agent-completion-2026-10-18/README.md): two agents completed 48 manual/app tasks across six repeated sessions; two agent contexts assessed 72 test claims across 12 sources; CLI fixes were made; and 708 local tests passed. The results did not show an AI benefit over rules for this challenge. A human pilot and an independent provider benchmark remain outstanding; P4 is awaiting review as directed by the user.
+## Why MethaneResponse?
 
-**Public preview:** [Open MethaneResponse](https://methaneresponse-preview.onrender.com/dashboard).
-Render Free uses ephemeral state. The DeepSeek model is enabled in the backend,
-and assessments require a separate token. Human review and blockchain writes are
-disabled in the preview. See [deployment evidence and limitations](docs/evidence/render-preview-2026-10-21/README.md).
+A team may have thousands of historical methane observations and capacity to investigate only ten sources. Selecting those sources is only the first decision. The team must also establish what was observed, which claims the evidence supports, what is missing, and whether a later response changes an earlier conclusion.
 
-**Video and proof — v18, 23 October:** the [v18 video package](docs/demo/delivery-2026-10-22-final-v18/README.md)
-contains a local MP4 (**4:57, 1080p/25fps**). Its story is **Plan → Investigate → Verify**,
-ending with the connection between investigation, potential field action, and outcome measurement.
-[Proof take8 TKM_S_021](docs/evidence/video-v17-2026-10-22/README.md) pairs the
-export with a DEMO reviewer pin and the **local Anvil 31337** receipt used in v18.
-The DeepSeek example **KAZ_S_159 remains separate**. There is no evidence of repair,
-emissions reduction, or measured human productivity. The [active submission package](docs/release/devpost-submission/README.md)
-links the fields, judges' guide, public-access status, and v18 ZIP. Local files do
-not prove a GitHub push, a current deployment, a video upload, or a submission.
+**UNEP MARS supplies methane observations and response context. MethaneResponse organizes the investigation that follows.** It preserves source identifiers and snapshot provenance while connecting priorities, scoped evidence, requests, reviewer decisions and revision history.
 
-**Latest agent evaluation:** [frozen r12](docs/evidence/agent-practical-usefulness-2026-10-21-r12/findings.md)
-records **0/48 task completion according to the frozen scorer**, although 12 deterministic
-gates passed. This does not establish Practical Usefulness or human productivity;
-the earlier results above do not supersede r12.
-
-**Release sync — 23 October:** [latest checks and preview operations](docs/evidence/release-sync-2026-10-23/README.md)
-separates the local gate, CI for the exact commit, the Render deployment, and the
-local video. The v18 production source and take8 proof are retained; public status
-is checked separately.
-
-## Understand the repository
-
-**Live DeepSeek — 21 October:** the `deepseek-v4.1-flash-1017` model through
-ExperientialLabs replaced the Luna plan. Three DEMO document scenarios passed
-through the real provider with exact citations and bundle hashes; this was an
-integration smoke test, not an independent accuracy benchmark. [Private configuration](docs/development/deepseek-integration.md)
-· [Evidence and limitations](docs/evidence/deepseek-live-2026-10-21/README.md).
-
-**P2 delivery — 20 October:** related claim/evidence candidate checks in private investigations, reviewer interpretations saved to history, a CLI verifier, and an opt-in snapshot downloader and intake. The 20 October UNEP release was downloaded and compared in staging; the active snapshot was not replaced. [Guide and limitations](docs/development/evidence-overlap-and-snapshot-intake.md) · [Latest evidence](docs/evidence/p2-delivery-2026-10-20/README.md).
-
-**Connected Investigations — 20 October:** link allocation approvals, append-only evidence requests/responses, scoped assessments, and reviewer decisions that freeze an exact dossier. The verifier checks a separately supplied digest and, when configured, a contract receipt; new evidence can recommend a review without rewriting an earlier decision. The system remains database-free. [Workflow and recovery](docs/development/connected-investigations.md) · [Local evidence](docs/evidence/connected-investigations-2026-10-20/README.md).
-
-**Snapshot Change Watch — 20 October:** compare two complete historical releases using their original source/plume IDs. Find changes that affect the selected plan, inspect before/after values, then continue to the evidence or map. In the bundled inputs, there were **7 new sources, 95 additional plume records (13 backfills), and 3 changed records**; three sources in the default allocation require record review. The verifier reruns the diff from both original inputs, including when a report is edited and its hash recalculated. This compares historical archives; it is not a live feed or evidence of a new leak. [Guide](docs/product/user-workflow.md#review-changes-between-two-historical-snapshots) · [Evidence and replay](docs/evidence/snapshot-change-watch-2026-10-20/README.md).
-
-**Investigation Operations — 20 October:** activate a plan to show the **queue and map rings with matching IDs**; compare capacity from 10→20 without silently replacing the active selection. Import an earlier plan with a trusted digest, then review parameter or snapshot-summary changes. An authorized reviewer can save versioned accept/defer/reject decisions and export the history for the CLI verifier. The system remains database-free; a plan decision is not mitigation confirmation or a blockchain receipt. [Guide](docs/product/user-workflow.md#operate-and-review-a-plan) · [Evidence](docs/evidence/investigation-operations-2026-10-20/README.md).
-
-**Investigation Capacity Planner — 19 October:** in **Cases → Plan investigation capacity**, set team slots and per-country limits, then compare four portfolios against the same snapshot. Review selection/exclusion reasons and sensitivity to assumptions; open a case, map, or Evidence Auditor with the same source ID. Export a versioned replay file. This allocates investigation capacity; it does not estimate repairs or avoidable emissions. [Method and scope](docs/plans/2026-10-19-investigation-planner.md).
-
-**19 October increment — [Evidence Decision Lab](docs/evidence/decision-lab-2026-10-19/README.md):** explain each reference's eligibility, see how a decision changes when a reference is removed, then export an evidence request with acceptance checks. Five separate DEMO challenges show complete, insufficient, contrary, and conflicting results. A local chain test also rejected a report that had been edited **and had its checksum recalculated** because it no longer matched the contract commitment. This remains a metadata prototype, not repair certification.
-
-**Additional feature — [Observation Claim Cross-Check](docs/evidence/observation-crosscheck-2026-10-19/README.md):** check statements about whether detection records exist or a flux-estimate threshold was met during a given period. Results identify contrary plume IDs, original dates, values, and SD, with a dot plot and draft follow-up. A scan of 4,218 sources/23,861 related records matched a separate Python implementation on the same inputs. The statement is an analyst scenario, not an allegation against an operator; this result is neither repair confirmation nor an independent scientific benchmark.
-
-| Need | Read |
+| Team's starting point | What the application produces |
 |---|---|
-| Understand the repository in order | [Documentation index](docs/README.md) |
-| Find folders and files to change | [Repository map](docs/repository-map.md) |
-| Understand components and service relationships | [Architecture](docs/architecture/overview.md) |
-| Follow the user workflow | [User workflow](docs/product/user-workflow.md) |
-| Run the app and configure options | [Local setup](docs/development/local-setup.md) · [Configuration](docs/development/configuration.md) |
-| Look up terminology | [Glossary](docs/glossary.md) |
+| More sources than investigation slots | Capacity-constrained portfolios with selection and exclusion reasons |
+| A claim and incomplete supporting material | A scoped assessment and explicit evidence gaps |
+| An unresolved investigation | A request with recipient role, deadline and acceptance criteria |
+| A reviewer determination | A frozen decision dossier, JSON export and readable Markdown handoff |
+| A later response or changed snapshot | Reasons to revisit, while preserving the previous decision |
+| A published or shared report | Integrity checks against a separately trusted digest and, when configured, a contract event |
 
-## Problem and product workflow
+These are demonstrated software outputs. Faster human work, successful field repairs and reduced emissions have not been established.
 
-Satellite detections can support a claim that a methane observation exists. Claims about notification receipt, operator action, and mitigation require different evidence. MethaneResponse provides a workflow for examining those distinctions.
+## Inside the application
+
+Screenshots are actual application captures. Historical MARS metadata is real; working requests, responses and reviewer examples in the private workflow are visibly **DEMO software fixtures**. Select an image to inspect it at full size.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<h3>Plan within your capacity</h3>
+<p>Compare strategies and inspect why a source was selected. Editing capacity from 10 to 20 creates a comparison; replacing the active queue requires explicit activation.</p>
+<a href="docs/assets/screenshots/planner.webp"><img src="docs/assets/screenshots/planner.webp" width="720" alt="Investigation planner comparing capacity-constrained strategies on historical MARS sources"></a>
+</td>
+<td width="50%" valign="top">
+<h3>Inspect the evidence</h3>
+<p>Keep the source, claim, UTC scope, dated observations and coverage gaps together. Rules remain available without a model account.</p>
+<a href="docs/assets/screenshots/auditor.webp"><img src="docs/assets/screenshots/auditor.webp" width="720" alt="Evidence Auditor with focused assessment steps and the historical source context"></a>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<h3>Preserve a reviewable decision</h3>
+<p>Freeze the exact dossier and rationale. Export the JSON and a readable handoff; retain the trusted digest separately.</p>
+<a href="docs/assets/screenshots/decision.webp"><img src="docs/assets/screenshots/decision.webp" width="720" alt="Actual local DEMO reviewer workflow with a frozen investigation decision and export controls"></a>
+</td>
+<td width="50%" valign="top">
+<h3>Make follow-up actionable</h3>
+<p>Record the required material, recipient role, due date and acceptance criteria. Requests and later responses remain connected to the investigation.</p>
+<a href="docs/assets/screenshots/investigation.webp"><img src="docs/assets/screenshots/investigation.webp" width="720" alt="Actual structured evidence request with its required material, recipient role, due date and acceptance criteria"></a>
+</td>
+</tr>
+</table>
+
+## Plan → Investigate → Verify
 
 ```mermaid
 flowchart LR
-  A[Select historical source] --> B[Review observations]
-  B --> C[Define claim and scope]
-  C --> D[Check evidence coverage]
-  D --> E[Record human assessment]
-  E --> F[Compare revisions and export report]
-  F --> G[Publish approved summary]
+    A[Set capacity and compare plans] --> B[Select a source and UTC scope]
+    B --> C[Assess evidence and request follow-up]
+    C --> D[Reviewer freezes a decision]
+    D --> E[Export and independently verify]
+    D --> F[New evidence recommends review]
 ```
 
-Users can:
+**For analysts, NGO investigation teams, regulators and independent auditors.** The [organization walkthrough](docs/product/organization-walkthrough.md) gives a task, expected outputs, acceptance checks and recovery steps. It separates the anonymous preview from the private local workflow.
 
-- Explore sources and plumes in **Map Explorer**, **Cases**, and **MARS Indicators**.
-- Select investigation priorities using historical summaries and explainable rules.
-- Run the rules baseline for detection, notification, or mitigation claims.
-- Inspect decision dependencies in **Decision Lab**, review why references were excluded, and prepare replayable evidence requests.
-- Find exact contrary records through **Decision Lab → Observation cross-check**, without treating the absence of records as zero emissions.
-- Save private, AI-free human assessments with references, rationale, scope, and follow-up evidence requests.
-- Continue investigations through browser notes or the [team workspace](docs/development/shared-casework.md), with assignees, due dates, revision conflicts, history, and per-tab draft recovery.
-- Optionally check publisher-reference origin/digests, reviewer authorization status, and declared conflicts.
-- Check JSON report checksums and approved public summaries. Markdown briefs can be read or imported into documents/Notion.
+### What AI does
 
-Document AI is available as an optional source-level path. Model output requires citation checks and human review; external model quality has not been measured independently.
+Optional backend document assessment compares a specific claim with authorized excerpts and returns supporting, contradictory or insufficient evidence. Exact-quotation checks and deterministic validation constrain the output; a reviewer retains responsibility for the decision. Secrets and model execution stay off the frontend.
+
+The recorded **DeepSeek V4.1 Flash 1017** integration passed three project-authored DEMO scenarios through the real provider. That establishes integration on those examples, not independently measured accuracy. An earlier limited agent benchmark did not show an advantage over the rules baseline. [AI evidence and limitations](docs/evidence/deepseek-live-2026-10-21/README.md).
+
+### What blockchain does
+
+The existing Solidity `EvidenceRegistry` records opaque identifiers and cryptographic commitments to versioned results. The independent verifier checks the committed digest and transaction event when a chain target is configured. Local Anvil tests cover anchoring, revision history, edited-and-rehashed reports, and transaction recovery.
+
+**Current chain evidence is Anvil local chain 31337.** No public Sepolia receipt is claimed. A contract commitment establishes integrity relative to that commitment; physical repairs, emissions reductions and independent reviewer identity require other evidence. [Same-take TKM export, trusted pin and receipt](docs/evidence/video-v17-2026-10-22/README.md).
 
 ## Quick start
 
-Use **Bun 1.4.2** as specified in [.bun-version](.bun-version). The bundled snapshot is sufficient for the basic workflow; Python/`uv` is required for the pipeline, and Foundry for the contracts.
+Use the repository-pinned **Bun 1.4.2** from [.bun-version](.bun-version), plus Linux `flock` for the API's single-writer launcher. The baseline needs **no database, cloud account, AI key or funded wallet**. Internet access is needed for installation and external map imagery; a map fallback is available.
 
 ```bash
+git clone https://github.com/AndroLay/MethaneResponse.git
+cd MethaneResponse
 bun install --frozen-lockfile
 ```
 
-Terminal 1:
+**Terminal 1 — API**
 
 ```bash
-bun run dev:api
+HOST=127.0.0.1 bun run dev:api
 ```
 
-Terminal 2:
+**Terminal 2 — web**
 
 ```bash
 bun run dev:web
 ```
 
-Open <http://localhost:5173>. Vite proxies `/api` to port `3001`; API health is available at <http://localhost:3001/api/health>. The local baseline does not require `.env`. See [local setup](docs/development/local-setup.md) for the full guide.
+Open **http://localhost:5173/dashboard**. API readiness: **http://localhost:3001/api/health**.
 
-To try it, open [source KAZ_S_159](http://localhost:5173/dashboard/map?sourceId=KAZ_S_159), review its observations, then run the rules baseline for a mitigation claim in Evidence Auditor. With the bundled evidence, the result is `insufficient_evidence`. Export JSON, then verify it in Verification Center or run:
+1. Open **Cases** and choose `KAZ_S_159`.
+2. Inspect an observation's original ID, UTC date, estimated flux and reported uncertainty.
+3. Open **Evidence Auditor**, choose the mitigation claim and run the rules baseline.
+4. Expect `insufficient_evidence` with the bundled material; inspect which evidence is missing.
+5. Export JSON and inspect it in **Reports → Verification Center**.
+
+An application audit export can also be checked with:
 
 ```bash
 bun run verify:audit path/to/report.json --require-context
 ```
 
-`--require-context` requires an export-context checksum. For a legacy raw audit without an export checksum, omit the flag; the CLI reports this context limitation. The checksum is unsigned and does not authenticate the issuer or physical facts.
+This checks the report and export context. Keep its trust limitations distinct from chain verification. [Full setup and troubleshooting](docs/development/local-setup.md).
+
+### Reproduce the private workflow without credentials
+
+After installing the Playwright Chromium runtime, run the isolated software demonstration:
+
+```bash
+bun run playwright install chromium
+PLAYWRIGHT_OUTPUT_DIR=.playwright-cli/organization-demo bun run demo:workflow
+```
+
+It builds the web app, starts disposable local services, generates short-lived DEMO reviewer credentials and exercises **TKM_S_021 → request → assessment → frozen decision → later response**. No real provider, public transaction or operator contact is used. Services stop after the test. JSON decisions, a separately captured UI digest, a Markdown handoff and browser screenshots are retained in the named output directory.
+
+This is reproducible software acceptance, not a human usability study. [Steps, outputs and prerequisites](docs/product/organization-walkthrough.md#repeatable-software-demonstration).
+
+### Share a readable investigation handoff
+
+In the configured private workspace, inspect a frozen decision and select **Download handoff brief**. The browser checks the decision against the digest from its loaded reviewer history before downloading Markdown. The handoff names the source, claim, UTC period, decision, required evidence, request deadlines and acceptance criteria. Unset fields remain explicitly missing.
+
+For a downloaded decision and a pin obtained separately from a trusted source:
+
+```bash
+bun run export:investigation-brief path/to/decision.json \
+  --expected-digest 0xYOUR_TRUSTED_SHA256 \
+  --output path/to/new-handoff.md
+```
+
+The output is private working material; inspect and redact it before sharing. Keep the original JSON and pin. Markdown is a readable derivative, not a signed report, and the exporter does not perform blockchain verification or include later uncommitted evidence.
+
+**Inspect an actual output:** [TKM_S_021 DEMO handoff](docs/evidence/organization-handoff-2026-10-23/organization-handoff.md) · [Matching JSON, pin and reproduction evidence](docs/evidence/organization-handoff-2026-10-23/README.md). These new files are separate from the older v18 video take and do not claim a chain receipt.
+
+## Data you can trace
+
+| Active snapshot | Contents |
+|---|---|
+| Identifier | `unep-mars-675417694883` |
+| Historical period | 29 October 2020–13 September 2026 UTC |
+| Source rows | **4,218** |
+| Total plume rows | **30,414** |
+| Plumes linked by source ID | **23,861**; another **6,553** lack a source ID |
+| Estimates | Publisher-reported flux in **kg/h**, with reported uncertainty where available |
+
+The dataset is historical and observations are discrete. Source locations and basemap imagery are not measured atmospheric concentration. Global map records do not automatically have the supporting documents of an audited case. Feedback is not proof of repair; missing later measurements are not proof of zero emissions.
+
+Historical analysis and investigation rankings are explainable decision-support heuristics. They are not calibrated future-leak probabilities. New snapshot intake is staged and compared explicitly; existing investigations retain their original snapshot. [Provenance and license](data/real/README.md) · [Data and claims](docs/product/data-and-claims.md).
+
+## Choose your environment
+
+| Capability | Public preview | Full local prototype |
+|---|---|---|
+| Historical map and source exploration | Available | Available |
+| Anonymous rules assessment | Three curated sources: KAZ, LBY and CAN | Bundled historical casebook |
+| Document AI | Requires a separate access token | Optional backend provider and permission |
+| Private review, requests and frozen decisions | Disabled | Requires scoped reviewer configuration; isolated DEMO available |
+| Blockchain writes | Disabled | Explicit opt-in and operation authorization; Anvil tested |
+| State | Temporary; may disappear after restart or deployment | Single-writer local files; retain and back up them |
+
+The preview may need to wake after inactivity. The local video demonstrates the fuller local prototype. Do not enter confidential documents into the public preview. [Preview evidence](docs/evidence/render-preview-2026-10-21/README.md) · [Configuration](docs/development/configuration.md).
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-  RAW[UNEP MARS archive] --> PIPE[Offline Python pipeline]
-  PIPE --> DATA[Versioned snapshot and manifest]
-  DATA --> WEB[React / Vite / MapLibre]
-  DATA --> API[Bun / Hono / Zod]
-  WEB --> API
-  API --> RULES[Rules and human assessment]
-  API --> STORE[Local JSON audit history]
-  API --> TEAM[Private team investigations / CAS history]
-  API -. optional .-> AI[Document AI provider]
-  STORE --> EXPORT[Reports and checksummed summaries]
+    M[UNEP MARS archives] --> P[Offline Python / uv pipeline]
+    P --> S[Versioned snapshot and provenance]
+    S --> W[React / Vite / MapLibre]
+    S --> A[Bun / Hono / Zod API]
+    W --> A
+    A --> R[Rules and authorized reviewer workflow]
+    A -. optional .-> AI[Backend document AI]
+    R --> J[Single-writer JSON revision history]
+    J --> E[Reports and independent verifiers]
+    J -. opt-in .-> C[Solidity EvidenceRegistry / viem]
 ```
 
-| Folder | Responsibility |
+| Directory | Responsibility |
 |---|---|
-| [apps/web](apps/web/) | Interface, map, investigations, reports, and browser verifier |
-| [apps/api](apps/api/) | Validation, baseline, assessment/review, privacy, and audit files |
-| [packages/shared](packages/shared/) | Schemas, types, evidence-coverage rules, and DEMO fixtures |
-| [services/data-pipeline](services/data-pipeline/) | Offline import, normalization, analysis, and evaluation |
-| [data](data/) | Provenance, archives, derived data, fixtures, and local state |
-| [contracts](contracts/) | Solidity EvidenceRegistry and Foundry tests |
-| [scripts](scripts/) · [e2e](e2e/) | Verification tools, evidence preparation, and browser workflows |
-| [docs](docs/README.md) | Current guides, decisions, research, and dated evidence |
+| [apps/web](apps/web/) | Explorer, cases, planner, audit workspace, reports and browser verification |
+| [apps/api](apps/api/) | Validation, authorization, assessment, revision storage and chain coordination |
+| [packages/shared](packages/shared/) | Schemas, deterministic policies, canonical hashing and portable brief rendering |
+| [services/data-pipeline](services/data-pipeline/) | Offline ingestion, historical analysis and evaluation |
+| [contracts](contracts/) | EvidenceRegistry and Foundry tests |
+| [scripts](scripts/) | Independent verifiers, integration checks and release tools |
 
-The API runs as a single process with atomic audit files and separate team casework files. The launcher requires Linux `flock`; backup/restore uses the same lock. [ADR P1](docs/architecture/decisions/2026-10-17-shared-casework-single-writer.md) records the local collaboration limits. PostgreSQL, PostGIS, Supabase, and database migrations are out of scope under the [architecture decision](docs/architecture/decisions/2026-10-15-local-prototype-no-database.md).
+**Deployment boundary:** one writer, local files, process-local quotas. Existing limits include 500 work items and 100 revisions per work item. This is a small-team prototype, not demonstrated multi-tenant infrastructure. A global dataset does not establish concurrent-user scalability. [Architecture](docs/architecture/overview.md) · [Storage and recovery](docs/development/connected-investigations.md#storage-limits-and-rollback).
 
-## Data and interpretation limits
+## Verification and honest limits
 
-The active snapshot `unep-mars-675417694883` contains **4,218 source rows and 30,414 plume rows**, with observations from **29 October 2020–13 September 2026 UTC**. The data was downloaded on 14 October 2026; the latest recorded upstream metadata check is dated 15 October. The four-source casebook is a subset with reference context. Synthetic fixtures remain labeled **DEMO**. See [provenance](data/real/README.md) and the [data guide](docs/product/data-and-claims.md).
+CI runs typechecks, API/web/verifier tests, production build and bundle budgets, Chromium workflows, Python pipeline tests and Foundry contract tests. Use the [CI history](https://github.com/AndroLay/MethaneResponse/actions) to check the exact revision; earlier passing records do not certify later changes.
 
-- The snapshot is a historical archive; it does not update automatically.
-- `notified` and `feedback` are publisher metadata. Neither proves receipt, repair, or emissions reduction.
-- The absence of later observations does not mean zero emissions. Recurrence estimates concern the next MARS record, not future physical leaks.
-- A human assessment is a recorded reviewer decision. URL/digest checks and the reviewer directory have [their own trust limits](docs/product/trust-and-transparency.md).
-- Checksums detect content changes. A blockchain receipt proves an integrity commitment and chronology; neither establishes physical truth.
-- Browser notes are not automatically shared or backed up. The team workspace uses one authorized API process with history; temporary hosting filesystems may disappear.
+```bash
+bun run check
+bun run test:api
+bun run test:web
+bun run test:verifier
+bun run build:web
+bun run check:web-bundle
+bun run test:e2e
+# Optional toolchains: Python/uv and Foundry
+bun run test:data
+bun run test:contracts
+```
 
-## Verification
+| Evidence | What it supports | Boundary |
+|---|---|---|
+| [Latest release checks](docs/evidence/release-sync-2026-10-23/README.md) | Recorded application, browser, pipeline and contract behavior | Revision-specific software checks |
+| [Live-model smoke test](docs/evidence/deepseek-live-2026-10-21/README.md) | Provider transport, citations and bundles on three DEMO examples | No independently established model accuracy |
+| [TKM chain replay](docs/evidence/video-v17-2026-10-22/README.md) | Matching export, pin and local receipt; tamper rejection | Local chain and software DEMO review |
+| [r12 recovery audit](docs/evidence/r12-recovery-2026-10-21/README.md) | Scorer, runner and protocol diagnosis with focused regressions | Frozen completion remains **0/48**; no replacement 48-episode result |
+| [v18 video evidence](docs/demo/delivery-2026-10-22-final-v18/README.md) | Local 4:57 MP4, technical audit and sampled visual checks | Full playback/listening and public upload remain separately unverified |
 
-Commands, scope, and prerequisites are documented in the [testing guide](docs/testing/README.md). Choose `bun run check`, `bun run test:api`, and `bun run test:web` according to the change. Use `bun run test:e2e` for isolated browser workflows and `bun run check:all` for the cross-subsystem local gate.
+The r12 audit identified overlapping scorer false negatives and protocol/tool limitations. Its 0/48 score is the frozen scorer's result; it is not an estimate of application success in the field. The audit does not establish that all episodes passed. Human productivity, institutional adoption, physical repairs and emissions reductions remain unproven.
 
-[P1 evidence from 17 October](docs/evidence/shared-casework-2026-10-17/README.md) records the latest development checks. Dated evidence is tied to the files/revision present when the checks ran. The run covered two-session conflicts, crash/restart, backup/restore, and access regressions; remote limitations are stated separately.
+## Documentation and contributing
 
-## Competition, demo, and license
+- **Start here:** [Organization walkthrough](docs/product/organization-walkthrough.md) · [User workflow](docs/product/user-workflow.md) · [Glossary](docs/glossary.md)
+- **Develop:** [Local setup](docs/development/local-setup.md) · [API reference](docs/architecture/api-reference.md) · [Contribution guide](docs/development/contributing.md)
+- **Review evidence:** [Evidence index](docs/evidence/README.md) · [Current implementation status](docs/release/current-implementation-status.md)
+- **Prepare submission:** [Devpost package](docs/release/devpost-submission/README.md) · [Event requirements](docs/release/event-requirements.md)
+- **Navigate:** [Documentation home](docs/README.md) · [Repository map](docs/repository-map.md)
 
-[IEEE ClimateChain notes](docs/release/event-requirements.md) record requirements and items to confirm with the organizers. [Demo materials](docs/demo/README.md) document production and local evidence; the app does not automatically upload a video or submit an entry.
+When contributing, preserve original source IDs, dataset licenses and old audit compatibility. Include focused tests for behavior changes. Never put secrets in the frontend, treat generated claims as measurements, or rewrite frozen evaluation evidence.
 
-Original software and project-authored documentation are licensed under MIT. UNEP MARS data uses **CC BY-NC-SA 4.0**; linked reports, imagery, tiles, and third-party assets have their own terms. Read [LICENSE](LICENSE), [NOTICE](NOTICE), and the [data attribution](data/real/README.md) before redistributing or processing them through an external service.
+## License and attribution
+
+Original software and project-authored documentation are **MIT**. Historical UNEP MARS data has separate **CC BY-NC-SA 4.0** terms. Reports, imagery and tiles retain their respective rights; no UNEP endorsement is asserted. See [LICENSE](LICENSE), [NOTICE](NOTICE), and [data attribution](data/real/README.md).

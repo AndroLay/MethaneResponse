@@ -46,6 +46,14 @@ Without RPC/receipt access, local checks do not claim chain verification. `--req
 - If acknowledgement is lost, the server may return `502` even when the transaction has been mined. Do not rebroadcast. Use **Reconcile decision**. If no receipt is available, the response is `202`; terminal outcomes are stored idempotently. An unresolved intent is not released automatically.
 - Anvil tests use disposable accounts and funds on loopback. This is not Sepolia, and the disposable chain stops after testing. Rerun the test to create a new chain/evidence; an old receipt does not guarantee that its RPC will remain available.
 
+## Readable decision handoff
+
+After loading a decision history, **Download handoff brief** verifies the selected frozen decision against its loaded digest and downloads Markdown. It uses the same authenticated read endpoint as the JSON export; permissions, existing JSON, schemas and contract commitments are unchanged. A late response is discarded if the component's source/work/revision context changes before the download.
+
+The brief contains the frozen claim and UTC scope, actual decision, next action, structured requests, deadlines, acceptance criteria, response-date precision and provenance. Missing values are not inferred. Current revisit signals outside the frozen decision are intentionally not rendered as committed facts. Inspect the latest investigation separately.
+
+For a local JSON and separately trusted pin, `bun run export:investigation-brief <decision.json> --expected-digest <pin> --output <new.md>` produces the same content with exclusive creation and owner-only file permissions. Neither renderer makes a chain call, publishes material, sends a request or independently verifies the reviewer identity. Keep the original JSON and pin. Read and redact the private derivative before sharing. See the [task walkthrough](../product/organization-walkthrough.md).
+
 ## Storage, limits, and rollback
 
 The same audit file stores decisions and their intents atomically. Audit envelopes 1/2 and legacy arrays remain readable. After the first decision, the envelope becomes **3**; the contract, audit bundles v2/v3/v4, and their old hashes are unchanged. The initialization marker and single-writer launcher remain in force. Corrupt state, state missing after initialization, or a modified frozen payload fails closed.

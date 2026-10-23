@@ -20,6 +20,8 @@ Earlier dated results remain tied to their own revisions.
 
 ### New to the project
 
+Start with the [organization walkthrough](product/organization-walkthrough.md) for a task, expected handoff artifacts, a credential-free isolated software demonstration and acceptance criteria. The root [README](../README.md) includes actual screenshots with capture provenance. These are onboarding and software checks, not a human effectiveness study.
+
 1. [Product README](../README.md): the problem, capabilities, quick start, and limitations.
 2. [User workflow](product/user-workflow.md): the path from source selection through reporting and follow-up.
 3. [Repository map](repository-map.md): where to find code, data, configuration, and tools.

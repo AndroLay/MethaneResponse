@@ -2,6 +2,8 @@
 
 [Documentation index](../README.md)
 
+**Try a complete task:** [Organization walkthrough](organization-walkthrough.md) explains capacity planning, scoped evidence requests, a frozen decision and the new readable Markdown handoff, with a reproducible local software demonstration.
+
 | Order | Guide | Contents |
 |---|---|---|
 | 1 | [User workflow](user-workflow.md) | Selecting a source, defining scope, saving investigations/assessments, comparing revisions, and preparing reports |

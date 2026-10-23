@@ -10,6 +10,10 @@ The opportunity is environmental transparency: make observations, reported actio
 
 **Track: Climate Data & Environmental Monitoring.** MethaneResponse turns historical methane records into traceable investigations through one workflow:
 
+**Who uses it?** Environmental analysts, investigation teams, regulators, NGOs, and independent auditors. A team with capacity for ten investigations can consolidate observations, compare priorities, identify missing evidence, and prepare a reviewable handoff.
+
+**What can an organization take away?** An explainable investigation queue, a structured evidence request, and a versioned decision dossier with an independently checkable JSON export. The latest interface also downloads a readable Markdown handoff from the frozen decision after checking its digest; the readable copy does not replace the JSON and separately retained trusted digest. These are demonstrated work artifacts, not a measured improvement in human productivity.
+
 1. **Explore:** inspect source locations, dated observations, estimated emission rates, uncertainties, and original references.
 2. **Allocate:** set investigation capacity (for example, 10 or 20 sources), compare explainable portfolios, and accept a versioned allocation.
 3. **Check:** choose a claim and apply a specific date or event scope before running the rules baseline.
@@ -69,3 +73,12 @@ The next milestones are to expand permitted documentary evidence, obtain domain 
 Potential climate impact comes after the software: prioritized investigations and specific evidence requests can guide organizational field follow-up. Documented repairs and comparable post-action measurements, with methods and uncertainty, are needed to substantiate emissions reductions. We have not measured those outcomes. User studies should measure decision quality, missing-evidence detection, and investigation effort. Opt-in snapshot staging prepares complete record comparisons without replacing active inputs or historical decisions; future acquisition and activation require explicit provenance and review.
 
 **One explainable investigation plan. One actionable evidence request. One verifiable decision.**
+
+### Try the prototype
+
+- [Open the limited public preview](https://methaneresponse-preview.onrender.com/dashboard).
+- [Run the full prototype locally](https://github.com/AndroLay/MethaneResponse#quick-start).
+- [Follow the reproducible organization handoff walkthrough](https://github.com/AndroLay/MethaneResponse/blob/main/docs/product/organization-walkthrough.md).
+- [Inspect the exact local-chain proof shown in the video](https://github.com/AndroLay/MethaneResponse/tree/main/docs/evidence/video-v17-2026-10-22).
+
+Adoption starts with a local analyst workspace and downloadable artifacts. Offline processing and paginated, lazy-loaded views accommodate the historical dataset, while a multi-user service would require shared durable storage, concurrency controls, and organizational access management beyond this single-writer prototype.

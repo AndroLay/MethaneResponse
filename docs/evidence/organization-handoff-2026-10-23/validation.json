@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "checkedOn": "2026-10-23",
+  "baseCommit": "3370b7ec098374dc7790d2a2770d26fafdfbe1a1",
+  "uncommittedChanges": true,
+  "toolchain": {
+    "bunObserved": "1.4.3",
+    "repositoryPin": "1.4.2",
+    "chromium": "Existing pinned Playwright headless shell 1248; no runtime download"
+  },
+  "checks": [
+    {
+      "command": "bun install --frozen-lockfile",
+      "result": "pass",
+      "scope": "No dependency or lockfile changes"
+    },
+    {
+      "command": "bun run check",
+      "result": "pass",
+      "scope": "API/web/E2E/evaluation/agent-lab typechecks"
+    },
+    {
+      "command": "bun run check:e2e",
+      "result": "pass",
+      "scope": "Final screenshot/keyboard/mobile browser test additions"
+    },
+    {
+      "command": "bun run test:web",
+      "result": "pass",
+      "tests": 282
+    },
+    {
+      "command": "bun run test:verifier",
+      "result": "pass",
+      "tests": 71,
+      "newBriefRegressions": 4
+    },
+    {
+      "command": "python3 -m unittest discover -s scripts -p 'test_*.py'",
+      "result": "pass",
+      "tests": 20,
+      "newReadmeRegressions": 4
+    },
+    {
+      "command": "bun run test:e2e e2e/audit-workflow.spec.ts --grep \"Investigation planner compares capacity-constrained\"",
+      "result": "pass",
+      "scenarios": 1,
+      "output": ".playwright-cli/readme-planner-2026-10-23"
+    },
+    {
+      "command": "bun run demo:workflow",
+      "result": "pass",
+      "scenarios": 1,
+      "output": ".playwright-cli/readme-delivery-2026-10-23",
+      "coverage": [
+        "Authenticated software DEMO workflow",
+        "Keyboard brief download",
+        "390x844 mobile brief download",
+        "Frozen brief unchanged after a new response",
+        "No token in exports",
+        "Dossier/source/scope and stale-change guards"
+      ]
+    },
+    {
+      "command": "Production Vite build through both isolated E2E runners",
+      "result": "pass"
+    },
+    {
+      "command": "bun run check:web-bundle",
+      "result": "pass",
+      "appGzipBytes": 74936,
+      "budget": 75000,
+      "lazyRoutes": 8,
+      "mapRawBytes": 1123502
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass"
+    },
+    {
+      "command": "Frozen r12 SHA-256 check",
+      "result": "pass",
+      "files": 73
+    }
+  ],
+  "case": "TKM_S_021",
+  "datasetSnapshot": "unep-mars-675417694883",
+  "chainStatus": "not_anchored",
+  "sameAsVideoTake8": false,
+  "independentHumanStudy": false,
+  "newAgentEpisodes": 0,
+  "paidModelCalls": 0,
+  "publicTransactions": 0,
+  "deploymentPerformed": false,
+  "pushPerformed": false,
+  "softwareAcceptanceOnly": true,
+  "frozenR12Unchanged": true,
+  "frozenTaskCompletion": "0/48",
+  "originalAttemptSelection": "Repeated captures of one software scenario; only the final delivery take supplies the bundled sample and screenshots. An initial anchored grep selected no tests; no assertions failed in the selected browser scenario.",
+  "replay": {
+    "originalAgainstCapturedPin": 0,
+    "exportBrief": 0,
+    "matchesActualBrowserDownload": true,
+    "refuseExistingOutput": 1,
+    "rejectEditedDecision": 1
+  },
+  "sourceSha256": {
+    "README.md": "867d06a541dab79f828a2f181e0e8924f75e2de89c819f69c98e6c5b63234618",
+    "apps/web/src/InvestigationDecisionPanel.tsx": "506932927ecee0db6bc8ca72c3ea88e42dc3e94553d7a944944a5f155370683d",
+    "packages/shared/src/investigation-brief.ts": "57114e48cf5abbf4cada8d2aaa9b3b9f26738073b424cb4aead322772b11f98b",
+    "scripts/export-investigation-brief.ts": "85601c2b217cca74629dc70c03aeab0ca7648199e32e00c67b177952c0441fa5",
+    "scripts/export-investigation-brief.test.ts": "c25fa4be9fabc84a2b3a2f09618390439c84e76f5c5a1160b55dc128ab247924",
+    "scripts/test_readme_assets.py": "aa2bdae663480f47f0043af5b6ddbdd38107c23e7d0b35d9f2cdff5eb6e4dc67",
+    "e2e/ai-review-workflow.spec.ts": "5475c422c20ef79df1d9e4477e1514e788e531d0bd82d274a373f628ff49f7d0",
+    "package.json": "63cf4c9288b151fb90c82aa60bf6ecad444e9cdb073ce200bc4e087d8cede3c6",
+    "packages/shared/package.json": "391b958667d404f369c31894728f4c6f9eb08dc2397966152869bcf99afc7f05",
+    "scripts/tsconfig.evaluation.json": "c691e93d332e8b125724f7f3bad051601a9c2d68b8cfd546002bf7eb8cfb8180",
+    "docs/product/organization-walkthrough.md": "89b4db95fdc7cd8bb0860031645881fe425781a04a46063a2d2dd7606ae99e2d",
+    "docs/assets/screenshots/manifest.json": "8162b258a66c41f93a7ff569a670544c18fa8fc2575019e6e0d7bd1ae3b8e379"
+  },
+  "artifactSha256": {
+    "decision.json.gz": "07c8f55c3bd9df3cae74d17d9fa4dd95b3fc094db7cf3621166961538edc0c4c",
+    "README.md": "b27dc7d3604559a86eb5fe0090004ec3955d396e8d6bd8c441a01663fefb5756",
+    "organization-handoff.md": "62042710c90fe44c539fd2b0524eb57ca62f217b1b77f908d6a97c09569fafc0",
+    "trusted-decision-digest.json": "13348f1b9d4d5b61ff005ce124fe3bc0ff3bedc6f29dda1060cd1613a4eea649",
+    "replay.json": "ff1615a3d388f34a1af63fa6c6f452ad024296b2425c48596c521c59371eabfc"
+  },
+  "remainingLimits": [
+    "No independent human task-effectiveness evidence",
+    "No load or multi-writer scalability certification",
+    "Existing public preview remains limited and ephemeral",
+    "No live provider or chain exercised by this increment",
+    "Existing large lazy-map build warning remains",
+    "Video v18 retains its historical footage and evidence; new brief control is not shown in that film"
+  ]
+}

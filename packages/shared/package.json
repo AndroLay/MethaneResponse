@@ -17,7 +17,8 @@
     "./investigation-change": "./src/investigation-change.ts",
     "./investigation-dossier": "./src/investigation-dossier.ts",
     "./investigation-decision-metadata": "./src/investigation-decision-metadata.ts",
-    "./evidence-overlap": "./src/evidence-overlap.ts"
+    "./evidence-overlap": "./src/evidence-overlap.ts",
+    "./investigation-brief": "./src/investigation-brief.ts"
   },
   "dependencies": {
     "zod": "^4.0.0"

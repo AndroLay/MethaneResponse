@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "preparedOn": "2026-10-23",
+  "baseCommit": "3370b7ec098374dc7790d2a2770d26fafdfbe1a1",
+  "workingTreeCapture": true,
+  "scope": "Actual historical browser captures and new local captures. Reviewers, requests and responses in private-workflow examples are DEMO fixtures. No generated concept art.",
+  "screenshots": [
+    {
+      "path": "docs/assets/screenshots/dashboard.webp",
+      "kind": "actual-browser-screenshot",
+      "captureDate": "2026-10-21",
+      "environment": "public-preview",
+      "description": "Historical source dashboard and geographic basemap context",
+      "sourcePath": "docs/evidence/render-preview-2026-10-21/dashboard-ready-public.png",
+      "sourceSha256": "01133c4b536703ed85d944895c395f659b8fea508ba6212bb01ed06cb33804c9",
+      "processing": "lossless WebP encoding; no crop, resize or compositing",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 486338,
+      "sha256": "9c041a06f195d3c19c34050116c9650f9b5ebad8f9a4ef537184aa7c5ae5228e"
+    },
+    {
+      "path": "docs/assets/screenshots/planner.webp",
+      "kind": "actual-browser-screenshot",
+      "captureDate": "2026-10-23",
+      "environment": "local-browser",
+      "description": "Historical investigation portfolios; isolated production build",
+      "sourcePath": ".playwright-cli/readme-planner-2026-10-23/audit-workflow-Investigati-714b3-cases-on-desktop-and-mobile-chromium/planner-desktop.png",
+      "sourceSha256": "fb6584f7ca96e346982f478df338d20df13fcdf735c80c88c8e8d379706548ae",
+      "processing": "lossless WebP encoding; no crop, resize or compositing",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 235398,
+      "sha256": "6e8625261bc56b995ae8790c969bdf7258251e7d58fe9fb1a698425bfb9dcba1"
+    },
+    {
+      "path": "docs/assets/screenshots/auditor.webp",
+      "kind": "actual-browser-screenshot",
+      "captureDate": "2026-10-23",
+      "environment": "local-isolated-demo",
+      "description": "TKM_S_021 historical source, mitigation question and exact UTC scope in the isolated browser workflow",
+      "sourcePath": ".playwright-cli/readme-delivery-2026-10-23/ai-review-workflow-connect-b0c40-s-in-one-verifiable-dossier-chromium/scoped-auditor-desktop.png",
+      "sourceSha256": "c27b5e535cbfeb1478ca79e209904799afcb689b32243fe441c68688c4c4f14c",
+      "processing": "lossless WebP encoding; no crop, resize or compositing",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 270218,
+      "sha256": "31b10f4776dbe0819d27d029090bd3c7ff9de59d1199aca3e07f38cea5e2f74e"
+    },
+    {
+      "path": "docs/assets/screenshots/decision.webp",
+      "kind": "actual-browser-screenshot",
+      "captureDate": "2026-10-23",
+      "environment": "local-isolated-demo",
+      "description": "TKM_S_021 software DEMO review and new handoff download; no chain receipt",
+      "sourcePath": ".playwright-cli/readme-delivery-2026-10-23/ai-review-workflow-connect-b0c40-s-in-one-verifiable-dossier-chromium/decision-desktop.png",
+      "sourceSha256": "e140b78ca06b4a748a227fe834ce87114c973f6da09f87ea4e4f59f02992e817",
+      "processing": "lossless WebP encoding; no crop, resize or compositing",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 217168,
+      "sha256": "bf810c0e105e955f9b5f33170a0154776234c354780559d9411e5e93d940bcbc"
+    },
+    {
+      "path": "docs/assets/screenshots/investigation.webp",
+      "kind": "actual-browser-screenshot",
+      "captureDate": "2026-10-23",
+      "environment": "local-isolated-demo",
+      "description": "TKM_S_021 structured evidence request; software fixture, no operator contact",
+      "sourcePath": ".playwright-cli/readme-delivery-2026-10-23/ai-review-workflow-connect-b0c40-s-in-one-verifiable-dossier-chromium/evidence-request-desktop.png",
+      "sourceSha256": "e0ff461ef697626b25296b52f80a0c9cc85f69ca1c6e653a123102edd2e716b8",
+      "processing": "lossless WebP encoding; no crop, resize or compositing",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 195326,
+      "sha256": "64e3a6ad45fac6b2dd08ff635b0512aacf3ee83680892053329a4024131269a8"
+    }
+  ],
+  "baseCommitMeaning": "Working tree base when the gallery was prepared. The retained public dashboard capture predates this revision."
+}

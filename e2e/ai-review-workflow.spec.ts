@@ -47,6 +47,8 @@ test('connected investigation preserves allocation, evidence request, human revi
   await scope.getByLabel('Period start').fill('2020-10-29');
   await scope.getByLabel('Period end').fill('2026-09-13');
   await scope.getByRole('button', { name: 'Apply assessment scope', exact: true }).click();
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await page.screenshot({ path: testInfo.outputPath('scoped-auditor-desktop.png') });
   // Plan authentication already established the memory-only shared reviewer session.
   const shared = page.getByRole('region', { name: 'Shared case work', exact: true });
   capture?.mark('Scope the source question and issue a specific evidence request');
@@ -67,6 +69,9 @@ test('connected investigation preserves allocation, evidence request, human revi
   await expect(lifecycle).toContainText('1 issued');
   await shared.getByRole('button', { name: 'Save shared work', exact: true }).click();
   await expect(shared).toContainText('Saved shared revision 1');
+  await lifecycle.locator('details.evidence-event > summary').first().click();
+  await lifecycle.evaluate(element => window.scrollTo({ top: window.scrollY + element.getBoundingClientRect().top - 85, behavior: 'instant' }));
+  await page.screenshot({ path: testInfo.outputPath('evidence-request-desktop.png') });
   await connected.getByRole('button', { name: 'Check historical changes for this investigation', exact: true }).click();
   await expect(connected).toContainText('Record review recommended');
   await expect(connected).toContainText('persistency');
@@ -170,6 +175,17 @@ test('connected investigation preserves allocation, evidence request, human revi
   expect(decisionRecord.decision.dossier.history[4].requestEvents[1].reportedDate).toEqual({precision:'month',value:'2026-09'});
   expect(decisionRecord.chainStatus).toBe('not_anchored'); expect(decisionBytes).not.toContain(token);
   await writeFile(testInfo.outputPath('frozen-investigation-decision.json'),decisionBytes);
+  const briefDownload = page.waitForEvent('download');
+  const handoffButton = decisionPanel.getByRole('button',{name:'Download handoff brief 1',exact:true});
+  await handoffButton.focus();
+  await expect(handoffButton).toBeFocused();
+  await handoffButton.press('Enter');
+  const handoff = await readFile((await (await briefDownload).path())!,'utf8');
+  for (const field of ['TKM\\_S\\_021','Request further evidence',displayedDecisionDigest,'PRIVATE WORKING MATERIAL','2026\\-10\\-25','source identity, action date']) expect(handoff).toContain(field);
+  expect(handoff).not.toContain(token);
+  expect(handoff).toContain('NOT PERFORMED');
+  await writeFile(testInfo.outputPath('organization-handoff.md'),handoff);
+
   await decisionPanel.scrollIntoViewIfNeeded(); await page.screenshot({path:testInfo.outputPath('decision-desktop.png')});
   // A later response recommends review without rewriting the frozen determination.
   capture?.mark('New evidence recommends reconsideration without rewriting the frozen decision');
@@ -190,6 +206,9 @@ test('connected investigation preserves allocation, evidence request, human revi
   await expect.poll(async () => (await connected.boundingBox())?.width || 0).toBeGreaterThan(280);
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   await connected.scrollIntoViewIfNeeded(); await page.screenshot({ path: testInfo.outputPath('connected-investigation-mobile.png') });
+  const mobileDownload = page.waitForEvent('download');
+  await handoffButton.click();
+  expect(await readFile((await (await mobileDownload).path())!,'utf8')).toBe(handoff);
   let release!: () => void, started!: () => void;
   const held = new Promise<void>(done => { release = done; }), received = new Promise<void>(done => { started = done; });
   await page.route(`**/api/case-work/${dossier.workId}/change-check?*`, async route => {
