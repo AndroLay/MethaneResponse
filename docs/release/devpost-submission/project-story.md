@@ -1,84 +1,81 @@
 ## Inspiration
 
-MethaneResponse began with a practical question: **when a methane repair is reported, what evidence should an independent analyst check before accepting the claim?**
+Finding methane emissions is an important step in addressing them. Establishing what happened afterward requires a different kind of work: examining reports, comparing observations, and deciding whether the available evidence supports a claim of repair.
 
-[UNEP's Methane Alert and Response System (MARS)](https://www.unep.org/en/what-we-do/energy/methane/how-mars-works) already detects major emissions, notifies stakeholders, and follows up on responses. MethaneResponse builds on that work by helping researchers, auditors, and public-interest analysts connect a specific claim to the evidence available for their review.
+We started MethaneResponse with a question: **how can an environmental analyst assess a reported repair when the supporting information is incomplete or scattered across different sources?**
 
-The opportunity is environmental transparency: make observations, reported actions, uncertainty, and missing evidence easier to examine together, so the next investigation step is clear.
+[UNEP's Methane Alert and Response System (MARS)](https://www.unep.org/en/what-we-do/energy/methane/how-mars-works) already detects major methane emissions, notifies stakeholders, and follows up on responses. We saw an opportunity to help analysts work with those observations and the documents available to them, while keeping a clear record of how they reached a decision.
+
+Our motivation is environmental accountability. A reported action deserves careful consideration, and an uncertain outcome deserves an honest explanation of what still needs to be established.
 
 ## What it does
 
-**Track: Climate Data & Environmental Monitoring.** MethaneResponse turns historical methane records into traceable investigations through one workflow:
+MethaneResponse is an investigation and evidence-review prototype for environmental analysts, regulators, research teams, NGOs, and independent auditors. It belongs to the **Climate Data & Environmental Monitoring** track.
 
-**Who uses it?** Environmental analysts, investigation teams, regulators, NGOs, and independent auditors. A team with capacity for ten investigations can consolidate observations, compare priorities, identify missing evidence, and prepare a reviewable handoff.
+Consider a team that can investigate only ten sources. It needs to choose where to focus, explain its choices, and identify the information required before reaching a conclusion. MethaneResponse brings those tasks into one workspace:
 
-**What can an organization take away?** An explainable investigation queue, a structured evidence request, and a versioned decision dossier with an independently checkable JSON export. The latest interface also downloads a readable Markdown handoff from the frozen decision after checking its digest; the readable copy does not replace the JSON and separately retained trusted digest. These are demonstrated work artifacts, not a measured improvement in human productivity.
+1. **Explore the observations.** Browse historical sources on a globe and examine observation dates, estimated emission rates, uncertainty, and data origins.
+2. **Plan the investigation.** Set the team's capacity, compare selection strategies, and inspect the reasons for including or excluding a source. Comparing a larger plan does not automatically replace the accepted plan.
+3. **Examine a specific claim.** Define the source and period under review, inspect supporting material, and assess whether it supports, contradicts, or leaves the claim unresolved.
+4. **Request the missing evidence.** Record what is needed, who should provide it, the deadline, and the criteria for an adequate response.
+5. **Review and preserve the decision.** Save the reasoning and supporting records, revisit the investigation when relevant information arrives, and export a report whose integrity can be checked independently.
 
-1. **Explore:** inspect source locations, dated observations, estimated emission rates, uncertainties, and original references.
-2. **Allocate:** set investigation capacity (for example, 10 or 20 sources), compare explainable portfolios, and accept a versioned allocation.
-3. **Check:** choose a claim and apply a specific date or event scope before running the rules baseline.
-4. **Follow up:** connect the accepted plan to a scoped investigation; record evidence requirements, responses and reviewer interpretations without overwriting earlier events.
-5. **Review and verify:** freeze the exact dossier and decision, then verify its digest or optional chain commitment independently. New evidence or relevant historical snapshot changes explain why another review may be needed.
+The application uses a historical UNEP dataset containing **4,218 source records and 30,414 plume records**. Each observation retains its date and provenance. A source appearing on the map is not automatically a completed audit case.
 
-The connected workflow also checks related investigations for overlapping source/period questions and reused evidence. These are candidates for human review: using one report for multiple questions can be legitimate. It does not automatically assert duplicate mitigation or merge facility identities.
+The demonstration follows a source in Turkmenistan from planning to a request for further evidence and a recorded review decision. The reviewer actions and follow-up response are clearly labeled **DEMO** examples. A separate Kazakhstan example shows the recorded DeepSeek document-assessment integration using an excerpt written for the demonstration. These examples do not represent communications with an operator or a completed field investigation.
 
-The pinned UNEP snapshot contains **4,218 source rows and 30,414 plume rows**, covering observations from October 2020 to September 2026. These are historical records; each map source still needs appropriate supporting documents before it becomes a complete evidence case.
-
-The current **v18 film (4:57)** follows **TKM_S_021 in Turkmenistan** through a local investigation: compare capacity 10 and 20, inspect a source, evaluate the available evidence, request follow-up measurements, freeze a reviewer decision, revisit it after a DEMO response, and verify its integrity. The reviewer and response are explicitly software DEMO fixtures; they are not operator communications or a human study.
-
-The claim under review is whether mitigation is confirmed. The actual decision is **request more evidence**. Feedback is not proof of repair; missing later observations are not zero emissions.
-
-A separately labeled **KAZ_S_159** segment presents recorded DeepSeek integration on a project-authored DEMO excerpt. It is not an AI assessment of TKM_S_021. UNEP's [Kazakhstan catalogue](https://wedocs.unep.org/handle/20.500.11822/49949) records mitigation action in July 2026, but the retained metadata does not establish the exact action day. Asking for attributable follow-up evidence does not contradict UNEP or establish failed mitigation.
-
-**The demo shows the full local prototype. The public preview is limited to selected sources and excludes private review and blockchain writes.** Preview state is temporary. Evidence requests are recorded work artifacts; the prototype does not send them to an operator.
+The practical outputs are an investigation queue, a specific evidence request, and a decision report that another person can examine. A readable handoff accompanies the structured export, making it easier to share the findings with a colleague while retaining the original verification files.
 
 ## How we built it
 
-The interface uses **React, TypeScript, Vite, and MapLibre GL JS**. Progressive loading, pagination, lazy-loaded workspaces, and adaptive Earth rendering support exploration of thousands of historical records.
+We built the interface with **React, TypeScript, Vite, and MapLibre GL JS**. The globe, searchable records, and investigation workspaces present the same underlying historical data. Pagination and lazy loading help keep the interface manageable as users explore thousands of records.
 
-**Python and uv** power offline ingestion and analysis, preserving source identifiers, recorded dates, units, uncertainty, provenance, and dataset hashes. **Bun, Hono, and Zod** provide the API, validation, scoped assessments, review permissions, and immutable audit revisions. The prototype uses local JSON files with a single-writer design.
+**Python** handles data preparation and historical analysis. **Bun, Hono, and Zod** provide the backend and input validation. We preserve the original source identifiers, dates, units, and reported uncertainty, and associate investigations with a specific dataset snapshot so their inputs remain traceable.
 
-A deterministic rules baseline provides the demonstrated evidence checks. An optional document-AI path adds exact-quotation validation, abstention, and human review controls. Backend integration with ExperientialLabs model `deepseek-v4.1-flash-1017` has recorded live smoke evidence. The film shows that separate archived KAZ DEMO, not a new live call or an independently validated model benchmark. AI proposes; people review.
+Evidence assessment starts with a reproducible rules baseline. The optional **DeepSeek** integration helps examine supplied documents and identify relevant statements. Exact quotations are checked against the submitted text, and the system can withhold a conclusion when the evidence is insufficient. A reviewer remains responsible for the decision.
 
-**Solidity, Foundry, and viem** implement an EvidenceRegistry integration with durable transaction intents and recovery. Deployment, anchoring, and failure recovery have been exercised on **local Anvil**. The preview has no public Sepolia receipt. Reports use SHA-256; a local hash check establishes consistency with the recorded digest, while trusted commitments are needed to establish which version to trust. Neither a hash nor a blockchain receipt proves physical repair.
+For report integrity, we use **SHA-256** and an **EvidenceRegistry smart contract**, developed with **Solidity, Foundry, and viem**. Recording a report's digest provides a reference against which later copies can be checked. The demonstrated transactions run on **Anvil, a local Ethereum development chain**. This establishes a working prototype of the verification process; it is not public notarization or evidence that a physical repair succeeded.
 
-Development and review used AI assistance. The demo uses stock synthetic English narration, original explanatory animation, actual application footage, and an original instrumental score.
+The full prototype runs locally and stores its working records in local files. The [public preview](https://methaneresponse-preview.onrender.com/dashboard) offers a limited selection of sources, temporary state, and no private review or blockchain writes. Evidence requests are prepared within the application; they are not automatically sent to operators.
+
+We used AI assistance during development and review. The presentation combines actual application footage with explanatory visuals, synthetic narration, and original instrumental music.
 
 ## Challenges we ran into
 
-The hardest problems were scientific and semantic. Source identifiers must survive ingestion. Feedback needs to remain distinct from repair evidence. Sparse satellite observations cannot become a continuous emissions curve, and missing dates cannot become zero emissions.
+The most demanding challenge was deciding what the evidence actually permits us to say. A satellite detection, an operator response, a reported repair, and a confirmed outcome describe different things. The application has to preserve those distinctions from the data pipeline through to the final report.
 
-Document access and licensing also matter. A publisher link can be retained without implying that the report body was reviewed. Evidence checks must explain their scope and request missing information rather than manufacture certainty.
+Historical satellite observations also have gaps and uncertainty. Missing later observations cannot be treated as zero emissions, and isolated measurements cannot establish a continuous emissions history. We designed the assessment workflow to make those limitations visible.
 
-Engineering challenges included conflicting edits, interrupted writes, transaction recovery, browser draft recovery, and maintaining clear permission boundaries across the investigation workflow.
+Document availability introduced another challenge. A reference to a report does not mean its contents have been obtained, reviewed, or cleared for reuse. We therefore distinguish available evidence from material that still needs to be requested.
+
+On the engineering side, we worked on preserving decision history, recovering interrupted operations, preventing conflicting edits, and ensuring that an exported report corresponds to the decision the reviewer actually saved.
 
 ## Accomplishments that we're proud of
 
-- A working path from historical source exploration to a specific evidence request and independently checkable report.
-- Same-take TKM export, separately retained UI digest and Anvil local receipt: the original verifies, an altered-and-rehashed decision is rejected against the contract commitment, and the restored original verifies. The project-supplied local ledger is not independent public notarization.
-- Three documented historical case studies, with provenance and explicit interpretation limits.
-- A recorded local verification package with **716 passing tests**, plus build checks and focused desktop/mobile-viewport browser scenarios on its October 18 revision. This is historical revision evidence. V18 separately passes 18 technical video checks and 34 video regressions; those do not constitute a fresh application gate.
-- A product that can give a constructive answer when the evidence is incomplete: explain what is missing and preserve the next investigation step.
+- Connecting historical observations, capacity planning, evidence requests, and review decisions in a working investigation workflow.
+- Giving incomplete evidence a useful outcome: a clear explanation of what is missing and a concrete next step.
+- Preserving earlier decisions when new information arrives, so the reasoning remains open to examination.
+- Demonstrating that an original report verifies against its recorded local-chain commitment, while an altered and rehashed copy is rejected.
+- Making the source code, data provenance, test procedures, and verification artifacts available for others to inspect and reproduce.
+
+Our [repository](https://github.com/AndroLay/MethaneResponse) includes automated checks for the application, data processing, smart contract, and browser workflows, together with the scope and limitations of the recorded results.
 
 ## What we learned
 
-Different questions require different evidence. A detection, a notification, a reported action, and a confirmed outcome should remain separate throughout the interface, API, and report.
+An investigation is useful when it helps someone decide what to do next. Identifying an evidence gap becomes more valuable when it leads to a precise request for measurements, methods, dates, or supporting documentation.
 
-AI also needs to earn its role. The bounded agent-based experiments did not demonstrate an advantage over the rules baseline. Keeping that result visible helped prioritize reproducibility and review controls. Agent simulations are not human research or an independent benchmark of the application provider. The latest frozen r12 scorer reports **0/48 task completion**, despite 12 deterministic gates passing. It does not establish Practical Usefulness; recovery tests and alternative diagnostic interpretations do not replace that result.
+We also learned to evaluate AI against a simpler approach. Our bounded experiments did not demonstrate an advantage over the rules baseline. The agent-based evaluation did not establish user productivity or practical effectiveness; its original results and diagnostic review remain available in the [evaluation documentation](https://github.com/AndroLay/MethaneResponse/tree/main/docs/evidence/agent-practical-usefulness-2026-10-21-r12). These findings helped us focus on traceable evidence and reviewable decisions rather than treating model output as authority.
+
+Finally, cryptographic verification answers a specific question: whether a report matches a trusted recorded commitment. Establishing that methane emissions were reduced requires appropriate environmental evidence as well.
 
 ## What's next for Methane Response
 
-The next milestones are to expand permitted documentary evidence, obtain domain review, evaluate the optional model path against independently labeled claims, and test the workflow with researchers and auditors. Public testnet verification and physical-device performance checks remain separate validation steps.
+We want to evaluate MethaneResponse with researchers and auditors using documents they are authorized to review. The next steps are to broaden the documentary evidence, obtain domain feedback, and measure how well users identify missing information and complete an investigation. The model-assisted workflow also needs evaluation against independently labeled claims.
 
-Potential climate impact comes after the software: prioritized investigations and specific evidence requests can guide organizational field follow-up. Documented repairs and comparable post-action measurements, with methods and uncertainty, are needed to substantiate emissions reductions. We have not measured those outcomes. User studies should measure decision quality, missing-evidence detection, and investigation effort. Opt-in snapshot staging prepares complete record comparisons without replacing active inputs or historical decisions; future acquisition and activation require explicit provenance and review.
+For organizational adoption, the prototype would need shared durable storage, stronger coordination between reviewers, and access controls suited to a team. Public testnet verification and performance testing on physical mobile devices are further steps toward that goal.
+
+The intended environmental contribution is more accountable follow-up. An investigation plan can guide attention to a source, and an evidence request can clarify what must be measured after an intervention. Actual repairs and comparable post-action measurements are still required to establish reduced methane emissions. We have not measured those outcomes or demonstrated gains in human productivity.
+
+To explore the project, [try the public preview](https://methaneresponse-preview.onrender.com/dashboard), [run the full prototype locally](https://github.com/AndroLay/MethaneResponse#quick-start), or follow the [investigation walkthrough](https://github.com/AndroLay/MethaneResponse/blob/main/docs/product/organization-walkthrough.md).
 
 **One explainable investigation plan. One actionable evidence request. One verifiable decision.**
-
-### Try the prototype
-
-- [Open the limited public preview](https://methaneresponse-preview.onrender.com/dashboard).
-- [Run the full prototype locally](https://github.com/AndroLay/MethaneResponse#quick-start).
-- [Follow the reproducible organization handoff walkthrough](https://github.com/AndroLay/MethaneResponse/blob/main/docs/product/organization-walkthrough.md).
-- [Inspect the exact local-chain proof shown in the video](https://github.com/AndroLay/MethaneResponse/tree/main/docs/evidence/video-v17-2026-10-22).
-
-Adoption starts with a local analyst workspace and downloadable artifacts. Offline processing and paginated, lazy-loaded views accommodate the historical dataset, while a multi-user service would require shared durable storage, concurrency controls, and organizational access management beyond this single-writer prototype.

@@ -26,9 +26,11 @@ class SubmissionTests(unittest.TestCase):
 
     def test_story_retains_scientific_and_live_integration_limits(self):
         text = self.files['project-story.md'].decode()
-        for phrase in ['historical records', 'exact action day', 'does not contradict UNEP',
-                       'local Anvil', 'no public Sepolia receipt', '716 passing tests',
-                       'Agent simulations are not human research', 'optional document-AI']:
+        for phrase in ['historical UNEP dataset', 'Missing later observations cannot be treated as zero emissions',
+                       'Anvil, a local Ethereum development chain', 'not public notarization',
+                       'did not establish user productivity or practical effectiveness',
+                       'recorded DeepSeek', 'A separate Kazakhstan example',
+                       'We have not measured those outcomes']:
             self.assertIn(phrase, text)
         self.assertNotIn('PostgreSQL', self.fields['builtWith'])
 

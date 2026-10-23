@@ -32,10 +32,18 @@ class V18PackageTests(unittest.TestCase):
 
     def test_story_current_case_ai_and_negative_results_are_explicit(self):
         story=(p.HERE/'project-story.md').read_text()
-        for phrase in ['v18','TKM_S_021','KAZ_S_159','0/48','project-authored DEMO',
-                       'Potential climate impact','We have not measured those outcomes',
-                       'public preview is limited to selected sources']:
+        for phrase in ['Turkmenistan','separate Kazakhstan example','**DEMO**',
+                       'Anvil, a local Ethereum development chain',
+                       'excerpt written for the demonstration',
+                       'did not establish user productivity or practical effectiveness',
+                       'agent-practical-usefulness-2026-10-21-r12',
+                       'We have not measured those outcomes',
+                       'temporary state, and no private review or blockchain writes']:
             self.assertIn(phrase,story)
+        self.assertNotRegex(story,r'\bv\d+\b|\b716 passing tests\b')
+        original=json.loads((p.REPO/'docs/evidence/agent-practical-usefulness-2026-10-21-r12/results.json').read_text())
+        self.assertEqual(original['aggregate']['scored'],48)
+        self.assertEqual(original['aggregate']['metrics']['taskCompletionRate'],0)
         fields=json.loads((p.HERE/'fields.json').read_text())
         self.assertIn('deepseek-v4.1-flash-1017',fields['prototypeScope']['ai'])
         replay=json.loads((p.REPO/'docs/evidence/video-v18-2026-10-22/submission-replay-2026-10-23.json').read_text())
