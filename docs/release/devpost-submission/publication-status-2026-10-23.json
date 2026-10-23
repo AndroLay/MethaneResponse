@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "checkedDate": "2026-10-23",
+  "devpost": {
+    "projectUrl": "https://devpost.com/software/methane-response",
+    "projectState": "published",
+    "hackathon": "ieee-climatechain-hack",
+    "submittedAt": "2026-10-23T01:15:02.311-04:00",
+    "verification": "Authenticated get_project readback; not an organizer eligibility decision",
+    "attachmentContents": "Not inspected through the connector; no particular uploaded ZIP is certified"
+  },
+  "youtube": {
+    "url": "https://youtu.be/_YzYe921q6g",
+    "observedTitle": "Methane Response",
+    "verification": "Public YouTube oEmbed response and Devpost video_url",
+    "proposedMetadata": "youtube-metadata.md",
+    "proposedMetadataSaved": false,
+    "hostedVideoMatchesLocalExport": "not_verified",
+    "fullPlaybackAndListening": "not_reviewed"
+  },
+  "github": {
+    "observedCommit": "7617f307af2f0a07fbeb5d1bdd64670f11ba77da",
+    "ciConclusion": "success",
+    "ciUrl": "https://github.com/AndroLay/MethaneResponse/actions/runs/39905239191",
+    "scope": "Observed revision before this metadata update; not a gate for future commits"
+  },
+  "render": {
+    "serviceId": "srv-dbbumltg1s2s73e8cct0",
+    "deployId": "dep-dbdc6gjncjis739mctgg",
+    "commit": "27d71eb5ada423b45541abc1a1b845ecaf03122b",
+    "status": "live",
+    "url": "https://methaneresponse-preview.onrender.com/dashboard",
+    "scope": "Limited Free preview; temporary state; no private review or chain writes"
+  },
+  "historicalRecords": "access-status.json and earlier ZIP manifests retain their original observations",
+  "scientificLimits": "No demonstrated physical repairs, measured emissions reductions, or established human productivity benefit"
+}

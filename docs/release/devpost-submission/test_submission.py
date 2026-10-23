@@ -34,10 +34,13 @@ class SubmissionTests(unittest.TestCase):
             self.assertIn(phrase, text)
         self.assertNotIn('PostgreSQL', self.fields['builtWith'])
 
-    def test_unpublished_urls_are_explicitly_pending(self):
+    def test_registered_video_and_observed_submission_are_explicit(self):
         self.assertEqual(self.fields['tryItOutLinks'][1]['url'], 'https://methaneresponse-preview.onrender.com/dashboard')
-        self.assertIsNone(self.fields['video']['url'])
-        self.assertFalse(self.fields['externalSubmissionPerformed'])
+        self.assertEqual(self.fields['video']['url'],'https://youtu.be/_YzYe921q6g')
+        self.assertTrue(self.fields['externalSubmissionPerformed'])
+        observation=json.loads((pack.HERE/self.fields['publicationObservationFile']).read_text())
+        self.assertIsNotNone(observation['devpost']['submittedAt'])
+        self.assertEqual(observation['youtube']['hostedVideoMatchesLocalExport'],'not_verified')
         self.assertTrue(180 <= self.fields['video']['durationSeconds'] <= 300)
 
     def test_gallery_is_real_unchanged_and_within_form_limits(self):

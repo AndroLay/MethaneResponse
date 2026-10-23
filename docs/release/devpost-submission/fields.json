@@ -35,14 +35,14 @@
     }
   ],
   "video": {
-    "url": null,
-    "status": "local_export_only_fill_with_uploaded_embeddable_video_URL",
+    "url": "https://youtu.be/_YzYe921q6g",
+    "status": "registered_on_submitted_devpost_entry; public_oembed_available; hosted_cut_not_compared_to_local_export",
     "localPath": "delivery-output/final-v18/MethaneResponse-Final-Submission-v18.mp4",
     "sha256": "b14bc61f893176631c8ce15445217ea1ab4977e52a1c252b81d2e661b4006fad",
     "durationSeconds": 297,
     "version": "v18"
   },
-  "uploadFile": "delivery-output/release-sync-2026-10-23/MethaneResponse-Devpost-Judging-Pack-v18-submission.zip",
+  "uploadFile": "delivery-output/release-sync-2026-10-23/MethaneResponse-Devpost-Judging-Pack-v18-publication.zip",
   "limitsFromProvidedForm": {
     "elevatorPitchCharacters": 200,
     "builtWithTags": 25,
@@ -52,7 +52,8 @@
     "recommendedGalleryRatio": "3:2",
     "projectNameCounterNote": "The form shows 44 characters left, not an independently confirmed total field limit. The selected name has 15 characters."
   },
-  "externalSubmissionPerformed": false,
+  "externalSubmissionPerformed": true,
+  "publicationObservationFile": "publication-status-2026-10-23.json",
   "prototypeScope": {
     "blockchain": "local Anvil 31337, no public funding required; Sepolia optional and not verified",
     "ai": "DeepSeek deepseek-v4.1-flash-1017 backend integration; separate archived KAZ_S_159 project-authored DEMO, not independent accuracy validation",

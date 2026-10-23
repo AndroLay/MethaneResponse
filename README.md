@@ -17,7 +17,8 @@
   <a href="https://methaneresponse-preview.onrender.com/dashboard">Open preview</a> ·
   <a href="#quick-start">Run locally</a> ·
   <a href="docs/product/organization-walkthrough.md">Try an investigation</a> ·
-  <a href="docs/demo/delivery-2026-10-22-final-v18/README.md">Demo video &amp; production evidence</a> ·
+  <a href="https://youtu.be/_YzYe921q6g">Watch demo</a> ·
+  <a href="https://devpost.com/software/methane-response">Project story</a> ·
   <a href="docs/README.md">Documentation</a>
 </p>
 
@@ -245,7 +246,7 @@ bun run test:contracts
 | [Live-model smoke test](docs/evidence/deepseek-live-2026-10-21/README.md) | Provider transport, citations and bundles on three DEMO examples | No independently established model accuracy |
 | [TKM chain replay](docs/evidence/video-v17-2026-10-22/README.md) | Matching export, pin and local receipt; tamper rejection | Local chain and software DEMO review |
 | [r12 recovery audit](docs/evidence/r12-recovery-2026-10-21/README.md) | Scorer, runner and protocol diagnosis with focused regressions | Frozen completion remains **0/48**; no replacement 48-episode result |
-| [v18 video evidence](docs/demo/delivery-2026-10-22-final-v18/README.md) | Local 4:57 MP4, technical audit and sampled visual checks | Full playback/listening and public upload remain separately unverified |
+| [Video evidence](docs/demo/delivery-2026-10-22-final-v18/README.md) · [Watch](https://youtu.be/_YzYe921q6g) | Local 4:57 MP4, technical audit and sampled visual checks; hosted URL recorded on Devpost | Full playback/listening and hosted-cut comparison remain separately unverified |
 
 The r12 audit identified overlapping scorer false negatives and protocol/tool limitations. Its 0/48 score is the frozen scorer's result; it is not an estimate of application success in the field. The audit does not establish that all episodes passed. Human productivity, institutional adoption, physical repairs and emissions reductions remain unproven.
 

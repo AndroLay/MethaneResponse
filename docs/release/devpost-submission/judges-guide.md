@@ -36,8 +36,9 @@ older v16 take2 digest. This replay restores project-supplied local state and
 sends no transaction. It does not establish independent issuer identity.
 
 GitHub, public preview, uploaded video and Devpost submission are separate states;
-see `access-status.json` and `fields.json`. Video URL remains pending until an
-actual uploaded embeddable address is supplied. Frozen r12 stays **0/48** task
+see `publication-status-2026-10-23.json` for the current observation and
+`access-status.json` for the earlier baseline. The entry now has a registered
+[YouTube video](https://youtu.be/_YzYe921q6g). Frozen r12 stays **0/48** task
 completion according to its frozen scorer. Full listening and normal-speed
 playback remain unreviewed; video regression tests do not establish usability.
 
@@ -128,7 +129,7 @@ contract tests; Python/uv is required for the offline pipeline.
 | Verification | Real original/changed/original file checks; Anvil deployment/anchor/recovery evidence in repo | No public Sepolia receipt in this package; hashes do not authenticate the issuer |
 | AI | Optional provider integration, exact quote checks, abstention and human review controls | Recorded live DeepSeek DEMO smoke integration; no independently established accuracy; agent experiments are simulations |
 | Tests | October 18 package: 716 historical tests; see the separate October 20 evidence package for current results | Each run is bound to its recorded source bytes; none establishes a remote deployment |
-| Video | v18: 297 s; take8 actual UI footage, stock synthetic male narration, English captions and original score | 18 technical checks + 34 video regressions; full playback/listening and upload/access remain separate |
+| Video | Local export: 297 s; actual UI footage, synthetic male narration, English captions and original score; registered YouTube URL | 18 technical checks + 34 video regressions apply to local bytes; hosted-cut comparison and full playback/listening remain separate |
 | Storage | Browser-local notes and single-writer JSON API storage | Temporary hosting state is not durable; no multi-instance guarantee |
 | Impact | Concrete traceability and missing-evidence workflow | User time savings and climate outcomes remain unmeasured |
 

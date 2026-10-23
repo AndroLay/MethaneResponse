@@ -14,7 +14,8 @@ FIXED=[
  'README.md','LICENSE','NOTICE','data/real/README.md',
  *['docs/release/devpost-submission/'+n for n in
    ['README.md','fields.json','project-story.md','judges-guide.md','source-links.md','rules-check.md','access-status.json',
-    'package_v18_submission.py','test_v18_package.py','package_submission.py','alignment-checks.json']],
+    'package_v18_submission.py','test_v18_package.py','package_submission.py','alignment-checks.json',
+    'publication-status-2026-10-23.json','youtube-metadata.md']],
  *[DELIVERY+'/'+n for n in ['README.md','pipeline.py','test_revision.py','verify.py']],
  *['docs/evidence/video-v18-2026-10-22/'+n for n in
    ['verification-summary.json','technical-video-audit.json','edit.json','submission-replay-2026-10-23.json']],
@@ -98,7 +99,8 @@ def payload():
 
 Start with `docs/release/devpost-submission/judges-guide.md` and
 `docs/release/devpost-submission/project-story.md`. Video v18 is a separate
-local MP4, 4:57; its checksum and pending upload URL are in `fields.json`.
+local MP4, 4:57; its checksum and registered host URL are in `fields.json`.
+Public video metadata does not establish that the hosted cut matches this MP4.
 Gallery captions distinguish actual browser capture, composed application
 footage, a proof readout and an editorial impact diagram.
 
@@ -108,10 +110,13 @@ is a bounded evidence package, not a standalone application or full source ZIP.
 Follow that proof README. KAZ AI is a separate archived DEMO, not a TKM inference.
 Anvil is local. No physical repair, emissions reduction or productivity is proven.
 
-Read dated public observations in `docs/release/devpost-submission/access-status.json`.
-An accessible historical GitHub revision is not publication of this local package.
+Read the current authenticated submission observation in
+`docs/release/devpost-submission/publication-status-2026-10-23.json` and the earlier
+baseline in `docs/release/devpost-submission/access-status.json`. This archive
+does not certify which file, if any, was uploaded to the submitted entry.
 The public preview has selected sources, temporary state and no private review
-or chain writes. No upload, push, deployment or Devpost submission is performed.
+or chain writes. This packaging command performs no upload, push, deployment
+or Devpost submission. Proposed YouTube metadata has not been saved to YouTube.
 Full video playback and listening remain unreviewed. Frozen r12 is 0/48 under
 its scorer. See the complete repository for links outside this allowlisted subset:
 https://github.com/AndroLay/MethaneResponse
@@ -119,7 +124,10 @@ https://github.com/AndroLay/MethaneResponse
     manifest=dict(schemaVersion=2,preparedDate='2026-10-23',version='v18',
         purpose='Local judging evidence attachment; not standalone source or a submitted entry',
         sourceId='TKM_S_021',trustedDigest=PIN,chainId=31337,videoSource=fields['video'],
-        videoIncluded=False,videoUploaded=False,externalSubmissionPerformed=False,
+        videoIncluded=False,videoUploaded=bool(fields['video']['url']),
+        externalSubmissionPerformed=fields['externalSubmissionPerformed'],
+        externalActionsByBuilder=False,hostedCutMatchesLocalExport='not_verified',
+        publicationObservation=json.loads(files['docs/release/devpost-submission/publication-status-2026-10-23.json']),
         publicV18RevisionVerified=False,sourcePaths='Repository-relative; use the full repository for runtime dependencies',
         files={n:dict(sha256=digest(data),bytes=len(data))for n,data in sorted(files.items())})
     files['manifest.json']=json_bytes(manifest)

@@ -1,8 +1,9 @@
 # MethaneResponse — current Devpost submission, v18
 
-**Prepared: 23 October 2026.** These are local, ready-to-copy materials and an
-allowlisted judging attachment. Preparing files does not publish source, upload
-video, deploy a revision or submit Devpost.
+**Updated: 23 October 2026.** The authenticated Devpost readback now records a
+submitted entry and a YouTube URL. See [publication status](publication-status-2026-10-23.json)
+for the exact observation and its limits. The packaging tools themselves perform
+no publication, upload or deployment. Older archives keep their original status.
 
 ## General info
 
@@ -29,7 +30,11 @@ No database is required or presented as a completed service.
 
 - Source: https://github.com/AndroLay/MethaneResponse
 - Limited preview: https://methaneresponse-preview.onrender.com/dashboard
-- Video URL: **pending upload**. A local MP4 is not an embeddable public URL.
+- Video: https://youtu.be/_YzYe921q6g — registered on the submitted Devpost entry;
+  public metadata is accessible. Full playback and comparison with the local cut
+  remain unverified.
+- [Proposed YouTube title, description and chapters](youtube-metadata.md) are
+  ready to paste into YouTube Studio; they have not been saved to that account.
 
 [access-status.json](access-status.json) retains the **pre-release baseline**:
 GitHub `b067ad36c792ab45c472334984b338662b679637` had successful CI; it did not
@@ -58,9 +63,9 @@ new provider run performed during this packaging.
 - [Delivery/review scope](../../demo/delivery-2026-10-22-final-v18/README.md):
   18 technical checks and 34 video regressions pass. Full normal-speed playback
   and actual listening remain unreviewed; these tests do not establish usability.
-- Upload the MP4 separately to a Devpost-supported host, verify anonymous access
-  and captions, then fill `video.url` in [fields.json](fields.json) with that actual
-  address. Do not include the 56 MB MP4 in the 35 MB attachment.
+- The host URL is now recorded in [fields.json](fields.json). Check the uploaded
+  cut, captions and playback separately; public metadata does not verify its
+  contents or byte identity. Keep the 56 MB MP4 outside the 35 MB attachment.
 
 ## Generate the matching judging attachment
 
@@ -105,7 +110,7 @@ package formats; use `package_v18_submission.py` for the current attachment.
   deterministic gates do not replace the 48 task results.
 
 See [judges-guide.md](judges-guide.md), [sources](source-links.md),
-[rules-check.md](rules-check.md) and [fields.json](fields.json). Remaining external
-steps include exact-commit public source/deployment verification, MP4 upload/access
-checks, confirmation of participant eligibility and the actual authenticated submission. No numeric
-judging score or winner outcome is guaranteed.
+[rules-check.md](rules-check.md) and [fields.json](fields.json). The submitted
+entry is verified through authenticated readback. Uploaded attachment contents,
+full video playback, proposed YouTube metadata and any eligibility discrepancy
+still require their own checks. No judging score or winner outcome is guaranteed.
